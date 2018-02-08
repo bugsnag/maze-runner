@@ -11,7 +11,11 @@ internal class DecoratedSessionApiClient(connectivityManager: ConnectivityManage
     override fun postSessionTrackingPayload(urlString: String?,
                                             payload: SessionTrackingPayload?,
                                             headers: MutableMap<String, String>?) {
-        httpClient.postSessionTrackingPayload(urlString, payload, headers)
+        try {
+            httpClient.postSessionTrackingPayload(urlString, payload, headers)
+        } catch (e: Exception) {
+            callback()
+        }
         callback()
     }
 

@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import com.bugsnag.android.*
 
 class MainActivity : AppCompatActivity() {
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun executeTestCase() {
         val eventType = intent.getStringExtra("EVENT_TYPE")
+        Log.d("Bugsnag", "Received test case, executing " + eventType)
         val testCase = factory.testCaseForName(eventType)
         testCase.run()
     }

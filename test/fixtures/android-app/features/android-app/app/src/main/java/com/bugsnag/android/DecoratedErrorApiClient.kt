@@ -9,8 +9,13 @@ internal class DecoratedErrorApiClient(connectivityManager: ConnectivityManager?
 
     override fun postReport(urlString: String?,
                             report: Report?,
-                            headers: MutableMap<String, String>?) {
-        httpClient.postReport(urlString, report, headers)
+                            headers: MutableMap<String, String>?) { // TODO handle timeouts/exceptions!
+        try {
+            httpClient.postReport(urlString, report, headers)
+
+        } catch (e: Exception) {
+            callback()
+        }
         callback()
     }
 

@@ -17,8 +17,8 @@ echo "Launching MainActivity"
 adb shell clear com.bugsnag.android.mazerunner
 
 
-echo "Launching MainActivity"
-adb shell am start -n com.bugsnag.android.mazerunner/com.bugsnag.android.mazerunner.MainActivity --es EVENT_TYPE "$EVENT_TYPE"
+echo "Launching MainActivity with EVENT_TYPE: $EVENT_TYPE"
+adb shell am start -n com.bugsnag.android.mazerunner/com.bugsnag.android.mazerunner.MainActivity --es EVENT_TYPE $EVENT_TYPE
 poll_app
 
 echo "Ran Android Test case"

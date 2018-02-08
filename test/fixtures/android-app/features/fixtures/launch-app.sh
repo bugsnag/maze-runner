@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 
-# osascript -e 'launch application "Simulator"'
-# xcrun simctl launch --console booted com.bugsnag.MazeRunner \
 #     "EVENT_TYPE=$EVENT_TYPE" \
-#     "EVENT_DELAY=$EVENT_DELAY" \
 #     "BUGSNAG_API_KEY=$BUGSNAG_API_KEY" \
 #     "MOCK_API_PATH=http://localhost:$MOCK_API_PORT"
 
@@ -16,16 +13,20 @@ function poll_app() {
   done
 }
 
+# Clear any existing data
+echo "Launching MainActivity"
+adb shell clear com.bugsnag.android.mazerunner
+
 echo "Launching MainActivity"
 adb shell am start -n com.bugsnag.android.mazerunner/com.bugsnag.android.mazerunner.MainActivity
 poll_app
 
 echo "Killing app process"
-adb shell am force-stop com.bugsnag.android.hugsnag
+adb shell am force-stop com.bugsnag.android.mazerunner
 
 # launch again, with session sending enabled
 sleep 2 # wait for app to close
 echo "Launching MainActivity again"
-adb shell am start -n com.bugsnag.android.mazerunner/com.bugsnag.android.mazerunner.MainActivity --ez sendSessions true
+adb shell am start -n com.bugsnag.android.mazerunner/com.bugsnag.android.mazerunner.MainActivity --es EVENT_TYPE "boo"
 poll_app
 echo "Android App finished"

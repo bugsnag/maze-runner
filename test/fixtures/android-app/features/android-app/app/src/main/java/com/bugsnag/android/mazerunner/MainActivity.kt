@@ -29,10 +29,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initialiseBugsnag() {
-        val config = Configuration("a35a2a72bd230ac0aa0f52715bbdc6aa") // FIXME envars
-        config.endpoint = "http://localhost:1234"
-        config.sessionEndpoint = "http://localhost:1234"
-        Bugsnag.init(this, config)
+        Bugsnag.init(this, null)
         Bugsnag.setErrorReportApiClient(errorApiClient)
         Bugsnag.setSessionTrackingApiClient(sessionApiClient)
     }

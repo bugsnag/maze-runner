@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 26
+
     defaultConfig {
         applicationId "com.bugsnag.android.mazerunner"
         minSdkVersion 14
@@ -10,6 +11,19 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        def apiKey = System.getenv("BUGSNAG_API_KEY") ?: "fake-api-key"
+        def apiPort = System.getenv("MOCK_API_PORT") ?: "1234"
+        def placeholders = new HashMap<String, Object>()
+
+        if (apiKey != null) {
+            placeholders.put("bugsnagApiKey", apiKey)
+        }
+        if (apiPort != null) {
+            placeholders.put("bugsnagEndpoint", "http://localhost:${apiPort}")
+            placeholders.put("bugsnagSessionsEndpoint", "http://localhost:${apiPort}")
+        }
+        manifestPlaceholders placeholders
     }
     signingConfigs {
         release {

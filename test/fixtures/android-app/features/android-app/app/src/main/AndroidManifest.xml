@@ -8,10 +8,20 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.bugsnag.android.API_KEY"
+            android:value="${bugsnagApiKey}" />
+        <meta-data
+            android:name="com.bugsnag.android.ENDPOINT"
+            android:value="${bugsnagEndpoint}" />
+        <meta-data
+            android:name="com.bugsnag.android.SESSIONS_ENDPOINT"
+            android:value="${bugsnagSessionsEndpoint}" />
     </application>
 
 </manifest>

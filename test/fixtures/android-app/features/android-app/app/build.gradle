@@ -20,8 +20,8 @@ android {
             placeholders.put("bugsnagApiKey", apiKey)
         }
         if (apiPort != null) {
-            placeholders.put("bugsnagEndpoint", "http://localhost:${apiPort}")
-            placeholders.put("bugsnagSessionsEndpoint", "http://localhost:${apiPort}")
+            placeholders.put("bugsnagEndpoint", "http://10.0.2.2:${apiPort}")
+            placeholders.put("bugsnagSessionsEndpoint", "http://10.0.2.2:${apiPort}")
         }
         manifestPlaceholders placeholders
     }

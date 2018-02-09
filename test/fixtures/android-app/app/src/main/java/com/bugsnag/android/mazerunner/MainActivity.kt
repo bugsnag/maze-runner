@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setupApiClients()
+        // setupApiClients()
         initialiseBugsnag()
         executeTestCase()
     }
@@ -30,9 +30,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initialiseBugsnag() {
-        Bugsnag.init(this, null)
-        Bugsnag.setErrorReportApiClient(errorApiClient)
-        Bugsnag.setSessionTrackingApiClient(sessionApiClient)
+        val config = Configuration(intent.getStringExtra("BUGSNAG_API_KEY"))
+        // Probably something smarter goes here, to also work on devices
+        config.endpoint = "http://10.0.2.2:" + intent.getStringExtra("BUGSNAG_PORT")
+        config.sessionEndpoint = "http://10.0.2.2:" + intent.getStringExtra("BUGSNAG_PORT")
+
+        Bugsnag.init(this, config)
     }
 
     private fun executeTestCase() {
@@ -43,7 +46,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onRequestCompleted() {
-        finish() // exit app after delivery
+        //finish() // exit app after delivery
     }
 
 }

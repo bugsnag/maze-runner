@@ -24,6 +24,9 @@ end
 When("I wait for the {string} app to close") do |app|
   step('I run the script "features/scripts/await-app-close.sh" synchronously')
 end
+When("I clear the {string} app data") do |app|
+  step('I run the script "features/scripts/clear-app-data.sh" synchronously')
+end
 
 # Project-specific steps
 When("I build the app") do

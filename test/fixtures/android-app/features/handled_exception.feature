@@ -13,3 +13,4 @@ Scenario: Test handled Android Exception
     And the payload field "events" is an array with 1 element
     And the exception "errorClass" equals "java.lang.RuntimeException"
     And the exception "message" equals "HandledException"
+    And I clear the "com.bugsnag.android.mazerunner" app data

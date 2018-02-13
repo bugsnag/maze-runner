@@ -13,3 +13,4 @@ Scenario: Test Unhandled Android Exception with Session
     And the payload field "events" is an array with 1 element
     And the exception "errorClass" equals "java.lang.RuntimeException"
     And the exception "message" equals "UnhandledExceptionSession"
+    And I clear the "com.bugsnag.android.mazerunner" app data

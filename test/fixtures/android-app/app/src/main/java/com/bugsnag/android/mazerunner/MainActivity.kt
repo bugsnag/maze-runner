@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity() {
         config.sessionEndpoint = "http://10.0.2.2:" + intent.getStringExtra("BUGSNAG_PORT")
 
         Bugsnag.init(this, config)
+        Bugsnag.setLoggingEnabled(true)
     }
 
     private fun executeTestCase() {

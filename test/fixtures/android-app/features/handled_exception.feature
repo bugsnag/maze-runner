@@ -1,6 +1,6 @@
 Feature: Android support
 
-Scenario: Test handled Android Error
+Scenario: Test handled Android Exception
     When I start Android emulator "newnexus"
     And I install the "com.bugsnag.android.mazerunner" app from "app/build/outputs/apk/release/app-release.apk"
     And I set environment variable "BUGSNAG_API_KEY" to "a35a2a72bd230ac0aa0f52715bbdc6aa"
@@ -12,3 +12,4 @@ Scenario: Test handled Android Error
     And the payload field "notifier.name" equals "Android Bugsnag Notifier"
     And the payload field "events" is an array with 1 element
     And the exception "errorClass" equals "java.lang.RuntimeException"
+    And the exception "message" equals "HandledException"

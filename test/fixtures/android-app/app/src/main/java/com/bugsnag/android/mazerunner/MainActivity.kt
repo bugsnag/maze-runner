@@ -3,6 +3,7 @@ package com.bugsnag.android.mazerunner
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.os.Looper
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.bugsnag.android.*
@@ -16,9 +17,23 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+    }
+
+    override fun onResume() {
+        super.onResume()
         // setupApiClients()
         initialiseBugsnag()
-        executeTestCase()
+        enqueueTestCase()
+    }
+
+    /**
+     * Enqueues the test case with a delay on the main thread. This avoids the Activity wrapping
+     * unhandled Exceptions
+     */
+    private fun enqueueTestCase() {
+        window.decorView.postDelayed({
+            executeTestCase()
+        }, 100)
     }
 
     private fun setupApiClients() {

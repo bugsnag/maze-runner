@@ -4,7 +4,6 @@ Scenario: Test Unhandled Android Exception with Session
     When I start Android emulator "newnexus"
     And I install the "com.bugsnag.android.mazerunner" app from "app/build/outputs/apk/release/app-release.apk"
     And I set environment variable "BUGSNAG_API_KEY" to "a35a2a72bd230ac0aa0f52715bbdc6aa"
-    And I set environment variable "BUGSNAG_PORT" to "1234"
     And I set environment variable "EVENT_TYPE" to "UnhandledException"
     And I start the "com.bugsnag.android.mazerunner" app using the "com.bugsnag.android.mazerunner.MainActivity" activity
     And I set environment variable "EVENT_TYPE" to "Wait"

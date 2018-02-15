@@ -8,9 +8,11 @@ import android.util.Log
 internal class CrashHandlerScenario : Scenario() {
 
     override fun run() {
+        val previousHandler = Thread.getDefaultUncaughtExceptionHandler()
+
         Thread.setDefaultUncaughtExceptionHandler({ t, e ->
             Log.d("Bugsnag", "Intercepted uncaught exception")
-            Thread.getDefaultUncaughtExceptionHandler().uncaughtException(t, e)
+            previousHandler.uncaughtException(t, e)
         })
         throw RuntimeException("CrashHandlerScenario")
     }

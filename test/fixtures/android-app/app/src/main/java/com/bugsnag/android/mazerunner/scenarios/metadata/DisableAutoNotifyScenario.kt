@@ -11,7 +11,7 @@ internal class DisableAutoNotifyScenario : Scenario() {
 
     override fun run() {
         Bugsnag.disableExceptionHandler()
-        Bugsnag.notify(RuntimeException("DisableAutoNotifyScenario"))
+        throw RuntimeException("Should never appear")
     }
 
 }

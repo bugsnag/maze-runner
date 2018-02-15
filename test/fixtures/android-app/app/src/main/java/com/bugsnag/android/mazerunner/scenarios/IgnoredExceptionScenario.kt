@@ -10,7 +10,7 @@ internal class IgnoredExceptionScenario : Scenario() {
 
     override fun run() {
         Bugsnag.setIgnoreClasses("RuntimeException")
-        Bugsnag.notify(RuntimeException("IgnoredExceptionScenario"))
+        throw RuntimeException("Should never appear")
     }
 
 }

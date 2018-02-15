@@ -1,9 +1,7 @@
 package com.bugsnag.android.mazerunner
 
-import android.content.Context
-import android.net.ConnectivityManager
+import android.os.Build
 import android.os.Bundle
-import android.os.Looper
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.bugsnag.android.*
@@ -11,8 +9,6 @@ import com.bugsnag.android.*
 class MainActivity : AppCompatActivity() {
 
     private val factory = TestCaseFactory()
-    private lateinit var errorApiClient: ErrorReportApiClient
-    private lateinit var sessionApiClient: SessionTrackingApiClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +17,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        // setupApiClients()
         initialiseBugsnag()
         enqueueTestCase()
     }
@@ -36,19 +31,11 @@ class MainActivity : AppCompatActivity() {
         }, 100)
     }
 
-    private fun setupApiClients() {
-        val connectivityManager: ConnectivityManager =
-                getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-
-        errorApiClient = DecoratedErrorApiClient(connectivityManager, this::onRequestCompleted)
-        sessionApiClient = DecoratedSessionApiClient(connectivityManager, this::onRequestCompleted)
-    }
-
     private fun initialiseBugsnag() {
         val config = Configuration(intent.getStringExtra("BUGSNAG_API_KEY"))
-        // Probably something smarter goes here, to also work on devices
-        config.endpoint = "http://10.0.2.2:" + intent.getStringExtra("BUGSNAG_PORT")
-        config.sessionEndpoint = "http://10.0.2.2:" + intent.getStringExtra("BUGSNAG_PORT")
+        val port = intent.getStringExtra("BUGSNAG_PORT")
+        config.endpoint = "${findHostname()}:$port"
+        config.sessionEndpoint = "${findHostname()}:$port"
 
         Bugsnag.init(this, config)
         Bugsnag.setLoggingEnabled(true)
@@ -61,8 +48,13 @@ class MainActivity : AppCompatActivity() {
         testCase.run()
     }
 
-    private fun onRequestCompleted() {
-        //finish() // exit app after delivery
+    private fun findHostname(): String {
+        val isEmulator = Build.FINGERPRINT.startsWith("unknown")
+                || Build.FINGERPRINT.contains("generic")
+        return when {
+            isEmulator -> "http://10.0.2.2"
+            else -> "http://localhost"
+        }
     }
 
 }

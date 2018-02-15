@@ -12,6 +12,7 @@ internal class TestCaseFactory {
         return when (eventType) {
             "AutoContextScenario" -> AutoContextScenario()
             "AutoFilterScenario" -> AutoFilterScenario()
+            "ManualFilterScenario" -> ManualFilterScenario()
             "BreadcrumbScenario" -> BreadcrumbScenario()
             "DisableAutoNotifyScenario" -> DisableAutoNotifyScenario()
             "ManualContextScenario" -> ManualContextScenario()

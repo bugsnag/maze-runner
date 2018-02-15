@@ -6,7 +6,6 @@ package com.bugsnag.android.mazerunner.scenarios
 internal class UnhandledExceptionScenario : Scenario() {
 
     override fun run() {
-        disableAllDelivery()
         throw RuntimeException("UnhandledExceptionScenario")
     }
 

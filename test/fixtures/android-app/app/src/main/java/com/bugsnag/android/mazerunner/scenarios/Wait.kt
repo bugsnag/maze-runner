@@ -1,7 +1,6 @@
-package com.bugsnag.android.mazerunner.testcases.kotlin
+package com.bugsnag.android.mazerunner.scenarios
 
 import android.util.Log
-import com.bugsnag.android.mazerunner.testcases.Scenario
 
 internal class Wait : Scenario() {
 

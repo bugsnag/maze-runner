@@ -1,7 +1,6 @@
-package com.bugsnag.android.mazerunner.testcases.kotlin
+package com.bugsnag.android.mazerunner.scenarios
 
 import com.bugsnag.android.Bugsnag
-import com.bugsnag.android.mazerunner.testcases.Scenario
 
 /**
  * Sends a handled exception to Bugsnag, which includes Session data.

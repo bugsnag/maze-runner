@@ -1,7 +1,7 @@
-package com.bugsnag.android.mazerunner.testcases.kotlin
+package com.bugsnag.android.mazerunner.scenarios.metadata
 
 import com.bugsnag.android.Bugsnag
-import com.bugsnag.android.mazerunner.testcases.Scenario
+import com.bugsnag.android.mazerunner.scenarios.Scenario
 
 /**
  * Attempts to send a handled exception to Bugsnag, when the exception handler is disabled,
@@ -11,7 +11,7 @@ internal class DisableAutoNotifyScenario : Scenario() {
 
     override fun run() {
         Bugsnag.disableExceptionHandler()
-        Bugsnag.notify(RuntimeException("HandledExceptionScenario"))
+        Bugsnag.notify(RuntimeException("DisableAutoNotifyScenario"))
     }
 
 }

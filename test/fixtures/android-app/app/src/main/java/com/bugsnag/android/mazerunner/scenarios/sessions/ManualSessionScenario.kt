@@ -1,7 +1,7 @@
-package com.bugsnag.android.mazerunner.testcases.kotlin
+package com.bugsnag.android.mazerunner.scenarios.sessions
 
 import com.bugsnag.android.Bugsnag
-import com.bugsnag.android.mazerunner.testcases.Scenario
+import com.bugsnag.android.mazerunner.scenarios.Scenario
 
 /**
  * Sends a manual session payload to Bugsnag.

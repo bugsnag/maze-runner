@@ -1,6 +1,4 @@
-package com.bugsnag.android.mazerunner.testcases.kotlin
-
-import com.bugsnag.android.mazerunner.testcases.Scenario
+package com.bugsnag.android.mazerunner.scenarios
 
 /**
  * Sends an unhandled exception to Bugsnag.

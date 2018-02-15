@@ -3,7 +3,7 @@ package com.bugsnag.android.mazerunner.testcases
 import com.bugsnag.android.Bugsnag
 import com.bugsnag.android.NetworkException
 
-abstract internal class TestCase {
+abstract internal class Scenario {
 
     abstract fun run()
 

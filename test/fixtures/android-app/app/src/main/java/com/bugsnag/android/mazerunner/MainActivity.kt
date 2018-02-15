@@ -31,6 +31,13 @@ class MainActivity : AppCompatActivity() {
         }, 100)
     }
 
+    private fun executeTestCase() {
+        val eventType = intent.getStringExtra("EVENT_TYPE")
+        Log.d("Bugsnag", "Received test case, executing " + eventType)
+        val testCase = factory.testCaseForName(eventType)
+        testCase.run()
+    }
+
     private fun initialiseBugsnag() {
         val config = Configuration(intent.getStringExtra("BUGSNAG_API_KEY"))
         val port = intent.getStringExtra("BUGSNAG_PORT")
@@ -39,13 +46,6 @@ class MainActivity : AppCompatActivity() {
 
         Bugsnag.init(this, config)
         Bugsnag.setLoggingEnabled(true)
-    }
-
-    private fun executeTestCase() {
-        val eventType = intent.getStringExtra("EVENT_TYPE")
-        Log.d("Bugsnag", "Received test case, executing " + eventType)
-        val testCase = factory.testCaseForName(eventType)
-        testCase.run()
     }
 
     private fun findHostname(): String {

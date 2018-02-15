@@ -18,3 +18,4 @@ internal class CrashHandlerScenario : Scenario() {
     }
 
 }
+

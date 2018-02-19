@@ -9,7 +9,7 @@ import com.bugsnag.android.Bugsnag
 internal class IgnoredExceptionScenario : Scenario() {
 
     override fun run() {
-        Bugsnag.setIgnoreClasses("RuntimeException")
+        Bugsnag.setIgnoreClasses("java.lang.RuntimeException")
         throw RuntimeException("Should never appear")
     }
 

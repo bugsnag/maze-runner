@@ -1,9 +1,8 @@
-package com.bugsnag.android.mazerunner.testcases.kotlin
+package com.bugsnag.android.mazerunner.scenarios
 
 import android.util.Log
-import com.bugsnag.android.mazerunner.testcases.TestCase
 
-internal class Wait : TestCase() {
+internal class Wait : Scenario() {
 
     override fun run() {
         Log.d("MazeRunner", "Waiting for test case delivery")

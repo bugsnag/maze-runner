@@ -1,9 +1,9 @@
-package com.bugsnag.android.mazerunner.testcases
+package com.bugsnag.android.mazerunner.scenarios
 
 import com.bugsnag.android.Bugsnag
 import com.bugsnag.android.NetworkException
 
-abstract internal class TestCase {
+abstract internal class Scenario {
 
     abstract fun run()
 
@@ -25,6 +25,10 @@ abstract internal class TestCase {
         })
     }
 
+    /**
+     * Sets a NOP implementation for the Error Tracking API and the Session Tracking API,
+     * preventing delivery
+     */
     protected fun disableAllDelivery() {
         disableSessionDelivery()
         disableReportDelivery()

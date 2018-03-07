@@ -1,6 +1,7 @@
 require 'rack'
 require 'open3'
 require 'webrick'
+require 'json'
 
 MOCK_API_PORT = 9291
 SCRIPT_PATH = File.expand_path(File.join(File.dirname(__FILE__), "..", "scripts"))
@@ -13,7 +14,29 @@ end
 
 After do |scenario|
   kill_script
-  # TODO: if scenario fails, print script output
+
+  if scenario.failed? && ENV['VERBOSE']
+    # Begin: Any further output from failed scenarios
+    Dir.mkdir(File.join(Dir.pwd, 'maze_output')) unless Dir.exists? File.join(Dir.pwd, 'maze_output')
+    Dir.chdir(File.join(Dir.pwd, 'maze_output')) do
+      filename = scenario.name + '.' + Time.now.strftime('%s') + '.json'
+      File.open(filename, 'w+') do |file|
+        request = stored_requests.last
+        headers = request[:request].header
+        body = request[:body]
+        uri = request[:request].request_uri
+        file.write JSON.fast_generate({
+          :uri => uri,
+          :headers => headers,
+          :body => body
+        }, {
+          :array_nl => "\n",
+          :object_nl => "\n",
+          :indent => "\t"
+        })
+      end
+    end
+  end
 end
 
 # Run each command synchronously, printing output only in the event of failure

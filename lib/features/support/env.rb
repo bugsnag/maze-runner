@@ -21,15 +21,19 @@ After do |scenario|
     Dir.chdir(File.join(Dir.pwd, 'maze_output')) do
       filename = scenario.name + '.' + Time.now.strftime('%s') + '.json'
       File.open(filename, 'w+') do |file|
-        request = stored_requests.last
-        headers = request[:request].header
-        body = request[:body]
-        uri = request[:request].request_uri
-        file.write JSON.fast_generate({
-          :uri => uri,
-          :headers => headers,
-          :body => body
-        }, {
+        requests_received = stored_requests.size
+        request_list = {
+          :requests_received => requests_received,
+        }
+        request_list[:requests] = stored_requests.map do |request|
+          {
+            :headers => request[:request].header,
+            :body => request[:body],
+            :uri => request[:request].request_uri
+          }
+        end
+
+        file.write JSON.fast_generate(request_list, {
           :array_nl => "\n",
           :object_nl => "\n",
           :indent => "\t"

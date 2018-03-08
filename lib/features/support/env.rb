@@ -5,6 +5,7 @@ require 'json'
 
 MOCK_API_PORT = 9291
 SCRIPT_PATH = File.expand_path(File.join(File.dirname(__FILE__), "..", "scripts"))
+FAILED_SCENARIO_OUTPUT_PATH = File.join(Dir.pwd, 'maze_output')
 
 Before do
   stored_requests.clear
@@ -15,29 +16,24 @@ end
 After do |scenario|
   kill_script
 
-  if scenario.failed? && ENV['VERBOSE']
-    # Begin: Any further output from failed scenarios
-    Dir.mkdir(File.join(Dir.pwd, 'maze_output')) unless Dir.exists? File.join(Dir.pwd, 'maze_output')
-    Dir.chdir(File.join(Dir.pwd, 'maze_output')) do
-      filename = scenario.name + '.' + Time.now.strftime('%s') + '.json'
-      File.open(filename, 'w+') do |file|
-        requests_received = stored_requests.size
-        request_list = {
-          :requests_received => requests_received,
-        }
-        request_list[:requests] = stored_requests.map do |request|
-          {
-            :headers => request[:request].header,
-            :body => request[:body],
-            :uri => request[:request].request_uri
-          }
-        end
+  write_failed_requests_to_disk(scenario) if scenario.failed?
+end
 
-        file.write JSON.fast_generate(request_list, {
-          :array_nl => "\n",
-          :object_nl => "\n",
-          :indent => "\t"
-        })
+def write_failed_requests_to_disk(scenario)
+  Dir.mkdir(FAILED_SCENARIO_OUTPUT_PATH) unless Dir.exists? FAILED_SCENARIO_OUTPUT_PATH
+  Dir.chdir(FAILED_SCENARIO_OUTPUT_PATH) do
+    date = DateTime.now.strftime('%d%m%y%H%M%S%L')
+    stored_requests.each_with_index do |request, i|
+      filename = "#{scenario.name}-request#{i}-#{date}.log"
+      File.open(filename, 'w+') do |file|
+        file.puts "URI: #{request[:request].request_uri}"
+        file.puts "HEADERS:"
+        request[:request].header.each do |key, values|
+          file.puts "  #{key}: #{values.map {|v| "'#{v}'"}.join(' ')}"
+        end
+        file.puts
+        file.puts "BODY:"
+        file.puts JSON.pretty_generate(request[:body])
       end
     end
   end

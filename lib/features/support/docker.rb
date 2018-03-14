@@ -1,5 +1,4 @@
 require 'open3'
-require 'pp'
 
 $docker_stack ||= Set.new
 $docker_file = nil
@@ -17,7 +16,6 @@ def find_default_docker_compose
       output = run_docker_compose_command(file, "config -q", false)
       if output.size == 0
         full_file = DEFAULT_STACK_PATH + file
-        pp "Set new docker-compose to #{full_file}"
         $docker_file = full_file
       end
     end

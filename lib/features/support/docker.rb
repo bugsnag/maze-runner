@@ -1,7 +1,28 @@
 require 'open3'
+require 'pp'
 
 $docker_stack ||= Set.new
 $docker_file = nil
+
+DEFAULT_STACK_PATH = "features/fixtures/"
+DEFAULT_STACK_NAME = "docker-compose.{yml,yaml}"
+
+def find_default_docker_compose
+  if Dir.exist? DEFAULT_STACK_PATH
+    Dir.chdir DEFAULT_STACK_PATH do
+      file = Dir.glob(DEFAULT_STACK_NAME).first
+      return if file.nil?
+
+      # Check for errors in the compose file
+      output = run_docker_compose_command(file, "config -q", false)
+      if output.size == 0
+        full_file = DEFAULT_STACK_PATH + file
+        pp "Set new docker-compose to #{full_file}"
+        $docker_file = full_file
+      end
+    end
+  end
+end
 
 def set_compose_file(filename)
   # This command should validate dockerfile early on
@@ -15,7 +36,7 @@ def build_service(service, compose_file=nil)
 end
 
 def start_service(service, compose_file=nil)
-  run_docker_compose_command(compose_file.nil? ? $docker_file : compose_file, "up -d #{service}")
+  run_docker_compose_command(compose_file.nil? ? $docker_file : compose_file, "up -d --build #{service}")
 end
 
 def stop_service(service, compose_file=nil)
@@ -36,7 +57,7 @@ def test_service_running(service, compose_file=nil, running=true)
 end
 
 def start_stack(compose_file=nil)
-  run_docker_compose_command(compose_file.nil? ? $docker_file : compose_file, "up -d")
+  run_docker_compose_command(compose_file.nil? ? $docker_file : compose_file, "up -d --build")
 end
 
 def stop_stack(compose_file=nil)

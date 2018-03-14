@@ -1,8 +1,7 @@
 Feature: Running docker services
 
     Background:
-        Given I am using the docker-compose stack "features/fixtures/docker-compose.yml"
-        And I stop the compose stack
+        Given I stop the compose stack
 
     Scenario: A service can be built and run
         Given I have built the service "test_1"

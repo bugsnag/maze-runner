@@ -9,6 +9,7 @@ FAILED_SCENARIO_OUTPUT_PATH = File.join(Dir.pwd, 'maze_output')
 
 Before do
   stored_requests.clear
+  find_default_docker_compose
   @script_env = {'MOCK_API_PORT' => "#{MOCK_API_PORT}"}
   @pids = []
   if @thread and not @thread.alive?

@@ -1,8 +1,7 @@
 Feature: Running a docker stack
 
     Background:
-        Given I am using the docker-compose stack "features/fixtures/docker-compose.yml"
-        And I start the compose stack
+        Given I start the compose stack
 
     Scenario: The docker stack can be brought up
         Then the service "test_1" should be running
@@ -27,3 +26,11 @@ Feature: Running a docker stack
         And I start the compose stack "features/fixtures/other-compose.yml"
         And I stop the compose stack "features/fixtures/other-compose.yml"
         Then the service "test_1" should not be running
+
+    Scenario: The default docker stack can be changed
+        When I stop the compose stack
+        And I am using the compose stack "features/fixtures/other-compose.yml"
+        And I start the compose stack
+        Then the service "test_1" should be running
+        And the service "test_2" should not be running
+        

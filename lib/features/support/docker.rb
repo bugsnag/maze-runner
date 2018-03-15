@@ -1,7 +1,7 @@
 require 'open3'
 
 $docker_stack ||= Set.new
-$docker_file = nil
+$docker_compose_file = nil
 
 DEFAULT_STACK_PATH = "features/fixtures/"
 DEFAULT_STACK_NAME = "docker-compose.{yml,yaml}"
@@ -16,7 +16,7 @@ def find_default_docker_compose
       output = run_docker_compose_command(file, "config -q", false)
       if output.size == 0
         full_file = DEFAULT_STACK_PATH + file
-        $docker_file = full_file
+        $docker_compose_file = full_file
       end
     end
   end
@@ -26,27 +26,27 @@ def set_compose_file(filename)
   # This command should validate dockerfile early on
   run_docker_compose_command(filename, "config -q")
   $docker_stack << filename
-  $docker_file = filename
+  $docker_compose_file = filename
 end
 
-def build_service(service, compose_file=nil)
-  run_docker_compose_command(compose_file.nil? ? $docker_file : compose_file, "build #{service}")
+def build_service(service, compose_file=$docker_compose_file)
+  run_docker_compose_command(compose_file, "build #{service}")
 end
 
-def start_service(service, compose_file=nil)
-  run_docker_compose_command(compose_file.nil? ? $docker_file : compose_file, "up -d --build #{service}")
+def start_service(service, compose_file=$docker_compose_file)
+  run_docker_compose_command(compose_file, "up -d --build #{service}")
 end
 
-def stop_service(service, compose_file=nil)
-  run_docker_compose_command(compose_file.nil? ? $docker_file : compose_file, "rm -fs #{service}")
+def stop_service(service, compose_file=$docker_compose_file)
+  run_docker_compose_command(compose_file, "rm -fs #{service}")
 end
 
-def kill_service(service, compose_file=nil)
-  run_docker_compose_command(compose_file.nil? ? $docker_file : compose_file, "kill #{service}")
+def kill_service(service, compose_file=$docker_compose_file)
+  run_docker_compose_command(compose_file, "kill #{service}")
 end
 
-def test_service_running(service, compose_file=nil, running=true)
-  result = run_docker_compose_command(compose_file.nil? ? $docker_file : compose_file, "ps -q #{service}")
+def test_service_running(service, compose_file=$docker_compose_file, running=true)
+  result = run_docker_compose_command(compose_file, "ps -q #{service}")
   if running
     assert_equal(1, result.size)
   else
@@ -54,20 +54,20 @@ def test_service_running(service, compose_file=nil, running=true)
   end
 end
 
-def start_stack(compose_file=nil)
-  run_docker_compose_command(compose_file.nil? ? $docker_file : compose_file, "up -d --build")
+def start_stack(compose_file=$docker_compose_file)
+  run_docker_compose_command(compose_file, "up -d --build")
 end
 
-def stop_stack(compose_file=nil)
-  run_docker_compose_command(compose_file.nil? ? $docker_file : compose_file, "down", false)
+def stop_stack(compose_file=$docker_compose_file)
+  run_docker_compose_command(compose_file, "down", false)
 end
 
-def run_command_on_service(command, service, compose_file=nil)
-  run_docker_compose_command(compose_file.nil? ? $docker_file : compose_file, "exec #{service} #{command}")
+def run_command_on_service(command, service, compose_file=$docker_compose_file)
+  run_docker_compose_command(compose_file, "exec #{service} #{command}")
 end
 
-def run_service_with_command(service, command, compose_file=nil)
-  run_docker_compose_command(compose_file.nil? ? $docker_file : compose_file, "run -d #{service} #{command}")
+def run_service_with_command(service, command, compose_file=$docker_compose_file)
+  run_docker_compose_command(compose_file, "run -d #{service} #{command}")
 end
 
 def run_docker_compose_command(file, command, must_pass=true)

@@ -5,7 +5,7 @@ require 'json'
 
 include Test::Unit::Assertions
 
-def find_request(request_index) request_index
+def find_request(request_index)
   request_index ||= 0
   return stored_requests[request_index]
 end

@@ -32,6 +32,13 @@ Then(/^the "(.+)" header is a timestamp(?: for request (\d+))?$/) do |header_nam
   assert_match(/^\d{4}\-\d{2}\-\d{2}T\d{2}:\d{2}:[\d\.]+Z?$/, header)
 end
 
+
+Then(/^the parts "(.+)" are not empty(?: for request (\d+))?$/) do |parts, request_index|
+  parts = find_request(request_index)[:body]
+  assert_nil(parts, "Request body is null")
+end
+
+
 Then(/^the payload body does not match the JSON fixture in "(.+)"(?: for request (\d+))?$/) do |fixture_path, request_index|
   payload_value = find_request(request_index)[:body]
   expected_value = JSON.parse(open(fixture_path, &:read))

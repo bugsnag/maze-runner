@@ -45,7 +45,7 @@ def kill_service(service, compose_file=$docker_compose_file)
   run_docker_compose_command(compose_file, "kill #{service}")
 end
 
-def test_service_running(service, compose_file=$docker_compose_file, running=true)
+def test_service_running(service, running=true, compose_file=$docker_compose_file)
   result = run_docker_compose_command(compose_file, "ps -q #{service}")
   if running
     assert_equal(1, result.size)

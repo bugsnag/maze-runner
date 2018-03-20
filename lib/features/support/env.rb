@@ -81,6 +81,7 @@ end
 def run_command(cmd, must_pass=true)
   command_status = nil
   command_out = Set.new
+  STDOUT.puts cmd if ENV['VERBOSE']
   Open3.popen3(cmd) do |stdin, stdout, stderr, thread|
     { :out => stdout, :err => stderr }.each do |key, stream|
       Thread.new do

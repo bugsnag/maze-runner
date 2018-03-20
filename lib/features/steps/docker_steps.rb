@@ -28,7 +28,6 @@ When("I stop the service {string} from the stack {string}") do |service, filenam
 end
 
 When("I kill the service {string}") do |service|
-  # Warning! By docker-compose design this command will not stop containers started by the Run command
   kill_service service
 end
 
@@ -77,9 +76,9 @@ Then("the service {string} from the stack {string} should be running") do |servi
 end
 
 Then("the service {string} should not be running") do |service|
-  test_service_running(service, nil, false)
+  test_service_running(service, false)
 end
 
 Then("the service {string} from the stack {string} should not be running") do |service, filename|
-  test_service_running(service, filename, false)
+  test_service_running(service, false, filename)
 end

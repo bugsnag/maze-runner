@@ -32,5 +32,3 @@ Feature: Running a docker stack
         And I am using the docker-compose stack "features/fixtures/other-compose.yml"
         And I start the compose stack
         Then the service "test_1" should be running
-        And the service "test_2" should not be running
-        

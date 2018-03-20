@@ -135,9 +135,6 @@ end
 
 class Servlet < WEBrick::HTTPServlet::AbstractServlet
   def do_POST request, response
-    puts request['Content-Type']
-    puts request['Content-Type'] == 'application/json'
-
     if request['Content-Type'] == 'application/json'
       stored_requests << {body: JSON.load(request.body()), request:request}
     else

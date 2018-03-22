@@ -18,7 +18,7 @@ else
     file.puts <<-CONTENTS
 source 'https://rubygems.org'
 
-gem 'bugsnag-maze-runner', :git => 'git@github.com:bugsnag/maze-runner'
+gem 'bugsnag-maze-runner', :git => 'https://github.com/bugsnag/maze-runner'
 CONTENTS
   end
 end

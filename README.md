@@ -21,7 +21,7 @@ the hood to draft semantic tests.
    ```ruby
    source "https://rubygems.org"
 
-   gem "bugsnag-maze-runner", git: "git@github.com:bugsnag/maze-runner"
+   gem "bugsnag-maze-runner", git: "https://github.com/bugsnag/maze-runner"
    ```
 3. Run `bundle install` to fetch and install Maze Runner
 4. Run `bundle exec bugsnag-maze-runner init` from the root of your project to build the

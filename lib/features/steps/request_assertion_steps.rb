@@ -40,7 +40,6 @@ end
 
 Then(/^the request (\d+) is valid for the Android Mapping API$/) do |request_index|
   parts = find_request(request_index)[:body]
-  assert_equal(6, parts.size)
   assert_not_nil(parts["proguard"])
   assert_not_nil(parts["apiKey"])
   assert_not_nil(parts["appId"])

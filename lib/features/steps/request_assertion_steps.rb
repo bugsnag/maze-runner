@@ -124,6 +124,20 @@ Then(/^the payload field "(.+)" is a non-empty array(?: for request (\d+))?$/) d
   assert_kind_of Array, value
   assert(value.length > 0, "the field '#{field}' must be a non-empty array")
 end
+Then(/^the payload field "(.+)" matches the regex "(.+)"(?: for request(\d+))?$/) do |field, regex, request_index|
+  value = read_key_path(find_request(request_index)[:body], field)
+  assert_match(regex, value)
+end
+Then(/^the payload field "(.+)" is a parsable timestamp in seconds(?: for request(\d+))?$/) do |field, request_index|
+  value = read_key_path(find_request(request_index)[:body], field)
+  begin
+    int = value.to_i
+    parsed_time = Time.at(int)
+  rescue => exception
+  end
+  assert_not_nil(parsed_time)
+end
+
 Then(/^each element in payload field "(.+)" has "(.+)"(?: for request (\d+))?$/) do |key_path, element_key_path, request_index|
   value = read_key_path(find_request(request_index)[:body], key_path)
   assert_kind_of Array, value

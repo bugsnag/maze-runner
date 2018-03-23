@@ -26,6 +26,10 @@ get '/notify' do
   send_manual_notify
 end
 
+get '/metadata' do
+  send_metadata_notification
+end
+
 def send_manual_notify
   if context = params[:context]
     Bugsnag.before_notify_callbacks << lambda do |report|
@@ -37,4 +41,13 @@ end
 
 def make_a_syntax_error
   rt()
+end
+
+def send_metadata_notification
+  Bugsnag.notify(InvariantException.new("The cake was really badly rotten")) do |report|
+    report.add_tab(:cake, {
+      :went_bad => Time.now.strftime("%s"),
+      :cake_type => "Carrot"
+    })
+  end
 end

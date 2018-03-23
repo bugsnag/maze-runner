@@ -37,6 +37,13 @@ end
 Then(/^the event "(.+)" ends with "(.+)"$/) do |field, string_value|
   step "the payload field \"events.0.#{field}\" ends with \"#{string_value}\""
 end
+Then(/^the event "(.+)" is a timestamp$/) do |field|
+  timestamp_regex = /^\d{4}\-\d{2}\-\d{2}T\d{2}:\d{2}:[\d\.]+Z?$/
+  step "the payload field \"events.0.#{field}\" matches the regex \"#{timestamp_regex}\""
+end
+Then(/^the event "(.+)" is a parsable timestamp in seconds$/) do |field|
+  step "the payload field \"events.0.#{field}\" is a parsable timestamp in seconds"
+end
 
 Then(/^the exception "(.+)" starts with "(.+)"$/) do |field, string_value|
   step "the payload field \"events.0.exceptions.0.#{field}\" starts with \"#{string_value}\""

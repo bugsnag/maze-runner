@@ -40,12 +40,12 @@ end
 
 Then(/^the request (\d+) is valid for the Android Mapping API$/) do |request_index|
   parts = find_request(request_index)[:body]
-  assert_not_nil(parts["proguard"])
-  assert_not_nil(parts["apiKey"])
-  assert_not_nil(parts["appId"])
-  assert_not_nil(parts["versionCode"])
-  assert_not_nil(parts["buildUUID"])
-  assert_not_nil(parts["versionName"])
+  assert_not_nil(parts["proguard"], "'proguard' should not be nil")
+  assert_not_nil(parts["apiKey"], "'apiKey' should not be nil")
+  assert_not_nil(parts["appId"], "'appId' should not be nil")
+  assert_not_nil(parts["versionCode"], "'versionCode' should not be nil")
+  assert_not_nil(parts["buildUUID"], "'buildUUID' should not be nil")
+  assert_not_nil(parts["versionName"], "'versionName' should not be nil")
 end
 
 

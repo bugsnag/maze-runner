@@ -157,8 +157,13 @@ end
 
 class Servlet < WEBrick::HTTPServlet::AbstractServlet
   def do_POST request, response
-    if request['Content-Type'] == 'application/json'
+    case request['Content-Type']
+    when 'application/json'
       stored_requests << {body: JSON.load(request.body()), request:request}
+    when /^multipart\/form-data; boundary=([^;]+)/
+      boundary = WEBrick::HTTPUtils::dequote($1)
+      body = WEBrick::HTTPUtils.parse_form_data(request.body(), boundary)
+      stored_requests << {body: body, request: request}
     else
       stored_requests << {body: request.query, request:request}
     end

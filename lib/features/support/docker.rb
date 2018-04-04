@@ -63,7 +63,7 @@ def stop_stack(compose_file=$docker_compose_file)
 end
 
 def run_command_on_service(command, service, compose_file=$docker_compose_file)
-  run_docker_compose_command(compose_file, "exec #{service} #{command}")
+  run_docker_compose_command(compose_file, "exec -T #{service} #{command}")
 end
 
 def run_service_with_command(service, command, compose_file=$docker_compose_file)

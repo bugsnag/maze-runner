@@ -139,7 +139,7 @@ end
 
 Then(/^the payload has a valid sessions array(?: for request (\d+))?$/) do |request_index|
   sessions = read_key_path(find_request(request_index)[:body], "sessions")
-  sessionCounts = read_key_path(find_request(request_index)[:body], "sessions")
+  sessionCounts = read_key_path(find_request(request_index)[:body], "sessionCounts")
   value = sessions || sessionCounts
   assert_kind_of Array, value
   assert(value.length > 0, "the payload must contain a non empty sessions or sessionCounts array")

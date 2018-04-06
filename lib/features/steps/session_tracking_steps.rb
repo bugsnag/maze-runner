@@ -11,9 +11,6 @@ Then("the request is a valid for the session tracking API") do
     And the payload field "notifier.url" is not null
     And the payload field "notifier.version" is not null
     And the payload has a valid sessions array
-
-    And the session "id" is not null
-    And the session "startedAt" is not null
   }
 end
 Then("the session {string} is true") do |field|

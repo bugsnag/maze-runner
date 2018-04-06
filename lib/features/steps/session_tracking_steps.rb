@@ -10,7 +10,7 @@ Then("the request is a valid for the session tracking API") do
     And the payload field "notifier.name" is not null
     And the payload field "notifier.url" is not null
     And the payload field "notifier.version" is not null
-    And the payload field "sessions" is a non-empty array
+    And the payload has a valid sessions array
 
     And the session "id" is not null
     And the session "startedAt" is not null
@@ -31,3 +31,19 @@ end
 Then(/^the session "(.+)" is null$/) do |field|
   step "the payload field \"sessions.0.#{field}\" is null"
 end
+Then("the sessionCount {string} is true") do |field|
+  step "the payload field \"sessionCounts.0.#{field}\" is true"
+end
+Then("the sessionCount {string} is false") do |field|
+  step "the payload field \"sessionCounts.0.#{field}\" is false"
+end
+Then(/^the sessionCount "(.+)" equals "(.+)"$/) do |field, string_value|
+  step "the payload field \"sessionCounts.0.#{field}\" equals \"#{string_value}\""
+end
+Then(/^the sessionCount "(.+)" is not null$/) do |field|
+  step "the payload field \"sessionCounts.0.#{field}\" is not null"
+end
+Then(/^the sessionCount "(.+)" is null$/) do |field|
+  step "the payload field \"sessionCounts.0.#{field}\" is null"
+end
+

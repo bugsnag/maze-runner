@@ -137,6 +137,14 @@ Then(/^the payload field "(.+)" is a parsable timestamp in seconds(?: for reques
   assert_not_nil(parsed_time)
 end
 
+Then(/^the payload has a valid sessions array(?: for request (\d+))?$/) do
+  sessions = read_key_path(find_request(request_index)[:body], "sessions")
+  sessionCounts = read_key_path(find_request(request_index)[:body], "sessions")
+  value = sessions || sessionCounts
+  assert_kind_of Array, value
+  assert(value.length > 0, "the payload must contain a non empty sessions or sessionCounts array")
+end
+
 Then(/^each element in payload field "(.+)" has "(.+)"(?: for request (\d+))?$/) do |key_path, element_key_path, request_index|
   value = read_key_path(find_request(request_index)[:body], key_path)
   assert_kind_of Array, value

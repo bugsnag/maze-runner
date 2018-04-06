@@ -141,12 +141,12 @@ Then(/^the payload has a valid sessions array(?: for request (\d+))?$/) do |requ
   body = find_request(request_index)[:body]
   if sessions = read_key_path(body, "sessions")
     assert_kind_of Array, sessions
-    assert(sessions.length > 0, "the payload must contain a non empty sessions array"
+    assert(sessions.length > 0, "the payload must contain a non empty sessions array")
     assert_not_nil(read_key_path(sessions, "0.id"))
     assert_not_nil(read_key_path(sessions, "0.startedAt"))
   elsif sessionCounts = read_key_path(body, "sessionCounts")
     assert_kind_of Array, sessionCounts
-    assert(sessionCounts.length > 0, "the payload must contain a non empty sessionCounts array"
+    assert(sessionCounts.length > 0, "the payload must contain a non empty sessionCounts array")
     assert_not_nil(read_key_path(sessionCounts, "0.sessionsStarted"))
     assert_not_nil(read_key_path(sessionCounts, "0.startedAt"))
   else

@@ -137,7 +137,7 @@ Then(/^the payload field "(.+)" is a parsable timestamp in seconds(?: for reques
   assert_not_nil(parsed_time)
 end
 
-Then(/^the payload has a valid sessions array(?: for request (\d+))?$/) do
+Then(/^the payload has a valid sessions array(?: for request (\d+))?$/) do |request_index|
   sessions = read_key_path(find_request(request_index)[:body], "sessions")
   sessionCounts = read_key_path(find_request(request_index)[:body], "sessions")
   value = sessions || sessionCounts

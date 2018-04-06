@@ -28,6 +28,10 @@ end
 Then(/^the session "(.+)" is null$/) do |field|
   step "the payload field \"sessions.0.#{field}\" is null"
 end
+Then(/^the session "(.+)" is a timestamp$/) do |field|
+  timestamp_regex = /^\d{4}\-\d{2}\-\d{2}T\d{2}:\d{2}:[\d\.]+Z?$/
+  step "the payload field \"sessions.0.#{field}\" matches the regex \"#{timestamp_regex}\""
+end
 Then("the sessionCount {string} is true") do |field|
   step "the payload field \"sessionCounts.0.#{field}\" is true"
 end
@@ -42,5 +46,9 @@ Then(/^the sessionCount "(.+)" is not null$/) do |field|
 end
 Then(/^the sessionCount "(.+)" is null$/) do |field|
   step "the payload field \"sessionCounts.0.#{field}\" is null"
+end
+Then(/^the sessionCount "(.+)" is a timestamp$/) do |field|
+  timestamp_regex = /^\d{4}\-\d{2}\-\d{2}T\d{2}:\d{2}:[\d\.]+Z?$/
+  step "the payload field \"sessionCounts.0.#{field}\" matches the regex \"#{timestamp_regex}\""
 end
 

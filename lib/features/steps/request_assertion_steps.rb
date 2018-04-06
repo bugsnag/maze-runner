@@ -64,6 +64,11 @@ Then(/^the part "(.+)" for request (\d+) equals "(.+)"$/) do |part_key, request_
   assert_equal(parts[part_key], expected_value)
 end
 
+Then(/^the part "(.+)" for request (\d+) is null$/) do |part_key, request_index|
+  parts = find_request(request_index)[:body]
+  assert_nil(parts[part_key], "The field '#{part_key}' should be null")
+end
+
 Then(/^the payload body does not match the JSON fixture in "(.+)"(?: for request (\d+))?$/) do |fixture_path, request_index|
   payload_value = find_request(request_index)[:body]
   expected_value = JSON.parse(open(fixture_path, &:read))

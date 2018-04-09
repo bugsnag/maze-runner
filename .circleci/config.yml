@@ -1,0 +1,32 @@
+machine:
+  ruby:
+    version: 2.4.4
+version: 2
+jobs:
+  setup:
+    docker:
+      - image: circleci/ruby:[2.4.4-stretch-node-browsers]
+    steps:
+      - checkout
+      - setup_remote_docker:
+        docker_layer_caching: true
+      - run: bundle install
+  compare_test:
+    steps:
+      - run: bundle exec rake test:unit
+  automation_test:
+    steps:
+      - run: bundle exec rake test:integration
+
+workflows:
+  version: 2
+  test_all:
+    jobs:
+      - setup
+      - compare_test:
+        requires:
+        - setup
+      - automation_test:
+        requires:
+        - setup
+

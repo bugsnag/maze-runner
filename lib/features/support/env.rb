@@ -119,7 +119,7 @@ end
 def kill_script
   @pids.each {|p|
     begin
-    Process.kill("HUP", p)
+    Process.kill("KILL", p)
     rescue Errno::ESRCH
     end
   }

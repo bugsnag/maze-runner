@@ -42,4 +42,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "test-unit", "~> 3.2.0"
   spec.add_dependency "rack", "~> 2.0.0"
   spec.add_dependency "minitest", "~> 5.0"
+
+  spec.add_development_dependency "rake", "~> 12.3"
 end

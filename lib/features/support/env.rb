@@ -6,7 +6,7 @@ require 'json'
 MOCK_API_PORT = 19291
 SCRIPT_PATH = File.expand_path(File.join(File.dirname(__FILE__), "..", "scripts"))
 FAILED_SCENARIO_OUTPUT_PATH = File.join(Dir.pwd, 'maze_output')
-DEV_NULL = Gem.win_platform? ? 'NUL:' : '/dev/null'
+DEV_NULL = Gem.win_platform? ? 'NUL' : '/dev/null'
 
 Before do
   stored_requests.clear

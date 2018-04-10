@@ -9,3 +9,5 @@ Scenario: Test Unhandled Android Exception with Session
     And the payload field "events" is an array with 1 element
     And the exception "errorClass" equals "java.lang.RuntimeException"
     And the exception "message" equals "UnhandledExceptionScenario"
+    And the "method" of stack frame 0 ends with "run"
+    And the "method" of stack frame 0 starts with "com.bugsnag.android.mazerunner"

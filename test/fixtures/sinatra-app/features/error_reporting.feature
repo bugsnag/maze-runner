@@ -41,9 +41,11 @@ Scenario: Sinatra override context
 
 Scenario: Sinatra handles metadata
     # Tests the timestamp comparison
+    # Tests the event json fixture comparison
     When I set environment variable "BUGSNAG_API_KEY" to "a35a2a72bd230ac0aa0f52715bbdc6aa"
     And I start a Sinatra app
     And I navigate to the route "/metadata"
     Then I should receive a request
     And the event "metaData.cake.cake_type" equals "Carrot"
     And the event "metaData.cake.went_bad" is a parsable timestamp in seconds
+    And the event "metaData.cake.ingredients" matches the JSON fixture in "features/fixtures/json/ingredients.json"

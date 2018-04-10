@@ -47,7 +47,22 @@ def send_metadata_notification
   Bugsnag.notify(InvariantException.new("The cake was really badly rotten")) do |report|
     report.add_tab(:cake, {
       :went_bad => Time.now.strftime("%s"),
-      :cake_type => "Carrot"
+      :cake_type => "Carrot",
+      :ingredients => {
+        :cake => [
+          "eggs",
+          "flour",
+          "sugar",
+          "carrots"
+        ],
+        :topping => [
+          "sugar",
+          "icing",
+          "orange",
+          "carrot",
+          "gunge"
+        ]
+      }
     })
   end
 end

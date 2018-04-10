@@ -44,6 +44,9 @@ end
 Then(/^the event "(.+)" is a parsable timestamp in seconds$/) do |field|
   step "the payload field \"events.0.#{field}\" is a parsable timestamp in seconds"
 end
+Then(/^the event "(.+)" matches the JSON fixture in "(.+)"$/) do |field, fixture_path|
+  step "the payload field \"events.0.#{field}\" matches the JSON fixture in \"#{fixture_path}\""
+end
 
 Then(/^the exception "(.+)" starts with "(.+)"$/) do |field, string_value|
   step "the payload field \"events.0.exceptions.0.#{field}\" starts with \"#{string_value}\""

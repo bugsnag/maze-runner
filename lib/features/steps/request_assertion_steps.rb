@@ -49,19 +49,24 @@ Then(/^the request (\d+) is valid for the Android Mapping API$/) do |request_ind
 end
 
 
-Then(/^the request (\d+) has (\d+) parts$/) do |request_index, part_count|
+Then(/^the multipart request (\d+) has (\d+) fields$/) do |request_index, part_count|
   parts = find_request(request_index)[:body]
   assert_equal(part_count, parts.size)
 end
 
-Then(/^the part "(.+)" for request (\d+) is not null$/) do |part_key, request_index|
+Then(/^the field "(.+)" for multipart request (\d+) is not null$/) do |part_key, request_index|
   parts = find_request(request_index)[:body]
   assert_not_nil(parts[part_key], "The field '#{part_key}' should not be null")
 end
 
-Then(/^the part "(.+)" for request (\d+) equals "(.+)"$/) do |part_key, request_index, expected_value|
+Then(/^the field "(.+)" for multipart request (\d+) equals "(.+)"$/) do |part_key, request_index, expected_value|
   parts = find_request(request_index)[:body]
   assert_equal(parts[part_key], expected_value)
+end
+
+Then(/^the field "(.+)" for multipart request (\d+) is null$/) do |part_key, request_index|
+  parts = find_request(request_index)[:body]
+  assert_nil(parts[part_key], "The field '#{part_key}' should be null")
 end
 
 Then(/^the payload body does not match the JSON fixture in "(.+)"(?: for request (\d+))?$/) do |fixture_path, request_index|

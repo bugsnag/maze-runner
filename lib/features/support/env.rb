@@ -6,6 +6,7 @@ require 'json'
 MOCK_API_PORT = 19291
 SCRIPT_PATH = File.expand_path(File.join(File.dirname(__FILE__), "..", "scripts"))
 FAILED_SCENARIO_OUTPUT_PATH = File.join(Dir.pwd, 'maze_output')
+DEV_NULL = Gem.win_platform? ? 'NUL' : '/dev/null'
 
 Before do
   stored_requests.clear
@@ -110,7 +111,7 @@ def run_script script_path
     puts "Running '#{load_path}'"
     pid = Process.spawn(@script_env, load_path)
   else
-    pid = Process.spawn(@script_env, load_path, :out => '/dev/null', :err => '/dev/null')
+    pid = Process.spawn(@script_env, load_path, :out => DEV_NULL, :err => DEV_NULL)
   end
   Process.detach(pid)
   @pids << pid
@@ -183,7 +184,7 @@ def start_server
   @thread = Thread.new do
     server = WEBrick::HTTPServer.new(
       :Port => MOCK_API_PORT,
-      Logger: WEBrick::Log.new("/dev/null"),
+      Logger: WEBrick::Log.new(DEV_NULL),
       AccessLog: [],
     )
     server.mount '/', Servlet

@@ -16,4 +16,4 @@ namespace :test do
   task :all => [:unit, :integration]
 end
 
-task :default => :test
+task :default => :"test:all"

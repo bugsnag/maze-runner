@@ -20,12 +20,8 @@ jobs:
 
 workflows:
   version: 2
-  test_all:
+  test:
     jobs:
-      - compare_test:
-          requires:
-          - setup
-      - automation_test:
-          requires:
-          - setup
+      - compare_test
+      - automation_test
 

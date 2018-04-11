@@ -3,7 +3,7 @@ version: 2
 jobs:
   compare_test:
     docker:
-      - image: circleci/ruby:[2.4.4-stretch-node-browsers]
+      - image: circleci/ruby:2.4.4-stretch-node-browsers
     steps:
       - checkout
       - setup_remote_docker
@@ -11,7 +11,7 @@ jobs:
       - run: bundle exec rake test:unit
   automation_test:
     docker:
-      - image: circleci/ruby:[2.4.4-stretch-node-browsers]
+      - image: circleci/ruby:2.4.4-stretch-node-browsers
     steps:
       - checkout
       - setup_remote_docker

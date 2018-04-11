@@ -107,6 +107,14 @@ end
 def run_script script_path
   load_path = File.join(SCRIPT_PATH, script_path)
   load_path = File.join(Dir.pwd, script_path) unless File.exists? load_path
+  if Gem.win_platform?
+    # windows does not support the shebang that we use in the scripts so it
+    # needs to know how to execute the script. Passing `cmd /c` tells windows
+    # to use it's known file associations to execute this path. If ruby is
+    # installed on windows then it will know that `rb` files should be exceuted
+    # using ruby etc.
+    load_path = "cmd /c #{load_path}"
+  end
   if ENV['VERBOSE']
     puts "Running '#{load_path}'"
     pid = Process.spawn(@script_env, load_path)

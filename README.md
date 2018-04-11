@@ -238,4 +238,4 @@ If steps would be useful for different projects running the maze, add the to
 ### Running the tests
 
 bugsnag-maze-runner uses test-unit and minunit to bootstrap itself and run the
-sample app suites in the test fixtures. Run `rake test` to run the suite.
+sample app suites in the test fixtures. Run `rake test:all` to run the suite.

@@ -117,7 +117,7 @@ After do |scenario|
   end
 end
  ```
- 
+
 ### Step reference
 
 Whirlwind tour of the most important bundled steps. Additional variants exist for checking value nullability, "starts with", "ends with", et cetera.
@@ -140,7 +140,7 @@ For example, to match the name of the second objects in the the key `fruits` bel
 
 |Step | Description |
 |-----|-------------|
-|I set the environment variable "{key}" to "{value}" | Make an environment variable available to any scripts which run afterwards
+|I set environment variable "{key}" to "{value}" | Make an environment variable available to any scripts which run afterwards
 |I run the script "{path}" | Run the file denoted by `{path}`. It must be marked as executable
 |I run the script "{path}" synchronously | Run the file denoted by `{path}`, waiting for it to finish. It must be marked as executable
 |I open the URL "{url}"|Fetch the contents of a URL

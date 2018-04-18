@@ -3,7 +3,17 @@ require 'open3'
 require 'webrick'
 require 'json'
 
-MOCK_API_PORT = 19291
+# This port number is semi-arbitrary. It doesn't matter for the sake of
+# the application what it is, but there are some constraints due to some
+# of the environments that we know this will be used in – namely, driving
+# remote browsers on BrowserStack. The ports/ranges that Safari will access
+# on "localhost" urls are restricted to the following:
+#
+#   80, 3000, 4000, 5000, 8000, 8080 or 9000-9999
+#   [ from https://stackoverflow.com/a/28678652 ]
+#
+MOCK_API_PORT = 9339
+
 SCRIPT_PATH = File.expand_path(File.join(File.dirname(__FILE__), "..", "scripts"))
 FAILED_SCENARIO_OUTPUT_PATH = File.join(Dir.pwd, 'maze_output')
 DEV_NULL = Gem.win_platform? ? 'NUL' : '/dev/null'
@@ -167,14 +177,15 @@ end
 class Servlet < WEBrick::HTTPServlet::AbstractServlet
   def do_POST request, response
     case request['Content-Type']
-    when 'application/json'
-      stored_requests << {body: JSON.load(request.body()), request:request}
     when /^multipart\/form-data; boundary=([^;]+)/
       boundary = WEBrick::HTTPUtils::dequote($1)
       body = WEBrick::HTTPUtils.parse_form_data(request.body(), boundary)
       stored_requests << {body: body, request: request}
     else
-      stored_requests << {body: request.query, request:request}
+      # "content-type" is assumed to be JSON (which mimicks the behaviour of
+      # the actual API). This supports browsers that can't set this header for
+      # cross-domain requests (IE8/9)
+      stored_requests << {body: JSON.load(request.body()), request:request}
     end
     response.header['Access-Control-Allow-Origin'] = '*'
     response.status = 200

@@ -3,7 +3,17 @@ require 'open3'
 require 'webrick'
 require 'json'
 
-MOCK_API_PORT = 19291
+# This port number is semi-arbitrary. It doesn't matter for the sake of
+# the application what it is, but there are some constraints due to some
+# of the environments that we know this will be used in – namely, driving
+# remote browsers on BrowserStack. The ports/ranges that Safari will access
+# on "localhost" urls are restricted to the following:
+#
+#   80, 3000, 4000, 5000, 8000, 8080 or 9000-9999
+#   [ from https://stackoverflow.com/a/28678652 ]
+#
+MOCK_API_PORT = 9339
+
 SCRIPT_PATH = File.expand_path(File.join(File.dirname(__FILE__), "..", "scripts"))
 FAILED_SCENARIO_OUTPUT_PATH = File.join(Dir.pwd, 'maze_output')
 DEV_NULL = Gem.win_platform? ? 'NUL' : '/dev/null'

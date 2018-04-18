@@ -177,14 +177,15 @@ end
 class Servlet < WEBrick::HTTPServlet::AbstractServlet
   def do_POST request, response
     case request['Content-Type']
-    when 'application/json'
-      stored_requests << {body: JSON.load(request.body()), request:request}
     when /^multipart\/form-data; boundary=([^;]+)/
       boundary = WEBrick::HTTPUtils::dequote($1)
       body = WEBrick::HTTPUtils.parse_form_data(request.body(), boundary)
       stored_requests << {body: body, request: request}
     else
-      stored_requests << {body: request.query, request:request}
+      # "content-type" is assumed to be JSON (which mimicks the behaviour of
+      # the actual API). This supports browsers that can't set this header for
+      # cross-domain requests (IE8/9)
+      stored_requests << {body: JSON.load(request.body()), request:request}
     end
     response.header['Access-Control-Allow-Origin'] = '*'
     response.status = 200

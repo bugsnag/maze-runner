@@ -96,6 +96,8 @@ def run_command(*cmd, must_pass: true)
   STDOUT.puts stderr if ENV['VERBOSE']
 
   assert_true(status.success?) if must_pass
+
+  stdout.split("\n")
 end
 
 def set_script_env key, value

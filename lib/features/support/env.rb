@@ -89,25 +89,15 @@ def encode_query_params hash
   URI.encode_www_form hash
 end
 
-def run_command(cmd, must_pass=true)
-  command_status = nil
-  command_out = Set.new
+def run_command(*cmd, must_pass: true)
   STDOUT.puts cmd if ENV['VERBOSE']
-  Open3.popen3(cmd) do |stdin, stdout, stderr, thread|
-    { :out => stdout, :err => stderr }.each do |key, stream|
-      Thread.new do
-        until (output = stream.gets).nil? do
-          command_out << output
-          STDOUT.puts output if ENV['VERBOSE']
-        end
-      end
-    end
+  stdout, stderr, status = Open3.capture3(*cmd)
+  STDOUT.puts stdout if ENV['VERBOSE']
+  STDOUT.puts stderr if ENV['VERBOSE']
 
-    thread.join
-    command_status = thread.value
-  end
-  assert_true(command_status.success?) if must_pass
-  command_out
+  assert_true(status.success?) if must_pass
+
+  stdout.split("\n")
 end
 
 def set_script_env key, value

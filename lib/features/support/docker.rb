@@ -71,8 +71,8 @@ def run_service_with_command(service, command, compose_file=$docker_compose_file
 end
 
 def run_docker_compose_command(file, command, must_pass=true)
-  environment = @script_env.inject('') {|curr,(k,v)| curr + "#{k}=#{v} "} unless @script_env.nil?
-  run_command("#{environment} docker-compose -f #{file} #{command}", must_pass)
+  command = "docker-compose -f #{file} #{command}"
+  run_command(@script_env || {}, command, must_pass: must_pass)
 end
 
 at_exit do

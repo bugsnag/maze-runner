@@ -21,6 +21,7 @@ DEV_NULL = Gem.win_platform? ? 'NUL' : '/dev/null'
 Before do
   stored_requests.clear
   find_default_docker_compose
+  clear_docker_services
   @script_env = {'MOCK_API_PORT' => "#{MOCK_API_PORT}"}
   @pids = []
   if @thread and not @thread.alive?
@@ -32,7 +33,10 @@ end
 After do |scenario|
   kill_script
 
-  write_failed_requests_to_disk(scenario) if scenario.failed?
+  if scenario.failed?
+    write_failed_requests_to_disk(scenario)
+    output_logs if defined? output_logs
+  end
 end
 
 def write_failed_requests_to_disk(scenario)

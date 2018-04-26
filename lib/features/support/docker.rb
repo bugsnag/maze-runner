@@ -2,6 +2,7 @@ require 'open3'
 
 $docker_stack ||= Set.new
 $docker_compose_file = nil
+$docker_services = Set.new
 
 DEFAULT_STACK_PATH = "features/fixtures/"
 DEFAULT_STACK_NAME = "docker-compose.{yml,yaml}"
@@ -22,6 +23,10 @@ def find_default_docker_compose
   end
 end
 
+def clear_docker_services
+  $docker_services = Set.new
+end
+
 def set_compose_file(filename)
   # This command should validate dockerfile early on
   run_docker_compose_command(filename, "config -q")
@@ -34,6 +39,10 @@ def build_service(service, compose_file=$docker_compose_file)
 end
 
 def start_service(service, compose_file=$docker_compose_file)
+  $docker_services << {
+    :file => compose_file,
+    :service => service
+  }
   run_docker_compose_command(compose_file, "up -d --build #{service}")
 end
 
@@ -55,6 +64,10 @@ def test_service_running(service, running=true, compose_file=$docker_compose_fil
 end
 
 def start_stack(compose_file=$docker_compose_file)
+  $docker_services << {
+    :file => compose_file,
+    :service => :all
+  }
   run_docker_compose_command(compose_file, "up -d --build")
 end
 
@@ -67,6 +80,10 @@ def run_command_on_service(command, service, compose_file=$docker_compose_file)
 end
 
 def run_service_with_command(service, command, compose_file=$docker_compose_file)
+  $docker_services << {
+    :file => compose_file,
+    :service => service
+  }
   run_docker_compose_command(compose_file, "run -d #{service} #{command}")
 end
 

@@ -219,6 +219,32 @@ bundle exec bugsnag-maze-runner features/something.feature
 Add the `--verbose` option to print script output and a trace of what Ruby file
 is being run.
 
+## Logging data on scenario failures
+
+In the event of a scenario failure there are additional ways of retrieving useful
+information.
+
+### Failed payloads
+
+When a scenario fails all received payloads will automatically be written to a
+`maze_output` folder found in the directory the tests were run from.
+
+Each file will be named with the format:
+`{scenario-name}-request{request-number}-{date}.log`
+
+Data written to each file will include:
+- `URI`: The URI target for the request
+- `HEADERS`: The headers included in the request
+- `BODY`: The body included in the request in JSON format
+
+### Outputting additional data
+
+In certain circumstances access to logs or additional information from the
+`--verbose` flag may not be available, such as when running the tests via CI.
+
+In these cases a method can be created in the project's local `env.rb` file called
+`output_logs`. This function will be called in the event of a scenario failure.
+
 ## Troubleshooting
 
 ### Known issues

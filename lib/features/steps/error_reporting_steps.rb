@@ -2,7 +2,9 @@ Then(/^the request is(?: a)? valid for the error reporting API$/) do
   steps %Q{
     Then the "Bugsnag-API-Key" header is not null
     And the "Content-Type" header equals "application/json"
-    And the "Bugsnag-Payload-Version" header equals "4.0"
+    And the "Bugsnag-Payload-Version" header equals one of:
+      | 4   |
+      | 4.0 |
     And the "Bugsnag-Sent-At" header is a timestamp
 
     And the payload field "notifier.name" is not null

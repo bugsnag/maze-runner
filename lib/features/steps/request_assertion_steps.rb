@@ -27,6 +27,10 @@ Then(/^the "(.+)" header equals "(.+)"(?: for request (\d+))?$/) do |header_name
   assert_equal(header_value, find_request(request_index)[:request][header_name])
 end
 
+Then(/^the "(.+)" header(?: for request (\d+))? equals one of:$/) do |header_name, request_index, header_values|
+  assert_includes(header_values.raw.flatten, find_request(request_index)[:request][header_name])
+end
+
 Then(/^the "(.+)" header is a timestamp(?: for request (\d+))?$/) do |header_name, request_index|
   header = find_request(request_index)[:request][header_name]
   assert_match(/^\d{4}\-\d{2}\-\d{2}T\d{2}:\d{2}:[\d\.]+Z?$/, header)

@@ -45,4 +45,5 @@ Gem::Specification.new do |spec|
 
   # Pinned due to issues with 5.0.16-5.0.17
   spec.add_dependency "cucumber-expressions", "5.0.15"
+  spec.add_dependency "rake", "~> 12.3.0"
 end

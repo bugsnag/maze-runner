@@ -2,12 +2,22 @@ require 'test/unit'
 require 'minitest'
 require 'open-uri'
 require 'json'
+require 'cgi'
 
 include Test::Unit::Assertions
+
+timestamp_regex = /^\d{4}\-\d{2}\-\d{2}T\d{2}:\d{2}:[\d\.]+Z?$/
 
 def find_request(request_index)
   request_index ||= 0
   return stored_requests[request_index]
+end
+
+# because WEBrick doesn't populate request.query for use in do_POST methods…
+# (only for methods HEAD, GET etc.)
+# http://blade.nagaokaut.ac.jp/cgi-bin/scat.rb/ruby/ruby-talk/281361
+def parse_querystring(request)
+  CGI.parse(request[:request].query_string)
 end
 
 Then(/^I should receive (\d+) requests?$/) do |request_count|
@@ -33,7 +43,20 @@ end
 
 Then(/^the "(.+)" header is a timestamp(?: for request (\d+))?$/) do |header_name, request_index|
   header = find_request(request_index)[:request][header_name]
-  assert_match(/^\d{4}\-\d{2}\-\d{2}T\d{2}:\d{2}:[\d\.]+Z?$/, header)
+  assert_match(timestamp_regex, header)
+end
+
+Then(/^the "(.+)" query parameter equals "(.+)"(?: for request (\d+))?$/) do |parameter_name, parameter_value, request_index|
+  assert_equal(parameter_value, parse_querystring(find_request(request_index))[parameter_name][0])
+end
+
+Then(/^the "(.+)" query parameter is not null(?: for request (\d+))?$/) do |parameter_name, request_index|
+  assert_not_nil(parse_querystring(find_request(request_index))[parameter_name][0], "The '#{parameter_name}' query parameter should not be null")
+end
+
+Then(/^the "(.+)" query parameter is a timestamp(?: for request (\d+))?$/) do |parameter_name, request_index|
+  param = parse_querystring(find_request(request_index))[parameter_name][0]
+  assert_match(timestamp_regex, param)
 end
 
 Then(/^the request (\d+) is valid for the Build API$/) do |request_index|

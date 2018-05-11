@@ -2,6 +2,8 @@ require 'rack'
 require 'open3'
 require 'webrick'
 require 'json'
+require 'test/unit'
+include Test::Unit::Assertions
 
 # This port number is semi-arbitrary. It doesn't matter for the sake of
 # the application what it is, but there are some constraints due to some

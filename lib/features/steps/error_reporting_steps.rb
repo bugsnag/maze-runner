@@ -86,3 +86,7 @@ Then(/^the "(.+)" of stack frame (\d+) ends with "(.+)"$/) do |key, num, value|
   field = "events.0.exceptions.0.stacktrace.#{num}.#{key}"
   step "the payload field \"#{field}\" ends with \"#{value}\""
 end
+Then(/^the "(.+)" of stack frame (\d+) is (true|false|null|not null)$/) do |key, num, literal|
+  field = "events.0.exceptions.0.stacktrace.#{num}.#{key}"
+  step "the payload field \"#{field}\" is #{literal}"
+end

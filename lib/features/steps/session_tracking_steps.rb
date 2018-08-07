@@ -41,6 +41,9 @@ end
 Then(/^the sessionCount "(.+)" equals "(.+)"$/) do |field, string_value|
   step "the payload field \"sessionCounts.0.#{field}\" equals \"#{string_value}\""
 end
+Then(/^the sessionCount "(.+)" equals (\d+)$/) do |field, int_value|
+  step "the payload field \"sessionCounts.0.#{field}\" equals #{int_value}"
+end
 Then(/^the sessionCount "(.+)" is not null$/) do |field|
   step "the payload field \"sessionCounts.0.#{field}\" is not null"
 end
@@ -51,4 +54,3 @@ Then(/^the sessionCount "(.+)" is a timestamp$/) do |field|
   timestamp_regex = /^\d{4}\-\d{2}\-\d{2}T\d{2}:\d{2}:[\d\.]+Z?$/
   step "the payload field \"sessionCounts.0.#{field}\" matches the regex \"#{timestamp_regex}\""
 end
-

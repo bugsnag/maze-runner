@@ -21,7 +21,7 @@ Then(/^the session "(.+)" is (true|false|null|not null)(?: for request (\d+))?$/
   step "the payload field \"sessions.0.#{field}\" is #{literal}#{optional_request_index(request_index)}"
 end
 Then(/^the session "(.+)" equals "(.+)"(?: for request (\d+))?$/) do |field, string_value, request_index|
-  step "the payload field \"sessions.0.#{field}\" equals \"#{string_value}\" for #{optional_request_index(request_index)}"
+  step "the payload field \"sessions.0.#{field}\" equals \"#{string_value}\"#{optional_request_index(request_index)}"
 end
 Then(/^the session "(.+)" is a timestamp(?: for request (\d+))?$/) do |field, request_index|
   timestamp_regex = /^\d{4}\-\d{2}\-\d{2}T\d{2}:\d{2}:[\d\.]+Z?$/

@@ -204,8 +204,12 @@ This request will match:
 { "fruit": { "apple": "some nonsense" } }
 ```
 
+# On dealing with multiple requests
 
-
+Most payload assertion steps have optional suffix of `for request n` where `n` is a
+zero-based index into chronologically ordered collection of requests received by the
+mock server. If you leave off this suffix, the default behaviour is to run the step
+against request `0`, i.e. the first (and perhaps only) request.
 
 ## Running features
 

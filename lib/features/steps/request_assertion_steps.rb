@@ -196,13 +196,21 @@ Then(/^each element in payload field "(.+)" has "(.+)"(?: for request (\d+))?$/)
   end
 end
 
-Then(/^the thread "(.+)" contains the error reporting flag?(?: for request (\d+))?$/) do |thread_id, request_index|
+Then(/^the thread with name "(.+)" contains the error reporting flag?(?: for request (\d+))?$/) do |thread_name, request_index|
+  validate_error_reporting_thread("name", thread_name, request_index)
+end
+
+Then(/^the thread with id "(.+)" contains the error reporting flag?(?: for request (\d+))?$/) do |thread_id, request_index|
+  validate_error_reporting_thread("id", thread_id, request_index)
+end
+
+def validate_error_reporting_thread(payload_key, payload_value, request_index)
   threads = read_key_path(find_request(request_index)[:body], "events.0.threads")
   assert_kind_of Array, threads
   count = 0
 
   threads.each do |thread|
-    if thread["name"] == thread_id && thread["errorReportingThread"] == true
+    if thread[payload_key] == payload_value && thread["errorReportingThread"] == true
       count += 1
     end
   end

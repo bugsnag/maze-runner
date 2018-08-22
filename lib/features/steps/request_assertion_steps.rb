@@ -210,7 +210,7 @@ def validate_error_reporting_thread(payload_key, payload_value, request_index)
   count = 0
 
   threads.each do |thread|
-    if thread[payload_key] == payload_value && thread["errorReportingThread"] == true
+    if thread[payload_key].to_s == payload_value && thread["errorReportingThread"] == true
       count += 1
     end
   end

@@ -11,4 +11,5 @@ if [ -z "$ANDROID_HOME" ]; then
 fi
 
 echo "Launching $ANDROID_EMULATOR emulator"
-$ANDROID_HOME/tools/emulator @$ANDROID_EMULATOR -no-boot-anim -noaudio -no-snapshot
+$ANDROID_HOME/emulator/emulator @$ANDROID_EMULATOR -no-boot-anim -noaudio -no-snapshot -no-window
+

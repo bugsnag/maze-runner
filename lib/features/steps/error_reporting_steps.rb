@@ -52,6 +52,31 @@ end
 Then(/^the event "(.+)" matches the JSON fixture in "(.+)"$/) do |field, fixture_path|
   step "the payload field \"events.0.#{field}\" matches the JSON fixture in \"#{fixture_path}\""
 end
+Then("the event has a {string} breadcrumb named {string}") do |type, name|
+  value = read_key_path(find_request(0)[:body], "events.0.breadcrumbs")
+  found = false
+  value.each do |crumb|
+    if crumb["type"] == type and crumb["name"] == name then
+      found = true
+    end
+  end
+  fail("No breadcrumb matched: #{value}") unless found
+end
+
+Then("the event has a {string} breadcrumb with message {string}") do |type, message|
+  value = read_key_path(find_request(0)[:body], "events.0.breadcrumbs")
+  found = false
+  value.each do |crumb|
+    if crumb["type"] == type and crumb["metaData"] and crumb["metaData"]["message"] == message then
+      found = true
+    end
+  end
+  fail("No breadcrumb matched: #{value}") unless found
+end
+
+Then(/^the event "([^"]+)" equals (\d+)$/) do |field, value|
+  step "the payload field \"events.0.#{field}\" equals #{value}"
+end
 
 Then(/^the exception "(.+)" starts with "(.+)"$/) do |field, string_value|
   step "the payload field \"events.0.exceptions.0.#{field}\" starts with \"#{string_value}\""

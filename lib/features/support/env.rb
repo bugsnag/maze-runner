@@ -91,6 +91,17 @@ def run_required_commands command_arrays
   end
 end
 
+def current_ip
+  if OS.mac?
+    'host.docker.internal'
+  else
+    ip_addr = `ifconfig | grep -Eo 'inet (addr:)?([0-9]*\\\.){3}[0-9]*' | grep -v '127.0.0.1'`
+    ip_list = /((?:[0-9]*\.){3}[0-9]*)/.match(ip_addr)
+    ip_list.captures.first
+  end
+end
+
+
 def encode_query_params hash
   URI.encode_www_form hash
 end

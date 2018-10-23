@@ -1,5 +1,6 @@
 require 'rack'
 require 'open3'
+require 'net/http'
 require 'webrick'
 require 'json'
 require 'test/unit'
@@ -101,6 +102,22 @@ def current_ip
   end
 end
 
+def wait_for_response(port)
+  max_attempts = ENV.include?('MAX_MAZE_CONNECT_ATTEMPTS')? ENV['MAX_MAZE_CONNECT_ATTEMPTS'].to_i : 10
+  attempts = 0
+  up = false
+  until (attempts >= max_attempts) || up
+    attempts += 1
+    begin
+      uri = URI("http://localhost:#{port}/")
+      response = Net::HTTP.get_response(uri)
+      up = (response.code == "200")
+    rescue EOFError
+    end
+    sleep 1
+  end
+  raise "App not ready in time!" unless up
+end
 
 def encode_query_params hash
   URI.encode_www_form hash

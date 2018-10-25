@@ -23,9 +23,8 @@ Then(/^the request contained the api key "(.*)"$/) do |api_key|
   }
 end
 Then(/^the request used the "(.*)" notifier$/) do |notifier_name|
-  bugsnag_regex = /^http(s?):\/\/www.bugsnag.com/
   steps %Q{
     Then the payload field "notifier.name" equals "#{notifier_name}"
-    And the payload field "notifier.url" matches the regex "#{bugsnag_regex}"
+    And the payload field "notifier.url" is not null
   }
 end

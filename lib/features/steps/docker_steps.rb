@@ -11,11 +11,15 @@ Given("I have built the service {string} from the stack {string}") do |service, 
 end
 
 When("I start the service {string}") do |service|
-  start_service service
+  start_service(service, true)
+end
+
+When("I start the service {string} without building") do |service|
+  start_service(service, false)
 end
 
 When("I start the service {string} from the stack {string}") do |service, filename|
-  start_service(service, filename)
+  start_service(service, true, filename)
 end
 
 When("I stop the service {string}") do |service|

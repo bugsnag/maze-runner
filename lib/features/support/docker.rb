@@ -38,12 +38,12 @@ def build_service(service, compose_file=$docker_compose_file)
   run_docker_compose_command(compose_file, "build #{service}")
 end
 
-def start_service(service, compose_file=$docker_compose_file)
+def start_service(service, build=true, compose_file=$docker_compose_file)
   $docker_services << {
     :file => compose_file,
     :service => service
   }
-  run_docker_compose_command(compose_file, "up -d --build #{service}")
+  run_docker_compose_command(compose_file, "up -d #{build ? "--build" : ""} #{service}")
 end
 
 def stop_service(service, compose_file=$docker_compose_file)

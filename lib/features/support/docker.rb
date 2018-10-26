@@ -102,5 +102,4 @@ end
 
 at_exit do
   $docker_stack.each { |filename| stop_stack(filename) }
-  $docker_services.each { |service| stop_service(service[:service], service[:file])}
 end

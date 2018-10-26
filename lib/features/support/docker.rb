@@ -3,6 +3,7 @@ require 'open3'
 $docker_stack ||= Set.new
 $docker_compose_file = nil
 $docker_services = Set.new
+$docker_built_services = Set.new
 
 DEFAULT_STACK_PATH = "features/fixtures/"
 DEFAULT_STACK_NAME = "docker-compose.{yml,yaml}"
@@ -35,7 +36,14 @@ def set_compose_file(filename)
 end
 
 def build_service(service, compose_file=$docker_compose_file)
-  run_docker_compose_command(compose_file, "build #{service}")
+  reference = {
+    :file => compose_file,
+    :service => service
+  }
+  unless docker_built_services.include?(reference)
+    docker_built_services << reference
+    run_docker_compose_command(compose_file, "build #{service}")
+  end
 end
 
 def start_service(service, build=true, compose_file=$docker_compose_file)
@@ -94,4 +102,5 @@ end
 
 at_exit do
   $docker_stack.each { |filename| stop_stack(filename) }
+  $docker_services.each { |service| stop_service(service[:service], service[:file])}
 end

@@ -40,8 +40,8 @@ def build_service(service, compose_file=$docker_compose_file)
     :file => compose_file,
     :service => service
   }
-  unless docker_built_services.include?(reference)
-    docker_built_services << reference
+  unless $docker_built_services.include?(reference)
+    $docker_built_services << reference
     run_docker_compose_command(compose_file, "build #{service}")
   end
 end

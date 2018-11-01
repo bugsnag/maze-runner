@@ -112,7 +112,7 @@ def wait_for_response(port)
       uri = URI("http://localhost:#{port}/")
       response = Net::HTTP.get_response(uri)
       up = (response.code == "200")
-    rescue EOFError
+    rescue EOFError, Errno::ECONNRESET
     end
     sleep 1
   end

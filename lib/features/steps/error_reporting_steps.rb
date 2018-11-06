@@ -1,7 +1,3 @@
-def get_request_index(request_index)
-  request_index ||= 0
-end
-
 Then(/^(?:the )?request (?:(\d+) )?is(?: a)? valid for the error reporting API$/) do |index|
   index = 0 if index.nil?
   steps %Q{
@@ -30,13 +26,15 @@ Then("the event {string} is false") do |field|
   step "the payload field \"events.0.#{field}\" is false"
 end
 Then(/^the event "(.+)" equals "(.+)"(?: for request (\d+))$/) do |field, string_value, request_index|
-  step "the payload field \"events.0.#{field}\" equals \"#{string_value}\" for request #{get_request_index(request_index)}"
+  request_index ||= 0
+  step "the payload field \"events.0.#{field}\" equals \"#{string_value}\" for request #{request_index}"
 end
 Then(/^the event "(.+)" is not null$/) do |field|
   step "the payload field \"events.0.#{field}\" is not null"
 end
 Then(/^the event "(.+)" is null(?: for request (\d+))$/) do |field, request_index|
-  step "the payload field \"events.0.#{field}\" is null for request #{get_request_index(request_index)}"
+  request_index ||= 0
+  step "the payload field \"events.0.#{field}\" is null for request #{request_index}"
 end
 Then(/^the event "(.+)" starts with "(.+)"$/) do |field, string_value|
   step "the payload field \"events.0.#{field}\" starts with \"#{string_value}\""

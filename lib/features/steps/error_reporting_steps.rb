@@ -58,7 +58,7 @@ Then(/^the event "(.+)" matches the JSON fixture in "(.+)"(?: for request (\d+))
   step "the payload field \"events.0.#{field}\" matches the JSON fixture in \"#{fixture_path}\" for request #{get_request_index(request_index)}"
 end
 Then(/^the event has a "(.+)" breadcrumb named "(.+)"(?: for request (\d+))?$/) do |type, name, request_index|
-  value = read_key_path(find_request(get_request_index(request_index)[:body], "events.0.breadcrumbs")
+  value = read_key_path(find_request(get_request_index(request_index))[:body], "events.0.breadcrumbs")
   found = false
   value.each do |crumb|
     if crumb["type"] == type and crumb["name"] == name then
@@ -69,7 +69,7 @@ Then(/^the event has a "(.+)" breadcrumb named "(.+)"(?: for request (\d+))?$/) 
 end
 
 Then(/^the event has a "(.+)" breadcrumb with message "(.+)"(?: for request (\d+))?$/) do |type, message, request_index|
-  value = read_key_path(get_request_index(request_index)[:body], "events.0.breadcrumbs")
+  value = read_key_path(find_request(get_request_index(request_index))[:body], "events.0.breadcrumbs")
   found = false
   value.each do |crumb|
     if crumb["type"] == type and crumb["metaData"] and crumb["metaData"]["message"] == message then

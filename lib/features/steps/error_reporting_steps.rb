@@ -83,40 +83,40 @@ Then(/^the event "([^"]+)" equals (\d+)(?: for request (\d+))?$/) do |field, val
   step "the payload field \"events.0.#{field}\" equals #{value} for request #{get_request_index(request_index)}"
 end
 
-Then(/^the exception "(.+)" starts with "(.+)"$/) do |field, string_value|
-  step "the payload field \"events.0.exceptions.0.#{field}\" starts with \"#{string_value}\""
+Then(/^the exception "(.+)" starts with "(.+)"(?: for request (\d+))?$/) do |field, string_value, request_index|
+  step "the payload field \"events.0.exceptions.0.#{field}\" starts with \"#{string_value}\" for request #{get_request_index(request_index)}"
 end
-Then(/^the exception "(.+)" ends with "(.+)"$/) do |field, string_value|
-  step "the payload field \"events.0.exceptions.0.#{field}\" ends with \"#{string_value}\""
+Then(/^the exception "(.+)" ends with "(.+)"(?: for request (\d+))?$/) do |field, string_value, request_index|
+  step "the payload field \"events.0.exceptions.0.#{field}\" ends with \"#{string_value}\" for request #{get_request_index(request_index)}"
 end
-Then(/^the exception "(.+)" equals "(.+)"$/) do |field, string_value|
-  step "the payload field \"events.0.exceptions.0.#{field}\" equals \"#{string_value}\""
+Then(/^the exception "(.+)" equals "(.+)"(?: for request (\d+))?$/) do |field, string_value, request_index|
+  step "the payload field \"events.0.exceptions.0.#{field}\" equals \"#{string_value}\" for request #{get_request_index(request_index)}"
 end
-Then(/^the exception "(.+)" matches "(.+)"$/) do |field, pattern|
-  step "the payload field \"events.0.exceptions.0.#{field}\" matches the regex \"#{pattern}\""
+Then(/^the exception "(.+)" matches "(.+)"(?: for request (\d+))?$/) do |field, pattern, request_index|
+  step "the payload field \"events.0.exceptions.0.#{field}\" matches the regex \"#{pattern}\" for request #{get_request_index(request_index)}"
 end
 
-Then(/^the "(.+)" of stack frame (\d+) equals (\d+)$/) do |key, num, value|
+Then(/^the "(.+)" of stack frame (\d+) equals (\d+)(?: for request (\d+))?$/) do |key, num, value, request_index|
   field = "events.0.exceptions.0.stacktrace.#{num}.#{key}"
-  step "the payload field \"#{field}\" equals #{value}"
+  step "the payload field \"#{field}\" equals #{value} for request #{get_request_index(request_index)}"
 end
-Then(/^the "(.+)" of stack frame (\d+) matches "(.+)"$/) do |key, pattern|
+Then(/^the "(.+)" of stack frame (\d+) matches "(.+)"(?: for request (\d+))?$/) do |key, pattern, request_index|
   field = "events.0.exceptions.0.stacktrace.#{num}.#{key}"
-  step "the payload field \"#{field}\" matches the regex \"#{pattern}\""
+  step "the payload field \"#{field}\" matches the regex \"#{pattern}\" for request #{get_request_index(request_index)}"
 end
-Then(/^the "(.+)" of stack frame (\d+) equals "(.+)"$/) do |key, num, value|
+Then(/^the "(.+)" of stack frame (\d+) equals "(.+)"(?: for request (\d+))?$/) do |key, num, value, request_index|
   field = "events.0.exceptions.0.stacktrace.#{num}.#{key}"
-  step "the payload field \"#{field}\" equals \"#{value}\""
+  step "the payload field \"#{field}\" equals \"#{value}\" for request #{get_request_index(request_index)}"
 end
-Then(/^the "(.+)" of stack frame (\d+) starts with "(.+)"$/) do |key, num, value|
+Then(/^the "(.+)" of stack frame (\d+) starts with "(.+)"(?: for request (\d+))?$/) do |key, num, value, request_index|
   field = "events.0.exceptions.0.stacktrace.#{num}.#{key}"
-  step "the payload field \"#{field}\" starts with \"#{value}\""
+  step "the payload field \"#{field}\" starts with \"#{value}\" for request #{get_request_index(request_index)}"
 end
-Then(/^the "(.+)" of stack frame (\d+) ends with "(.+)"$/) do |key, num, value|
+Then(/^the "(.+)" of stack frame (\d+) ends with "(.+)"(?: for request (\d+))?$/) do |key, num, value, request_index|
   field = "events.0.exceptions.0.stacktrace.#{num}.#{key}"
-  step "the payload field \"#{field}\" ends with \"#{value}\""
+  step "the payload field \"#{field}\" ends with \"#{value}\" for request #{get_request_index(request_index)}"
 end
-Then(/^the "(.+)" of stack frame (\d+) is (true|false|null|not null)$/) do |key, num, literal|
+Then(/^the "(.+)" of stack frame (\d+) is (true|false|null|not null)(?: for request (\d+))?$/) do |key, num, literal, request_index|
   field = "events.0.exceptions.0.stacktrace.#{num}.#{key}"
-  step "the payload field \"#{field}\" is #{literal}"
+  step "the payload field \"#{field}\" is #{literal} for request #{get_request_index(request_index)}"
 end

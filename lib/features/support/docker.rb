@@ -92,6 +92,32 @@ def run_docker_compose_command(file, command, must_pass=true)
   run_command(@script_env || {}, command, must_pass: must_pass)
 end
 
+
+def port_open?(ip, port, seconds=1)
+  Timeout::timeout(seconds) do
+    begin
+      TCPSocket.new(ip, port).close
+      true
+    rescue Errno::ECONNREFUSED, Errno::EHOSTUNREACH
+      false
+    end
+  end
+rescue Timeout::Error
+  false
+end
+
+def wait_for_port(port)
+  max_attempts = 10
+  attempts = 0
+  up = false
+  until (attempts >= max_attempts) || up
+    attempts += 1
+    up = port_open?("localhost", port)
+    sleep 1
+  end
+  raise "Port not ready in time!" unless up
+end
+
 at_exit do
   $docker_stack.each { |filename| stop_stack(filename) }
 end

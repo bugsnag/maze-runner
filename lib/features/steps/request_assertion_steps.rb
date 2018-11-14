@@ -216,3 +216,22 @@ def validate_error_reporting_thread(payload_key, payload_value, request_index)
   end
   assert_equal(1, count)
 end
+
+Then(/^I wait to receive a request$/) do
+  step "I wait to receive 1 request"
+end
+
+Then(/^I wait to receive (\d+) requests?$/) do |request_count|
+  max_attempts = 50
+  attempts = 0
+  received = false
+  until (attempts >= max_attempts) || received
+    attempts += 1
+    received = (stored_requests.size == request_count)
+    sleep 0.2
+  end
+  raise "Requests not received in 10s (received #{stored_requests.size})" unless received
+  # Wait an extra second to ensure there are no further requests
+  sleep 1
+  assert_equal(request_count, stored_requests.size, "#{stored_requests.size} requests received")
+end

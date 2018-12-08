@@ -1,8 +1,8 @@
-FROM ruby:2.5-alpine as test
+FROM ruby:2.5-alpine as ci
 
 WORKDIR /app/
 COPY . ./
 RUN bundle install
 
-FROM test as cli
+FROM ci as cli
 ENTRYPOINT ["bundle", "exec", "maze-runner"]

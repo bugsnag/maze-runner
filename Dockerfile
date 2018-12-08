@@ -1,4 +1,4 @@
-FROM ruby:2.5-alpine as ci
+FROM ruby:2.5-alpine as test
 
 WORKDIR /app/
 COPY . ./

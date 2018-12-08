@@ -1,0 +1,11 @@
+version: '3.4'
+services:
+  ci:
+    build:
+      context: .
+      target: ci
+
+  cli:
+    build:
+      context: .
+      target: cli

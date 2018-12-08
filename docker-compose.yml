@@ -1,0 +1,11 @@
+version: '3.7'
+services:
+  ci:
+    build:
+      context: .
+      dockerfile: Dockerfile.ci
+
+  cli:
+    build:
+      context: .
+      dockerfile: Dockerfile.cli

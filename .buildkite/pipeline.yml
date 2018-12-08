@@ -20,11 +20,12 @@ steps:
 
   - wait
 
-  plugins:
-    - docker-compose#v2.5.1:
-        build: cli
-        cache-from: cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BUILDKITE_BRANCH:-[latest]}
-    - docker-compose#v2.5.1:
-        push:
-          - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:latest
-          - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BUILDKITE_BRANCH}
+  - label: 'Release'
+    plugins:
+      - docker-compose#v2.5.1:
+          build: cli
+          cache-from: cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BUILDKITE_BRANCH:-[latest]}
+      - docker-compose#v2.5.1:
+          push:
+            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:latest
+            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BUILDKITE_BRANCH}

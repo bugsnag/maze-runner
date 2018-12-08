@@ -3,7 +3,7 @@ FROM ruby:2.5-alpine as ci
 RUN apk update && apk add docker
 
 WORKDIR /app/
-COPY Gemfile* ./
+COPY Gemfile* *.gemspec ./
 RUN bundle install
 
 COPY . ./

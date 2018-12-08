@@ -3,9 +3,9 @@ services:
   ci:
     build:
       context: .
-      dockerfile: Dockerfile.ci
+      target: ci
 
   cli:
     build:
       context: .
-      dockerfile: Dockerfile.cli
+      target: cli

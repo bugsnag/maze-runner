@@ -5,7 +5,7 @@ When(/^I configure the bugsnag endpoint$/) do
 end
 When(/^I navigate to the route "(.*)" on port "(\d*)"/) do |route, port|
   steps %Q{
-    When I open the URL "http://localhost:#{port}#{route}"
+    When I open the URL "http://#{current_ip}:#{port}#{route}"
     And I wait for 1 second
   }
 end

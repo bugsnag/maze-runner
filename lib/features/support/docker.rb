@@ -107,7 +107,7 @@ rescue Timeout::Error
 end
 
 def wait_for_port(port)
-  max_attempts = 10
+  max_attempts = 30
   attempts = 0
   up = false
   until (attempts >= max_attempts) || up

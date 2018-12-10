@@ -110,7 +110,7 @@ def wait_for_response(port)
   until (attempts >= max_attempts) || up
     attempts += 1
     begin
-      uri = URI("http://#{current_ip}:#{port}/")
+      uri = URI("http://connect:#{port}/")
       response = Net::HTTP.get_response(uri)
       up = (response.code == "200")
     rescue EOFError, Errno::ECONNRESET

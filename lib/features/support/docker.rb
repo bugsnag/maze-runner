@@ -113,7 +113,7 @@ def wait_for_port(port)
   until (attempts >= max_attempts) || up
     attempts += 1
     up = port_open?(current_ip, port)
-    sleep 1
+    sleep 1 unless up
   end
   raise "Port not ready in time!" unless up
 end

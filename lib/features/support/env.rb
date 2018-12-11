@@ -114,9 +114,9 @@ def wait_for_response(port, host = current_ip)
       uri = URI("http://#{host}:#{port}/")
       response = Net::HTTP.get_response(uri)
       up = (response.code == "200")
-    rescue EOFError, Errno::ECONNRESET
+    rescue EOFError, Errno::ECONNRESET, Errno::ECONNREFUSED, Errno::EHOSTUNREACH
     end
-    sleep 1
+    sleep 1 unless up
   end
   raise "App not ready in time!" unless up
 end

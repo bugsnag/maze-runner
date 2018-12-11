@@ -21,6 +21,7 @@ MOCK_API_PORT = 9339
 SCRIPT_PATH = File.expand_path(File.join(File.dirname(__FILE__), "..", "scripts"))
 FAILED_SCENARIO_OUTPUT_PATH = File.join(Dir.pwd, 'maze_output')
 DEV_NULL = Gem.win_platform? ? 'NUL' : '/dev/null'
+MAX_MAZE_CONNECT_ATTEMPTS = ENV.include?('MAX_MAZE_CONNECT_ATTEMPTS')? ENV['MAX_MAZE_CONNECT_ATTEMPTS'].to_i : 30
 
 Before do
   stored_requests.clear
@@ -104,7 +105,7 @@ def current_ip
 end
 
 def wait_for_response(port, host = current_ip)
-  max_attempts = ENV.include?('MAX_MAZE_CONNECT_ATTEMPTS')? ENV['MAX_MAZE_CONNECT_ATTEMPTS'].to_i : 10
+  max_attempts = MAX_MAZE_CONNECT_ATTEMPTS
   attempts = 0
   up = false
   until (attempts >= max_attempts) || up
@@ -118,6 +119,31 @@ def wait_for_response(port, host = current_ip)
     sleep 1
   end
   raise "App not ready in time!" unless up
+end
+
+def port_open?(ip, port, seconds=1)
+  Timeout::timeout(seconds) do
+    begin
+      TCPSocket.new(ip, port).close
+      true
+    rescue Errno::ECONNREFUSED, Errno::EHOSTUNREACH
+      false
+    end
+  end
+rescue Timeout::Error
+  false
+end
+
+def wait_for_port(port, host = current_ip)
+  max_attempts = MAX_MAZE_CONNECT_ATTEMPTS
+  attempts = 0
+  up = false
+  until (attempts >= max_attempts) || up
+    attempts += 1
+    up = port_open?(host, port)
+    sleep 1 unless up
+  end
+  raise "Port not ready in time!" unless up
 end
 
 def encode_query_params hash

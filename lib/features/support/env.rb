@@ -24,6 +24,7 @@ DEV_NULL = Gem.win_platform? ? 'NUL' : '/dev/null'
 MAX_MAZE_CONNECT_ATTEMPTS = ENV.include?('MAX_MAZE_CONNECT_ATTEMPTS')? ENV['MAX_MAZE_CONNECT_ATTEMPTS'].to_i : 30
 
 Before do
+  puts "In before block"
   stored_requests.clear
   find_default_docker_compose
   clear_docker_services
@@ -36,6 +37,7 @@ Before do
 end
 
 After do |scenario|
+  puts "In after block"
   kill_script
 
   if scenario.failed?

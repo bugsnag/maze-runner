@@ -24,7 +24,7 @@ DEV_NULL = Gem.win_platform? ? 'NUL' : '/dev/null'
 MAX_MAZE_CONNECT_ATTEMPTS = ENV.include?('MAX_MAZE_CONNECT_ATTEMPTS')? ENV['MAX_MAZE_CONNECT_ATTEMPTS'].to_i : 30
 
 Before do
-  puts "In before block"
+  puts "In before block #{Time.now.iso8601}."
   stored_requests.clear
   find_default_docker_compose
   clear_docker_services
@@ -34,16 +34,18 @@ Before do
     puts "Mock server is not running on #{MOCK_API_PORT}"
     exit(1)
   end
+  puts "End before block #{Time.now.iso8601}."
 end
 
 After do |scenario|
-  puts "In after block"
+  puts "In after block #{Time.now.iso8601}."
   kill_script
 
   if scenario.failed?
     write_failed_requests_to_disk(scenario)
     output_logs if defined? output_logs
   end
+  puts "End after block #{Time.now.iso8601}."
 end
 
 def write_failed_requests_to_disk(scenario)

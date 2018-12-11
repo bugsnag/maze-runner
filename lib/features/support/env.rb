@@ -103,14 +103,14 @@ def current_ip
   end
 end
 
-def wait_for_response(port)
+def wait_for_response(port, host = current_ip)
   max_attempts = ENV.include?('MAX_MAZE_CONNECT_ATTEMPTS')? ENV['MAX_MAZE_CONNECT_ATTEMPTS'].to_i : 10
   attempts = 0
   up = false
   until (attempts >= max_attempts) || up
     attempts += 1
     begin
-      uri = URI("http://connect:#{port}/")
+      uri = URI("http://#{host}:#{port}/")
       response = Net::HTTP.get_response(uri)
       up = (response.code == "200")
     rescue EOFError, Errno::ECONNRESET

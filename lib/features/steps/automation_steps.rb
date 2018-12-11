@@ -40,6 +40,12 @@ end
 When(/^I wait for the app to respond on port "(.*)"$/) do |port|
   wait_for_response(port)
 end
+When(/^I wait for the host "(.*)" to respond on port "(.*)"$/) do |host, port|
+  wait_for_response(port, host)
+end
 When(/^I wait for the app to open port "(.*)"$/) do |port|
   wait_for_port(port)
+end
+When(/^I wait for the host "(.*)" to open port "(.*)"$/) do |host, port|
+  wait_for_port(port, host)
 end

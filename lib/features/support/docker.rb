@@ -106,13 +106,13 @@ rescue Timeout::Error
   false
 end
 
-def wait_for_port(port)
+def wait_for_port(port, host = current_ip)
   max_attempts = 30
   attempts = 0
   up = false
   until (attempts >= max_attempts) || up
     attempts += 1
-    up = port_open?(current_ip, port)
+    up = port_open?(host, port)
     sleep 1 unless up
   end
   raise "Port not ready in time!" unless up

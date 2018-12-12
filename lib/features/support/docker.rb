@@ -72,7 +72,7 @@ def start_stack(compose_file=$docker_compose_file)
 end
 
 def stop_stack(compose_file=$docker_compose_file)
-  run_docker_compose_command(compose_file, "down", false)
+  run_docker_compose_command(compose_file, "stop", false)
 end
 
 def run_command_on_service(command, service, compose_file=$docker_compose_file)

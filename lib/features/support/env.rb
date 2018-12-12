@@ -23,31 +23,6 @@ FAILED_SCENARIO_OUTPUT_PATH = File.join(Dir.pwd, 'maze_output')
 DEV_NULL = Gem.win_platform? ? 'NUL' : '/dev/null'
 MAX_MAZE_CONNECT_ATTEMPTS = ENV.include?('MAX_MAZE_CONNECT_ATTEMPTS')? ENV['MAX_MAZE_CONNECT_ATTEMPTS'].to_i : 30
 
-Before do
-  puts "In before block #{Time.now.iso8601}."
-  stored_requests.clear
-  find_default_docker_compose
-  clear_docker_services
-  @script_env = {'MOCK_API_PORT' => "#{MOCK_API_PORT}"}
-  @pids = []
-  if @thread and not @thread.alive?
-    puts "Mock server is not running on #{MOCK_API_PORT}"
-    exit(1)
-  end
-  puts "End before block #{Time.now.iso8601}."
-end
-
-After do |scenario|
-  puts "In after block #{Time.now.iso8601}."
-  kill_script
-
-  if scenario.failed?
-    write_failed_requests_to_disk(scenario)
-    output_logs if defined? output_logs
-  end
-  puts "End after block #{Time.now.iso8601}."
-end
-
 def write_failed_requests_to_disk(scenario)
   Dir.mkdir(FAILED_SCENARIO_OUTPUT_PATH) unless Dir.exists? FAILED_SCENARIO_OUTPUT_PATH
   Dir.chdir(FAILED_SCENARIO_OUTPUT_PATH) do
@@ -275,8 +250,34 @@ def stop_server
   @thread = nil
 end
 
+# Before any test
 start_server
+find_default_docker_compose
 
+# After all tests
 at_exit do
   stop_server
+end
+
+# Before each test
+Before do
+  stored_requests.clear
+  clear_docker_services
+  @script_env = {'MOCK_API_PORT' => "#{MOCK_API_PORT}"}
+  @pids = []
+  if @thread and not @thread.alive?
+    puts "Mock server is not running on #{MOCK_API_PORT}"
+    exit(1)
+  end
+end
+
+# After each test
+After do |scenario|
+  kill_script
+
+
+  if scenario.failed?
+    write_failed_requests_to_disk(scenario)
+    output_logs if defined? output_logs
+  end
 end

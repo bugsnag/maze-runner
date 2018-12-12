@@ -5,7 +5,6 @@ require 'webrick'
 require 'json'
 require 'test/unit'
 require 'os'
-require_relative 'docker'
 include Test::Unit::Assertions
 
 # This port number is semi-arbitrary. It doesn't matter for the sake of
@@ -253,7 +252,6 @@ end
 
 # Before any test
 start_server
-find_default_docker_compose
 
 # After all tests
 at_exit do

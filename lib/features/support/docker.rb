@@ -92,6 +92,10 @@ def run_docker_compose_command(file, command, must_pass=true)
   run_command(@script_env || {}, command, must_pass: must_pass)
 end
 
+# Before all tests
+find_default_docker_compose
+
+# After all tests
 at_exit do
   $docker_stack.each { |filename| stop_stack(filename) }
 end

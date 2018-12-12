@@ -5,6 +5,7 @@ require 'webrick'
 require 'json'
 require 'test/unit'
 require 'os'
+require_relative 'docker'
 include Test::Unit::Assertions
 
 # This port number is semi-arbitrary. It doesn't matter for the sake of

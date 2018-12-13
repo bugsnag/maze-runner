@@ -205,6 +205,10 @@ end
 
 
 class Servlet < WEBrick::HTTPServlet::AbstractServlet
+  def do_GET request, response
+    puts "REQUEST RECEIVED"
+  end
+
   def do_POST request, response
     case request['Content-Type']
     when /^multipart\/form-data; boundary=([^;]+)/

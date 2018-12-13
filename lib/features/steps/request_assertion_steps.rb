@@ -21,6 +21,19 @@ def parse_querystring(request)
 end
 
 Then(/^I should receive (\d+) requests?$/) do |request_count|
+  if request_count != 0 && stored_requests.size == 0
+    if port_open?('maze-runner', 9339)
+      puts "PORT IS OPEN"
+    else
+      puts "PORT IS CLOSED"
+    end
+
+    if wait_for_response(9339, 'maze-runner')
+      puts "RESPONSE GOT"
+    else
+      puts "NO RESPONSE"
+    end
+  end
   assert_equal(request_count, stored_requests.size, "#{stored_requests.size} requests received")
 end
 Then(/^I should receive a request$/) do

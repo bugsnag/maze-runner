@@ -17,7 +17,7 @@ def find_default_docker_compose
       output = run_docker_compose_command(file, "config -q", false)
       if output.size == 0
         full_file = DEFAULT_STACK_PATH + file
-        $docker_compose_file = full_file
+        set_compose_file(full_file)
       end
     end
   end
@@ -28,8 +28,6 @@ def clear_docker_services
 end
 
 def set_compose_file(filename)
-  # This command should validate dockerfile early on
-  run_docker_compose_command(filename, "config -q")
   $docker_stack << filename
   $docker_compose_file = filename
 end

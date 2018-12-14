@@ -16,6 +16,8 @@ RUN apk update && apk add --no-cache openssl ca-certificates curl libgcc && \
 COPY --from=compose /usr/local/bin/docker /usr/local/bin/docker-compose /usr/local/bin/
 
 WORKDIR /app/
+
+# We dont copy the gemfile in because this builds a gem so it needs the source
 COPY . ./
 RUN bundle install
 

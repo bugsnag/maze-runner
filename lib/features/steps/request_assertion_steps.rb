@@ -170,6 +170,18 @@ Then(/^the payload field "(.+)" is a parsable timestamp in seconds(?: for reques
   assert_not_nil(parsed_time)
 end
 
+Then("the payload field {string} of request {int} equals the payload field {string} of request {int}") do |field1, request_index1, field2, request_index2|
+  value1 = read_key_path(find_request(request_index1)[:body], field1)
+  value2 = read_key_path(find_request(request_index2)[:body], field2)
+  assert_equal(value1, value2)
+end
+
+Then("the payload field {string} of request {int} does not equal the payload field {string} of request {int}") do |field1, request_index1, field2, request_index2|
+  value1 = read_key_path(find_request(request_index1)[:body], field1)
+  value2 = read_key_path(find_request(request_index2)[:body], field2)
+  assert_not_equal(value1, value2)
+end
+
 Then(/^the payload has a valid sessions array(?: for request (\d+))?$/) do |request_index|
   body = find_request(request_index)[:body]
   if sessions = read_key_path(body, "sessions")

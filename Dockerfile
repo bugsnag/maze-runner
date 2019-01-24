@@ -1,7 +1,7 @@
 FROM docker/compose:1.23.2 as compose
 FROM ruby:2.5-alpine as ci
 
-ENV GLIBC 2.28-r0
+ENV GLIBC_VERSION 2.28-r0
 
 RUN apk add --no-cache openssl ca-certificates curl-dev libgcc build-base
 

@@ -11,7 +11,6 @@ require 'json'
 #   [ from https://stackoverflow.com/a/28678652 ]
 #
 MOCK_API_PORT = 9339
-DEV_NULL = Gem.win_platform? ? 'NUL' : '/dev/null'
 
 class Servlet < WEBrick::HTTPServlet::AbstractServlet
   def do_GET(request, response)

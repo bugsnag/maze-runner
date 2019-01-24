@@ -1,48 +1,55 @@
-def optional_request_index (request_index)
-  request_index.nil? ? "" : " for request #{request_index}"
-end
-
-Then(/^(?:the )?request(?: (\d+))? is(?: a)? valid for the session tracking API$/) do |request_index|
+Then("the request is valid for the session reporting API version {string} for the {string} notifier") do |payload_version, notifier_name|
   steps %Q{
-    Then the "Bugsnag-API-Key" header is not null#{optional_request_index(request_index)}
-    And the "Content-Type" header equals "application/json"#{optional_request_index(request_index)}
-    And the "Bugsnag-Payload-Version" header equals "1.0"#{optional_request_index(request_index)}
-    And the "Bugsnag-Sent-At" header is a timestamp#{optional_request_index(request_index)}
+    Then the "bugsnag-api-key" header equals "#{$api_key}"
+    And the "bugsnag-payload-version" header equals "#{payload_version}"
+    And the "Content-Type" header equals "application/json"
+    And the "Bugsnag-Sent-At" header is a timestamp
 
-    And the payload field "app" is not null#{optional_request_index(request_index)}
-    And the payload field "device" is not null#{optional_request_index(request_index)}
-    And the payload field "notifier.name" is not null#{optional_request_index(request_index)}
-    And the payload field "notifier.url" is not null#{optional_request_index(request_index)}
-    And the payload field "notifier.version" is not null#{optional_request_index(request_index)}
-    And the payload has a valid sessions array#{optional_request_index(request_index)}
+    And the payload field "notifier.name" equals "#{notifier_name}"
+    And the payload field "notifier.url" is not null
+    And the payload field "notifier.version" is not null
+
+    And the payload field "app" is not null
+    And the payload field "device" is not null
   }
 end
-Then(/^the session "(.+)" is (true|false|null|not null)(?: for request (\d+))?$/) do |field, literal, request_index|
-  step "the payload field \"sessions.0.#{field}\" is #{literal}#{optional_request_index(request_index)}"
+
+## SESSION FIELD ASSERTIONS
+Then(/^the session "(.+)" is (true|false|null|not null)$/) do |field, literal|
+  step "the payload field \"sessions.0.#{field}\" is #{literal}"
 end
-Then(/^the session "(.+)" equals "(.+)"(?: for request (\d+))?$/) do |field, string_value, request_index|
-  step "the payload field \"sessions.0.#{field}\" equals \"#{string_value}\"#{optional_request_index(request_index)}"
+Then("the session {string} equals {string}") do |field, string_value|
+  step "the payload field \"sessions.0.#{field}\" equals \"#{string_value}\""
 end
-Then(/^the session "(.+)" is a timestamp(?: for request (\d+))?$/) do |field, request_index|
-  timestamp_regex = /^\d{4}\-\d{2}\-\d{2}T\d{2}:\d{2}:[\d\.]+Z?$/
-  step "the payload field \"sessions.0.#{field}\" matches the regex \"#{timestamp_regex}\"#{optional_request_index(request_index)}"
+Then("the session {string} is a timestamp") do |field|
+  step "the payload field \"sessions.0.#{field}\" matches the regex \"#{TIMESTAMP_REGEX}\""
 end
-Then(/^the sessionCount "(.+)" is (true|false|null|not null)$/) do |field, literal, request_index|
-  step "the payload field \"sessionCounts.0.#{field}\" is false#{optional_request_index(request_index)}"
+
+## SESSION COUNT ASSERTIONS
+Then(/^the sessionCount "(.+)" is (true|false|null|not null)$/) do |field, literal|
+  step "the payload field \"sessionCounts.0.#{field}\" is #{literal}"
 end
-Then(/^the sessionCount "(.+)" equals "(.+)"(?: for request (\d+))?$/) do |field, string_value, request_index|
-  step "the payload field \"sessionCounts.0.#{field}\" equals \"#{string_value}\"#{optional_request_index(request_index)}"
+Then("the sessionCount {string} equals {string}") do |field, string_value|
+  step "the payload field \"sessionCounts.0.#{field}\" equals \"#{string_value}\""
 end
-Then(/^the sessionCount "(.+)" equals (\d+)(?: for request (\d+))?$/) do |field, int_value, request_index|
-  step "the payload field \"sessionCounts.0.#{field}\" equals #{int_value}#{optional_request_index(request_index)}"
+Then("the sessionCount {string} equals {int}") do |field, int_value|
+  step "the payload field \"sessionCounts.0.#{field}\" equals #{int_value}"
 end
-Then(/^the sessionCount "(.+)" is not null(?: for request (\d+))?$/) do |field, request_index|
-  step "the payload field \"sessionCounts.0.#{field}\" is not null#{optional_request_index(request_index)}"
+Then("the sessionCount {string} is a timestamp") do |field|
+  step "the payload field \"sessionCounts.0.#{field}\" matches the regex \"#{TIMESTAMP_REGEX}\""
 end
-Then(/^the sessionCount "(.+)" is null(?: for request (\d+))?$/) do |field, request_index|
-  step "the payload field \"sessionCounts.0.#{field}\" is null#{optional_request_index(request_index)}"
-end
-Then(/^the sessionCount "(.+)" is a timestamp(?: for request (\d+))?$/) do |field, request_index|
-  timestamp_regex = /^\d{4}\-\d{2}\-\d{2}T\d{2}:\d{2}:[\d\.]+Z?$/
-  step "the payload field \"sessionCounts.0.#{field}\" matches the regex \"#{timestamp_regex}\"#{optional_request_index(request_index)}"
+
+## SESSION ARRAY ASSERTIONS
+Then("the payload has a valid sessions array") do
+  if sessions = Server.current_request[:body]["sessions"]
+    steps %Q{
+      Then the session "id" is not null
+      And the session "startedAt" is a timestamp
+    }
+  else
+    steps %Q{
+      Then the sessionCount "sessionsStarted" is not null
+      And the sessionCount "startedAt" is a timestamp
+    }
+  end
 end

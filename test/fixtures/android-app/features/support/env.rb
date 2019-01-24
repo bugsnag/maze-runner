@@ -1,5 +1,3 @@
 # Configure app environment
 
-run_required_commands([
-  ["./gradlew", "app:assembleRelease"],
-])
+run_command "./gradlew app:assembleRelease"

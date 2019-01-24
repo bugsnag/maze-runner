@@ -1,7 +1,7 @@
 DEMO_APP_PORT = 8090
 
 When("I start a Sinatra app") do
-  set_script_env "DEMO_APP_PORT", "#{DEMO_APP_PORT}"
+  Runner.environment["DEMO_APP_PORT"] = DEMO_APP_PORT
   steps %Q{
     When I run the script "features/fixtures/run_sinatra_app.sh"
     And I wait for 8 seconds

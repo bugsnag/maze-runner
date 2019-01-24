@@ -6,15 +6,12 @@ When("I start Android emulator {string}") do |emulator|
     And I run the script "await-android-emulator.sh" synchronously
   }
 end
-
-When("I clear the {string} Android app data") do |app|
+When("I clear the Android app data") do
   step('I run the script "clear-android-app-data.sh" synchronously')
 end
-
-When("I force stop the {string} Android app") do |app|
+When("I force stop the Android app") do
   step('I run the script "force-stop-android-app.sh" synchronously')
 end
-
 When("I install the {string} Android app from {string}") do |bundle, filepath|
   steps %Q{
     When I set environment variable "APP_BUNDLE" to "#{bundle}"
@@ -22,7 +19,6 @@ When("I install the {string} Android app from {string}") do |bundle, filepath|
     And I run the script "install-android-app.sh" synchronously
   }
 end
-
 When("I start the {string} Android app using the {string} activity") do |app, activity|
   steps %Q{
     When I set environment variable "APP_BUNDLE" to "#{app}"

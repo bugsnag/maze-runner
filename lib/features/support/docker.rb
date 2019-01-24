@@ -1,99 +1,57 @@
-require 'open3'
+require_relative 'runner'
 
-$docker_stack ||= Set.new
-$docker_compose_file = nil
-$docker_services = Set.new
+class Docker
+  class << self
+    COMPOSE_FILENAME = 'features/fixtures/docker-compose.yml'
 
-DEFAULT_STACK_PATH = "features/fixtures/"
-DEFAULT_STACK_NAME = "docker-compose.{yml,yaml}"
-
-def find_default_docker_compose
-  if Dir.exist? DEFAULT_STACK_PATH
-    Dir.chdir DEFAULT_STACK_PATH do
-      file = Dir.glob(DEFAULT_STACK_NAME).first
-      return if file.nil?
-
-      # Check for errors in the compose file
-      output = run_docker_compose_command(file, "config -q", false)
-      if output.size == 0
-        full_file = DEFAULT_STACK_PATH + file
-        set_compose_file(full_file)
+    def start_service(service, command: nil)
+      if command
+        # We build the service before running it as there is no --build
+        # option for run.
+        run_docker_compose_command("build #{service}")
+        run_docker_compose_command("run -d --use-aliases #{service} #{command}")
+      else
+        run_docker_compose_command("up -d --build #{service}")
       end
+    end
+
+    def down_service(service)
+      # We set timeout to 0 so this kills the services rather than stopping them
+      # as its quicker and they are stateless anyway.
+      run_docker_compose_command("down -t 0 #{service}")
+    end
+
+    def down_all_services
+      # This will fail to remove the network that maze is connected to
+      # as it is still in use, that is ok to ignore so we pass success codes!
+      # We set timeout to 0 so this kills the services rather than stopping them
+      # as its quicker and they are stateless anyway.
+      run_docker_compose_command("down -t 0", success_codes: [0,256]) if compose_stack_exists?
+    end
+
+    private
+    def run_docker_compose_command(command, compose_file:COMPOSE_FILENAME, success_codes:nil)
+      command = "docker-compose -f #{compose_file} #{command}"
+      Runner.run_command(command, success_codes: success_codes)
+    end
+
+    def compose_stack_exists?
+      File.exist? COMPOSE_FILENAME
     end
   end
 end
 
-def clear_docker_services
-  $docker_services = Set.new
+After do |scenario|
+  # This is here to stop sessions from one test hitting another.
+  # However this does mean that tests take longer.
+  # TODO:SM We could try and fix this by generating unique endpoints
+  # for each test.
+  Docker.down_all_services
 end
 
-def set_compose_file(filename)
-  $docker_stack << filename
-  $docker_compose_file = filename
-end
-
-def build_service(service, compose_file=$docker_compose_file)
-  run_docker_compose_command(compose_file, "build #{service}")
-end
-
-def start_service(service, compose_file=$docker_compose_file)
-  $docker_services << {
-    :file => compose_file,
-    :service => service
-  }
-  run_docker_compose_command(compose_file, "up -d --build #{service}")
-end
-
-def stop_service(service, compose_file=$docker_compose_file)
-  run_docker_compose_command(compose_file, "rm -fs #{service}")
-end
-
-def kill_service(service, compose_file=$docker_compose_file)
-  run_docker_compose_command(compose_file, "kill #{service}")
-end
-
-def test_service_running(service, running=true, compose_file=$docker_compose_file)
-  result = run_docker_compose_command(compose_file, "ps -q #{service}")
-  if running
-    assert_equal(1, result.size)
-  else
-    assert_equal(0, result.size)
-  end
-end
-
-def start_stack(compose_file=$docker_compose_file)
-  $docker_services << {
-    :file => compose_file,
-    :service => :all
-  }
-  run_docker_compose_command(compose_file, "up -d --build")
-end
-
-def stop_stack(compose_file=$docker_compose_file)
-  run_docker_compose_command(compose_file, "stop", false)
-end
-
-def run_command_on_service(command, service, compose_file=$docker_compose_file)
-  run_docker_compose_command(compose_file, "exec -T #{service} #{command}")
-end
-
-def run_service_with_command(service, command, compose_file=$docker_compose_file)
-  $docker_services << {
-    :file => compose_file,
-    :service => service
-  }
-  run_docker_compose_command(compose_file, "run -d #{service} #{command}")
-end
-
-def run_docker_compose_command(file, command, must_pass=true)
-  command = "docker-compose -f #{file} #{command}"
-  run_command(@script_env || {}, command, must_pass: must_pass)
-end
-
-# Before all tests
-find_default_docker_compose
-
-# After all tests
 at_exit do
-  $docker_stack.each { |filename| stop_stack(filename) }
+  # In order to not impact future test runs, we down
+  # all services (which removes networks etc) so that
+  # future test runs are from a clean slate.
+  Docker.down_all_services
 end

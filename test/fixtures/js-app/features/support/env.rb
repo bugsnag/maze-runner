@@ -1,12 +1,5 @@
-run_required_commands([
-  ["bundle", "install"],
-])
-
-Dir.chdir("features/fixtures") do
-  run_required_commands([
-    ["npm", "install"],
-  ])
-end
+run_command "bundle install"
+run_command "cd features/fixtures && npm install"
 
 def create_url_for_fixture name
   fixture_path = "http://localhost:8991/#{name}.html"
@@ -15,6 +8,10 @@ def create_url_for_fixture name
     "notifyURL": "http://localhost:#{@script_env['MOCK_API_PORT']}"
   }
   fixture_path + "?#{encode_query_params(params)}"
+end
+
+def encode_query_params hash
+  URI.encode_www_form hash
 end
 
 pid = Process.spawn("features/fixtures/local_server.sh",

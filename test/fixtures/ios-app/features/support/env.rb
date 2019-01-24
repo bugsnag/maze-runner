@@ -1,7 +1,5 @@
 # Configure app environment
 
-run_required_commands([
-  ["bundle", "install"],
-  ["pod", "install"],
-  ["features/fixtures/build-app.sh"],
-])
+run_command "bundle install"
+run_command "pod install"
+run_command "features/fixtures/build-app.sh"

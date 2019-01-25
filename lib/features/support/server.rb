@@ -105,7 +105,6 @@ end
 
 # Before each test
 Before do
-  sleep 1
   Server.stored_requests.clear
   unless Server.is_running?
     $logger.fatal "Mock server is not running on #{MOCK_API_PORT}"

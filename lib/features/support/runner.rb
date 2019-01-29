@@ -6,7 +6,7 @@ After do |scenario|
   Runner.kill_running_scripts
 end
 
-SCRIPT_PATH = File.expand_path(File.join(File.dirname(__FILE__), "..", "scripts"))
+SCRIPT_PATH ||= File.expand_path(File.join(File.dirname(__FILE__), "..", "scripts")) unless defined? SCRIPT_PATH
 
 class Runner
   class << self

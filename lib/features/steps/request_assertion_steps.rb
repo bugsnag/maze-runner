@@ -40,7 +40,7 @@ Then("I wait to receive a request") do
   step "I wait to receive 1 request"
 end
 Then("I wait to receive {int} request(s)") do |request_count|
-  max_attempts = 100
+  max_attempts = 300
   attempts = 0
   received = false
   until (attempts >= max_attempts) || received
@@ -48,7 +48,7 @@ Then("I wait to receive {int} request(s)") do |request_count|
     received = (Server.stored_requests.size >= request_count)
     sleep 0.1
   end
-  raise "Requests not received in 10s (received #{Server.stored_requests.size})" unless received
+  raise "Requests not received in 30s (received #{Server.stored_requests.size})" unless received
   unless Server.stored_requests.size == request_count
     $logger.warn Server.stored_requests.inspect
   end

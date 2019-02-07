@@ -20,7 +20,7 @@ class Network
         begin
           TCPSocket.new(host, port).close
           true
-        rescue Errno::ECONNREFUSED, Errno::EHOSTUNREACH
+        rescue Errno::ECONNREFUSED, Errno::EHOSTUNREACH, SocketError
           false
         end
       end

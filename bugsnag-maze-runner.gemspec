@@ -31,4 +31,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rake", "~> 12.3.0"
   spec.add_dependency "curb", "~> 0.9.6"
   spec.add_dependency "selenium-webdriver", "~> 3.11"
+  spec.add_dependency "appium_lib", "~> 10.2"
 end

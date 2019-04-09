@@ -61,6 +61,16 @@ Then("the event has a {string} breadcrumb named {string}") do |type, name|
   end
   fail("No breadcrumb matched: #{value}") unless found
 end
+Then("the event does not have a {string} breadcrumb named {string}") do |type, name|
+  value = Server.current_request[:body]["events"].first["breadcrumbs"]
+  found = false
+  value.each do |crumb|
+    if crumb["type"] == type and crumb["name"] == name then
+      found = true
+    end
+  end
+  fail("A breadcrumb was found matching: #{value}") if found
+end
 Then("the event has a {string} breadcrumb with message {string}") do |type, message|
   value = Server.current_request[:body]["events"].first["breadcrumbs"]
   found = false
@@ -71,6 +81,17 @@ Then("the event has a {string} breadcrumb with message {string}") do |type, mess
   end
   fail("No breadcrumb matched: #{value}") unless found
 end
+Then("the event does not have a {string} breadcrumb with message {string}") do |type, message|
+  value = Server.current_request[:body]["events"].first["breadcrumbs"]
+  found = false
+  value.each do |crumb|
+    if crumb["type"] == type and crumb["metaData"] and crumb["metaData"]["message"] == message then
+      found = true
+    end
+  end
+  fail("A breadcrumb was found matching: #{value}") if found
+end
+
 
 ## EXCEPTION ASSERTIONS
 Then("the exception {string} starts with {string}") do |field, string_value|

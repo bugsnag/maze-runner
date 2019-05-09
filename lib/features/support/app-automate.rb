@@ -14,7 +14,7 @@ class AppAutomateDriver < Driver
     upload_app(app_location)
     @capabilities.merge! devices[target_device]
     @driver = Appium::Driver.new({
-      'caps' => caps,
+      'caps' => @capabilities,
       'appium_lib' => {
         :server_url => "http://#{@username}:#{@access_key}@hub-cloud.browserstack.com/wd/hub"
       }

@@ -4,6 +4,8 @@ require_relative './capabilities/devices.rb'
 
 class AppAutomateDriver < Driver
 
+  attr_reader :device_type
+
   APP_UPLOAD_URI = "https://api-cloud.browserstack.com/app-automate/upload"
 
   def devices
@@ -11,6 +13,7 @@ class AppAutomateDriver < Driver
   end
 
   def start_driver(target_device, app_location)
+    @device_type = target_device
     upload_app(app_location)
     start_local_tunnel
     @capabilities.merge! devices[target_device]

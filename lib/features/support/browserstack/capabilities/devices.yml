@@ -1,0 +1,55 @@
+# This is a set of appium 'capabilities' for each device in the test matrix"
+---
+android_9:
+  device: "Google Pixel 3"
+  platformName: "Android"
+  os: "android"
+  os_version: "9.0"
+
+android_8:
+  device: "Google Pixel 2"
+  platformName: "Android"
+  os: "android"
+  os_version: "8.0"
+
+android_7:
+  device: "Google Pixel"
+  platformName: "Android"
+  os: "android"
+  os_version: "7.1"
+
+android_6:
+  device: "Google Nexus 6"
+  platformName: "Android"
+  os: "android"
+  os_version: "6.0"
+
+android_5:
+  device: "Google Nexus 6"
+  platformName: "Android"
+  os: "android"
+  os_version: "5.0"
+
+android_4:
+  device: "Google Nexus 5"
+  platformName: "Android"
+  os: "android"
+  os_version: "4.4"
+
+ios_12:
+  device: "iPhone 8"
+  platformName: "iOS"
+  os: "ios"
+  os_version: "12"
+
+ios_11:
+  device: "iPhone 8"
+  platformName: "iOS"
+  os: "ios"
+  os_version: "11"
+
+ios_10:
+  device: "iPhone 7"
+  platformName: "iOS"
+  os: "ios"
+  os_version: "10"

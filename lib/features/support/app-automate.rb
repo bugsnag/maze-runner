@@ -14,7 +14,7 @@ class AppAutomateDriver < Driver
   end
 
   def devices
-    @devices =|| YAML::load open './capabilities/devices.yml'
+    @devices ||= YAML::load open './capabilities/devices.yml'
   end
 
   def start_driver(target_device, app_location)

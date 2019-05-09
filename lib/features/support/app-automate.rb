@@ -1,12 +1,13 @@
 require 'appium_lib'
 require_relative './driver'
+require_relative './capabilities/devices.rb'
 
 class AppAutomateDriver < Driver
 
   APP_UPLOAD_URI = "https://api-cloud.browserstack.com/app-automate/upload"
 
   def devices
-    @devices ||= YAML::load open 'capabilities/devices.yml'
+    Devices::DEVICE_HASH
   end
 
   def start_driver(target_device, app_location)

@@ -18,7 +18,7 @@ class AppAutomateDriver < Driver
       'appium_lib' => {
         :server_url => "http://#{@username}:#{@access_key}@hub-cloud.browserstack.com/wd/hub"
       }
-    }, true).start_driver
+    }, false).start_driver
   end
 
   def stop_driver

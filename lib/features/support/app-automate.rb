@@ -1,6 +1,5 @@
 require 'appium_lib'
 require_relative './driver'
-require_relative './capabilities/devices.rb'
 
 class AppAutomateDriver < Driver
 

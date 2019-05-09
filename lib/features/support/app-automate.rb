@@ -12,6 +12,7 @@ class AppAutomateDriver < Driver
 
   def start_driver(target_device, app_location)
     upload_app(app_location)
+    start_local_tunnel
     @capabilities.merge! devices[target_device]
     @driver = Appium::Driver.new({
       'caps' => @capabilities,

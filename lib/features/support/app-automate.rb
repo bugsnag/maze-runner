@@ -6,7 +6,7 @@ class AppAutomateDriver < Driver
   APP_UPLOAD_URI = "https://api-cloud.browserstack.com/app-automate/upload"
 
   def devices
-    @devices ||= YAML::load open './capabilities/devices.yml'
+    @devices ||= YAML::load open 'capabilities/devices.yml'
   end
 
   def start_driver(target_device, app_location)

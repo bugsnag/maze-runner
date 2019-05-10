@@ -7,7 +7,7 @@ class AppAutomateDriver < Driver
 
   APP_UPLOAD_URI = "https://api-cloud.browserstack.com/app-automate/upload"
 
-  def initialise(username, access_key, local_id, locator=:id)
+  def initialize(username, access_key, local_id, locator=:id)
     super(username, access_key, local_id)
     @locator = locator
   end

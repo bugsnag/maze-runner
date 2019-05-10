@@ -7,6 +7,11 @@ class AppAutomateDriver < Driver
 
   APP_UPLOAD_URI = "https://api-cloud.browserstack.com/app-automate/upload"
 
+  def initialise(username, access_key, local_id, locator=:id)
+    super(username, access_key, local_id)
+    @locator = locator
+  end
+
   def devices
     Devices::DEVICE_HASH
   end
@@ -24,10 +29,6 @@ class AppAutomateDriver < Driver
     }, false).start_driver
   end
 
-  def stop_driver
-    @driver.quit unless @driver.nil?
-  end
-
   def upload_app(app_location)
     res = `curl -u "#{@username}:#{@access_key}" -X POST "#{APP_UPLOAD_URI}" -F "file=@#{app_location}"`
     resData = JSON.parse(res)
@@ -38,19 +39,15 @@ class AppAutomateDriver < Driver
     end
   end
 
-  def wait_for_element(element_id, timeout=15)
+  def wait_for_element(id, timeout=15)
     unless @driver.nil?
       wait = Selenium::WebDriver::Wait.new(:timeout => timeout)
-      wait.until { @driver.find_element(:accessibility_id, element_id).displayed? }
+      wait.until { @driver.find_element(@locator, accessibility_id).displayed? }
     end
   end
 
   def click_element(element_id)
-    @driver.find_element(:accessibility_id, element_id).click unless @driver.nil?
-  end
-
-  def click_named_element(name)
-    @driver.find_element(:name, name).click unless @driver.nil?
+    @driver.find_element(@locator, element_id).click unless @driver.nil?
   end
 
   def background_app(timeout=3)

@@ -39,10 +39,10 @@ class AppAutomateDriver < Driver
     end
   end
 
-  def wait_for_element(id, timeout=15)
+  def wait_for_element(element_id, timeout=15)
     unless @driver.nil?
       wait = Selenium::WebDriver::Wait.new(:timeout => timeout)
-      wait.until { @driver.find_element(@locator, accessibility_id).displayed? }
+      wait.until { @driver.find_element(@locator, element_id).displayed? }
     end
   end
 

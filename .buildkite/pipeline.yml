@@ -18,6 +18,12 @@ steps:
         run: ci
     command: 'bundle exec rake'
 
+  - label: 'Browserstack-app-automate intregration test'
+    plugins:
+      docker-compose#v2.5.1:
+        run: browserstack-app-automate
+    command: 'bundle exec bugsnag-maze-runner'
+
   - wait
 
   - label: 'Release'

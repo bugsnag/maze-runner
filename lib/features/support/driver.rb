@@ -1,6 +1,5 @@
 require 'open3'
 require_relative './fast-selenium'
-require 'yaml'
 
 class Driver
   attr_reader :driver

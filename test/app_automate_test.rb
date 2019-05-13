@@ -19,7 +19,8 @@ class AppAutomateTest < Test::Unit::TestCase
     assert_equal({
       'browserstack.console': 'errors',
       'browserstack.localIdentifier': LOCAL_ID,
-      'browserstack.local': 'true'
+      'browserstack.local': 'true',
+      'browserstack.networkLogs': 'true'
     }, driver.instance_variable_get( :@capabilities ))
   end
 
@@ -223,6 +224,7 @@ class AppAutomateTest < Test::Unit::TestCase
         'browserstack.console': 'errors',
         'browserstack.localIdentifier': LOCAL_ID,
         'browserstack.local': 'true',
+        'browserstack.networkLogs': 'true',
         'device' => 'Google Pixel 3',
         'platformName' => 'Android',
         'os' => 'android',

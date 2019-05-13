@@ -12,7 +12,8 @@ class Driver
     @capabilities = {
       'browserstack.console': 'errors',
       'browserstack.localIdentifier': local_id,
-      'browserstack.local': 'true'
+      'browserstack.local': 'true',
+      'browserstack.networkLogs': 'true'
     }
 
     at_exit do

@@ -1,7 +1,7 @@
 ARG BUILDKITE_BRANCH
 FROM openjdk:8-jdk-stretch AS browserstack-app-automate-builder
 
-RUN echo env
+RUN env
 
 RUN apt-get update
 RUN apt-get install -y gradle jq

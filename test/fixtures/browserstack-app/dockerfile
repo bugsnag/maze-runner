@@ -29,5 +29,3 @@ WORKDIR /app
 
 COPY --from=browserstack-app-automate-builder /app/build /app/build
 COPY --from=browserstack-app-automate-builder /app/app/build /app/app/build
-
-

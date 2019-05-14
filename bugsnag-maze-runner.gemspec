@@ -22,6 +22,7 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{^bin/[\w\-]+$}) { |f| File.basename(f) }
 
   spec.add_dependency "cucumber", "~> 3.1.0"
+  spec.add_dependency "gherkin", "~> 5.1.0"
   spec.add_dependency "test-unit", "~> 3.2.0"
   spec.add_dependency "minitest", "~> 5.0"
   spec.add_dependency "os", "~> 1.0.0"
@@ -32,4 +33,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "curb", "~> 0.9.6"
   spec.add_dependency "selenium-webdriver", "~> 3.11"
   spec.add_dependency "appium_lib", "~> 10.2"
+
+  spec.add_dependency "yard", "~> 0.9.1"
+  spec.add_dependency "yard-cucumber", "~> 4.0.0"
 end

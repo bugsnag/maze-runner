@@ -1,5 +1,4 @@
 require 'test_helper'
-require 'minitest/mock'
 require_relative '../lib/features/support/app-automate'
 require_relative '../lib/features/support/capabilities/devices'
 
@@ -31,7 +30,7 @@ class AppAutomateTest < Test::Unit::TestCase
 
   def test_devices_source
     driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID)
-    assert_equal(Devices::DEVICE_HASH, driver.devices)
+    assert_equal(Devices::DEVICE_HASH, driver.send(:devices))
   end
 
   def test_click_element_nil
@@ -45,6 +44,7 @@ class AppAutomateTest < Test::Unit::TestCase
 
     appium_mock.verify
 
+  ensure
     driver.instance_variable_set(:@driver, nil)
   end
 
@@ -63,6 +63,7 @@ class AppAutomateTest < Test::Unit::TestCase
 
     appium_mock.verify
 
+  ensure
     driver.instance_variable_set(:@driver, nil)
   end
 
@@ -81,6 +82,7 @@ class AppAutomateTest < Test::Unit::TestCase
 
     appium_mock.verify
 
+  ensure
     driver.instance_variable_set(:@driver, nil)
   end
 
@@ -95,6 +97,7 @@ class AppAutomateTest < Test::Unit::TestCase
 
     appium_mock.verify
 
+  ensure
     driver.instance_variable_set(:@driver, nil)
   end
 
@@ -112,6 +115,7 @@ class AppAutomateTest < Test::Unit::TestCase
 
     appium_mock.verify
 
+  ensure
     driver.instance_variable_set(:@driver, nil)
   end
 
@@ -129,6 +133,7 @@ class AppAutomateTest < Test::Unit::TestCase
 
     appium_mock.verify
 
+  ensure
     driver.instance_variable_set(:@driver, nil)
   end
 
@@ -143,6 +148,7 @@ class AppAutomateTest < Test::Unit::TestCase
 
     appium_mock.verify
 
+  ensure
     driver.instance_variable_set(:@driver, nil)
   end
 
@@ -158,6 +164,7 @@ class AppAutomateTest < Test::Unit::TestCase
 
     appium_mock.verify
 
+  ensure
     driver.instance_variable_set(:@driver, nil)
   end
 
@@ -176,13 +183,14 @@ class AppAutomateTest < Test::Unit::TestCase
       cmd === "curl -u \"#{USERNAME}:#{ACCESS_KEY}\" -X POST \"https://api-cloud.browserstack.com/app-automate/upload\" -F \"file=@#{APP_LOCATION}\""
     end
     driver.stub(:`, command_call) do
-      driver.upload_app(APP_LOCATION)
+      driver.send(:upload_app, APP_LOCATION)
     end
 
     command_call.verify
 
     assert_equal(driver.instance_variable_get(:@capabilities)['app'], "App_url")
 
+  ensure
     driver.instance_variable_set(:@driver, nil)
   end
 
@@ -202,7 +210,7 @@ class AppAutomateTest < Test::Unit::TestCase
     end
     driver.stub(:`, command_call) do
       begin
-        driver.upload_app(APP_LOCATION)
+        driver.send(:upload_app, APP_LOCATION)
       rescue Exception => exception
         assert_equal("BrowserStack upload failed due to error: Error", exception.message)
       end
@@ -210,6 +218,7 @@ class AppAutomateTest < Test::Unit::TestCase
 
     command_call.verify
 
+  ensure
     driver.instance_variable_set(:@driver, nil)
   end
 
@@ -248,6 +257,7 @@ class AppAutomateTest < Test::Unit::TestCase
     appium_mock.verify
     new_driver_call.verify
 
+  ensure
     driver.instance_variable_set(:@driver, nil)
   end
 
@@ -260,7 +270,7 @@ class AppAutomateTest < Test::Unit::TestCase
     end
 
     Open3.stub(:popen2, start_local_call) do
-      driver.start_local_tunnel
+      driver.send(:start_local_tunnel)
     end
 
     start_local_call.verify

@@ -12,9 +12,9 @@ When("I click the element {string}") do |element_id|
   $driver.click_element(element_id)
 end
 
-# Sends the app to the background for a number of second
+# Sends the app to the background for a number of seconds
 #
-# @param timeout [Integer] The amount of time the app is in the background
+# @param timeout [Integer] The amount of time the app is in the background in seconds
 Given("I send the app to the background for {int} seconds") do |timeout|
   $driver.background_app(timeout)
 end

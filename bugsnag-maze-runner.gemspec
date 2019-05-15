@@ -34,6 +34,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "selenium-webdriver", "~> 3.11"
   spec.add_dependency "appium_lib", "~> 10.2"
 
-  spec.add_dependency "yard", "~> 0.9.1"
-  spec.add_dependency "yard-cucumber", "~> 4.0.0"
+  spec.add_development_dependency "yard", "~> 0.9.1"
+  spec.add_development_dependency "yard-cucumber", "~> 4.0.0"
 end

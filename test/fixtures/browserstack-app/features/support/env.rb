@@ -1,6 +1,4 @@
 # Configure app environment
-require 'pp'
-
 bs_username = ENV['BROWSER_STACK_USERNAME']
 bs_access_key = ENV['BROWSER_STACK_ACCESS_KEY']
 bs_local_id = ENV['BROWSER_STACK_LOCAL_IDENTIFIER'] || 'maze_browser_stack_test_id'

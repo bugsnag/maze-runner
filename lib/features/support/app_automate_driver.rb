@@ -1,5 +1,6 @@
 require 'appium_lib'
 require 'open3'
+require_relative './fast_selenium'
 
 # Wraps Appium::Driver to enable control of a BrowserStack app-automate session
 class AppAutomateDriver
@@ -9,7 +10,7 @@ class AppAutomateDriver
   attr_reader :device_type
 
   # @!attribute [r] driver
-  #   @return [Object, nil] The driver being used
+  #   @return [Appium::Driver, nil] The driver being used
   attr_reader :driver
 
   # @!attribute capabilities
@@ -68,7 +69,7 @@ class AppAutomateDriver
   # Checks for an element, waiting until it is present or the method times out
   #
   # @param element_id [String] the element to search for using the @locator strategy
-  # @param timeout [Integer] the maximum time to wait for an element to be present
+  # @param timeout [Integer] the maximum time to wait for an element to be present in seconds
   def wait_for_element(element_id, timeout=15)
     unless @driver.nil?
       wait = Selenium::WebDriver::Wait.new(:timeout => timeout)
@@ -85,7 +86,7 @@ class AppAutomateDriver
 
   # Sends the application to the background for time before resuming
   #
-  # @param timeout [Integer] the amount of time the app should be in the background
+  # @param timeout [Integer] the amount of time the app should be in the background in seconds
   def background_app(timeout=3)
     @driver.background_app(timeout) unless @driver.nil?
   end
@@ -99,11 +100,11 @@ class AppAutomateDriver
 
   def upload_app(app_location)
     res = `curl -u "#{@username}:#{@access_key}" -X POST "#{APP_UPLOAD_URI}" -F "file=@#{app_location}"`
-    resData = JSON.parse(res)
-    if resData.include?('error')
-      raise Exception.new("BrowserStack upload failed due to error: #{resData['error']}")
+    response = JSON.parse(res)
+    if response.include?('error')
+      raise Exception.new("BrowserStack upload failed due to error: #{response['error']}")
     else
-      @capabilities['app'] = resData['app_url']
+      @capabilities['app'] = response['app_url']
     end
   end
 

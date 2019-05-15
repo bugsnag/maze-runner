@@ -12,8 +12,6 @@ PATH
       rake (~> 12.3.0)
       selenium-webdriver (~> 3.11)
       test-unit (~> 3.2.0)
-      yard (~> 0.9.1)
-      yard-cucumber (~> 4.0.0)
 
 GEM
   remote: https://rubygems.org/
@@ -82,6 +80,8 @@ PLATFORMS
 
 DEPENDENCIES
   bugsnag-maze-runner!
+  yard (~> 0.9.1)
+  yard-cucumber (~> 4.0.0)
 
 BUNDLED WITH
    1.16.1

@@ -1,5 +1,5 @@
 require 'test_helper'
-require_relative '../lib/features/support/app-automate'
+require_relative '../lib/features/support/app_automate_driver'
 require_relative '../lib/features/support/capabilities/devices'
 
 class AppAutomateTest < Test::Unit::TestCase

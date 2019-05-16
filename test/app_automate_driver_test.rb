@@ -57,15 +57,18 @@ class AppAutomateDriverTest < Test::Unit::TestCase
     appium_mock = Minitest::Mock.new
     driver.instance_variable_set(:@driver, appium_mock)
 
+    element_mock = Minitest::Mock.new
+    element_mock.expect(:click, true)
+
     appium_mock.expect(:nil?, false)
-    appium_mock.expect(:click, true)
-    appium_mock.expect(:find_element, appium_mock) do |locator, element_id|
+    appium_mock.expect(:find_element, element_mock) do |locator, element_id|
       locator == :id && element_id == "test_button"
     end
 
     driver.click_element("test_button")
 
     appium_mock.verify
+    element_mock.verify
   end
 
   def test_click_element_locator
@@ -73,15 +76,18 @@ class AppAutomateDriverTest < Test::Unit::TestCase
     appium_mock = Minitest::Mock.new
     driver.instance_variable_set(:@driver, appium_mock)
 
+    element_mock = Minitest::Mock.new
+    element_mock.expect(:click, true)
+
     appium_mock.expect(:nil?, false)
-    appium_mock.expect(:click, true)
-    appium_mock.expect(:find_element, appium_mock) do |locator, element_id|
+    appium_mock.expect(:find_element, element_mock) do |locator, element_id|
       locator == :accessibility_id && element_id == "test_button"
     end
 
     driver.click_element("test_button")
 
     appium_mock.verify
+    element_mock.verify
   end
 
   def test_background_app_nil

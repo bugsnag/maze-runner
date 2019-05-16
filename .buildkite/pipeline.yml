@@ -18,7 +18,7 @@ steps:
         run: ci
     command: 'bundle exec rake'
 
-  - label: 'Browserstack-app-automate intregration test'
+  - label: 'Browserstack-app-automate integration test'
     plugins:
       docker-compose#v2.5.1:
         run: browserstack-app-automate

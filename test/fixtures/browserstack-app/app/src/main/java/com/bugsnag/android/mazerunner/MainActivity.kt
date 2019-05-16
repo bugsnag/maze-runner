@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initialiseBugsnag() {
         val config = Configuration("12312312312312312312312312312312")
-        config.setAutoCaptureSessions = false
+        config.autoCaptureSessions = false
         config("http://localhost:9339", "http://localhost:9339")
 
         Bugsnag.init(this, config)

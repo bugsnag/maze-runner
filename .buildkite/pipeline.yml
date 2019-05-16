@@ -23,6 +23,8 @@ steps:
       docker-compose#v2.5.1:
         run: browserstack-app-automate
     command: 'bundle exec bugsnag-maze-runner'
+    concurrency: 5
+    concurrency_group: 'browserstack-app'
 
   - wait
 

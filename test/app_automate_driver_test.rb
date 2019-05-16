@@ -2,7 +2,14 @@ require 'test_helper'
 require_relative '../lib/features/support/app_automate_driver'
 require_relative '../lib/features/support/capabilities/devices'
 
-class AppAutomateTest < Test::Unit::TestCase
+# Ensure at_exit blocks are eaten
+module Kernel
+  alias_method :old_at_exit, :at_exit
+  def at_exit
+  end
+end
+
+class AppAutomateDriverTest < Test::Unit::TestCase
 
   USERNAME = "Username"
   ACCESS_KEY = "Access_key"
@@ -43,9 +50,6 @@ class AppAutomateTest < Test::Unit::TestCase
     driver.click_element("test_button")
 
     appium_mock.verify
-
-  ensure
-    driver.instance_variable_set(:@driver, nil)
   end
 
   def test_click_element_defaults
@@ -56,15 +60,12 @@ class AppAutomateTest < Test::Unit::TestCase
     appium_mock.expect(:nil?, false)
     appium_mock.expect(:click, true)
     appium_mock.expect(:find_element, appium_mock) do |locator, element_id|
-      locator === :id && element_id === "test_button"
+      locator == :id && element_id == "test_button"
     end
 
     driver.click_element("test_button")
 
     appium_mock.verify
-
-  ensure
-    driver.instance_variable_set(:@driver, nil)
   end
 
   def test_click_element_locator
@@ -75,15 +76,12 @@ class AppAutomateTest < Test::Unit::TestCase
     appium_mock.expect(:nil?, false)
     appium_mock.expect(:click, true)
     appium_mock.expect(:find_element, appium_mock) do |locator, element_id|
-      locator === :accessibility_id && element_id === "test_button"
+      locator == :accessibility_id && element_id == "test_button"
     end
 
     driver.click_element("test_button")
 
     appium_mock.verify
-
-  ensure
-    driver.instance_variable_set(:@driver, nil)
   end
 
   def test_background_app_nil
@@ -96,9 +94,6 @@ class AppAutomateTest < Test::Unit::TestCase
     driver.background_app
 
     appium_mock.verify
-
-  ensure
-    driver.instance_variable_set(:@driver, nil)
   end
 
   def test_background_app_defaults
@@ -108,15 +103,12 @@ class AppAutomateTest < Test::Unit::TestCase
 
     appium_mock.expect(:nil?, false)
     appium_mock.expect(:background_app, true) do |timeout|
-      timeout === 3
+      timeout == 3
     end
 
     driver.background_app
 
     appium_mock.verify
-
-  ensure
-    driver.instance_variable_set(:@driver, nil)
   end
 
   def test_background_app_custom_timeout
@@ -126,15 +118,12 @@ class AppAutomateTest < Test::Unit::TestCase
 
     appium_mock.expect(:nil?, false)
     appium_mock.expect(:background_app, true) do |timeout|
-      timeout === 5
+      timeout == 5
     end
 
     driver.background_app(5)
 
     appium_mock.verify
-
-  ensure
-    driver.instance_variable_set(:@driver, nil)
   end
 
   def test_reset_app_nil
@@ -147,9 +136,6 @@ class AppAutomateTest < Test::Unit::TestCase
     driver.reset_app
 
     appium_mock.verify
-
-  ensure
-    driver.instance_variable_set(:@driver, nil)
   end
 
   def test_reset_app
@@ -180,7 +166,7 @@ class AppAutomateTest < Test::Unit::TestCase
 
     command_call = Minitest::Mock.new
     command_call.expect(:call, json_response) do |cmd|
-      cmd === "curl -u \"#{USERNAME}:#{ACCESS_KEY}\" -X POST \"https://api-cloud.browserstack.com/app-automate/upload\" -F \"file=@#{APP_LOCATION}\""
+      cmd == %(curl -u "#{USERNAME}:#{ACCESS_KEY}" -X POST "https://api-cloud.browserstack.com/app-automate/upload" -F "file=@#{APP_LOCATION}")
     end
     driver.stub(:`, command_call) do
       driver.send(:upload_app, APP_LOCATION)
@@ -189,9 +175,6 @@ class AppAutomateTest < Test::Unit::TestCase
     command_call.verify
 
     assert_equal(driver.instance_variable_get(:@capabilities)['app'], "App_url")
-
-  ensure
-    driver.instance_variable_set(:@driver, nil)
   end
 
   def test_upload_app_error
@@ -206,7 +189,7 @@ class AppAutomateTest < Test::Unit::TestCase
 
     command_call = Minitest::Mock.new
     command_call.expect(:call, json_response) do |cmd|
-      cmd === "curl -u \"#{USERNAME}:#{ACCESS_KEY}\" -X POST \"https://api-cloud.browserstack.com/app-automate/upload\" -F \"file=@#{APP_LOCATION}\""
+      cmd == %(curl -u "#{USERNAME}:#{ACCESS_KEY}" -X POST "https://api-cloud.browserstack.com/app-automate/upload" -F "file=@#{APP_LOCATION}")
     end
     driver.stub(:`, command_call) do
       begin
@@ -217,9 +200,6 @@ class AppAutomateTest < Test::Unit::TestCase
     end
 
     command_call.verify
-
-  ensure
-    driver.instance_variable_set(:@driver, nil)
   end
 
   def test_start_driver
@@ -256,9 +236,6 @@ class AppAutomateTest < Test::Unit::TestCase
 
     appium_mock.verify
     new_driver_call.verify
-
-  ensure
-    driver.instance_variable_set(:@driver, nil)
   end
 
   def test_start_local_tunnel
@@ -266,7 +243,7 @@ class AppAutomateTest < Test::Unit::TestCase
 
     start_local_call = Minitest::Mock.new
     start_local_call.expect(:call, true) do |command|
-      command === "/BrowserStackLocal -d start --key #{ACCESS_KEY} --local-identifier #{LOCAL_ID} --force-local"
+      command == "/BrowserStackLocal -d start --key #{ACCESS_KEY} --local-identifier #{LOCAL_ID} --force-local"
     end
 
     Open3.stub(:popen2, start_local_call) do

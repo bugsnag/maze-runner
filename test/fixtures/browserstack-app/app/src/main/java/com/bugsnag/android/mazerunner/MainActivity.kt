@@ -5,7 +5,8 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Button
-import com.bugsnag.android.*
+import com.bugsnag.android.Bugsnag
+import com.bugsnag.android.Configuration
 import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
@@ -24,8 +25,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun initialiseBugsnag() {
         val config = Configuration("12312312312312312312312312312312")
-        config.endpoint = "http://localhost:9339"
-        config.sessionEndpoint = "http://localhost:9339"
+        config.setAutoCaptureSessions = false
+        config("http://localhost:9339", "http://localhost:9339")
 
         Bugsnag.init(this, config)
         Bugsnag.setLoggingEnabled(true)

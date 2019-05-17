@@ -8,3 +8,7 @@ app_location = 'app/build/outputs/apk/release/app-release.apk'
 AfterConfiguration do |config|
   AppAutomateDriver.new(bs_username, bs_access_key, bs_local_id, bs_device, app_location)
 end
+
+at_exit do
+  $driver.quit
+end

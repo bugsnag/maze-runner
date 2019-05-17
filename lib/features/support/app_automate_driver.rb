@@ -3,22 +3,14 @@ require 'open3'
 require_relative './fast_selenium'
 
 # Wraps Appium::Driver to enable control of a BrowserStack app-automate session
-class AppAutomateDriver
+class AppAutomateDriver < Appium::Driver
 
   # @!attribute [r] device_type
   #   @return [String] The device, from the list of device capabilities, used for this test
   attr_reader :device_type
 
-  # @!attribute [r] driver
-  #   @return [Appium::Driver, nil] The driver being used
-  attr_reader :driver
-
-  # @!attribute capabilities
-  #   @return [Hash] A hash of capabilities used by the driver
-  attr_accessor :capabilities
-
   # The App upload uri for BrowserStack App Automate
-  APP_UPLOAD_URI = "https://api-cloud.browserstack.com/app-automate/upload"
+  BROWSER_STACK_APP_UPLOAD_URI = "https://api-cloud.browserstack.com/app-automate/upload"
 
   # Creates the AppAutomateDriver
   #
@@ -28,83 +20,55 @@ class AppAutomateDriver
   # @param username [String] the BrowserStack username
   # @param access_key [String] the BrowserStack access key
   # @param local_id [String] the identifier for the BrowserStackLocal tunnel
+  # @param target_device [String] a key from the Devices array selecting which device capabilities to target
+  # @param app_location [String] the location of the test-app to upload
   # @param locator [Symbol] the primary locator strategy Appium should use to find elements
-  def initialize(username, access_key, local_id, locator=:id)
-    @username = username
-    @access_key = access_key
-    @local_id = local_id
-    @capabilities = {
+  def initialize(username, access_key, local_id, target_device, app_location, locator=:id)
+    @device_type = target_device
+    @element_locator = locator
+    app_url = upload_app(username, access_key, app_location)
+    start_local_tunnel(access_key, local_id)
+    capabilities = {
       'browserstack.console': 'errors',
       'browserstack.localIdentifier': local_id,
       'browserstack.local': 'true',
       'browserstack.networkLogs': 'true'
     }
-    @locator = locator
-
-    at_exit do
-      @driver.quit unless @driver.nil?
-    end
-  end
-
-  # Initialises the BrowserStack app-automate connect by:
-  #   Uploading the app file
-  #   Starting the BrowserStackLocal tunnel
-  #   Creates and starts the Appium driver
-  #
-  # @param target_device [String] a key from the Devices array selecting which device capabilities to target
-  # @param app_location [String] the location of the test-app to upload
-  def start_driver(target_device, app_location)
-    @device_type = target_device
-    upload_app(app_location)
-    start_local_tunnel
-    @capabilities.merge! devices[target_device]
-    @driver = Appium::Driver.new({
+    capabilities.merge! devices[target_devices]
+    super({
       'caps' => @capabilities,
       'appium_lib' => {
         :server_url => "http://#{@username}:#{@access_key}@hub-cloud.browserstack.com/wd/hub"
       }
-    }, false).start_driver
+    }, false)
+    start_driver
   end
 
   # Checks for an element, waiting until it is present or the method times out
   #
-  # @param element_id [String] the element to search for using the @locator strategy
+  # @param element_id [String] the element to search for using the @element_locator strategy
   # @param timeout [Integer] the maximum time to wait for an element to be present in seconds
   def wait_for_element(element_id, timeout=15)
-    unless @driver.nil?
-      wait = Selenium::WebDriver::Wait.new(:timeout => timeout)
-      wait.until { @driver.find_element(@locator, element_id).displayed? }
-    end
+    wait = Selenium::WebDriver::Wait.new(:timeout => timeout)
+    wait.until { find_element(@element_locator, element_id).displayed? }
   end
 
   # Clicks a given element
   #
-  # @param element_id [String] the element to click using the @locator strategy
+  # @param element_id [String] the element to click using the @element_locator strategy
   def click_element(element_id)
-    @driver.find_element(@locator, element_id).click unless @driver.nil?
-  end
-
-  # Sends the application to the background for time before resuming
-  #
-  # @param timeout [Integer] the amount of time the app should be in the background in seconds
-  def background_app(timeout=3)
-    @driver.background_app(timeout) unless @driver.nil?
-  end
-
-  # Removes all application data and relaunches the app
-  def reset_app
-    @driver.reset unless @driver.nil?
+    find_element(@element_locator, element_id).click
   end
 
   private
 
-  def upload_app(app_location)
-    res = `curl -u "#{@username}:#{@access_key}" -X POST "#{APP_UPLOAD_URI}" -F "file=@#{app_location}"`
+  def upload_app(username, access_key, app_location)
+    res = `curl -u "#{username}:#{access_key}" -X POST "#{BROWSER_STACK_APP_UPLOAD_URI}" -F "file=@#{app_location}"`
     response = JSON.parse(res)
     if response.include?('error')
       raise Exception.new("BrowserStack upload failed due to error: #{response['error']}")
     else
-      @capabilities['app'] = response['app_url']
+      response['app_url']
     end
   end
 
@@ -112,9 +76,9 @@ class AppAutomateDriver
     Devices::DEVICE_HASH
   end
 
-  def start_local_tunnel
+  def start_local_tunnel(access_key, local_id)
     status = nil
-    Open3.popen2("/BrowserStackLocal -d start --key #{@access_key} --local-identifier #{@local_id} --force-local") do |stdin, stdout, wait|
+    Open3.popen2("/BrowserStackLocal -d start --key #{access_key} --local-identifier #{local_id} --force-local") do |stdin, stdout, wait|
       status = wait.value
     end
     status

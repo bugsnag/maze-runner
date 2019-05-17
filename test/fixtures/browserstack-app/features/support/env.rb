@@ -10,5 +10,5 @@ AfterConfiguration do |config|
 end
 
 at_exit do
-  $driver.quit
+  $driver.driver_quit
 end

@@ -34,7 +34,7 @@ class AppAutomateDriver < Appium::Driver
       'browserstack.local': 'true',
       'browserstack.networkLogs': 'true'
     }
-    capabilities.merge! devices[target_devices]
+    capabilities.merge! devices[target_device]
     super({
       'caps' => @capabilities,
       'appium_lib' => {

@@ -36,7 +36,7 @@ class AppAutomateDriver < Appium::Driver
     }
     capabilities.merge! devices[target_device]
     super({
-      'caps' => @capabilities,
+      'caps' => capabilities,
       'appium_lib' => {
         :server_url => "http://#{@username}:#{@access_key}@hub-cloud.browserstack.com/wd/hub"
       }

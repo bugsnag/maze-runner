@@ -1,2 +1,3 @@
 require 'test/unit'
-require 'minitest/mock'
+require 'mocha/test_unit'
+require 'mocha/minitest'

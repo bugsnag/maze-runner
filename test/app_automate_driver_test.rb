@@ -9,235 +9,108 @@ module Kernel
   end
 end
 
+
 class AppAutomateDriverTest < Test::Unit::TestCase
 
-  # USERNAME = "Username"
-  # ACCESS_KEY = "Access_key"
-  # LOCAL_ID = "Local_id"
-  # APP_LOCATION = "App_location"
+  USERNAME = "Username"
+  ACCESS_KEY = "Access_key"
+  LOCAL_ID = "Local_id"
+  APP_LOCATION = "App_location"
+  TEST_APP_URL = "Test_app_url"
+  TARGET_DEVICE = "ANDROID_9"
+  LOCAL_TUNNEL_COMMAND = "/BrowserStackLocal -d start --key #{ACCESS_KEY} --local-identifier #{LOCAL_ID} --force-local"
 
-  # def test_devices_source
-  #   driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID)
-  #   assert_equal(Devices::DEVICE_HASH, driver.send(:devices))
-  # end
+  def test_defaults
+    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
+    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
 
-  # def test_click_element_nil
-  #   driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID)
-  #   appium_mock = Minitest::Mock.new
-  #   driver.instance_variable_set(:@driver, appium_mock)
+    assert_equal(ACCESS_KEY, driver.instance_variable_get(:@access_key))
+    assert_equal(:id, driver.instance_variable_get(:@element_locator))
+    assert_equal(TARGET_DEVICE, driver.instance_variable_get(:@device_type))
+    assert_equal(LOCAL_ID, driver.instance_variable_get(:@local_id))
+    assert_equal('errors', driver.caps[:'browserstack.console'])
+    assert_equal(LOCAL_ID, driver.caps[:'browserstack.localIdentifier'])
+    assert_equal('true', driver.caps[:'browserstack.local'])
+    assert_equal('true', driver.caps[:'browserstack.networkLogs'])
+    assert_equal(TEST_APP_URL, driver.caps[:app])
 
-  #   appium_mock.expect(:nil?, true)
+    Devices::DEVICE_HASH[TARGET_DEVICE].each do |key, value|
+      assert_equal(value, driver.caps[key.to_sym])
+    end
+  end
 
-  #   driver.click_element("test_button")
+  def test_overridden_location
+    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
+    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION, :accessibility_id)
 
-  #   appium_mock.verify
-  # end
+    assert_equal(ACCESS_KEY, driver.instance_variable_get(:@access_key))
+    assert_equal(:accessibility_id, driver.instance_variable_get(:@element_locator))
+    assert_equal(TARGET_DEVICE, driver.instance_variable_get(:@device_type))
+    assert_equal(LOCAL_ID, driver.instance_variable_get(:@local_id))
+    assert_equal('errors', driver.caps[:'browserstack.console'])
+    assert_equal(LOCAL_ID, driver.caps[:'browserstack.localIdentifier'])
+    assert_equal('true', driver.caps[:'browserstack.local'])
+    assert_equal('true', driver.caps[:'browserstack.networkLogs'])
+    assert_equal(TEST_APP_URL, driver.caps[:app])
 
-  # def test_click_element_defaults
-  #   driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID)
-  #   appium_mock = Minitest::Mock.new
-  #   driver.instance_variable_set(:@driver, appium_mock)
+    Devices::DEVICE_HASH[TARGET_DEVICE].each do |key, value|
+      assert_equal(value, driver.caps[key.to_sym])
+    end
+  end
 
-  #   element_mock = Minitest::Mock.new
-  #   element_mock.expect(:click, true)
+  def test_upload_app_success
+    json_response = JSON.dump({
+      :app_url => TEST_APP_URL
+    })
+    AppAutomateDriver.any_instance.stubs(:`).returns(json_response)
+    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
+    assert_equal(TEST_APP_URL, driver.caps[:app])
+  end
 
-  #   appium_mock.expect(:nil?, false)
-  #   appium_mock.expect(:find_element, element_mock) do |locator, element_id|
-  #     locator == :id && element_id == "test_button"
-  #   end
+  def test_upload_app_error
+    json_response = JSON.dump({
+      :error => "Error"
+    })
+    AppAutomateDriver.any_instance.stubs(:`).returns(json_response)
+    begin
+      driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
+    rescue Exception => exception
+      assert_equal("BrowserStack upload failed due to error: Error", exception.message)
+    end
+  end
 
-  #   driver.click_element("test_button")
+  def test_click_element_defaults
+    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
+    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
 
-  #   appium_mock.verify
-  #   element_mock.verify
-  # end
+    mocked_element = mock('object')
+    mocked_element.expects(:click)
 
-  # def test_click_element_locator
-  #   driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, :accessibility_id)
-  #   appium_mock = Minitest::Mock.new
-  #   driver.instance_variable_set(:@driver, appium_mock)
+    driver.expects(:find_element).with(:id, "test_button").returns(mocked_element)
 
-  #   element_mock = Minitest::Mock.new
-  #   element_mock.expect(:click, true)
+    driver.click_element("test_button")
+  end
 
-  #   appium_mock.expect(:nil?, false)
-  #   appium_mock.expect(:find_element, element_mock) do |locator, element_id|
-  #     locator == :accessibility_id && element_id == "test_button"
-  #   end
+  def test_click_element_locator
+    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
+    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION, :accessibility_id)
 
-  #   driver.click_element("test_button")
+    mocked_element = mock('object')
+    mocked_element.expects(:click)
 
-  #   appium_mock.verify
-  #   element_mock.verify
-  # end
+    driver.expects(:find_element).with(:accessibility_id, "test_button").returns(mocked_element)
 
-  # def test_background_app_nil
-  #   driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID)
-  #   appium_mock = Minitest::Mock.new
-  #   driver.instance_variable_set(:@driver, appium_mock)
+    driver.click_element("test_button")
+  end
 
-  #   appium_mock.expect(:nil?, true)
+  def test_start_driver
+    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
+    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
 
-  #   driver.background_app
+    Appium::Driver.any_instance.expects(:start_driver)
+    Open3.expects(:popen2).with(LOCAL_TUNNEL_COMMAND)
 
-  #   appium_mock.verify
-  # end
-
-  # def test_background_app_defaults
-  #   driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID)
-  #   appium_mock = Minitest::Mock.new
-  #   driver.instance_variable_set(:@driver, appium_mock)
-
-  #   appium_mock.expect(:nil?, false)
-  #   appium_mock.expect(:background_app, true) do |timeout|
-  #     timeout == 3
-  #   end
-
-  #   driver.background_app
-
-  #   appium_mock.verify
-  # end
-
-  # def test_background_app_custom_timeout
-  #   driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID)
-  #   appium_mock = Minitest::Mock.new
-  #   driver.instance_variable_set(:@driver, appium_mock)
-
-  #   appium_mock.expect(:nil?, false)
-  #   appium_mock.expect(:background_app, true) do |timeout|
-  #     timeout == 5
-  #   end
-
-  #   driver.background_app(5)
-
-  #   appium_mock.verify
-  # end
-
-  # def test_reset_app_nil
-  #   driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID)
-  #   appium_mock = Minitest::Mock.new
-  #   driver.instance_variable_set(:@driver, appium_mock)
-
-  #   appium_mock.expect(:nil?, true)
-
-  #   driver.reset_app
-
-  #   appium_mock.verify
-  # end
-
-  # def test_reset_app
-  #   driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID)
-  #   appium_mock = Minitest::Mock.new
-  #   driver.instance_variable_set(:@driver, appium_mock)
-
-  #   appium_mock.expect(:nil?, false)
-  #   appium_mock.expect(:reset, true)
-
-  #   driver.reset_app
-
-  #   appium_mock.verify
-
-  # ensure
-  #   driver.instance_variable_set(:@driver, nil)
-  # end
-
-  # def test_upload_app_success
-  #   driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID)
-  #   appium_mock = Minitest::Mock.new
-  #   appium_mock.expect(:nil?, false)
-  #   driver.instance_variable_set(:@driver, appium_mock)
-
-  #   json_response = JSON.dump({
-  #     :app_url => "App_url"
-  #   })
-
-  #   command_call = Minitest::Mock.new
-  #   command_call.expect(:call, json_response) do |cmd|
-  #     cmd == %(curl -u "#{USERNAME}:#{ACCESS_KEY}" -X POST "https://api-cloud.browserstack.com/app-automate/upload" -F "file=@#{APP_LOCATION}")
-  #   end
-  #   driver.stub(:`, command_call) do
-  #     driver.send(:upload_app, APP_LOCATION)
-  #   end
-
-  #   command_call.verify
-
-  #   assert_equal(driver.instance_variable_get(:@capabilities)['app'], "App_url")
-  # end
-
-  # def test_upload_app_error
-  #   driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID)
-  #   appium_mock = Minitest::Mock.new
-  #   appium_mock.expect(:nil?, false)
-  #   driver.instance_variable_set(:@driver, appium_mock)
-
-  #   json_response = JSON.dump({
-  #     :error => "Error"
-  #   })
-
-  #   command_call = Minitest::Mock.new
-  #   command_call.expect(:call, json_response) do |cmd|
-  #     cmd == %(curl -u "#{USERNAME}:#{ACCESS_KEY}" -X POST "https://api-cloud.browserstack.com/app-automate/upload" -F "file=@#{APP_LOCATION}")
-  #   end
-  #   driver.stub(:`, command_call) do
-  #     begin
-  #       driver.send(:upload_app, APP_LOCATION)
-  #     rescue Exception => exception
-  #       assert_equal("BrowserStack upload failed due to error: Error", exception.message)
-  #     end
-  #   end
-
-  #   command_call.verify
-  # end
-
-  # def test_start_driver
-  #   driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID)
-  #   appium_mock = Minitest::Mock.new
-  #   appium_mock.expect(:start_driver, true)
-
-  #   new_driver_call = Minitest::Mock.new
-  #   new_driver_call.expect(:call, appium_mock) do |options, global|
-  #     caps_valid = options['caps'] == {
-  #       'browserstack.console': 'errors',
-  #       'browserstack.localIdentifier': LOCAL_ID,
-  #       'browserstack.local': 'true',
-  #       'browserstack.networkLogs': 'true',
-  #       'device' => 'Google Pixel 3',
-  #       'platformName' => 'Android',
-  #       'os' => 'android',
-  #       'os_version' => '9.0'
-  #     }
-  #     appium_lib_valid = options['appium_lib'] == {
-  #       :server_url => "http://#{USERNAME}:#{ACCESS_KEY}@hub-cloud.browserstack.com/wd/hub"
-  #     }
-  #     global_valid = !global
-  #     caps_valid && appium_lib_valid && global_valid
-  #   end
-
-  #   Appium::Driver.stub(:new, new_driver_call) do
-  #     driver.stub(:upload_app, true) do
-  #       driver.stub(:start_local_tunnel, true) do
-  #         driver.start_driver('ANDROID_9', APP_LOCATION)
-  #       end
-  #     end
-  #   end
-
-  #   appium_mock.verify
-  #   new_driver_call.verify
-  # end
-
-  # def test_start_local_tunnel
-  #   driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID)
-
-  #   start_local_call = Minitest::Mock.new
-  #   start_local_call.expect(:call, true) do |command|
-  #     command == "/BrowserStackLocal -d start --key #{ACCESS_KEY} --local-identifier #{LOCAL_ID} --force-local"
-  #   end
-
-  #   Open3.stub(:popen2, start_local_call) do
-  #     driver.send(:start_local_tunnel)
-  #   end
-
-  #   start_local_call.verify
-  # end
+    driver.start_driver
+  end
 end
 

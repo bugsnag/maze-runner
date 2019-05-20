@@ -14,9 +14,6 @@ class AppAutomateDriver < Appium::Driver
 
   # Creates the AppAutomateDriver
   #
-  # An instance of this driver should be assigned to the $driver variable for the steps to work correctly.
-  # Adds an at_exit block to ensure a created driver is stopped
-  #
   # @param username [String] the BrowserStack username
   # @param access_key [String] the BrowserStack access key
   # @param local_id [String] the identifier for the BrowserStackLocal tunnel
@@ -26,8 +23,9 @@ class AppAutomateDriver < Appium::Driver
   def initialize(username, access_key, local_id, target_device, app_location, locator=:id)
     @device_type = target_device
     @element_locator = locator
+    @access_key = access_key
+    @local_id = local_id
     app_url = upload_app(username, access_key, app_location)
-    start_local_tunnel(access_key, local_id)
     capabilities = {
       'browserstack.console': 'errors',
       'browserstack.localIdentifier': local_id,
@@ -42,7 +40,12 @@ class AppAutomateDriver < Appium::Driver
         :server_url => "http://#{username}:#{access_key}@hub-cloud.browserstack.com/wd/hub"
       }
     }, true)
-    start_driver
+  end
+
+  # Starts the BrowserStackLocal tunnel and the Appium driver
+  def start_driver
+    start_local_tunnel(@access_key, @local_id)
+    super
   end
 
   # Checks for an element, waiting until it is present or the method times out

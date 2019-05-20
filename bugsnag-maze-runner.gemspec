@@ -36,4 +36,5 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "yard", "~> 0.9.1"
   spec.add_development_dependency "yard-cucumber", "~> 4.0.0"
+  spec.add_development_dependency "mocha", "~> 1.8.0"
 end

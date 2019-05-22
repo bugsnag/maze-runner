@@ -1,36 +1,42 @@
 class Devices
   DEVICE_HASH = {
     "ANDROID_9" => {
+      "autoGrantPermissions" => "true",
       "device" => "Google Pixel 3",
       "platformName" => "Android",
       "os" => "android",
       "os_version" => "9.0"
     },
     "ANDROID_8" => {
+      "autoGrantPermissions" => "true",
       "device" => "Google Pixel 2",
       "platformName" => "Android",
       "os" => "android",
       "os_version" => "8.0"
     },
     "ANDROID_7" => {
+      "autoGrantPermissions" => "true",
       "device" => "Google Pixel",
       "platformName" => "Android",
       "os" => "android",
       "os_version" => "7.1"
     },
     "ANDROID_6" => {
+      "autoGrantPermissions" => "true",
       "device" => "Google Nexus 6",
       "platformName" => "Android",
       "os" => "android",
       "os_version" => "6.0"
     },
     "ANDROID_5" => {
+      "autoGrantPermissions" => "true",
       "device" => "Google Nexus 6",
       "platformName" => "Android",
       "os" => "android",
       "os_version" => "5.0"
     },
     "ANDROID_4" => {
+      "autoGrantPermissions" => "true",
       "device" => "Google Nexus 5",
       "platformName" => "Android",
       "os" => "android",

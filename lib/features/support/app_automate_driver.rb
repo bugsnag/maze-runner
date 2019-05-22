@@ -44,7 +44,7 @@ class AppAutomateDriver < Appium::Driver
 
   # Starts the BrowserStackLocal tunnel and the Appium driver
   def start_driver
-    start_local_tunnel(@access_key, @local_id)
+    start_local_tunnel
     super
   end
 
@@ -64,13 +64,21 @@ class AppAutomateDriver < Appium::Driver
     find_element(@element_locator, element_id).click
   end
 
+  # Enters text into a given element
+  #
+  # @param element_id [String] the element to send text to using the @element_locator strategy
+  # @param text [String] the text to send
+  def sent_text_to_element(element_id, text)
+    find_element(@element_locator, element_id).send_keys(text)
+  end
+
   private
 
   def upload_app(username, access_key, app_location)
     res = `curl -u "#{username}:#{access_key}" -X POST "#{BROWSER_STACK_APP_UPLOAD_URI}" -F "file=@#{app_location}"`
     response = JSON.parse(res)
     if response.include?('error')
-      raise Exception.new("BrowserStack upload failed due to error: #{response['error']}")
+      raise "BrowserStack upload failed due to error: #{response['error']}"
     else
       response['app_url']
     end
@@ -80,9 +88,9 @@ class AppAutomateDriver < Appium::Driver
     Devices::DEVICE_HASH
   end
 
-  def start_local_tunnel(access_key, local_id)
+  def start_local_tunnel
     status = nil
-    Open3.popen2("/BrowserStackLocal -d start --key #{access_key} --local-identifier #{local_id} --force-local") do |stdin, stdout, wait|
+    Open3.popen2("/BrowserStackLocal -d start --key #{@access_key} --local-identifier #{@local_id} --force-local") do |stdin, stdout, wait|
       status = wait.value
     end
     status

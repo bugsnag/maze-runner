@@ -2,14 +2,6 @@ require 'test_helper'
 require_relative '../lib/features/support/app_automate_driver'
 require_relative '../lib/features/support/capabilities/devices'
 
-# Ensure at_exit blocks are eaten
-module Kernel
-  alias_method :old_at_exit, :at_exit
-  def at_exit
-  end
-end
-
-
 class AppAutomateDriverTest < Test::Unit::TestCase
 
   USERNAME = "Username"
@@ -24,10 +16,6 @@ class AppAutomateDriverTest < Test::Unit::TestCase
     AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
     driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
 
-    assert_equal(ACCESS_KEY, driver.instance_variable_get(:@access_key))
-    assert_equal(:id, driver.instance_variable_get(:@element_locator))
-    assert_equal(TARGET_DEVICE, driver.instance_variable_get(:@device_type))
-    assert_equal(LOCAL_ID, driver.instance_variable_get(:@local_id))
     assert_equal('errors', driver.caps[:'browserstack.console'])
     assert_equal(LOCAL_ID, driver.caps[:'browserstack.localIdentifier'])
     assert_equal('true', driver.caps[:'browserstack.local'])
@@ -39,14 +27,10 @@ class AppAutomateDriverTest < Test::Unit::TestCase
     end
   end
 
-  def test_overridden_location
+  def test_overridden_locator
     AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
     driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION, :accessibility_id)
 
-    assert_equal(ACCESS_KEY, driver.instance_variable_get(:@access_key))
-    assert_equal(:accessibility_id, driver.instance_variable_get(:@element_locator))
-    assert_equal(TARGET_DEVICE, driver.instance_variable_get(:@device_type))
-    assert_equal(LOCAL_ID, driver.instance_variable_get(:@local_id))
     assert_equal('errors', driver.caps[:'browserstack.console'])
     assert_equal(LOCAL_ID, driver.caps[:'browserstack.localIdentifier'])
     assert_equal('true', driver.caps[:'browserstack.local'])
@@ -62,7 +46,8 @@ class AppAutomateDriverTest < Test::Unit::TestCase
     json_response = JSON.dump({
       :app_url => TEST_APP_URL
     })
-    AppAutomateDriver.any_instance.stubs(:`).returns(json_response)
+    expected_command = %(curl -u "#{USERNAME}:#{ACCESS_KEY}" -X POST "https://api-cloud.browserstack.com/app-automate/upload" -F "file=@#{APP_LOCATION}")
+    AppAutomateDriver.any_instance.stubs(:`).with(expected_command).returns(json_response)
     driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
     assert_equal(TEST_APP_URL, driver.caps[:app])
   end
@@ -71,11 +56,10 @@ class AppAutomateDriverTest < Test::Unit::TestCase
     json_response = JSON.dump({
       :error => "Error"
     })
-    AppAutomateDriver.any_instance.stubs(:`).returns(json_response)
-    begin
-      driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
-    rescue Exception => exception
-      assert_equal("BrowserStack upload failed due to error: Error", exception.message)
+    expected_command = %(curl -u "#{USERNAME}:#{ACCESS_KEY}" -X POST "https://api-cloud.browserstack.com/app-automate/upload" -F "file=@#{APP_LOCATION}")
+    AppAutomateDriver.any_instance.stubs(:`).with(expected_command).returns(json_response)
+    assert_raise(RuntimeError, "BrowserStack upload failed due to error: Error") do
+      AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
     end
   end
 
@@ -95,12 +79,60 @@ class AppAutomateDriverTest < Test::Unit::TestCase
     AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
     driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION, :accessibility_id)
 
-    mocked_element = mock('object')
+    mocked_element = mock('element')
     mocked_element.expects(:click)
 
     driver.expects(:find_element).with(:accessibility_id, "test_button").returns(mocked_element)
 
     driver.click_element("test_button")
+  end
+
+  def test_wait_for_element_defaults
+    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
+    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
+
+    mocked_element = mock('element')
+    mocked_element.expects(:displayed?).returns(true)
+
+    driver.expects(:find_element).with(:id, "test_button").returns(mocked_element)
+
+    driver.wait_for_element("test_button")
+  end
+
+  def test_wait_for_element_locator
+    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
+    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION, :accessibility_id)
+
+    mocked_element = mock('element')
+    mocked_element.expects(:displayed?).returns(true)
+
+    driver.expects(:find_element).with(:accessibility_id, "test_button").returns(mocked_element)
+
+    driver.wait_for_element("test_button")
+  end
+
+  def test_send_text_to_element_defaults
+    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
+    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
+
+    mocked_element = mock('element')
+    mocked_element.expects(:send_keys).with("Test_text")
+
+    driver.expects(:find_element).with(:id, "test_text_entry").returns(mocked_element)
+
+    driver.sent_text_to_element("test_text_entry", "Test_text")
+  end
+
+  def test_send_text_to_element_locator
+    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
+    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION, :accessibility_id)
+
+    mocked_element = mock('element')
+    mocked_element.expects(:send_keys).with("Test_text")
+
+    driver.expects(:find_element).with(:accessibility_id, "test_text_entry").returns(mocked_element)
+
+    driver.sent_text_to_element("test_text_entry", "Test_text")
   end
 
   def test_start_driver

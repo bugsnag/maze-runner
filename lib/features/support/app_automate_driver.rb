@@ -64,11 +64,11 @@ class AppAutomateDriver < Appium::Driver
     find_element(@element_locator, element_id).click
   end
 
-  # Enters text into a given element
+  # Sends keys to a given element
   #
   # @param element_id [String] the element to send text to using the @element_locator strategy
   # @param text [String] the text to send
-  def sent_text_to_element(element_id, text)
+  def send_keys_to_element(element_id, text)
     find_element(@element_locator, element_id).send_keys(text)
   end
 

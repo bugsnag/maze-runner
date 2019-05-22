@@ -111,7 +111,7 @@ class AppAutomateDriverTest < Test::Unit::TestCase
     driver.wait_for_element("test_button")
   end
 
-  def test_send_text_to_element_defaults
+  def test_send_keys_to_element_defaults
     AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
     driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
 
@@ -120,10 +120,10 @@ class AppAutomateDriverTest < Test::Unit::TestCase
 
     driver.expects(:find_element).with(:id, "test_text_entry").returns(mocked_element)
 
-    driver.sent_text_to_element("test_text_entry", "Test_text")
+    driver.send_keys_to_element("test_text_entry", "Test_text")
   end
 
-  def test_send_text_to_element_locator
+  def test_send_keys_to_element_locator
     AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
     driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION, :accessibility_id)
 
@@ -132,7 +132,7 @@ class AppAutomateDriverTest < Test::Unit::TestCase
 
     driver.expects(:find_element).with(:accessibility_id, "test_text_entry").returns(mocked_element)
 
-    driver.sent_text_to_element("test_text_entry", "Test_text")
+    driver.send_keys_to_element("test_text_entry", "Test_text")
   end
 
   def test_start_driver

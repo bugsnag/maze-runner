@@ -18,3 +18,11 @@ end
 Given("I send the app to the background for {int} seconds") do |timeout|
   $driver.background_app(timeout)
 end
+
+# Sends keys to a given element
+#
+# @param keys [String] The keys to send to the element
+# @param element_id [String] The locator id
+Given("I send the keys {string} to the element {string}") do |keys, element_id|
+  $driver.send_keys_to_element(element_id, keys)
+end

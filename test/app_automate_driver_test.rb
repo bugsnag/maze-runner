@@ -67,7 +67,7 @@ class AppAutomateDriverTest < Test::Unit::TestCase
     AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
     driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
 
-    mocked_element = mock('object')
+    mocked_element = mock('element')
     mocked_element.expects(:click)
 
     driver.expects(:find_element).with(:id, "test_button").returns(mocked_element)

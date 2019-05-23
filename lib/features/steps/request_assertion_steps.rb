@@ -158,7 +158,7 @@ Then("the payload field {string} ends with {string}") do |field_path, string_val
   assert_kind_of String, value
   assert(value.end_with? string_value, "Field '#{field_path}' does not end with '#{string_value}'")
 end
-Then("the payload field {string} is an array with {int} elements?") do |field, count|
+Then("the payload field {string} is an array with {int} elements") do |field, count|
   value = read_key_path(Server.current_request[:body], field)
   assert_kind_of Array, value
   assert_equal(count, value.length)

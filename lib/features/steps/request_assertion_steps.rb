@@ -145,6 +145,14 @@ end
 Then("the payload field {string} equals {int}") do |field_path, int_value|
   assert_equal(int_value, read_key_path(Server.current_request[:body], field_path))
 end
+Then("the payload field {String} is greater than {int}") do |field_path, int_value|
+  value = read_key_path(Server.current_request[:body], field_path)
+  assert_true(value > int_value, "The payload field '#{field_path}' is not greater than '#{int_value}'")
+end
+Then("the payload field {String} is lesser than {int}") do |field_path, int_value|
+  value = read_key_path(Server.current_request[:body], field_path)
+  assert_true(value < int_value, "The payload field '#{field_path}' is not lesser than '#{int_value}'")
+end
 Then("the payload field {string} equals {string}") do |field_path, string_value|
   assert_equal(string_value, read_key_path(Server.current_request[:body], field_path))
 end

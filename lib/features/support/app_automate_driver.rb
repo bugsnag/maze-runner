@@ -31,6 +31,7 @@ class AppAutomateDriver < Appium::Driver
       'browserstack.localIdentifier': local_id,
       'browserstack.local': 'true',
       'browserstack.networkLogs': 'true',
+      'autoDismissAlerts': 'true',
       'app' => app_url
     }
     capabilities.merge! devices[target_device]

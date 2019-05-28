@@ -51,45 +51,44 @@ Then("the event {string} matches the JSON fixture in {string}") do |field, fixtu
 end
 
 ## BREADCRUMB ASSERTIONS
+# Checks a breadcrumb with a type and name exists
+#
+# @param type [String] The type field
+# @param name [String] The name field
 Then("the event has a {string} breadcrumb named {string}") do |type, name|
   value = Server.current_request[:body]["events"].first["breadcrumbs"]
-  found = false
-  value.each do |crumb|
-    if crumb["type"] == type and crumb["name"] == name then
-      found = true
-    end
-  end
-  fail("No breadcrumb matched: #{value}") unless found
+  found = value.any? do { |crumb| crumb["type"] == type and crumb["name"] == name }
+  assert(found, "A breadcrumb was not found matching: #{value}")
 end
+
+# Checks a breadcrumb with a type and name does not exist
+#
+# @param type [String] The type field
+# @param name [String] The name field
 Then("the event does not have a {string} breadcrumb named {string}") do |type, name|
   value = Server.current_request[:body]["events"].first["breadcrumbs"]
-  found = false
-  value.each do |crumb|
-    if crumb["type"] == type and crumb["name"] == name then
-      found = true
-    end
-  end
-  fail("A breadcrumb was found matching: #{value}") if found
+  none_found = value.none? do { |crumb| crumb["type"] == type and crumb["name"] == name }
+  assert(none_found, "A breadcrumb was found matching: #{value}")
 end
+
+# Checks a breadcrumb with a type and message exists
+#
+# @param type [String] The type field
+# @param message [String] The message field
 Then("the event has a {string} breadcrumb with message {string}") do |type, message|
   value = Server.current_request[:body]["events"].first["breadcrumbs"]
-  found = false
-  value.each do |crumb|
-    if crumb["type"] == type and crumb["metaData"] and crumb["metaData"]["message"] == message then
-      found = true
-    end
-  end
-  fail("No breadcrumb matched: #{value}") unless found
+  found = value.any? do { |crumb| crumb["type"] == type and crumb["metaData"] and crumb["metaData"]["message"] == message }
+  assert(found, "A breadcrumb was not found matching: #{value}")
 end
+
+# Checks a breadcrumb with a type and message does not exist
+#
+# @param type [String] The type field
+# @param message [String] The message field
 Then("the event does not have a {string} breadcrumb with message {string}") do |type, message|
   value = Server.current_request[:body]["events"].first["breadcrumbs"]
-  found = false
-  value.each do |crumb|
-    if crumb["type"] == type and crumb["metaData"] and crumb["metaData"]["message"] == message then
-      found = true
-    end
-  end
-  fail("A breadcrumb was found matching: #{value}") if found
+  none_found = value.none? do { |crumb| crumb["type"] == type and crumb["metaData"] and crumb["metaData"]["message"] == message }
+  assert(none_found, "A breadcrumb was found matching: #{value}")
 end
 
 

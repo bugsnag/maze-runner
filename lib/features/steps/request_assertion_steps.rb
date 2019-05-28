@@ -145,13 +145,25 @@ end
 Then("the payload field {string} equals {int}") do |field_path, int_value|
   assert_equal(int_value, read_key_path(Server.current_request[:body], field_path))
 end
+
+# Checks a given payload field contains a number larger than a given value
+#
+# @param field_path [String] The payload element to check
+# @param int_value [Integer] The value to compare against
 Then("the payload field {String} is greater than {int}") do |field_path, int_value|
   value = read_key_path(Server.current_request[:body], field_path)
-  assert_true(value > int_value, "The payload field '#{field_path}' is not greater than '#{int_value}'")
+  assert_kind_of Integer, value
+  assert(value > int_value, "The payload field '#{field_path}' is not greater than '#{int_value}'")
 end
-Then("the payload field {String} is lesser than {int}") do |field_path, int_value|
+
+# Checks a given payload field contains a number smaller than a given value
+#
+# @param field_path [String] The payload element to check
+# @param int_value [Integer] The value to compare against
+Then("the payload field {String} is less than {int}") do |field_path, int_value|
   value = read_key_path(Server.current_request[:body], field_path)
-  assert_true(value < int_value, "The payload field '#{field_path}' is not lesser than '#{int_value}'")
+  assert_kind_of Integer, value
+  assert(value < int_value, "The payload field '#{field_path}' is not less than '#{int_value}'")
 end
 Then("the payload field {string} equals {string}") do |field_path, string_value|
   assert_equal(string_value, read_key_path(Server.current_request[:body], field_path))
@@ -166,6 +178,11 @@ Then("the payload field {string} ends with {string}") do |field_path, string_val
   assert_kind_of String, value
   assert(value.end_with? string_value, "Field '#{field_path}' does not end with '#{string_value}'")
 end
+
+# Checks a given payload field is an array with at a certain element count
+#
+# @param field [String] The payload element to check
+# @param count [Integer] The value expected
 Then("the payload field {string} is an array with {int} elements") do |field, count|
   value = read_key_path(Server.current_request[:body], field)
   assert_kind_of Array, value

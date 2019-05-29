@@ -1,9 +1,13 @@
+# Verifies that generic elements of the payload should be present
+#
+# @param payload_version [String] The payload version expected
+# @param notifier_name [String] The expected name of the notifier
 Then("the request is valid for the error reporting API version {string} for the {string} notifier") do |payload_version, notifier_name|
   steps %Q{
     Then the "Bugsnag-Api-Key" header equals "#{$api_key}"
     And the payload field "apiKey" equals "#{$api_key}"
     And the "Bugsnag-Payload-Version" header equals "#{payload_version}"
-    And the payload field "events.0.payloadVersion" equals "#{payload_version}"
+    And the payload contains the payloadVersion "#{payload_version}"
     And the "Content-Type" header equals "application/json"
     And the "Bugsnag-Sent-At" header is a timestamp
 
@@ -17,6 +21,17 @@ Then("the request is valid for the error reporting API version {string} for the 
     And each element in payload field "events" has "unhandled"
     And each element in payload field "events" has "exceptions"
   }
+end
+
+# Checks the payloadVersion is set correctly in the payload body in the Javascript or regular place
+#
+# @param payload_version [String] The payload version expected
+Then("the payload contains the payloadVersion {string}") do |payload_version|
+  body_version = read_key_path(Server.current_request[:body], "payloadVersion")
+  body_set = payloadVersion == body_version
+  event_version = read_key_path(Server.current_request[:body], "events.0.payloadVersion")
+  event_set = payloadVersion == event_version
+  assert_true(body_set || event_set, "The payloadVersion was not the expected value of #{payload_version}. #{body_version} found in body, #{event_version} found in event")
 end
 
 ## EVENT FIELD ASSERTIONS

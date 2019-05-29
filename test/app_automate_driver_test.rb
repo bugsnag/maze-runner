@@ -140,7 +140,8 @@ class AppAutomateDriverTest < Test::Unit::TestCase
     driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
 
     Appium::Driver.any_instance.expects(:start_driver)
-    Open3.expects(:popen2).with(LOCAL_TUNNEL_COMMAND)
+    waiter = mock('Process::Waiter', value: mock('Process::Status'))
+    Open3.expects(:popen2).with(LOCAL_TUNNEL_COMMAND).yields(mock('stdin'), mock('stdout'), waiter)
 
     driver.start_driver
   end

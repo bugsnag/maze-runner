@@ -28,9 +28,9 @@ end
 # @param payload_version [String] The payload version expected
 Then("the payload contains the payloadVersion {string}") do |payload_version|
   body_version = read_key_path(Server.current_request[:body], "payloadVersion")
-  body_set = payloadVersion == body_version
+  body_set = payload_version == body_version
   event_version = read_key_path(Server.current_request[:body], "events.0.payloadVersion")
-  event_set = payloadVersion == event_version
+  event_set = payload_version == event_version
   assert_true(body_set || event_set, "The payloadVersion was not the expected value of #{payload_version}. #{body_version} found in body, #{event_version} found in event")
 end
 

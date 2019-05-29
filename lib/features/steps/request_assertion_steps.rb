@@ -150,7 +150,7 @@ end
 #
 # @param field_path [String] The payload element to check
 # @param int_value [Integer] The value to compare against
-Then("the payload field {String} is greater than {int}") do |field_path, int_value|
+Then("the payload field {string} is greater than {int}") do |field_path, int_value|
   value = read_key_path(Server.current_request[:body], field_path)
   assert_kind_of Integer, value
   assert(value > int_value, "The payload field '#{field_path}' is not greater than '#{int_value}'")
@@ -160,7 +160,7 @@ end
 #
 # @param field_path [String] The payload element to check
 # @param int_value [Integer] The value to compare against
-Then("the payload field {String} is less than {int}") do |field_path, int_value|
+Then("the payload field {string} is less than {int}") do |field_path, int_value|
   value = read_key_path(Server.current_request[:body], field_path)
   assert_kind_of Integer, value
   assert(value < int_value, "The payload field '#{field_path}' is not less than '#{int_value}'")

@@ -54,8 +54,14 @@ class AppAutomateDriver < Appium::Driver
   # @param element_id [String] the element to search for using the @element_locator strategy
   # @param timeout [Integer] the maximum time to wait for an element to be present in seconds
   def wait_for_element(element_id, timeout=15)
-    wait = Selenium::WebDriver::Wait.new(:timeout => timeout)
-    wait.until { find_element(@element_locator, element_id).displayed? }
+    begin
+      wait = Selenium::WebDriver::Wait.new(:timeout => timeout)
+      wait.until { find_element(@element_locator, element_id).displayed? }
+    rescue Selenium::WebDriver::Error::TimeoutError
+      false
+    else
+      true
+    end
   end
 
   # Clicks a given element

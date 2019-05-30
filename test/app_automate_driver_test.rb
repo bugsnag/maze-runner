@@ -92,11 +92,12 @@ class AppAutomateDriverTest < Test::Unit::TestCase
     driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
 
     mocked_element = mock('element')
-    mocked_element.expects(:displayed?).returns(true)
+    mocked_element.expects(:displayed?).returns(true).at_least_once
 
-    driver.expects(:find_element).with(:id, "test_button").returns(mocked_element)
+    driver.expects(:find_element).with(:id, "test_button").returns(mocked_element).at_least_once
 
-    driver.wait_for_element("test_button")
+    response = driver.wait_for_element("test_button")
+    assert(response, "The driver must return true if it finds an element")
   end
 
   def test_wait_for_element_locator
@@ -104,11 +105,25 @@ class AppAutomateDriverTest < Test::Unit::TestCase
     driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION, :accessibility_id)
 
     mocked_element = mock('element')
-    mocked_element.expects(:displayed?).returns(true)
+    mocked_element.expects(:displayed?).returns(true).at_least_once
 
-    driver.expects(:find_element).with(:accessibility_id, "test_button").returns(mocked_element)
+    driver.expects(:find_element).with(:accessibility_id, "test_button").returns(mocked_element).at_least_once
 
-    driver.wait_for_element("test_button")
+    response = driver.wait_for_element("test_button")
+    assert(response, "The driver must return true if it finds an element")
+  end
+
+  def test_wait_for_element_failure
+    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
+    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION, :accessibility_id)
+
+    mocked_element = mock('element')
+    mocked_element.expects(:displayed?).returns(false).at_least_once
+
+    driver.expects(:find_element).with(:accessibility_id, "test_button").returns(mocked_element).at_least_once
+
+    response = driver.wait_for_element("test_button")
+    assert_false(response, "The driver must return false if it does not find an element")
   end
 
   def test_send_keys_to_element_defaults

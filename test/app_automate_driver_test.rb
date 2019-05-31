@@ -92,9 +92,9 @@ class AppAutomateDriverTest < Test::Unit::TestCase
     driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
 
     mocked_element = mock('element')
-    mocked_element.expects(:displayed?).returns(true).at_least_once
+    mocked_element.expects(:displayed?).returns(true)
 
-    driver.expects(:find_element).with(:id, "test_button").returns(mocked_element).at_least_once
+    driver.expects(:find_element).with(:id, "test_button").returns(mocked_element)
 
     response = driver.wait_for_element("test_button")
     assert(response, "The driver must return true if it finds an element")
@@ -105,9 +105,9 @@ class AppAutomateDriverTest < Test::Unit::TestCase
     driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION, :accessibility_id)
 
     mocked_element = mock('element')
-    mocked_element.expects(:displayed?).returns(true).at_least_once
+    mocked_element.expects(:displayed?).returns(true)
 
-    driver.expects(:find_element).with(:accessibility_id, "test_button").returns(mocked_element).at_least_once
+    driver.expects(:find_element).with(:accessibility_id, "test_button").returns(mocked_element)
 
     response = driver.wait_for_element("test_button")
     assert(response, "The driver must return true if it finds an element")

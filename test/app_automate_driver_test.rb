@@ -131,9 +131,9 @@ class AppAutomateDriverTest < Test::Unit::TestCase
     driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION, :accessibility_id)
 
     mocked_element = mock('element')
-    mocked_element.expects(:displayed?).at_least(2).at_most(2).raises(Selenium::WebDriver::Error::StaleElementReferenceError, 'Element is stale').then.returns(true)
+    mocked_element.expects(:displayed?).times(2).raises(Selenium::WebDriver::Error::StaleElementReferenceError, 'Element is stale').then.returns(true)
 
-    driver.expects(:find_element).with(:accessibility_id, "test_button").returns(mocked_element).at_least(2).at_most(2)
+    driver.expects(:find_element).with(:accessibility_id, "test_button").returns(mocked_element).times(2)
 
     response = driver.wait_for_element("test_button")
     assert(response, "The driver must return true if it finds an element")
@@ -169,9 +169,9 @@ class AppAutomateDriverTest < Test::Unit::TestCase
 
     stale_error = Selenium::WebDriver::Error::StaleElementReferenceError.new("Element is stale")
     mocked_element = mock('element')
-    mocked_element.expects(:displayed?).at_least(2).at_most(2).raises(stale_error)
+    mocked_element.expects(:displayed?).once.raises(stale_error)
 
-    driver.expects(:find_element).with(:accessibility_id, "test_button").returns(mocked_element).at_least(2).at_most(2)
+    driver.expects(:find_element).with(:accessibility_id, "test_button").returns(mocked_element).once
 
     logger_mock.expects(:warn).with("StaleElementReferenceError occurred: #{stale_error}")
 

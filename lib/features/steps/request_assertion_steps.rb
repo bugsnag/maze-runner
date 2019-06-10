@@ -146,6 +146,18 @@ Then("the payload field {string} equals {int}") do |field_path, int_value|
   assert_equal(int_value, read_key_path(Server.current_request[:body], field_path))
 end
 
+# Checks the payload field value against an environment variable
+#
+# @param field_path [String] The payload element to check
+# @param env_var [String] The environment variable to test against
+Then("the payload field {string} equals the environment variable {string}") do |field_path, env_var|
+  environment_value = ENV[env_var]
+  assert_false(environment_value.nil?, "The environment variable #{env_var} must not be nil")
+  value = read_key_path(Server.current_request[:body], field_path)
+
+  assert_equal(environment_value, value)
+end
+
 # Checks a given payload field contains a number larger than a given value
 #
 # @param field_path [String] The payload element to check

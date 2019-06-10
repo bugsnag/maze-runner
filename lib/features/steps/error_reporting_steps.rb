@@ -60,6 +60,14 @@ Then("the event {string} is a parsable timestamp in seconds") do |field|
   step "the payload field \"events.0.#{field}\" is a parsable timestamp in seconds"
 end
 
+# Checks the Event field value against an environment variable
+#
+# @param field [String] The payload element to check
+# @param env_var [String] The environment variable to test against
+Then("the event {string} equals the environment variable {string}") do |field, env_var|
+  step "the payload field \"events.0.#{field}\" equals the environment variable \"#{env_var}\""
+end
+
 ## JSON FIXTURE ASSERTIONS
 Then("the event {string} matches the JSON fixture in {string}") do |field, fixture_path|
   step "the payload field \"events.0.#{field}\" matches the JSON fixture in \"#{fixture_path}\""

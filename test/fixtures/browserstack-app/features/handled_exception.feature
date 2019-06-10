@@ -7,3 +7,5 @@ Scenario: Test Handled Android Exception
   And the request is valid for the error reporting API version "4.0" for the "Android Bugsnag Notifier" notifier
   And the exception "errorClass" equals "java.lang.Exception"
   And the exception "message" equals "HandledException!"
+  # Verifies the environment variable change works
+  And the payload field "apiKey" equals the environment variable "BUGSNAG_API_KEY"

@@ -7,6 +7,8 @@ app_location = 'app/build/outputs/apk/release/app-release.apk'
 
 $api_key = "12312312312312312312312312312312"
 
+ENV["BUGSNAG_API_KEY"] = $api_key
+
 AfterConfiguration do |config|
   AppAutomateDriver.new(bs_username, bs_access_key, bs_local_id, bs_device, app_location)
   $driver.start_driver

@@ -132,6 +132,10 @@ end
 Then(/^the payload field "(.+)" equals (\d+)(?: for request (\d+))?$/) do |field_path, int_value, request_index|
   assert_equal(int_value, read_key_path(find_request(request_index)[:body], field_path))
 end
+Then(/^the payload field "(.+)" contains "(.+)"(?: for request (\d+))?$/) do |field_path, string_value, request_index|
+  value = read_key_path(find_request(request_index)[:body], field_path)
+  assert_true(value.include?(string_value), "'#{value}' does not contain '#{string_value}'")
+end
 Then(/^the payload field "(.+)" equals "(.+)"(?: for request (\d+))?$/) do |field_path, string_value, request_index|
   assert_equal(string_value, read_key_path(find_request(request_index)[:body], field_path))
 end

@@ -38,6 +38,9 @@ end
 Then(/^the event "(.+)" is null(?: for request (\d+))?$/) do |field, request_index|
   step "the payload field \"events.0.#{field}\" is null for request #{get_request_index(request_index)}"
 end
+Then(/^the event "(.+)" contains "(.+)"(?: for request (\d+))?$/) do |field, string_value, request_index|
+  step "the payload field \"events.0.#{field}\" contains \"#{string_value}\" for request #{get_request_index(request_index)}"
+end
 Then(/^the event "(.+)" starts with "(.+)"(?: for request (\d+))?$/) do |field, string_value, request_index|
   step "the payload field \"events.0.#{field}\" starts with \"#{string_value}\" for request #{get_request_index(request_index)}"
 end
@@ -88,6 +91,9 @@ Then(/^the exception "(.+)" starts with "(.+)"(?: for request (\d+))?$/) do |fie
 end
 Then(/^the exception "(.+)" ends with "(.+)"(?: for request (\d+))?$/) do |field, string_value, request_index|
   step "the payload field \"events.0.exceptions.0.#{field}\" ends with \"#{string_value}\" for request #{get_request_index(request_index)}"
+end
+Then(/^the exception "(.+)" contains "(.+)"(?: for request (\d+))?$/) do |field, string_value, request_index|
+  step "the payload field \"events.0.exceptions.0.#{field}\" contains \"#{string_value}\" for request #{get_request_index(request_index)}"
 end
 Then(/^the exception "(.+)" equals "(.+)"(?: for request (\d+))?$/) do |field, string_value, request_index|
   step "the payload field \"events.0.exceptions.0.#{field}\" equals \"#{string_value}\" for request #{get_request_index(request_index)}"

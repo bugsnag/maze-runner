@@ -53,3 +53,25 @@ Then("the payload has a valid sessions array") do
     }
   end
 end
+
+# Tests a payload has the same session id as the following payload
+Then("the payload has the same session id as the following event payload") do
+  # Check if the first payload is an event or session payload
+  session_payload = read_key_path(Server.current_request[:body], 'sessions').nil?
+  if session_payload
+    step "the payload field \"sessions.0.id\" in the current request matches the payload field \"events.0.session.id\" in the next request"
+  else
+    step "the payload field \"events.0.session.id\" in the current request matches the payload field \"events.0.session.id\" in the next request"
+  end
+end
+
+# Tests a payload doesn't have the same session id as the following payload
+Then("the payload does not have the same session id as the following event payload") do
+  # Check if the first payload is an event or session payload
+  session_payload = read_key_path(Server.current_request[:body], 'sessions').nil?
+  if session_payload
+    step "the payload field \"sessions.0.id\" in the current request does not match the payload field \"events.0.session.id\" in the next request"
+  else
+    step "the payload field \"events.0.session.id\" in the current request does not match the payload field \"events.0.session.id\" in the next request"
+  end
+end

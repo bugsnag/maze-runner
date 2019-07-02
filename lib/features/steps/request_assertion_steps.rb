@@ -227,3 +227,27 @@ Then("each element in payload field {string} has {string}") do |key_path, elemen
            "Each element in '#{key_path}' must have '#{element_key_path}'")
   end
 end
+
+# Checks a given payload field for the current request is the same as a payload field in the next request
+#
+# @param current_field [String] the payload element from the current request
+# @param next_field [String] the payload element in the next request
+Then("the payload field {string} in the current request matches the payload field {string} in the next request") do |current_field, next_field|
+  assert(Server.stored_requests.length > 1, "The server does not have more than one request")
+  current_value = read_key_path(Server.current_request[:body], current_field)
+  next_value = read_key_path(Server.next_request[:body], next_field)
+  result = value_compare(current_value, next_value)
+  assert_true(result.equal?, "The current value #{current_value} did not equal the next value #{next_value}")
+end
+
+# Checks a given payload field for the current request is not the same as a payload field in the next request
+#
+# @param current_field [String] the payload element from the current request
+# @param next_field [String] the payload element from the next request
+Then("the payload field {string} in the current request does not match the payload field {string} in the next request") do |current_field, next_field|
+  assert(Server.stored_requests.length > 1, "The server does not have more than one request")
+  current_value = read_key_path(Server.current_request[:body], current_field)
+  next_value = read_key_path(Server.next_request[:body], next_field)
+  result = value_compare()
+  assert_false(result.equal?, "The current value #{current_value} equaled the next value #{next_value}")
+end

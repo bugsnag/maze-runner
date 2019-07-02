@@ -248,6 +248,6 @@ Then("the payload field {string} in the current request does not match the paylo
   assert(Server.stored_requests.length > 1, "The server does not have more than one request")
   current_value = read_key_path(Server.current_request[:body], current_field)
   next_value = read_key_path(Server.next_request[:body], next_field)
-  result = value_compare()
+  result = value_compare(current_value, next_value)
   assert_false(result.equal?, "The current value #{current_value} equaled the next value #{next_value}")
 end

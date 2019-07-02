@@ -18,6 +18,11 @@ steps:
         run: ci
     command: 'bundle exec rake'
 
+  - label: 'Comparison tests'
+    plugins:
+      docker-compose#v2.5.1:
+        run: comparison-tests
+
   - label: 'Browserstack-app-automate integration test'
     plugins:
       docker-compose#v2.5.1:

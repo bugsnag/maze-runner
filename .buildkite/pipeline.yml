@@ -22,6 +22,7 @@ steps:
     plugins:
       docker-compose#v2.5.1:
         run: comparison-tests
+    command: 'bundle exec bugsnag-maze-runner'
 
   - label: 'Browserstack-app-automate integration test'
     plugins:

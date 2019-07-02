@@ -2,7 +2,7 @@
 
 require 'net/http'
 
-http = Net::HTTP.new('localhost', ENV['MOCK_API_PORT'])
+http = Net::HTTP.new('localhost', '9339')
 request = Net::HTTP::Post.new('/')
 request['Content-Type'] = 'application/json'
 

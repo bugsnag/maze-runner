@@ -15,10 +15,10 @@ end
 
 ## SCRIPT RUNNER
 When("I run the script {string} synchronously") do |script_path|
-  run_script(script_path, blocking: true)
+  Runner.run_script(script_path, blocking: true)
 end
 When("I run the script {string}") do |script_path|
-  run_script script_path
+  Runner.run_script script_path
 end
 
 ## DOCKER RUNNER

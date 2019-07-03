@@ -1,7 +1,7 @@
 class Values
   class << self
     def stored_values
-      @values ||= []
+      @values ||= {}
     end
   end
 end

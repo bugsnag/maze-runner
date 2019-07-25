@@ -55,7 +55,12 @@ class AppAutomateDriver < Appium::Driver
     pp "BrowserStack Available? #{browser_stack_available}"
     return false unless browser_stack_available
     start_local_tunnel
-    super
+    begin
+      super
+    rescue Exception => e
+      pp e
+      raise e
+    end
     true
   end
 

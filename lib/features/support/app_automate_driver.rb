@@ -59,6 +59,7 @@ class AppAutomateDriver < Appium::Driver
       super
     rescue Exception => e
       pp e
+      pp e.inspect
       raise e
     end
     true

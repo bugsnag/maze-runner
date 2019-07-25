@@ -211,7 +211,7 @@ class AppAutomateDriverTest < Test::Unit::TestCase
 
     Appium::Driver.any_instance.stubs(:start_driver).returns(true)
 
-    status_check = %(curl -u "#{USERNAME}:#{ACCESS_KEY}" "https://api-cloud.browserstack.com/app-automate/plan.json")
+    status_check = %(curl -q -u "#{USERNAME}:#{ACCESS_KEY}" "https://api-cloud.browserstack.com/app-automate/plan.json")
     json_response = JSON.dump({
       :parallel_sessions_running => 3,
       :parallel_sessions_max_allowed => 5
@@ -229,7 +229,7 @@ class AppAutomateDriverTest < Test::Unit::TestCase
     AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
     driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
 
-    status_check = %(curl -u "#{USERNAME}:#{ACCESS_KEY}" "https://api-cloud.browserstack.com/app-automate/plan.json")
+    status_check = %(curl -q -u "#{USERNAME}:#{ACCESS_KEY}" "https://api-cloud.browserstack.com/app-automate/plan.json")
     json_response = JSON.dump({
       :error => "Error"
     })
@@ -244,7 +244,7 @@ class AppAutomateDriverTest < Test::Unit::TestCase
     AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
     driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
 
-    status_check = %(curl -u "#{USERNAME}:#{ACCESS_KEY}" "https://api-cloud.browserstack.com/app-automate/plan.json")
+    status_check = %(curl -q -u "#{USERNAME}:#{ACCESS_KEY}" "https://api-cloud.browserstack.com/app-automate/plan.json")
     json_response = JSON.dump({
       :parallel_sessions_running => 5,
       :parallel_sessions_max_allowed => 5

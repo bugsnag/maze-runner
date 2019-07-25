@@ -63,8 +63,9 @@ class AppAutomateDriver < Appium::Driver
   #
   # @return [Boolean] whether any devices are available
   def browser_stack_available
-    res = `curl -u "#{@username}:#{@access_key}" "#{BROWSER_STACK_PLAN_STATUS_URI}"`
+    res = `curl -q -u "#{@username}:#{@access_key}" "#{BROWSER_STACK_PLAN_STATUS_URI}"`
     response = JSON.parse(res)
+    pp response
     raise "BrowserStack status check failed due to error: #{response['error']}" if response.include?('error')
     response['parallel_sessions_running'] < response['parallel_sessions_max_allowed']
   end

@@ -26,8 +26,8 @@ class AppAutomateDriver < Appium::Driver
   def initialize(username, access_key, local_id, target_device, app_location, locator=:id)
     @device_type = target_device
     @element_locator = locator
-    @username = username
-    @access_key = access_key
+    @browser_stack_username = username
+    @browser_stack_access_key = access_key
     @local_id = local_id
     app_url = upload_app(username, access_key, app_location)
     capabilities = {
@@ -64,7 +64,7 @@ class AppAutomateDriver < Appium::Driver
   #
   # @return [Boolean] whether any devices are available
   def browser_stack_available
-    res = `curl -q -u "#{@username}:#{@access_key}" "#{BROWSER_STACK_PLAN_STATUS_URI}"`
+    res = `curl -q -u "#{@browser_stack_username}:#{@browser_stack_access_key}" "#{BROWSER_STACK_PLAN_STATUS_URI}"`
     response = JSON.parse(res)
     pp response
     raise "BrowserStack status check failed due to error: #{response['error']}" if response.include?('error')

@@ -52,6 +52,7 @@ class AppAutomateDriver < Appium::Driver
   #
   # @return [Boolean] whether the driver was able to be started
   def start_driver
+    pp "BrowserStack Available? #{browser_stack_available}"
     return false unless browser_stack_available
     start_local_tunnel
     super

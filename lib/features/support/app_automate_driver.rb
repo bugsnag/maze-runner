@@ -12,6 +12,9 @@ class AppAutomateDriver < Appium::Driver
   # The App upload uri for BrowserStack App Automate
   BROWSER_STACK_APP_UPLOAD_URI = "https://api-cloud.browserstack.com/app-automate/upload"
 
+  # The BrowserStack plan status uri
+  BROWSER_STACK_PLAN_STATUS_URI = "https://api-cloud.browserstack.com/app-automate/plan.json"
+
   # Creates the AppAutomateDriver
   #
   # @param username [String] the BrowserStack username
@@ -23,6 +26,7 @@ class AppAutomateDriver < Appium::Driver
   def initialize(username, access_key, local_id, target_device, app_location, locator=:id)
     @device_type = target_device
     @element_locator = locator
+    @username = username
     @access_key = access_key
     @local_id = local_id
     app_url = upload_app(username, access_key, app_location)
@@ -43,10 +47,26 @@ class AppAutomateDriver < Appium::Driver
     }, true)
   end
 
-  # Starts the BrowserStackLocal tunnel and the Appium driver
+  # Attempts to start the BrowserStackLocal tunnel and the Appium driver.
+  # If there aren't any BrowserStack slots available, will return false and allow caller to retry
+  #
+  # @return [Boolean] whether the driver was able to be started
   def start_driver
+    return false unless browser_stack_available
     start_local_tunnel
     super
+    true
+  end
+
+  # Checks whether any devices are currently available to use on BrowserStack AppAutomate
+  # Throws an error if the attempt to communicate with BrowserStack fails
+  #
+  # @return [Boolean] whether any devices are available
+  def browser_stack_available
+    res = `curl -u "#{@username}:#{@access_key}" "#{BROWSER_STACK_PLAN_STATUS_URI}"`
+    response = JSON.parse(res)
+    raise "BrowserStack status check failed due to error: #{response['error']}" if response.include?('error')
+    response['parallel_sessions_running'] < response['parallel_sessions_max_allowed']
   end
 
   # Checks for an element, waiting until it is present or the method times out

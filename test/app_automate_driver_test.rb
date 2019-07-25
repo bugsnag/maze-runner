@@ -205,15 +205,54 @@ class AppAutomateDriverTest < Test::Unit::TestCase
     driver.send_keys_to_element("test_text_entry", "Test_text")
   end
 
-  def test_start_driver
+  def test_start_driver_browser_stack_available
     AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
     driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
 
-    Appium::Driver.any_instance.expects(:start_driver)
+    Appium::Driver.any_instance.stubs(:start_driver).returns(true)
+
+    status_check = %(curl -u "#{USERNAME}:#{ACCESS_KEY}" "https://api-cloud.browserstack.com/app-automate/plan.json")
+    json_response = JSON.dump({
+      :parallel_sessions_running => 3,
+      :parallel_sessions_max_allowed => 5
+    })
+    AppAutomateDriver.any_instance.stubs(:`).with(status_check).returns(json_response)
+
     waiter = mock('Process::Waiter', value: mock('Process::Status'))
     Open3.expects(:popen2).with(LOCAL_TUNNEL_COMMAND).yields(mock('stdin'), mock('stdout'), waiter)
 
-    driver.start_driver
+    response = driver.start_driver
+    assert_true(response)
+  end
+
+  def test_start_driver_browser_stack_error
+    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
+    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
+
+    status_check = %(curl -u "#{USERNAME}:#{ACCESS_KEY}" "https://api-cloud.browserstack.com/app-automate/plan.json")
+    json_response = JSON.dump({
+      :error => "Error"
+    })
+    AppAutomateDriver.any_instance.stubs(:`).with(status_check).returns(json_response)
+
+    assert_raises RuntimeError do
+      driver.start_driver
+    end
+  end
+
+  def test_start_driver_browser_stack_no_devices
+    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
+    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
+
+    status_check = %(curl -u "#{USERNAME}:#{ACCESS_KEY}" "https://api-cloud.browserstack.com/app-automate/plan.json")
+    json_response = JSON.dump({
+      :parallel_sessions_running => 5,
+      :parallel_sessions_max_allowed => 5
+    })
+    AppAutomateDriver.any_instance.stubs(:`).with(status_check).returns(json_response)
+
+    response = driver.start_driver
+    assert_false(response)
   end
 end
 

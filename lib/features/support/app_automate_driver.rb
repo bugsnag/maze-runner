@@ -29,7 +29,7 @@ class AppAutomateDriver < Appium::Driver
     @browser_stack_username = username
     @browser_stack_access_key = access_key
     @local_id = local_id
-    app_url = upload_app(username, access_key, app_location)
+    app_url = upload_app(app_location)
     capabilities = {
       'browserstack.console': 'errors',
       'browserstack.localIdentifier': local_id,
@@ -42,7 +42,7 @@ class AppAutomateDriver < Appium::Driver
     super({
       'caps' => capabilities,
       'appium_lib' => {
-        :server_url => "http://#{username}:#{access_key}@hub-cloud.browserstack.com/wd/hub"
+        :server_url => "http://#{@browser_stack_username}:#{@browser_stack_access_key}@hub-cloud.browserstack.com/wd/hub"
       }
     }, true)
   end
@@ -52,16 +52,9 @@ class AppAutomateDriver < Appium::Driver
   #
   # @return [Boolean] whether the driver was able to be started
   def start_driver
-    pp "BrowserStack Available? #{browser_stack_available}"
     return false unless browser_stack_available
     start_local_tunnel
-    begin
-      super
-    rescue Exception => e
-      pp e
-      pp e.inspect
-      raise e
-    end
+    super
     true
   end
 
@@ -72,7 +65,6 @@ class AppAutomateDriver < Appium::Driver
   def browser_stack_available
     res = `curl -q -u "#{@browser_stack_username}:#{@browser_stack_access_key}" "#{BROWSER_STACK_PLAN_STATUS_URI}"`
     response = JSON.parse(res)
-    pp response
     raise "BrowserStack status check failed due to error: #{response['error']}" if response.include?('error')
     response['parallel_sessions_running'] < response['parallel_sessions_max_allowed']
   end
@@ -117,8 +109,8 @@ class AppAutomateDriver < Appium::Driver
 
   private
 
-  def upload_app(username, access_key, app_location)
-    res = `curl -u "#{username}:#{access_key}" -X POST "#{BROWSER_STACK_APP_UPLOAD_URI}" -F "file=@#{app_location}"`
+  def upload_app(app_location)
+    res = `curl -u "#{@browser_stack_username}:#{@browser_stack_access_key}" -X POST "#{BROWSER_STACK_APP_UPLOAD_URI}" -F "file=@#{app_location}"`
     response = JSON.parse(res)
     if response.include?('error')
       raise "BrowserStack upload failed due to error: #{response['error']}"

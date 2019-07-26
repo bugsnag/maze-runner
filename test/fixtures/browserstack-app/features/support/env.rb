@@ -11,9 +11,13 @@ ENV["BUGSNAG_API_KEY"] = $api_key
 
 AfterConfiguration do |config|
   AppAutomateDriver.new(bs_username, bs_access_key, bs_local_id, bs_device, app_location)
-  $driver.start_driver
+  started = $driver.start_driver
+  if started
+    at_exit do
+      $driver.driver_quit
+    end
+  else
+    puts "Exiting: No BrowserStack devices are available"
+  end
 end
 
-at_exit do
-  $driver.driver_quit
-end

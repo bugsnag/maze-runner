@@ -8,5 +8,5 @@ end
 
 # Before each test
 Before do
-  Store.stored_values.clear
+  Store.values.clear
 end

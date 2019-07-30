@@ -72,10 +72,6 @@ class Server
       stored_requests.first
     end
 
-    def next_request
-      stored_requests[1]
-    end
-
     def start_server
       @thread = Thread.new do
         server = WEBrick::HTTPServer.new(

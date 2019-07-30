@@ -1,6 +1,6 @@
-class Values
+class Store
   class << self
-    def stored_values
+    def values
       @values ||= {}
     end
   end
@@ -8,5 +8,5 @@ end
 
 # Before each test
 Before do
-  Values.stored_values.clear
+  Store.stored_values.clear
 end

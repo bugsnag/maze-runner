@@ -29,12 +29,6 @@ when 'ignore'
  '{"animals":["bear","fox","goat","parrot"],"fruits":{"apple":"some nonsense","cherry":{"color":"black","types":17}}}'
 when 'different fixnum in object'
  '{"animals":["bear","fox","goat","parrot"],"fruits":{"apple":{"color":"red","types":24},"cherry":{"color":"black","types":17}}}'
-when 'session'
- '{"sessions":[{"id":"12345"}]}'
-when 'event-match'
- '{"events":[{"session":{"id":"12345"}}]}'
-when 'event-no-match'
- '{"events":[{"session":{"id":"54321"}}]}'
 else
   exit(1)
 end

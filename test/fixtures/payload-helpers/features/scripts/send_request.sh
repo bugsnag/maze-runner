@@ -112,7 +112,7 @@ templates = {
     }
   },
   'handled session' => {
-    'headers' => {}
+    'headers' => {},
     'body' => {
       'events' => [
         {

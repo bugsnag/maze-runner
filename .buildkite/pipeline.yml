@@ -32,6 +32,12 @@ steps:
     concurrency: 5
     concurrency_group: 'browserstack-app'
 
+  - label: 'Payload helper tests'
+    plugins:
+      docker-compose#v2.5.1:
+        run: payload-helper-tests
+    command: 'bundle exec bugsnag-maze-runner'
+
   - wait
 
   - label: 'Release'

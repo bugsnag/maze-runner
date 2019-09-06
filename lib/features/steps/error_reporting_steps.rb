@@ -30,20 +30,42 @@ end
 #    Severity
 #
 # @param event [Int] The event to verify
-# @param severity [String] Optional. An expected severity different to the default "error"
-Then(/^event (\d+) is unhandled(?: with the severity "(.+)")$/) do |event, severity|
+Then("event {int} is unhandled") do |event|
   step "the payload field \"events.#{event}.unhandled\" is true"
 end
 
-# Verifies that an event is correct for an handled error
-# This checks various elements of the payload matching an handled error including:
+# Verifies that an event is correct for an unhandled error
+# This checks various elements of the payload matching an unhandled error including:
 #    The unhandled flag
 #    Any attached session information
 #    Severity
 #
 # @param event [Int] The event to verify
-# @param severity [String] Optional. An expected severity different to the default "warning"
-Then(/^event (\d+) is handled(?: with the severity "(.+)")$/) do |event, severity|
+# @param severity [String] An expected severity different to the default "error"
+Then("event {int} is unhandled with the severity {string}") do |event, severity|
+  step "the payload field \"events.#{event}.unhandled\" is true"
+end
+
+# Verifies that an event is correct for an handled error
+# This checks various elements of the payload matching an unhandled error including:
+#    The unhandled flag
+#    Any attached session information
+#    Severity
+#
+# @param event [Int] The event to verify
+Then("event {int} is handled") do |event|
+  step "the payload field \"events.#{event}.unhandled\" is false"
+end
+
+# Verifies that an event is correct for an handled error
+# This checks various elements of the payload matching an unhandled error including:
+#    The unhandled flag
+#    Any attached session information
+#    Severity
+#
+# @param event [Int] The event to verify
+# @param severity [String] An expected severity different to the default "error"
+Then("event {int} is handled with the severity {string}") do |event, severity|
   step "the payload field \"events.#{event}.unhandled\" is false"
 end
 

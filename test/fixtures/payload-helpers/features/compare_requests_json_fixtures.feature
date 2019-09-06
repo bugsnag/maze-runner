@@ -38,7 +38,7 @@ Feature: Testing helper methods respond correctly
     Scenario: The request body is correct for a handled payload with a custom severity
         When I send a "handled severity"-type request
         Then I wait to receive a request
-        And event 0 is unhandled with the severity "error"
+        And event 0 is handled with the severity "error"
 
     Scenario: The request body is correct for a payload with mixed events
         When I send a "handled then unhandled"-type request

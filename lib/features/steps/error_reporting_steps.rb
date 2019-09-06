@@ -31,7 +31,7 @@ end
 #
 # @param event [Int] The event to verify
 # @param severity [String] Optional. An expected severity different to the default "error"
-Then(/^event (\d.) is unhandled(?: with the severity "(.+)")$/) do |event, severity|
+Then(/^event (\d+) is unhandled(?: with the severity "(.+)")$/) do |event, severity|
   step "the payload field \"events.#{event}.unhandled\" is true"
 end
 
@@ -43,7 +43,7 @@ end
 #
 # @param event [Int] The event to verify
 # @param severity [String] Optional. An expected severity different to the default "warning"
-Then(/^event (\d.) is unhandled(?: with the severity "(.+)")$/) do |event, severity|
+Then(/^event (\d+) is unhandled(?: with the severity "(.+)")$/) do |event, severity|
   step "the payload field \"events.#{event}.unhandled\" is true"
 end
 

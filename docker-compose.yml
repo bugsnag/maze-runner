@@ -25,3 +25,9 @@ services:
       context: test/fixtures/comparison
       args:
         BUILDKITE_BRANCH:
+
+  payload-helper-tests:
+    build:
+      context: test/fixtures/payload-helpers
+      args:
+        BUILDKITE_BRANCH:

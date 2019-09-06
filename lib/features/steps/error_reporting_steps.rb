@@ -23,6 +23,30 @@ Then("the request is valid for the error reporting API version {string} for the 
   }
 end
 
+# Verifies that an event is correct for an unhandled error
+# This checks various elements of the payload matching an unhandled error including:
+#    The unhandled flag
+#    Any attached session information
+#    Severity
+#
+# @param event [Int] The event to verify
+# @param severity [String] Optional. An expected severity different to the default "error"
+Then(/^event (\d.) is unhandled(?: with the severity "(.+)")$/) do |event, severity|
+  step "the payload field \"events.#{event}.unhandled\" is true"
+end
+
+# Verifies that an event is correct for an handled error
+# This checks various elements of the payload matching an handled error including:
+#    The unhandled flag
+#    Any attached session information
+#    Severity
+#
+# @param event [Int] The event to verify
+# @param severity [String] Optional. An expected severity different to the default "warning"
+Then(/^event (\d.) is unhandled(?: with the severity "(.+)")$/) do |event, severity|
+  step "the payload field \"events.#{event}.unhandled\" is true"
+end
+
 # Checks the payloadVersion is set correctly in the payload body in the Javascript or regular place
 #
 # @param payload_version [String] The payload version expected

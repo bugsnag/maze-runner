@@ -43,8 +43,8 @@ end
 #
 # @param event [Int] The event to verify
 # @param severity [String] Optional. An expected severity different to the default "warning"
-Then(/^event (\d+) is unhandled(?: with the severity "(.+)")$/) do |event, severity|
-  step "the payload field \"events.#{event}.unhandled\" is true"
+Then(/^event (\d+) is handled(?: with the severity "(.+)")$/) do |event, severity|
+  step "the payload field \"events.#{event}.unhandled\" is false"
 end
 
 # Checks the payloadVersion is set correctly in the payload body in the Javascript or regular place

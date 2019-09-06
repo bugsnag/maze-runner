@@ -51,7 +51,7 @@ templates = {
     }
   },
   'unhandled' => {
-    'headers' => {}
+    'headers' => {},
     'body' => {
       'events' => [
         {
@@ -65,7 +65,7 @@ templates = {
     }
   },
   'unhandled session' => {
-    'headers' => {}
+    'headers' => {},
     'body' => {
       'events' => [
         {
@@ -84,7 +84,7 @@ templates = {
     }
   },
   'unhandled severity' => {
-    'headers' => {}
+    'headers' => {},
     'body' => {
       'events' => [
         {
@@ -98,7 +98,7 @@ templates = {
     }
   },
   'handled' => {
-    'headers' => {}
+    'headers' => {},
     'body' => {
       'events' => [
         {
@@ -131,7 +131,7 @@ templates = {
     }
   },
   'handled severity' => {
-    'headers' => {}
+    'headers' => {},
     'body' => {
       'events' => [
         {
@@ -145,7 +145,7 @@ templates = {
     }
   },
   'handled then unhandled' => {
-    'headers' => {}
+    'headers' => {},
     'body' => {
       'events' => [
         {

@@ -31,7 +31,18 @@ end
 #
 # @param event [Int] The event to verify
 Then("event {int} is unhandled") do |event|
-  step "the payload field \"events.#{event}.unhandled\" is true"
+  if read_key_path(Server.current_request[:body], "events.#{event}.session").nil?
+    steps %Q{
+      Then the payload field "events.#{event}.unhandled" is true
+      And the payload field "events.#{event}.severity" equals "error"
+    }
+  else
+    steps %Q{
+      Then the payload field "events.#{event}.unhandled" is true
+      And the payload field "events.#{event}.severity" equals "error"
+      And the payload field "events.#{event}.session.events.unhandled" is greater than 0
+    }
+  end
 end
 
 # Verifies that an event is correct for an unhandled error
@@ -43,7 +54,18 @@ end
 # @param event [Int] The event to verify
 # @param severity [String] An expected severity different to the default "error"
 Then("event {int} is unhandled with the severity {string}") do |event, severity|
-  step "the payload field \"events.#{event}.unhandled\" is true"
+  if read_key_path(Server.current_request[:body], "events.#{event}.session").nil?
+    steps %Q{
+      Then the payload field "events.#{event}.unhandled" is true
+      And the payload field "events.#{event}.severity" equals "#{severity}"
+    }
+  else
+    steps %Q{
+      Then the payload field "events.#{event}.unhandled" is true
+      And the payload field "events.#{event}.severity" equals "#{severity}"
+      And the payload field "events.#{event}.session.events.unhandled" is greater than 0
+    }
+  end
 end
 
 # Verifies that an event is correct for an handled error
@@ -54,7 +76,18 @@ end
 #
 # @param event [Int] The event to verify
 Then("event {int} is handled") do |event|
-  step "the payload field \"events.#{event}.unhandled\" is false"
+  if read_key_path(Server.current_request[:body], "events.#{event}.session").nil?
+    steps %Q{
+      Then the payload field "events.#{event}.unhandled" is false
+      And the payload field "events.#{event}.severity" equals "warning"
+    }
+  else
+    steps %Q{
+      Then the payload field "events.#{event}.unhandled" is false
+      And the payload field "events.#{event}.severity" equals "warning"
+      And the payload field "events.#{event}.session.events.handled" is greater than 0
+    }
+  end
 end
 
 # Verifies that an event is correct for an handled error
@@ -66,7 +99,18 @@ end
 # @param event [Int] The event to verify
 # @param severity [String] An expected severity different to the default "error"
 Then("event {int} is handled with the severity {string}") do |event, severity|
-  step "the payload field \"events.#{event}.unhandled\" is false"
+  if read_key_path(Server.current_request[:body], "events.#{event}.session").nil?
+    steps %Q{
+      Then the payload field "events.#{event}.unhandled" is false
+      And the payload field "events.#{event}.severity" equals "#{severity}"
+    }
+  else
+    steps %Q{
+      Then the payload field "events.#{event}.unhandled" is false
+      And the payload field "events.#{event}.severity" equals "#{severity}"
+      And the payload field "events.#{event}.session.events.handled" is greater than 0
+    }
+  end
 end
 
 # Checks the payloadVersion is set correctly in the payload body in the Javascript or regular place

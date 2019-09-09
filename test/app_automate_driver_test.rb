@@ -42,6 +42,26 @@ class AppAutomateDriverTest < Test::Unit::TestCase
     end
   end
 
+  def test_add_capabilities
+    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
+    added_capabilities = {
+      "automationName" => "Appium"
+    }
+    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION, :id, added_capabilities)
+
+    assert_equal('errors', driver.caps[:'browserstack.console'])
+    assert_equal(LOCAL_ID, driver.caps[:'browserstack.localIdentifier'])
+    assert_equal('true', driver.caps[:'browserstack.local'])
+    assert_equal('true', driver.caps[:'browserstack.networkLogs'])
+    assert_equal(TEST_APP_URL, driver.caps[:app])
+
+    Devices::DEVICE_HASH[TARGET_DEVICE].each do |key, value|
+      assert_equal(value, driver.caps[key.to_sym])
+    end
+
+    assert_equal('Appium', driver.caps[:automationName])
+  end
+
   def test_upload_app_success
     json_response = JSON.dump({
       :app_url => TEST_APP_URL

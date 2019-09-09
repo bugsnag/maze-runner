@@ -77,13 +77,11 @@ end
 # @param event [Int] The event to verify
 Then("event {int} is handled") do |event|
   if read_key_path(Server.current_request[:body], "events.#{event}.session").nil?
-    pp "Handled no session"
     steps %Q{
       Then the payload field "events.#{event}.unhandled" is false
       And the payload field "events.#{event}.severity" equals "warning"
     }
   else
-    pp "Handled with session"
     steps %Q{
       Then the payload field "events.#{event}.unhandled" is false
       And the payload field "events.#{event}.severity" equals "warning"

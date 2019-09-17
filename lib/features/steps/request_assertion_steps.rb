@@ -10,7 +10,7 @@ include Test::Unit::Assertions
 #
 # @param request [Hash] The received request
 #
-# @returns [Hash] The parsed query string.
+# @return [Hash] The parsed query string.
 def parse_querystring(request)
   CGI.parse(request[:request].query_string)
 end
@@ -22,7 +22,7 @@ end
 # @param hash [Hash] The hash to traverse
 # @param key_path [String] The dot notation path within the hash
 #
-# @returns [Any] The value found by the key path
+# @return [Any] The value found by the key path
 def read_key_path(hash, key_path)
   value = hash
   key_path.split('.').each do |key|

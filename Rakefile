@@ -18,7 +18,8 @@ namespace :test do
 end
 
 YARD::Rake::YardocTask.new do |t|
-  t.files   = ['lib/features/**/*']
+  t.files   = ['lib/features/**/*.rb']
+  t.options = ['--tag', 'step_input:Step parameters']
 end
 
 task :default => ["test:unit"]

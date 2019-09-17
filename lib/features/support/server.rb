@@ -12,11 +12,22 @@ require 'json'
 #
 MOCK_API_PORT = 9339
 
+# Receives and parses the requests and payloads sent from the test fixture
 class Servlet < WEBrick::HTTPServlet::AbstractServlet
+  # Logs an incoming GET WEBrick request.
+  #
+  # @param request [HTTPRequest] The incoming GET request
+  # @param response [HTTPResponse] The response to return
   def do_GET(request, response)
     log_request(request)
   end
 
+  # Logs and parses an incoming POST request.
+  # Parses `multipart/form-data` and `application/json` content-types.
+  # Parsed requests are added to the Server.stored_requests Array.
+  #
+  # @param request [HTTPRequest] The incoming GET request
+  # @param response [HTTPResponse] The response to return
   def do_POST(request, response)
     log_request(request)
     case request['Content-Type']
@@ -25,7 +36,7 @@ class Servlet < WEBrick::HTTPServlet::AbstractServlet
       body = WEBrick::HTTPUtils.parse_form_data(request.body(), boundary)
       Server.stored_requests << {body: body, request: request}
     else
-      # "content-type" is assumed to be JSON (which mimicks the behaviour of
+      # "content-type" is assumed to be JSON (which mimics the behaviour of
       # the actual API). This supports browsers that can't set this header for
       # cross-domain requests (IE8/9)
       Server.stored_requests << {body: JSON.load(request.body()), request:request}
@@ -34,6 +45,10 @@ class Servlet < WEBrick::HTTPServlet::AbstractServlet
     response.status = 200
   end
 
+  # Logs and returns a set of valid headers for this servlet.
+  #
+  # @param request [HTTPRequest] The incoming GET request
+  # @param response [HTTPResponse] The response to return
   def do_OPTIONS(request, response)
     log_request(request)
     response.header['Access-Control-Allow-Origin'] = '*'
@@ -58,20 +73,34 @@ class Servlet < WEBrick::HTTPServlet::AbstractServlet
   end
 end
 
+# Receives and stores requests through a WEBrick HTTPServer
 class Server
   class << self
+    # Whether the server thread is running
+    #
+    # @return [Boolean] If the server is running
     def is_running?
       @thread and @thread.alive?
     end
 
+    # An array of requests received.
+    # Each request is hash consisting of:
+    #   body: The parsed body of the request
+    #   request: The original HTTPRequest object
+    #
+    # @return [Array] An array of received requests
     def stored_requests
       @requests ||= []
     end
 
+    # The first request received by the server.
+    #
+    # @return [Hash|nil] The first request
     def current_request
       stored_requests.first
     end
 
+    # Starts the WEBrick server in a separate thread
     def start_server
       @thread = Thread.new do
         server = WEBrick::HTTPServer.new(
@@ -88,6 +117,7 @@ class Server
       end
     end
 
+    # Stops the WEBrick server thread if it's running
     def stop_server
       @thread.kill if @thread and @thread.alive?
       @thread = nil

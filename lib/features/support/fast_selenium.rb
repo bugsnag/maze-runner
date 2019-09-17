@@ -1,6 +1,7 @@
 # copy pasta from https://www.browserstack.com/automate/ruby#add-on
 require 'selenium/webdriver/remote/http/curb'
 
+# @private
 module Selenium
   module WebDriver
     module Remote

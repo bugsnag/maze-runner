@@ -11,6 +11,8 @@ the hood to draft semantic tests.
 
 ## Setting up a new project
 
+### First time setup and running locally
+
 1. Install the `bundler` gem:
 
    ```
@@ -120,9 +122,11 @@ end
 
 ### Step reference
 
-Whirlwind tour of the most important bundled steps. Additional variants exist for checking value nullability, "starts with", "ends with", et cetera.
+A quick, non-exhaustive overview of steps that can be used when writing feature files.
 
-Anywhere a `{field}` is denoted, it can be replaced with dot-delimited key path to indicate the path from the root of an object to the intended target.
+#### Field path notation
+
+Anywhere a `{field}`, `{path}`, `{key_path}`, etc is denoted, it can be replaced with dot-delimited key path to indicate the path from the root of an object to the intended target.
 
 For example, to match the name of the second objects in the the key `fruits` below, use `fruits.1.name` as the keypath.
 
@@ -135,35 +139,85 @@ For example, to match the name of the second objects in the the key `fruits` bel
 }
 ```
 
+#### Script and docker steps
 
-#### When ...
+| Step | Description |
+|------|-------------|
+| I set environment variable `{key}` to `{value}` | Make an environment variable available to any scripts which run afterwards |
+| I run the script `{path}` | Runs the file denoted by `path`, which should be relative to the `scripts` directory or custom directory denoted by the `SCRIPT_PATH` environment variable |
+| I run the script `{path}` synchronously | As above, but blocks until the script has returned |
+| I start the service `{service}` | Starts a docker service from a docker-compose file found at `features/fixtures/docker-compose.yml` |
+| I wait for `{time}` second(s) | Pauses execution for the stated time |
 
-|Step | Description |
-|-----|-------------|
-|I set environment variable "{key}" to "{value}" | Make an environment variable available to any scripts which run afterwards
-|I run the script "{path}" | Run the file denoted by `{path}`. It must be marked as executable
-|I run the script "{path}" synchronously | Run the file denoted by `{path}`, waiting for it to finish. It must be marked as executable
-|I open the URL "{url}"|Fetch the contents of a URL
-|I open the URL "{url}" in a browser|Open a URL in the system's default browser
-|I open the URL "{url}" in "{browser}"|Open a URL in a specified browser (Only fully implemented for macOS)
+#### BrowserStack steps
 
-#### Then ...
+BrowserStack is used to drive many of the mobile device tests written using maze-runner.  For these tests we can use a driver class and accompanying set of steps to interface with the BrowserStack AppAutomate server.
 
-|Step | Description |
-|-----|-------------|
-|I should receive {n} requests|Assert that the mock server received _n_ requests
-|I should receive a request|Assert that the mock server received one request
-|the "{name}" header is not null|Assert that the {name} header is set
-|the "{name}" header equals "{value}"|Assert that the value of the {name} header is `{value}`
-|the "{name}" header is a timestamp|Assert that the value of the {name} header is an ISO8601 timestamp
-|the payload body matches the JSON fixes in "{path}"|Assert that the body of a request matches a template in a .json file
-|the payload field "{field}" matches the JSON fixture in "{path}"|Assert that a subset of a request body matches a template in a .json file
-|the request is a valid for the error reporting API|The correct headers are set, there is at least one event present, every event has a severity, etc
-|the event "{field}" equals "{value}"|Assert that a field in the first event in the first request equals a string
-|the exception "{field}" equals "{value}"|Assert that a field in the first exception in the first event in the first request equals a string
-|the "{field}" of stack frame {n} equals "{value}"|You get the idea
+The driver needs to be started within the `AfterConfiguration` callback in the `features/support/env.rb` file, where the arguments indicate the particular test setup:
 
-### On matching JSON templates
+```ruby
+AfterConfiguration do |config|
+  AppAutomateDriver.new(bs_username, bs_access_key, bs_local_id, device_type, app_location)
+  $driver.start_driver
+end
+```
+
+This adds the `$driver` global variable which can be used to write custom steps using the API provided by the `Appium::Driver` class. Several steps are already provided:
+
+| Step | Description |
+|------|-------------|
+| The element `{element}` is present | Checks that an element matching a specific ID is present on the device screen |
+| I click the element `{element}` | Interacts with a visible element on the device screen |
+| I send the app to the background for `{timeout}` seconds | Puts the app into a background state for a number of seconds. If sent to the background for 0 seconds, the app will remain there indefinitely |
+| I send the keys `{keys}` to the element `{element}` | Writes a string into an on-screen element |
+
+#### Network steps
+
+| Step | Description |
+|------|-------------|
+| I wait for the host `{host}` to open port `{port}` | Repeatedly attempts to connect to a given port on a host, timing out and stopping the test after a certain period if the port isn't accepting connections |
+| I open the URL `{url}` | Sends a request to the given url |
+
+#### API helper steps
+
+The following steps are quick validations that ensure a received payload is valid for whichever API it is being sent to, but checking that specific elements and headers are present.
+
+| Step | Description |
+|------|-------------|
+| The request is valid for the error reporting API version `{payload_version}` for the `{notifier_name}` notifier | Validates for the error-reporting API for a particular payload version and notifier |
+| The request is valid for the Build API | Validates for the Build API |
+| The request is valid for the Android Mapping API | Validates for the Android Mapping API |
+| The request is valid for the session reporting API version `{payload_version}` for the `{notifier_name}` notifier | Validates for the session-tracking API for a particular payload version and notifier |
+
+#### Handling requests
+
+| Step | Description |
+|------|-------------|
+| I wait to receive `{request_count}` request(s) | Waits for the number of requests to be received, timing out after 30 seconds |
+| I should receive no requests | Verifies that no requests have been received |
+| I discard the oldest request | Pops the earliest received request off the stack, enabling access to requests received afterwards |
+| The payload field `{path}` is stored as the value `{key}` | Extracts a value found at `path` in the current payload, storing it under the `key` for later use |
+| The payload field `{path}` equals the stored value `{key}` | Compares a value found at `path` in the current payload and compares it against a value previously stored under `key` |
+| The payload field `{path}` does not equal the stored value `{key}` | Compares a value found at `path` in the current payload and compares it against a value previously stored under `key` |
+
+#### Testing payload values
+
+These steps are a non-exhaustive list of ways to test the values received within a payload. All tests target the oldest received payload, see above for testing multiple requests.
+
+| Step | Description |
+|------|-------------|
+| The payload field `{key_path}` is `{literal}` | Tests the value matches a literal. Values include `true`, `false`, `null`, `not null` |
+| The payload field `{key_path}` equals `{number}` | Tests the value equals a number. Other possible comparisons include `is greater than` and `is less than` |
+| The payload field `{key_path}` equals `{string}` | Tests the value equals a string. Other possible comparisons include `starts with` and `ends with` |
+| The payload field `{key_path}` is an array with `{number}` elements | Tests an array for size |
+| The payload field `{key_path}` matches the regex `{regex}` | Tests the value matches a regex |
+| Each element in payload field `{key_path}` has `{internal_path}` | Tests that each element in an array has a valid value at its `internal_path` |
+
+Most of these steps exist in forms that allow for quick testing of event values and session values in predefined places. These prepend a path onto the given key path.  See [`error_reporting_steps`](/lib/features/steps/error_reporting_steps.rb) and [`session_tracking_steps`](/lib/features/steps/session_tracking_steps.rb) for full details.
+
+Similar steps are also available for testing multi-part requests, query parameters, and headers.  See [`request_assertion_steps`](/lib/features/steps/request_assertion_steps.rb) for full details.
+
+#### On matching JSON templates
 
 For the following steps:
 
@@ -203,13 +257,6 @@ This request will match:
 ```json
 { "fruit": { "apple": "some nonsense" } }
 ```
-
-# On dealing with multiple requests
-
-Most payload assertion steps have optional suffix of `for request n` where `n` is a
-zero-based index into chronologically ordered collection of requests received by the
-mock server. If you leave off this suffix, the default behaviour is to run the step
-against request `0`, i.e. the first (and perhaps only) request.
 
 ## Running features
 

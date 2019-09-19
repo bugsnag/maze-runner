@@ -29,7 +29,7 @@ end
 #    Any attached session information
 #    Severity
 #
-# @param event [Int] The event to verify
+# @param event [Integer] The event to verify
 Then("event {int} is unhandled") do |event|
   if read_key_path(Server.current_request[:body], "events.#{event}.session").nil?
     steps %Q{
@@ -51,7 +51,7 @@ end
 #    Any attached session information
 #    Severity
 #
-# @param event [Int] The event to verify
+# @param event [Integer] The event to verify
 # @param severity [String] An expected severity different to the default "error"
 Then("event {int} is unhandled with the severity {string}") do |event, severity|
   if read_key_path(Server.current_request[:body], "events.#{event}.session").nil?
@@ -74,7 +74,7 @@ end
 #    Any attached session information
 #    Severity
 #
-# @param event [Int] The event to verify
+# @param event [Integer] The event to verify
 Then("event {int} is handled") do |event|
   if read_key_path(Server.current_request[:body], "events.#{event}.session").nil?
     steps %Q{
@@ -96,7 +96,7 @@ end
 #    Any attached session information
 #    Severity
 #
-# @param event [Int] The event to verify
+# @param event [Integer] The event to verify
 # @param severity [String] An expected severity different to the default "error"
 Then("event {int} is handled with the severity {string}") do |event, severity|
   if read_key_path(Server.current_request[:body], "events.#{event}.session").nil?

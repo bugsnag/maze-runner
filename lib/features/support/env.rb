@@ -57,7 +57,11 @@ def write_failed_requests_to_disk(scenario)
         end
         file.puts
         file.puts "BODY:"
-        file.puts JSON.pretty_generate(request[:body])
+        if request[:request].header["content-type"].first == 'application/json'
+          file.puts JSON.pretty_generate(request[:body])
+        else
+          file.puts request[:body]
+        end
       end
     end
   end

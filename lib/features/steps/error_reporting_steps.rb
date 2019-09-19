@@ -219,7 +219,7 @@ def test_unhandled_state(event, unhandled, severity=nil)
     Then the payload field "events.#{event}.unhandled" is #{expected_unhandled_state}
     And the payload field "events.#{event}.severity" equals "#{expected_severity}"
   }
-  unless read_key_path(event, "events.#{event}.session").nil?
+  unless read_key_path(Server.current_request[:body], "events.#{event}.session").nil?
     session_field = unhandled ? "unhandled" : "handled"
     steps %Q{
       And the payload field "events.#{event}.session.events.#{session_field}" is greater than 0

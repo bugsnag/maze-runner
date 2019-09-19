@@ -30,4 +30,4 @@ services:
     build:
       context: test/fixtures/payload-helpers
       args:
-        BUILDKITE_BRANCH:
+        BRANCH_NAME:

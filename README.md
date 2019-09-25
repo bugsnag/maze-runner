@@ -272,6 +272,22 @@ is being run.
 
 ## Troubleshooting
 
+### Logging
+
+Maze-runner contains a Ruby logger connected to `STDOUT` that will attempt to log several events that occur during the testing life-cycle.
+By default the logger is set to report `WARN` level events or higher, but will log `DEBUG` level events if the `VERBOSE` or `DEBUG` flags are set.
+
+| Log Level | Event | Information |
+|-----------|-------|-------------|
+| `DEBUG` | An error occurs when attempting to open a URL | The error information |
+| `DEBUG` | When a command is run | The command string, any `STDOUT` and `STDERR` output, and the exit code |
+| `DEBUG` | A request is received | The request method, uri, headers and body |
+| `WARN` | The server has not received the desired number of requests | The array of received requests |
+| `WARN` | Sleep steps are used | A warning to avoid using sleep where possible |
+| `WARN` | A Selenium `StaleElementReferenceError` occurs | The error information |
+| `WARN` | A run command fails | The output from the command |
+| `FATAL` | The webserver is not running at the start of a test | Error notification before exiting |
+
 ### Known issues
 
 * Testing on iOS sometimes fails while Android Studio or gradle or some Android

@@ -131,7 +131,7 @@ end
 # Tests that a query parameter is a timestamp.
 #   Uses the regex /^\d{4}\-\d{2}\-\d{2}T\d{2}:\d{2}:[\d\.]+Z?$/
 #
-# @step_input parameter_naem [String] The parameter to test
+# @step_input parameter_name [String] The parameter to test
 Then("the {string} query parameter is a timestamp") do |parameter_name|
   param = parse_querystring(Server.current_request)[parameter_name][0]
   assert_match(TIMESTAMP_REGEX, param)
@@ -139,7 +139,7 @@ end
 
 # Tests the number of fields a multipart request contains.
 #
-# @step_input part_count [Integer] The number of expected feilds
+# @step_input part_count [Integer] The number of expected fields
 Then("the multipart request has {int} fields") do |part_count|
   parts = Server.current_request[:body]
   assert_equal(part_count, parts.size)

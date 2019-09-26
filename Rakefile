@@ -25,12 +25,15 @@ namespace :docs do
 
   task :publish do
     throw StandardError("Docs have not been generated") unless Dir.exist?("doc")
+    docs_ref = `git show-ref --hash remotes/origin/gh-pages`
+    # Removes the line termination
+    clean_ref = docs_ref[0...-1]
     Dir.chdir("doc") do
       `git init`
       `git checkout -b gh-pages`
       `git add .`
-      # `git commit -m "Docs update"`
-      # `git push -f git@github.com:bugsnag/maze-runner.git gh-pages`
+      `git commit -m "Docs update"`
+      `git push --force-with-lease=gh-pages:#{clean_ref} git@github.com:bugsnag/maze-runner.git gh-pages`
     end
   end
 

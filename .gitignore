@@ -1,9 +1,0 @@
-Pods
-.bundle
-.gradle
-.idea
-*.gem
-maze_output/
-Gemfile.lock
-package-lock.json
-test/fixtures/init-test

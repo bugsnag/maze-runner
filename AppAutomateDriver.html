@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: AppAutomateDriver
+  
+    &mdash; Documentation by YARD 0.9.19
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/cucumber.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "AppAutomateDriver";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/cucumber.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index (A)</a> &raquo;
+    
+    
+    <span class="title">AppAutomateDriver</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="stepdefinition_list_link"
+        href="stepdefinition_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: AppAutomateDriver
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Appium::Driver</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Appium::Driver</li>
+          
+            <li class="next">AppAutomateDriver</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/features/support/app_automate_driver.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>Wraps Appium::Driver to enable control of a BrowserStack app-automate
+session</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="BROWSER_STACK_APP_UPLOAD_URI-constant" class="">BROWSER_STACK_APP_UPLOAD_URI =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>The App upload uri for BrowserStack App Automate</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://api-cloud.browserstack.com/app-automate/upload</span><span class='tstring_end'>&quot;</span></span></pre></dd>
+      
+    </dl>
+  
+
+
+
+
+  <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#device_type-instance_method" title="#device_type (instance method)">#<strong>device_type</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the value of attribute device_type.</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#click_element-instance_method" title="#click_element (instance method)">#<strong>click_element</strong>(element_id)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Clicks a given element.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(username, access_key, local_id, target_device, app_location, locator = :id)  &#x21d2; AppAutomateDriver </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Creates the AppAutomateDriver.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#send_keys_to_element-instance_method" title="#send_keys_to_element (instance method)">#<strong>send_keys_to_element</strong>(element_id, text)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Sends keys to a given element.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#start_driver-instance_method" title="#start_driver (instance method)">#<strong>start_driver</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Starts the BrowserStackLocal tunnel and the Appium driver.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#wait_for_element-instance_method" title="#wait_for_element (instance method)">#<strong>wait_for_element</strong>(element_id, timeout = 15, retry_if_stale = true)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Checks for an element, waiting until it is present or the method times out.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  <div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    #<strong>initialize</strong>(username, access_key, local_id, target_device, app_location, locator = :id)  &#x21d2; <tt><span class='object_link'><a href="" title="AppAutomateDriver (class)">AppAutomateDriver</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Creates the AppAutomateDriver</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>username</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the BrowserStack username</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>access_key</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the BrowserStack access key</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>local_id</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the identifier for the BrowserStackLocal tunnel</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>target_device</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a key from the Devices array selecting which device capabilities to target</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>app_location</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the location of the test-app to upload</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>locator</span>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>:id</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the primary locator strategy Appium should use to find elements</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/features/support/app_automate_driver.rb', line 23</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_username'>username</span><span class='comma'>,</span> <span class='id identifier rubyid_access_key'>access_key</span><span class='comma'>,</span> <span class='id identifier rubyid_local_id'>local_id</span><span class='comma'>,</span> <span class='id identifier rubyid_target_device'>target_device</span><span class='comma'>,</span> <span class='id identifier rubyid_app_location'>app_location</span><span class='comma'>,</span> <span class='id identifier rubyid_locator'>locator</span><span class='op'>=</span><span class='symbol'>:id</span><span class='rparen'>)</span>
+  <span class='ivar'>@device_type</span> <span class='op'>=</span> <span class='id identifier rubyid_target_device'>target_device</span>
+  <span class='ivar'>@element_locator</span> <span class='op'>=</span> <span class='id identifier rubyid_locator'>locator</span>
+  <span class='ivar'>@access_key</span> <span class='op'>=</span> <span class='id identifier rubyid_access_key'>access_key</span>
+  <span class='ivar'>@local_id</span> <span class='op'>=</span> <span class='id identifier rubyid_local_id'>local_id</span>
+  <span class='id identifier rubyid_app_url'>app_url</span> <span class='op'>=</span> <span class='id identifier rubyid_upload_app'>upload_app</span><span class='lparen'>(</span><span class='id identifier rubyid_username'>username</span><span class='comma'>,</span> <span class='id identifier rubyid_access_key'>access_key</span><span class='comma'>,</span> <span class='id identifier rubyid_app_location'>app_location</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_capabilities'>capabilities</span> <span class='op'>=</span> <span class='lbrace'>{</span>
+    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>browserstack.console</span><span class='label_end'>&#39;:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>errors</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>browserstack.localIdentifier</span><span class='label_end'>&#39;:</span> <span class='id identifier rubyid_local_id'>local_id</span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>browserstack.local</span><span class='label_end'>&#39;:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>true</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>browserstack.networkLogs</span><span class='label_end'>&#39;:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>true</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>autoAcceptAlerts</span><span class='label_end'>&#39;:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>true</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>app</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_app_url'>app_url</span>
+  <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_capabilities'>capabilities</span><span class='period'>.</span><span class='id identifier rubyid_merge!'>merge!</span> <span class='id identifier rubyid_devices'>devices</span><span class='lbracket'>[</span><span class='id identifier rubyid_target_device'>target_device</span><span class='rbracket'>]</span>
+  <span class='kw'>super</span><span class='lparen'>(</span><span class='lbrace'>{</span>
+    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>caps</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_capabilities'>capabilities</span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>appium_lib</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span>
+      <span class='symbol'>:server_url</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>http://</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_username'>username</span><span class='embexpr_end'>}</span><span class='tstring_content'>:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_access_key'>access_key</span><span class='embexpr_end'>}</span><span class='tstring_content'>@hub-cloud.browserstack.com/wd/hub</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rbrace'>}</span>
+  <span class='rbrace'>}</span><span class='comma'>,</span> <span class='kw'>true</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id=""></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="device_type-instance_method">
+  
+    #<strong>device_type</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the value of attribute device_type</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+10
+11
+12</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/features/support/app_automate_driver.rb', line 10</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_device_type'>device_type</span>
+  <span class='ivar'>@device_type</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="click_element-instance_method">
+  
+    #<strong>click_element</strong>(element_id)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Clicks a given element</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>element_id</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the element to click using the @element_locator strategy</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+78
+79
+80</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/features/support/app_automate_driver.rb', line 78</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_click_element'>click_element</span><span class='lparen'>(</span><span class='id identifier rubyid_element_id'>element_id</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_find_element'>find_element</span><span class='lparen'>(</span><span class='ivar'>@element_locator</span><span class='comma'>,</span> <span class='id identifier rubyid_element_id'>element_id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_click'>click</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="send_keys_to_element-instance_method">
+  
+    #<strong>send_keys_to_element</strong>(element_id, text)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Sends keys to a given element</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>element_id</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the element to send text to using the @element_locator strategy</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>text</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the text to send</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+86
+87
+88</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/features/support/app_automate_driver.rb', line 86</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_send_keys_to_element'>send_keys_to_element</span><span class='lparen'>(</span><span class='id identifier rubyid_element_id'>element_id</span><span class='comma'>,</span> <span class='id identifier rubyid_text'>text</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_find_element'>find_element</span><span class='lparen'>(</span><span class='ivar'>@element_locator</span><span class='comma'>,</span> <span class='id identifier rubyid_element_id'>element_id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_send_keys'>send_keys</span><span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="start_driver-instance_method">
+  
+    #<strong>start_driver</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Starts the BrowserStackLocal tunnel and the Appium driver</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+47
+48
+49
+50</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/features/support/app_automate_driver.rb', line 47</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_start_driver'>start_driver</span>
+  <span class='id identifier rubyid_start_local_tunnel'>start_local_tunnel</span>
+  <span class='kw'>super</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="wait_for_element-instance_method">
+  
+    #<strong>wait_for_element</strong>(element_id, timeout = 15, retry_if_stale = true)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Checks for an element, waiting until it is present or the method times out</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>element_id</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the element to search for using the @element_locator strategy</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>timeout</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>15</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the maximum time to wait for an element to be present in seconds</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>retry_if_stale</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>true</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>enables the method to retry acquiring the element if a StaleObjectException
+occurs</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/features/support/app_automate_driver.rb', line 57</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_wait_for_element'>wait_for_element</span><span class='lparen'>(</span><span class='id identifier rubyid_element_id'>element_id</span><span class='comma'>,</span> <span class='id identifier rubyid_timeout'>timeout</span><span class='op'>=</span><span class='int'>15</span><span class='comma'>,</span> <span class='id identifier rubyid_retry_if_stale'>retry_if_stale</span><span class='op'>=</span><span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='kw'>begin</span>
+    <span class='id identifier rubyid_wait'>wait</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Selenium.html" title="Selenium (module)">Selenium</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Selenium/WebDriver.html" title="Selenium::WebDriver (module)">WebDriver</a></span></span><span class='op'>::</span><span class='const'>Wait</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:timeout</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_timeout'>timeout</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_wait'>wait</span><span class='period'>.</span><span class='id identifier rubyid_until'>until</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_find_element'>find_element</span><span class='lparen'>(</span><span class='ivar'>@element_locator</span><span class='comma'>,</span> <span class='id identifier rubyid_element_id'>element_id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_displayed?'>displayed?</span> <span class='rbrace'>}</span>
+  <span class='kw'>rescue</span> <span class='const'><span class='object_link'><a href="Selenium.html" title="Selenium (module)">Selenium</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Selenium/WebDriver.html" title="Selenium::WebDriver (module)">WebDriver</a></span></span><span class='op'>::</span><span class='const'>Error</span><span class='op'>::</span><span class='const'>TimeoutError</span>
+    <span class='kw'>false</span>
+  <span class='kw'>rescue</span> <span class='const'><span class='object_link'><a href="Selenium.html" title="Selenium (module)">Selenium</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Selenium/WebDriver.html" title="Selenium::WebDriver (module)">WebDriver</a></span></span><span class='op'>::</span><span class='const'>Error</span><span class='op'>::</span><span class='const'>StaleElementReferenceError</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_stale_error'>stale_error</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_retry_if_stale'>retry_if_stale</span>
+      <span class='id identifier rubyid_wait_for_element'>wait_for_element</span><span class='lparen'>(</span><span class='id identifier rubyid_element_id'>element_id</span><span class='comma'>,</span> <span class='id identifier rubyid_timeout'>timeout</span><span class='comma'>,</span> <span class='kw'>false</span><span class='rparen'>)</span>
+    <span class='kw'>else</span>
+      <span class='gvar'>$logger</span><span class='period'>.</span><span class='id identifier rubyid_warn'>warn</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>StaleElementReferenceError occurred: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_stale_error'>stale_error</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+      <span class='kw'>false</span>
+    <span class='kw'>end</span>
+  <span class='kw'>else</span>
+    <span class='kw'>true</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Thu Sep 26 11:47:31 2019 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.19 (ruby-2.5.1).
+</div>
+
+    </div>
+  </body>
+</html>

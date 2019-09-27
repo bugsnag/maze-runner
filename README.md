@@ -18,6 +18,7 @@ the hood to draft semantic tests.
    ```
    gem install bundler
    ```
+
 2. Add a Gemfile to the root of your project:
 
    ```ruby
@@ -25,7 +26,9 @@ the hood to draft semantic tests.
 
    gem "bugsnag-maze-runner", git: "https://github.com/bugsnag/maze-runner"
    ```
+
 3. Run `bundle install` to fetch and install Maze Runner
+
 4. Run `bundle exec bugsnag-maze-runner init` from the root of your project to build the
    basic structure to run test scenarios.
    * `features/fixtures`: Test fixture files, such as sample JSON payloads

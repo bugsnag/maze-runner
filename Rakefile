@@ -18,27 +18,33 @@ namespace :test do
 end
 
 namespace :docs do
+  task :prepare do
+    `cp yard-config ~/.yard/config`
+    Dir.mkdir("doc")
+    Dir.chdir("doc") do
+      `git init`
+      `git remote add origin git@github.com:bugsnag/maze-runner.git`
+      `git fetch`
+      `git checkout gh-pages`
+      `git pull`
+    end
+  end
+
   YARD::Rake::YardocTask.new do |t|
     t.files   = ['lib/features/**/*.rb']
     t.options = ['--tag', 'step_input:Step parameters']
   end
 
   task :publish do
-    throw StandardError("Docs have not been generated") unless Dir.exist?("doc")
-    docs_ref = `git show-ref --hash remotes/origin/gh-pages`
-    # Removes the line termination
-    clean_ref = docs_ref[0...-1]
     Dir.chdir("doc") do
-      `git init`
-      `git checkout -b gh-pages`
       `git add .`
       `git commit -m "Docs update"`
-      `git push --force-with-lease=gh-pages:#{clean_ref} git@github.com:bugsnag/maze-runner.git gh-pages`
+      `git push`
     end
   end
 
   task :build_and_publish do
-    Rake::Task["docs:prepare_yard"].invoke
+    Rake::Task["docs:prepare"].invoke
     Rake::Task["docs:yard"].invoke
     Rake::Task["docs:publish"].invoke
   end

@@ -34,6 +34,12 @@ steps:
 
   - wait
 
+  # - label: 'Update docs'
+  #   plugins:
+  #     docker-compose#v2.5.1:
+  #       run: ci
+  #   command: 'bundle exec rake docs:build_and_publish'
+
   - label: 'Release'
     plugins:
       - docker-compose#v2.5.1:

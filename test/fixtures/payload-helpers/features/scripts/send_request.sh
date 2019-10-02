@@ -64,7 +64,7 @@ templates = {
       ]
     }
   },
-  'unhandled session' => {
+  'unhandled-with-session' => {
     'headers' => {},
     'body' => {
       'events' => [
@@ -83,7 +83,7 @@ templates = {
       ]
     }
   },
-  'unhandled severity' => {
+  'unhandled-with-severity' => {
     'headers' => {},
     'body' => {
       'events' => [
@@ -111,7 +111,7 @@ templates = {
       ]
     }
   },
-  'handled session' => {
+  'handled-with-session' => {
     'headers' => {},
     'body' => {
       'events' => [
@@ -130,7 +130,7 @@ templates = {
       ]
     }
   },
-  'handled severity' => {
+  'handled-with-severity' => {
     'headers' => {},
     'body' => {
       'events' => [
@@ -144,7 +144,7 @@ templates = {
       ]
     }
   },
-  'handled then unhandled' => {
+  'handled-then-unhandled' => {
     'headers' => {},
     'body' => {
       'events' => [

@@ -1,0 +1,1 @@
+ENV["BUGSNAG_API_KEY"] = $api_key

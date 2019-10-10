@@ -20,7 +20,8 @@ class AppAutomateDriver < Appium::Driver
   # @param target_device [String] a key from the Devices array selecting which device capabilities to target
   # @param app_location [String] the location of the test-app to upload
   # @param locator [Symbol] the primary locator strategy Appium should use to find elements
-  def initialize(username, access_key, local_id, target_device, app_location, locator=:id)
+  # @param additional_capabilities [Hash] a hash of additional capabilities to be used in this test run
+  def initialize(username, access_key, local_id, target_device, app_location, locator=:id, additional_capabilities={})
     @device_type = target_device
     @element_locator = locator
     @access_key = access_key
@@ -34,6 +35,7 @@ class AppAutomateDriver < Appium::Driver
       'autoAcceptAlerts': 'true',
       'app' => app_url
     }
+    capabilities.merge! additional_capabilities
     capabilities.merge! devices[target_device]
     super({
       'caps' => capabilities,

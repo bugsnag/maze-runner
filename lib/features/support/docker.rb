@@ -29,9 +29,18 @@ class Docker
       run_docker_compose_command("down -t 0", success_codes: [0,256]) if compose_stack_exists?
     end
 
+    def compose_project_name
+      @compose_project_name ||= nil
+    end
+
+    def compose_project_name=(project_name)
+      @compose_project_name = project_name
+    end
+
     private
     def run_docker_compose_command(command, compose_file:COMPOSE_FILENAME, success_codes:nil)
-      command = "docker-compose -f #{compose_file} #{command}"
+      project_name = compose_project_name.nil? ? "" : "-p #{compose_project_name}"
+      command = "docker-compose #{project_name} -f #{compose_file} #{command}"
       Runner.run_command(command, success_codes: success_codes)
     end
 

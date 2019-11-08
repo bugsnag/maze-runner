@@ -1,4 +1,4 @@
-FROM docker/compose:1.23.2 as compose
+FROM docker/compose:1.24.0 as compose
 FROM ruby:2.5-alpine as ci
 
 ENV GLIBC_VERSION 2.28-r0

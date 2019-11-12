@@ -1,4 +1,6 @@
+# Provides a source of capabilities used to run tests against specific BrowserStack devices
 class Devices
+  # The hash of device capabilities, accessible by simple names
   DEVICE_HASH = {
     "ANDROID_9" => {
       "autoGrantPermissions" => "true",

@@ -6,14 +6,21 @@ After do |scenario|
   Runner.kill_running_scripts
 end
 
+# Determines the default path to the `scripts` directory.  Can be overwritten in the env.rb file.
 SCRIPT_PATH ||= File.expand_path(File.join(File.dirname(__FILE__), "..", "scripts")) unless defined? SCRIPT_PATH
 
+# Runs scripts and commands, applying relevant environment variables as necessary
 class Runner
   class << self
-    # If the command is blocking then the output and exit status is
-    # returned. The output from the command is always printed in
-    # debug mode - so this is just so the caller can verify something
-    # about the output.
+    # Runs a command, applying previously set environment variables.
+    # The output from the command is always printed in debug mode -
+    # just so the caller can verify something about the output.
+    #
+    # @param cmd [String] The command to run
+    # @param blocking [Boolean] Optional. Whether to wait for a return code before proceeding
+    # @param success_codes [Array] Optional. An array of integer codes which indicate the run was successful
+    #
+    # @return [Array] If blocking, the output and exit_status are returned
     def run_command(cmd, blocking: true, success_codes: [0])
       executor = lambda do
         $logger.debug(cmd) { 'executing' }
@@ -47,8 +54,14 @@ class Runner
       end
     end
 
-    # Runs a script in the script directory in maze runner
-    def run_script script_name, blocking: false, success_codes: [0]
+    # Runs a script in the script directory indicated by the SCRIPT_PATH environment variable.
+    #
+    # @param script_name [String] The name of the script to run
+    # @param blocking [Boolean] Optional. Whether to wait for a return code before proceeding
+    # @param success_codes [Array] Optional. An array of integer codes which indicate the run was successful
+    #
+    # @return [Array] If blocking, the output and exit_status are returned
+    def run_script(script_name, blocking: false, success_codes: [0])
       script_path = File.join(SCRIPT_PATH, script_name)
       script_path = File.join(Dir.pwd, script_name) unless File.exists? script_path
       if Gem.win_platform?
@@ -62,6 +75,7 @@ class Runner
       return run_command(script_path, blocking: blocking, success_codes: success_codes)
     end
 
+    # Stops all script processes previously started by this class.
     def kill_running_scripts
       pids.each {|p|
         begin
@@ -72,6 +86,9 @@ class Runner
       pids.clear
     end
 
+    # Allows access to a hash of environment variables applied to command and script runs.
+    #
+    # @return [Hash] The hash of currently set environment variables and their values
     def environment
       @env ||= {}
     end

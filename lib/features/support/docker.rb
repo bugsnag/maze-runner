@@ -1,9 +1,15 @@
 require_relative 'runner'
 
+# Responsible for running docker containers in the local environment
 class Docker
   class << self
+    # The default place to look for the docker-compose file
     COMPOSE_FILENAME = 'features/fixtures/docker-compose.yml'
 
+    # Builds and starts a service, using a command if given.
+    #
+    # @param service [String] The name of the service to start
+    # @param command [String] Optional. The command to use when running the service
     def start_service(service, command: nil)
       if command
         # We build the service before running it as there is no --build
@@ -15,12 +21,16 @@ class Docker
       end
     end
 
+    # Kills a running service
+    #
+    # @param service [String] The name of the service to kill
     def down_service(service)
       # We set timeout to 0 so this kills the services rather than stopping them
       # as its quicker and they are stateless anyway.
       run_docker_compose_command("down -t 0 #{service}")
     end
 
+    # Kills all running services
     def down_all_services
       # This will fail to remove the network that maze is connected to
       # as it is still in use, that is ok to ignore so we pass success codes!

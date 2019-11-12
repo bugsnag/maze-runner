@@ -40,6 +40,13 @@ steps:
 
   - wait
 
+  - label: 'Update docs'
+    if: build.branch == "v2" || build.branch == "master"
+    plugins:
+      docker-compose#v2.5.1:
+        run: ci
+    command: 'bundle exec rake docs:build_and_publish'
+
   - label: 'Release'
     plugins:
       - docker-compose#v2.5.1:

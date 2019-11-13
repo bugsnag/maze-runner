@@ -30,6 +30,11 @@ Feature: Comparing JSON payloads to fixture files
         And I wait to receive a request
         Then the payload body matches the JSON fixture in "features/fixtures/numerics.json"
 
+    Scenario: The request body does not match the template using "NUMBER" wildcards
+        When I send an "ignore"-type request
+        And I wait to receive a request
+        Then the payload body does not match the JSON fixture in "features/fixtures/numerics.json"
+
     Scenario Outline: The request body does not match the template
         When I send an "<request_type>"-type request
         Then I wait to receive a request

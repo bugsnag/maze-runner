@@ -8,11 +8,11 @@
     "fruits": {
         "apple": {
             "color": "red",
-            "types": "Number"
+            "types": "NUMBER"
         },
         "cherry": {
             "color": "black",
-            "types": "Number"
+            "types": "NUMBER"
         }
     }
 }

@@ -61,108 +61,101 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><div id='filecontents'><h1 id="maze-runner-">Maze Runner 🏃</h1>
+      <div id="content"><div id='filecontents'><h1>Maze Runner 🏃</h1>
 
 <p>A test runner for validating requests</p>
 
-<h2 id="how-it-works">How it works</h2>
+<h2>How it works</h2>
 
 <p>The test harness launches a mock API which awaits requests from sample
 applications. Using the runner, each scenario is executed and the requests are
 validated to have to correct fields and values. Uses Gherkin and Cucumber under
 the hood to draft semantic tests.</p>
 
-<h2 id="setting-up-a-new-project">Setting up a new project</h2>
+<h2>Setting up a new project</h2>
 
-<h3 id="first-time-setup-and-running-locally">First time setup and running locally</h3>
+<h3>First time setup and running locally</h3>
 
 <ol>
-  <li>
-    <p>Install the <code>bundler</code> gem:</p>
+<li>Install the <code>bundler</code> gem:</li>
+</ol>
 
-    <p><code>
-gem install bundler
-</code></p>
-  </li>
-  <li>
-    <p>Add a Gemfile to the root of your project:</p>
+<pre class="code shell"><code class="shell">   gem install bundler
+</code></pre>
 
-    <p>```
-source “https://rubygems.org”</p>
+<ol>
+<li>Add a Gemfile to the root of your project:</li>
+</ol>
 
-    <p>gem “bugsnag-maze-runner”, git: “https://github.com/bugsnag/maze-runner”
-```</p>
-  </li>
-  <li>
-    <p>Run <code>bundle install</code> to fetch and install Maze Runner</p>
-  </li>
-  <li>
-    <p>Run <code>bundle exec bugsnag-maze-runner init</code> from the root of your project to build the
+<pre class="code ruby"><code class="ruby">   <span class='id identifier rubyid_source'>source</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://rubygems.org</span><span class='tstring_end'>&quot;</span></span>
+   <span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bugsnag-maze-runner</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>git:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://github.com/bugsnag/maze-runner</span><span class='tstring_end'>&quot;</span></span>
+</code></pre>
+
+<ol>
+<li><p>Run <code>bundle install</code> to fetch and install Maze Runner</p></li>
+<li><p>Run <code>bundle exec bugsnag-maze-runner init</code> from the root of your project to build the
 basic structure to run test scenarios.</p>
-    <ul>
-      <li><code>features/fixtures</code>: Test fixture files, such as sample JSON payloads</li>
-      <li><code>features/scripts</code>: Scripts to be run in scenarios. Any environment
+
+<ul>
+<li><code>features/fixtures</code>: Test fixture files, such as sample JSON payloads</li>
+<li><code>features/scripts</code>: Scripts to be run in scenarios. Any environment
 variables set in scenarios are passed to scripts. The <code>MOCK_API_PORT</code>
 variable is provided by default to configure the location of the mock
 server.</li>
-      <li><code>features/steps</code>: Additional steps of the form Given/When/Then required to
+<li><code>features/steps</code>: Additional steps of the form Given/When/Then required to
 complete scenarios</li>
-      <li><code>features/support</code>: Helper functions. Add any setup which should be run
+<li><code>features/support</code>: Helper functions. Add any setup which should be run
 once before all of the scenarios to <code>features/support/env.rb</code>. Any setup
 which should be run before or after each scenario can go into special
 <code>Before</code> and <code>After</code> functions respectively.</li>
-      <li><code>features/*.feature</code>: The plain text scenario specifications</li>
-    </ul>
-
-    <p>A sample feature is included after running <code>init</code>. Try it out with</p>
-
-    <p><code>
-bundle exec bugsnag-maze-runner
-</code></p>
-  </li>
+<li><code>features/*.feature</code>: The plain text scenario specifications</li>
+</ul></li>
 </ol>
 
-<h2 id="writing-features">Writing features</h2>
+<p>A sample feature is included after running <code>init</code>. Try it out with</p>
+
+<pre class="code shell"><code class="shell">   bundle exec bugsnag-maze-runner
+</code></pre>
+
+<h2>Writing features</h2>
 
 <p>Features should be composed as concisely has possible, reusing existing steps as
 needed. The harness provides a number of reusable step definitions for
 interacting with scripts, setting environment variables, and inspecting output.
 Each new feature should go into a <code>.feature</code> file in the <code>features</code> directory.</p>
 
-<p>```
-Feature: Sinatra support</p>
+<pre class="code ruby"><code class="ruby">Feature: Sinatra support
 
-<p>Scenario: Sinatra unhandled exception
-    When I set environment variable “BUGSNAG_API_KEY” to “a35a2a72bd230ac0aa0f52715bbdc6aa”
+Scenario: Sinatra unhandled exception
+    When I set environment variable &quot;BUGSNAG_API_KEY&quot; to &quot;a35a2a72bd230ac0aa0f52715bbdc6aa&quot;
     And I start a Sinatra app
-    And I navigate to the route “/syntax-error”
+    And I navigate to the route &quot;/syntax-error&quot;
     Then I should receive a request
     And the request is a valid for the error reporting API
-    And the “Bugsnag-API-Key” header equals “a35a2a72bd230ac0aa0f52715bbdc6aa”
-    And the event “unhandled” is true
-```</p>
+    And the &quot;Bugsnag-API-Key&quot; header equals &quot;a35a2a72bd230ac0aa0f52715bbdc6aa&quot;
+    And the event &quot;unhandled&quot; is true
+</code></pre>
 
 <p>This example includes a mix of the included steps as well as custom ones
 specific to the library being tested. <code>When I set an environment variable</code> is
 provided by default while <code>When I start a Sinatra app</code> is defined in a custom
 steps file in <code>features/steps/</code>, wrapping other included steps:</p>
 
-<p>```
-When(“I start a Sinatra app”) do
-  Runner.environment[“DEMO_APP_PORT”] = DEMO_APP_PORT
-  steps %Q{
-    When I run the script “features/fixtures/run_sinatra_app.sh”
+<pre class="code ruby"><code class="ruby"><span class='const'>When</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>I start a Sinatra app</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
+  <span class='const'><span class='object_link'><a href="Runner.html" title="Runner (class)">Runner</a></span></span><span class='period'>.</span><span class='id identifier rubyid_environment'><span class='object_link'><a href="Runner.html#environment-class_method" title="Runner.environment (method)">environment</a></span></span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DEMO_APP_PORT</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>DEMO_APP_PORT</span>
+  <span class='id identifier rubyid_steps'>steps</span> <span class='tstring'><span class='tstring_beg'>%Q{</span><span class='tstring_content'>
+    When I run the script &quot;features/fixtures/run_sinatra_app.sh&quot;
     And I wait for 8 seconds
-  }
-end</p>
+  </span><span class='tstring_end'>}</span></span>
+<span class='kw'>end</span>
 
-<p>When(“I navigate to the route string”) do |route|
-  steps %Q{
-    When I open the URL “http://localhost:#DEMO_APP_PORT#route”
+<span class='const'>When</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>I navigate to the route {string}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_route'>route</span><span class='op'>|</span>
+  <span class='id identifier rubyid_steps'>steps</span> <span class='tstring'><span class='tstring_beg'>%Q{</span><span class='tstring_content'>
+    When I open the URL &quot;http://localhost:</span><span class='embexpr_beg'>#{</span><span class='const'>DEMO_APP_PORT</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_route'>route</span><span class='embexpr_end'>}</span><span class='tstring_content'>&quot;
     And I wait for 1 second
-  }
-end
-```</p>
+  </span><span class='tstring_end'>}</span></span>
+<span class='kw'>end</span>
+</code></pre>
 
 <p>In addition, any helper functions or instance variables defined in
 <code>features/support/env.rb</code> are available to step files. See the included
@@ -170,393 +163,362 @@ end
 before scenarios are run, so this is where one-time or per-scenario
 configuration should go.</p>
 
-<p>```
- # A helper function included with the harness to run commands and
- # only print output when the command fails
- run_required_commands([
-   [“bundle”, “install”]
- ])</p>
+<pre class="code ruby"><code class="ruby"> <span class='comment'># A helper function included with the harness to run commands and
+</span> <span class='comment'># only print output when the command fails
+</span> <span class='id identifier rubyid_run_required_commands'>run_required_commands</span><span class='lparen'>(</span><span class='lbracket'>[</span>
+   <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bundle</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>install</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+ <span class='rbracket'>]</span><span class='rparen'>)</span>
 
-<p># Maybe shell out to something directly, if necessary
- <code>echo Peanut Butter Jelly Time</code></p>
+ <span class='comment'># Maybe shell out to something directly, if necessary
+</span> <span class='backtick'>`</span><span class='tstring_content'>echo Peanut Butter Jelly Time</span><span class='tstring_end'>`</span></span>
 
-<p># Run before every scenarios
- Before do
-   clean_build_artifacts
- end</p>
+ <span class='comment'># Run before every scenarios
+</span> <span class='const'>Before</span> <span class='kw'>do</span>
+   <span class='id identifier rubyid_clean_build_artifacts'>clean_build_artifacts</span>
+ <span class='kw'>end</span>
 
-<h1 id="run-after-every-scenario">Run after every scenario</h1>
-<p>After do |scenario|
-  # Teardown scenario configuration here</p>
+<span class='comment'># Run after every scenario
+</span><span class='const'>After</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_scenario'>scenario</span><span class='op'>|</span>
+  <span class='comment'># Teardown scenario configuration here
+</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_scenario'>scenario</span><span class='period'>.</span><span class='id identifier rubyid_failed?'>failed?</span>
+    <span class='comment'># Can be used to do specific cleanup if a scenario fails
+</span>  <span class='kw'>end</span>
+<span class='kw'>end</span>
+</code></pre>
 
-<p>if scenario.failed?
-    # Can be used to do specific cleanup if a scenario fails
-  end
-end
-```</p>
-
-<h3 id="step-reference">Step reference</h3>
+<h3>Step reference</h3>
 
 <p>A quick, non-exhaustive overview of steps that can be used when writing feature files.</p>
 
-<h4 id="field-path-notation">Field path notation</h4>
+<h4>Field path notation</h4>
 
 <p>Anywhere a <code>{field}</code>, <code>{path}</code>, <code>{key_path}</code>, etc is denoted, it can be replaced with dot-delimited key path to indicate the path from the root of an object to the intended target.</p>
 
 <p>For example, to match the name of the second objects in the the key <code>fruits</code> below, use <code>fruits.1.name</code> as the keypath.</p>
 
-<p><code>
-{
-  "fruits": [
-  	{ "name": "apple" },
-  	{ "name": "cherry" }
+<pre class="code json"><code class="json">{
+  &quot;fruits&quot;: [
+    { &quot;name&quot;: &quot;apple&quot; },
+    { &quot;name&quot;: &quot;cherry&quot; }
   ]
 }
-</code></p>
+</code></pre>
 
-<h4 id="script-and-docker-steps">Script and docker steps</h4>
+<h4>Script and docker steps</h4>
 
-<table>
-  <thead>
-    <tr>
-      <th>Step</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>I set environment variable <code>{key}</code> to <code>{value}</code></td>
-      <td>Make an environment variable available to any scripts which run afterwards</td>
-    </tr>
-    <tr>
-      <td>I run the script <code>{path}</code></td>
-      <td>Runs the file denoted by <code>path</code>, which should be relative to the <code>scripts</code> directory or custom directory denoted by the <code>SCRIPT_PATH</code> environment variable</td>
-    </tr>
-    <tr>
-      <td>I run the script <code>{path}</code> synchronously</td>
-      <td>As above, but blocks until the script has returned</td>
-    </tr>
-    <tr>
-      <td>I start the service <code>{service}</code></td>
-      <td>Starts a docker service from a docker-compose file found at <code>features/fixtures/docker-compose.yml</code></td>
-    </tr>
-    <tr>
-      <td>I wait for <code>{time}</code> second(s)</td>
-      <td>Pauses execution for the stated time</td>
-    </tr>
-  </tbody>
-</table>
+<table><thead>
+<tr>
+<th>Step</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>I set environment variable <code>{key}</code> to <code>{value}</code></td>
+<td>Make an environment variable available to any scripts which run afterwards</td>
+</tr>
+<tr>
+<td>I run the script <code>{path}</code></td>
+<td>Runs the file denoted by <code>path</code>, which should be relative to the <code>scripts</code> directory or custom directory denoted by the <code>SCRIPT_PATH</code> environment variable</td>
+</tr>
+<tr>
+<td>I run the script <code>{path}</code> synchronously</td>
+<td>As above, but blocks until the script has returned</td>
+</tr>
+<tr>
+<td>I start the service <code>{service}</code></td>
+<td>Starts a docker service from a docker-compose file found at <code>features/fixtures/docker-compose.yml</code></td>
+</tr>
+<tr>
+<td>I wait for <code>{time}</code> second(s)</td>
+<td>Pauses execution for the stated time</td>
+</tr>
+</tbody></table>
 
-<h4 id="browserstack-steps">BrowserStack steps</h4>
+<h4>BrowserStack steps</h4>
 
 <p>BrowserStack is used to drive many of the mobile device tests written using maze-runner.  For these tests we can use a driver class and accompanying set of steps to interface with the BrowserStack AppAutomate server.</p>
 
 <p>The driver needs to be started within the <code>AfterConfiguration</code> callback in the <code>features/support/env.rb</code> file, where the arguments indicate the particular test setup:</p>
 
-<p><code>
-AfterConfiguration do |config|
-  AppAutomateDriver.new(bs_username, bs_access_key, bs_local_id, device_type, app_location)
-  $driver.start_driver
-end
-</code></p>
+<pre class="code ruby"><code class="ruby"><span class='const'>AfterConfiguration</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_config'>config</span><span class='op'>|</span>
+  <span class='const'><span class='object_link'><a href="AppAutomateDriver.html" title="AppAutomateDriver (class)">AppAutomateDriver</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="AppAutomateDriver.html#initialize-instance_method" title="AppAutomateDriver#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_bs_username'>bs_username</span><span class='comma'>,</span> <span class='id identifier rubyid_bs_access_key'>bs_access_key</span><span class='comma'>,</span> <span class='id identifier rubyid_bs_local_id'>bs_local_id</span><span class='comma'>,</span> <span class='id identifier rubyid_device_type'>device_type</span><span class='comma'>,</span> <span class='id identifier rubyid_app_location'>app_location</span><span class='rparen'>)</span>
+  <span class='gvar'>$driver</span><span class='period'>.</span><span class='id identifier rubyid_start_driver'>start_driver</span>
+<span class='kw'>end</span>
+</code></pre>
 
 <p>This adds the <code>$driver</code> global variable which can be used to write custom steps using the API provided by the <code>Appium::Driver</code> class. Several steps are already provided:</p>
 
-<table>
-  <thead>
-    <tr>
-      <th>Step</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>The element <code>{element}</code> is present</td>
-      <td>Checks that an element matching a specific ID is present on the device screen</td>
-    </tr>
-    <tr>
-      <td>I click the element <code>{element}</code></td>
-      <td>Interacts with a visible element on the device screen</td>
-    </tr>
-    <tr>
-      <td>I send the app to the background for <code>{timeout}</code> seconds</td>
-      <td>Puts the app into a background state for a number of seconds. If sent to the background for 0 seconds, the app will remain there indefinitely</td>
-    </tr>
-    <tr>
-      <td>I send the keys <code>{keys}</code> to the element <code>{element}</code></td>
-      <td>Writes a string into an on-screen element</td>
-    </tr>
-  </tbody>
-</table>
+<table><thead>
+<tr>
+<th>Step</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>The element <code>{element}</code> is present</td>
+<td>Checks that an element matching a specific ID is present on the device screen</td>
+</tr>
+<tr>
+<td>I click the element <code>{element}</code></td>
+<td>Interacts with a visible element on the device screen</td>
+</tr>
+<tr>
+<td>I send the app to the background for <code>{timeout}</code> seconds</td>
+<td>Puts the app into a background state for a number of seconds. If sent to the background for 0 seconds, the app will remain there indefinitely</td>
+</tr>
+<tr>
+<td>I send the keys <code>{keys}</code> to the element <code>{element}</code></td>
+<td>Writes a string into an on-screen element</td>
+</tr>
+</tbody></table>
 
-<h4 id="network-steps">Network steps</h4>
+<h4>Network steps</h4>
 
-<table>
-  <thead>
-    <tr>
-      <th>Step</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>I wait for the host <code>{host}</code> to open port <code>{port}</code></td>
-      <td>Repeatedly attempts to connect to a given port on a host, timing out and stopping the test after a certain period if the port isn’t accepting connections</td>
-    </tr>
-    <tr>
-      <td>I open the URL <code>{url}</code></td>
-      <td>Sends a request to the given url</td>
-    </tr>
-  </tbody>
-</table>
+<table><thead>
+<tr>
+<th>Step</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>I wait for the host <code>{host}</code> to open port <code>{port}</code></td>
+<td>Repeatedly attempts to connect to a given port on a host, timing out and stopping the test after a certain period if the port isn&#39;t accepting connections</td>
+</tr>
+<tr>
+<td>I open the URL <code>{url}</code></td>
+<td>Sends a request to the given url</td>
+</tr>
+</tbody></table>
 
-<h4 id="api-helper-steps">API helper steps</h4>
+<h4>API helper steps</h4>
 
 <p>The following steps are quick validations that ensure a received payload is valid for whichever API it is being sent to, but checking that specific elements and headers are present.</p>
 
-<table>
-  <thead>
-    <tr>
-      <th>Step</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>The request is valid for the error reporting API version <code>{payload_version}</code> for the <code>{notifier_name}</code> notifier</td>
-      <td>Validates for the error-reporting API for a particular payload version and notifier</td>
-    </tr>
-    <tr>
-      <td>The request is valid for the Build API</td>
-      <td>Validates for the Build API</td>
-    </tr>
-    <tr>
-      <td>The request is valid for the Android Mapping API</td>
-      <td>Validates for the Android Mapping API</td>
-    </tr>
-    <tr>
-      <td>The request is valid for the session reporting API version <code>{payload_version}</code> for the <code>{notifier_name}</code> notifier</td>
-      <td>Validates for the session-tracking API for a particular payload version and notifier</td>
-    </tr>
-  </tbody>
-</table>
+<table><thead>
+<tr>
+<th>Step</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>The request is valid for the error reporting API version <code>{payload_version}</code> for the <code>{notifier_name}</code> notifier</td>
+<td>Validates for the error-reporting API for a particular payload version and notifier</td>
+</tr>
+<tr>
+<td>The request is valid for the Build API</td>
+<td>Validates for the Build API</td>
+</tr>
+<tr>
+<td>The request is valid for the Android Mapping API</td>
+<td>Validates for the Android Mapping API</td>
+</tr>
+<tr>
+<td>The request is valid for the session reporting API version <code>{payload_version}</code> for the <code>{notifier_name}</code> notifier</td>
+<td>Validates for the session-tracking API for a particular payload version and notifier</td>
+</tr>
+</tbody></table>
 
-<h4 id="handling-requests">Handling requests</h4>
+<h4>Handling requests</h4>
 
-<table>
-  <thead>
-    <tr>
-      <th>Step</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>I wait to receive <code>{request_count}</code> request(s)</td>
-      <td>Waits for the number of requests to be received, timing out after 30 seconds</td>
-    </tr>
-    <tr>
-      <td>I should receive no requests</td>
-      <td>Verifies that no requests have been received</td>
-    </tr>
-    <tr>
-      <td>I discard the oldest request</td>
-      <td>Pops the earliest received request off the stack, enabling access to requests received afterwards</td>
-    </tr>
-    <tr>
-      <td>The payload field <code>{path}</code> is stored as the value <code>{key}</code></td>
-      <td>Extracts a value found at <code>path</code> in the current payload, storing it under the <code>key</code> for later use</td>
-    </tr>
-    <tr>
-      <td>The payload field <code>{path}</code> equals the stored value <code>{key}</code></td>
-      <td>Compares a value found at <code>path</code> in the current payload and compares it against a value previously stored under <code>key</code></td>
-    </tr>
-    <tr>
-      <td>The payload field <code>{path}</code> does not equal the stored value <code>{key}</code></td>
-      <td>Compares a value found at <code>path</code> in the current payload and compares it against a value previously stored under <code>key</code></td>
-    </tr>
-  </tbody>
-</table>
+<table><thead>
+<tr>
+<th>Step</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>I wait to receive <code>{request_count}</code> request(s)</td>
+<td>Waits for the number of requests to be received, timing out after 30 seconds</td>
+</tr>
+<tr>
+<td>I should receive no requests</td>
+<td>Verifies that no requests have been received</td>
+</tr>
+<tr>
+<td>I discard the oldest request</td>
+<td>Pops the earliest received request off the stack, enabling access to requests received afterwards</td>
+</tr>
+<tr>
+<td>The payload field <code>{path}</code> is stored as the value <code>{key}</code></td>
+<td>Extracts a value found at <code>path</code> in the current payload, storing it under the <code>key</code> for later use</td>
+</tr>
+<tr>
+<td>The payload field <code>{path}</code> equals the stored value <code>{key}</code></td>
+<td>Compares a value found at <code>path</code> in the current payload and compares it against a value previously stored under <code>key</code></td>
+</tr>
+<tr>
+<td>The payload field <code>{path}</code> does not equal the stored value <code>{key}</code></td>
+<td>Compares a value found at <code>path</code> in the current payload and compares it against a value previously stored under <code>key</code></td>
+</tr>
+</tbody></table>
 
-<h4 id="testing-payload-values">Testing payload values</h4>
+<h4>Testing payload values</h4>
 
 <p>These steps are a non-exhaustive list of ways to test the values received within a payload. All tests target the oldest received payload, see above for testing multiple requests.</p>
 
-<table>
-  <thead>
-    <tr>
-      <th>Step</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>The payload field <code>{key_path}</code> is <code>{literal}</code></td>
-      <td>Tests the value matches a literal. Values include <code>true</code>, <code>false</code>, <code>null</code>, <code>not null</code></td>
-    </tr>
-    <tr>
-      <td>The payload field <code>{key_path}</code> equals <code>{number}</code></td>
-      <td>Tests the value equals a number. Other possible comparisons include <code>is greater than</code> and <code>is less than</code></td>
-    </tr>
-    <tr>
-      <td>The payload field <code>{key_path}</code> equals <code>{string}</code></td>
-      <td>Tests the value equals a string. Other possible comparisons include <code>starts with</code> and <code>ends with</code></td>
-    </tr>
-    <tr>
-      <td>The payload field <code>{key_path}</code> is an array with <code>{number}</code> elements</td>
-      <td>Tests an array for size</td>
-    </tr>
-    <tr>
-      <td>The payload field <code>{key_path}</code> matches the regex <code>{regex}</code></td>
-      <td>Tests the value matches a regex</td>
-    </tr>
-    <tr>
-      <td>Each element in payload field <code>{key_path}</code> has <code>{internal_path}</code></td>
-      <td>Tests that each element in an array has a valid value at its <code>internal_path</code></td>
-    </tr>
-  </tbody>
-</table>
+<table><thead>
+<tr>
+<th>Step</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>The payload field <code>{key_path}</code> is <code>{literal}</code></td>
+<td>Tests the value matches a literal. Values include <code>true</code>, <code>false</code>, <code>null</code>, <code>not null</code></td>
+</tr>
+<tr>
+<td>The payload field <code>{key_path}</code> equals <code>{number}</code></td>
+<td>Tests the value equals a number. Other possible comparisons include <code>is greater than</code> and <code>is less than</code></td>
+</tr>
+<tr>
+<td>The payload field <code>{key_path}</code> equals <code>{string}</code></td>
+<td>Tests the value equals a string. Other possible comparisons include <code>starts with</code> and <code>ends with</code></td>
+</tr>
+<tr>
+<td>The payload field <code>{key_path}</code> is an array with <code>{number}</code> elements</td>
+<td>Tests an array for size</td>
+</tr>
+<tr>
+<td>The payload field <code>{key_path}</code> matches the regex <code>{regex}</code></td>
+<td>Tests the value matches a regex</td>
+</tr>
+<tr>
+<td>Each element in payload field <code>{key_path}</code> has <code>{internal_path}</code></td>
+<td>Tests that each element in an array has a valid value at its <code>internal_path</code></td>
+</tr>
+</tbody></table>
 
 <p>Most of these steps exist in forms that allow for quick testing of event values and session values in predefined places. These prepend a path onto the given key path.  See <a href="/lib/features/steps/error_reporting_steps.rb"><code>error_reporting_steps</code></a> and <a href="/lib/features/steps/session_tracking_steps.rb"><code>session_tracking_steps</code></a> for full details.</p>
 
 <p>Similar steps are also available for testing multi-part requests, query parameters, and headers.  See <a href="/lib/features/steps/request_assertion_steps.rb"><code>request_assertion_steps</code></a> for full details.</p>
 
-<h4 id="on-matching-json-templates">On matching JSON templates</h4>
+<h4>On matching JSON templates</h4>
 
 <p>For the following steps:</p>
 
-<p><code>
-Then the payload body matches the JSON fixture in "features/fixtures/template.json"
-Then the payload field "items.0.subset" matches the JSON fixture in "features/fixtures/template.json"
-</code></p>
+<pre class="code ruby"><code class="ruby">Then the payload body matches the JSON fixture in &quot;features/fixtures/template.json&quot;
+Then the payload field &quot;items.0.subset&quot; matches the JSON fixture in &quot;features/fixtures/template.json&quot;
+</code></pre>
 
 <p>The template file can either be an exact match or specify regex matches for string fields. For example, given the template</p>
 
-<p><code>
-{ "fruit": { "apple": { "color": "\\w+" } } }
-</code></p>
+<pre class="code json"><code class="json">{ &quot;fruit&quot;: { &quot;apple&quot;: { &quot;color&quot;: &quot;\\w+&quot; } } }
+</code></pre>
 
 <p>The following request will match:</p>
 
-<p><code>
-{ "fruit": { "apple": { "color": "red" } } }
-</code></p>
+<pre class="code json"><code class="json">{ &quot;fruit&quot;: { &quot;apple&quot;: { &quot;color&quot;: &quot;red&quot; } } }
+</code></pre>
 
 <p>Though this request will not match:</p>
 
-<p><code>
-{ "fruit": { "apple": { "color": "red-orange" } } }
-</code></p>
+<pre class="code json"><code class="json">{ &quot;fruit&quot;: { &quot;apple&quot;: { &quot;color&quot;: &quot;red-orange&quot; } } }
+</code></pre>
 
-<p>If “IGNORE” is specified as a value in a template, that value will be ignored in requests.</p>
+<p>If &quot;IGNORE&quot; is specified as a value in a template, that value will be ignored in requests.</p>
 
 <p>Given the following template:</p>
 
-<p><code>
-{ "fruit": { "apple": "IGNORE" } }
-</code></p>
+<pre class="code json"><code class="json">{ &quot;fruit&quot;: { &quot;apple&quot;: &quot;IGNORE&quot; } }
+</code></pre>
 
 <p>This request will match:</p>
 
-<p><code>
-{ "fruit": { "apple": "some nonsense" } }
-</code></p>
+<pre class="code json"><code class="json">{ &quot;fruit&quot;: { &quot;apple&quot;: &quot;some nonsense&quot; } }
+</code></pre>
 
-<h2 id="running-features">Running features</h2>
+<h2>Running features</h2>
 
 <p>Run the entire suite using <code>bundle exec bugsnag-maze-runner</code>. Alternately, you
 can specify specific files to run:</p>
 
-<p><code>
-bundle exec bugsnag-maze-runner features/something.feature
-</code></p>
+<pre class="code shell"><code class="shell">bundle exec bugsnag-maze-runner features/something.feature
+</code></pre>
 
 <p>Add the <code>--verbose</code> option to print script output and a trace of what Ruby file
 is being run.</p>
 
-<h2 id="troubleshooting">Troubleshooting</h2>
+<h2>Troubleshooting</h2>
 
-<h3 id="logging">Logging</h3>
+<h3>Logging</h3>
 
 <p>Maze-runner contains a Ruby logger connected to <code>STDOUT</code> that will attempt to log several events that occur during the testing life-cycle.
 By default the logger is set to report <code>WARN</code> level events or higher, but will log <code>DEBUG</code> level events if the <code>VERBOSE</code> or <code>DEBUG</code> flags are set.</p>
 
-<table>
-  <thead>
-    <tr>
-      <th>Log Level</th>
-      <th>Event</th>
-      <th>Information</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>DEBUG</code></td>
-      <td>An error occurs when attempting to open a URL</td>
-      <td>The error information</td>
-    </tr>
-    <tr>
-      <td><code>DEBUG</code></td>
-      <td>When a command is run</td>
-      <td>The command string, any <code>STDOUT</code> and <code>STDERR</code> output, and the exit code</td>
-    </tr>
-    <tr>
-      <td><code>DEBUG</code></td>
-      <td>A request is received</td>
-      <td>The request method, uri, headers and body</td>
-    </tr>
-    <tr>
-      <td><code>WARN</code></td>
-      <td>The server has not received the desired number of requests</td>
-      <td>The array of received requests</td>
-    </tr>
-    <tr>
-      <td><code>WARN</code></td>
-      <td>Sleep steps are used</td>
-      <td>A warning to avoid using sleep where possible</td>
-    </tr>
-    <tr>
-      <td><code>WARN</code></td>
-      <td>A Selenium <code>StaleElementReferenceError</code> occurs</td>
-      <td>The error information</td>
-    </tr>
-    <tr>
-      <td><code>WARN</code></td>
-      <td>A run command fails</td>
-      <td>The output from the command</td>
-    </tr>
-    <tr>
-      <td><code>FATAL</code></td>
-      <td>The webserver is not running at the start of a test</td>
-      <td>Error notification before exiting</td>
-    </tr>
-  </tbody>
-</table>
+<table><thead>
+<tr>
+<th>Log Level</th>
+<th>Event</th>
+<th>Information</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>DEBUG</code></td>
+<td>An error occurs when attempting to open a URL</td>
+<td>The error information</td>
+</tr>
+<tr>
+<td><code>DEBUG</code></td>
+<td>When a command is run</td>
+<td>The command string, any <code>STDOUT</code> and <code>STDERR</code> output, and the exit code</td>
+</tr>
+<tr>
+<td><code>DEBUG</code></td>
+<td>A request is received</td>
+<td>The request method, uri, headers and body</td>
+</tr>
+<tr>
+<td><code>WARN</code></td>
+<td>The server has not received the desired number of requests</td>
+<td>The array of received requests</td>
+</tr>
+<tr>
+<td><code>WARN</code></td>
+<td>Sleep steps are used</td>
+<td>A warning to avoid using sleep where possible</td>
+</tr>
+<tr>
+<td><code>WARN</code></td>
+<td>A Selenium <code>StaleElementReferenceError</code> occurs</td>
+<td>The error information</td>
+</tr>
+<tr>
+<td><code>WARN</code></td>
+<td>A run command fails</td>
+<td>The output from the command</td>
+</tr>
+<tr>
+<td><code>FATAL</code></td>
+<td>The webserver is not running at the start of a test</td>
+<td>Error notification before exiting</td>
+</tr>
+</tbody></table>
 
-<h3 id="known-issues">Known issues</h3>
+<h3>Known issues</h3>
 
 <ul>
-  <li>Testing on iOS sometimes fails while Android Studio or gradle or some Android
+<li>Testing on iOS sometimes fails while Android Studio or gradle or some Android
 emulators are running.</li>
-  <li>Payload field matching for raw string values can be ambiguous when there is a
-possible regex match (e.g. when using “.” as a part of an expected value
+<li>Payload field matching for raw string values can be ambiguous when there is a
+possible regex match (e.g. when using &quot;.&quot; as a part of an expected value
 without escaping it).</li>
 </ul>
 
-<h2 id="contributing">Contributing</h2>
+<h2>Contributing</h2>
 
 <p>If steps would be useful for different projects running the maze, add the to
 <code>lib/features/steps/</code>. If there are useful helper functions, add them to
 <code>lib/features/support/*.rb</code>.</p>
 
-<h3 id="running-the-tests">Running the tests</h3>
+<h3>Running the tests</h3>
 
 <p>bugsnag-maze-runner uses test-unit and minunit to bootstrap itself and run the
 sample app suites in the test fixtures. Run <code>bundle exec rake</code> to run the suite.</p>
 </div></div>
 
       <div id="footer">
-  Generated on Thu Nov 14 11:39:31 2019 by
+  Generated on Thu Nov 14 15:02:40 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.19 (ruby-2.5.7).
 </div>

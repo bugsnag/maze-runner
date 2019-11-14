@@ -105,8 +105,7 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>Responsible for running docker containers in the local environment</p>
+    <p>Responsible for running docker containers in the local environment</p>
 
 
   </div>
@@ -126,8 +125,7 @@
         <dt id="COMPOSE_FILENAME-constant" class="">COMPOSE_FILENAME =
           <div class="docstring">
   <div class="discussion">
-    
-<p>The default place to look for the docker-compose file</p>
+    <p>The default place to look for the docker-compose file</p>
 
 
   </div>
@@ -159,7 +157,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#down_all_services-class_method" title="down_all_services (class method)">.<strong>down_all_services</strong>  &#x21d2; Object </a>
+      <a href="#compose_project_name-class_method" title="compose_project_name (class method)">.<strong>compose_project_name</strong>  &#x21d2; Object </a>
     
 
     
@@ -174,7 +172,52 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Kills all running services.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#compose_project_name=-class_method" title="compose_project_name= (class method)">.<strong>compose_project_name=</strong>(project_name)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#down_all_services-class_method" title="down_all_services (class method)">.<strong>down_all_services</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Kills all running services.</p>
 </div></span>
   
 </li>
@@ -197,8 +240,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Kills a running service.</p>
+    <span class="summary_desc"><div class='inline'><p>Kills a running service.</p>
 </div></span>
   
 </li>
@@ -221,8 +263,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Builds and starts a service, using a command if given.</p>
+    <span class="summary_desc"><div class='inline'><p>Builds and starts a service, using a command if given.</p>
 </div></span>
   
 </li>
@@ -238,7 +279,67 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="down_all_services-class_method">
+  <h3 class="signature first" id="compose_project_name-class_method">
+  
+    .<strong>compose_project_name</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+42
+43
+44</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/features/support/docker.rb', line 42</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_compose_project_name'>compose_project_name</span>
+  <span class='ivar'>@compose_project_name</span> <span class='op'>||=</span> <span class='kw'>nil</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="compose_project_name=-class_method">
+  
+    .<strong>compose_project_name=</strong>(project_name)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+46
+47
+48</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/features/support/docker.rb', line 46</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_compose_project_name='>compose_project_name=</span><span class='lparen'>(</span><span class='id identifier rubyid_project_name'>project_name</span><span class='rparen'>)</span>
+  <span class='ivar'>@compose_project_name</span> <span class='op'>=</span> <span class='id identifier rubyid_project_name'>project_name</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="down_all_services-class_method">
   
     .<strong>down_all_services</strong>  &#x21d2; <tt>Object</tt> 
   
@@ -248,8 +349,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Kills all running services</p>
+    <p>Kills all running services</p>
 
 
   </div>
@@ -297,8 +397,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Kills a running service</p>
+    <p>Kills a running service</p>
 
 
   </div>
@@ -317,8 +416,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>The name of the service to kill</p>
+        <div class='inline'><p>The name of the service to kill</p>
 </div>
       
     </li>
@@ -362,8 +460,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Builds and starts a service, using a command if given.</p>
+    <p>Builds and starts a service, using a command if given.</p>
 
 
   </div>
@@ -382,8 +479,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>The name of the service to start</p>
+        <div class='inline'><p>The name of the service to start</p>
 </div>
       
     </li>
@@ -398,8 +494,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>Optional. The command to use when running the service</p>
+        <div class='inline'><p>Optional. The command to use when running the service</p>
 </div>
       
     </li>
@@ -447,9 +542,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu Sep 26 11:47:31 2019 by
+  Generated on Thu Nov 14 11:01:12 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.19 (ruby-2.5.1).
+  0.9.19 (ruby-2.5.7).
 </div>
 
     </div>

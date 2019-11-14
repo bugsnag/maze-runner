@@ -67,7 +67,7 @@
   <div class="title">Step Definitions &amp; Transforms</div>
 
   <div class="summary">
-    <div>93<a href="#step_definitions">Step Definitions</a></div>
+    <div>97<a href="#step_definitions">Step Definitions</a></div>
     <div>0<a href="#step_transforms">Step Transforms</a></div>
     <div>0<a href="#undefined_steps">Undefined Steps</a></div>
   </div>
@@ -89,12 +89,12 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition93-stepdefinition"></a>
+  <a name="step_definition1-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">"each element in payload field {string} has {string}"</span>
+    <span class="name">"the payload field {string} is stored as the value {string}"</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex=%22each+element+in+payload+field+%7Bstring%7D+has+%7Bstring%7D%22" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex=%22the+payload+field+%7Bstring%7D+is+stored+as+the+value+%7Bstring%7D%22" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -105,15 +105,14 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:348</div>
+      <div class="file">lib/features/steps/value_steps.rb:7</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests that every element in an array contains a specified key-value pair.</p>
+    <p>Stores a payload value against a key for cross-request comparisons.</p>
 
 
   </div>
@@ -129,8 +128,7 @@
       
       
         
-        <div class='inline'>
-<p>key_path [String] The path to the tested array</p>
+        <div class='inline'><p>field [String] The payload field to store</p>
 </div>
       
     </li>
@@ -141,8 +139,7 @@
       
       
         
-        <div class='inline'>
-<p>element_key_path [String] The key for the expected element inside the array</p>
+        <div class='inline'><p>key [String] The key to store the value against</p>
 </div>
       
     </li>
@@ -158,23 +155,15 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">348
-349
-350
-351
-352
-353
-354
-355</pre>
+            <pre class="lines">7
+8
+9
+10</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>each element in payload field {string} has {string}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key_path'>key_path</span><span class='comma'>,</span> <span class='id identifier rubyid_element_key_path'>element_key_path</span><span class='op'>|</span>
-  <span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='id identifier rubyid_read_key_path'><span class='object_link'><a href="../top-level-namespace.html#read_key_path-instance_method" title="#read_key_path (method)">read_key_path</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_key_path'>key_path</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_assert_kind_of'>assert_kind_of</span> <span class='const'>Array</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span>
-  <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_element'>element</span><span class='op'>|</span>
-    <span class='id identifier rubyid_assert_not_nil'>assert_not_nil</span><span class='lparen'>(</span><span class='id identifier rubyid_read_key_path'><span class='object_link'><a href="../top-level-namespace.html#read_key_path-instance_method" title="#read_key_path (method)">read_key_path</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_element'>element</span><span class='comma'>,</span> <span class='id identifier rubyid_element_key_path'>element_key_path</span><span class='rparen'>)</span><span class='comma'>,</span>
-           <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Each element in &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_key_path'>key_path</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; must have &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_element_key_path'>element_key_path</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the payload field {string} is stored as the value {string}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='op'>|</span>
+  <span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='id identifier rubyid_read_key_path'><span class='object_link'><a href="../top-level-namespace.html#read_key_path-instance_method" title="#read_key_path (method)">read_key_path</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_field'>field</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="../Store.html" title="Store (class)">Store</a></span></span><span class='period'>.</span><span class='id identifier rubyid_values'><span class='object_link'><a href="../Store.html#values-class_method" title="Store.values (method)">values</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
 <span class='kw'>end</span></pre>
           </td>
         </tr>
@@ -223,8 +212,7 @@
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests whether a payload field matches a previously stored payload value</p>
+    <p>Tests whether a payload field matches a previously stored payload value</p>
 
 
   </div>
@@ -240,8 +228,7 @@
       
       
         
-        <div class='inline'>
-<p>field [String] The payload field to test</p>
+        <div class='inline'><p>field [String] The payload field to test</p>
 </div>
       
     </li>
@@ -252,8 +239,7 @@
       
       
         
-        <div class='inline'>
-<p>key [String] The key indicating a previously stored value</p>
+        <div class='inline'><p>key [String] The key indicating a previously stored value</p>
 </div>
       
     </li>
@@ -330,9 +316,7 @@
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests whether a payload field is distinct from a previously stored payload
-value</p>
+    <p>Tests whether a payload field is distinct from a previously stored payload value</p>
 
 
   </div>
@@ -348,8 +332,7 @@ value</p>
       
       
         
-        <div class='inline'>
-<p>field [String] The payload field to test</p>
+        <div class='inline'><p>field [String] The payload field to test</p>
 </div>
       
     </li>
@@ -360,8 +343,7 @@ value</p>
       
       
         
-        <div class='inline'>
-<p>key [String] The key indicating a previously stored value</p>
+        <div class='inline'><p>key [String] The key indicating a previously stored value</p>
 </div>
       
     </li>
@@ -438,8 +420,7 @@ value</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Sets an environment variable for subsequent scripts or commands.</p>
+    <p>Sets an environment variable for subsequent scripts or commands.</p>
 
 
   </div>
@@ -455,8 +436,7 @@ value</p>
       
       
         
-        <div class='inline'>
-<p>key [String] The environment variable</p>
+        <div class='inline'><p>key [String] The environment variable</p>
 </div>
       
     </li>
@@ -467,8 +447,7 @@ value</p>
       
       
         
-        <div class='inline'>
-<p>value [String] The intended value of the environment variable</p>
+        <div class='inline'><p>value [String] The intended value of the environment variable</p>
 </div>
       
     </li>
@@ -539,8 +518,7 @@ value</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Sets an environment variable to the server endpoint.</p>
+    <p>Sets an environment variable to the server endpoint.</p>
 
 
   </div>
@@ -556,8 +534,7 @@ value</p>
       
       
         
-        <div class='inline'>
-<p>name [String] The environment variable</p>
+        <div class='inline'><p>name [String] The environment variable</p>
 </div>
       
     </li>
@@ -632,8 +609,7 @@ value</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Sets an environment variable to the currently set API key.</p>
+    <p>Sets an environment variable to the currently set API key.</p>
 
 
   </div>
@@ -649,8 +625,7 @@ value</p>
       
       
         
-        <div class='inline'>
-<p>name [String] The environment variable</p>
+        <div class='inline'><p>name [String] The environment variable</p>
 </div>
       
     </li>
@@ -725,8 +700,7 @@ value</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Runs a script, blocking until it returns.</p>
+    <p>Runs a script, blocking until it returns.</p>
 
 
   </div>
@@ -742,8 +716,7 @@ value</p>
       
       
         
-        <div class='inline'>
-<p>script_path [String] Path to the script to be run</p>
+        <div class='inline'><p>script_path [String] Path to the script to be run</p>
 </div>
       
     </li>
@@ -814,8 +787,7 @@ value</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Runs a script.</p>
+    <p>Runs a script.</p>
 
 
   </div>
@@ -831,8 +803,7 @@ value</p>
       
       
         
-        <div class='inline'>
-<p>script_path [String] Path to the script to be run</p>
+        <div class='inline'><p>script_path [String] Path to the script to be run</p>
 </div>
       
     </li>
@@ -903,8 +874,7 @@ value</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Starts a docker-compose service.</p>
+    <p>Starts a docker-compose service.</p>
 
 
   </div>
@@ -920,8 +890,7 @@ value</p>
       
       
         
-        <div class='inline'>
-<p>service [String] The name of the service to run</p>
+        <div class='inline'><p>service [String] The name of the service to run</p>
 </div>
       
     </li>
@@ -992,8 +961,7 @@ value</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Runs a docker-compose service using a specific command.</p>
+    <p>Runs a docker-compose service using a specific command.</p>
 
 
   </div>
@@ -1009,8 +977,7 @@ value</p>
       
       
         
-        <div class='inline'>
-<p>service [String] The name of the service to run</p>
+        <div class='inline'><p>service [String] The name of the service to run</p>
 </div>
       
     </li>
@@ -1021,8 +988,7 @@ value</p>
       
       
         
-        <div class='inline'>
-<p>command [String] The command to run inside the service</p>
+        <div class='inline'><p>command [String] The command to run inside the service</p>
 </div>
       
     </li>
@@ -1093,8 +1059,7 @@ value</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Waits for a number of seconds, performing no actions.</p>
+    <p>Waits for a number of seconds, performing no actions.</p>
 
 
   </div>
@@ -1110,8 +1075,7 @@ value</p>
       
       
         
-        <div class='inline'>
-<p>seconds [Integer] The number of seconds to sleep for</p>
+        <div class='inline'><p>seconds [Integer] The number of seconds to sleep for</p>
 </div>
       
     </li>
@@ -1184,8 +1148,7 @@ value</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Starts an Android emulator available within the local environment</p>
+    <p>Starts an Android emulator available within the local environment</p>
 
 
   </div>
@@ -1201,8 +1164,7 @@ value</p>
       
       
         
-        <div class='inline'>
-<p>emulator [String] The name of the emulator to start</p>
+        <div class='inline'><p>emulator [String] The name of the emulator to start</p>
 </div>
       
     </li>
@@ -1281,9 +1243,8 @@ value</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Synchronously clears the data for the test application Requires an ADB
-connection</p>
+    <p>Synchronously clears the data for the test application
+Requires an ADB connection</p>
 
 
   </div>
@@ -1355,8 +1316,8 @@ connection</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Force stops the test application Requires an ADB connection</p>
+    <p>Force stops the test application
+Requires an ADB connection</p>
 
 
   </div>
@@ -1428,9 +1389,8 @@ connection</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Installs a given bundle from an APK onto a device Requires an ADB
-connection</p>
+    <p>Installs a given bundle from an APK onto a device
+Requires an ADB connection</p>
 
 
   </div>
@@ -1446,8 +1406,7 @@ connection</p>
       
       
         
-        <div class='inline'>
-<p>bundle [String] The bundle to be installed</p>
+        <div class='inline'><p>bundle [String] The bundle to be installed</p>
 </div>
       
     </li>
@@ -1458,8 +1417,7 @@ connection</p>
       
       
         
-        <div class='inline'>
-<p>filepath [String] The path to the application&#39;s .apk</p>
+        <div class='inline'><p>filepath [String] The path to the application’s .apk</p>
 </div>
       
     </li>
@@ -1538,8 +1496,8 @@ connection</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Starts a specific activity for a given app Requires an ADB connection</p>
+    <p>Starts a specific activity for a given app
+Requires an ADB connection</p>
 
 
   </div>
@@ -1555,8 +1513,7 @@ connection</p>
       
       
         
-        <div class='inline'>
-<p>app [String] The application name</p>
+        <div class='inline'><p>app [String] The application name</p>
 </div>
       
     </li>
@@ -1567,8 +1524,7 @@ connection</p>
       
       
         
-        <div class='inline'>
-<p>activity [String] The activity to start</p>
+        <div class='inline'><p>activity [String] The activity to start</p>
 </div>
       
     </li>
@@ -1649,8 +1605,7 @@ connection</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Checks that a port on a given host is open and ready for connections.</p>
+    <p>Checks that a port on a given host is open and ready for connections.</p>
 
 
   </div>
@@ -1666,8 +1621,7 @@ connection</p>
       
       
         
-        <div class='inline'>
-<p>host [String] The host to check</p>
+        <div class='inline'><p>host [String] The host to check</p>
 </div>
       
     </li>
@@ -1678,8 +1632,7 @@ connection</p>
       
       
         
-        <div class='inline'>
-<p>port [String] The port to check</p>
+        <div class='inline'><p>port [String] The port to check</p>
 </div>
       
     </li>
@@ -1750,8 +1703,7 @@ connection</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Attempts to open a URL.</p>
+    <p>Attempts to open a URL.</p>
 
 
   </div>
@@ -1767,8 +1719,7 @@ connection</p>
       
       
         
-        <div class='inline'>
-<p>url [String] The URL to open.</p>
+        <div class='inline'><p>url [String] The URL to open.</p>
 </div>
       
     </li>
@@ -1847,10 +1798,8 @@ connection</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests whether the top-most payload is valid for the Bugsnag build API
-APIKey fields and headers are tested against the &#39;$api_key&#39; global
-variable</p>
+    <p>Tests whether the top-most payload is valid for the Bugsnag build API
+APIKey fields and headers are tested against the ‘$api_key’ global variable</p>
 
 
   </div>
@@ -1928,10 +1877,8 @@ variable</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests whether the top-most payload is valid for the Android mapping API
-APIKey fields and headers are tested against the &#39;$api_key&#39; global
-variable</p>
+    <p>Tests whether the top-most payload is valid for the Android mapping API
+APIKey fields and headers are tested against the ‘$api_key’ global variable</p>
 
 
   </div>
@@ -2017,8 +1964,8 @@ variable</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Checks a UI element is present Requires a running Appium driver</p>
+    <p>Checks a UI element is present
+Requires a running Appium driver</p>
 
 
   </div>
@@ -2034,8 +1981,7 @@ variable</p>
       
       
         
-        <div class='inline'>
-<p>element_id [String] The locator id</p>
+        <div class='inline'><p>element_id [String] The locator id</p>
 </div>
       
     </li>
@@ -2108,8 +2054,8 @@ variable</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Clicks a given element Requires a running Appium driver</p>
+    <p>Clicks a given element
+Requires a running Appium driver</p>
 
 
   </div>
@@ -2125,8 +2071,7 @@ variable</p>
       
       
         
-        <div class='inline'>
-<p>element_id [String] The locator id</p>
+        <div class='inline'><p>element_id [String] The locator id</p>
 </div>
       
     </li>
@@ -2197,9 +2142,8 @@ variable</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Sends the app to the background for a number of seconds Requires a running
-Appium driver</p>
+    <p>Sends the app to the background for a number of seconds
+Requires a running Appium driver</p>
 
 
   </div>
@@ -2215,9 +2159,7 @@ Appium driver</p>
       
       
         
-        <div class='inline'>
-<p>timeout [Integer] The amount of time the app is in the background in
-seconds</p>
+        <div class='inline'><p>timeout [Integer] The amount of time the app is in the background in seconds</p>
 </div>
       
     </li>
@@ -2288,8 +2230,8 @@ seconds</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Sends keys to a given element Requires a running Appium driver</p>
+    <p>Sends keys to a given element
+Requires a running Appium driver</p>
 
 
   </div>
@@ -2305,8 +2247,7 @@ seconds</p>
       
       
         
-        <div class='inline'>
-<p>keys [String] The keys to send to the element</p>
+        <div class='inline'><p>keys [String] The keys to send to the element</p>
 </div>
       
     </li>
@@ -2317,8 +2258,7 @@ seconds</p>
       
       
         
-        <div class='inline'>
-<p>element_id [String] The locator id</p>
+        <div class='inline'><p>element_id [String] The locator id</p>
 </div>
       
     </li>
@@ -2389,10 +2329,8 @@ seconds</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Verifies that generic elements of an error payload are present. APIKey
-fields and headers are tested against the &#39;$api_key&#39; global
-variable.</p>
+    <p>Verifies that generic elements of an error payload are present.
+APIKey fields and headers are tested against the ‘$api_key’ global variable.</p>
 
 
   </div>
@@ -2408,8 +2346,7 @@ variable.</p>
       
       
         
-        <div class='inline'>
-<p>payload_version [String] The payload version expected</p>
+        <div class='inline'><p>payload_version [String] The payload version expected</p>
 </div>
       
     </li>
@@ -2420,8 +2357,7 @@ variable.</p>
       
       
         
-        <div class='inline'>
-<p>notifier_name [String] The expected name of the notifier</p>
+        <div class='inline'><p>notifier_name [String] The expected name of the notifier</p>
 </div>
       
     </li>
@@ -2506,6 +2442,310 @@ variable.</p>
   <a name="step_definition26-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
+    <span class="name">"event {int} is unhandled"</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex=%22event+%7Bint%7D+is+unhandled%22" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/error_reporting_steps.rb:36</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Verifies that an event is correct for an unhandled error
+This checks various elements of the payload matching an unhandled error including:
+   The unhandled flag
+   Any attached session information
+   Severity</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">36
+37
+38</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>event {int} is unhandled</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_event'>event</span><span class='op'>|</span>
+  <span class='id identifier rubyid_test_unhandled_state'><span class='object_link'><a href="../top-level-namespace.html#test_unhandled_state-instance_method" title="#test_unhandled_state (method)">test_unhandled_state</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_event'>event</span><span class='comma'>,</span> <span class='kw'>true</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition27-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">"event {int} is unhandled with the severity {string}"</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex=%22event+%7Bint%7D+is+unhandled+with+the+severity+%7Bstring%7D%22" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/error_reporting_steps.rb:48</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Verifies that an event is correct for an unhandled error
+This checks various elements of the payload matching an unhandled error including:
+   The unhandled flag
+   Any attached session information
+   Severity</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">48
+49
+50</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>event {int} is unhandled with the severity {string}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_event'>event</span><span class='comma'>,</span> <span class='id identifier rubyid_severity'>severity</span><span class='op'>|</span>
+  <span class='id identifier rubyid_test_unhandled_state'><span class='object_link'><a href="../top-level-namespace.html#test_unhandled_state-instance_method" title="#test_unhandled_state (method)">test_unhandled_state</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_event'>event</span><span class='comma'>,</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_severity'>severity</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition28-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">"event {int} is handled"</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex=%22event+%7Bint%7D+is+handled%22" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/error_reporting_steps.rb:59</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Verifies that an event is correct for an handled error
+This checks various elements of the payload matching an unhandled error including:
+   The unhandled flag
+   Any attached session information
+   Severity</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">59
+60
+61</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>event {int} is handled</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_event'>event</span><span class='op'>|</span>
+  <span class='id identifier rubyid_test_unhandled_state'><span class='object_link'><a href="../top-level-namespace.html#test_unhandled_state-instance_method" title="#test_unhandled_state (method)">test_unhandled_state</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_event'>event</span><span class='comma'>,</span> <span class='kw'>false</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition29-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">"event {int} is handled with the severity {string}"</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex=%22event+%7Bint%7D+is+handled+with+the+severity+%7Bstring%7D%22" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/error_reporting_steps.rb:71</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Verifies that an event is correct for an handled error
+This checks various elements of the payload matching an unhandled error including:
+   The unhandled flag
+   Any attached session information
+   Severity</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">71
+72
+73</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>event {int} is handled with the severity {string}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_event'>event</span><span class='comma'>,</span> <span class='id identifier rubyid_severity'>severity</span><span class='op'>|</span>
+  <span class='id identifier rubyid_test_unhandled_state'><span class='object_link'><a href="../top-level-namespace.html#test_unhandled_state-instance_method" title="#test_unhandled_state (method)">test_unhandled_state</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_event'>event</span><span class='comma'>,</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_severity'>severity</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition30-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
     <span class="name">"the payload contains the payloadVersion {string}"</span>
     <div style="float: right;">
       <a href="http://rubular.com/?regex=%22the+payload+contains+the+payloadVersion+%7Bstring%7D%22" target="_blank">Rubular</a>
@@ -2519,19 +2759,16 @@ variable.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:34</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:80</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Checks the payloadVersion is set correctly.</p>
-
-<pre class="code ruby"><code class="ruby">For Javascript this should be in the events.
-For all other notifiers this should be a top-level key.
-</code></pre>
+    <p>Checks the payloadVersion is set correctly.
+  For Javascript this should be in the events.
+  For all other notifiers this should be a top-level key.</p>
 
 
   </div>
@@ -2547,8 +2784,7 @@ For all other notifiers this should be a top-level key.
       
       
         
-        <div class='inline'>
-<p>payload_version [String] The payload version expected</p>
+        <div class='inline'><p>payload_version [String] The payload version expected</p>
 </div>
       
     </li>
@@ -2564,13 +2800,13 @@ For all other notifiers this should be a top-level key.
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">34
-35
-36
-37
-38
-39
-40</pre>
+            <pre class="lines">80
+81
+82
+83
+84
+85
+86</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the payload contains the payloadVersion {string}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_payload_version'>payload_version</span><span class='op'>|</span>
@@ -2604,7 +2840,7 @@ For all other notifiers this should be a top-level key.
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition27-stepdefinition"></a>
+  <a name="step_definition31-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">/^the event "(.+)" is (true|false|null|not null)$/</span>
@@ -2620,15 +2856,14 @@ For all other notifiers this should be a top-level key.
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:46</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:92</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests whether a value in the first event entry matches a literal.</p>
+    <p>Tests whether a value in the first event entry matches a literal.</p>
 
 
   </div>
@@ -2644,8 +2879,7 @@ For all other notifiers this should be a top-level key.
       
       
         
-        <div class='inline'>
-<p>field [String] The relative location of the value to test</p>
+        <div class='inline'><p>field [String] The relative location of the value to test</p>
 </div>
       
     </li>
@@ -2656,9 +2890,7 @@ For all other notifiers this should be a top-level key.
       
       
         
-        <div class='inline'>
-<p>literal [Enum] The literal to test against, one of: true, false, null, not
-null</p>
+        <div class='inline'><p>literal [Enum] The literal to test against, one of: true, false, null, not null</p>
 </div>
       
     </li>
@@ -2674,9 +2906,9 @@ null</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">46
-47
-48</pre>
+            <pre class="lines">92
+93
+94</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^the event &quot;(.+)&quot; is (true|false|null|not null)$</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_literal'>literal</span><span class='op'>|</span>
@@ -2706,7 +2938,7 @@ null</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition28-stepdefinition"></a>
+  <a name="step_definition32-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event {string} equals {string}"</span>
@@ -2722,15 +2954,14 @@ null</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:54</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:100</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests whether a value in the first event entry matches a string.</p>
+    <p>Tests whether a value in the first event entry matches a string.</p>
 
 
   </div>
@@ -2746,8 +2977,7 @@ null</p>
       
       
         
-        <div class='inline'>
-<p>field [String] The relative location of the value to test</p>
+        <div class='inline'><p>field [String] The relative location of the value to test</p>
 </div>
       
     </li>
@@ -2758,8 +2988,7 @@ null</p>
       
       
         
-        <div class='inline'>
-<p>string_value [String] The string to match against</p>
+        <div class='inline'><p>string_value [String] The string to match against</p>
 </div>
       
     </li>
@@ -2775,9 +3004,9 @@ null</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">54
-55
-56</pre>
+            <pre class="lines">100
+101
+102</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the event {string} equals {string}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_string_value'>string_value</span><span class='op'>|</span>
@@ -2807,7 +3036,7 @@ null</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition29-stepdefinition"></a>
+  <a name="step_definition33-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event {string} equals {int}"</span>
@@ -2823,15 +3052,14 @@ null</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:62</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:108</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests whether a value in the first event entry equals an integer.</p>
+    <p>Tests whether a value in the first event entry equals an integer.</p>
 
 
   </div>
@@ -2847,8 +3075,7 @@ null</p>
       
       
         
-        <div class='inline'>
-<p>field [String] The relative location of the value to test</p>
+        <div class='inline'><p>field [String] The relative location of the value to test</p>
 </div>
       
     </li>
@@ -2859,8 +3086,7 @@ null</p>
       
       
         
-        <div class='inline'>
-<p>value [Integer] The integer to test against</p>
+        <div class='inline'><p>value [Integer] The integer to test against</p>
 </div>
       
     </li>
@@ -2876,9 +3102,9 @@ null</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">62
-63
-64</pre>
+            <pre class="lines">108
+109
+110</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the event {string} equals {int}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
@@ -2908,7 +3134,7 @@ null</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition30-stepdefinition"></a>
+  <a name="step_definition34-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event {string} starts with {string}"</span>
@@ -2924,15 +3150,14 @@ null</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:70</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:116</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests whether a value in the first event entry starts with a string.</p>
+    <p>Tests whether a value in the first event entry starts with a string.</p>
 
 
   </div>
@@ -2948,8 +3173,7 @@ null</p>
       
       
         
-        <div class='inline'>
-<p>field [String] The relative location of the value to test</p>
+        <div class='inline'><p>field [String] The relative location of the value to test</p>
 </div>
       
     </li>
@@ -2960,8 +3184,7 @@ null</p>
       
       
         
-        <div class='inline'>
-<p>string_value [String] The string to match against</p>
+        <div class='inline'><p>string_value [String] The string to match against</p>
 </div>
       
     </li>
@@ -2977,9 +3200,9 @@ null</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">70
-71
-72</pre>
+            <pre class="lines">116
+117
+118</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the event {string} starts with {string}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_string_value'>string_value</span><span class='op'>|</span>
@@ -3009,7 +3232,7 @@ null</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition31-stepdefinition"></a>
+  <a name="step_definition35-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event {string} ends with {string}"</span>
@@ -3025,15 +3248,14 @@ null</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:78</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:124</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests whether a value in the first event entry ends with a string.</p>
+    <p>Tests whether a value in the first event entry ends with a string.</p>
 
 
   </div>
@@ -3049,8 +3271,7 @@ null</p>
       
       
         
-        <div class='inline'>
-<p>field [String] The relative location of the value to test</p>
+        <div class='inline'><p>field [String] The relative location of the value to test</p>
 </div>
       
     </li>
@@ -3061,8 +3282,7 @@ null</p>
       
       
         
-        <div class='inline'>
-<p>string_value [String] The string to match against</p>
+        <div class='inline'><p>string_value [String] The string to match against</p>
 </div>
       
     </li>
@@ -3078,9 +3298,9 @@ null</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">78
-79
-80</pre>
+            <pre class="lines">124
+125
+126</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the event {string} ends with {string}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_string_value'>string_value</span><span class='op'>|</span>
@@ -3110,7 +3330,7 @@ null</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition32-stepdefinition"></a>
+  <a name="step_definition36-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event {string} matches {string}"</span>
@@ -3126,15 +3346,14 @@ null</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:86</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:132</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests whether a value in the first event entry matches a regex.</p>
+    <p>Tests whether a value in the first event entry matches a regex.</p>
 
 
   </div>
@@ -3150,8 +3369,7 @@ null</p>
       
       
         
-        <div class='inline'>
-<p>field [String] The relative location of the value to test</p>
+        <div class='inline'><p>field [String] The relative location of the value to test</p>
 </div>
       
     </li>
@@ -3162,8 +3380,7 @@ null</p>
       
       
         
-        <div class='inline'>
-<p>pattern [String] The regex to match against</p>
+        <div class='inline'><p>pattern [String] The regex to match against</p>
 </div>
       
     </li>
@@ -3179,9 +3396,9 @@ null</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">86
-87
-88</pre>
+            <pre class="lines">132
+133
+134</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the event {string} matches {string}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_pattern'>pattern</span><span class='op'>|</span>
@@ -3211,7 +3428,7 @@ null</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition33-stepdefinition"></a>
+  <a name="step_definition37-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event {string} is a timestamp"</span>
@@ -3227,18 +3444,15 @@ null</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:94</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:140</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests whether a value in the first event entry is a timestamp.</p>
-
-<pre class="code ruby"><code class="ruby"><span class='const'>Uses</span> <span class='id identifier rubyid_the'>the</span> <span class='id identifier rubyid_regex'>regex</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^\d{4}\-\d{2}\-\d{2}T\d{2}:\d{2}:[\d\.]+Z?$</span><span class='regexp_end'>/</span></span>
-</code></pre>
+    <p>Tests whether a value in the first event entry is a timestamp.
+  Uses the regex /^\d4-\d2-\d2T\d2:\d2:[\d.]+Z?$/</p>
 
 
   </div>
@@ -3254,8 +3468,7 @@ null</p>
       
       
         
-        <div class='inline'>
-<p>field [String] The relative location of the value to test</p>
+        <div class='inline'><p>field [String] The relative location of the value to test</p>
 </div>
       
     </li>
@@ -3271,9 +3484,9 @@ null</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">94
-95
-96</pre>
+            <pre class="lines">140
+141
+142</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the event {string} is a timestamp</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='op'>|</span>
@@ -3303,7 +3516,7 @@ null</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition34-stepdefinition"></a>
+  <a name="step_definition38-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event {string} is a parsable timestamp in seconds"</span>
@@ -3319,16 +3532,14 @@ null</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:101</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:147</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests whether a value in the first event entry is a numeric and parsable
-timestamp.</p>
+    <p>Tests whether a value in the first event entry is a numeric and parsable timestamp.</p>
 
 
   </div>
@@ -3344,8 +3555,7 @@ timestamp.</p>
       
       
         
-        <div class='inline'>
-<p>field [String] The relative location of the value to test</p>
+        <div class='inline'><p>field [String] The relative location of the value to test</p>
 </div>
       
     </li>
@@ -3361,9 +3571,9 @@ timestamp.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">101
-102
-103</pre>
+            <pre class="lines">147
+148
+149</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the event {string} is a parsable timestamp in seconds</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='op'>|</span>
@@ -3393,7 +3603,7 @@ timestamp.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition35-stepdefinition"></a>
+  <a name="step_definition39-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event {string} equals the environment variable {string}"</span>
@@ -3409,15 +3619,14 @@ timestamp.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:109</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:155</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests the Event field value against an environment variable.</p>
+    <p>Tests the Event field value against an environment variable.</p>
 
 
   </div>
@@ -3433,8 +3642,7 @@ timestamp.</p>
       
       
         
-        <div class='inline'>
-<p>field [String] The payload element to check</p>
+        <div class='inline'><p>field [String] The payload element to check</p>
 </div>
       
     </li>
@@ -3445,8 +3653,7 @@ timestamp.</p>
       
       
         
-        <div class='inline'>
-<p>env_var [String] The environment variable to test against</p>
+        <div class='inline'><p>env_var [String] The environment variable to test against</p>
 </div>
       
     </li>
@@ -3462,9 +3669,9 @@ timestamp.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">109
-110
-111</pre>
+            <pre class="lines">155
+156
+157</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the event {string} equals the environment variable {string}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_env_var'>env_var</span><span class='op'>|</span>
@@ -3494,7 +3701,7 @@ timestamp.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition36-stepdefinition"></a>
+  <a name="step_definition40-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event {string} matches the JSON fixture in {string}"</span>
@@ -3510,15 +3717,14 @@ timestamp.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:117</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:163</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests whether a value in the first event entry matches a JSON fixture.</p>
+    <p>Tests whether a value in the first event entry matches a JSON fixture.</p>
 
 
   </div>
@@ -3534,8 +3740,7 @@ timestamp.</p>
       
       
         
-        <div class='inline'>
-<p>field [String] The relative location of the value to test</p>
+        <div class='inline'><p>field [String] The relative location of the value to test</p>
 </div>
       
     </li>
@@ -3546,8 +3751,7 @@ timestamp.</p>
       
       
         
-        <div class='inline'>
-<p>fixture_path [String] The fixture to match against</p>
+        <div class='inline'><p>fixture_path [String] The fixture to match against</p>
 </div>
       
     </li>
@@ -3563,9 +3767,9 @@ timestamp.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">117
-118
-119</pre>
+            <pre class="lines">163
+164
+165</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the event {string} matches the JSON fixture in {string}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_fixture_path'>fixture_path</span><span class='op'>|</span>
@@ -3595,7 +3799,7 @@ timestamp.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition37-stepdefinition"></a>
+  <a name="step_definition41-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event has a {string} breadcrumb named {string}"</span>
@@ -3611,16 +3815,14 @@ timestamp.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:125</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:171</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests whether the first event entry contains a specific breadcrumb with a
-type and name.</p>
+    <p>Tests whether the first event entry contains a specific breadcrumb with a type and name.</p>
 
 
   </div>
@@ -3636,8 +3838,7 @@ type and name.</p>
       
       
         
-        <div class='inline'>
-<p>type [String] The expected breadcrumb&#39;s type</p>
+        <div class='inline'><p>type [String] The expected breadcrumb’s type</p>
 </div>
       
     </li>
@@ -3648,8 +3849,7 @@ type and name.</p>
       
       
         
-        <div class='inline'>
-<p>name [String] The expected breadcrumb&#39;s name</p>
+        <div class='inline'><p>name [String] The expected breadcrumb’s name</p>
 </div>
       
     </li>
@@ -3665,16 +3865,16 @@ type and name.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">125
-126
-127
-128
-129
-130
-131
-132
-133
-134</pre>
+            <pre class="lines">171
+172
+173
+174
+175
+176
+177
+178
+179
+180</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the event has a {string} breadcrumb named {string}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='op'>|</span>
@@ -3711,7 +3911,7 @@ type and name.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition38-stepdefinition"></a>
+  <a name="step_definition42-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event has a {string} breadcrumb with message {string}"</span>
@@ -3727,16 +3927,14 @@ type and name.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:140</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:186</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests whether the first event entry contains a specific breadcrumb with a
-type and message.</p>
+    <p>Tests whether the first event entry contains a specific breadcrumb with a type and message.</p>
 
 
   </div>
@@ -3752,8 +3950,7 @@ type and message.</p>
       
       
         
-        <div class='inline'>
-<p>type [String] The expected breadcrumb&#39;s type</p>
+        <div class='inline'><p>type [String] The expected breadcrumb’s type</p>
 </div>
       
     </li>
@@ -3764,8 +3961,7 @@ type and message.</p>
       
       
         
-        <div class='inline'>
-<p>message [String] The expected breadcrumb&#39;s message</p>
+        <div class='inline'><p>message [String] The expected breadcrumb’s message</p>
 </div>
       
     </li>
@@ -3781,16 +3977,16 @@ type and message.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">140
-141
-142
-143
-144
-145
-146
-147
-148
-149</pre>
+            <pre class="lines">186
+187
+188
+189
+190
+191
+192
+193
+194
+195</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the event has a {string} breadcrumb with message {string}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span><span class='op'>|</span>
@@ -3827,7 +4023,7 @@ type and message.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition39-stepdefinition"></a>
+  <a name="step_definition43-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the exception {string} starts with {string}"</span>
@@ -3843,16 +4039,14 @@ type and message.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:155</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:201</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests whether a value in the first exception of the first event entry
-starts with a string.</p>
+    <p>Tests whether a value in the first exception of the first event entry starts with a string.</p>
 
 
   </div>
@@ -3868,8 +4062,7 @@ starts with a string.</p>
       
       
         
-        <div class='inline'>
-<p>field [String] The relative location of the value to test</p>
+        <div class='inline'><p>field [String] The relative location of the value to test</p>
 </div>
       
     </li>
@@ -3880,8 +4073,7 @@ starts with a string.</p>
       
       
         
-        <div class='inline'>
-<p>string_value [String] The string to match against</p>
+        <div class='inline'><p>string_value [String] The string to match against</p>
 </div>
       
     </li>
@@ -3897,9 +4089,9 @@ starts with a string.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">155
-156
-157</pre>
+            <pre class="lines">201
+202
+203</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the exception {string} starts with {string}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_string_value'>string_value</span><span class='op'>|</span>
@@ -3929,7 +4121,7 @@ starts with a string.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition40-stepdefinition"></a>
+  <a name="step_definition44-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the exception {string} ends with {string}"</span>
@@ -3945,16 +4137,14 @@ starts with a string.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:163</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:209</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests whether a value in the first exception of the first event entry ends
-with a string.</p>
+    <p>Tests whether a value in the first exception of the first event entry ends with a string.</p>
 
 
   </div>
@@ -3970,8 +4160,7 @@ with a string.</p>
       
       
         
-        <div class='inline'>
-<p>field [String] The relative location of the value to test</p>
+        <div class='inline'><p>field [String] The relative location of the value to test</p>
 </div>
       
     </li>
@@ -3982,8 +4171,7 @@ with a string.</p>
       
       
         
-        <div class='inline'>
-<p>string_value [String] The string to match against</p>
+        <div class='inline'><p>string_value [String] The string to match against</p>
 </div>
       
     </li>
@@ -3999,9 +4187,9 @@ with a string.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">163
-164
-165</pre>
+            <pre class="lines">209
+210
+211</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the exception {string} ends with {string}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_string_value'>string_value</span><span class='op'>|</span>
@@ -4031,7 +4219,7 @@ with a string.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition41-stepdefinition"></a>
+  <a name="step_definition45-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the exception {string} equals {string}"</span>
@@ -4047,16 +4235,14 @@ with a string.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:171</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:217</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests whether a value in the first exception of the first event entry
-equals a string.</p>
+    <p>Tests whether a value in the first exception of the first event entry equals a string.</p>
 
 
   </div>
@@ -4072,8 +4258,7 @@ equals a string.</p>
       
       
         
-        <div class='inline'>
-<p>field [String] The relative location of the value to test</p>
+        <div class='inline'><p>field [String] The relative location of the value to test</p>
 </div>
       
     </li>
@@ -4084,8 +4269,7 @@ equals a string.</p>
       
       
         
-        <div class='inline'>
-<p>string_value [String] The string to match against</p>
+        <div class='inline'><p>string_value [String] The string to match against</p>
 </div>
       
     </li>
@@ -4101,9 +4285,9 @@ equals a string.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">171
-172
-173</pre>
+            <pre class="lines">217
+218
+219</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the exception {string} equals {string}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_string_value'>string_value</span><span class='op'>|</span>
@@ -4133,7 +4317,7 @@ equals a string.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition42-stepdefinition"></a>
+  <a name="step_definition46-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the exception {string} matches {string}"</span>
@@ -4149,16 +4333,14 @@ equals a string.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:179</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:225</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests whether a value in the first exception of the first event entry
-matches a regex.</p>
+    <p>Tests whether a value in the first exception of the first event entry matches a regex.</p>
 
 
   </div>
@@ -4174,8 +4356,7 @@ matches a regex.</p>
       
       
         
-        <div class='inline'>
-<p>field [String] The relative location of the value to test</p>
+        <div class='inline'><p>field [String] The relative location of the value to test</p>
 </div>
       
     </li>
@@ -4186,8 +4367,7 @@ matches a regex.</p>
       
       
         
-        <div class='inline'>
-<p>pattern [String] The regex to match against</p>
+        <div class='inline'><p>pattern [String] The regex to match against</p>
 </div>
       
     </li>
@@ -4203,9 +4383,9 @@ matches a regex.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">179
-180
-181</pre>
+            <pre class="lines">225
+226
+227</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the exception {string} matches {string}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_pattern'>pattern</span><span class='op'>|</span>
@@ -4235,7 +4415,7 @@ matches a regex.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition43-stepdefinition"></a>
+  <a name="step_definition47-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the {string} of stack frame {int} equals {int}"</span>
@@ -4251,16 +4431,14 @@ matches a regex.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:188</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:234</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests whether a element of a stack frame in the first exception of the
-first event equals an integer.</p>
+    <p>Tests whether a element of a stack frame in the first exception of the first event equals an integer.</p>
 
 
   </div>
@@ -4276,8 +4454,7 @@ first event equals an integer.</p>
       
       
         
-        <div class='inline'>
-<p>key [String] The element of the stack frame to test</p>
+        <div class='inline'><p>key [String] The element of the stack frame to test</p>
 </div>
       
     </li>
@@ -4288,8 +4465,7 @@ first event equals an integer.</p>
       
       
         
-        <div class='inline'>
-<p>num [Integer] The stack frame where the element is present</p>
+        <div class='inline'><p>num [Integer] The stack frame where the element is present</p>
 </div>
       
     </li>
@@ -4300,8 +4476,7 @@ first event equals an integer.</p>
       
       
         
-        <div class='inline'>
-<p>value [Integer] The value to test against</p>
+        <div class='inline'><p>value [Integer] The value to test against</p>
 </div>
       
     </li>
@@ -4317,10 +4492,10 @@ first event equals an integer.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">188
-189
-190
-191</pre>
+            <pre class="lines">234
+235
+236
+237</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the {string} of stack frame {int} equals {int}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_num'>num</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
@@ -4351,7 +4526,7 @@ first event equals an integer.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition44-stepdefinition"></a>
+  <a name="step_definition48-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the {string} of stack frame {int} matches {string}"</span>
@@ -4367,16 +4542,14 @@ first event equals an integer.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:198</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:244</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests whether an element of a stack frame in the first exception of the
-first event matches a regex pattern.</p>
+    <p>Tests whether an element of a stack frame in the first exception of the first event matches a regex pattern.</p>
 
 
   </div>
@@ -4392,8 +4565,7 @@ first event matches a regex pattern.</p>
       
       
         
-        <div class='inline'>
-<p>key [String] The element of the stack frame to test</p>
+        <div class='inline'><p>key [String] The element of the stack frame to test</p>
 </div>
       
     </li>
@@ -4404,8 +4576,7 @@ first event matches a regex pattern.</p>
       
       
         
-        <div class='inline'>
-<p>num [Integer] The stack frame where the element is present</p>
+        <div class='inline'><p>num [Integer] The stack frame where the element is present</p>
 </div>
       
     </li>
@@ -4416,8 +4587,7 @@ first event matches a regex pattern.</p>
       
       
         
-        <div class='inline'>
-<p>pattern [String] The regex to match against</p>
+        <div class='inline'><p>pattern [String] The regex to match against</p>
 </div>
       
     </li>
@@ -4433,10 +4603,10 @@ first event matches a regex pattern.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">198
-199
-200
-201</pre>
+            <pre class="lines">244
+245
+246
+247</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the {string} of stack frame {int} matches {string}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_num'>num</span><span class='comma'>,</span> <span class='id identifier rubyid_pattern'>pattern</span><span class='op'>|</span>
@@ -4467,7 +4637,7 @@ first event matches a regex pattern.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition45-stepdefinition"></a>
+  <a name="step_definition49-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the {string} of stack frame {int} equals {string}"</span>
@@ -4483,16 +4653,14 @@ first event matches a regex pattern.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:208</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:254</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests whether an element of a stack frame in the first exception of the
-first event equals a string.</p>
+    <p>Tests whether an element of a stack frame in the first exception of the first event equals a string.</p>
 
 
   </div>
@@ -4508,8 +4676,7 @@ first event equals a string.</p>
       
       
         
-        <div class='inline'>
-<p>key [String] The element of the stack frame to test</p>
+        <div class='inline'><p>key [String] The element of the stack frame to test</p>
 </div>
       
     </li>
@@ -4520,8 +4687,7 @@ first event equals a string.</p>
       
       
         
-        <div class='inline'>
-<p>num [Integer] The stack frame where the element is present</p>
+        <div class='inline'><p>num [Integer] The stack frame where the element is present</p>
 </div>
       
     </li>
@@ -4532,8 +4698,7 @@ first event equals a string.</p>
       
       
         
-        <div class='inline'>
-<p>value [String] The value to test against</p>
+        <div class='inline'><p>value [String] The value to test against</p>
 </div>
       
     </li>
@@ -4549,10 +4714,10 @@ first event equals a string.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">208
-209
-210
-211</pre>
+            <pre class="lines">254
+255
+256
+257</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the {string} of stack frame {int} equals {string}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_num'>num</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
@@ -4583,7 +4748,7 @@ first event equals a string.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition46-stepdefinition"></a>
+  <a name="step_definition50-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the {string} of stack frame {int} starts with {string}"</span>
@@ -4599,16 +4764,14 @@ first event equals a string.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:218</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:264</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests whether an element of a stack frame in the first exception of the
-first event starts with a string.</p>
+    <p>Tests whether an element of a stack frame in the first exception of the first event starts with a string.</p>
 
 
   </div>
@@ -4624,8 +4787,7 @@ first event starts with a string.</p>
       
       
         
-        <div class='inline'>
-<p>key [String] The element of the stack frame to test</p>
+        <div class='inline'><p>key [String] The element of the stack frame to test</p>
 </div>
       
     </li>
@@ -4636,8 +4798,7 @@ first event starts with a string.</p>
       
       
         
-        <div class='inline'>
-<p>num [Integer] The stack frame where the element is present</p>
+        <div class='inline'><p>num [Integer] The stack frame where the element is present</p>
 </div>
       
     </li>
@@ -4648,8 +4809,7 @@ first event starts with a string.</p>
       
       
         
-        <div class='inline'>
-<p>value [String] The value to test against</p>
+        <div class='inline'><p>value [String] The value to test against</p>
 </div>
       
     </li>
@@ -4665,10 +4825,10 @@ first event starts with a string.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">218
-219
-220
-221</pre>
+            <pre class="lines">264
+265
+266
+267</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the {string} of stack frame {int} starts with {string}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_num'>num</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
@@ -4699,7 +4859,7 @@ first event starts with a string.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition47-stepdefinition"></a>
+  <a name="step_definition51-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the {string} of stack frame {int} ends with {string}"</span>
@@ -4715,16 +4875,14 @@ first event starts with a string.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:228</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:274</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests whether an element of a stack frame in the first exception of the
-first event ends with a string.</p>
+    <p>Tests whether an element of a stack frame in the first exception of the first event ends with a string.</p>
 
 
   </div>
@@ -4740,8 +4898,7 @@ first event ends with a string.</p>
       
       
         
-        <div class='inline'>
-<p>key [String] The element of the stack frame to test</p>
+        <div class='inline'><p>key [String] The element of the stack frame to test</p>
 </div>
       
     </li>
@@ -4752,8 +4909,7 @@ first event ends with a string.</p>
       
       
         
-        <div class='inline'>
-<p>num [Integer] The stack frame where the element is present</p>
+        <div class='inline'><p>num [Integer] The stack frame where the element is present</p>
 </div>
       
     </li>
@@ -4764,8 +4920,7 @@ first event ends with a string.</p>
       
       
         
-        <div class='inline'>
-<p>value [String] The value to test against</p>
+        <div class='inline'><p>value [String] The value to test against</p>
 </div>
       
     </li>
@@ -4781,10 +4936,10 @@ first event ends with a string.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">228
-229
-230
-231</pre>
+            <pre class="lines">274
+275
+276
+277</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the {string} of stack frame {int} ends with {string}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_num'>num</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
@@ -4815,7 +4970,7 @@ first event ends with a string.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition48-stepdefinition"></a>
+  <a name="step_definition52-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">/^the "(.*)" of stack frame (\d*) is (true|false|null|not null)$/</span>
@@ -4831,16 +4986,14 @@ first event ends with a string.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:238</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:284</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests whether an element of a stack frame in the first exception of the
-first event matches a literal.</p>
+    <p>Tests whether an element of a stack frame in the first exception of the first event matches a literal.</p>
 
 
   </div>
@@ -4856,8 +5009,7 @@ first event matches a literal.</p>
       
       
         
-        <div class='inline'>
-<p>key [String] The element of the stack frame to test</p>
+        <div class='inline'><p>key [String] The element of the stack frame to test</p>
 </div>
       
     </li>
@@ -4868,8 +5020,7 @@ first event matches a literal.</p>
       
       
         
-        <div class='inline'>
-<p>num [Integer] The stack frame where the element is present</p>
+        <div class='inline'><p>num [Integer] The stack frame where the element is present</p>
 </div>
       
     </li>
@@ -4880,9 +5031,7 @@ first event matches a literal.</p>
       
       
         
-        <div class='inline'>
-<p>literal [Enum] The literal to test against, one of: true, false, null, not
-null</p>
+        <div class='inline'><p>literal [Enum] The literal to test against, one of: true, false, null, not null</p>
 </div>
       
     </li>
@@ -4898,10 +5047,10 @@ null</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">238
-239
-240
-241</pre>
+            <pre class="lines">284
+285
+286
+287</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^the &quot;(.*)&quot; of stack frame (\d*) is (true|false|null|not null)$</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_num'>num</span><span class='comma'>,</span> <span class='id identifier rubyid_literal'>literal</span><span class='op'>|</span>
@@ -4932,7 +5081,7 @@ null</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition49-stepdefinition"></a>
+  <a name="step_definition53-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the thread with name {string} contains the error reporting flag"</span>
@@ -4948,16 +5097,14 @@ null</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:246</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:292</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests whether a thread from the first event, identified by name, is the
-error reporting thread.</p>
+    <p>Tests whether a thread from the first event, identified by name, is the error reporting thread.</p>
 
 
   </div>
@@ -4973,8 +5120,7 @@ error reporting thread.</p>
       
       
         
-        <div class='inline'>
-<p>thread_name [String] The name of the thread to test</p>
+        <div class='inline'><p>thread_name [String] The name of the thread to test</p>
 </div>
       
     </li>
@@ -4990,9 +5136,9 @@ error reporting thread.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">246
-247
-248</pre>
+            <pre class="lines">292
+293
+294</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the thread with name {string} contains the error reporting flag</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_thread_name'>thread_name</span><span class='op'>|</span>
@@ -5022,7 +5168,7 @@ error reporting thread.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition50-stepdefinition"></a>
+  <a name="step_definition54-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the thread with id {string} contains the error reporting flag"</span>
@@ -5038,16 +5184,14 @@ error reporting thread.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:253</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:299</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests whether a thread from the first event, identified by an id, is the
-error reporting thread.</p>
+    <p>Tests whether a thread from the first event, identified by an id, is the error reporting thread.</p>
 
 
   </div>
@@ -5063,8 +5207,7 @@ error reporting thread.</p>
       
       
         
-        <div class='inline'>
-<p>thread_id [String] The id of the thread to test</p>
+        <div class='inline'><p>thread_id [String] The id of the thread to test</p>
 </div>
       
     </li>
@@ -5080,9 +5223,9 @@ error reporting thread.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">253
-254
-255</pre>
+            <pre class="lines">299
+300
+301</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the thread with id {string} contains the error reporting flag</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_thread_id'>thread_id</span><span class='op'>|</span>
@@ -5112,7 +5255,7 @@ error reporting thread.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition51-stepdefinition"></a>
+  <a name="step_definition55-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the request is valid for the session reporting API version {string} for the {string} notifier"</span>
@@ -5135,10 +5278,8 @@ error reporting thread.</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Verifies that generic elements of a session payload are present. APIKey
-fields and headers are tested against the &#39;$api_key&#39; global
-variable.</p>
+    <p>Verifies that generic elements of a session payload are present.
+APIKey fields and headers are tested against the ‘$api_key’ global variable.</p>
 
 
   </div>
@@ -5154,8 +5295,7 @@ variable.</p>
       
       
         
-        <div class='inline'>
-<p>payload_version [String] The payload version expected</p>
+        <div class='inline'><p>payload_version [String] The payload version expected</p>
 </div>
       
     </li>
@@ -5166,8 +5306,7 @@ variable.</p>
       
       
         
-        <div class='inline'>
-<p>notifier_name [String] The expected name of the notifier</p>
+        <div class='inline'><p>notifier_name [String] The expected name of the notifier</p>
 </div>
       
     </li>
@@ -5239,7 +5378,7 @@ variable.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition52-stepdefinition"></a>
+  <a name="step_definition56-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">/^the session "(.+)" is (true|false|null|not null)$/</span>
@@ -5262,8 +5401,7 @@ variable.</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests whether a value in the first session entry matches a literal.</p>
+    <p>Tests whether a value in the first session entry matches a literal.</p>
 
 
   </div>
@@ -5279,8 +5417,7 @@ variable.</p>
       
       
         
-        <div class='inline'>
-<p>field [String] The relative location of the value to test</p>
+        <div class='inline'><p>field [String] The relative location of the value to test</p>
 </div>
       
     </li>
@@ -5291,9 +5428,7 @@ variable.</p>
       
       
         
-        <div class='inline'>
-<p>literal [Enum] The literal to test against, one of: true, false, null, not
-null</p>
+        <div class='inline'><p>literal [Enum] The literal to test against, one of: true, false, null, not null</p>
 </div>
       
     </li>
@@ -5341,7 +5476,7 @@ null</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition53-stepdefinition"></a>
+  <a name="step_definition57-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the session {string} equals {string}"</span>
@@ -5364,8 +5499,7 @@ null</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests whether a value in the first session entry matches a string.</p>
+    <p>Tests whether a value in the first session entry matches a string.</p>
 
 
   </div>
@@ -5381,8 +5515,7 @@ null</p>
       
       
         
-        <div class='inline'>
-<p>field [String] The relative location of the value to test</p>
+        <div class='inline'><p>field [String] The relative location of the value to test</p>
 </div>
       
     </li>
@@ -5393,8 +5526,7 @@ null</p>
       
       
         
-        <div class='inline'>
-<p>string_value [String] The string to match against</p>
+        <div class='inline'><p>string_value [String] The string to match against</p>
 </div>
       
     </li>
@@ -5442,7 +5574,7 @@ null</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition54-stepdefinition"></a>
+  <a name="step_definition58-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the session {string} is a timestamp"</span>
@@ -5465,11 +5597,8 @@ null</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests whether a value in the first session entry is a timestamp.</p>
-
-<pre class="code ruby"><code class="ruby"><span class='const'>Uses</span> <span class='id identifier rubyid_the'>the</span> <span class='id identifier rubyid_regex'>regex</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^\d{4}\-\d{2}\-\d{2}T\d{2}:\d{2}:[\d\.]+Z?$</span><span class='regexp_end'>/</span></span>
-</code></pre>
+    <p>Tests whether a value in the first session entry is a timestamp.
+  Uses the regex /^\d4-\d2-\d2T\d2:\d2:[\d.]+Z?$/</p>
 
 
   </div>
@@ -5485,8 +5614,7 @@ null</p>
       
       
         
-        <div class='inline'>
-<p>field [String] The relative location of the value to test</p>
+        <div class='inline'><p>field [String] The relative location of the value to test</p>
 </div>
       
     </li>
@@ -5534,7 +5662,7 @@ null</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition55-stepdefinition"></a>
+  <a name="step_definition59-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">/^the sessionCount "(.+)" is (true|false|null|not null)$/</span>
@@ -5557,8 +5685,7 @@ null</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests whether a value in the first sessionCount entry matches a literal.</p>
+    <p>Tests whether a value in the first sessionCount entry matches a literal.</p>
 
 
   </div>
@@ -5574,8 +5701,7 @@ null</p>
       
       
         
-        <div class='inline'>
-<p>field [String] The relative location of the value to test</p>
+        <div class='inline'><p>field [String] The relative location of the value to test</p>
 </div>
       
     </li>
@@ -5586,9 +5712,7 @@ null</p>
       
       
         
-        <div class='inline'>
-<p>literal [Enum] The literal to test against, one of: true, false, null, not
-null</p>
+        <div class='inline'><p>literal [Enum] The literal to test against, one of: true, false, null, not null</p>
 </div>
       
     </li>
@@ -5636,7 +5760,7 @@ null</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition56-stepdefinition"></a>
+  <a name="step_definition60-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the sessionCount {string} equals {string}"</span>
@@ -5659,8 +5783,7 @@ null</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests whether a value in the first sessionCount entry matches a string.</p>
+    <p>Tests whether a value in the first sessionCount entry matches a string.</p>
 
 
   </div>
@@ -5676,8 +5799,7 @@ null</p>
       
       
         
-        <div class='inline'>
-<p>field [String] The relative location of the value to test</p>
+        <div class='inline'><p>field [String] The relative location of the value to test</p>
 </div>
       
     </li>
@@ -5688,8 +5810,7 @@ null</p>
       
       
         
-        <div class='inline'>
-<p>string_value [String] The string to match against</p>
+        <div class='inline'><p>string_value [String] The string to match against</p>
 </div>
       
     </li>
@@ -5737,7 +5858,7 @@ null</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition57-stepdefinition"></a>
+  <a name="step_definition61-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the sessionCount {string} equals {int}"</span>
@@ -5760,8 +5881,7 @@ null</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests whether a value in the first sessionCount entry equals an integer.</p>
+    <p>Tests whether a value in the first sessionCount entry equals an integer.</p>
 
 
   </div>
@@ -5777,8 +5897,7 @@ null</p>
       
       
         
-        <div class='inline'>
-<p>field [String] The relative location of the value to test</p>
+        <div class='inline'><p>field [String] The relative location of the value to test</p>
 </div>
       
     </li>
@@ -5789,8 +5908,7 @@ null</p>
       
       
         
-        <div class='inline'>
-<p>int_value [Integer] The integer to test against</p>
+        <div class='inline'><p>int_value [Integer] The integer to test against</p>
 </div>
       
     </li>
@@ -5838,7 +5956,7 @@ null</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition58-stepdefinition"></a>
+  <a name="step_definition62-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the sessionCount {string} is a timestamp"</span>
@@ -5861,11 +5979,8 @@ null</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests whether a value in the first sessionCount entry is a timestamp.</p>
-
-<pre class="code ruby"><code class="ruby"><span class='const'>Uses</span> <span class='id identifier rubyid_the'>the</span> <span class='id identifier rubyid_regex'>regex</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^\d{4}\-\d{2}\-\d{2}T\d{2}:\d{2}:[\d\.]+Z?$</span><span class='regexp_end'>/</span></span>
-</code></pre>
+    <p>Tests whether a value in the first sessionCount entry is a timestamp.
+  Uses the regex /^\d4-\d2-\d2T\d2:\d2:[\d.]+Z?$/</p>
 
 
   </div>
@@ -5881,8 +5996,7 @@ null</p>
       
       
         
-        <div class='inline'>
-<p>field [String] The relative location of the value to test</p>
+        <div class='inline'><p>field [String] The relative location of the value to test</p>
 </div>
       
     </li>
@@ -5930,7 +6044,7 @@ null</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition59-stepdefinition"></a>
+  <a name="step_definition63-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the payload has a valid sessions array"</span>
@@ -5953,8 +6067,7 @@ null</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests that a payload has an appropriately structured session array</p>
+    <p>Tests that a payload has an appropriately structured session array</p>
 
 
   </div>
@@ -6023,7 +6136,7 @@ null</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition60-stepdefinition"></a>
+  <a name="step_definition64-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"I wait to receive a request"</span>
@@ -6046,8 +6159,7 @@ null</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Shortcut to waiting to receive a single request</p>
+    <p>Shortcut to waiting to receive a single request</p>
 
 
   </div>
@@ -6096,7 +6208,7 @@ null</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition61-stepdefinition"></a>
+  <a name="step_definition65-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"I wait to receive {int} request(s)"</span>
@@ -6119,9 +6231,7 @@ null</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Continually checks to see if the required amount of requests have been
-received. Times out after 30 seconds.</p>
+    <p>Continually checks to see if the required amount of requests have been received. Times out after 30 seconds.</p>
 
 
   </div>
@@ -6137,8 +6247,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>request_count [Integer] The amount of requests expected</p>
+        <div class='inline'><p>request_count [Integer] The amount of requests expected</p>
 </div>
       
     </li>
@@ -6210,7 +6319,7 @@ received. Times out after 30 seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition62-stepdefinition"></a>
+  <a name="step_definition66-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"I should receive no requests"</span>
@@ -6233,8 +6342,7 @@ received. Times out after 30 seconds.</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Assert that the test Server hasn&#39;t received any requests.</p>
+    <p>Assert that the test Server hasn’t received any requests.</p>
 
 
   </div>
@@ -6283,7 +6391,7 @@ received. Times out after 30 seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition63-stepdefinition"></a>
+  <a name="step_definition67-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"I discard the oldest request"</span>
@@ -6306,8 +6414,7 @@ received. Times out after 30 seconds.</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Shifts the received request, dropping the oldest request each time.</p>
+    <p>Shifts the received request, dropping the oldest request each time.</p>
 
 
   </div>
@@ -6356,7 +6463,7 @@ received. Times out after 30 seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition64-stepdefinition"></a>
+  <a name="step_definition68-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the {string} header is not null"</span>
@@ -6379,8 +6486,7 @@ received. Times out after 30 seconds.</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests that a header is not null</p>
+    <p>Tests that a header is not null</p>
 
 
   </div>
@@ -6396,8 +6502,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>header_name [String] The header to test</p>
+        <div class='inline'><p>header_name [String] The header to test</p>
 </div>
       
     </li>
@@ -6447,7 +6552,7 @@ received. Times out after 30 seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition65-stepdefinition"></a>
+  <a name="step_definition69-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the {string} header equals {string}"</span>
@@ -6470,8 +6575,7 @@ received. Times out after 30 seconds.</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests that a header equals a string</p>
+    <p>Tests that a header equals a string</p>
 
 
   </div>
@@ -6487,8 +6591,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>header_name [String] The header to test</p>
+        <div class='inline'><p>header_name [String] The header to test</p>
 </div>
       
     </li>
@@ -6499,8 +6602,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>header_value [String] The string it should match</p>
+        <div class='inline'><p>header_value [String] The string it should match</p>
 </div>
       
     </li>
@@ -6548,7 +6650,7 @@ received. Times out after 30 seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition66-stepdefinition"></a>
+  <a name="step_definition70-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the {string} header equals one of:"</span>
@@ -6571,8 +6673,7 @@ received. Times out after 30 seconds.</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests that a header matches one of a list of strings</p>
+    <p>Tests that a header matches one of a list of strings</p>
 
 
   </div>
@@ -6588,8 +6689,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>header_name [String] The header to test</p>
+        <div class='inline'><p>header_name [String] The header to test</p>
 </div>
       
     </li>
@@ -6600,8 +6700,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>header_values [DataTable] A parsed data table</p>
+        <div class='inline'><p>header_values [DataTable] A parsed data table</p>
 </div>
       
     </li>
@@ -6649,7 +6748,7 @@ received. Times out after 30 seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition67-stepdefinition"></a>
+  <a name="step_definition71-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the {string} header is a timestamp"</span>
@@ -6672,11 +6771,8 @@ received. Times out after 30 seconds.</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests that a header is a timestamp.</p>
-
-<pre class="code ruby"><code class="ruby"><span class='const'>Uses</span> <span class='id identifier rubyid_the'>the</span> <span class='id identifier rubyid_regex'>regex</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^\d{4}\-\d{2}\-\d{2}T\d{2}:\d{2}:[\d\.]+Z?$</span><span class='regexp_end'>/</span></span>
-</code></pre>
+    <p>Tests that a header is a timestamp.
+  Uses the regex /^\d4-\d2-\d2T\d2:\d2:[\d.]+Z?$/</p>
 
 
   </div>
@@ -6692,8 +6788,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>header_name [String] The header to test</p>
+        <div class='inline'><p>header_name [String] The header to test</p>
 </div>
       
     </li>
@@ -6743,7 +6838,7 @@ received. Times out after 30 seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition68-stepdefinition"></a>
+  <a name="step_definition72-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the {string} query parameter equals {string}"</span>
@@ -6766,8 +6861,7 @@ received. Times out after 30 seconds.</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests that a query parameter matches a string.</p>
+    <p>Tests that a query parameter matches a string.</p>
 
 
   </div>
@@ -6783,8 +6877,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>parameter_name [String] The parameter to test</p>
+        <div class='inline'><p>parameter_name [String] The parameter to test</p>
 </div>
       
     </li>
@@ -6795,8 +6888,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>parameter_value [String] The expected value</p>
+        <div class='inline'><p>parameter_value [String] The expected value</p>
 </div>
       
     </li>
@@ -6844,7 +6936,7 @@ received. Times out after 30 seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition69-stepdefinition"></a>
+  <a name="step_definition73-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the {string} query parameter is not null"</span>
@@ -6867,8 +6959,7 @@ received. Times out after 30 seconds.</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests that a query parameter is present and not null.</p>
+    <p>Tests that a query parameter is present and not null.</p>
 
 
   </div>
@@ -6884,8 +6975,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>parameter_name [String] The parameter to test</p>
+        <div class='inline'><p>parameter_name [String] The parameter to test</p>
 </div>
       
     </li>
@@ -6933,7 +7023,7 @@ received. Times out after 30 seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition70-stepdefinition"></a>
+  <a name="step_definition74-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the {string} query parameter is a timestamp"</span>
@@ -6956,11 +7046,8 @@ received. Times out after 30 seconds.</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests that a query parameter is a timestamp.</p>
-
-<pre class="code ruby"><code class="ruby"><span class='const'>Uses</span> <span class='id identifier rubyid_the'>the</span> <span class='id identifier rubyid_regex'>regex</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^\d{4}\-\d{2}\-\d{2}T\d{2}:\d{2}:[\d\.]+Z?$</span><span class='regexp_end'>/</span></span>
-</code></pre>
+    <p>Tests that a query parameter is a timestamp.
+  Uses the regex /^\d4-\d2-\d2T\d2:\d2:[\d.]+Z?$/</p>
 
 
   </div>
@@ -6976,8 +7063,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>parameter_name [String] The parameter to test</p>
+        <div class='inline'><p>parameter_name [String] The parameter to test</p>
 </div>
       
     </li>
@@ -7027,7 +7113,7 @@ received. Times out after 30 seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition71-stepdefinition"></a>
+  <a name="step_definition75-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the multipart request has {int} fields"</span>
@@ -7050,8 +7136,7 @@ received. Times out after 30 seconds.</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests the number of fields a multipart request contains.</p>
+    <p>Tests the number of fields a multipart request contains.</p>
 
 
   </div>
@@ -7067,8 +7152,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>part_count [Integer] The number of expected fields</p>
+        <div class='inline'><p>part_count [Integer] The number of expected fields</p>
 </div>
       
     </li>
@@ -7118,7 +7202,7 @@ received. Times out after 30 seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition72-stepdefinition"></a>
+  <a name="step_definition76-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the field {string} for multipart request is not null"</span>
@@ -7141,8 +7225,7 @@ received. Times out after 30 seconds.</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests that a multipart request field exists and is not null.</p>
+    <p>Tests that a multipart request field exists and is not null.</p>
 
 
   </div>
@@ -7158,8 +7241,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>part_key [String] The key to the multipart element</p>
+        <div class='inline'><p>part_key [String] The key to the multipart element</p>
 </div>
       
     </li>
@@ -7209,7 +7291,7 @@ received. Times out after 30 seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition73-stepdefinition"></a>
+  <a name="step_definition77-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the field {string} for multipart request equals {string}"</span>
@@ -7232,8 +7314,7 @@ received. Times out after 30 seconds.</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests that a multipart request field equals a string.</p>
+    <p>Tests that a multipart request field equals a string.</p>
 
 
   </div>
@@ -7249,8 +7330,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>part_key [String] The key to the multipart element</p>
+        <div class='inline'><p>part_key [String] The key to the multipart element</p>
 </div>
       
     </li>
@@ -7261,8 +7341,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>expected_value [String] The string to match against</p>
+        <div class='inline'><p>expected_value [String] The string to match against</p>
 </div>
       
     </li>
@@ -7312,7 +7391,7 @@ received. Times out after 30 seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition74-stepdefinition"></a>
+  <a name="step_definition78-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the field {string} for multipart request is null"</span>
@@ -7335,8 +7414,7 @@ received. Times out after 30 seconds.</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests that a multipart request field is null.</p>
+    <p>Tests that a multipart request field is null.</p>
 
 
   </div>
@@ -7352,8 +7430,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>part_key [String] The key to the multipart element</p>
+        <div class='inline'><p>part_key [String] The key to the multipart element</p>
 </div>
       
     </li>
@@ -7403,7 +7480,7 @@ received. Times out after 30 seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition75-stepdefinition"></a>
+  <a name="step_definition79-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the payload body does not match the JSON fixture in {string}"</span>
@@ -7426,8 +7503,7 @@ received. Times out after 30 seconds.</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests the payload body does not match a JSON fixture.</p>
+    <p>Tests the payload body does not match a JSON fixture.</p>
 
 
   </div>
@@ -7443,8 +7519,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>fixture_path [String] Path to a JSON fixture</p>
+        <div class='inline'><p>fixture_path [String] Path to a JSON fixture</p>
 </div>
       
     </li>
@@ -7498,7 +7573,7 @@ received. Times out after 30 seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition76-stepdefinition"></a>
+  <a name="step_definition80-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the payload body matches the JSON fixture in {string}"</span>
@@ -7521,8 +7596,7 @@ received. Times out after 30 seconds.</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Test the payload body matches a JSON fixture.</p>
+    <p>Test the payload body matches a JSON fixture.</p>
 
 
   </div>
@@ -7538,8 +7612,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>fixture_path [String] Path to a JSON fixture</p>
+        <div class='inline'><p>fixture_path [String] Path to a JSON fixture</p>
 </div>
       
     </li>
@@ -7593,7 +7666,7 @@ received. Times out after 30 seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition77-stepdefinition"></a>
+  <a name="step_definition81-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the payload field {string} matches the JSON fixture in {string}"</span>
@@ -7616,8 +7689,7 @@ received. Times out after 30 seconds.</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Test that a payload element matches a JSON fixture.</p>
+    <p>Test that a payload element matches a JSON fixture.</p>
 
 
   </div>
@@ -7633,8 +7705,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>field_path [String] Path to the tested element</p>
+        <div class='inline'><p>field_path [String] Path to the tested element</p>
 </div>
       
     </li>
@@ -7645,8 +7716,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>fixture_path [String] Path to a JSON fixture</p>
+        <div class='inline'><p>fixture_path [String] Path to a JSON fixture</p>
 </div>
       
     </li>
@@ -7700,7 +7770,7 @@ received. Times out after 30 seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition78-stepdefinition"></a>
+  <a name="step_definition82-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the payload field {string} is true"</span>
@@ -7723,8 +7793,7 @@ received. Times out after 30 seconds.</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests that a payload element is true.</p>
+    <p>Tests that a payload element is true.</p>
 
 
   </div>
@@ -7740,8 +7809,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>field_path [String] Path to the tested element</p>
+        <div class='inline'><p>field_path [String] Path to the tested element</p>
 </div>
       
     </li>
@@ -7789,7 +7857,7 @@ received. Times out after 30 seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition79-stepdefinition"></a>
+  <a name="step_definition83-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the payload field {string} is false"</span>
@@ -7812,8 +7880,7 @@ received. Times out after 30 seconds.</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests that a payload element is false.</p>
+    <p>Tests that a payload element is false.</p>
 
 
   </div>
@@ -7829,8 +7896,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>field_path [String] Path to the tested element</p>
+        <div class='inline'><p>field_path [String] Path to the tested element</p>
 </div>
       
     </li>
@@ -7878,7 +7944,7 @@ received. Times out after 30 seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition80-stepdefinition"></a>
+  <a name="step_definition84-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the payload field {string} is null"</span>
@@ -7901,8 +7967,7 @@ received. Times out after 30 seconds.</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests that a payload element is null.</p>
+    <p>Tests that a payload element is null.</p>
 
 
   </div>
@@ -7918,8 +7983,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>field_path [String] Path to the tested element</p>
+        <div class='inline'><p>field_path [String] Path to the tested element</p>
 </div>
       
     </li>
@@ -7969,7 +8033,7 @@ received. Times out after 30 seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition81-stepdefinition"></a>
+  <a name="step_definition85-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the payload field {string} is not null"</span>
@@ -7992,8 +8056,7 @@ received. Times out after 30 seconds.</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests that a payload element is not null.</p>
+    <p>Tests that a payload element is not null.</p>
 
 
   </div>
@@ -8009,8 +8072,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>field_path [String] Path to the tested element</p>
+        <div class='inline'><p>field_path [String] Path to the tested element</p>
 </div>
       
     </li>
@@ -8060,7 +8122,7 @@ received. Times out after 30 seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition82-stepdefinition"></a>
+  <a name="step_definition86-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the payload field {string} equals {int}"</span>
@@ -8083,8 +8145,7 @@ received. Times out after 30 seconds.</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests that a payload element equals an integer.</p>
+    <p>Tests that a payload element equals an integer.</p>
 
 
   </div>
@@ -8100,8 +8161,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>field_path [String] Path to the tested element</p>
+        <div class='inline'><p>field_path [String] Path to the tested element</p>
 </div>
       
     </li>
@@ -8112,8 +8172,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>int_value [Integer] The value to test against</p>
+        <div class='inline'><p>int_value [Integer] The value to test against</p>
 </div>
       
     </li>
@@ -8161,7 +8220,7 @@ received. Times out after 30 seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition83-stepdefinition"></a>
+  <a name="step_definition87-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the payload field {string} equals the environment variable {string}"</span>
@@ -8184,8 +8243,7 @@ received. Times out after 30 seconds.</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests the payload field value against an environment variable.</p>
+    <p>Tests the payload field value against an environment variable.</p>
 
 
   </div>
@@ -8201,8 +8259,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>field_path [String] The payload element to test</p>
+        <div class='inline'><p>field_path [String] The payload element to test</p>
 </div>
       
     </li>
@@ -8213,8 +8270,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>env_var [String] The environment variable to test against</p>
+        <div class='inline'><p>env_var [String] The environment variable to test against</p>
 </div>
       
     </li>
@@ -8270,7 +8326,7 @@ received. Times out after 30 seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition84-stepdefinition"></a>
+  <a name="step_definition88-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the payload field {string} is greater than {int}"</span>
@@ -8293,8 +8349,7 @@ received. Times out after 30 seconds.</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests a payload field contains a number larger than a value.</p>
+    <p>Tests a payload field contains a number larger than a value.</p>
 
 
   </div>
@@ -8310,8 +8365,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>field_path [String] The payload element to test</p>
+        <div class='inline'><p>field_path [String] The payload element to test</p>
 </div>
       
     </li>
@@ -8322,8 +8376,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>int_value [Integer] The value to compare against</p>
+        <div class='inline'><p>int_value [Integer] The value to compare against</p>
 </div>
       
     </li>
@@ -8375,7 +8428,7 @@ received. Times out after 30 seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition85-stepdefinition"></a>
+  <a name="step_definition89-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the payload field {string} is less than {int}"</span>
@@ -8398,8 +8451,7 @@ received. Times out after 30 seconds.</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests a payload field contains a number smaller than a value.</p>
+    <p>Tests a payload field contains a number smaller than a value.</p>
 
 
   </div>
@@ -8415,8 +8467,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>field_path [String] The payload element to test</p>
+        <div class='inline'><p>field_path [String] The payload element to test</p>
 </div>
       
     </li>
@@ -8427,8 +8478,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>int_value [Integer] The value to compare against</p>
+        <div class='inline'><p>int_value [Integer] The value to compare against</p>
 </div>
       
     </li>
@@ -8480,7 +8530,7 @@ received. Times out after 30 seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition86-stepdefinition"></a>
+  <a name="step_definition90-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the payload field {string} equals {string}"</span>
@@ -8503,8 +8553,7 @@ received. Times out after 30 seconds.</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests a payload field equals a string.</p>
+    <p>Tests a payload field equals a string.</p>
 
 
   </div>
@@ -8520,8 +8569,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>field_path [String] The payload element to test</p>
+        <div class='inline'><p>field_path [String] The payload element to test</p>
 </div>
       
     </li>
@@ -8532,8 +8580,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>string_value [String] The string to test against</p>
+        <div class='inline'><p>string_value [String] The string to test against</p>
 </div>
       
     </li>
@@ -8581,7 +8628,7 @@ received. Times out after 30 seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition87-stepdefinition"></a>
+  <a name="step_definition91-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the payload field {string} starts with {string}"</span>
@@ -8604,8 +8651,7 @@ received. Times out after 30 seconds.</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests a payload field starts with a string.</p>
+    <p>Tests a payload field starts with a string.</p>
 
 
   </div>
@@ -8621,8 +8667,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>field_path [String] The payload element to test</p>
+        <div class='inline'><p>field_path [String] The payload element to test</p>
 </div>
       
     </li>
@@ -8633,8 +8678,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>string_value [String] The string to test against</p>
+        <div class='inline'><p>string_value [String] The string to test against</p>
 </div>
       
     </li>
@@ -8686,7 +8730,7 @@ received. Times out after 30 seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition88-stepdefinition"></a>
+  <a name="step_definition92-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the payload field {string} ends with {string}"</span>
@@ -8709,8 +8753,7 @@ received. Times out after 30 seconds.</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests a payload field ends with a string.</p>
+    <p>Tests a payload field ends with a string.</p>
 
 
   </div>
@@ -8726,8 +8769,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>field_path [String] The payload element to test</p>
+        <div class='inline'><p>field_path [String] The payload element to test</p>
 </div>
       
     </li>
@@ -8738,8 +8780,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>string_value [String] The string to test against</p>
+        <div class='inline'><p>string_value [String] The string to test against</p>
 </div>
       
     </li>
@@ -8791,7 +8832,7 @@ received. Times out after 30 seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition89-stepdefinition"></a>
+  <a name="step_definition93-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the payload field {string} is an array with {int} elements"</span>
@@ -8814,8 +8855,7 @@ received. Times out after 30 seconds.</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests a payload field is an array with a specific element count.</p>
+    <p>Tests a payload field is an array with a specific element count.</p>
 
 
   </div>
@@ -8831,8 +8871,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>field [String] The payload element to test</p>
+        <div class='inline'><p>field [String] The payload element to test</p>
 </div>
       
     </li>
@@ -8843,8 +8882,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>count [Integer] The value expected</p>
+        <div class='inline'><p>count [Integer] The value expected</p>
 </div>
       
     </li>
@@ -8896,7 +8934,7 @@ received. Times out after 30 seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition90-stepdefinition"></a>
+  <a name="step_definition94-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the payload field {string} is a non-empty array"</span>
@@ -8919,8 +8957,7 @@ received. Times out after 30 seconds.</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests a payload field is an array with at least one element.</p>
+    <p>Tests a payload field is an array with at least one element.</p>
 
 
   </div>
@@ -8936,8 +8973,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>field [String] The payload element to test</p>
+        <div class='inline'><p>field [String] The payload element to test</p>
 </div>
       
     </li>
@@ -8989,7 +9025,7 @@ received. Times out after 30 seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition91-stepdefinition"></a>
+  <a name="step_definition95-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the payload field {string} matches the regex {string}"</span>
@@ -9012,8 +9048,7 @@ received. Times out after 30 seconds.</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests a payload field matches a regex.</p>
+    <p>Tests a payload field matches a regex.</p>
 
 
   </div>
@@ -9029,8 +9064,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>field [String] The payload element to test</p>
+        <div class='inline'><p>field [String] The payload element to test</p>
 </div>
       
     </li>
@@ -9041,8 +9075,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>regex [String] The regex to test against</p>
+        <div class='inline'><p>regex [String] The regex to test against</p>
 </div>
       
     </li>
@@ -9094,7 +9127,7 @@ received. Times out after 30 seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition92-stepdefinition"></a>
+  <a name="step_definition96-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the payload field {string} is a parsable timestamp in seconds"</span>
@@ -9117,8 +9150,7 @@ received. Times out after 30 seconds.</p>
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Tests a payload field is a numeric timestamp.</p>
+    <p>Tests a payload field is a numeric timestamp.</p>
 
 
   </div>
@@ -9134,8 +9166,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>field [String] The payload element to test</p>
+        <div class='inline'><p>field [String] The payload element to test</p>
 </div>
       
     </li>
@@ -9195,12 +9226,12 @@ received. Times out after 30 seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition1-stepdefinition"></a>
+  <a name="step_definition97-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">"the payload field {string} is stored as the value {string}"</span>
+    <span class="name">"each element in payload field {string} has {string}"</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex=%22the+payload+field+%7Bstring%7D+is+stored+as+the+value+%7Bstring%7D%22" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex=%22each+element+in+payload+field+%7Bstring%7D+has+%7Bstring%7D%22" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -9211,15 +9242,14 @@ received. Times out after 30 seconds.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/value_steps.rb:7</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:348</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    
-<p>Stores a payload value against a key for cross-request comparisons.</p>
+    <p>Tests that every element in an array contains a specified key-value pair.</p>
 
 
   </div>
@@ -9235,8 +9265,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>field [String] The payload field to store</p>
+        <div class='inline'><p>key_path [String] The path to the tested array</p>
 </div>
       
     </li>
@@ -9247,8 +9276,7 @@ received. Times out after 30 seconds.</p>
       
       
         
-        <div class='inline'>
-<p>key [String] The key to store the value against</p>
+        <div class='inline'><p>element_key_path [String] The key for the expected element inside the array</p>
 </div>
       
     </li>
@@ -9264,15 +9292,23 @@ received. Times out after 30 seconds.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">7
-8
-9
-10</pre>
+            <pre class="lines">348
+349
+350
+351
+352
+353
+354
+355</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the payload field {string} is stored as the value {string}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='op'>|</span>
-  <span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='id identifier rubyid_read_key_path'><span class='object_link'><a href="../top-level-namespace.html#read_key_path-instance_method" title="#read_key_path (method)">read_key_path</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_field'>field</span><span class='rparen'>)</span>
-  <span class='const'><span class='object_link'><a href="../Store.html" title="Store (class)">Store</a></span></span><span class='period'>.</span><span class='id identifier rubyid_values'><span class='object_link'><a href="../Store.html#values-class_method" title="Store.values (method)">values</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>each element in payload field {string} has {string}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key_path'>key_path</span><span class='comma'>,</span> <span class='id identifier rubyid_element_key_path'>element_key_path</span><span class='op'>|</span>
+  <span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='id identifier rubyid_read_key_path'><span class='object_link'><a href="../top-level-namespace.html#read_key_path-instance_method" title="#read_key_path (method)">read_key_path</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_key_path'>key_path</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_assert_kind_of'>assert_kind_of</span> <span class='const'>Array</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span>
+  <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_element'>element</span><span class='op'>|</span>
+    <span class='id identifier rubyid_assert_not_nil'>assert_not_nil</span><span class='lparen'>(</span><span class='id identifier rubyid_read_key_path'><span class='object_link'><a href="../top-level-namespace.html#read_key_path-instance_method" title="#read_key_path (method)">read_key_path</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_element'>element</span><span class='comma'>,</span> <span class='id identifier rubyid_element_key_path'>element_key_path</span><span class='rparen'>)</span><span class='comma'>,</span>
+           <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Each element in &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_key_path'>key_path</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; must have &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_element_key_path'>element_key_path</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
           </td>
         </tr>
@@ -9326,9 +9362,9 @@ received. Times out after 30 seconds.</p>
 </div>
 
       <div id="footer">
-  Generated on Thu Sep 26 11:47:32 2019 by
+  Generated on Thu Nov 14 11:01:13 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.19 (ruby-2.5.1).
+  0.9.19 (ruby-2.5.7).
 </div>
 
     </div>

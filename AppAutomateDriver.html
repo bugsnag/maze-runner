@@ -107,9 +107,7 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>Wraps Appium::Driver to enable control of a BrowserStack app-automate
-session</p>
+    <p>Wraps Appium::Driver to enable control of a BrowserStack app-automate session</p>
 
 
   </div>
@@ -129,8 +127,7 @@ session</p>
         <dt id="BROWSER_STACK_APP_UPLOAD_URI-constant" class="">BROWSER_STACK_APP_UPLOAD_URI =
           <div class="docstring">
   <div class="discussion">
-    
-<p>The App upload uri for BrowserStack App Automate</p>
+    <p>The App upload uri for BrowserStack App Automate</p>
 
 
   </div>
@@ -173,8 +170,7 @@ session</p>
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute device_type.</p>
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute device_type.</p>
 </div></span>
   
 </li>
@@ -210,8 +206,7 @@ session</p>
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Clicks a given element.</p>
+    <span class="summary_desc"><div class='inline'><p>Clicks a given element.</p>
 </div></span>
   
 </li>
@@ -220,7 +215,7 @@ session</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(username, access_key, local_id, target_device, app_location, locator = :id)  &#x21d2; AppAutomateDriver </a>
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(username, access_key, local_id, target_device, app_location, locator = :id, additional_capabilities = {})  &#x21d2; AppAutomateDriver </a>
     
 
     
@@ -236,8 +231,7 @@ session</p>
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Creates the AppAutomateDriver.</p>
+    <span class="summary_desc"><div class='inline'><p>Creates the AppAutomateDriver.</p>
 </div></span>
   
 </li>
@@ -260,8 +254,7 @@ session</p>
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Sends keys to a given element.</p>
+    <span class="summary_desc"><div class='inline'><p>Sends keys to a given element.</p>
 </div></span>
   
 </li>
@@ -284,8 +277,7 @@ session</p>
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Starts the BrowserStackLocal tunnel and the Appium driver.</p>
+    <span class="summary_desc"><div class='inline'><p>Starts the BrowserStackLocal tunnel and the Appium driver.</p>
 </div></span>
   
 </li>
@@ -308,8 +300,7 @@ session</p>
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Checks for an element, waiting until it is present or the method times out.</p>
+    <span class="summary_desc"><div class='inline'><p>Checks for an element, waiting until it is present or the method times out.</p>
 </div></span>
   
 </li>
@@ -325,7 +316,7 @@ session</p>
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
   
-    #<strong>initialize</strong>(username, access_key, local_id, target_device, app_location, locator = :id)  &#x21d2; <tt><span class='object_link'><a href="" title="AppAutomateDriver (class)">AppAutomateDriver</a></span></tt> 
+    #<strong>initialize</strong>(username, access_key, local_id, target_device, app_location, locator = :id, additional_capabilities = {})  &#x21d2; <tt><span class='object_link'><a href="" title="AppAutomateDriver (class)">AppAutomateDriver</a></span></tt> 
   
 
   
@@ -333,8 +324,7 @@ session</p>
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Creates the AppAutomateDriver</p>
+    <p>Creates the AppAutomateDriver</p>
 
 
   </div>
@@ -353,8 +343,7 @@ session</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>the BrowserStack username</p>
+        <div class='inline'><p>the BrowserStack username</p>
 </div>
       
     </li>
@@ -369,8 +358,7 @@ session</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>the BrowserStack access key</p>
+        <div class='inline'><p>the BrowserStack access key</p>
 </div>
       
     </li>
@@ -385,8 +373,7 @@ session</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>the identifier for the BrowserStackLocal tunnel</p>
+        <div class='inline'><p>the identifier for the BrowserStackLocal tunnel</p>
 </div>
       
     </li>
@@ -401,8 +388,7 @@ session</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>a key from the Devices array selecting which device capabilities to target</p>
+        <div class='inline'><p>a key from the Devices array selecting which device capabilities to target</p>
 </div>
       
     </li>
@@ -417,8 +403,7 @@ session</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>the location of the test-app to upload</p>
+        <div class='inline'><p>the location of the test-app to upload</p>
 </div>
       
     </li>
@@ -435,8 +420,24 @@ session</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>the primary locator strategy Appium should use to find elements</p>
+        <div class='inline'><p>the primary locator strategy Appium should use to find elements</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>additional_capabilities</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>a hash of additional capabilities to be used in this test run</p>
 </div>
       
     </li>
@@ -450,7 +451,6 @@ session</p>
       <pre class="lines">
 
 
-23
 24
 25
 26
@@ -471,12 +471,14 @@ session</p>
 41
 42
 43
-44</pre>
+44
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/app_automate_driver.rb', line 23</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/app_automate_driver.rb', line 24</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_username'>username</span><span class='comma'>,</span> <span class='id identifier rubyid_access_key'>access_key</span><span class='comma'>,</span> <span class='id identifier rubyid_local_id'>local_id</span><span class='comma'>,</span> <span class='id identifier rubyid_target_device'>target_device</span><span class='comma'>,</span> <span class='id identifier rubyid_app_location'>app_location</span><span class='comma'>,</span> <span class='id identifier rubyid_locator'>locator</span><span class='op'>=</span><span class='symbol'>:id</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_username'>username</span><span class='comma'>,</span> <span class='id identifier rubyid_access_key'>access_key</span><span class='comma'>,</span> <span class='id identifier rubyid_local_id'>local_id</span><span class='comma'>,</span> <span class='id identifier rubyid_target_device'>target_device</span><span class='comma'>,</span> <span class='id identifier rubyid_app_location'>app_location</span><span class='comma'>,</span> <span class='id identifier rubyid_locator'>locator</span><span class='op'>=</span><span class='symbol'>:id</span><span class='comma'>,</span> <span class='id identifier rubyid_additional_capabilities'>additional_capabilities</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='ivar'>@device_type</span> <span class='op'>=</span> <span class='id identifier rubyid_target_device'>target_device</span>
   <span class='ivar'>@element_locator</span> <span class='op'>=</span> <span class='id identifier rubyid_locator'>locator</span>
   <span class='ivar'>@access_key</span> <span class='op'>=</span> <span class='id identifier rubyid_access_key'>access_key</span>
@@ -490,6 +492,7 @@ session</p>
     <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>autoAcceptAlerts</span><span class='label_end'>&#39;:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>true</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
     <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>app</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_app_url'>app_url</span>
   <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_capabilities'>capabilities</span><span class='period'>.</span><span class='id identifier rubyid_merge!'>merge!</span> <span class='id identifier rubyid_additional_capabilities'>additional_capabilities</span>
   <span class='id identifier rubyid_capabilities'>capabilities</span><span class='period'>.</span><span class='id identifier rubyid_merge!'>merge!</span> <span class='id identifier rubyid_devices'>devices</span><span class='lbracket'>[</span><span class='id identifier rubyid_target_device'>target_device</span><span class='rbracket'>]</span>
   <span class='kw'>super</span><span class='lparen'>(</span><span class='lbrace'>{</span>
     <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>caps</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_capabilities'>capabilities</span><span class='comma'>,</span>
@@ -521,8 +524,7 @@ session</p>
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns the value of attribute device_type</p>
+    <p>Returns the value of attribute device_type</p>
 
 
   </div>
@@ -569,8 +571,7 @@ session</p>
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Clicks a given element</p>
+    <p>Clicks a given element</p>
 
 
   </div>
@@ -589,8 +590,7 @@ session</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>the element to click using the @element_locator strategy</p>
+        <div class='inline'><p>the element to click using the @element_locator strategy</p>
 </div>
       
     </li>
@@ -604,12 +604,12 @@ session</p>
       <pre class="lines">
 
 
-78
-79
-80</pre>
+80
+81
+82</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/app_automate_driver.rb', line 78</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/app_automate_driver.rb', line 80</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_click_element'>click_element</span><span class='lparen'>(</span><span class='id identifier rubyid_element_id'>element_id</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_find_element'>find_element</span><span class='lparen'>(</span><span class='ivar'>@element_locator</span><span class='comma'>,</span> <span class='id identifier rubyid_element_id'>element_id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_click'>click</span>
@@ -630,8 +630,7 @@ session</p>
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Sends keys to a given element</p>
+    <p>Sends keys to a given element</p>
 
 
   </div>
@@ -650,8 +649,7 @@ session</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>the element to send text to using the @element_locator strategy</p>
+        <div class='inline'><p>the element to send text to using the @element_locator strategy</p>
 </div>
       
     </li>
@@ -666,8 +664,7 @@ session</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>the text to send</p>
+        <div class='inline'><p>the text to send</p>
 </div>
       
     </li>
@@ -681,12 +678,12 @@ session</p>
       <pre class="lines">
 
 
-86
-87
-88</pre>
+88
+89
+90</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/app_automate_driver.rb', line 86</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/app_automate_driver.rb', line 88</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_send_keys_to_element'>send_keys_to_element</span><span class='lparen'>(</span><span class='id identifier rubyid_element_id'>element_id</span><span class='comma'>,</span> <span class='id identifier rubyid_text'>text</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_find_element'>find_element</span><span class='lparen'>(</span><span class='ivar'>@element_locator</span><span class='comma'>,</span> <span class='id identifier rubyid_element_id'>element_id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_send_keys'>send_keys</span><span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span><span class='rparen'>)</span>
@@ -707,8 +704,7 @@ session</p>
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Starts the BrowserStackLocal tunnel and the Appium driver</p>
+    <p>Starts the BrowserStackLocal tunnel and the Appium driver</p>
 
 
   </div>
@@ -722,13 +718,13 @@ session</p>
       <pre class="lines">
 
 
-47
-48
 49
-50</pre>
+50
+51
+52</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/app_automate_driver.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/app_automate_driver.rb', line 49</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_start_driver'>start_driver</span>
   <span class='id identifier rubyid_start_local_tunnel'>start_local_tunnel</span>
@@ -750,8 +746,7 @@ session</p>
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Checks for an element, waiting until it is present or the method times out</p>
+    <p>Checks for an element, waiting until it is present or the method times out</p>
 
 
   </div>
@@ -770,8 +765,7 @@ session</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>the element to search for using the @element_locator strategy</p>
+        <div class='inline'><p>the element to search for using the @element_locator strategy</p>
 </div>
       
     </li>
@@ -788,8 +782,7 @@ session</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>the maximum time to wait for an element to be present in seconds</p>
+        <div class='inline'><p>the maximum time to wait for an element to be present in seconds</p>
 </div>
       
     </li>
@@ -806,9 +799,7 @@ session</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>enables the method to retry acquiring the element if a StaleObjectException
-occurs</p>
+        <div class='inline'><p>enables the method to retry acquiring the element if a StaleObjectException occurs</p>
 </div>
       
     </li>
@@ -822,8 +813,6 @@ occurs</p>
       <pre class="lines">
 
 
-57
-58
 59
 60
 61
@@ -838,10 +827,12 @@ occurs</p>
 70
 71
 72
-73</pre>
+73
+74
+75</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/app_automate_driver.rb', line 57</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/app_automate_driver.rb', line 59</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_wait_for_element'>wait_for_element</span><span class='lparen'>(</span><span class='id identifier rubyid_element_id'>element_id</span><span class='comma'>,</span> <span class='id identifier rubyid_timeout'>timeout</span><span class='op'>=</span><span class='int'>15</span><span class='comma'>,</span> <span class='id identifier rubyid_retry_if_stale'>retry_if_stale</span><span class='op'>=</span><span class='kw'>true</span><span class='rparen'>)</span>
   <span class='kw'>begin</span>
@@ -870,9 +861,9 @@ occurs</p>
 </div>
 
       <div id="footer">
-  Generated on Thu Sep 26 11:47:31 2019 by
+  Generated on Thu Nov 14 11:01:13 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.19 (ruby-2.5.1).
+  0.9.19 (ruby-2.5.7).
 </div>
 
     </div>

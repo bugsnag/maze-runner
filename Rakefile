@@ -19,20 +19,23 @@ end
 
 namespace :docs do
   task :prepare do
-    `cp yard-config ~/.yard/config`
     Dir.mkdir("doc")
     Dir.chdir("doc") do
       `git init`
-      `git remote add origin git@github.com:bugsnag/maze-runner.git`
+      `git remote add origin https://github.com/bugsnag/maze-runner.git`
       `git fetch`
       `git checkout gh-pages`
       `git pull`
+      `echo https://#{ENV["DOCS_PUSH_TOKEN"]}:x-oauth-basic@github.com >> ~/.git-credentials`
+      `git config credential.helper 'store'`
+      `git config --global user.email "notifiers@bugsnag.com"`
+      `git config --global user.name "Bugsnag notifiers"`
     end
   end
 
   YARD::Rake::YardocTask.new do |t|
     t.files   = ['lib/features/**/*.rb']
-    t.options = ['--tag', 'step_input:Step parameters', '--markup', 'markdown']
+    t.options = ['--tag', 'step_input:Step parameters', '--markup', 'markdown', '--markup-provider', 'redcarpet']
   end
 
   task :publish do

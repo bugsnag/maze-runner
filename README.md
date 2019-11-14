@@ -15,7 +15,7 @@ the hood to draft semantic tests.
 
 1. Install the `bundler` gem:
 
-   ```
+   ```shell
    gem install bundler
    ```
 
@@ -23,7 +23,6 @@ the hood to draft semantic tests.
 
    ```ruby
    source "https://rubygems.org"
-
    gem "bugsnag-maze-runner", git: "https://github.com/bugsnag/maze-runner"
    ```
 
@@ -46,7 +45,7 @@ the hood to draft semantic tests.
 
    A sample feature is included after running `init`. Try it out with
 
-   ```
+   ```shell
    bundle exec bugsnag-maze-runner
    ```
 
@@ -57,7 +56,7 @@ needed. The harness provides a number of reusable step definitions for
 interacting with scripts, setting environment variables, and inspecting output.
 Each new feature should go into a `.feature` file in the `features` directory.
 
-```gherkin
+```
 Feature: Sinatra support
 
 Scenario: Sinatra unhandled exception
@@ -133,7 +132,7 @@ Anywhere a `{field}`, `{path}`, `{key_path}`, etc is denoted, it can be replaced
 
 For example, to match the name of the second objects in the the key `fruits` below, use `fruits.1.name` as the keypath.
 
-```
+```json
 {
   "fruits": [
   	{ "name": "apple" },
@@ -266,7 +265,7 @@ This request will match:
 Run the entire suite using `bundle exec bugsnag-maze-runner`. Alternately, you
 can specify specific files to run:
 
-```
+```shell
 bundle exec bugsnag-maze-runner features/something.feature
 ```
 

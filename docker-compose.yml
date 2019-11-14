@@ -16,6 +16,8 @@ services:
     build:
       dockerfile: dockerfiles/Dockerfile.docs
       context: .
+    environment:
+      DOCS_PUSH_TOKEN:
 
   browserstack-app-automate:
     build:

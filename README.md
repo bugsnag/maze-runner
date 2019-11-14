@@ -121,7 +121,7 @@ After do |scenario|
     # Can be used to do specific cleanup if a scenario fails
   end
 end
- ```
+```
 
 ### Step reference
 

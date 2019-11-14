@@ -32,7 +32,7 @@ namespace :docs do
 
   YARD::Rake::YardocTask.new do |t|
     t.files   = ['lib/features/**/*.rb']
-    t.options = ['--tag', 'step_input:Step parameters']
+    t.options = ['--tag', 'step_input:Step parameters', '--markup', 'markdown']
   end
 
   task :publish do

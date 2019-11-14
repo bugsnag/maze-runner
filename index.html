@@ -129,7 +129,7 @@ needed. The harness provides a number of reusable step definitions for
 interacting with scripts, setting environment variables, and inspecting output.
 Each new feature should go into a <code>.feature</code> file in the <code>features</code> directory.</p>
 
-<p>```gherkin
+<p>```
 Feature: Sinatra support</p>
 
 <p>Scenario: Sinatra unhandled exception
@@ -147,7 +147,7 @@ specific to the library being tested. <code>When I set an environment variable</
 provided by default while <code>When I start a Sinatra app</code> is defined in a custom
 steps file in <code>features/steps/</code>, wrapping other included steps:</p>
 
-<p>```ruby
+<p>```
 When(“I start a Sinatra app”) do
   Runner.environment[“DEMO_APP_PORT”] = DEMO_APP_PORT
   steps %Q{
@@ -170,7 +170,7 @@ end
 before scenarios are run, so this is where one-time or per-scenario
 configuration should go.</p>
 
-<p>```ruby
+<p>```
  # A helper function included with the harness to run commands and
  # only print output when the command fails
  run_required_commands([
@@ -253,7 +253,7 @@ end
 
 <p>The driver needs to be started within the <code>AfterConfiguration</code> callback in the <code>features/support/env.rb</code> file, where the arguments indicate the particular test setup:</p>
 
-<p><code>ruby
+<p><code>
 AfterConfiguration do |config|
   AppAutomateDriver.new(bs_username, bs_access_key, bs_local_id, device_type, app_location)
   $driver.start_driver
@@ -432,19 +432,19 @@ Then the payload field "items.0.subset" matches the JSON fixture in "features/fi
 
 <p>The template file can either be an exact match or specify regex matches for string fields. For example, given the template</p>
 
-<p><code>json
+<p><code>
 { "fruit": { "apple": { "color": "\\w+" } } }
 </code></p>
 
 <p>The following request will match:</p>
 
-<p><code>json
+<p><code>
 { "fruit": { "apple": { "color": "red" } } }
 </code></p>
 
 <p>Though this request will not match:</p>
 
-<p><code>json
+<p><code>
 { "fruit": { "apple": { "color": "red-orange" } } }
 </code></p>
 
@@ -452,13 +452,13 @@ Then the payload field "items.0.subset" matches the JSON fixture in "features/fi
 
 <p>Given the following template:</p>
 
-<p><code>json
+<p><code>
 { "fruit": { "apple": "IGNORE" } }
 </code></p>
 
 <p>This request will match:</p>
 
-<p><code>json
+<p><code>
 { "fruit": { "apple": "some nonsense" } }
 </code></p>
 
@@ -556,7 +556,7 @@ sample app suites in the test fixtures. Run <code>bundle exec rake</code> to run
 </div></div>
 
       <div id="footer">
-  Generated on Thu Nov 14 11:01:12 2019 by
+  Generated on Thu Nov 14 11:15:46 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.19 (ruby-2.5.7).
 </div>

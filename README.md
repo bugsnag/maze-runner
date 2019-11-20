@@ -122,9 +122,16 @@ After do |scenario|
 end
 ```
 
-### Step reference
+### Step definition links
 
-A quick, non-exhaustive overview of steps that can be used when writing feature files.
+- [Request assertion steps](/maze-runner/requirements/step_transformers.html#step_definition64-stepdefinition)
+- [Error content steps](/maze-runner/requirements/step_transformers.html#step_definition25-stepdefinition)
+- [Session content steps](/maze-runner/requirements/step_transformers.html#step_definition55-stepdefinition)
+- [Environment steps](/maze-runner/requirements/step_transformers.html#step_definition1-stepdefinition)
+- [Script and docker steps](/maze-runner/requirements/step_transformers.html#step_definition7-stepdefinition)
+- [BrowserStack steps](//maze-runner/requirements/step_transformers.html#step_definition21-stepdefinition)
+
+### Step examples
 
 #### Field path notation
 
@@ -141,17 +148,7 @@ For example, to match the name of the second objects in the the key `fruits` bel
 }
 ```
 
-#### Script and docker steps
-
-| Step | Description |
-|------|-------------|
-| I set environment variable `{key}` to `{value}` | Make an environment variable available to any scripts which run afterwards |
-| I run the script `{path}` | Runs the file denoted by `path`, which should be relative to the `scripts` directory or custom directory denoted by the `SCRIPT_PATH` environment variable |
-| I run the script `{path}` synchronously | As above, but blocks until the script has returned |
-| I start the service `{service}` | Starts a docker service from a docker-compose file found at `features/fixtures/docker-compose.yml` |
-| I wait for `{time}` second(s) | Pauses execution for the stated time |
-
-#### BrowserStack steps
+#### Using BrowserStack
 
 BrowserStack is used to drive many of the mobile device tests written using maze-runner.  For these tests we can use a driver class and accompanying set of steps to interface with the BrowserStack AppAutomate server.
 
@@ -164,60 +161,7 @@ AfterConfiguration do |config|
 end
 ```
 
-This adds the `$driver` global variable which can be used to write custom steps using the API provided by the `Appium::Driver` class. Several steps are already provided:
-
-| Step | Description |
-|------|-------------|
-| The element `{element}` is present | Checks that an element matching a specific ID is present on the device screen |
-| I click the element `{element}` | Interacts with a visible element on the device screen |
-| I send the app to the background for `{timeout}` seconds | Puts the app into a background state for a number of seconds. If sent to the background for 0 seconds, the app will remain there indefinitely |
-| I send the keys `{keys}` to the element `{element}` | Writes a string into an on-screen element |
-
-#### Network steps
-
-| Step | Description |
-|------|-------------|
-| I wait for the host `{host}` to open port `{port}` | Repeatedly attempts to connect to a given port on a host, timing out and stopping the test after a certain period if the port isn't accepting connections |
-| I open the URL `{url}` | Sends a request to the given url |
-
-#### API helper steps
-
-The following steps are quick validations that ensure a received payload is valid for whichever API it is being sent to, but checking that specific elements and headers are present.
-
-| Step | Description |
-|------|-------------|
-| The request is valid for the error reporting API version `{payload_version}` for the `{notifier_name}` notifier | Validates for the error-reporting API for a particular payload version and notifier |
-| The request is valid for the Build API | Validates for the Build API |
-| The request is valid for the Android Mapping API | Validates for the Android Mapping API |
-| The request is valid for the session reporting API version `{payload_version}` for the `{notifier_name}` notifier | Validates for the session-tracking API for a particular payload version and notifier |
-
-#### Handling requests
-
-| Step | Description |
-|------|-------------|
-| I wait to receive `{request_count}` request(s) | Waits for the number of requests to be received, timing out after 30 seconds |
-| I should receive no requests | Verifies that no requests have been received |
-| I discard the oldest request | Pops the earliest received request off the stack, enabling access to requests received afterwards |
-| The payload field `{path}` is stored as the value `{key}` | Extracts a value found at `path` in the current payload, storing it under the `key` for later use |
-| The payload field `{path}` equals the stored value `{key}` | Compares a value found at `path` in the current payload and compares it against a value previously stored under `key` |
-| The payload field `{path}` does not equal the stored value `{key}` | Compares a value found at `path` in the current payload and compares it against a value previously stored under `key` |
-
-#### Testing payload values
-
-These steps are a non-exhaustive list of ways to test the values received within a payload. All tests target the oldest received payload, see above for testing multiple requests.
-
-| Step | Description |
-|------|-------------|
-| The payload field `{key_path}` is `{literal}` | Tests the value matches a literal. Values include `true`, `false`, `null`, `not null` |
-| The payload field `{key_path}` equals `{number}` | Tests the value equals a number. Other possible comparisons include `is greater than` and `is less than` |
-| The payload field `{key_path}` equals `{string}` | Tests the value equals a string. Other possible comparisons include `starts with` and `ends with` |
-| The payload field `{key_path}` is an array with `{number}` elements | Tests an array for size |
-| The payload field `{key_path}` matches the regex `{regex}` | Tests the value matches a regex |
-| Each element in payload field `{key_path}` has `{internal_path}` | Tests that each element in an array has a valid value at its `internal_path` |
-
-Most of these steps exist in forms that allow for quick testing of event values and session values in predefined places. These prepend a path onto the given key path.  See [`error_reporting_steps`](/lib/features/steps/error_reporting_steps.rb) and [`session_tracking_steps`](/lib/features/steps/session_tracking_steps.rb) for full details.
-
-Similar steps are also available for testing multi-part requests, query parameters, and headers.  See [`request_assertion_steps`](/lib/features/steps/request_assertion_steps.rb) for full details.
+This adds the `$driver` global variable which can be used to write custom steps using the API provided by the `Appium::Driver` class.
 
 #### On matching JSON templates
 
@@ -300,7 +244,7 @@ By default the logger is set to report `WARN` level events or higher, but will l
 
 ## Contributing
 
-If steps would be useful for different projects running the maze, add the to
+If steps would be useful for different projects using maze-runner, add them to
 `lib/features/steps/`. If there are useful helper functions, add them to
 `lib/features/support/*.rb`.
 

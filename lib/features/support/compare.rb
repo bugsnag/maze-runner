@@ -45,6 +45,17 @@ end
 def value_compare(obj1, obj2, result=nil)
   result = CompareResult.new unless result
   return result if obj1 == "IGNORE"
+
+  if obj1 == "NUMBER"
+    if obj2.is_a?(Numeric)
+      return result
+    else
+      result.equal = false
+      result.reasons << "A Number was expected, '#{obj2.class} received"
+      return result
+    end
+  end
+
   unless obj1.class == obj2.class
     result.equal = false
     result.reasons << "Object types differ - expected '#{obj1.class}', received '#{obj2.class}'"

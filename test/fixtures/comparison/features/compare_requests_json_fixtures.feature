@@ -25,6 +25,16 @@ Feature: Comparing JSON payloads to fixture files
         And the payload field "items.0.subset" matches the JSON fixture in "features/fixtures/exact_match.json"
         And the payload field "items.0.subset" matches the JSON fixture in "features/fixtures/fuzzy_match.json"
 
+    Scenario: The request body matches the template using "NUMBER" wildcards
+        When I send a "numerics"-type request
+        And I wait to receive a request
+        Then the payload body matches the JSON fixture in "features/fixtures/numerics.json"
+
+    Scenario: The request body does not match the template using "NUMBER" wildcards
+        When I send an "ignore"-type request
+        And I wait to receive a request
+        Then the payload body does not match the JSON fixture in "features/fixtures/numerics.json"
+
     Scenario Outline: The request body does not match the template
         When I send an "<request_type>"-type request
         Then I wait to receive a request

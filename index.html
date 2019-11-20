@@ -187,9 +187,18 @@ configuration should go.</p>
 <span class='kw'>end</span>
 </code></pre>
 
-<h3>Step reference</h3>
+<h3>Step definition links</h3>
 
-<p>A quick, non-exhaustive overview of steps that can be used when writing feature files.</p>
+<ul>
+<li><a href="/maze-runner/requirements/step_transformers.html#step_definition64-stepdefinition">Request assertion steps</a></li>
+<li><a href="/maze-runner/requirements/step_transformers.html#step_definition25-stepdefinition">Error content steps</a></li>
+<li><a href="/maze-runner/requirements/step_transformers.html#step_definition55-stepdefinition">Session content steps</a></li>
+<li><a href="/maze-runner/requirements/step_transformers.html#step_definition1-stepdefinition">Environment steps</a></li>
+<li><a href="/maze-runner/requirements/step_transformers.html#step_definition7-stepdefinition">Script and docker steps</a></li>
+<li><a href="//maze-runner/requirements/step_transformers.html#step_definition21-stepdefinition">BrowserStack steps</a></li>
+</ul>
+
+<h3>Step examples</h3>
 
 <h4>Field path notation</h4>
 
@@ -205,37 +214,7 @@ configuration should go.</p>
 }
 </code></pre>
 
-<h4>Script and docker steps</h4>
-
-<table><thead>
-<tr>
-<th>Step</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>I set environment variable <code>{key}</code> to <code>{value}</code></td>
-<td>Make an environment variable available to any scripts which run afterwards</td>
-</tr>
-<tr>
-<td>I run the script <code>{path}</code></td>
-<td>Runs the file denoted by <code>path</code>, which should be relative to the <code>scripts</code> directory or custom directory denoted by the <code>SCRIPT_PATH</code> environment variable</td>
-</tr>
-<tr>
-<td>I run the script <code>{path}</code> synchronously</td>
-<td>As above, but blocks until the script has returned</td>
-</tr>
-<tr>
-<td>I start the service <code>{service}</code></td>
-<td>Starts a docker service from a docker-compose file found at <code>features/fixtures/docker-compose.yml</code></td>
-</tr>
-<tr>
-<td>I wait for <code>{time}</code> second(s)</td>
-<td>Pauses execution for the stated time</td>
-</tr>
-</tbody></table>
-
-<h4>BrowserStack steps</h4>
+<h4>Using BrowserStack</h4>
 
 <p>BrowserStack is used to drive many of the mobile device tests written using maze-runner.  For these tests we can use a driver class and accompanying set of steps to interface with the BrowserStack AppAutomate server.</p>
 
@@ -247,151 +226,7 @@ configuration should go.</p>
 <span class='kw'>end</span>
 </code></pre>
 
-<p>This adds the <code>$driver</code> global variable which can be used to write custom steps using the API provided by the <code>Appium::Driver</code> class. Several steps are already provided:</p>
-
-<table><thead>
-<tr>
-<th>Step</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>The element <code>{element}</code> is present</td>
-<td>Checks that an element matching a specific ID is present on the device screen</td>
-</tr>
-<tr>
-<td>I click the element <code>{element}</code></td>
-<td>Interacts with a visible element on the device screen</td>
-</tr>
-<tr>
-<td>I send the app to the background for <code>{timeout}</code> seconds</td>
-<td>Puts the app into a background state for a number of seconds. If sent to the background for 0 seconds, the app will remain there indefinitely</td>
-</tr>
-<tr>
-<td>I send the keys <code>{keys}</code> to the element <code>{element}</code></td>
-<td>Writes a string into an on-screen element</td>
-</tr>
-</tbody></table>
-
-<h4>Network steps</h4>
-
-<table><thead>
-<tr>
-<th>Step</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>I wait for the host <code>{host}</code> to open port <code>{port}</code></td>
-<td>Repeatedly attempts to connect to a given port on a host, timing out and stopping the test after a certain period if the port isn&#39;t accepting connections</td>
-</tr>
-<tr>
-<td>I open the URL <code>{url}</code></td>
-<td>Sends a request to the given url</td>
-</tr>
-</tbody></table>
-
-<h4>API helper steps</h4>
-
-<p>The following steps are quick validations that ensure a received payload is valid for whichever API it is being sent to, but checking that specific elements and headers are present.</p>
-
-<table><thead>
-<tr>
-<th>Step</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>The request is valid for the error reporting API version <code>{payload_version}</code> for the <code>{notifier_name}</code> notifier</td>
-<td>Validates for the error-reporting API for a particular payload version and notifier</td>
-</tr>
-<tr>
-<td>The request is valid for the Build API</td>
-<td>Validates for the Build API</td>
-</tr>
-<tr>
-<td>The request is valid for the Android Mapping API</td>
-<td>Validates for the Android Mapping API</td>
-</tr>
-<tr>
-<td>The request is valid for the session reporting API version <code>{payload_version}</code> for the <code>{notifier_name}</code> notifier</td>
-<td>Validates for the session-tracking API for a particular payload version and notifier</td>
-</tr>
-</tbody></table>
-
-<h4>Handling requests</h4>
-
-<table><thead>
-<tr>
-<th>Step</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>I wait to receive <code>{request_count}</code> request(s)</td>
-<td>Waits for the number of requests to be received, timing out after 30 seconds</td>
-</tr>
-<tr>
-<td>I should receive no requests</td>
-<td>Verifies that no requests have been received</td>
-</tr>
-<tr>
-<td>I discard the oldest request</td>
-<td>Pops the earliest received request off the stack, enabling access to requests received afterwards</td>
-</tr>
-<tr>
-<td>The payload field <code>{path}</code> is stored as the value <code>{key}</code></td>
-<td>Extracts a value found at <code>path</code> in the current payload, storing it under the <code>key</code> for later use</td>
-</tr>
-<tr>
-<td>The payload field <code>{path}</code> equals the stored value <code>{key}</code></td>
-<td>Compares a value found at <code>path</code> in the current payload and compares it against a value previously stored under <code>key</code></td>
-</tr>
-<tr>
-<td>The payload field <code>{path}</code> does not equal the stored value <code>{key}</code></td>
-<td>Compares a value found at <code>path</code> in the current payload and compares it against a value previously stored under <code>key</code></td>
-</tr>
-</tbody></table>
-
-<h4>Testing payload values</h4>
-
-<p>These steps are a non-exhaustive list of ways to test the values received within a payload. All tests target the oldest received payload, see above for testing multiple requests.</p>
-
-<table><thead>
-<tr>
-<th>Step</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>The payload field <code>{key_path}</code> is <code>{literal}</code></td>
-<td>Tests the value matches a literal. Values include <code>true</code>, <code>false</code>, <code>null</code>, <code>not null</code></td>
-</tr>
-<tr>
-<td>The payload field <code>{key_path}</code> equals <code>{number}</code></td>
-<td>Tests the value equals a number. Other possible comparisons include <code>is greater than</code> and <code>is less than</code></td>
-</tr>
-<tr>
-<td>The payload field <code>{key_path}</code> equals <code>{string}</code></td>
-<td>Tests the value equals a string. Other possible comparisons include <code>starts with</code> and <code>ends with</code></td>
-</tr>
-<tr>
-<td>The payload field <code>{key_path}</code> is an array with <code>{number}</code> elements</td>
-<td>Tests an array for size</td>
-</tr>
-<tr>
-<td>The payload field <code>{key_path}</code> matches the regex <code>{regex}</code></td>
-<td>Tests the value matches a regex</td>
-</tr>
-<tr>
-<td>Each element in payload field <code>{key_path}</code> has <code>{internal_path}</code></td>
-<td>Tests that each element in an array has a valid value at its <code>internal_path</code></td>
-</tr>
-</tbody></table>
-
-<p>Most of these steps exist in forms that allow for quick testing of event values and session values in predefined places. These prepend a path onto the given key path.  See <a href="/lib/features/steps/error_reporting_steps.rb"><code>error_reporting_steps</code></a> and <a href="/lib/features/steps/session_tracking_steps.rb"><code>session_tracking_steps</code></a> for full details.</p>
-
-<p>Similar steps are also available for testing multi-part requests, query parameters, and headers.  See <a href="/lib/features/steps/request_assertion_steps.rb"><code>request_assertion_steps</code></a> for full details.</p>
+<p>This adds the <code>$driver</code> global variable which can be used to write custom steps using the API provided by the <code>Appium::Driver</code> class.</p>
 
 <h4>On matching JSON templates</h4>
 
@@ -507,7 +342,7 @@ without escaping it).</li>
 
 <h2>Contributing</h2>
 
-<p>If steps would be useful for different projects running the maze, add the to
+<p>If steps would be useful for different projects using maze-runner, add them to
 <code>lib/features/steps/</code>. If there are useful helper functions, add them to
 <code>lib/features/support/*.rb</code>.</p>
 
@@ -518,7 +353,7 @@ sample app suites in the test fixtures. Run <code>bundle exec rake</code> to run
 </div></div>
 
       <div id="footer">
-  Generated on Thu Nov 14 15:02:40 2019 by
+  Generated on Wed Nov 20 15:58:43 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.19 (ruby-2.5.7).
 </div>

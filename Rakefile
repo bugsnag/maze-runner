@@ -52,7 +52,7 @@ namespace :docs do
 
   YARD::Rake::YardocTask.new do |t|
     t.files   = ['lib/features/**/*.rb']
-    t.options = ['--tag', 'step_input:Step parameters', '--markup', 'markdown', '--markup-provider', 'redcarpet']
+    t.options = ['--tag', 'step_input:Step parameters', '--markup', 'markdown', '--markup-provider', 'redcarpet', '--readme', 'DOCS.md']
   end
 
   task :publish do
@@ -64,7 +64,6 @@ namespace :docs do
   end
 
   task :build_and_publish do
-    Rake::Task["docs:prepare"].invoke
     Rake::Task["docs:yard"].invoke
     Rake::Task["docs:publish"].invoke
   end

@@ -2,13 +2,22 @@ version: '3.4'
 services:
   ci:
     build:
+      dockerfile: dockerfiles/Dockerfile.ci
       context: .
       target: ci
 
   cli:
     build:
+      dockerfile: dockerfiles/Dockerfile.ci
       context: .
       target: cli
+
+  docs:
+    build:
+      dockerfile: dockerfiles/Dockerfile.docs
+      context: .
+      args:
+        DOCS_PUSH_TOKEN:
 
   browserstack-app-automate:
     build:

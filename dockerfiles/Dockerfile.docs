@@ -1,0 +1,15 @@
+FROM ruby:2.5-alpine as ci
+
+RUN apk add --no-cache openssl ca-certificates curl-dev libgcc build-base ruby-dev build-base libffi-dev curl git
+
+WORKDIR /app/
+
+COPY . ./
+RUN mkdir ~/.yard
+RUN cp yard-config ~/.yard/config
+
+RUN bundle install
+
+ARG DOCS_PUSH_TOKEN
+
+RUN bundle exec rake docs:prepare

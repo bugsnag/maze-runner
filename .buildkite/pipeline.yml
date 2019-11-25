@@ -11,6 +11,15 @@ steps:
 
   - wait
 
+  - label: ':docker: Push CI'
+    plugins:
+      - docker-compose#v2.5.1:
+          push:
+            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:latest-ci
+            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
+
+  - wait
+
   - label: ':docker: Build test images'
     plugins:
       - docker-compose#v2.5.1:
@@ -20,13 +29,6 @@ steps:
             - payload-helper-tests
           image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
           build-parallel: true
-
-  - label: ':docker: Push CI'
-    plugins:
-      - docker-compose#v2.5.1:
-          push:
-            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:latest-ci
-            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
 
   - wait
 

@@ -1,12 +1,9 @@
 steps:
-  - label: ':docker: Build'
+  - label: ':docker: Build CI image'
     plugins:
       - docker-compose#v2.5.1:
           build:
             - ci
-            - comparison-tests
-            - browserstack-app-automate
-            - payload-helper-tests
           image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
           cache-from:
             - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:latest-ci
@@ -14,12 +11,27 @@ steps:
 
   - wait
 
+  - label: ':docker: Build test images'
+    plugins:
+      - docker-compose#v2.5.1:
+          build:
+            - comparison-tests
+            - browserstack-app-automate
+            - payload-helper-tests
+          image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
+          build-parallel: true
+          cache-from:
+            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:latest-ci
+            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
+
   - label: ':docker: Push CI'
     plugins:
       - docker-compose#v2.5.1:
           push:
             - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:latest-ci
             - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
+
+  - wait
 
   - label: 'Unit tests'
     plugins:
@@ -53,7 +65,7 @@ steps:
     if: build.branch == "v2" || build.branch == "master"
     plugins:
       docker-compose#v2.5.1:
-        run: docs
+        run: ci
     command: 'bundle exec rake docs:build_and_publish'
 
   - label: 'Release'

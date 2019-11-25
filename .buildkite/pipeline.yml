@@ -20,9 +20,6 @@ steps:
             - payload-helper-tests
           image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
           build-parallel: true
-          cache-from:
-            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:latest-ci
-            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
 
   - label: ':docker: Push CI'
     plugins:

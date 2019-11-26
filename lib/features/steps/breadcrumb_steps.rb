@@ -33,7 +33,7 @@ end
 # Tests whether the first event entry does not contain a breadcrumb with a specific type.
 # Used for confirming filtering of breadcrumbs
 #
-# @step_input type [String] The type of breadcrumb is not expected to be present
+# @step_input type [String] The type of breadcrumb expected to not be present
 Then("the event does not have a {string} breadcrumb") do |type|
   value = Server.current_request[:body]["events"].first["breadcrumbs"]
   found = false

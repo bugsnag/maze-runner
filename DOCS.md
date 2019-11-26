@@ -124,12 +124,13 @@ end
 
 ### Step definition links
 
-- [Request assertion steps](/maze-runner/requirements/step_transformers.html#step_definition64-stepdefinition)
-- [Error content steps](/maze-runner/requirements/step_transformers.html#step_definition25-stepdefinition)
-- [Session content steps](/maze-runner/requirements/step_transformers.html#step_definition55-stepdefinition)
+- [Request assertion steps](/maze-runner/requirements/step_transformers.html#step_definition66-stepdefinition)
+- [Error content steps](/maze-runner/requirements/step_transformers.html#step_definition29-stepdefinition)
+- [Breadcrumb steps](/maze-runner/requirements/step_transformers.html#step_definition21-stepdefinition)
+- [Session content steps](/maze-runner/requirements/step_transformers.html#step_definition57-stepdefinition)
 - [Environment steps](/maze-runner/requirements/step_transformers.html#step_definition1-stepdefinition)
 - [Script and docker steps](/maze-runner/requirements/step_transformers.html#step_definition7-stepdefinition)
-- [BrowserStack steps](//maze-runner/requirements/step_transformers.html#step_definition21-stepdefinition)
+- [BrowserStack steps](/maze-runner/requirements/step_transformers.html#step_definition25-stepdefinition)
 
 ### Step examples
 

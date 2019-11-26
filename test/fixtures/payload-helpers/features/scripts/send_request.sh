@@ -194,7 +194,7 @@ templates = {
             {
               'type' => 'process',
               'name' => 'bar',
-              'timestamp' => '2019-11-26T10:1823Z',
+              'timestamp' => '2019-11-26T10:18:23Z',
               'metaData' => {
                 'a' => 1,
                 'b' => 2,

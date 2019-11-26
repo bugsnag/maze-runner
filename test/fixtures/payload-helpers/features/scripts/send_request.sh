@@ -176,7 +176,36 @@ templates = {
         }
       ]
     }
-  }
+  },
+  'breadcrumbs' => {
+    'headers' => {},
+    'body' => {
+      'events' => [
+        {
+          'breadcrumbs' => [
+            {
+              'type' => 'process',
+              'name' => 'foo',
+              'timestamp' => '2019-11-26T10:15:46Z',
+              'metaData' => {
+                'message' => "Foobar"
+              }
+            },
+            {
+              'type' => 'process',
+              'name' => 'bar',
+              'timestamp' => '2019-11-26T10:1823Z',
+              'metaData' => {
+                'a' => 1,
+                'b' => 2,
+                'c' => 3
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
 }
 
 exit(1) if ENV['request_type'].nil?

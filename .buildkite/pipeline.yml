@@ -64,7 +64,7 @@ steps:
     if: build.branch == "v2" || build.branch == "master"
     plugins:
       docker-compose#v2.5.1:
-        run: ci
+        run: docs
     command: 'bundle exec rake docs:build_and_publish'
 
   - label: 'Release'

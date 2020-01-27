@@ -1,5 +1,6 @@
 require 'appium_lib'
 require 'open3'
+require 'securerandom'
 require_relative './fast_selenium'
 
 # Wraps Appium::Driver to enable control of a BrowserStack app-automate session
@@ -27,13 +28,27 @@ class AppAutomateDriver < Appium::Driver
     @access_key = access_key
     @local_id = local_id
     app_url = upload_app(username, access_key, app_location)
+
+    # Sets up identifiers for ease of connecting jobs
+    project_id = ENV['BUILDKITE'] ? ENV['BUILDKITE_PIPELINE_NAME'] : "local"
+    build_id = ENV['BUILDKITE'] ? "#{ENV['BUILDKITE_BRANCH']} #{ENV['BUILDKITE_BUILD_NUMBER']}" : SecureRandom.uuid
+    build_name = "#{@device_type} #{ENV['BUILDKITE_RETRY_COUNT']}"
+
+    $logger.warn "Appium driver initialised for:"
+    $logger.warn "    project : #{project_id}"
+    $logger.warn "    build   : #{build_id}"
+    $logger.warn "    name    : #{build_name}"
+
     capabilities = {
       'browserstack.console': 'errors',
       'browserstack.localIdentifier': local_id,
       'browserstack.local': 'true',
       'browserstack.networkLogs': 'true',
       'autoAcceptAlerts': 'true',
-      'app' => app_url
+      'app': app_url,
+      'project': project_id,
+      'build': build_id,
+      'name': build_name
     }
     capabilities.merge! additional_capabilities
     capabilities.merge! devices[target_device]

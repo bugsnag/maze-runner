@@ -32,7 +32,7 @@ class AppAutomateDriver < Appium::Driver
     # Sets up identifiers for ease of connecting jobs
     project_id = ENV['BUILDKITE'] ? ENV['BUILDKITE_PIPELINE_NAME'] : "local"
     build_id = ENV['BUILDKITE'] ? "#{ENV['BUILDKITE_BRANCH']} #{ENV['BUILDKITE_BUILD_NUMBER']}" : SecureRandom.uuid
-    build_name = "#{@device_type} #{ENV['BUILDKITE_RETRY_COUNT']}"
+    build_name = "#{@device_type} #{ENV['BUILDKITE_STEP_KEY']} #{ENV['BUILDKITE_RETRY_COUNT']}"
 
     $logger.warn "Appium driver initialised for:"
     $logger.warn "    project : #{project_id}"

@@ -12,6 +12,15 @@ class AppAutomateDriverTest < Test::Unit::TestCase
   TARGET_DEVICE = "ANDROID_9"
   LOCAL_TUNNEL_COMMAND = "/BrowserStackLocal -d start --key #{ACCESS_KEY} --local-identifier #{LOCAL_ID} --force-local"
 
+  def setup
+    ENV.delete("BUILDKITE")
+    ENV.delete("BUILDKITE_PIPELINE_NAME")
+    ENV.delete("BUILDKITE_BRANCH")
+    ENV.delete("BUILDKITE_BUILD_NUMBER")
+    ENV.delete("BUILDKITE_RETRY_COUNT")
+    ENV.delete("BUILDKITE_STEP_KEY")
+  end
+
   def start_logger_mock
     logger_mock = mock('logger')
     $logger = logger_mock
@@ -259,25 +268,20 @@ class AppAutomateDriverTest < Test::Unit::TestCase
     ENV["BUILDKITE_BRANCH"] = "TEST BRANCH"
     ENV["BUILDKITE_BUILD_NUMBER"] = "156"
     ENV["BUILDKITE_RETRY_COUNT"] = "5"
+    ENV["BUILDKITE_STEP_KEY"] = "tests-05"
     logger_mock = mock('logger')
     $logger = logger_mock
     logger_mock.expects(:warn).with("Appium driver initialised for:").once
     logger_mock.expects(:warn).with("    project : TEST").once
     logger_mock.expects(:warn).with("    build   : TEST BRANCH 156")
-    logger_mock.expects(:warn).with("    name    : #{TARGET_DEVICE} 5")
+    logger_mock.expects(:warn).with("    name    : #{TARGET_DEVICE} tests-05 5")
 
     AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
     driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
 
     assert_equal('TEST', driver.caps[:project])
     assert_equal('TEST BRANCH 156', driver.caps[:build])
-    assert_equal("#{TARGET_DEVICE} 5", driver.caps[:name])
-
-    ENV.delete("BUILDKITE")
-    ENV.delete("BUILDKITE_PIPELINE_NAME")
-    ENV.delete("BUILDKITE_BRANCH")
-    ENV.delete("BUILDKITE_BUILD_NUMBER")
-    ENV.delete("BUILDKITE_RETRY_COUNT")
+    assert_equal("#{TARGET_DEVICE} tests-05 5", driver.caps[:name])
   end
 end
 

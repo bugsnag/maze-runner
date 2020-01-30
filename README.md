@@ -233,6 +233,13 @@ Alternately, you can specify specific files to run:
 bundle exec maze-runner features/something.feature
 ```
 
+If you know the line number it's declared on you can run a single
+Scenario by appending the line number to the feature:
+
+```
+bundle exec maze-runner features/something.feature:123
+```
+
 Append the `--verbose` option to either form to print script output and a trace of what Ruby file
 is being run.
 

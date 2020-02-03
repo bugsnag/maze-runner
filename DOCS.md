@@ -222,7 +222,7 @@ is being run.
 ### Logging
 
 Maze-runner contains a Ruby logger connected to `STDOUT` that will attempt to log several events that occur during the testing life-cycle.
-By default the logger is set to report `WARN` level events or higher, but will log `DEBUG` level events if the `VERBOSE` or `DEBUG` flags are set.
+By default the logger is set to report `INFO` level events or higher, but will log `DEBUG` level events if the `VERBOSE` or `DEBUG` flags are set.  If the `QUIET` flag is set it will instead log at the `ERROR` level and above, and this option will supercede the `VERBOSE` or `DEBUG` options.
 
 | Log Level | Event | Information |
 |-----------|-------|-------------|

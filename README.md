@@ -24,25 +24,33 @@ the hood to draft semantic tests.
    gem "bugsnag-maze-runner", git: "https://github.com/bugsnag/maze-runner"
    ```
 3. Run `bundle install` to fetch and install Maze Runner
-4. Run `bundle exec bugsnag-maze-runner init` from the root of your project to build the
-   basic structure to run test scenarios.
-   * `features/fixtures`: Test fixture files, such as sample JSON payloads
-   * `features/scripts`: Scripts to be run in scenarios. Any environment
-     variables set in scenarios are passed to scripts. The `MOCK_API_PORT`
-     variable is provided by default to configure the location of the mock
-     server.
-   * `features/steps`: Additional steps of the form Given/When/Then required to
-     complete scenarios
-   * `features/support`: Helper functions. Add any setup which should be run
-     once before all of the scenarios to `features/support/env.rb`. Any setup
-     which should be run before or after each scenario can go into special
-     `Before` and `After` functions respectively.
-   * `features/*.feature`: The plain text scenario specifications
-
-   A sample feature is included after running `init`. Try it out with
+4. Run 
 
    ```
-   bundle exec bugsnag-maze-runner
+   bundle exec maze-runner init
+   ``` 
+   from the root of your project to build the basic structure to run test scenarios.
+
+The `features` directory in your project is expected to be laid out as follows:
+
+   * `features`
+      * `fixtures`: Test fixture files, such as sample JSON payloads
+      * `scripts`: Scripts to be run in scenarios. Any environment
+        variables set in scenarios are passed to scripts. The `MOCK_API_PORT`
+        variable is provided by default to configure the location of the mock
+        server.
+      * `steps`: Additional steps of the form Given/When/Then required to
+        complete scenarios
+      * `support`: Helper functions. Add any setup which should be run
+        once before all of the scenarios to `features/support/env.rb`. Any setup
+        which should be run before or after each scenario can go into special
+        `Before` and `After` functions respectively.
+      * `*.feature`: The plain text scenario specifications
+
+   A sample feature is included after running `init`. Try it out with:
+
+   ```
+   bundle exec maze-runner
    ```
 
 ## Writing features
@@ -120,7 +128,7 @@ end
 
 ### Step reference
 
-Whirlwind tour of the most important bundled steps. Additional variants exist for checking value nullability, "starts with", "ends with", et cetera.
+A whirlwind tour of the most important bundled steps. Additional variants exist for checking value nullability, "starts with", "ends with", et cetera.
 
 Anywhere a `{field}` is denoted, it can be replaced with dot-delimited key path to indicate the path from the root of an object to the intended target.
 
@@ -167,7 +175,7 @@ For example, to match the name of the second objects in the the key `fruits` bel
 
 For the following steps:
 
-```
+```gherkin
 Then the payload body matches the JSON fixture in "features/fixtures/template.json"
 Then the payload field "items.0.subset" matches the JSON fixture in "features/fixtures/template.json"
 ```
@@ -213,14 +221,26 @@ against request `0`, i.e. the first (and perhaps only) request.
 
 ## Running features
 
-Run the entire suite using `bundle exec bugsnag-maze-runner`. Alternately, you
-can specify specific files to run:
+Run the entire suite using 
 
 ```
-bundle exec bugsnag-maze-runner features/something.feature
+bundle exec maze-runner
+``` 
+
+Alternately, you can specify specific files to run:
+
+```
+bundle exec maze-runner features/something.feature
 ```
 
-Add the `--verbose` option to print script output and a trace of what Ruby file
+If you know the line number it's declared on you can run a single
+Scenario by appending the line number to the feature:
+
+```
+bundle exec maze-runner features/something.feature:123
+```
+
+Append the `--verbose` option to either form to print script output and a trace of what Ruby file
 is being run.
 
 ## Logging data on scenario failures
@@ -261,11 +281,17 @@ In these cases a method can be created in the project's local `env.rb` file call
 
 ## Contributing
 
-If steps would be useful for different projects running the maze, add the to
-`lib/features/steps/`. If there are useful helper functions, add them to
+If steps would be useful for different projects running the maze, add the step(s) 
+to `lib/features/steps/`. If there are useful helper functions, add them to
 `lib/features/support/*.rb`.
 
 ### Running the tests
 
-bugsnag-maze-runner uses test-unit and minunit to bootstrap itself and run the
-sample app suites in the test fixtures. Run `bundle exec rake` to run the suite.
+`maze-runner` uses `test-unit` and `minunit` to bootstrap itself and run the
+sample app suites in the test fixtures. Run 
+
+```
+bundle exec rake
+``` 
+
+to run the suite.

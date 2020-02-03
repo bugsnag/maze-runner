@@ -30,14 +30,12 @@ class AppAutomateDriver < Appium::Driver
     app_url = upload_app(username, access_key, app_location)
 
     # Sets up identifiers for ease of connecting jobs
-    project_id = ENV['BUILDKITE'] ? ENV['BUILDKITE_PIPELINE_NAME'] : "local"
-    build_id = ENV['BUILDKITE'] ? "#{ENV['BUILDKITE_BRANCH']} #{ENV['BUILDKITE_BUILD_NUMBER']}" : SecureRandom.uuid
-    build_name = "#{@device_type} #{ENV['BUILDKITE_STEP_KEY']} #{ENV['BUILDKITE_RETRY_COUNT']}"
+    name_capabilities = project_name_capabilities(target_device)
 
-    $logger.warn "Appium driver initialised for:"
-    $logger.warn "    project : #{project_id}"
-    $logger.warn "    build   : #{build_id}"
-    $logger.warn "    name    : #{build_name}"
+    $logger.info "Appium driver initialised for:"
+    $logger.info "    project : #{name_capabilities[:project]}"
+    $logger.info "    build   : #{name_capabilities[:build]}"
+    $logger.info "    name    : #{name_capabilities[:name]}"
 
     capabilities = {
       'browserstack.console': 'errors',
@@ -45,13 +43,11 @@ class AppAutomateDriver < Appium::Driver
       'browserstack.local': 'true',
       'browserstack.networkLogs': 'true',
       'autoAcceptAlerts': 'true',
-      'app': app_url,
-      'project': project_id,
-      'build': build_id,
-      'name': build_name
+      'app': app_url
     }
     capabilities.merge! additional_capabilities
     capabilities.merge! devices[target_device]
+    capabilities.merge! name_capabilities
     super({
       'caps' => capabilities,
       'appium_lib' => {
@@ -102,6 +98,39 @@ class AppAutomateDriver < Appium::Driver
   # @param text [String] the text to send
   def send_keys_to_element(element_id, text)
     find_element(@element_locator, element_id).send_keys(text)
+  end
+
+  # Determines and returns sensible project, build, and name capabilities
+  #
+  # @param target_device [String] the device in the device list being targeted
+  #
+  # @return [Hash] A hash containing the 'project', 'build', and 'name' capabilities
+  def project_name_capabilities(target_device)
+    project = "local"
+    build = SecureRandom.uuid
+    name = "#{target_device}"
+    if ENV['BUILDKITE']
+      bk_project = ENV['BUILDKITE_PIPELINE_NAME']
+
+      bk_build_array = []
+      bk_build_array << ENV['BUILDKITE_BUILD_NUMBER'] if ENV['BUILDKITE_BUILD_NUMBER']
+      bk_build_array << ENV['BUILDKITE_BRANCH'] if ENV['BUILDKITE_BRANCH']
+      bk_build = bk_build_array.join(' ')
+
+      bk_name_array = [name]
+      bk_name_array << ENV['BUILDKITE_STEP_KEY'] if ENV['BUILDKITE_STEP_KEY']
+      bk_name_array << ENV['BUILDKITE_RETRY_COUNT'] if ENV['BUILDKITE_RETRY_COUNT']
+      bk_name = bk_name_array.join(' ')
+
+      project = bk_project unless bk_project.empty? or bk_project.nil?
+      build = bk_build unless bk_build.empty? or bk_build.nil?
+      name = bk_name
+    end
+    {
+      :project => project,
+      :build => build,
+      :name => name
+    }
   end
 
   private

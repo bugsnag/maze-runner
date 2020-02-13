@@ -17,7 +17,14 @@ class Devices
           'os' => 'android',
           'os_version' => '9.0'
       },
-      'ANDROID_8' => {
+      'ANDROID_8_1' => {
+          'autoGrantPermissions' => 'true',
+          'device' => 'Samsung Galaxy Note 9',
+          'platformName' => 'Android',
+          'os' => 'android',
+          'os_version' => '8.1'
+      },
+      'ANDROID_8_0' => {
           'autoGrantPermissions' => 'true',
           'device' => 'Google Pixel 2',
           'platformName' => 'Android',

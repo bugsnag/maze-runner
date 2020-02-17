@@ -8,7 +8,8 @@ class Devices
           'device' => 'Google Pixel 4',
           'platformName' => 'Android',
           'os' => 'android',
-          'os_version' => '10.0'
+          'os_version' => '10.0',
+          'browserstack.appium_version' => '1.15.0'
       },
       'ANDROID_9' => {
           'autoGrantPermissions' => 'true',
@@ -31,7 +32,7 @@ class Devices
           'os' => 'android',
           'os_version' => '8.0'
       },
-      'ANDROID_7' => {
+      'ANDROID_7_1' => {
           'autoGrantPermissions' => 'true',
           'device' => 'Google Pixel',
           'platformName' => 'Android',
@@ -52,7 +53,7 @@ class Devices
           'os' => 'android',
           'os_version' => '5.0'
       },
-      'ANDROID_4' => {
+      'ANDROID_4_4' => {
           'autoGrantPermissions' => 'true',
           'device' => 'Google Nexus 5',
           'platformName' => 'Android',

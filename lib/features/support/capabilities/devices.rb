@@ -60,6 +60,12 @@ class Devices
     'os' => 'android',
     'os_version' => '4.4'
   }.freeze
+  IOS_13 = {
+      'device' => 'iPhone 8',
+      'platformName' => 'iOS',
+      'os' => 'ios',
+      'os_version' => '13'
+  }.freeze
   IOS_12 = {
     'device' => 'iPhone 8',
     'platformName' => 'iOS',
@@ -86,6 +92,7 @@ class Devices
     'ANDROID_7_1' => ANDROID_7_1,
     'ANDROID_6_0' => ANDROID_6_0,
     'ANDROID_4_4' => ANDROID_4_4,
+    'IOS_13' => IOS_13,
     'IOS_12' => IOS_12,
     'IOS_11' => IOS_11,
     'IOS_10' => IOS_10,

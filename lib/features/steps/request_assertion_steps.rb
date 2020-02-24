@@ -120,7 +120,6 @@ end
 Then(/^the payload field "(.+)" is false(?: for request (\d+))?$/) do |field_path, request_index|
   assert_equal(false, read_key_path(find_request(request_index)[:body], field_path))
 end
-
 Then(/^the payload field "(.+)" is null(?: for request (\d+))?$/) do |field_path, request_index|
   value = read_key_path(find_request(request_index)[:body], field_path)
   assert_nil(value, "The field '#{field_path}' should be null but is #{value}")
@@ -138,6 +137,9 @@ Then(/^the payload field "(.+)" contains "(.+)"(?: for request (\d+))?$/) do |fi
 end
 Then(/^the payload field "(.+)" equals "(.+)"(?: for request (\d+))?$/) do |field_path, string_value, request_index|
   assert_equal(string_value, read_key_path(find_request(request_index)[:body], field_path))
+end
+Then(/^the payload field "(.+)" does not equal "(.+)"(?: for request (\d+))?$/) do |field_path, string_value, request_index|
+  assert_not_equal(string_value, read_key_path(find_request(request_index)[:body], field_path))
 end
 Then(/^the payload field "(.+)" starts with "(.+)"(?: for request (\d+))?$/) do |field_path, string_value, request_index|
   value = read_key_path(find_request(request_index)[:body], field_path)

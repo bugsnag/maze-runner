@@ -23,6 +23,9 @@ end
 Then(/^the session "(.+)" equals "(.+)"(?: for request (\d+))?$/) do |field, string_value, request_index|
   step "the payload field \"sessions.0.#{field}\" equals \"#{string_value}\"#{optional_request_index(request_index)}"
 end
+Then(/^the session "(.+)" does not equal "(.+)"(?: for request (\d+))?$/) do |field, string_value, request_index|
+  step "the payload field \"sessions.0.#{field}\" does not equal \"#{string_value}\"#{optional_request_index(request_index)}"
+end
 Then(/^the session "(.+)" is a timestamp(?: for request (\d+))?$/) do |field, request_index|
   timestamp_regex = /^\d{4}\-\d{2}\-\d{2}T\d{2}:\d{2}:[\d\.]+Z?$/
   step "the payload field \"sessions.0.#{field}\" matches the regex \"#{timestamp_regex}\"#{optional_request_index(request_index)}"

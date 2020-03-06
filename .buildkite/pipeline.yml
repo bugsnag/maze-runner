@@ -4,11 +4,11 @@ steps:
       - docker-compose#v2.5.1:
           build: ci
           image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
-          cache-from: ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BUILDKITE_BRANCH:-[latest]}-ci
+          cache-from: ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME:-[latest]}-ci
       - docker-compose#v2.5.1:
           push:
             - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:latest-ci
-            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BUILDKITE_BRANCH}-ci
+            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
 
   - wait
 
@@ -24,8 +24,8 @@ steps:
     plugins:
       - docker-compose#v2.5.1:
           build: cli
-          cache-from: cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BUILDKITE_BRANCH:-[latest]}-cli
+          cache-from: cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME:-[latest]}-cli
       - docker-compose#v2.5.1:
           push:
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:latest-cli
-            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BUILDKITE_BRANCH}-cli
+            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli

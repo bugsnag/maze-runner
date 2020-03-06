@@ -1,4 +1,4 @@
-FROM ruby:2.5-alpine as ci
+FROM ruby:2.7-alpine as ci
 
 RUN apk update && apk add docker
 

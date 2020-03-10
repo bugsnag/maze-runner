@@ -82,6 +82,11 @@ Then(/^the event has a "(.+)" breadcrumb with message "(.+)"(?: for request (\d+
   fail("No breadcrumb matched: #{value}") unless found
 end
 
+Then(/^the event has ([0-9]+) breadcrumbs(?: for request (\d+))?$/) do |expected_count, request_index|
+  value = read_key_path(find_request(get_request_index(request_index))[:body], "events.0.breadcrumbs")
+  fail("Incorrect number of breadcrumbs found: #{value.length()}, expected: #{expected_count}") if value.length() != expected_count.to_i
+end
+
 Then(/^the event "([^"]+)" equals (\d+)(?: for request (\d+))?$/) do |field, value, request_index|
   step "the payload field \"events.0.#{field}\" equals #{value} for request #{get_request_index(request_index)}"
 end

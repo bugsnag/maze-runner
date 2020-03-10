@@ -9,7 +9,7 @@ PATH
       gherkin (~> 5.1.0)
       minitest (~> 5.0)
       os (~> 1.0.0)
-      rake (~> 12.3.0)
+      rake (~> 12.3.3)
       selenium-webdriver (~> 3.11)
       test-unit (~> 3.2.0)
 
@@ -29,7 +29,7 @@ GEM
     appium_lib_core (3.5.0)
       faye-websocket (~> 0.10.0)
       selenium-webdriver (~> 3.14, >= 3.14.1)
-    backports (3.16.0)
+    backports (3.17.0)
     builder (3.2.4)
     childprocess (3.0.0)
     concurrent-ruby (1.1.6)
@@ -58,7 +58,7 @@ GEM
     gherkin (5.1.0)
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
-    iniparser (0.1.0)
+    iniparser (1.0.1)
     kramdown (2.1.0)
     logutils (0.6.1)
     markdown (1.2.0)
@@ -72,10 +72,10 @@ GEM
       metaclass (~> 0.0.1)
     multi_json (1.14.1)
     multi_test (0.1.2)
-    nokogiri (1.10.8)
+    nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
     os (1.0.1)
-    power_assert (1.1.5)
+    power_assert (1.1.6)
     props (1.2.0)
       iniparser (>= 0.1.0)
     rake (12.3.3)
@@ -103,7 +103,7 @@ GEM
       cucumber (>= 2.0, < 4.0)
       gherkin (>= 4.0, < 6.0)
       yard (~> 0.8, >= 0.8.1)
-    zeitwerk (2.2.2)
+    zeitwerk (2.3.0)
 
 PLATFORMS
   ruby

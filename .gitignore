@@ -3,9 +3,12 @@ Pods
 .gradle
 .idea
 *.gem
+coverage/
 maze_output/
 Gemfile.lock
 package-lock.json
 test/fixtures/init-test
 doc/
+.rakeTasks
 .yardoc/
+**/src/main/gen/

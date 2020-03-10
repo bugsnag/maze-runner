@@ -2,8 +2,11 @@ Pods
 .bundle
 .gradle
 .idea
+.rakeTasks
 *.gem
+coverage/
 maze_output/
 Gemfile.lock
 package-lock.json
 test/fixtures/init-test
+**/src/main/gen/

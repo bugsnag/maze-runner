@@ -6,17 +6,17 @@
 <title>
   Class: Runner
   
-    &mdash; Documentation by YARD 0.9.19
+    &mdash; Documentation by YARD 0.9.24
   
 </title>
 
-  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
 
-  <link rel="stylesheet" href="css/cucumber.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="css/cucumber.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Runner";
   relpath = '';
 </script>
@@ -383,6 +383,8 @@ just so the caller can verify something about the output.</p>
         <span class='type'>(<tt>Boolean</tt>)</span>
       
       
+        <em class="default">(defaults to: <tt>true</tt>)</em>
+      
       
         &mdash;
         <div class='inline'><p>Optional. Whether to wait for a return code before proceeding</p>
@@ -397,6 +399,8 @@ just so the caller can verify something about the output.</p>
       
         <span class='type'>(<tt>Array</tt>)</span>
       
+      
+        <em class="default">(defaults to: <tt>[0]</tt>)</em>
       
       
         &mdash;
@@ -547,6 +551,8 @@ just so the caller can verify something about the output.</p>
         <span class='type'>(<tt>Boolean</tt>)</span>
       
       
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
       
         &mdash;
         <div class='inline'><p>Optional. Whether to wait for a return code before proceeding</p>
@@ -561,6 +567,8 @@ just so the caller can verify something about the output.</p>
       
         <span class='type'>(<tt>Array</tt>)</span>
       
+      
+        <em class="default">(defaults to: <tt>[0]</tt>)</em>
       
       
         &mdash;
@@ -615,13 +623,13 @@ just so the caller can verify something about the output.</p>
 <span class='kw'>def</span> <span class='id identifier rubyid_run_script'>run_script</span><span class='lparen'>(</span><span class='id identifier rubyid_script_name'>script_name</span><span class='comma'>,</span> <span class='label'>blocking:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>success_codes:</span> <span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_script_path'>script_path</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='const'>SCRIPT_PATH</span><span class='comma'>,</span> <span class='id identifier rubyid_script_name'>script_name</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_script_path'>script_path</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_pwd'>pwd</span><span class='comma'>,</span> <span class='id identifier rubyid_script_name'>script_name</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_exists?'>exists?</span> <span class='id identifier rubyid_script_path'>script_path</span>
-  <span class='kw'>if</span> <span class='const'>Gem</span><span class='period'>.</span><span class='id identifier rubyid_win_platform?'>win_platform?</span>
-    <span class='comment'># windows does not support the shebang that we use in the scripts so it
+  <span class='kw'>if</span> <span class='const'>Gem</span><span class='period'>.</span><span class='id identifier rubyid_win_platform?'>win_platform?</span>    <span class='comment'># windows does not support the shebang that we use in the scripts so it
 </span>    <span class='comment'># needs to know how to execute the script. Passing `cmd /c` tells windows
 </span>    <span class='comment'># to use it&#39;s known file associations to execute this path. If ruby is
 </span>    <span class='comment'># installed on windows then it will know that `rb` files should be exceuted
 </span>    <span class='comment'># using ruby etc.
-</span>    <span class='id identifier rubyid_script_path'>script_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cmd /c </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_script_path'>script_path</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+</span>
+    <span class='id identifier rubyid_script_path'>script_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cmd /c </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_script_path'>script_path</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>end</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_run_command'>run_command</span><span class='lparen'>(</span><span class='id identifier rubyid_script_path'>script_path</span><span class='comma'>,</span> <span class='label'>blocking:</span> <span class='id identifier rubyid_blocking'>blocking</span><span class='comma'>,</span> <span class='label'>success_codes:</span> <span class='id identifier rubyid_success_codes'>success_codes</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -635,9 +643,9 @@ just so the caller can verify something about the output.</p>
 </div>
 
       <div id="footer">
-  Generated on Fri Feb  7 14:52:28 2020 by
+  Generated on Tue Mar 10 13:01:57 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.19 (ruby-2.5.7).
+  0.9.24 (ruby-2.7.0).
 </div>
 
     </div>

@@ -3,7 +3,6 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'version'
 
 Gem::Specification.new do |spec|
-  spec.metadata['allowed_push_host'] = 'https://bugsnag.jfrog.io/artifactory/api/gems/platforms-rubygems'
   spec.name = 'bugsnag-maze-runner'
   spec.version = BugsnagMazeRunner::VERSION
   spec.authors = ['Steve Kirkand']

@@ -33,4 +33,4 @@ COPY . ./
 RUN bundle install
 
 FROM ci as cli
-ENTRYPOINT ["bundle", "exec", "maze-runner", "--fail-fast", "--retry", "2"]
+ENTRYPOINT ["bundle", "exec", "maze-runner"]

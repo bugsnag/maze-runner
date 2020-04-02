@@ -26,6 +26,10 @@ class SampleTest < Test::Unit::TestCase
   def test_comparing_requests_to_json_files
     run_scenario("test/fixtures/comparison")
   end
+  
+  def test_request_functions
+    run_scenario("test/fixtures/request-test")
+  end
 
   def test_init_command
     fixture_dir = "test/fixtures/init-test"

@@ -29,6 +29,9 @@ end
 Then(/^I should receive no requests$/) do
   step "I should receive 0 request"
 end
+Then(/^the HTTP version is "(.+)"(?: for request (\d+))?$/) do |http_version, request_index|
+  assert_equal(http_version, find_request(request_index)[:request].http_version.to_s)
+end
 Then(/^the "(.+)" header is not null(?: for request (\d+))?$/) do |header_name, request_index|
   assert_not_nil(find_request(request_index)[:request][header_name],
                 "The '#{header_name}' header should not be null")

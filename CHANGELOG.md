@@ -1,3 +1,7 @@
+# 1.2.0
+
+Addition of HTTP version steps.
+
 # 1.1.0
 
 Various changes have been made since the 1.0.0 release, but no specific versioning strategy

@@ -1,11 +1,6 @@
 require 'fileutils'
 
-FileUtils.mkdir_p([
-  "features/fixtures",
-  "features/scripts",
-  "features/support",
-  "features/steps"
-])
+FileUtils.mkdir_p(%w[features/fixtures features/scripts features/support features/steps])
 if File.exist? "Gemfile"
   contents = open("Gemfile", &:read)
   unless contents.include? 'bugsnag-maze-runner'

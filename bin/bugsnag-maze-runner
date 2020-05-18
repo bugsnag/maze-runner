@@ -1,28 +1,74 @@
 #!/usr/bin/env ruby
-
-if ARGV.include? "--version"
-  require_relative '../lib/version'
-  puts BugsnagMazeRunner::VERSION
-  exit 0
-elsif ARGV.include? "init"
-  require_relative 'commands/init'
-  exit 0
-end
+# frozen_string_literal: true
 
 require 'cucumber/cli/main'
+require 'optimist'
+require_relative '../lib/version'
 
-CUKE_LOAD_DIR = File.expand_path(File.dirname(File.dirname(__FILE__)))
+# Encapsulates the MazeRunner entry point
+class MazeRunner
+  def initialize
+    @parser = Optimist::Parser.new do
+      text 'Maze Runner extends the functionality of Cucumber, ' \
+        'providing all of the command line arguments that it provides.'
+      text ''
+      text 'Usage [OPTIONS] <filenames>'
+      text ''
+      text 'Overridden Cucumber options:'
+      opt :help, 'Print this help.'
+      opt :init, 'Initialises a new Maze Runner project'
 
-ENV['VERBOSE'] = "true" if ARGV.include? "--verbose"
-args = ARGV.dup
-args << "features" if args.empty?
-# Load internal steps and helper functions
-paths = Dir.glob("#{CUKE_LOAD_DIR}/lib/features/**/*.rb")
-# Load project-specific steps and helper functions
-paths += Dir.glob("features/{support,steps}/*.rb")
-paths.each do |path|
-  args << "-r"
-  args << path
+      opt :version, 'Display Maze Runner and Cucumber versions'
+      version "Maze Runner v#{BugsnagMazeRunner::VERSION} " \
+              "(Cucumber v#{Cucumber::VERSION.strip})"
+      text ''
+      text 'The Cucumber help follows:'
+      text ''
+    end
+    @parser.ignore_invalid_options = true
+  end
+
+  def init
+    require_relative 'commands/init'
+    exit 0
+  end
+
+  def add_maze_runner_options
+    @args << 'features' if @args.empty?
+
+    # Strict mode unless any no/strict option is given
+    regex = /--(no-)?strict(-(undefined|pending|flaky))?/
+    @args << '--strict' if @args.all? { |arg| regex.match(arg).nil? }
+
+    # Load internal steps and helper functions
+    load_dir = File.expand_path(File.dirname(File.dirname(__FILE__))).freeze
+    paths = Dir.glob("#{load_dir}/lib/features/**/*.rb")
+
+    # Load project-specific steps and helper functions
+    paths += Dir.glob('features/{support,steps}/*.rb')
+    paths.each { |path| @args << '-r' << path }
+  end
+
+  def start(args)
+    # Parse args, processing any Maze Runner specific options
+    @args = args.dup
+    options = @parser.parse args
+
+    init if options[:init]
+
+    # Call down to Cucumber
+    add_maze_runner_options
+
+    Cucumber::Cli::Main.new(@args).execute!
+
+  rescue Optimist::HelpNeeded
+    # Display
+    @parser.educate
+    Cucumber::Cli::Main.new(['--help']).execute!
+
+  rescue Optimist::VersionNeeded
+    puts @parser.version
+  end
 end
 
-Cucumber::Cli::Main.new(args).execute!
+MazeRunner.new.start(ARGV)

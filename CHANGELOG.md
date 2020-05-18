@@ -1,3 +1,9 @@
+# Unreleased
+
+# Enhancements.
+- Run Cucumber with strict mode, unless any strict/no-strict option has been set.
+- Log all received requests when a Scenario fails
+
 # 2.0.0
 
 Major new version focused on using Buildkite to run tests on real devices using BrowserStack.

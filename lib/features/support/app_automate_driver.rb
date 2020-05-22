@@ -122,8 +122,8 @@ class AppAutomateDriver < Appium::Driver
       bk_name_array << ENV['BUILDKITE_RETRY_COUNT'] if ENV['BUILDKITE_RETRY_COUNT']
       bk_name = bk_name_array.join(' ')
 
-      project = bk_project unless bk_project.empty? or bk_project.nil?
-      build = bk_build unless bk_build.empty? or bk_build.nil?
+      project = bk_project unless bk_project.nil? or bk_project.empty?
+      build = bk_build unless bk_build.nil? or bk_build.empty?
       name = bk_name
     end
     {

@@ -49,7 +49,7 @@ steps:
       docker-compose#v3.3.0:
         run: browserstack-app-automate
     command: 'bundle exec bugsnag-maze-runner'
-    concurrency: 5
+    concurrency: 10
     concurrency_group: 'browserstack-app'
 
   - label: 'Payload helper tests'
@@ -60,14 +60,7 @@ steps:
 
   - wait
 
-  - label: 'Update docs'
-    if: build.branch == "master"
-    plugins:
-      docker-compose#v3.3.0:
-        run: docs
-    command: 'bundle exec rake docs:build_and_publish'
-
-  - label: 'Push Docker image branch'
+  - label: 'Push Docker image for branch'
     plugins:
       - docker-compose#v3.3.0:
           build: cli
@@ -76,6 +69,13 @@ steps:
           push:
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
 
+  - label: 'Update docs'
+    if: build.tag =~ /^v2\.[0-9]+\.[0-9]+\$/
+    plugins:
+      docker-compose#v3.3.0:
+        run: docs
+    command: 'bundle exec rake docs:build_and_publish'
+
   - label: 'Push Docker image for tag'
     if: build.tag =~ /^v2\.[0-9]+\.[0-9]+\$/
     plugins:
@@ -83,3 +83,4 @@ steps:
           push:
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BUILDKITE_TAG}-cli
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:latest-cli
+

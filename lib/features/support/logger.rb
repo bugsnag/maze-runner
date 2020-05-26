@@ -4,6 +4,7 @@ require 'logger'
 
 # A logger, with level configured according to the environment
 class MazeLogger < Logger
+  include Singleton
   def initialize
     if ENV['VERBOSE'] || ENV['DEBUG']
       super(STDOUT, level: Logger::DEBUG)
@@ -16,5 +17,7 @@ class MazeLogger < Logger
   end
 end
 
-# TODO Added for backward compatibility, but remove in time
-$logger = MazeLogger.new
+# TODO: Added for backward compatibility, but use of the global should be
+#   replaced with accessing the singleton instance (assigning to local
+#   variables for brevity as appropriate).
+$logger = MazeLogger.instance

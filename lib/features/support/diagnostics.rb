@@ -8,12 +8,11 @@ After do |scenario|
       $logger.info 'No requests received'
     else
       $logger.info 'The following requests were received:'
-      Server.stored_requests.each_with_index do |request, number|
+      Server.stored_requests.each.with_index(1) do |request, number|
         json = JSON.pretty_generate request
         $logger.info "Request #{number}: \n#{json}"
       end
     end
   end
 end
-
 

@@ -2,8 +2,13 @@
 
 require 'json'
 
+Before do |scenario|
+  STDOUT.puts "--- Scenario: #{scenario.name}"
+end
+
 After do |scenario|
   if scenario.failed?
+    STDOUT.puts '^^^ +++'
     if Server.stored_requests.empty?
       $logger.info 'No requests received'
     else

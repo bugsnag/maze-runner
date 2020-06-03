@@ -3,6 +3,7 @@
 # Enhancements.
 - Run Cucumber with strict mode, unless any strict/no-strict option has been set.
 - Log all received requests when a Scenario fails
+- Auto-collapse log output for passing scenarios when run using Buildkite
 
 # 2.0.0
 

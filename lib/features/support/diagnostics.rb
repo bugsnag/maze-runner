@@ -3,7 +3,7 @@
 require 'json'
 
 Before do |scenario|
-  STDOUT.puts "--- #{scenario.name}"
+  STDOUT.puts "--- Scenario: #{scenario.name}"
 end
 
 After do |scenario|

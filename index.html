@@ -6,7 +6,7 @@
 <title>
   File: DOCS
   
-    &mdash; Documentation by YARD 0.9.24
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
@@ -61,20 +61,20 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><div id='filecontents'><h1>Maze Runner 🏃</h1>
+      <div id="content"><div id='filecontents'><h1 id="maze-runner">Maze Runner 🏃</h1>
 
 <p>A test runner for validating requests</p>
 
-<h2>How it works</h2>
+<h2 id="how-it-works">How it works</h2>
 
 <p>The test harness launches a mock API which awaits requests from sample
 applications. Using the runner, each scenario is executed and the requests are
 validated to have to correct fields and values. Uses Gherkin and Cucumber under
 the hood to draft semantic tests.</p>
 
-<h2>Setting up a new project</h2>
+<h2 id="setting-up-a-new-project">Setting up a new project</h2>
 
-<h3>First time setup and running locally</h3>
+<h3 id="first-time-setup-and-running-locally">First time setup and running locally</h3>
 
 <ol>
 <li>Install the <code>bundler</code> gem:</li>
@@ -117,7 +117,7 @@ which should be run before or after each scenario can go into special
 <pre class="code shell"><code class="shell">   bundle exec bugsnag-maze-runner
 </code></pre>
 
-<h2>Writing features</h2>
+<h2 id="writing-features">Writing features</h2>
 
 <p>Features should be composed as concisely has possible, reusing existing steps as
 needed. The harness provides a number of reusable step definitions for
@@ -181,13 +181,13 @@ configuration should go.</p>
 </span><span class='const'>After</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_scenario'>scenario</span><span class='op'>|</span>
   <span class='comment'># Teardown scenario configuration here
 </span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_scenario'>scenario</span><span class='period'>.</span><span class='id identifier rubyid_failed?'>failed?</span>    <span class='comment'># Can be used to do specific cleanup if a scenario fails
-</span>
-  <span class='kw'>end</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_scenario'>scenario</span><span class='period'>.</span><span class='id identifier rubyid_failed?'>failed?</span>
+    <span class='comment'># Can be used to do specific cleanup if a scenario fails
+</span>  <span class='kw'>end</span>
 <span class='kw'>end</span>
 </code></pre>
 
-<h3>Step definition links</h3>
+<h3 id="step-definition-links">Step definition links</h3>
 
 <ul>
 <li><a href="/maze-runner/requirements/step_transformers.html#step_definition66-stepdefinition">Request assertion steps</a></li>
@@ -199,9 +199,9 @@ configuration should go.</p>
 <li><a href="/maze-runner/requirements/step_transformers.html#step_definition25-stepdefinition">BrowserStack steps</a></li>
 </ul>
 
-<h3>Step examples</h3>
+<h3 id="step-examples">Step examples</h3>
 
-<h4>Field path notation</h4>
+<h4 id="field-path-notation">Field path notation</h4>
 
 <p>Anywhere a <code>{field}</code>, <code>{path}</code>, <code>{key_path}</code>, etc is denoted, it can be replaced with dot-delimited key path to indicate the path from the root of an object to the intended target.</p>
 
@@ -215,7 +215,7 @@ configuration should go.</p>
 }
 </code></pre>
 
-<h4>Using BrowserStack</h4>
+<h4 id="using-browserstack">Using BrowserStack</h4>
 
 <p>BrowserStack is used to drive many of the mobile device tests written using maze-runner.  For these tests we can use a driver class and accompanying set of steps to interface with the BrowserStack AppAutomate server.</p>
 
@@ -229,7 +229,7 @@ configuration should go.</p>
 
 <p>This adds the <code>$driver</code> global variable which can be used to write custom steps using the API provided by the <code>Appium::Driver</code> class.</p>
 
-<h4>On matching JSON templates</h4>
+<h4 id="on-matching-json-templates">On matching JSON templates</h4>
 
 <p>For the following steps:</p>
 
@@ -264,7 +264,7 @@ Then the payload field &quot;items.0.subset&quot; matches the JSON fixture in &q
 <pre class="code json"><code class="json">{ &quot;fruit&quot;: { &quot;apple&quot;: &quot;some nonsense&quot; } }
 </code></pre>
 
-<h2>Running features</h2>
+<h2 id="running-features">Running features</h2>
 
 <p>Run the entire suite using <code>bundle exec bugsnag-maze-runner</code>. Alternately, you
 can specify specific files to run:</p>
@@ -275,9 +275,9 @@ can specify specific files to run:</p>
 <p>Add the <code>--verbose</code> option to print script output and a trace of what Ruby file
 is being run.</p>
 
-<h2>Troubleshooting</h2>
+<h2 id="troubleshooting">Troubleshooting</h2>
 
-<h3>Logging</h3>
+<h3 id="logging">Logging</h3>
 
 <p>Maze-runner contains a Ruby logger connected to <code>STDOUT</code> that will attempt to log several events that occur during the testing life-cycle.
 By default the logger is set to report <code>INFO</code> level events or higher, but will log <code>DEBUG</code> level events if the <code>VERBOSE</code> or <code>DEBUG</code> flags are set.  If the <code>QUIET</code> flag is set it will instead log at the <code>ERROR</code> level and above.</p>
@@ -331,7 +331,7 @@ By default the logger is set to report <code>INFO</code> level events or higher,
 </tr>
 </tbody></table>
 
-<h3>Known issues</h3>
+<h3 id="known-issues">Known issues</h3>
 
 <ul>
 <li>Testing on iOS sometimes fails while Android Studio or gradle or some Android
@@ -341,22 +341,22 @@ possible regex match (e.g. when using &quot;.&quot; as a part of an expected val
 without escaping it).</li>
 </ul>
 
-<h2>Contributing</h2>
+<h2 id="contributing">Contributing</h2>
 
 <p>If steps would be useful for different projects using maze-runner, add them to
 <code>lib/features/steps/</code>. If there are useful helper functions, add them to
 <code>lib/features/support/*.rb</code>.</p>
 
-<h3>Running the tests</h3>
+<h3 id="running-the-tests">Running the tests</h3>
 
 <p>bugsnag-maze-runner uses test-unit and minunit to bootstrap itself and run the
 sample app suites in the test fixtures. Run <code>bundle exec rake</code> to run the suite.</p>
 </div></div>
 
       <div id="footer">
-  Generated on Fri May 22 14:42:54 2020 by
+  Generated on Thu Jun  4 14:40:42 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.24 (ruby-2.7.1).
+  0.9.25 (ruby-2.7.1).
 </div>
 
     </div>

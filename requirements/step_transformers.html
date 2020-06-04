@@ -6,7 +6,7 @@
 <title>
   Step Definitions and Transforms
   
-    &mdash; Documentation by YARD 0.9.24
+    &mdash; Documentation by YARD 0.9.25
   
 </title>
 
@@ -6334,9 +6334,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <a name="step_definition66-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">"I wait to receive a request"</span>
+    <span class="name">'I wait to receive a request'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex=%22I+wait+to+receive+a+request%22" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='I+wait+to+receive+a+request'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -6376,8 +6376,8 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 52</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>I wait to receive a request</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_step'>step</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>I wait to receive 1 request</span><span class='tstring_end'>&quot;</span></span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I wait to receive a request</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_step'>step</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I wait to receive 1 request</span><span class='tstring_end'>&#39;</span></span>
 <span class='kw'>end</span></pre>
           </td>
         </tr>
@@ -6406,9 +6406,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <a name="step_definition67-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">"I wait to receive {int} request(s)"</span>
+    <span class="name">'I wait to receive {int} request(s)'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex=%22I+wait+to+receive+%7Bint%7D+request(s)%22" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='I+wait+to+receive+%7Bint%7D+request(s)'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -6469,13 +6469,10 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 65
 66
 67
-68
-69
-70
-71</pre>
+68</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>I wait to receive {int} request(s)</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_count'>request_count</span><span class='op'>|</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I wait to receive {int} request(s)</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_count'>request_count</span><span class='op'>|</span>
   <span class='id identifier rubyid_max_attempts'>max_attempts</span> <span class='op'>=</span> <span class='int'>300</span>
   <span class='id identifier rubyid_attempts'>attempts</span> <span class='op'>=</span> <span class='int'>0</span>
   <span class='id identifier rubyid_received'>received</span> <span class='op'>=</span> <span class='kw'>false</span>
@@ -6485,9 +6482,6 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
     <span class='id identifier rubyid_sleep'>sleep</span> <span class='float'>0.1</span>
   <span class='kw'>end</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Requests not received in 30s (received </span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_stored_requests'><span class='object_link'><a href="../Server.html#stored_requests-class_method" title="Server.stored_requests (method)">stored_requests</a></span></span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='embexpr_end'>}</span><span class='tstring_content'>)</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_received'>received</span>
-  <span class='kw'>unless</span> <span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_stored_requests'><span class='object_link'><a href="../Server.html#stored_requests-class_method" title="Server.stored_requests (method)">stored_requests</a></span></span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span> <span class='op'>==</span> <span class='id identifier rubyid_request_count'>request_count</span>
-    <span class='gvar'>$logger</span><span class='period'>.</span><span class='id identifier rubyid_warn'>warn</span> <span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_stored_requests'><span class='object_link'><a href="../Server.html#stored_requests-class_method" title="Server.stored_requests (method)">stored_requests</a></span></span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span>
-  <span class='kw'>end</span>
   <span class='id identifier rubyid_assert_equal'>assert_equal</span><span class='lparen'>(</span><span class='id identifier rubyid_request_count'>request_count</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_stored_requests'><span class='object_link'><a href="../Server.html#stored_requests-class_method" title="Server.stored_requests (method)">stored_requests</a></span></span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_stored_requests'><span class='object_link'><a href="../Server.html#stored_requests-class_method" title="Server.stored_requests (method)">stored_requests</a></span></span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='embexpr_end'>}</span><span class='tstring_content'> requests received</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
           </td>
@@ -6517,9 +6511,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <a name="step_definition68-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">"I should receive no requests"</span>
+    <span class="name">'I should receive no requests'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex=%22I+should+receive+no+requests%22" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='I+should+receive+no+requests'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -6530,7 +6524,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:74</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:71</div>
     </div>
     
     <!-- Comments -->
@@ -6554,12 +6548,12 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">74
-75
-76</pre>
+            <pre class="lines">71
+72
+73</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>I should receive no requests</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I should receive no requests</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_assert_equal'>assert_equal</span><span class='lparen'>(</span><span class='int'>0</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_stored_requests'><span class='object_link'><a href="../Server.html#stored_requests-class_method" title="Server.stored_requests (method)">stored_requests</a></span></span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_stored_requests'><span class='object_link'><a href="../Server.html#stored_requests-class_method" title="Server.stored_requests (method)">stored_requests</a></span></span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='embexpr_end'>}</span><span class='tstring_content'> requests received</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
           </td>
@@ -6589,9 +6583,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <a name="step_definition69-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">"I discard the oldest request"</span>
+    <span class="name">'I discard the oldest request'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex=%22I+discard+the+oldest+request%22" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='I+discard+the+oldest+request'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -6602,7 +6596,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:79</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:76</div>
     </div>
     
     <!-- Comments -->
@@ -6626,12 +6620,12 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">79
-80
-81</pre>
+            <pre class="lines">76
+77
+78</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>I discard the oldest request</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I discard the oldest request</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
   <span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_stored_requests'><span class='object_link'><a href="../Server.html#stored_requests-class_method" title="Server.stored_requests (method)">stored_requests</a></span></span><span class='period'>.</span><span class='id identifier rubyid_shift'>shift</span>
 <span class='kw'>end</span></pre>
           </td>
@@ -6661,9 +6655,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <a name="step_definition70-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">"the {string} header is not null"</span>
+    <span class="name">'the {string} header is not null'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex=%22the+%7Bstring%7D+header+is+not+null%22" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='the+%7Bstring%7D+header+is+not+null'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -6674,7 +6668,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:86</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:83</div>
     </div>
     
     <!-- Comments -->
@@ -6713,13 +6707,13 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">86
-87
-88
-89</pre>
+            <pre class="lines">83
+84
+85
+86</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the {string} header is not null</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_header_name'>header_name</span><span class='op'>|</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {string} header is not null</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_header_name'>header_name</span><span class='op'>|</span>
   <span class='id identifier rubyid_assert_not_nil'>assert_not_nil</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:request</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_header_name'>header_name</span><span class='rbracket'>]</span><span class='comma'>,</span>
                 <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_header_name'>header_name</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; header should not be null</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -6750,9 +6744,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <a name="step_definition71-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">"the {string} header equals {string}"</span>
+    <span class="name">'the {string} header equals {string}'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex=%22the+%7Bstring%7D+header+equals+%7Bstring%7D%22" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='the+%7Bstring%7D+header+equals+%7Bstring%7D'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -6763,7 +6757,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:95</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:92</div>
     </div>
     
     <!-- Comments -->
@@ -6813,12 +6807,12 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">95
-96
-97</pre>
+            <pre class="lines">92
+93
+94</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the {string} header equals {string}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_header_name'>header_name</span><span class='comma'>,</span> <span class='id identifier rubyid_header_value'>header_value</span><span class='op'>|</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {string} header equals {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_header_name'>header_name</span><span class='comma'>,</span> <span class='id identifier rubyid_header_value'>header_value</span><span class='op'>|</span>
   <span class='id identifier rubyid_assert_equal'>assert_equal</span><span class='lparen'>(</span><span class='id identifier rubyid_header_value'>header_value</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:request</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_header_name'>header_name</span><span class='rbracket'>]</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
           </td>
@@ -6848,9 +6842,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <a name="step_definition72-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">"the {string} header equals one of:"</span>
+    <span class="name">'the {string} header equals one of:'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex=%22the+%7Bstring%7D+header+equals+one+of:%22" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='the+%7Bstring%7D+header+equals+one+of:'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -6861,7 +6855,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:103</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:100</div>
     </div>
     
     <!-- Comments -->
@@ -6911,12 +6905,12 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">103
-104
-105</pre>
+            <pre class="lines">100
+101
+102</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the {string} header equals one of:</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_header_name'>header_name</span><span class='comma'>,</span> <span class='id identifier rubyid_header_values'>header_values</span><span class='op'>|</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {string} header equals one of:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_header_name'>header_name</span><span class='comma'>,</span> <span class='id identifier rubyid_header_values'>header_values</span><span class='op'>|</span>
   <span class='id identifier rubyid_assert_includes'>assert_includes</span><span class='lparen'>(</span><span class='id identifier rubyid_header_values'>header_values</span><span class='period'>.</span><span class='id identifier rubyid_raw'>raw</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:request</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_header_name'>header_name</span><span class='rbracket'>]</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
           </td>
@@ -6946,9 +6940,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <a name="step_definition73-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">"the {string} header is a timestamp"</span>
+    <span class="name">'the {string} header is a timestamp'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex=%22the+%7Bstring%7D+header+is+a+timestamp%22" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='the+%7Bstring%7D+header+is+a+timestamp'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -6959,7 +6953,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:111</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:108</div>
     </div>
     
     <!-- Comments -->
@@ -6999,13 +6993,13 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">111
-112
-113
-114</pre>
+            <pre class="lines">108
+109
+110
+111</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the {string} header is a timestamp</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_header_name'>header_name</span><span class='op'>|</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {string} header is a timestamp</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_header_name'>header_name</span><span class='op'>|</span>
   <span class='id identifier rubyid_header'>header</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:request</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_header_name'>header_name</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_assert_match'>assert_match</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../top-level-namespace.html#TIMESTAMP_REGEX-constant" title="TIMESTAMP_REGEX (constant)">TIMESTAMP_REGEX</a></span></span><span class='comma'>,</span> <span class='id identifier rubyid_header'>header</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -7036,9 +7030,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <a name="step_definition74-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">"the {string} query parameter equals {string}"</span>
+    <span class="name">'the {string} query parameter equals {string}'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex=%22the+%7Bstring%7D+query+parameter+equals+%7Bstring%7D%22" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='the+%7Bstring%7D+query+parameter+equals+%7Bstring%7D'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -7049,7 +7043,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:120</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:117</div>
     </div>
     
     <!-- Comments -->
@@ -7099,12 +7093,12 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">120
-121
-122</pre>
+            <pre class="lines">117
+118
+119</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the {string} query parameter equals {string}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_parameter_name'>parameter_name</span><span class='comma'>,</span> <span class='id identifier rubyid_parameter_value'>parameter_value</span><span class='op'>|</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {string} query parameter equals {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_parameter_name'>parameter_name</span><span class='comma'>,</span> <span class='id identifier rubyid_parameter_value'>parameter_value</span><span class='op'>|</span>
   <span class='id identifier rubyid_assert_equal'>assert_equal</span><span class='lparen'>(</span><span class='id identifier rubyid_parameter_value'>parameter_value</span><span class='comma'>,</span> <span class='id identifier rubyid_parse_querystring'><span class='object_link'><a href="../top-level-namespace.html#parse_querystring-instance_method" title="#parse_querystring (method)">parse_querystring</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='id identifier rubyid_parameter_name'>parameter_name</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
           </td>
@@ -7134,9 +7128,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <a name="step_definition75-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">"the {string} query parameter is not null"</span>
+    <span class="name">'the {string} query parameter is not null'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex=%22the+%7Bstring%7D+query+parameter+is+not+null%22" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='the+%7Bstring%7D+query+parameter+is+not+null'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -7147,7 +7141,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:127</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:124</div>
     </div>
     
     <!-- Comments -->
@@ -7186,12 +7180,12 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">127
-128
-129</pre>
+            <pre class="lines">124
+125
+126</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the {string} query parameter is not null</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_parameter_name'>parameter_name</span><span class='op'>|</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {string} query parameter is not null</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_parameter_name'>parameter_name</span><span class='op'>|</span>
   <span class='id identifier rubyid_assert_not_nil'>assert_not_nil</span><span class='lparen'>(</span><span class='id identifier rubyid_parse_querystring'><span class='object_link'><a href="../top-level-namespace.html#parse_querystring-instance_method" title="#parse_querystring (method)">parse_querystring</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='id identifier rubyid_parameter_name'>parameter_name</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_parameter_name'>parameter_name</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; query parameter should not be null</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
           </td>
@@ -7221,9 +7215,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <a name="step_definition76-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">"the {string} query parameter is a timestamp"</span>
+    <span class="name">'the {string} query parameter is a timestamp'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex=%22the+%7Bstring%7D+query+parameter+is+a+timestamp%22" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='the+%7Bstring%7D+query+parameter+is+a+timestamp'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -7234,7 +7228,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:135</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:132</div>
     </div>
     
     <!-- Comments -->
@@ -7274,13 +7268,13 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">135
-136
-137
-138</pre>
+            <pre class="lines">132
+133
+134
+135</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the {string} query parameter is a timestamp</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_parameter_name'>parameter_name</span><span class='op'>|</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {string} query parameter is a timestamp</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_parameter_name'>parameter_name</span><span class='op'>|</span>
   <span class='id identifier rubyid_param'>param</span> <span class='op'>=</span> <span class='id identifier rubyid_parse_querystring'><span class='object_link'><a href="../top-level-namespace.html#parse_querystring-instance_method" title="#parse_querystring (method)">parse_querystring</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='id identifier rubyid_parameter_name'>parameter_name</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_assert_match'>assert_match</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../top-level-namespace.html#TIMESTAMP_REGEX-constant" title="TIMESTAMP_REGEX (constant)">TIMESTAMP_REGEX</a></span></span><span class='comma'>,</span> <span class='id identifier rubyid_param'>param</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -7311,9 +7305,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <a name="step_definition77-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">"the multipart request has {int} fields"</span>
+    <span class="name">'the multipart request has {int} fields'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex=%22the+multipart+request+has+%7Bint%7D+fields%22" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='the+multipart+request+has+%7Bint%7D+fields'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -7324,7 +7318,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:143</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:140</div>
     </div>
     
     <!-- Comments -->
@@ -7363,13 +7357,13 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">143
-144
-145
-146</pre>
+            <pre class="lines">140
+141
+142
+143</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the multipart request has {int} fields</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_part_count'>part_count</span><span class='op'>|</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the multipart request has {int} fields</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_part_count'>part_count</span><span class='op'>|</span>
   <span class='id identifier rubyid_parts'>parts</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_assert_equal'>assert_equal</span><span class='lparen'>(</span><span class='id identifier rubyid_part_count'>part_count</span><span class='comma'>,</span> <span class='id identifier rubyid_parts'>parts</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -7400,9 +7394,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <a name="step_definition78-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">"the field {string} for multipart request is not null"</span>
+    <span class="name">'the field {string} for multipart request is not null'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex=%22the+field+%7Bstring%7D+for+multipart+request+is+not+null%22" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='the+field+%7Bstring%7D+for+multipart+request+is+not+null'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -7413,7 +7407,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:151</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:148</div>
     </div>
     
     <!-- Comments -->
@@ -7452,13 +7446,13 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">151
-152
-153
-154</pre>
+            <pre class="lines">148
+149
+150
+151</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the field {string} for multipart request is not null</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_part_key'>part_key</span><span class='op'>|</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the field {string} for multipart request is not null</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_part_key'>part_key</span><span class='op'>|</span>
   <span class='id identifier rubyid_parts'>parts</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_assert_not_nil'>assert_not_nil</span><span class='lparen'>(</span><span class='id identifier rubyid_parts'>parts</span><span class='lbracket'>[</span><span class='id identifier rubyid_part_key'>part_key</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The field &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_part_key'>part_key</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; should not be null</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -7489,9 +7483,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <a name="step_definition79-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">"the field {string} for multipart request equals {string}"</span>
+    <span class="name">'the field {string} for multipart request equals {string}'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex=%22the+field+%7Bstring%7D+for+multipart+request+equals+%7Bstring%7D%22" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='the+field+%7Bstring%7D+for+multipart+request+equals+%7Bstring%7D'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -7502,7 +7496,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:160</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:157</div>
     </div>
     
     <!-- Comments -->
@@ -7552,13 +7546,13 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">160
-161
-162
-163</pre>
+            <pre class="lines">157
+158
+159
+160</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the field {string} for multipart request equals {string}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_part_key'>part_key</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_value'>expected_value</span><span class='op'>|</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the field {string} for multipart request equals {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_part_key'>part_key</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_value'>expected_value</span><span class='op'>|</span>
   <span class='id identifier rubyid_parts'>parts</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_assert_equal'>assert_equal</span><span class='lparen'>(</span><span class='id identifier rubyid_parts'>parts</span><span class='lbracket'>[</span><span class='id identifier rubyid_part_key'>part_key</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_value'>expected_value</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -7589,9 +7583,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <a name="step_definition80-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">"the field {string} for multipart request is null"</span>
+    <span class="name">'the field {string} for multipart request is null'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex=%22the+field+%7Bstring%7D+for+multipart+request+is+null%22" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='the+field+%7Bstring%7D+for+multipart+request+is+null'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -7602,7 +7596,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:168</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:165</div>
     </div>
     
     <!-- Comments -->
@@ -7641,13 +7635,13 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">168
-169
-170
-171</pre>
+            <pre class="lines">165
+166
+167
+168</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the field {string} for multipart request is null</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_part_key'>part_key</span><span class='op'>|</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the field {string} for multipart request is null</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_part_key'>part_key</span><span class='op'>|</span>
   <span class='id identifier rubyid_parts'>parts</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_assert_nil'>assert_nil</span><span class='lparen'>(</span><span class='id identifier rubyid_parts'>parts</span><span class='lbracket'>[</span><span class='id identifier rubyid_part_key'>part_key</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The field &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_part_key'>part_key</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; should be null</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -7678,9 +7672,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <a name="step_definition81-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">"the payload body does not match the JSON fixture in {string}"</span>
+    <span class="name">'the payload body does not match the JSON fixture in {string}'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex=%22the+payload+body+does+not+match+the+JSON+fixture+in+%7Bstring%7D%22" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='the+payload+body+does+not+match+the+JSON+fixture+in+%7Bstring%7D'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -7691,7 +7685,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:176</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:173</div>
     </div>
     
     <!-- Comments -->
@@ -7730,15 +7724,15 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">176
+            <pre class="lines">173
+174
+175
+176
 177
-178
-179
-180
-181</pre>
+178</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the payload body does not match the JSON fixture in {string}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_fixture_path'>fixture_path</span><span class='op'>|</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the payload body does not match the JSON fixture in {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_fixture_path'>fixture_path</span><span class='op'>|</span>
   <span class='id identifier rubyid_payload_value'>payload_value</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_expected_value'>expected_value</span> <span class='op'>=</span> <span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='id identifier rubyid_fixture_path'>fixture_path</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='symbol'>:read</span><span class='rparen'>)</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='id identifier rubyid_value_compare'><span class='object_link'><a href="../top-level-namespace.html#value_compare-instance_method" title="#value_compare (method)">value_compare</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_expected_value'>expected_value</span><span class='comma'>,</span> <span class='id identifier rubyid_payload_value'>payload_value</span><span class='rparen'>)</span>
@@ -7771,9 +7765,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <a name="step_definition82-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">"the payload body matches the JSON fixture in {string}"</span>
+    <span class="name">'the payload body matches the JSON fixture in {string}'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex=%22the+payload+body+matches+the+JSON+fixture+in+%7Bstring%7D%22" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='the+payload+body+matches+the+JSON+fixture+in+%7Bstring%7D'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -7784,7 +7778,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:186</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:183</div>
     </div>
     
     <!-- Comments -->
@@ -7823,15 +7817,15 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">186
+            <pre class="lines">183
+184
+185
+186
 187
-188
-189
-190
-191</pre>
+188</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the payload body matches the JSON fixture in {string}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_fixture_path'>fixture_path</span><span class='op'>|</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the payload body matches the JSON fixture in {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_fixture_path'>fixture_path</span><span class='op'>|</span>
   <span class='id identifier rubyid_payload_value'>payload_value</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_expected_value'>expected_value</span> <span class='op'>=</span> <span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='id identifier rubyid_fixture_path'>fixture_path</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='symbol'>:read</span><span class='rparen'>)</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='id identifier rubyid_value_compare'><span class='object_link'><a href="../top-level-namespace.html#value_compare-instance_method" title="#value_compare (method)">value_compare</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_expected_value'>expected_value</span><span class='comma'>,</span> <span class='id identifier rubyid_payload_value'>payload_value</span><span class='rparen'>)</span>
@@ -7864,9 +7858,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <a name="step_definition83-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">"the payload field {string} matches the JSON fixture in {string}"</span>
+    <span class="name">'the payload field {string} matches the JSON fixture in {string}'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex=%22the+payload+field+%7Bstring%7D+matches+the+JSON+fixture+in+%7Bstring%7D%22" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='the+payload+field+%7Bstring%7D+matches+the+JSON+fixture+in+%7Bstring%7D'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -7877,7 +7871,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:197</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:194</div>
     </div>
     
     <!-- Comments -->
@@ -7927,15 +7921,15 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">197
+            <pre class="lines">194
+195
+196
+197
 198
-199
-200
-201
-202</pre>
+199</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the payload field {string} matches the JSON fixture in {string}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_fixture_path'>fixture_path</span><span class='op'>|</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the payload field {string} matches the JSON fixture in {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_fixture_path'>fixture_path</span><span class='op'>|</span>
   <span class='id identifier rubyid_payload_value'>payload_value</span> <span class='op'>=</span> <span class='id identifier rubyid_read_key_path'><span class='object_link'><a href="../top-level-namespace.html#read_key_path-instance_method" title="#read_key_path (method)">read_key_path</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_expected_value'>expected_value</span> <span class='op'>=</span> <span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='id identifier rubyid_fixture_path'>fixture_path</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='symbol'>:read</span><span class='rparen'>)</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='id identifier rubyid_value_compare'><span class='object_link'><a href="../top-level-namespace.html#value_compare-instance_method" title="#value_compare (method)">value_compare</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_expected_value'>expected_value</span><span class='comma'>,</span> <span class='id identifier rubyid_payload_value'>payload_value</span><span class='rparen'>)</span>
@@ -7968,9 +7962,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <a name="step_definition84-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">"the payload field {string} is true"</span>
+    <span class="name">'the payload field {string} is true'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex=%22the+payload+field+%7Bstring%7D+is+true%22" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='the+payload+field+%7Bstring%7D+is+true'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -7981,7 +7975,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:207</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:204</div>
     </div>
     
     <!-- Comments -->
@@ -8020,12 +8014,12 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">207
-208
-209</pre>
+            <pre class="lines">204
+205
+206</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the payload field {string} is true</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='op'>|</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the payload field {string} is true</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='op'>|</span>
   <span class='id identifier rubyid_assert_equal'>assert_equal</span><span class='lparen'>(</span><span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_read_key_path'><span class='object_link'><a href="../top-level-namespace.html#read_key_path-instance_method" title="#read_key_path (method)">read_key_path</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='rparen'>)</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
           </td>
@@ -8055,9 +8049,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <a name="step_definition85-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">"the payload field {string} is false"</span>
+    <span class="name">'the payload field {string} is false'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex=%22the+payload+field+%7Bstring%7D+is+false%22" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='the+payload+field+%7Bstring%7D+is+false'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -8068,7 +8062,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:214</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:211</div>
     </div>
     
     <!-- Comments -->
@@ -8107,12 +8101,12 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">214
-215
-216</pre>
+            <pre class="lines">211
+212
+213</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the payload field {string} is false</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='op'>|</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the payload field {string} is false</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='op'>|</span>
   <span class='id identifier rubyid_assert_equal'>assert_equal</span><span class='lparen'>(</span><span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_read_key_path'><span class='object_link'><a href="../top-level-namespace.html#read_key_path-instance_method" title="#read_key_path (method)">read_key_path</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='rparen'>)</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
           </td>
@@ -8142,9 +8136,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <a name="step_definition86-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">"the payload field {string} is null"</span>
+    <span class="name">'the payload field {string} is null'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex=%22the+payload+field+%7Bstring%7D+is+null%22" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='the+payload+field+%7Bstring%7D+is+null'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -8155,7 +8149,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:221</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:218</div>
     </div>
     
     <!-- Comments -->
@@ -8194,13 +8188,13 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">221
-222
-223
-224</pre>
+            <pre class="lines">218
+219
+220
+221</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the payload field {string} is null</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='op'>|</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the payload field {string} is null</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='op'>|</span>
   <span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='id identifier rubyid_read_key_path'><span class='object_link'><a href="../top-level-namespace.html#read_key_path-instance_method" title="#read_key_path (method)">read_key_path</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_assert_nil'>assert_nil</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The field &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_field_path'>field_path</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; should be null but is </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_value'>value</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -8231,9 +8225,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <a name="step_definition87-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">"the payload field {string} is not null"</span>
+    <span class="name">'the payload field {string} is not null'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex=%22the+payload+field+%7Bstring%7D+is+not+null%22" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='the+payload+field+%7Bstring%7D+is+not+null'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -8244,7 +8238,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:229</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:226</div>
     </div>
     
     <!-- Comments -->
@@ -8283,13 +8277,13 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">229
-230
-231
-232</pre>
+            <pre class="lines">226
+227
+228
+229</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the payload field {string} is not null</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='op'>|</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the payload field {string} is not null</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='op'>|</span>
   <span class='id identifier rubyid_assert_not_nil'>assert_not_nil</span><span class='lparen'>(</span><span class='id identifier rubyid_read_key_path'><span class='object_link'><a href="../top-level-namespace.html#read_key_path-instance_method" title="#read_key_path (method)">read_key_path</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='rparen'>)</span><span class='comma'>,</span>
                 <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The field &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_field_path'>field_path</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; should not be null</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -8320,9 +8314,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <a name="step_definition88-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">"the payload field {string} equals {int}"</span>
+    <span class="name">'the payload field {string} equals {int}'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex=%22the+payload+field+%7Bstring%7D+equals+%7Bint%7D%22" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='the+payload+field+%7Bstring%7D+equals+%7Bint%7D'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -8333,7 +8327,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:238</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:235</div>
     </div>
     
     <!-- Comments -->
@@ -8383,12 +8377,12 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">238
-239
-240</pre>
+            <pre class="lines">235
+236
+237</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the payload field {string} equals {int}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_int_value'>int_value</span><span class='op'>|</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the payload field {string} equals {int}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_int_value'>int_value</span><span class='op'>|</span>
   <span class='id identifier rubyid_assert_equal'>assert_equal</span><span class='lparen'>(</span><span class='id identifier rubyid_int_value'>int_value</span><span class='comma'>,</span> <span class='id identifier rubyid_read_key_path'><span class='object_link'><a href="../top-level-namespace.html#read_key_path-instance_method" title="#read_key_path (method)">read_key_path</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='rparen'>)</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
           </td>
@@ -8418,9 +8412,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <a name="step_definition89-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">"the payload field {string} equals the environment variable {string}"</span>
+    <span class="name">'the payload field {string} equals the environment variable {string}'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex=%22the+payload+field+%7Bstring%7D+equals+the+environment+variable+%7Bstring%7D%22" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='the+payload+field+%7Bstring%7D+equals+the+environment+variable+%7Bstring%7D'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -8431,7 +8425,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:246</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:243</div>
     </div>
     
     <!-- Comments -->
@@ -8481,16 +8475,16 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">246
+            <pre class="lines">243
+244
+245
+246
 247
 248
-249
-250
-251
-252</pre>
+249</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the payload field {string} equals the environment variable {string}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_env_var'>env_var</span><span class='op'>|</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the payload field {string} equals the environment variable {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_env_var'>env_var</span><span class='op'>|</span>
   <span class='id identifier rubyid_environment_value'>environment_value</span> <span class='op'>=</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='id identifier rubyid_env_var'>env_var</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_assert_false'>assert_false</span><span class='lparen'>(</span><span class='id identifier rubyid_environment_value'>environment_value</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The environment variable </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_env_var'>env_var</span><span class='embexpr_end'>}</span><span class='tstring_content'> must not be nil</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='id identifier rubyid_read_key_path'><span class='object_link'><a href="../top-level-namespace.html#read_key_path-instance_method" title="#read_key_path (method)">read_key_path</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='rparen'>)</span>
@@ -8524,9 +8518,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <a name="step_definition90-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">"the payload field {string} is greater than {int}"</span>
+    <span class="name">'the payload field {string} is greater than {int}'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex=%22the+payload+field+%7Bstring%7D+is+greater+than+%7Bint%7D%22" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='the+payload+field+%7Bstring%7D+is+greater+than+%7Bint%7D'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -8537,7 +8531,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:258</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:255</div>
     </div>
     
     <!-- Comments -->
@@ -8587,14 +8581,14 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">258
-259
-260
-261
-262</pre>
+            <pre class="lines">255
+256
+257
+258
+259</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the payload field {string} is greater than {int}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_int_value'>int_value</span><span class='op'>|</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the payload field {string} is greater than {int}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_int_value'>int_value</span><span class='op'>|</span>
   <span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='id identifier rubyid_read_key_path'><span class='object_link'><a href="../top-level-namespace.html#read_key_path-instance_method" title="#read_key_path (method)">read_key_path</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_assert_kind_of'>assert_kind_of</span> <span class='const'>Integer</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span>
   <span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span> <span class='op'>&gt;</span> <span class='id identifier rubyid_int_value'>int_value</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The payload field &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_field_path'>field_path</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; is not greater than &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_int_value'>int_value</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -8626,9 +8620,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <a name="step_definition91-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">"the payload field {string} is less than {int}"</span>
+    <span class="name">'the payload field {string} is less than {int}'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex=%22the+payload+field+%7Bstring%7D+is+less+than+%7Bint%7D%22" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='the+payload+field+%7Bstring%7D+is+less+than+%7Bint%7D'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -8639,7 +8633,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:268</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:265</div>
     </div>
     
     <!-- Comments -->
@@ -8689,14 +8683,14 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">268
-269
-270
-271
-272</pre>
+            <pre class="lines">265
+266
+267
+268
+269</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the payload field {string} is less than {int}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_int_value'>int_value</span><span class='op'>|</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the payload field {string} is less than {int}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_int_value'>int_value</span><span class='op'>|</span>
   <span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='id identifier rubyid_read_key_path'><span class='object_link'><a href="../top-level-namespace.html#read_key_path-instance_method" title="#read_key_path (method)">read_key_path</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_assert_kind_of'>assert_kind_of</span> <span class='const'>Integer</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span>
   <span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span> <span class='op'>&lt;</span> <span class='id identifier rubyid_int_value'>int_value</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The payload field &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_field_path'>field_path</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; is not less than &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_int_value'>int_value</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -8728,9 +8722,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <a name="step_definition92-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">"the payload field {string} equals {string}"</span>
+    <span class="name">'the payload field {string} equals {string}'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex=%22the+payload+field+%7Bstring%7D+equals+%7Bstring%7D%22" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='the+payload+field+%7Bstring%7D+equals+%7Bstring%7D'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -8741,7 +8735,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:278</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:275</div>
     </div>
     
     <!-- Comments -->
@@ -8791,12 +8785,12 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">278
-279
-280</pre>
+            <pre class="lines">275
+276
+277</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the payload field {string} equals {string}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_string_value'>string_value</span><span class='op'>|</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the payload field {string} equals {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_string_value'>string_value</span><span class='op'>|</span>
   <span class='id identifier rubyid_assert_equal'>assert_equal</span><span class='lparen'>(</span><span class='id identifier rubyid_string_value'>string_value</span><span class='comma'>,</span> <span class='id identifier rubyid_read_key_path'><span class='object_link'><a href="../top-level-namespace.html#read_key_path-instance_method" title="#read_key_path (method)">read_key_path</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='rparen'>)</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
           </td>
@@ -8826,9 +8820,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <a name="step_definition93-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">"the payload field {string} starts with {string}"</span>
+    <span class="name">'the payload field {string} starts with {string}'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex=%22the+payload+field+%7Bstring%7D+starts+with+%7Bstring%7D%22" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='the+payload+field+%7Bstring%7D+starts+with+%7Bstring%7D'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -8839,7 +8833,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:286</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:283</div>
     </div>
     
     <!-- Comments -->
@@ -8889,14 +8883,14 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">286
-287
-288
-289
-290</pre>
+            <pre class="lines">283
+284
+285
+286
+287</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the payload field {string} starts with {string}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_string_value'>string_value</span><span class='op'>|</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the payload field {string} starts with {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_string_value'>string_value</span><span class='op'>|</span>
   <span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='id identifier rubyid_read_key_path'><span class='object_link'><a href="../top-level-namespace.html#read_key_path-instance_method" title="#read_key_path (method)">read_key_path</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_assert_kind_of'>assert_kind_of</span> <span class='const'>String</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span>
   <span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_start_with?'>start_with?</span><span class='lparen'>(</span><span class='id identifier rubyid_string_value'>string_value</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Field &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_field_path'>field_path</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; value (&#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_value'>value</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39;) does not start with &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_string_value'>string_value</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -8928,9 +8922,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <a name="step_definition94-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">"the payload field {string} ends with {string}"</span>
+    <span class="name">'the payload field {string} ends with {string}'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex=%22the+payload+field+%7Bstring%7D+ends+with+%7Bstring%7D%22" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='the+payload+field+%7Bstring%7D+ends+with+%7Bstring%7D'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -8941,7 +8935,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:296</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:293</div>
     </div>
     
     <!-- Comments -->
@@ -8991,14 +8985,14 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">296
-297
-298
-299
-300</pre>
+            <pre class="lines">293
+294
+295
+296
+297</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the payload field {string} ends with {string}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_string_value'>string_value</span><span class='op'>|</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the payload field {string} ends with {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_string_value'>string_value</span><span class='op'>|</span>
   <span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='id identifier rubyid_read_key_path'><span class='object_link'><a href="../top-level-namespace.html#read_key_path-instance_method" title="#read_key_path (method)">read_key_path</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_assert_kind_of'>assert_kind_of</span> <span class='const'>String</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span>
   <span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_end_with?'>end_with?</span> <span class='id identifier rubyid_string_value'>string_value</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Field &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_field_path'>field_path</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; does not end with &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_string_value'>string_value</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -9030,9 +9024,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <a name="step_definition95-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">"the payload field {string} is an array with {int} elements"</span>
+    <span class="name">'the payload field {string} is an array with {int} elements'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex=%22the+payload+field+%7Bstring%7D+is+an+array+with+%7Bint%7D+elements%22" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='the+payload+field+%7Bstring%7D+is+an+array+with+%7Bint%7D+elements'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -9043,7 +9037,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:306</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:303</div>
     </div>
     
     <!-- Comments -->
@@ -9093,14 +9087,14 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">306
-307
-308
-309
-310</pre>
+            <pre class="lines">303
+304
+305
+306
+307</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the payload field {string} is an array with {int} elements</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_count'>count</span><span class='op'>|</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the payload field {string} is an array with {int} elements</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_count'>count</span><span class='op'>|</span>
   <span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='id identifier rubyid_read_key_path'><span class='object_link'><a href="../top-level-namespace.html#read_key_path-instance_method" title="#read_key_path (method)">read_key_path</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_field'>field</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_assert_kind_of'>assert_kind_of</span> <span class='const'>Array</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span>
   <span class='id identifier rubyid_assert_equal'>assert_equal</span><span class='lparen'>(</span><span class='id identifier rubyid_count'>count</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span><span class='rparen'>)</span>
@@ -9132,9 +9126,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <a name="step_definition96-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">"the payload field {string} is a non-empty array"</span>
+    <span class="name">'the payload field {string} is a non-empty array'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex=%22the+payload+field+%7Bstring%7D+is+a+non-empty+array%22" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='the+payload+field+%7Bstring%7D+is+a+non-empty+array'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -9145,7 +9139,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:315</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:312</div>
     </div>
     
     <!-- Comments -->
@@ -9184,14 +9178,14 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">315
-316
-317
-318
-319</pre>
+            <pre class="lines">312
+313
+314
+315
+316</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the payload field {string} is a non-empty array</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='op'>|</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the payload field {string} is a non-empty array</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='op'>|</span>
   <span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='id identifier rubyid_read_key_path'><span class='object_link'><a href="../top-level-namespace.html#read_key_path-instance_method" title="#read_key_path (method)">read_key_path</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_field'>field</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_assert_kind_of'>assert_kind_of</span> <span class='const'>Array</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span>
   <span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>&gt;</span> <span class='int'>0</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the field &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_field'>field</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; must be a non-empty array</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -9223,9 +9217,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <a name="step_definition97-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">"the payload field {string} matches the regex {string}"</span>
+    <span class="name">'the payload field {string} matches the regex {string}'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex=%22the+payload+field+%7Bstring%7D+matches+the+regex+%7Bstring%7D%22" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='the+payload+field+%7Bstring%7D+matches+the+regex+%7Bstring%7D'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -9236,7 +9230,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:325</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:322</div>
     </div>
     
     <!-- Comments -->
@@ -9286,14 +9280,14 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">325
-326
-327
-328
-329</pre>
+            <pre class="lines">322
+323
+324
+325
+326</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the payload field {string} matches the regex {string}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_regex_string'>regex_string</span><span class='op'>|</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the payload field {string} matches the regex {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_regex_string'>regex_string</span><span class='op'>|</span>
   <span class='id identifier rubyid_regex'>regex</span> <span class='op'>=</span> <span class='const'>Regexp</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_regex_string'>regex_string</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='id identifier rubyid_read_key_path'><span class='object_link'><a href="../top-level-namespace.html#read_key_path-instance_method" title="#read_key_path (method)">read_key_path</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_field'>field</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_assert_match'>assert_match</span><span class='lparen'>(</span><span class='id identifier rubyid_regex'>regex</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
@@ -9325,9 +9319,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <a name="step_definition98-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">"the payload field {string} is a parsable timestamp in seconds"</span>
+    <span class="name">'the payload field {string} is a parsable timestamp in seconds'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex=%22the+payload+field+%7Bstring%7D+is+a+parsable+timestamp+in+seconds%22" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='the+payload+field+%7Bstring%7D+is+a+parsable+timestamp+in+seconds'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -9338,7 +9332,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:334</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:331</div>
     </div>
     
     <!-- Comments -->
@@ -9377,18 +9371,18 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">334
+            <pre class="lines">331
+332
+333
+334
 335
 336
 337
 338
-339
-340
-341
-342</pre>
+339</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the payload field {string} is a parsable timestamp in seconds</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='op'>|</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the payload field {string} is a parsable timestamp in seconds</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='op'>|</span>
   <span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='id identifier rubyid_read_key_path'><span class='object_link'><a href="../top-level-namespace.html#read_key_path-instance_method" title="#read_key_path (method)">read_key_path</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_field'>field</span><span class='rparen'>)</span>
   <span class='kw'>begin</span>
     <span class='id identifier rubyid_int'>int</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
@@ -9424,9 +9418,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <a name="step_definition99-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">"each element in payload field {string} has {string}"</span>
+    <span class="name">'each element in payload field {string} has {string}'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex=%22each+element+in+payload+field+%7Bstring%7D+has+%7Bstring%7D%22" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='each+element+in+payload+field+%7Bstring%7D+has+%7Bstring%7D'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -9437,7 +9431,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:348</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:345</div>
     </div>
     
     <!-- Comments -->
@@ -9487,17 +9481,17 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">348
+            <pre class="lines">345
+346
+347
+348
 349
 350
 351
-352
-353
-354
-355</pre>
+352</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>each element in payload field {string} has {string}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key_path'>key_path</span><span class='comma'>,</span> <span class='id identifier rubyid_element_key_path'>element_key_path</span><span class='op'>|</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>each element in payload field {string} has {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key_path'>key_path</span><span class='comma'>,</span> <span class='id identifier rubyid_element_key_path'>element_key_path</span><span class='op'>|</span>
   <span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='id identifier rubyid_read_key_path'><span class='object_link'><a href="../top-level-namespace.html#read_key_path-instance_method" title="#read_key_path (method)">read_key_path</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_key_path'>key_path</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_assert_kind_of'>assert_kind_of</span> <span class='const'>Array</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span>
   <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_element'>element</span><span class='op'>|</span>
@@ -9557,9 +9551,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 </div>
 
       <div id="footer">
-  Generated on Fri May 22 14:42:54 2020 by
+  Generated on Thu Jun  4 14:40:42 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.24 (ruby-2.7.1).
+  0.9.25 (ruby-2.7.1).
 </div>
 
     </div>

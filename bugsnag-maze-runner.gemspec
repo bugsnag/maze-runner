@@ -17,15 +17,14 @@ Gem::Specification.new do |spec|
 
   spec.executables = spec.files.grep(%r{^bin/[\w\-]+$}) { |f| File.basename(f) }
 
-  spec.add_dependency 'cucumber', '~> 3.1.0'
+  spec.add_dependency 'cucumber', '~> 3.1.2'
   spec.add_dependency 'gherkin', '~> 5.1.0'
   spec.add_dependency 'minitest', '~> 5.0'
   spec.add_dependency 'os', '~> 1.0.0'
   spec.add_dependency 'test-unit', '~> 3.3.0'
 
   spec.add_dependency 'appium_lib', '~> 10.2'
-  # Pinned due to issues with 5.0.16-5.0.17
-  spec.add_dependency 'cucumber-expressions', '5.0.15'
+  spec.add_dependency 'cucumber-expressions', '~> 6.0.0'
   spec.add_dependency 'curb', '~> 0.9.6'
   spec.add_dependency 'optimist', '~> 3.0.1'
   spec.add_dependency 'rake', '~> 12.3.3'

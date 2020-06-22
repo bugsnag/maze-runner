@@ -36,9 +36,16 @@ class MazeRunner
   def add_maze_runner_options
     @args << 'features' if @args.empty?
 
-    # Strict mode unless any no/strict option is given
+    # Add strict mode unless any no/strict option is given,
+    # but also allow flaky tests if --retry was provided.
     regex = /--(no-)?strict(-(undefined|pending|flaky))?/
-    @args << '--strict' if @args.all? { |arg| regex.match(arg).nil? }
+    if @args.all? { |arg| regex.match(arg).nil? }
+      if @args.any? '--retry'
+        @args << '--strict-undefined' << '--strict-pending'
+      else
+        @args << '--strict'
+      end
+    end
 
     # Load internal steps and helper functions
     load_dir = File.expand_path(File.dirname(File.dirname(__FILE__))).freeze

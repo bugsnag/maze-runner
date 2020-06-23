@@ -1,3 +1,9 @@
+# 2.1.2 - 2020/06/23
+
+## Fixes
+
+- Make --retry and --fail-fast play nicely together by bumping Cucumber to 3.1.2.
+
 # 2.1.1 - 2020/06/22
 
 ## Fixes

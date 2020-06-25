@@ -59,6 +59,6 @@ end
 #
 # @step_input seconds [Integer] The number of seconds to sleep for
 When("I wait for {int} second(s)") do |seconds|
-  $logger.warn "Sleep was used! Please avoid using sleep in tests!"
+  MazeLogger.warn "Sleep was used! Please avoid using sleep in tests!"
   sleep(seconds)
 end

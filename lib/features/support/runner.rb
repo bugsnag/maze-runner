@@ -23,7 +23,7 @@ class Runner
     # @return [Array] If blocking, the output and exit_status are returned
     def run_command(cmd, blocking: true, success_codes: [0])
       executor = lambda do
-        $logger.debug(cmd) { 'executing' }
+        MazeLogger.debug(cmd) { 'executing' }
 
         Open3.popen2e(environment, cmd) do |stdin, stdout_and_stderr, wait_thr|
           # Add the pid to the list of pids to kill at the end
@@ -32,15 +32,15 @@ class Runner
           output = []
           stdout_and_stderr.each do |line|
             output << line
-            $logger.debug(cmd) {line}
+            MazeLogger.debug(cmd) {line}
           end
 
           exit_status = wait_thr.value.to_i
-          $logger.debug(cmd) { "exit status: #{exit_status}" }
+          MazeLogger.debug(cmd) { "exit status: #{exit_status}" }
 
           # if the command fails we log the output at warn level too
-          if success_codes != nil && !success_codes.include?(exit_status) && $logger.level != Logger::DEBUG
-            output.each {|line| $logger.warn(cmd) {line}}
+          if success_codes != nil && !success_codes.include?(exit_status) && MazeLogger.level != Logger::DEBUG
+            output.each {|line| MazeLogger.warn(cmd) {line}}
           end
 
           return [output, exit_status]

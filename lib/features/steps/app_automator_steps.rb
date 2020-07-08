@@ -33,3 +33,22 @@ end
 When("I send the keys {string} to the element {string}") do |keys, element_id|
   $driver.send_keys_to_element(element_id, keys)
 end
+
+# Tests that the given payload value is correct for the target BrowserStack platform.
+# If the step is invoked when a remote BrowserStack device is not in use this step will fail.
+#
+# The DataTable used for this step should have `ios` and `android` in the same row as their expected value:
+#   | android | Java.lang.RuntimeException |
+#   | ios     | NSException                |
+#
+# @step_input field_path [String] The field to test
+# @step_input platform_values [DataTable] A table of acceptable values for each platform
+Then("the event {string} matches the correct platform value:") do |field_path, platform_values|
+  if !defined?($driver) || $driver.nil?
+    fail("This step should only be used if the AppAutomateDriver is present")
+  end
+  os = $driver.capabilities['os']
+  expected_value = Hash[platform_values.raw][os]
+  fail("There is no expected value for the current platform \"#{os}\"") if expected_value.nil?
+  assert_equal(expected_value, read_key_path(Server.current_request[:body], field_path))
+end

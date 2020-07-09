@@ -3,6 +3,7 @@
 ## Enhancements
 
 - Add ability to clear text from an element.
+- Increase default timeout for an element to be available to 30s.
 
 # 2.1.2 - 2020/06/23
 

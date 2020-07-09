@@ -224,6 +224,19 @@ class AppAutomateDriverTest < Test::Unit::TestCase
     $logger = nil
   end
 
+  def test_clear_element_defaults
+    start_logger_mock
+    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
+    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
+
+    mocked_element = mock('element')
+    mocked_element.expects(:clear)
+
+    driver.expects(:find_element).with(:id, "test_text_entry").returns(mocked_element)
+
+    driver.clear_element("test_text_entry")
+  end
+
   def test_send_keys_to_element_defaults
     start_logger_mock
     AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
@@ -237,6 +250,33 @@ class AppAutomateDriverTest < Test::Unit::TestCase
     driver.send_keys_to_element("test_text_entry", "Test_text")
   end
 
+  def test_clear_and_send_keys_to_element_defaults
+    start_logger_mock
+    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
+    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
+
+    mocked_element = mock('element')
+    mocked_element.expects(:clear)
+    mocked_element.expects(:send_keys).with("Test_text")
+
+    driver.expects(:find_element).with(:id, "test_text_entry").returns(mocked_element)
+
+    driver.clear_and_send_keys_to_element("test_text_entry", "Test_text")
+  end
+
+  def test_clear_element_locator
+    start_logger_mock
+    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
+    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION, :accessibility_id)
+
+    mocked_element = mock('element')
+    mocked_element.expects(:clear)
+
+    driver.expects(:find_element).with(:accessibility_id, "test_text_entry").returns(mocked_element)
+
+    driver.clear_element("test_text_entry")
+  end
+
   def test_send_keys_to_element_locator
     start_logger_mock
     AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
@@ -248,6 +288,20 @@ class AppAutomateDriverTest < Test::Unit::TestCase
     driver.expects(:find_element).with(:accessibility_id, "test_text_entry").returns(mocked_element)
 
     driver.send_keys_to_element("test_text_entry", "Test_text")
+  end
+
+  def test_clear_and_send_keys_to_element_locator
+    start_logger_mock
+    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
+    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION, :accessibility_id)
+
+    mocked_element = mock('element')
+    mocked_element.expects(:clear)
+    mocked_element.expects(:send_keys).with("Test_text")
+
+    driver.expects(:find_element).with(:accessibility_id, "test_text_entry").returns(mocked_element)
+
+    driver.clear_and_send_keys_to_element("test_text_entry", "Test_text")
   end
 
   def test_start_driver

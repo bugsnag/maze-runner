@@ -1,3 +1,9 @@
+# 2.2.0 - 2020/07/09
+
+## Enhancements
+
+- Add ability to clear text from an element.
+
 # 2.1.2 - 2020/06/23
 
 ## Fixes

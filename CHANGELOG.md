@@ -6,6 +6,8 @@
   [#104](https://github.com/bugsnag/maze-runner/pull/104)
 - Provide new step to allow a timeout to be set when waiting for an element to be available.
   [#105](https://github.com/bugsnag/maze-runner/pull/105)
+- Provide new step to allow different expected values on different platforms
+  [#103](https://github.com/bugsnag/maze-runner/pull/103)
 
 # 2.1.2 - 2020/06/23
 

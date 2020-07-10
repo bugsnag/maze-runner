@@ -15,7 +15,7 @@ end
 # @step_input element_id [String] The locator id
 # @step_input timeout [Int] The number of seconds to wait before timing out
 Given("the element {string} is present within {int} seconds") do |element_id, timeout|
-  present = $driver.wait_for_element(element_id, timeout: timeout)
+  present = $driver.wait_for_element(element_id, timeout)
   assert(present, "The element #{element_id} could not be found")
 end
 

@@ -8,23 +8,23 @@ class MazeLogger
   class << self
 
     def debug(*args)
-      logger.debug args
+      logger.debug(*args)
     end
 
     def info(*args)
-      logger.info args
+      logger.info(*args)
     end
 
     def warn(*args)
-      logger.warn args
+      logger.warn(*args)
     end
 
     def error(*args)
-      logger.error args
+      logger.error(*args)
     end
 
     def fatal(*args)
-      logger.fatal args
+      logger.fatal(*args)
     end
 
     private

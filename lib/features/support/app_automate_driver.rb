@@ -16,7 +16,7 @@ class AppAutomateDriver < Appium::Driver
   attr_reader :capabilities
 
   # The App upload uri for BrowserStack App Automate
-  BROWSER_STACK_APP_UPLOAD_URI = "https://api-cloud.browserstack.com/app-automate/upload"
+  BROWSER_STACK_APP_UPLOAD_URI = 'https://api-cloud.browserstack.com/app-automate/upload'
 
   # Creates the AppAutomateDriver
   #
@@ -37,7 +37,7 @@ class AppAutomateDriver < Appium::Driver
     # Sets up identifiers for ease of connecting jobs
     name_capabilities = project_name_capabilities(target_device)
 
-    MazeLogger.info "Appium driver initialised for:"
+    MazeLogger.info 'Appium driver initialised for:'
     MazeLogger.info "    project : #{name_capabilities[:project]}"
     MazeLogger.info "    build   : #{name_capabilities[:build]}"
     MazeLogger.info "    name    : #{name_capabilities[:name]}"
@@ -128,7 +128,7 @@ class AppAutomateDriver < Appium::Driver
   #
   # @return [Hash] A hash containing the 'project', 'build', and 'name' capabilities
   def project_name_capabilities(target_device)
-    project = "local"
+    project = 'local'
     build = SecureRandom.uuid
     name = "#{target_device}"
     if ENV['BUILDKITE']

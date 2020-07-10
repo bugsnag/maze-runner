@@ -96,12 +96,29 @@ class AppAutomateDriver < Appium::Driver
     find_element(@element_locator, element_id).click
   end
 
+  # Clears a given element
+  #
+  # @param element_id [String] the element to clear, found using the @element_locator strategy
+  def clear_element(element_id)
+    find_element(@element_locator, element_id).clear
+  end
+
   # Sends keys to a given element
   #
   # @param element_id [String] the element to send text to using the @element_locator strategy
   # @param text [String] the text to send
   def send_keys_to_element(element_id, text)
     find_element(@element_locator, element_id).send_keys(text)
+  end
+
+  # Sends keys to a given element, clearing it first
+  #
+  # @param element_id [String] the element to clear and send text to using the @element_locator strategy
+  # @param text [String] the text to send
+  def clear_and_send_keys_to_element(element_id, text)
+    element = find_element(@element_locator, element_id)
+    element.clear
+    element.send_keys(text)
   end
 
   # Determines and returns sensible project, build, and name capabilities

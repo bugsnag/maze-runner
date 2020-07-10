@@ -1,3 +1,10 @@
+# 2.2.1 - 2020/07/10
+
+## Fixes
+
+- Correct passing of defaulted parameter.
+  [#107](https://github.com/bugsnag/maze-runner/pull/107)
+
 # 2.2.0 - 2020/07/10
 
 ## Enhancements

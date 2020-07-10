@@ -11,7 +11,7 @@ Scenario: Test Handled Android Exception
   And the payload field "apiKey" equals the environment variable "BUGSNAG_API_KEY"
 
 Scenario: Verify "equals the correct platform value" step
-  Given the element "trigger_error" is present
+  Given the element "trigger_error" is present within 30 seconds
   When I click the element "trigger_error"
   Then I wait to receive a request
   And the request is valid for the error reporting API version "4.0" for the "Android Bugsnag Notifier" notifier

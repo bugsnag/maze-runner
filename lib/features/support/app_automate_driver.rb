@@ -67,7 +67,7 @@ class AppAutomateDriver < Appium::Driver
   # @param element_id [String] the element to search for using the @element_locator strategy
   # @param timeout [Integer] the maximum time to wait for an element to be present in seconds
   # @param retry_if_stale [Boolean] enables the method to retry acquiring the element if a StaleObjectException occurs
-  def wait_for_element(element_id, timeout=30, retry_if_stale=true)
+  def wait_for_element(element_id, timeout=15, retry_if_stale=true)
     begin
       wait = Selenium::WebDriver::Wait.new(:timeout => timeout)
       wait.until { find_element(@element_locator, element_id).displayed? }

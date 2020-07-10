@@ -9,6 +9,16 @@ Given("the element {string} is present") do |element_id|
   assert(present, "The element #{element_id} could not be found")
 end
 
+# Checks a UI element is present within a specified number of seconds
+# Requires a running Appium driver
+#
+# @step_input element_id [String] The locator id
+# @step_input timeout [Int] The number of seconds to wait before timing out
+Given("the element {string} is present within {int} seconds") do |element_id, timeout|
+  present = $driver.wait_for_element(element_id, timeout: timeout)
+  assert(present, "The element #{element_id} could not be found")
+end
+
 # Clicks a given element
 # Requires a running Appium driver
 #

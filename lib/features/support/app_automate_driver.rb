@@ -10,6 +10,10 @@ class AppAutomateDriver < Appium::Driver
   #   @return [String] The device, from the list of device capabilities, used for this test
   attr_reader :device_type
 
+  # @!attribute [r] capabilities
+  #   @return [Hash] The capabilities used to launch the BrowserStack instance
+  attr_reader :capabilities
+
   # The App upload uri for BrowserStack App Automate
   BROWSER_STACK_APP_UPLOAD_URI = "https://api-cloud.browserstack.com/app-automate/upload"
 
@@ -37,7 +41,7 @@ class AppAutomateDriver < Appium::Driver
     $logger.info "    build   : #{name_capabilities[:build]}"
     $logger.info "    name    : #{name_capabilities[:name]}"
 
-    capabilities = {
+    @capabilities = {
       'browserstack.console': 'errors',
       'browserstack.localIdentifier': local_id,
       'browserstack.local': 'true',
@@ -45,11 +49,11 @@ class AppAutomateDriver < Appium::Driver
       'autoAcceptAlerts': 'true',
       'app': app_url
     }
-    capabilities.merge! additional_capabilities
-    capabilities.merge! devices[target_device]
-    capabilities.merge! name_capabilities
+    @capabilities.merge! additional_capabilities
+    @capabilities.merge! devices[target_device]
+    @capabilities.merge! name_capabilities
     super({
-      'caps' => capabilities,
+      'caps' => @capabilities,
       'appium_lib' => {
         :server_url => "http://#{username}:#{access_key}@hub-cloud.browserstack.com/wd/hub"
       }

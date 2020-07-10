@@ -1,8 +1,11 @@
-# 2.2.0 - 2020/07/09
+# 2.2.0 - 2020/07/10
 
 ## Enhancements
 
 - Add ability to clear text from an element.
+  [#104](https://github.com/bugsnag/maze-runner/pull/104)
+- Provide new step to allow a timeout to be set when waiting for an element to be available.
+  [#105](https://github.com/bugsnag/maze-runner/pull/105)
 
 # 2.1.2 - 2020/06/23
 

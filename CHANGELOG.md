@@ -1,3 +1,9 @@
+# TBA
+
+## Enhancements
+
+- Update platform comparison step to allow skipping via keywords
+
 # 2.2.1 - 2020/07/10
 
 ## Fixes

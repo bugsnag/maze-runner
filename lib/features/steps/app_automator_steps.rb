@@ -59,6 +59,8 @@ end
 #   | android | Java.lang.RuntimeException |
 #   | ios     | NSException                |
 #
+# If the expected value is set to "skip", the check should be skipped.
+#
 # @step_input field_path [String] The field to test
 # @step_input platform_values [DataTable] A table of acceptable values for each platform
 Then("the event {string} matches the correct platform value:") do |field_path, platform_values|
@@ -68,7 +70,9 @@ Then("the event {string} matches the correct platform value:") do |field_path, p
   os = $driver.capabilities['os']
   expected_value = Hash[platform_values.raw][os]
   fail("There is no expected value for the current platform \"#{os}\"") if expected_value.nil?
-  assert_equal(expected_value, read_key_path(Server.current_request[:body], "events.0.#{field_path}"))
+  unless expected_value.eql?("@skip")
+    assert_equal(expected_value, read_key_path(Server.current_request[:body], "events.0.#{field_path}"))
+  end
 end
 
 # Sends keys to a given element, clearing it first

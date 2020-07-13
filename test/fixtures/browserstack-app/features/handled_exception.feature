@@ -19,5 +19,7 @@ Scenario: Verify "equals the correct platform value" step
     | android | java.lang.Exception |
   And the event "exceptions.0.message" matches the correct platform value:
     | android | HandledException!   |
+  And the event "exceptions.0.message" matches the correct platform value:
+    | android | @skip |
   # Verifies the environment variable change works
   And the payload field "apiKey" equals the environment variable "BUGSNAG_API_KEY"

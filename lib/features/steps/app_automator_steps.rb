@@ -70,7 +70,7 @@ Then("the event {string} matches the correct platform value:") do |field_path, p
   os = $driver.capabilities['os']
   expected_value = Hash[platform_values.raw][os]
   fail("There is no expected value for the current platform \"#{os}\"") if expected_value.nil?
-  unless expected_value.eql?("skip")
+  unless expected_value.eql?("@skip")
     assert_equal(expected_value, read_key_path(Server.current_request[:body], "events.0.#{field_path}"))
   end
 end

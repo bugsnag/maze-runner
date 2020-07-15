@@ -5,8 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Button
-import com.bugsnag.android.Bugsnag
-import com.bugsnag.android.Configuration
+import com.bugsnag.android.*
 import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {

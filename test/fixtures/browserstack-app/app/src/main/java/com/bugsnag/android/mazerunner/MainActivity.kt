@@ -16,14 +16,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val button = findViewById<Button>(R.id.trigger_error)
         button.setOnClickListener { 
-            Bugsnag.notify(Exception("HandledException!"), { event ->
-                event.addMetadata("test", "boolean_false", false)
-                event.addMetadata("test", "boolean_true", true)
-                event.addMetadata("test", "float", 1.55)
-                event.addMetadata("test", "integer", 2)
-
-                true
-            })
+            Bugsnag.notify(Exception("HandledException!"), { report ->
+                val metaData = MetaData()
+                metaData.addToTab("test", "boolean_false", false)
+                metaData.addToTab("test", "boolean_true", true)
+                metaData.addToTab("test", "float", 1.55)
+                metaData.addToTab("test", "integer", 2)
+                report.error.metaData = metaData
+            }
         }
     }
 

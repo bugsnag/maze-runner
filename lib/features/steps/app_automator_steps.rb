@@ -53,17 +53,18 @@ When("I send the keys {string} to the element {string}") do |keys, element_id|
 end
 
 # Tests that the given payload value is correct for the target BrowserStack platform.
+# This step will assume the expected and payload values are strings.
 # If the step is invoked when a remote BrowserStack device is not in use this step will fail.
 #
 # The DataTable used for this step should have `ios` and `android` in the same row as their expected value:
 #   | android | Java.lang.RuntimeException |
 #   | ios     | NSException                |
 #
-# If the expected value is set to "skip", the check should be skipped.
+# If the expected value is set to "@skip", the check should be skipped.
 #
 # @step_input field_path [String] The field to test
 # @step_input platform_values [DataTable] A table of acceptable values for each platform
-Then("the event {string} matches the correct platform value:") do |field_path, platform_values|
+Then("the event {string} matches the string platform value:") do |field_path, platform_values|
   if !defined?($driver) || $driver.nil?
     fail("This step should only be used if the AppAutomateDriver is present")
   end
@@ -71,7 +72,67 @@ Then("the event {string} matches the correct platform value:") do |field_path, p
   expected_value = Hash[platform_values.raw][os]
   fail("There is no expected value for the current platform \"#{os}\"") if expected_value.nil?
   unless expected_value.eql?("@skip")
-    assert_equal(expected_value, read_key_path(Server.current_request[:body], "events.0.#{field_path}"))
+    payload_value = read_key_path(Server.current_request[:body], "events.0.#{field_path}")
+    result = value_compare(expected_value, payload_value)
+    assert_true(result.equal?, "The payload field '#{result.keypath}' does not match the fixture:\n #{result.reasons.join('\n')}")
+  end
+end
+
+# Tests that the given payload value is correct for the target BrowserStack platform.
+# This step will assume the expected and payload values are numeric.
+# If the step is invoked when a remote BrowserStack device is not in use this step will fail.
+#
+# The DataTable used for this step should have `ios` and `android` in the same row as their expected value:
+#   | android | 1  |
+#   | ios     | 5.5 |
+#
+# If the expected value is set to "@skip", the check should be skipped.
+#
+# @step_input field_path [String] The field to test
+# @step_input platform_values [DataTable] A table of acceptable values for each platform
+Then("the event {string} matches the numeric platform value:") do |field_path, platform_values|
+  if !defined?($driver) || $driver.nil?
+    fail("This step should only be used if the AppAutomateDriver is present")
+  end
+  os = $driver.capabilities['os']
+  expected_value = Hash[platform_values.raw][os]
+  fail("There is no expected value for the current platform \"#{os}\"") if expected_value.nil?
+  unless expected_value.eql?("@skip")
+    payload_value = read_key_path(Server.current_request[:body], "events.0.#{field_path}")
+    assert_equal(expected_value.to_f, payload_value)
+  end
+end
+
+# Tests that the given payload value is correct for the target BrowserStack platform.
+# This step will assume the expected and payload values are booleans.
+# If the step is invoked when a remote BrowserStack device is not in use this step will fail.
+#
+# The DataTable used for this step should have `ios` and `android` in the same row as their expected value:
+#   | android | 1 |
+#   | ios     | 5 |
+#
+# If the expected value is set to "@skip", the check should be skipped.
+#
+# @step_input field_path [String] The field to test
+# @step_input platform_values [DataTable] A table of acceptable values for each platform
+Then("the event {string} matches the boolean platform value:") do |field_path, platform_values|
+  if !defined?($driver) || $driver.nil?
+    fail("This step should only be used if the AppAutomateDriver is present")
+  end
+  os = $driver.capabilities['os']
+  expected_value = Hash[platform_values.raw][os]
+  fail("There is no expected value for the current platform \"#{os}\"") if expected_value.nil?
+  unless expected_value.eql?("@skip")
+    if expected_value.downcase == 'true'
+      expected_bool = true
+    elsif expected_value.downcase == 'false'
+      expected_bool = false
+    else
+      expected_bool = expected_value
+    end
+    payload_value = read_key_path(Server.current_request[:body], "events.0.#{field_path}")
+    result = value_compare(expected_bool, payload_value)
+    assert_true(result.equal?, "The payload field '#{result.keypath}' does not match the fixture:\n #{result.reasons.join('\n')}")
   end
 end
 

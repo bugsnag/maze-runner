@@ -15,7 +15,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val button = findViewById<Button>(R.id.trigger_error)
-        button.setOnClickListener { Bugsnag.notify(Exception("HandledException!")) }
+        button.setOnClickListener { 
+            Bugsnag.notify(Exception("HandledException!"), { event ->
+                event.addMetadata("test", "boolean_false", false)
+                event.addMetadata("test", "boolean_true", true)
+                event.addMetadata("test", "float", 1.55)
+                event.addMetadata("test", "integer", 2)
+
+                true
+            })
+        }
     }
 
     override fun onResume() {

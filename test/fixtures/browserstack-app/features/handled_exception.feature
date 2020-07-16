@@ -15,15 +15,25 @@ Scenario: Verify "equals the correct platform value" step
   When I click the element "trigger_error"
   Then I wait to receive a request
   And the request is valid for the error reporting API version "4.0" for the "Android Bugsnag Notifier" notifier
-  # Verify string comparison
-  And the event "exceptions.0.errorClass" matches the string platform value:
+  # Verify string comparisons
+  And the event "exceptions.0.errorClass" equals the platform-dependent string:
+    | android | java.lang.Exception |
+  And the payload field "events.0.exceptions.0.errorClass" equals the platform-dependent string:
     | android | java.lang.Exception |
   # Verify boolean comparisons
+  And the payload field "events.0.metaData.test.boolean_true" equals the platform-dependent boolean:
+    | android | true |
   And the event "metaData.test.boolean_true" matches the boolean platform value:
     | android | true |
+  And the payload field "events.0.metaData.test.boolean_false" equals the platform-dependent boolean:
+    | android | false |
   And the event "metaData.test.boolean_false" matches the boolean platform value:
     | android | false |
   # Verify numeric comparisons
+  And the payload field "events.0.metaData.test.float" matches the numeric platform value:
+    | android | 1.55 |
+  And the payload field "events.0.metaData.test.integer" matches the numeric platform value:
+    | android | 2 |
   And the event "metaData.test.float" matches the numeric platform value:
     | android | 1.55 |
   And the event "metaData.test.integer" matches the numeric platform value:
@@ -34,6 +44,12 @@ Scenario: Verify "equals the correct platform value" step
   And the event "metaData.test.integer" matches the boolean platform value:
     | android | @skip |
   And the event "exceptions.0.errorClass" matches the numeric platform value:
+    | android | @skip |
+  And the payload field "events.0.metaData.test.integer" matches the string platform value:
+    | android | @skip |
+  And the payload field "events.0.metaData.test.integer" matches the boolean platform value:
+    | android | @skip |
+  And the payload field "events.0.exceptions.0.errorClass" matches the numeric platform value:
     | android | @skip |
   # Verifies the environment variable change works
   And the payload field "apiKey" equals the environment variable "BUGSNAG_API_KEY"

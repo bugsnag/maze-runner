@@ -64,18 +64,16 @@ end
 #
 # @step_input field_path [String] The field to test
 # @step_input platform_values [DataTable] A table of acceptable values for each platform
-Then("the event {string} matches the string platform value:") do |field_path, platform_values|
-  if !defined?($driver) || $driver.nil?
-    fail("This step should only be used if the AppAutomateDriver is present")
-  end
-  os = $driver.capabilities['os']
-  expected_value = Hash[platform_values.raw][os]
-  fail("There is no expected value for the current platform \"#{os}\"") if expected_value.nil?
-  unless expected_value.eql?("@skip")
-    payload_value = read_key_path(Server.current_request[:body], "events.0.#{field_path}")
-    result = value_compare(expected_value, payload_value)
-    assert_true(result.equal?, "The payload field '#{result.keypath}' does not match the fixture:\n #{result.reasons.join('\n')}")
-  end
+Then("the payload field {string} equals the platform-dependent string:") do |field_path, platform_values|
+  testStringPlatformValues(field_path, platform_values)
+end
+
+# See `the payload field {string} equals the platform-dependent string:`
+#
+# @step_input field_path [String] The field to test, prepended with "events.0"
+# @step_input platform_values [DataTable] A table of acceptable values for each platform
+Then("the event {string} equals the platform-dependent string:") do |field_path, platform_values|
+  testStringPlatformValues("events.0.#{field_path}", platform_values)
 end
 
 # Tests that the given payload value is correct for the target BrowserStack platform.
@@ -90,17 +88,16 @@ end
 #
 # @step_input field_path [String] The field to test
 # @step_input platform_values [DataTable] A table of acceptable values for each platform
-Then("the event {string} matches the numeric platform value:") do |field_path, platform_values|
-  if !defined?($driver) || $driver.nil?
-    fail("This step should only be used if the AppAutomateDriver is present")
-  end
-  os = $driver.capabilities['os']
-  expected_value = Hash[platform_values.raw][os]
-  fail("There is no expected value for the current platform \"#{os}\"") if expected_value.nil?
-  unless expected_value.eql?("@skip")
-    payload_value = read_key_path(Server.current_request[:body], "events.0.#{field_path}")
-    assert_equal(expected_value.to_f, payload_value)
-  end
+Then("the payload field {string} equals the platform-dependent numeric:") do |field_path, platform_values|
+  testNumericPlatformValues(field_path, platform_values)
+end
+
+# See `the payload field {string} equals the platform-dependent numeric:`
+#
+# @step_input field_path [String] The field to test, prepended with "events.0"
+# @step_input platform_values [DataTable] A table of acceptable values for each platform
+Then("the event {string} equals the platform-dependent numeric:") do |field_path, platform_values|
+  testNumericPlatformValues("events.0.#{field_path}", platform_values)
 end
 
 # Tests that the given payload value is correct for the target BrowserStack platform.
@@ -115,25 +112,16 @@ end
 #
 # @step_input field_path [String] The field to test
 # @step_input platform_values [DataTable] A table of acceptable values for each platform
-Then("the event {string} matches the boolean platform value:") do |field_path, platform_values|
-  if !defined?($driver) || $driver.nil?
-    fail("This step should only be used if the AppAutomateDriver is present")
-  end
-  os = $driver.capabilities['os']
-  expected_value = Hash[platform_values.raw][os]
-  fail("There is no expected value for the current platform \"#{os}\"") if expected_value.nil?
-  unless expected_value.eql?("@skip")
-    if expected_value.downcase == 'true'
-      expected_bool = true
-    elsif expected_value.downcase == 'false'
-      expected_bool = false
-    else
-      expected_bool = expected_value
-    end
-    payload_value = read_key_path(Server.current_request[:body], "events.0.#{field_path}")
-    result = value_compare(expected_bool, payload_value)
-    assert_true(result.equal?, "The payload field '#{result.keypath}' does not match the fixture:\n #{result.reasons.join('\n')}")
-  end
+Then("the payload field {string} equals the platform-dependent boolean:") do |field_path, platform_values|
+  testBooleanPlatformValues(field_path, platform_values)
+end
+
+# See `the payload field {string} equals the platform-dependent boolean:`
+#
+# @step_input field_path [String] The field to test, prepended with "events.0"
+# @step_input platform_values [DataTable] A table of acceptable values for each platform
+Then("the event {string} equals the platform-dependent boolean:") do |field_path, platform_values|
+  testBooleanPlatformValues("events.0.#{field_path}", platform_values)
 end
 
 # Sends keys to a given element, clearing it first
@@ -143,4 +131,49 @@ end
 # @step_input element_id [String] The locator id
 When("I clear and send the keys {string} to the element {string}") do |keys, element_id|
   $driver.clear_and_send_keys_to_element(element_id, keys)
+end
+
+def getExpectedValueForPlatform(platform_values)
+  if !defined?($driver) || $driver.nil?
+    fail("This step should only be used if the AppAutomateDriver is present")
+  end
+  os = $driver.capabilities['os']
+  expected_value = Hash[platform_values.raw][os]
+  fail("There is no expected value for the current platform \"#{os}\"") if expected_value.nil?
+  expected_value
+end
+
+def shouldSkipPlatformCheck(expected_value)
+  expected_value.eql?("@skip")
+end
+
+def testStringPlatformValues(field_path, platform_values)
+  expected_value = getExpectedValueForPlatform(platform_values)
+  unless shouldSkipPlatformCheck(expected_value)
+    payload_value = read_key_path(Server.current_request[:body], field_path)
+    assert_equal(expected_value, payload_value)
+  end
+end
+
+def testBooleanPlatformValues(field_path, platform_values)
+  expected_value = getExpectedValueForPlatform(platform_values)
+  unless shouldSkipPlatformCheck(expected_value)
+    if expected_value.downcase == 'true'
+      expected_bool = true
+    elsif expected_value.downcase == 'false'
+      expected_bool = false
+    else
+      expected_bool = expected_value
+    end
+    payload_value = read_key_path(Server.current_request[:body], field_path)
+    assert_equal(expected_bool, payload_value)
+  end
+end
+
+def testNumericPlatformValues(field_path, platform_values)
+  expected_value = getExpectedValueForPlatform(platform_values)
+  unless shouldSkipPlatformCheck(expected_value)
+    payload_value = read_key_path(Server.current_request[:body], field_path)
+    assert_equal(expected_value.to_f, payload_value)
+  end
 end

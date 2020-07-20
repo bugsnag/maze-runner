@@ -3,6 +3,9 @@
 ## Enhancements
 
 - Update platform comparison step to allow skipping via keywords
+  [#109](https://github.com/bugsnag/maze-runner/pull/109)
+- Update platform comparison steps to target different parameter types
+  [#110](https://github.com/bugsnag/maze-runner/pull/110)
 
 # 2.2.1 - 2020/07/10
 

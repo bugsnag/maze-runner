@@ -74,7 +74,6 @@ Then(/^the request (\d+) is valid for the Android Mapping API$/) do |request_ind
   assert_not_nil(parts["apiKey"], "'apiKey' should not be nil")
   assert_not_nil(parts["appId"], "'appId' should not be nil")
   assert_not_nil(parts["versionCode"], "'versionCode' should not be nil")
-  assert_not_nil(parts["buildUUID"], "'buildUUID' should not be nil")
   assert_not_nil(parts["versionName"], "'versionName' should not be nil")
 end
 

@@ -32,11 +32,11 @@ steps:
 
   - wait
 
-  - label: 'Unit tests'
-    plugins:
-      docker-compose#v3.3.0:
-        run: ci
-    command: 'bundle exec rake'
+#  - label: 'Unit tests'
+#    plugins:
+#      docker-compose#v3.3.0:
+#        run: ci
+#    command: 'bundle exec rake'
 
   - label: 'Comparison tests'
     plugins:

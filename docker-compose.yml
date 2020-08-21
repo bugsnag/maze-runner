@@ -34,6 +34,7 @@ services:
       BROWSER_STACK_USERNAME:
       BROWSER_STACK_ACCESS_KEY:
       BROWSER_STACK_LOCAL_IDENTIFIER: ${BUILDKITE_JOB_ID:-maze-runner}
+      DEVICE_TYPE:
 
   comparison-tests:
     build:

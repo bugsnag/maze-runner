@@ -2,7 +2,7 @@
 bs_username = ENV['BROWSER_STACK_USERNAME']
 bs_access_key = ENV['BROWSER_STACK_ACCESS_KEY']
 bs_local_id = ENV['BROWSER_STACK_LOCAL_IDENTIFIER'] || 'maze_browser_stack_test_id'
-bs_device = 'ANDROID_9'
+bs_device = ENV['DEVICE_TYPE']
 app_location = 'app/build/outputs/apk/release/app-release.apk'
 
 $api_key = "12312312312312312312312312312312"

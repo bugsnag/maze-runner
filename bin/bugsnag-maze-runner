@@ -4,6 +4,7 @@
 require 'cucumber/cli/main'
 require 'optimist'
 require_relative '../lib/version'
+require_relative '../lib/features/support/report'
 
 # Encapsulates the MazeRunner entry point
 class MazeRunner
@@ -67,6 +68,7 @@ class MazeRunner
     add_maze_runner_options
 
     Cucumber::Cli::Main.new(@args).execute!
+    MazeReport.instance.print_report
 
   rescue Optimist::HelpNeeded
     # Display

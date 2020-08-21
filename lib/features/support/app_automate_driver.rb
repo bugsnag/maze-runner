@@ -3,6 +3,7 @@ require 'open3'
 require 'securerandom'
 require_relative './fast_selenium'
 require_relative './logger'
+require_relative './report'
 
 # Wraps Appium::Driver to enable control of a BrowserStack app-automate session
 class AppAutomateDriver < Appium::Driver
@@ -27,7 +28,7 @@ class AppAutomateDriver < Appium::Driver
   # @param app_location [String] the location of the test-app to upload
   # @param locator [Symbol] the primary locator strategy Appium should use to find elements
   # @param additional_capabilities [Hash] a hash of additional capabilities to be used in this test run
-  def initialize(username, access_key, local_id, target_device, app_location, locator=:id, additional_capabilities={})
+  def initialize(username, access_key, local_id, target_device, app_location, locator = :id, additional_capabilities = {})
     @device_type = target_device
     @element_locator = locator
     @access_key = access_key
@@ -56,7 +57,7 @@ class AppAutomateDriver < Appium::Driver
     super({
       'caps' => @capabilities,
       'appium_lib' => {
-        :server_url => "http://#{username}:#{access_key}@hub-cloud.browserstack.com/wd/hub"
+        server_url: "http://#{username}:#{access_key}@hub-cloud.browserstack.com/wd/hub"
       }
     }, true)
   end
@@ -72,30 +73,30 @@ class AppAutomateDriver < Appium::Driver
   # @param element_id [String] the element to search for using the @element_locator strategy
   # @param timeout [Integer] the maximum time to wait for an element to be present in seconds
   # @param retry_if_stale [Boolean] enables the method to retry acquiring the element if a StaleObjectException occurs
-  def wait_for_element(element_id, timeout=15, retry_if_stale=true)
-    begin
-      wait = Selenium::WebDriver::Wait.new(:timeout => timeout)
-      wait.until { find_element(@element_locator, element_id).displayed? }
-    rescue Selenium::WebDriver::Error::TimeoutError
-      false
-    rescue Selenium::WebDriver::Error::UnknownError, Selenium::WebDriver::Error::WebDriverError
-      # BrowerStack's iOS devices, esp. iOS 10 and 11 seem prone to this.
-      # There is potential for an infinite loop here, but in reality a single restart seems
-      # sufficient each time the error occurs.  CI step timeouts are also in place to guard
-      # against an infinite loop.
-      $logger.warn 'Appium Error occurred - restarting driver.'
-      $driver.restart
-      wait_for_element(element_id, timeout, retry_if_stale)
-    rescue Selenium::WebDriver::Error::StaleElementReferenceError => stale_error
-      if retry_if_stale
-        wait_for_element(element_id, timeout, false)
-      else
-        $logger.warn "StaleElementReferenceError occurred: #{stale_error}"
-        false
-      end
+  def wait_for_element(element_id, timeout = 15, retry_if_stale = true)
+    wait = Selenium::WebDriver::Wait.new(timeout: timeout)
+    wait.until { find_element(@element_locator, element_id).displayed? }
+  rescue Selenium::WebDriver::Error::TimeoutError
+    false
+  rescue Selenium::WebDriver::Error::UnknownError, Selenium::WebDriver::Error::WebDriverError
+    # BrowserStack's iOS devices, esp. iOS 10 and 11 seem prone to this.
+    # There is potential for an infinite loop here, but in reality a single restart seems
+    # sufficient each time the error occurs.  CI step timeouts are also in place to guard
+    # against an infinite loop.
+    MazeReport.instance.add_warning 'Appium driver restarted'
+    $logger.warn 'Appium Error occurred - restarting driver.'
+    $driver.restart
+    wait_for_element(element_id, timeout, retry_if_stale)
+  rescue Selenium::WebDriver::Error::StaleElementReferenceError => stale_error
+    if retry_if_stale
+      wait_for_element(element_id, timeout, false)
     else
-      true
+      $logger.warn "StaleElementReferenceError occurred: #{stale_error}"
+      false
     end
+  else
+    true
+
   end
 
   # Clicks a given element
@@ -165,9 +166,9 @@ class AppAutomateDriver < Appium::Driver
       name = bk_name
     end
     {
-      :project => project,
-      :build => build,
-      :name => name
+      project: project,
+      build: build,
+      name: name
     }
   end
 

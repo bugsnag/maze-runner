@@ -64,25 +64,29 @@ class Devices
       'device' => 'iPhone 8',
       'platformName' => 'iOS',
       'os' => 'ios',
-      'os_version' => '13'
+      'os_version' => '13',
+      'browserstack.appium_version' => '1.16.0'
   }.freeze
   IOS_12 = {
     'device' => 'iPhone 8',
     'platformName' => 'iOS',
     'os' => 'ios',
-    'os_version' => '12'
+    'os_version' => '12',
+    'browserstack.appium_version' => '1.16.0'
   }.freeze
   IOS_11 = {
     'device' => 'iPhone 8',
     'platformName' => 'iOS',
     'os' => 'ios',
-    'os_version' => '11'
+    'os_version' => '11',
+    'browserstack.appium_version' => '1.16.0'
   }.freeze
   IOS_10 = {
     'device' => 'iPhone 7',
     'platformName' => 'iOS',
     'os' => 'ios',
-    'os_version' => '10'
+    'os_version' => '10',
+    'browserstack.appium_version' => '1.15.0'
   }.freeze
   DEVICE_HASH = {
     'ANDROID_10_0' => ANDROID_10_0,

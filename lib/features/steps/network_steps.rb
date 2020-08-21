@@ -15,6 +15,6 @@ When("I open the URL {string}") do |url|
   begin
     open(url, &:read)
   rescue OpenURI::HTTPError
-    $logger.debug $!.inspect
+    MazeLogger.debug $!.inspect
   end
 end

@@ -2,6 +2,7 @@ require 'appium_lib'
 require 'open3'
 require 'securerandom'
 require_relative './fast_selenium'
+require_relative './logger'
 
 # Wraps Appium::Driver to enable control of a BrowserStack app-automate session
 class AppAutomateDriver < Appium::Driver
@@ -15,7 +16,7 @@ class AppAutomateDriver < Appium::Driver
   attr_reader :capabilities
 
   # The App upload uri for BrowserStack App Automate
-  BROWSER_STACK_APP_UPLOAD_URI = "https://api-cloud.browserstack.com/app-automate/upload"
+  BROWSER_STACK_APP_UPLOAD_URI = 'https://api-cloud.browserstack.com/app-automate/upload'
 
   # Creates the AppAutomateDriver
   #
@@ -36,10 +37,10 @@ class AppAutomateDriver < Appium::Driver
     # Sets up identifiers for ease of connecting jobs
     name_capabilities = project_name_capabilities(target_device)
 
-    $logger.info "Appium driver initialised for:"
-    $logger.info "    project : #{name_capabilities[:project]}"
-    $logger.info "    build   : #{name_capabilities[:build]}"
-    $logger.info "    name    : #{name_capabilities[:name]}"
+    MazeLogger.info 'Appium driver initialised for:'
+    MazeLogger.info "    project : #{name_capabilities[:project]}"
+    MazeLogger.info "    build   : #{name_capabilities[:build]}"
+    MazeLogger.info "    name    : #{name_capabilities[:name]}"
 
     @capabilities = {
       'browserstack.console': 'errors',
@@ -81,7 +82,7 @@ class AppAutomateDriver < Appium::Driver
       if retry_if_stale
         wait_for_element(element_id, timeout, false)
       else
-        $logger.warn "StaleElementReferenceError occurred: #{stale_error}"
+        MazeLogger.warn "StaleElementReferenceError occurred: #{stale_error}"
         false
       end
     else
@@ -127,7 +128,7 @@ class AppAutomateDriver < Appium::Driver
   #
   # @return [Hash] A hash containing the 'project', 'build', and 'name' capabilities
   def project_name_capabilities(target_device)
-    project = "local"
+    project = 'local'
     build = SecureRandom.uuid
     name = "#{target_device}"
     if ENV['BUILDKITE']

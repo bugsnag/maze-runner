@@ -84,7 +84,7 @@ class AppAutomateDriver < Appium::Driver
     # sufficient each time the error occurs.  CI step timeouts are also in place to guard
     # against an infinite loop.
     MazeReport.instance.add_warning 'Appium driver restarted'
-    $logger.warn 'Appium Error occurred - restarting driver.'
+    MazeLogger.warn 'Appium Error occurred - restarting driver.'
     $driver.restart
     wait_for_element(element_id, timeout, retry_if_stale)
   rescue Selenium::WebDriver::Error::StaleElementReferenceError => stale_error

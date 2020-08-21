@@ -78,12 +78,14 @@ class AppAutomateDriver < Appium::Driver
       wait.until { find_element(@element_locator, element_id).displayed? }
     rescue Selenium::WebDriver::Error::TimeoutError
       false
-
     rescue Selenium::WebDriver::Error::UnknownError, Selenium::WebDriver::Error::WebDriverError
-      # TODO Just hacking around currently
-      $logger.warn 'Appium UnknownError occurred - restarting driver'
+      # BrowerStack's iOS devices, esp. iOS 10 and 11 seem prone to this.
+      # There is potential for an infinite loop here, but in reality a single restart seems
+      # sufficient each time the error occurs.  CI step timeouts are also in place to guard
+      # against an infinite loop.
+      $logger.warn 'Appium Error occurred - restarting driver.'
       $driver.restart
-      wait_for_element(element_id, timeout, false)
+      wait_for_element(element_id, timeout, retry_if_stale)
     rescue Selenium::WebDriver::Error::StaleElementReferenceError => stale_error
       if retry_if_stale
         wait_for_element(element_id, timeout, false)

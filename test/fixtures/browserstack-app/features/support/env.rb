@@ -14,6 +14,10 @@ AfterConfiguration do |config|
   $driver.start_driver
 end
 
+After do
+  $driver.reset_app
+end
+
 at_exit do
   $driver.driver_quit
 end

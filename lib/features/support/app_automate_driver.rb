@@ -122,6 +122,14 @@ class AppAutomateDriver < Appium::Driver
     element.send_keys(text)
   end
 
+  # Reset the currently running application after a given timeout
+  #
+  # @param timeout [Number] the amount of time in seconds to wait before resetting
+  def reset_app(timeout=0.1)
+    sleep(timeout)
+    reset
+  end
+
   # Determines and returns sensible project, build, and name capabilities
   #
   # @param target_device [String] the device in the device list being targeted

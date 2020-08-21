@@ -82,5 +82,6 @@ steps:
       - docker-compose#v3.3.0:
           push:
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BUILDKITE_TAG}-cli
+            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:latest-v2-cli
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:latest-cli
 

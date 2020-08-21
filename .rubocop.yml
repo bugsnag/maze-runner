@@ -4,3 +4,6 @@ Metrics/LineLength:
 # Use our own judgement on the limited use of global variables.
 Style/GlobalVars:
   Enabled: false
+
+Metrics/MethodLength:
+  Max: 50

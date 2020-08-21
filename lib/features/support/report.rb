@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'singleton'
+require_relative 'logger'
 
 # Singleton class for collecting details about a test run as it progresses. At the end of a test run,
 # a summary can be logged.  The initial implementation of this class is very crude, but it can evolve.

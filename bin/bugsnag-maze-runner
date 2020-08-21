@@ -68,7 +68,6 @@ class MazeRunner
     add_maze_runner_options
 
     Cucumber::Cli::Main.new(@args).execute!
-    MazeReport.instance.print_report
 
   rescue Optimist::HelpNeeded
     # Display
@@ -81,3 +80,4 @@ class MazeRunner
 end
 
 MazeRunner.new.start(ARGV)
+MazeReport.instance.print_report

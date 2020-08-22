@@ -205,6 +205,25 @@ class AppAutomateDriverTest < Test::Unit::TestCase
     assert_false(response, 'The driver must return false if it does not find an element')
   end
 
+  def test_wait_for_element_unknown_error_restart
+    logger = start_logger_mock
+    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
+    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION, :accessibility_id)
+    driver.stubs(:restart)
+    driver.expects(:restart).once
+
+    unknown_error = Selenium::WebDriver::Error::UnknownError.new('Element is stale')
+    mocked_element = mock('element')
+    mocked_element.expects(:displayed?).twice.raises(unknown_error).then.returns(true)
+
+    driver.expects(:find_element).with(:accessibility_id, 'test_button').returns(mocked_element).twice
+
+    logger.expects(:warn).with('Appium Error occurred - restarting driver.')
+
+    response = driver.wait_for_element('test_button', 15, false)
+    assert_true(response, 'The driver must return true after restarting')
+  end
+
   def test_wait_for_element_stale_error_retry_only_once
     logger = start_logger_mock
     AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)

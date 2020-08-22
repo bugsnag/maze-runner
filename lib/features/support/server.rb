@@ -46,7 +46,7 @@ class Server
       @thread = Thread.new do
         server = WEBrick::HTTPServer.new(
           Port: MOCK_API_PORT,
-          Logger: MazeLogger,
+          Logger: $logger,
           AccessLog: [],
         )
         server.mount '/', Servlet
@@ -78,7 +78,7 @@ end
 Before do
   Server.stored_requests.clear
   unless Server.running?
-    MazeLogger.fatal "Mock server is not running on #{MOCK_API_PORT}"
+    $logger.fatal "Mock server is not running on #{MOCK_API_PORT}"
     exit(1)
   end
 end

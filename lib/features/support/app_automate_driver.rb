@@ -68,6 +68,20 @@ class AppAutomateDriver < Appium::Driver
     super
   end
 
+  # Resets the app, reconnecting the Appium driver if it fails
+  def reset
+    super
+  rescue Selenium::WebDriver::Error::UnknownError, Selenium::WebDriver::Error::WebDriverError
+    # BrowserStack's iOS devices, esp. iOS 10 and 11 seem prone to this.
+    # There is potential for an infinite loop here, but in reality a single restart seems
+    # sufficient each time the error occurs.  CI step timeouts are also in place to guard
+    # against an infinite loop.
+    MazeReport.instance.add_warning 'Appium driver restarted'
+    $logger.warn 'Appium Error occurred - restarting driver.'
+    sleep 5 # Only to avoid possible tight loop
+    reset
+  end
+
   # Checks for an element, waiting until it is present or the method times out
   #
   # @param element_id [String] the element to search for using the @element_locator strategy
@@ -92,6 +106,7 @@ class AppAutomateDriver < Appium::Driver
     # against an infinite loop.
     MazeReport.instance.add_warning 'Appium driver restarted'
     $logger.warn 'Appium Error occurred - restarting driver.'
+    sleep 5 # Only to avoid possible tight loop
     restart
     wait_for_element(element_id, timeout, retry_if_stale)
   else

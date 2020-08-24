@@ -8,6 +8,8 @@
   [#110](https://github.com/bugsnag/maze-runner/pull/110)
 - Add reset_with_timeout method to improve flake resilience
   [#114](https://github.com/bugsnag/maze-runner/pull/114)
+- Add Appium restart logic to wait_for_element and reset when Appium errors occur
+  [#114](https://github.com/bugsnag/maze-runner/pull/116)
 
 # 2.2.1 - 2020/07/10
 

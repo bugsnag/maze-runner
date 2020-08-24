@@ -125,7 +125,7 @@ class AppAutomateDriver < Appium::Driver
   # Reset the currently running application after a given timeout
   #
   # @param timeout [Number] the amount of time in seconds to wait before resetting
-  def reset_app(timeout=0.1)
+  def reset_with_timeout(timeout=0.1)
     sleep(timeout)
     reset
   end

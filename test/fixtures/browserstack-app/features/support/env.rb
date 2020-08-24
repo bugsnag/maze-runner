@@ -15,7 +15,7 @@ AfterConfiguration do |config|
 end
 
 After do
-  $driver.reset_app
+  $driver.reset_with_timeout
 end
 
 at_exit do

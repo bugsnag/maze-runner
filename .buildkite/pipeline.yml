@@ -44,7 +44,19 @@ steps:
         run: comparison-tests
     command: 'bundle exec bugsnag-maze-runner'
 
-  - label: 'Browserstack-app-automate integration test'
+  - label: 'Browserstack app-automate test - Android 6'
+    env:
+      DEVICE_TYPE: ANDROID_6_0
+    plugins:
+      docker-compose#v3.3.0:
+        run: browserstack-app-automate
+    command: 'bundle exec bugsnag-maze-runner'
+    concurrency: 10
+    concurrency_group: 'browserstack-app'
+
+  - label: 'Browserstack app-automate test - Android 10'
+    env:
+      DEVICE_TYPE: ANDROID_10_0
     plugins:
       docker-compose#v3.3.0:
         run: browserstack-app-automate
@@ -82,5 +94,6 @@ steps:
       - docker-compose#v3.3.0:
           push:
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BUILDKITE_TAG}-cli
+            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:latest-v2-cli
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:latest-cli
 

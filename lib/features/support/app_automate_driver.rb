@@ -3,7 +3,6 @@ require 'open3'
 require 'securerandom'
 require_relative './fast_selenium'
 require_relative './logger'
-require_relative './report'
 
 # Wraps Appium::Driver to enable control of a BrowserStack app-automate session
 class AppAutomateDriver < Appium::Driver
@@ -70,14 +69,15 @@ class AppAutomateDriver < Appium::Driver
 
   # Resets the app, reconnecting the Appium driver if it fails
   def reset
+    $logger.info 'Resetting app'
     super
   rescue Selenium::WebDriver::Error::UnknownError, Selenium::WebDriver::Error::WebDriverError
     # BrowserStack's iOS devices, esp. iOS 10 and 11 seem prone to this.
     # There is potential for an infinite loop here, but in reality a single restart seems
     # sufficient each time the error occurs.  CI step timeouts are also in place to guard
     # against an infinite loop.
-    MazeReport.instance.add_warning 'Appium driver restarted'
     $logger.warn 'Appium Error occurred - restarting driver.'
+    restart
     sleep 5 # Only to avoid possible tight loop
     reset
   end
@@ -104,7 +104,6 @@ class AppAutomateDriver < Appium::Driver
     # There is potential for an infinite loop here, but in reality a single restart seems
     # sufficient each time the error occurs.  CI step timeouts are also in place to guard
     # against an infinite loop.
-    MazeReport.instance.add_warning 'Appium driver restarted'
     $logger.warn 'Appium Error occurred - restarting driver.'
     sleep 5 # Only to avoid possible tight loop
     restart

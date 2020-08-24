@@ -1,2 +1,6 @@
 Metrics/LineLength:
   Max: 120
+
+# Use our own judgement on the limited use of global variables.
+Style/GlobalVars:
+  Enabled: false

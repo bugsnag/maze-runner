@@ -4,14 +4,6 @@ require 'test_helper'
 require_relative '../lib/features/support/app_automate_driver'
 require_relative '../lib/features/support/capabilities/devices'
 
-class MazeLogger
-  class << self
-    def logger=(logger)
-      @logger = logger
-    end
-  end
-end
-
 class AppAutomateDriverTest < Test::Unit::TestCase
 
   USERNAME = 'Username'
@@ -33,11 +25,11 @@ class AppAutomateDriverTest < Test::Unit::TestCase
 
   def start_logger_mock
     logger_mock = mock('logger')
+    $logger = logger_mock
     logger_mock.expects(:info).with('Appium driver initialised for:').once
     logger_mock.expects(:info).with('    project : local').once
     logger_mock.expects(:info).with(regexp_matches(/^\s{4}build\s{3}:\s\S{36}$/))
     logger_mock.expects(:info).with(regexp_matches(/^\s{4}name\s{4}:\s.+$/))
-    MazeLogger.logger = logger_mock
     logger_mock
   end
 
@@ -229,7 +221,7 @@ class AppAutomateDriverTest < Test::Unit::TestCase
     response = driver.wait_for_element('test_button', 15, false)
     assert_false(response, 'The driver must return false if it does not find an element')
   ensure
-    MazeLogger.logger = nil
+    $logger = nil
   end
 
   def test_clear_element_defaults
@@ -332,7 +324,7 @@ class AppAutomateDriverTest < Test::Unit::TestCase
     ENV['BUILDKITE_RETRY_COUNT'] = '5'
     ENV['BUILDKITE_STEP_KEY'] = 'tests-05'
     logger_mock = mock('logger')
-    MazeLogger.logger = logger_mock
+    $logger = logger_mock
     logger_mock.expects(:info).with('Appium driver initialised for:').once
     logger_mock.expects(:info).with('    project : TEST').once
     logger_mock.expects(:info).with('    build   : 156 TEST BRANCH')

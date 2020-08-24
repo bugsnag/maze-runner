@@ -50,16 +50,16 @@ class Servlet < WEBrick::HTTPServlet::AbstractServlet
   private
 
   def log_request(request)
-    MazeLogger.debug "#{request.request_method} request received!"
-    MazeLogger.debug "URI: #{request.unparsed_uri}"
-    MazeLogger.debug "HEADERS: #{request.raw_header}"
+    $logger.debug "#{request.request_method} request received!"
+    $logger.debug "URI: #{request.unparsed_uri}"
+    $logger.debug "HEADERS: #{request.raw_header}"
     case request['Content-Type']
     when %r{^multipart/form-data; boundary=([^;]+)}
       boundary = WEBrick::HTTPUtils.dequote(Regexp.last_match(1))
       body = WEBrick::HTTPUtils.parse_form_data(request.body(), boundary)
-      MazeLogger.debug "BODY: #{JSON.pretty_generate(body)}"
+      $logger.debug "BODY: #{JSON.pretty_generate(body)}"
     else
-      MazeLogger.debug "BODY: #{JSON.pretty_generate(JSON.parse(request.body))}"
+      $logger.debug "BODY: #{JSON.pretty_generate(JSON.parse(request.body))}"
     end
   end
 end

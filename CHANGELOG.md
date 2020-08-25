@@ -1,3 +1,10 @@
+# 2.3.1 - 2020/08/25
+
+## Fixes
+
+- Fix module load order by requiring Servlet and Logger from Server class
+  [#118](https://github.com/bugsnag/maze-runner/pull/118)
+
 # 2.3.0 - 2020/08/24
 
 ## Enhancements

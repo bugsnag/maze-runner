@@ -4,6 +4,8 @@
 
 - Fix module load order by requiring Servlet and Logger from Server class
   [#118](https://github.com/bugsnag/maze-runner/pull/118)
+- Fix error when parsing request with no body
+  [#118](https://github.com/bugsnag/maze-runner/pull/118)
 
 # 2.3.0 - 2020/08/24
 

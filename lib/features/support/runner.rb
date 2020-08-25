@@ -1,11 +1,5 @@
 require 'open3'
 
-After do |scenario|
-  # Make sure that any scripts are killed between test runs
-  # so future tests are run from a clean slate.
-  Runner.kill_running_scripts
-end
-
 # Determines the default path to the `scripts` directory.  Can be overwritten in the env.rb file.
 SCRIPT_PATH ||= File.expand_path(File.join(File.dirname(__FILE__), "..", "scripts")) unless defined? SCRIPT_PATH
 

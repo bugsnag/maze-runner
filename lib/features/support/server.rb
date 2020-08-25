@@ -78,15 +78,3 @@ class Server
   end
 end
 
-# Before all tests
-Server.start_server
-
-# After all tests
-at_exit do
-  Server.stop_server
-end
-
-# Before each test
-Before do
-  Server.stored_requests.clear
-end

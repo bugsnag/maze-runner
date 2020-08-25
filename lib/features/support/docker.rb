@@ -59,18 +59,3 @@ class Docker
     end
   end
 end
-
-After do |scenario|
-  # This is here to stop sessions from one test hitting another.
-  # However this does mean that tests take longer.
-  # TODO:SM We could try and fix this by generating unique endpoints
-  # for each test.
-  Docker.down_all_services
-end
-
-at_exit do
-  # In order to not impact future test runs, we down
-  # all services (which removes networks etc) so that
-  # future test runs are from a clean slate.
-  Docker.down_all_services
-end

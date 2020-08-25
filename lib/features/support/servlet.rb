@@ -54,6 +54,8 @@ class Servlet < WEBrick::HTTPServlet::AbstractServlet
     $logger.debug "URI: #{request.unparsed_uri}"
     $logger.debug "HEADERS: #{request.raw_header}"
     case request['Content-Type']
+    when nil
+      return
     when %r{^multipart/form-data; boundary=([^;]+)}
       boundary = WEBrick::HTTPUtils.dequote(Regexp.last_match(1))
       body = WEBrick::HTTPUtils.parse_form_data(request.body(), boundary)

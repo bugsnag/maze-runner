@@ -53,6 +53,7 @@ class Servlet < WEBrick::HTTPServlet::AbstractServlet
     $logger.debug "#{request.request_method} request received!"
     $logger.debug "URI: #{request.unparsed_uri}"
     $logger.debug "HEADERS: #{request.raw_header}"
+    return if request.body.nil?
     case request['Content-Type']
     when nil
       return

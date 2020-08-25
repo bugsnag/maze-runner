@@ -2,6 +2,8 @@
 
 require 'webrick'
 require 'json'
+require_relative './servlet'
+require_relative './logger'
 
 # This port number is semi-arbitrary. It doesn't matter for the sake of
 # the application what it is, but there are some constraints due to some

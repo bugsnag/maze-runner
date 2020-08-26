@@ -1,3 +1,10 @@
+# TBD
+
+## Enhancements
+
+- Retry starting of the mock server in cases of failure
+  [#120](https://github.com/bugsnag/maze-runner/pull/120)
+
 # 2.3.2 - 2020/08/26
 
 ## Fixes

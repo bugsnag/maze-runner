@@ -83,9 +83,23 @@ steps:
 
   - wait
 
+  - label: 'Trigger Android build against new master'
+    branches: 'master trigger-pipelines'
+    trigger: 'android-bugsnag-notifier'
+    build:
+      branch: 'maze-runner-master'
+    async: true
+
   - label: 'Trigger Cocoa build against new master'
     branches: 'master trigger-pipelines'
     trigger: 'cocoa-bugsnag-notifier'
+    build:
+      branch: 'maze-runner-master'
+    async: true
+
+  - label: 'Trigger JS build against new master'
+    branches: 'master trigger-pipelines'
+    trigger: 'at-bugsnag-js'
     build:
       branch: 'maze-runner-master'
     async: true

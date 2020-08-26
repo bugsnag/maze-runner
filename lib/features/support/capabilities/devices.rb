@@ -8,8 +8,7 @@ class Devices
     'device' => 'Google Pixel 4',
     'platformName' => 'Android',
     'os' => 'android',
-    'os_version' => '10.0',
-    'browserstack.appium_version' => '1.15.0'
+    'os_version' => '10.0'
   }.freeze
   ANDROID_9_0 = {
     'autoGrantPermissions' => 'true',
@@ -64,29 +63,25 @@ class Devices
       'device' => 'iPhone 8',
       'platformName' => 'iOS',
       'os' => 'ios',
-      'os_version' => '13',
-      'browserstack.appium_version' => '1.16.0'
+      'os_version' => '13'
   }.freeze
   IOS_12 = {
     'device' => 'iPhone 8',
     'platformName' => 'iOS',
     'os' => 'ios',
-    'os_version' => '12',
-    'browserstack.appium_version' => '1.16.0'
+    'os_version' => '12'
   }.freeze
   IOS_11 = {
     'device' => 'iPhone 8',
     'platformName' => 'iOS',
     'os' => 'ios',
-    'os_version' => '11',
-    'browserstack.appium_version' => '1.16.0'
+    'os_version' => '11'
   }.freeze
   IOS_10 = {
     'device' => 'iPhone 7',
     'platformName' => 'iOS',
     'os' => 'ios',
-    'os_version' => '10',
-    'browserstack.appium_version' => '1.15.0'
+    'os_version' => '10'
   }.freeze
   DEVICE_HASH = {
     'ANDROID_10_0' => ANDROID_10_0,

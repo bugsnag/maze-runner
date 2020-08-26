@@ -1,3 +1,10 @@
+# 2.3.2 - 2020/08/26
+
+## Fixes
+
+- Remove explicit setting of Appium versions on individual `DEVICE_TYPE`s, introduced in 2.3.0.
+  [#119](https://github.com/bugsnag/maze-runner/pull/119)
+
 # 2.3.1 - 2020/08/25
 
 ## Fixes

@@ -81,15 +81,24 @@ steps:
           push:
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
 
+  - wait
+
+  - label: 'Trigger Cocoa build against new master'
+    branches: 'master trigger-pipelines'
+    trigger: 'cocoa-bugsnag-notifier'
+    build:
+      branch: 'maze-runner-master'
+    async: true
+
   - label: 'Update docs'
-    if: build.tag =~ /^v2\.[0-9]+\.[0-9]+\$/
+    if: build.tag =~ /^v[2-9]\.[0-9]+\.[0-9]+\$/
     plugins:
       docker-compose#v3.3.0:
         run: docs
     command: 'bundle exec rake docs:build_and_publish'
 
   - label: 'Push Docker image for tag'
-    if: build.tag =~ /^v2\.[0-9]+\.[0-9]+\$/
+    if: build.tag =~ /^v[2-9]\.[0-9]+\.[0-9]+\$/
     plugins:
       - docker-compose#v3.3.0:
           push:

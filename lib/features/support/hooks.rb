@@ -2,10 +2,6 @@
 
 require 'cucumber'
 require 'json'
-require_relative 'docker'
-require_relative 'logger'
-require_relative 'runner'
-require_relative 'server'
 
 # Before all tests
 Server.start_server

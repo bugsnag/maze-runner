@@ -1,4 +1,4 @@
-ARG BUILDKITE_BRANCH
+ARG BRANCH_NAME
 FROM openjdk:8-jdk-stretch AS browserstack-app-automate-builder
 
 RUN apt-get update
@@ -20,7 +20,7 @@ COPY . .
 
 RUN ./gradlew app:assembleRelease
 
-FROM 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BUILDKITE_BRANCH}-ci AS browserstack-app-automate
+FROM 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci AS browserstack-app-automate
 
 RUN apk add bash curl
 

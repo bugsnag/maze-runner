@@ -23,9 +23,9 @@ services:
     build:
       context: test/fixtures/browserstack-app
       args:
-        BUILDKITE_BRANCH:
+        BRANCH_NAME:
     environment:
-      BUILDKITE_BRANCH:
+      BRANCH_NAME:
       BUILDKITE_PIPELINE_NAME:
       BUILDKITE_RETRY_COUNT:
       BUILDKITE:
@@ -40,7 +40,7 @@ services:
     build:
       context: test/fixtures/comparison
       args:
-        BUILDKITE_BRANCH:
+        BRANCH_NAME:
 
   payload-helper-tests:
     build:

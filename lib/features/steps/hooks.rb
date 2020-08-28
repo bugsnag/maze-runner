@@ -3,16 +3,18 @@
 require 'cucumber'
 require 'json'
 
-# Before all tests
-Server.start_server
+AfterConfiguration do |config|
+  Server.start_server
+end
 
-# Before each test
+# Before each scenario
 Before do |scenario|
   STDOUT.puts "--- Scenario: #{scenario.name}"
   Server.stored_requests.clear
   Store.values.clear
 end
 
+# After each scenario
 After do |scenario|
 
   # This is here to stop sessions from one test hitting another.

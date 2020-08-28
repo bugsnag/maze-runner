@@ -54,6 +54,36 @@ steps:
     concurrency: 10
     concurrency_group: 'browserstack-app'
 
+  - label: 'Browserstack app-automate test - Android 7.1'
+    env:
+      DEVICE_TYPE: ANDROID_7_1
+    plugins:
+      docker-compose#v3.3.0:
+        run: browserstack-app-automate
+    command: 'bundle exec bugsnag-maze-runner'
+    concurrency: 10
+    concurrency_group: 'browserstack-app'
+
+  - label: 'Browserstack app-automate test - Android 8.1'
+    env:
+      DEVICE_TYPE: ANDROID_8_1
+    plugins:
+      docker-compose#v3.3.0:
+        run: browserstack-app-automate
+    command: 'bundle exec bugsnag-maze-runner'
+    concurrency: 10
+    concurrency_group: 'browserstack-app'
+
+  - label: 'Browserstack app-automate test - Android 9'
+    env:
+      DEVICE_TYPE: ANDROID_9_0
+    plugins:
+      docker-compose#v3.3.0:
+        run: browserstack-app-automate
+    command: 'bundle exec bugsnag-maze-runner'
+    concurrency: 10
+    concurrency_group: 'browserstack-app'
+
   - label: 'Browserstack app-automate test - Android 10'
     env:
       DEVICE_TYPE: ANDROID_10_0

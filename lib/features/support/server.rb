@@ -45,42 +45,42 @@ class Server
 
     # Starts the WEBrick server in a separate thread
     def start_server
-      @thread = Thread.new do
-        server = WEBrick::HTTPServer.new(
-          Port: MOCK_API_PORT,
-          Logger: $logger,
-          AccessLog: [],
-        )
-        server.mount '/', Servlet
-        begin
+      attempts = 0
+      $logger.info 'Starting mock server'
+      loop do
+        @thread = Thread.new do
+          server = WEBrick::HTTPServer.new(
+            Port: MOCK_API_PORT,
+            Logger: $logger,
+            AccessLog: []
+          )
+          server.mount '/', Servlet
           server.start
+        rescue StandardError => e
+          $logger.warn "Failed to start mock server: #{e.message}"
         ensure
-          server.shutdown
+          server&.shutdown
         end
+
+        # Need a short sleep here as a dying thread is still alive momentarily
+        sleep 1
+        break if running?
+
+        # Bail out after 3 attempts
+        attempts += 1
+        raise 'Too many failed attempts to start mock server' if attempts == 3
+
+        # Failed to start - sleep before retrying
+        $logger.info 'Retrying in 5 seconds'
+        sleep 5
       end
     end
 
     # Stops the WEBrick server thread if it's running
     def stop_server
-      @thread.kill if @thread&.alive?
+      @thread&.kill if @thread&.alive?
       @thread = nil
     end
   end
 end
 
-# Before all tests
-Server.start_server
-
-# After all tests
-at_exit do
-  Server.stop_server
-end
-
-# Before each test
-Before do
-  Server.stored_requests.clear
-  unless Server.running?
-    $logger.fatal "Mock server is not running on #{MOCK_API_PORT}"
-    exit(1)
-  end
-end

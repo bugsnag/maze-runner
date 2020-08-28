@@ -9,8 +9,3 @@ class Store
     end
   end
 end
-
-# Before each test
-Before do
-  Store.values.clear
-end

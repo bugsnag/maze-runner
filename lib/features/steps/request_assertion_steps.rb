@@ -16,59 +16,60 @@ end
 # Continually checks to see if the required amount of requests have been received. Times out after 30 seconds.
 #
 # @step_input request_count [Integer] The amount of requests expected
-Then('I wait to receive {int} request(s)') do |request_count|
+Then('I wait to receive {int} error(s)') do |request_count|
   max_attempts = 300
   attempts = 0
   received = false
   until (attempts >= max_attempts) || received
     attempts += 1
-    received = (Server.stored_requests.size >= request_count)
+    received = (Server.instance.errors.size >= request_count)
     sleep 0.1
   end
-  raise "Requests not received in 30s (received #{Server.stored_requests.size})" unless received
-  assert_equal(request_count, Server.stored_requests.size, "#{Server.stored_requests.size} requests received")
+  raise "Errors not received in 30s (received #{Server.instance.errors.size})" unless received
+
+  assert_equal(request_count, Server.errors.size, "#{Server.instance.errors.size} requests received")
 end
 
-# Assert that the test Server hasn't received any requests.
-Then('I should receive no requests') do
-  assert_equal(0, Server.stored_requests.size, "#{Server.stored_requests.size} requests received")
+# Assert that the test Server hasn't received any errors.
+Then('I should receive no errors') do
+  assert_equal(0, Server.errors.size, "#{Server.instance.errors.size} errors received")
 end
 
-# Shifts the received request, dropping the oldest request each time.
-Then('I discard the oldest request') do
-  Server.stored_requests.shift
+# Moves to the next error
+Then('I discard the oldest error') do
+  Server.instance.errors.next
 end
 
 # Tests that a header is not null
 #
 # @step_input header_name [String] The header to test
-Then('the {string} header is not null') do |header_name|
-  assert_not_nil(Server.current_request[:request][header_name],
-                "The '#{header_name}' header should not be null")
+Then('the error {string} header is not null') do |header_name|
+  assert_not_nil(Server.instance.errors.current[:request][header_name],
+                 "The '#{header_name}' header should not be null")
 end
 
 # Tests that a header equals a string
 #
 # @step_input header_name [String] The header to test
 # @step_input header_value [String] The string it should match
-Then('the {string} header equals {string}') do |header_name, header_value|
-  assert_equal(header_value, Server.current_request[:request][header_name])
+Then('the error {string} header equals {string}') do |header_name, header_value|
+  assert_equal(header_value, Server.instance.errors.current[:request][header_name])
 end
 
 # Tests that a header matches one of a list of strings
 #
 # @step_input header_name [String] The header to test
 # @step_input header_values [DataTable] A parsed data table
-Then('the {string} header equals one of:') do |header_name, header_values|
-  assert_includes(header_values.raw.flatten, Server.current_request[:request][header_name])
+Then('the error {string} header equals one of:') do |header_name, header_values|
+  assert_includes(header_values.raw.flatten, Server.instance.errors.current[:request][header_name])
 end
 
 # Tests that a header is a timestamp.
 #   Uses the regex /^\d{4}\-\d{2}\-\d{2}T\d{2}:\d{2}:[\d\.]+Z?$/
 #
 # @step_input header_name [String] The header to test
-Then('the {string} header is a timestamp') do |header_name|
-  header = Server.current_request[:request][header_name]
+Then('the error {string} header is a timestamp') do |header_name|
+  header = Server.instance.errors.current[:request][header_name]
   assert_match(TIMESTAMP_REGEX, header)
 end
 
@@ -76,26 +77,28 @@ end
 #
 # @step_input parameter_name [String] The parameter to test
 # @step_input parameter_value [String] The expected value
-Then('the {string} query parameter equals {string}') do |parameter_name, parameter_value|
-  assert_equal(parameter_value, parse_querystring(Server.current_request)[parameter_name][0])
+Then('the error {string} query parameter equals {string}') do |parameter_name, parameter_value|
+  assert_equal(parameter_value, parse_querystring(Server.errors.current)[parameter_name][0])
 end
 
 # Tests that a query parameter is present and not null.
 #
 # @step_input parameter_name [String] The parameter to test
-Then('the {string} query parameter is not null') do |parameter_name|
-  assert_not_nil(parse_querystring(Server.current_request)[parameter_name][0], "The '#{parameter_name}' query parameter should not be null")
+Then('the error {string} query parameter is not null') do |parameter_name|
+  assert_not_nil(parse_querystring(Server.instance.errors.current)[parameter_name][0],
+                 "The '#{parameter_name}' query parameter should not be null")
 end
 
 # Tests that a query parameter is a timestamp.
 #   Uses the regex /^\d{4}\-\d{2}\-\d{2}T\d{2}:\d{2}:[\d\.]+Z?$/
 #
 # @step_input parameter_name [String] The parameter to test
-Then('the {string} query parameter is a timestamp') do |parameter_name|
-  param = parse_querystring(Server.current_request)[parameter_name][0]
+Then('the error {string} query parameter is a timestamp') do |parameter_name|
+  param = parse_querystring(Server.instance.errors.current)[parameter_name][0]
   assert_match(TIMESTAMP_REGEX, param)
 end
 
+# TODO Probably split this into another file - multipart_assertion_steps
 # Tests the number of fields a multipart request contains.
 #
 # @step_input part_count [Integer] The number of expected fields

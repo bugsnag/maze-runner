@@ -5,6 +5,8 @@ require 'singleton'
 require 'webrick'
 require_relative './servlet'
 require_relative './logger'
+require_relative './request_list'
+require_relative './request_list'
 
 # Receives and stores requests through a WEBrick HTTPServer
 class Server
@@ -15,9 +17,12 @@ class Server
   #   80, 3000, 4000, 5000, 8000, 8080 or 9000-9999 [ from https://stackoverflow.com/a/28678652 ]
   PORT = 9339
 
+  attr_reader :errors
+  attr_reader :sessions
+
   def initialize
-    @all_notify_requests = []
-    @remaining_notify_requests = []
+    @errors = RequestList.new
+    @sessions = RequestList.new
   end
 
   # Whether the server thread is running
@@ -27,36 +32,19 @@ class Server
     @thread&.alive?
   end
 
-  def store_notify_request(request)
-    @all_notify_requests.append request.clone
-    @remaining_notify_requests.append request.clone
-  end
-
-  def take_next_notify_request
-    @remaining_notify_requests.shift
-  end
-
-  def all_notify_requests
-    @all_notify_requests.clone.freeze
-  end
-
-  def clear_all_requests
-    @all_notify_requests.clear
-    @remaining_notify_requests.clear
-  end
-
   # Starts the WEBrick server in a separate thread
-  def start_server
+  def start
     attempts = 0
     $logger.info 'Starting mock server'
     loop do
       @thread = Thread.new do
         server = WEBrick::HTTPServer.new(
-          Port: MOCK_API_PORT,
+          Port: PORT,
           Logger: $logger,
           AccessLog: []
         )
-        server.mount '/', Servlet
+        server.mount '/notify', Servlet, errors
+        server.mount '/session', Servlet, sessions
         server.start
       rescue StandardError => e
         $logger.warn "Failed to start mock server: #{e.message}"
@@ -79,9 +67,8 @@ class Server
   end
 
   # Stops the WEBrick server thread if it's running
-  def stop_server
+  def stop
     @thread&.kill if @thread&.alive?
     @thread = nil
   end
 end
-

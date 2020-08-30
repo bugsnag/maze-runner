@@ -4,14 +4,15 @@ require 'cucumber'
 require 'json'
 
 AfterConfiguration do |config|
-  Server.start_server
+  Server.instance.start
 end
 
 # Before each scenario
 Before do |scenario|
   STDOUT.puts "--- Scenario: #{scenario.name}"
   Runner.environment.clear
-  Server.stored_requests.clear
+  Server.instance.errors.clear
+  Server.instance.sessions.clear
   Store.values.clear
 end
 
@@ -31,13 +32,14 @@ After do |scenario|
   Proxy.instance.stop
 
   # Log unprocessed requests if the scenario fails
+  # TODO Revamp and log sessions
   if scenario.failed?
     STDOUT.puts '^^^ +++'
-    if Server.stored_requests.empty?
-      $logger.info 'No requests received'
+    if Server.instance.errors.empty?
+      $logger.info 'No errors received'
     else
-      $logger.info 'The following requests were received:'
-      Server.stored_requests.each.with_index(1) do |request, number|
+      $logger.info "#{Server.instance.errors.size} errors were received:"
+      Server.instance.errors.all.each.with_index(1) do |request, number|
         $logger.info "Request #{number}:"
         LogUtil.log_hash(Logger::Severity::INFO, request)
       end
@@ -48,7 +50,7 @@ end
 # After all tests
 at_exit do
   # Stop the mock server
-  Server.stop_server
+  Server.instance.stop
 
   # In order to not impact future test runs, we down
   # all services (which removes networks etc) so that

@@ -150,7 +150,7 @@ end
 def testStringPlatformValues(field_path, platform_values)
   expected_value = getExpectedValueForPlatform(platform_values)
   unless shouldSkipPlatformCheck(expected_value)
-    payload_value = read_key_path(Server.current_request[:body], field_path)
+    payload_value = read_key_path(Server.instance.errors.current[:body], field_path)
     assert_equal(expected_value, payload_value)
   end
 end
@@ -165,7 +165,7 @@ def testBooleanPlatformValues(field_path, platform_values)
     else
       expected_bool = expected_value
     end
-    payload_value = read_key_path(Server.current_request[:body], field_path)
+    payload_value = read_key_path(Server.instance.errors.current[:body], field_path)
     assert_equal(expected_bool, payload_value)
   end
 end
@@ -173,7 +173,7 @@ end
 def testNumericPlatformValues(field_path, platform_values)
   expected_value = getExpectedValueForPlatform(platform_values)
   unless shouldSkipPlatformCheck(expected_value)
-    payload_value = read_key_path(Server.current_request[:body], field_path)
+    payload_value = read_key_path(Server.instance.errors.current[:body], field_path)
     assert_equal(expected_value.to_f, payload_value)
   end
 end

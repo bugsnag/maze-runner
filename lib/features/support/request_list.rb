@@ -8,6 +8,14 @@ class RequestList
     @current = 0
   end
 
+  def empty?
+    @requests.empty?
+  end
+
+  def size
+    @requests.size
+  end
+
   # Add a request to the list
   #
   # @param request The new request, from which a clone is made

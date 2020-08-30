@@ -2,6 +2,15 @@
 
 # Receives and parses the requests and payloads sent from the test fixture
 class Servlet < WEBrick::HTTPServlet::AbstractServlet
+  # Constructor
+  #
+  # @param server [HTTPServer] WEBrick HTTPServer
+  # @param requests [RequestList] Request list to add to
+  def initialize(server, requests)
+    super server
+    @requests = requests
+  end
+
   # Logs an incoming GET WEBrick request.
   #
   # @param request [HTTPRequest] The incoming GET request
@@ -12,7 +21,7 @@ class Servlet < WEBrick::HTTPServlet::AbstractServlet
 
   # Logs and parses an incoming POST request.
   # Parses `multipart/form-data` and `application/json` content-types.
-  # Parsed requests are added to the Server.stored_requests Array.
+  # Parsed requests are added to the requests list.
   #
   # @param request [HTTPRequest] The incoming GET request
   # @param response [HTTPResponse] The response to return
@@ -22,14 +31,14 @@ class Servlet < WEBrick::HTTPServlet::AbstractServlet
     when %r{^multipart/form-data; boundary=([^;]+)}
       boundary = WEBrick::HTTPUtils::dequote($1)
       body = WEBrick::HTTPUtils.parse_form_data(request.body, boundary)
-      Server.stored_requests << { body: body, request: request }
+      hash = { body: body, request: request }
     else
       # "content-type" is assumed to be JSON (which mimics the behaviour of
       # the actual API). This supports browsers that can't set this header for
       # cross-domain requests (IE8/9)
-      Server.stored_requests << { body: JSON.parse(request.body),
-                                  request: request }
+      hash = { body: JSON.parse(request.body), request: request }
     end
+    @requests.add(hash)
     response.header['Access-Control-Allow-Origin'] = '*'
     response.status = 200
   end

@@ -43,7 +43,7 @@ class Server
           AccessLog: []
         )
         server.mount '/notify', Servlet, errors
-        server.mount '/session', Servlet, sessions
+        server.mount '/sessions', Servlet, sessions
         server.start
       rescue StandardError => e
         $logger.warn "Failed to start mock server: #{e.message}"

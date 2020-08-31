@@ -27,7 +27,7 @@ Then('I wait to receive {int} error(s)') do |request_count|
   end
   raise "Errors not received in 30s (received #{Server.instance.errors.size})" unless received
 
-  assert_equal(request_count, Server.errors.size, "#{Server.instance.errors.size} requests received")
+  assert_equal(request_count, Server.instance.errors.size, "#{Server.instance.errors.size} requests received")
 end
 
 # Assert that the test Server hasn't received any errors.

@@ -13,7 +13,7 @@ class ServerTest < Test::Unit::TestCase
     $logger = @logger_mock
   end
 
-  def test_start_server_cleanily
+  def test_start_cleanily
     # Expected logging calls
     @logger_mock.expects(:info).with('Starting mock server')
 
@@ -22,24 +22,24 @@ class ServerTest < Test::Unit::TestCase
 
     # Expected HTTP server calls
     mock_http_server = mock('http')
-    mock_http_server.expects(:mount)
+    mock_http_server.expects(:mount).twice
     mock_http_server.expects(:start)
     mock_http_server.expects(:shutdown)
 
     # Expected WEBrick instantiation
-    WEBrick::HTTPServer.expects(:new).with(Port: MOCK_API_PORT,
+    WEBrick::HTTPServer.expects(:new).with(Port: Server::PORT,
                                            Logger: @logger_mock,
                                            AccessLog: []).returns(mock_http_server)
 
     # End of first and only loop
-    Server.expects(:sleep).with(1)
-    Server.expects(:running?).returns(true)
+    Server.instance.expects(:sleep).with(1)
+    Server.instance.expects(:running?).returns(true)
 
     # Call the method
-    Server.start_server
+    Server.instance.start
   end
 
-  def test_start_server_on_retry
+  def test_start_on_retry
     # Expected logging calls
     @logger_mock.expects(:info).with('Starting mock server')
     @logger_mock.expects(:warn).with('Failed to start mock server: uncaught throw "Failed to start"')
@@ -49,29 +49,29 @@ class ServerTest < Test::Unit::TestCase
     Thread.expects(:new).yields.twice
 
     # Fails to start first time
-    WEBrick::HTTPServer.expects(:new).with(Port: MOCK_API_PORT,
+    WEBrick::HTTPServer.expects(:new).with(Port: Server::PORT,
                                            Logger: @logger_mock,
                                            AccessLog: []).throws('Failed to start')
 
     # Successful the second
     mock_http_server = mock('http')
-    mock_http_server.expects(:mount)
+    mock_http_server.expects(:mount).twice
     mock_http_server.expects(:start)
     mock_http_server.expects(:shutdown)
-    WEBrick::HTTPServer.expects(:new).with(Port: MOCK_API_PORT,
+    WEBrick::HTTPServer.expects(:new).with(Port: Server::PORT,
                                            Logger: @logger_mock,
                                            AccessLog: []).returns(mock_http_server)
 
     # End of loop
-    Server.expects(:sleep).with(1).twice
-    Server.expects(:sleep).with(5)
-    Server.expects(:running?).twice.returns(false).then.returns(true)
+    Server.instance.expects(:sleep).with(1).twice
+    Server.instance.expects(:sleep).with(5)
+    Server.instance.expects(:running?).twice.returns(false).then.returns(true)
 
     # Call the method
-    Server.start_server
+    Server.instance.start
   end
 
-  def test_start_server_fails
+  def test_start_fails
     # Expected logging calls
     @logger_mock.expects(:info).with('Starting mock server')
     @logger_mock.expects(:warn).with('Failed to start mock server: uncaught throw "Failed to start"')
@@ -84,24 +84,24 @@ class ServerTest < Test::Unit::TestCase
     Thread.expects(:new).yields.times(3)
 
     # Fails to start every time
-    WEBrick::HTTPServer.expects(:new).with(Port: MOCK_API_PORT,
+    WEBrick::HTTPServer.expects(:new).with(Port: Server::PORT,
                                            Logger: @logger_mock,
                                            AccessLog: []).throws('Failed to start')
-    WEBrick::HTTPServer.expects(:new).with(Port: MOCK_API_PORT,
+    WEBrick::HTTPServer.expects(:new).with(Port: Server::PORT,
                                            Logger: @logger_mock,
                                            AccessLog: []).throws('Failed to start')
-    WEBrick::HTTPServer.expects(:new).with(Port: MOCK_API_PORT,
+    WEBrick::HTTPServer.expects(:new).with(Port: Server::PORT,
                                            Logger: @logger_mock,
                                            AccessLog: []).throws('Failed to start')
 
     # End of loop
-    Server.expects(:sleep).with(1).times(3)
-    Server.expects(:sleep).with(5).twice
-    Server.expects(:running?).twice.returns(false).times(3)
+    Server.instance.expects(:sleep).with(1).times(3)
+    Server.instance.expects(:sleep).with(5).twice
+    Server.instance.expects(:running?).twice.returns(false).times(3)
 
     # Call the method
     assert_raise RuntimeError do
-      Server.start_server
+      Server.instance.start
     end
   end
 end

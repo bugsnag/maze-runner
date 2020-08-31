@@ -9,8 +9,8 @@ include Test::Unit::Assertions
 # @!group Request assertion steps
 
 # Shortcut to waiting to receive a single request
-Then('I wait to receive a request') do
-  step 'I wait to receive 1 request'
+Then('I wait to receive an error') do
+  step 'I wait to receive 1 error'
 end
 
 # Continually checks to see if the required amount of requests have been received. Times out after 30 seconds.

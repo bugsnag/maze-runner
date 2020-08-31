@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val button = findViewById<Button>(R.id.trigger_error)
-        button.setOnClickListener { 
+        button.setOnClickListener {
             Bugsnag.notify(Exception("HandledException!"), {
                 val error = it.error!!
                 error.metaData.addToTab("test", "boolean_false", false)
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
     private fun initialiseBugsnag() {
         val config = Configuration("12312312312312312312312312312312")
         config.autoCaptureSessions = false
-        config.setEndpoints("http://localhost:9339", "http://localhost:9339")
+        config.setEndpoints("http://localhost:9339/notify", "http://localhost:9339/sessions")
 
         Bugsnag.init(this, config)
         Bugsnag.setLoggingEnabled(true)

@@ -6,7 +6,6 @@ require 'webrick'
 require_relative './servlet'
 require_relative './logger'
 require_relative './request_list'
-require_relative './request_list'
 
 # Receives and stores requests through a WEBrick HTTPServer
 class Server

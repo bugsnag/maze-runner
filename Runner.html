@@ -271,12 +271,12 @@
       <pre class="lines">
 
 
-92
-93
-94</pre>
+86
+87
+88</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/runner.rb', line 92</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/runner.rb', line 86</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_environment'>environment</span>
   <span class='ivar'>@env</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -311,18 +311,18 @@
       <pre class="lines">
 
 
+73
+74
+75
+76
+77
+78
 79
 80
-81
-82
-83
-84
-85
-86
-87</pre>
+81</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/runner.rb', line 79</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/runner.rb', line 73</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_kill_running_scripts'>kill_running_scripts</span>
   <span class='id identifier rubyid_pids'>pids</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_p'>p</span><span class='op'>|</span>
@@ -435,6 +435,12 @@ just so the caller can verify something about the output.</p>
       <pre class="lines">
 
 
+18
+19
+20
+21
+22
+23
 24
 25
 26
@@ -460,16 +466,10 @@ just so the caller can verify something about the output.</p>
 46
 47
 48
-49
-50
-51
-52
-53
-54
-55</pre>
+49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/runner.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/runner.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_run_command'>run_command</span><span class='lparen'>(</span><span class='id identifier rubyid_cmd'>cmd</span><span class='comma'>,</span> <span class='label'>blocking:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>success_codes:</span> <span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_executor'>executor</span> <span class='op'>=</span> <span class='id identifier rubyid_lambda'>lambda</span> <span class='kw'>do</span>
@@ -603,22 +603,22 @@ just so the caller can verify something about the output.</p>
       <pre class="lines">
 
 
+58
+59
+60
+61
+62
+63
 64
 65
 66
 67
 68
 69
-70
-71
-72
-73
-74
-75
-76</pre>
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/runner.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/runner.rb', line 58</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_run_script'>run_script</span><span class='lparen'>(</span><span class='id identifier rubyid_script_name'>script_name</span><span class='comma'>,</span> <span class='label'>blocking:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>success_codes:</span> <span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_script_path'>script_path</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='const'>SCRIPT_PATH</span><span class='comma'>,</span> <span class='id identifier rubyid_script_name'>script_name</span><span class='rparen'>)</span>
@@ -643,7 +643,7 @@ just so the caller can verify something about the output.</p>
 </div>
 
       <div id="footer">
-  Generated on Fri Aug 28 11:35:10 2020 by
+  Generated on Tue Sep  1 14:25:51 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.7.1).
 </div>

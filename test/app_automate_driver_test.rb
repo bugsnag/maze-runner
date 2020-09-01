@@ -15,9 +15,9 @@ class AppAutomateDriverTest < Test::Unit::TestCase
   LOCAL_TUNNEL_COMMAND = "/BrowserStackLocal -d start --key #{ACCESS_KEY} --local-identifier #{LOCAL_ID} --force-local"
 
   def setup
+    ENV.delete('BRANCH_NAME')
     ENV.delete('BUILDKITE')
     ENV.delete('BUILDKITE_PIPELINE_NAME')
-    ENV.delete('BUILDKITE_BRANCH')
     ENV.delete('BUILDKITE_BUILD_NUMBER')
     ENV.delete('BUILDKITE_RETRY_COUNT')
     ENV.delete('BUILDKITE_STEP_KEY')
@@ -336,9 +336,9 @@ class AppAutomateDriverTest < Test::Unit::TestCase
   end
 
   def test_environment_ids
+    ENV['BRANCH_NAME'] = 'TEST BRANCH'
     ENV['BUILDKITE'] = 'true'
     ENV['BUILDKITE_PIPELINE_NAME'] = 'TEST'
-    ENV['BUILDKITE_BRANCH'] = 'TEST BRANCH'
     ENV['BUILDKITE_BUILD_NUMBER'] = '156'
     ENV['BUILDKITE_RETRY_COUNT'] = '5'
     ENV['BUILDKITE_STEP_KEY'] = 'tests-05'

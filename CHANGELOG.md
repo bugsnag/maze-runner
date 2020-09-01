@@ -8,6 +8,8 @@
   [#121](https://github.com/bugsnag/maze-runner/pull/121)
 - Notifier builds automatically triggered against new versions of `master`
   [#122](https://github.com/bugsnag/maze-runner/pull/122)
+- Use BRANCH_NAME throughout instead of BUILDKITE_BRANCH
+  [#123](https://github.com/bugsnag/maze-runner/pull/123)
 
 # 2.3.2 - 2020/08/26
 

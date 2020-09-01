@@ -166,7 +166,7 @@ class AppAutomateDriver < Appium::Driver
 
       bk_build_array = []
       bk_build_array << ENV['BUILDKITE_BUILD_NUMBER'] if ENV['BUILDKITE_BUILD_NUMBER']
-      bk_build_array << ENV['BUILDKITE_BRANCH'] if ENV['BUILDKITE_BRANCH']
+      bk_build_array << ENV['BRANCH_NAME'] if ENV['BRANCH_NAME']
       bk_build = bk_build_array.join(' ')
 
       bk_name_array = [name]

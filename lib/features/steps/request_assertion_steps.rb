@@ -72,7 +72,7 @@ end
 #   Uses the regex /^\d{4}\-\d{2}\-\d{2}T\d{2}:\d{2}:[\d\.]+Z?$/
 #
 # @step_input header_name [String] The header to test
-Then('the error {string} header is a timestamp') do |header_name|
+Then('the {string} header is a timestamp') do |header_name|
   header = Server.instance.errors.current[:request][header_name]
   assert_match(TIMESTAMP_REGEX, header)
 end

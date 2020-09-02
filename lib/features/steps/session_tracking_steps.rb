@@ -79,7 +79,7 @@ end
 
 # Tests that a payload has an appropriately structured session array
 Then("the payload has a valid sessions array") do
-  if sessions = Server.current_request[:body]["sessions"]
+  if sessions = Server.instance.sessions.current[:body]["sessions"]
     steps %Q{
       Then the session "id" is not null
       And the session "startedAt" is a timestamp

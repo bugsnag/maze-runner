@@ -5,7 +5,7 @@ Feature: Comparing elements from one payload to another
         And I send a "equal"-type request
         Then I wait to receive 2 errors
         And the payload field "animals.0" is stored as the value "animal_zero"
-        And I discard the oldest request
+        And I discard the oldest error
         And the payload field "animals.0" equals the stored value "animal_zero"
 
     Scenario: Testing two elements don't match
@@ -13,5 +13,5 @@ Feature: Comparing elements from one payload to another
         And I send a "equal"-type request
         Then I wait to receive 2 errors
         And the payload field "animals.0" is stored as the value "animal_zero"
-        And I discard the oldest request
+        And I discard the oldest error
         And the payload field "animals.1" does not equal the stored value "animal_zero"

@@ -4,7 +4,7 @@ require 'net/http'
 require 'json'
 
 http = Net::HTTP.new('localhost', ENV['MOCK_API_PORT'])
-request = Net::HTTP::Post.new('/')
+request = Net::HTTP::Post.new('/notify')
 request['Content-Type'] = 'application/json'
 
 templates = {

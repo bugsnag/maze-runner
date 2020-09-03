@@ -15,13 +15,15 @@ v3:
 config.setEndpoints("http://localhost:9339/notify", "http://localhost:9339/sessions")
 ```
 
-### Cucumber steps reworded
+### Cucumber steps changed
  
 Several Cucumber steps have changed their wording:
+```diff
+- I wait to receive a request
++ asdasd
+```
 
-TODO
-
-### Cucumber steos removed
+### Cucumber steps removed
 
 The following Cucumber steps are no longer required at the scenario level, as they are included
 in the newly worded steps above.

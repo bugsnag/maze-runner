@@ -2,6 +2,8 @@
 
 ## Enhancements
 
+- Fix broken Build API step syntax
+  [#125](https://github.com/bugsnag/maze-runner/pull/125)
 - Range of additional Android 6, 8.0 and 8.1 device options provided, 
   together with Android 11 and iOS 14.
   [#127](https://github.com/bugsnag/maze-runner/pull/127)

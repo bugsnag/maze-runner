@@ -81,11 +81,17 @@ class RequestListTest < Test::Unit::TestCase
     list.add item2
     list.add item3
     assert_equal [item1, item2, item3], list.all
-    assert_equal item1, list.current
+    list.next
+    list.next
+    assert_equal item3, list.current
 
     list.clear
     assert_equal [], list.all
     assert_nil list.current
+
+    # Re-ddd something - checks internal pointer was reset
+    list.add item1
+    assert_equal item1, list.current
   end
 
   def test_too_many_nexts

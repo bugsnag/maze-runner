@@ -37,18 +37,7 @@ end
 
 # Moves to the next error
 Then('I discard the oldest error') do
-  STDOUT.puts 'Discarding oldest error'
-  STDOUT.puts 'All before'
-  STDOUT.puts JSON.pretty_generate Server.instance.errors.all
-  STDOUT.puts 'Current before'
-  STDOUT.puts JSON.pretty_generate Server.instance.errors.current
-
   Server.instance.errors.next
-
-  STDOUT.puts 'All after'
-  STDOUT.puts JSON.pretty_generate Server.instance.errors.all
-  STDOUT.puts 'Current after'
-  STDOUT.puts JSON.pretty_generate Server.instance.errors.current
 end
 
 #

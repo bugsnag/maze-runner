@@ -41,5 +41,6 @@ class RequestList
   # Clears the list
   def clear
     @requests.clear
+    @current = 0
   end
 end

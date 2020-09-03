@@ -18,10 +18,17 @@ config.setEndpoints("http://localhost:9339/notify", "http://localhost:9339/sessi
 ### Cucumber steps changed
  
 Several Cucumber steps have changed their wording:
-```diff
-- I wait to receive a request
-+ asdasd
-```
+
+Old step | New step
+----| -------- | 
+I wait to receive a request | I wait to receive an error
+I wait to receive {int} request(s) | I wait to receive {int} error(s)
+I discard the oldest request | I discard the oldest error
+I should receive no requests | I should receive no errors
+the {string} header is not null | the error {string} header is not null
+the {string} query parameter equals {string} | the error {string} query parameter equals {string}
+the {string} query parameter is not null | the error {string} query parameter is not null
+the {string} query parameter is a timestamp | the error {string} query parameter is a timestamp
 
 ### Cucumber steps removed
 

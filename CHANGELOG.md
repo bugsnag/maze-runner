@@ -2,6 +2,8 @@
 
 ## Enhancements
 
+- Range of additional Android 6, 8.0 and 8.1 device options provided
+  [#127](https://github.com/bugsnag/maze-runner/pull/127)
 - Ability to run an HTTP/S proxy added
   [#128](https://github.com/bugsnag/maze-runner/pull/128)
 

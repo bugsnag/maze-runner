@@ -1,3 +1,10 @@
+# 2.5.0 - TBD
+
+## Enhancements
+
+- Ability to run an HTTP/S proxy added
+  [#128](https://github.com/bugsnag/maze-runner/pull/128)
+
 # 2.4.0 - 2020/09/01
 
 ## Enhancements

@@ -6,7 +6,9 @@ require 'webrick'
 require 'webrick/https'
 require 'webrick/httpproxy'
 
-# Provides the ability to run a proxy server, using the WEBrick proxy server
+# Provides the ability to run a proxy server, using the WEBrick proxy server.
+# Note that for an HTTPS proxy a self-signed certificate will be used.  If using curl, for example, this
+# means having to employ the --proxy-insecure option.
 class Proxy
   include Singleton
 
@@ -33,8 +35,11 @@ class Proxy
   end
 
   # Starts the WEBrick proxy in a separate thread
+  # If authentication if requested, then the credentials used are simply 'user' with 'password'.
+  #
+  # @param protocol [Symbol] :Http or Https
+  # @param authenticated [Boolean] Whether basic authentication should be applied.
   def start(protocol, authenticated = false)
-    stop if running?
     @hosts.clear
 
     attempts = 0
@@ -46,6 +51,7 @@ class Proxy
           req.header['host'].each { |host| @hosts.append(host) }
         end
         config = {
+          Logger: $logger,
           Port: PORT,
           ProxyContentHandler: handler
         }

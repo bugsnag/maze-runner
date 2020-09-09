@@ -27,6 +27,8 @@ After do |scenario|
   # so future tests are run from a clean slate.
   Runner.kill_running_scripts
 
+  Proxy.instance.stop
+
   # Log unprocessed requests if the scenario fails
   if scenario.failed?
     STDOUT.puts '^^^ +++'

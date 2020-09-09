@@ -3,7 +3,6 @@
 class Devices
 
   class << self
-
     def make_android_hash(device, version)
       {
         'device' => device,
@@ -11,6 +10,15 @@ class Devices
         'autoGrantPermissions' => 'true',
         'platformName' => 'Android',
         'os' => 'android'
+      }.freeze
+    end
+
+    def make_ios_hash(device, version)
+      {
+        'device' => device,
+        'os_version' => version,
+        'platformName' => 'iOS',
+        'os' => 'ios'
       }.freeze
     end
   end
@@ -37,30 +45,11 @@ class Devices
   ANDROID_6_0 = ANDROID_6_0_NEXUS_6
   ANDROID_5_0 = Devices.make_android_hash 'Google Nexus 6', '5.0'
   ANDROID_4_4 = Devices.make_android_hash 'Google Nexus 5', '4.4'
-  IOS_13 = {
-    'device' => 'iPhone 8',
-    'platformName' => 'iOS',
-    'os' => 'ios',
-    'os_version' => '13'
-  }.freeze
-  IOS_12 = {
-    'device' => 'iPhone 8',
-    'platformName' => 'iOS',
-    'os' => 'ios',
-    'os_version' => '12'
-  }.freeze
-  IOS_11 = {
-    'device' => 'iPhone 8',
-    'platformName' => 'iOS',
-    'os' => 'ios',
-    'os_version' => '11'
-  }.freeze
-  IOS_10 = {
-    'device' => 'iPhone 7',
-    'platformName' => 'iOS',
-    'os' => 'ios',
-    'os_version' => '10'
-  }.freeze
+  IOS_14 = make_ios_hash('iPhone 11', '14')
+  IOS_13 = make_ios_hash('iPhone 8', '13')
+  IOS_12 = make_ios_hash('iPhone 8', '12')
+  IOS_11 = make_ios_hash('iPhone 8', '11')
+  IOS_10 = make_ios_hash('iPhone 7', '10')
   DEVICE_HASH = {
     'ANDROID_11_0' => ANDROID_11_0,
     'ANDROID_11_0_PIXEL_4' => ANDROID_11_0_PIXEL_4,
@@ -82,6 +71,7 @@ class Devices
     'ANDROID_6_0_GALAXY_S7' => ANDROID_6_0_GALAXY_S7,
     'ANDROID_6_0_MOTO_X_2ND_GEN' => ANDROID_6_0_MOTO_X_2ND_GEN,
     'ANDROID_4_4' => ANDROID_4_4,
+    'IOS_14' => IOS_14,
     'IOS_13' => IOS_13,
     'IOS_12' => IOS_12,
     'IOS_11' => IOS_11,

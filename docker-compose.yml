@@ -42,6 +42,12 @@ services:
       args:
         BRANCH_NAME:
 
+  proxy-tests:
+    build:
+      context: test/fixtures/proxy
+      args:
+        BRANCH_NAME:
+
   payload-helper-tests:
     build:
       context: test/fixtures/payload-helpers

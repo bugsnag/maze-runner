@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'json'
 require 'singleton'
 require 'webrick'
 require 'webrick/https'
@@ -14,26 +15,37 @@ class Proxy
   #   80, 3000, 4000, 5000, 8000, 8080 or 9000-9999 [ from https://stackoverflow.com/a/28678652 ]
   PORT = 9000
 
+  def initialize
+    @hosts = []
+  end
+
+  # Whether the proxy handled a request for the given host
+  #
+  # @param host [String] The destination host to test for
+  def handled_host?(host)
+    @hosts.include? host
+  end
+
   # Whether the proxy server thread is running
   #
-  # @return [Boolean] If the server is running
   def running?
     @thread&.alive?
   end
 
   # Starts the WEBrick proxy in a separate thread
   def start(protocol, authenticated = false)
+    @hosts.clear
+
     attempts = 0
     $logger.info 'Starting proxy server'
     loop do
       @thread = Thread.new do
 
         handler = proc do |req, res|
-          $logger.info 'PROXY: TODO Capture something interesting'
-          $logger.info req
+          req.header['host'].each { |host| @hosts.append(host) }
         end
         config = {
-          Port: @port,
+          Port: PORT,
           ProxyContentHandler: handler
         }
 
@@ -61,11 +73,13 @@ class Proxy
           config[:ProxyAuthProc] = authenticator.method(:authenticate).to_proc
         end
 
-        server.start
+        # Crwate and start the proxy
+        proxy = WEBrick::HTTPProxyServer.new config
+        proxy.start
       rescue StandardError => e
         $logger.warn "Failed to start proxy server: #{e.message}"
       ensure
-        server&.shutdown
+        proxy&.shutdown
       end
 
       # Need a short sleep here as a dying thread is still alive momentarily

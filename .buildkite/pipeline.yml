@@ -44,6 +44,12 @@ steps:
         run: comparison-tests
     command: 'bundle exec bugsnag-maze-runner'
 
+  - label: 'Proxy tests'
+    plugins:
+      docker-compose#v3.3.0:
+        run: proxy-tests
+    command: 'bundle exec bugsnag-maze-runner'
+
   - label: 'Browserstack app-automate test - Android 6'
     env:
       DEVICE_TYPE: ANDROID_6_0

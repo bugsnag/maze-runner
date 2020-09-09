@@ -1,0 +1,16 @@
+{
+    "animals": [
+        "bear",
+        "fox",
+        "goat",
+        "parrot"
+    ],
+    "fruits": {
+        "apple": {
+            "color": "red"
+        },
+        "cherry": {
+            "color": "black"
+        }
+    }
+}

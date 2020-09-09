@@ -27,7 +27,7 @@ end
 # Test the proxy server handled a request for a host.
 #
 # @step_input host [String] Destination host to check
-Then('the proxy handles a request for {string}') do |host|
+Then('the proxy handled a request for {string}') do |host|
   Test::Unit::Assertions.assert_true(Proxy.instance.handled_host?(host),
                                      "The proxy did not handle a request for #{host}")
 end

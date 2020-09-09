@@ -32,6 +32,7 @@ class Devices
     def create_hash
       hash = {
         # Classic, non-specific devices for each Android version
+        'ANDROID_11_0' => make_android_hash('Google Pixel 4', '11.0'),
         'ANDROID_10_0' => make_android_hash('Google Pixel 4', '10.0'),
         'ANDROID_9_0' => make_android_hash('Google Pixel 3', '9.0'),
         'ANDROID_8_1' => make_android_hash('Samsung Galaxy Note 9', '8.1'),

@@ -34,6 +34,7 @@ class Proxy
 
   # Starts the WEBrick proxy in a separate thread
   def start(protocol, authenticated = false)
+    stop if running?
     @hosts.clear
 
     attempts = 0
@@ -51,8 +52,9 @@ class Proxy
 
         # Setup protocol
         if protocol == :Http
-          puts 'Starting HTTP proxy'
+          $logger.info 'Starting HTTP proxy'
         elsif protocol == :Https
+          $logger.info 'Starting HTTPS proxy'
           cert_name = [
             %w[CN localhost]
           ]

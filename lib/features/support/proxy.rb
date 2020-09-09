@@ -1,10 +1,13 @@
 # frozen_string_literal: true
 
 require 'singleton'
+require 'webrick'
+require 'webrick/https'
+require 'webrick/httpproxy'
 
 # Provides the ability to run a proxy server, using the WEBrick proxy server
 class Proxy
-  include 'singleton'
+  include Singleton
 
   # There are some constraints on the port from driving remote browsers on BrowserStack.
   # E.g. the ports/ranges that Safari will access on "localhost" urls are restricted to the following:
@@ -19,7 +22,7 @@ class Proxy
   end
 
   # Starts the WEBrick proxy in a separate thread
-  def start(protocol, authenticated)
+  def start(protocol, authenticated = false)
     attempts = 0
     $logger.info 'Starting proxy server'
     loop do

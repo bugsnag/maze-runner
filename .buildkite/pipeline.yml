@@ -100,6 +100,16 @@ steps:
     concurrency: 10
     concurrency_group: 'browserstack-app'
 
+  - label: 'Browserstack app-automate test - Android 11'
+    env:
+      DEVICE_TYPE: ANDROID_11_0
+    plugins:
+      docker-compose#v3.3.0:
+        run: browserstack-app-automate
+    command: 'bundle exec bugsnag-maze-runner'
+    concurrency: 10
+    concurrency_group: 'browserstack-app'
+
   - label: 'Payload helper tests'
     plugins:
       docker-compose#v3.3.0:

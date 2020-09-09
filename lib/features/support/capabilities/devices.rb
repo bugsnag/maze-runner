@@ -16,6 +16,8 @@ class Devices
   end
 
   # The hash of device capabilities, accessible by simple names
+  ANDROID_11_0_PIXEL_4 = Devices.make_android_hash 'Google Pixel 4', '11.0'
+  ANDROID_11_0 = ANDROID_11_0_PIXEL_4
   ANDROID_10_0 = Devices.make_android_hash 'Google Pixel 4', '10.0'
   ANDROID_9_0 = Devices.make_android_hash 'Google Pixel 3', '9.0'
   ANDROID_8_1_GALAXY_NOTE_9 = Devices.make_android_hash 'Samsung Galaxy Note 9', '8.1'
@@ -60,6 +62,8 @@ class Devices
     'os_version' => '10'
   }.freeze
   DEVICE_HASH = {
+    'ANDROID_11_0' => ANDROID_11_0,
+    'ANDROID_11_0_PIXEL_4' => ANDROID_11_0_PIXEL_4,
     'ANDROID_10_0' => ANDROID_10_0,
     'ANDROID_9_0' => ANDROID_9_0,
     'ANDROID_8_1' => ANDROID_8_1,

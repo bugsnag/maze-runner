@@ -14,6 +14,9 @@ class Devices
     end
 
     def add_android(device, version, hash)
+      # Key format is "ANDROID_<version>_<device>", with:
+      # - dots in versions and all spaces replaced with underscores
+      # - device made upper case
       name = device.upcase.gsub ' ', '_'
       new_version = version.gsub '.', '_'
       key = "ANDROID_#{new_version}_#{name}"

@@ -19,21 +19,21 @@ class Servlet < WEBrick::HTTPServlet::AbstractServlet
   def do_POST(request, response)
     log_request(request)
     case request['Content-Type']
-    when %r{^multipart/form-data; boundary=([^;]+)}
-      boundary = WEBrick::HTTPUtils.dequote(Regexp.last_match(1))
+    when /^multipart\/form-data; boundary=([^;]+)/
+      boundary = WEBrick::HTTPUtils::dequote($1)
       body = WEBrick::HTTPUtils.parse_form_data(request.body(), boundary)
       Server.stored_requests << { body: body, request: request }
     else
-      # "content-type" is assumed to be JSON (which mimics the behaviour of
+      # "content-type" is assumed to be JSON (which mimicks the behaviour of
       # the actual API). This supports browsers that can't set this header for
       # cross-domain requests (IE8/9)
-      Server.stored_requests << { body: JSON.parse(request.body),
+      Server.stored_requests << { body: JSON.load(request.body()),
                                   request: request }
     end
     response.header['Access-Control-Allow-Origin'] = '*'
     response.status = 200
   end
-
+  
   # Logs and returns a set of valid headers for this servlet.
   #
   # @param request [HTTPRequest] The incoming GET request

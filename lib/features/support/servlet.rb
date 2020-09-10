@@ -17,7 +17,7 @@ class Servlet < WEBrick::HTTPServlet::AbstractServlet
   # @param request [HTTPRequest] The incoming GET request
   # @param response [HTTPResponse] The response to return
   def do_POST(request, response)
-    log_request(request)
+    # log_request(request)
     case request['Content-Type']
     when /^multipart\/form-data; boundary=([^;]+)/
       boundary = WEBrick::HTTPUtils::dequote($1)
@@ -33,7 +33,7 @@ class Servlet < WEBrick::HTTPServlet::AbstractServlet
     response.header['Access-Control-Allow-Origin'] = '*'
     response.status = 200
   end
-  
+
   # Logs and returns a set of valid headers for this servlet.
   #
   # @param request [HTTPRequest] The incoming GET request

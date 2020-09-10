@@ -1,4 +1,4 @@
-# 2.5.0 - TBD
+# 2.5.0 - 2020/09/10
 
 ## Enhancements
 
@@ -22,7 +22,7 @@
   [#122](https://github.com/bugsnag/maze-runner/pull/122)
 - Use BRANCH_NAME throughout instead of BUILDKITE_BRANCH
   [#123](https://github.com/bugsnag/maze-runner/pull/123)
-
+    
 # 2.3.2 - 2020/08/26
 
 ## Fixes

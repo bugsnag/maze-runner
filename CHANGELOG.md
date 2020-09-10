@@ -1,7 +1,9 @@
-# 2.5.0 - TBD
+# 2.5.0 - 2020/09/10
 
 ## Enhancements
 
+- Fix broken Build API step syntax
+  [#125](https://github.com/bugsnag/maze-runner/pull/125)
 - Range of additional Android 6, 8.0 and 8.1 device options provided, 
   together with Android 11 and iOS 14.
   [#127](https://github.com/bugsnag/maze-runner/pull/127)
@@ -20,7 +22,7 @@
   [#122](https://github.com/bugsnag/maze-runner/pull/122)
 - Use BRANCH_NAME throughout instead of BUILDKITE_BRANCH
   [#123](https://github.com/bugsnag/maze-runner/pull/123)
-
+    
 # 2.3.2 - 2020/08/26
 
 ## Fixes

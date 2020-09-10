@@ -27,7 +27,7 @@ class Servlet < WEBrick::HTTPServlet::AbstractServlet
       # "content-type" is assumed to be JSON (which mimicks the behaviour of
       # the actual API). This supports browsers that can't set this header for
       # cross-domain requests (IE8/9)
-      Server.stored_requests << { body: JSON.load(request.body),
+      Server.stored_requests << { body: JSON.parse(request.body),
                                   request: request }
     end
     response.header['Access-Control-Allow-Origin'] = '*'
@@ -62,17 +62,7 @@ class Servlet < WEBrick::HTTPServlet::AbstractServlet
       boundary = WEBrick::HTTPUtils.dequote(Regexp.last_match(1))
       body = WEBrick::HTTPUtils.parse_form_data(request.body, boundary)
       $logger.debug 'BODY:'
-      body.keys
-      # Even small file uploads could be large enough to make logging
-      # pointless, so limit what we try to log.
-      body.keys.each do |key|
-        if body[key].length < 512
-          $logger.debug "  #{key}: #{body[key]}"
-        else
-          $logger.debug "  #{key} (length): #{body[key].length}"
-          $logger.debug "  #{key} (start): #{body[key][0, 512]}"
-        end
-      end
+      LogUtil.log(Logger::Severity::DEBUG, body)
     else
       $logger.debug "BODY: #{JSON.pretty_generate(JSON.parse(request.body))}"
     end

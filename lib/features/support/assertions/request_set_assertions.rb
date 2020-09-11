@@ -32,8 +32,7 @@ class RequestSetAssertions
           }
         end
       end
-      # if request_count != matches.length
-      if request_count == matches.length
+      if request_count != matches.length
         # Log requests that matched
         $logger.error "#{matches.length} of #{request_count} requests matched"
         matches.each do |match|

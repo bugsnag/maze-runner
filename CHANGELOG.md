@@ -13,7 +13,7 @@
 - Fix broken Build API step syntax
   [#125](https://github.com/bugsnag/maze-runner/pull/125)
 - Fix logging of non-JSON requests
-  [#XYZ](https://github.com/bugsnag/maze-runner/pull/xyz)
+  [#129](https://github.com/bugsnag/maze-runner/pull/129)
 
 
 # 2.4.0 - 2020/09/01

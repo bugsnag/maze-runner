@@ -1,14 +1,20 @@
-# 2.5.0 - 2020/09/10
+# 2.5.0 - 2020/09/11
 
 ## Enhancements
 
-- Fix broken Build API step syntax
-  [#125](https://github.com/bugsnag/maze-runner/pull/125)
 - Range of additional Android 6, 8.0 and 8.1 device options provided, 
   together with Android 11 and iOS 14.
   [#127](https://github.com/bugsnag/maze-runner/pull/127)
 - Ability to run an HTTP/S proxy added
   [#128](https://github.com/bugsnag/maze-runner/pull/128)
+
+# Fixes
+
+- Fix broken Build API step syntax
+  [#125](https://github.com/bugsnag/maze-runner/pull/125)
+- Fix logging of non-JSON requests
+  [#129](https://github.com/bugsnag/maze-runner/pull/129)
+
 
 # 2.4.0 - 2020/09/01
 

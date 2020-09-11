@@ -20,8 +20,8 @@ class Servlet < WEBrick::HTTPServlet::AbstractServlet
     log_request(request)
     case request['Content-Type']
     when %r{^multipart/form-data; boundary=([^;]+)}
-      boundary = WEBrick::HTTPUtils.dequote(Regexp.last_match(1))
-      body = WEBrick::HTTPUtils.parse_form_data(request.body(), boundary)
+      boundary = WEBrick::HTTPUtils::dequote($1)
+      body = WEBrick::HTTPUtils.parse_form_data(request.body, boundary)
       Server.stored_requests << { body: body, request: request }
     else
       # "content-type" is assumed to be JSON (which mimics the behaviour of
@@ -50,19 +50,23 @@ class Servlet < WEBrick::HTTPServlet::AbstractServlet
   private
 
   def log_request(request)
-    $logger.debug "#{request.request_method} request received!"
+    $logger.debug "#{request.request_method} request received"
     $logger.debug "URI: #{request.unparsed_uri}"
     $logger.debug "HEADERS: #{request.raw_header}"
     return if request.body.nil?
+
     case request['Content-Type']
     when nil
-      return
+      nil
     when %r{^multipart/form-data; boundary=([^;]+)}
       boundary = WEBrick::HTTPUtils.dequote(Regexp.last_match(1))
-      body = WEBrick::HTTPUtils.parse_form_data(request.body(), boundary)
-      $logger.debug "BODY: #{JSON.pretty_generate(body)}"
+      body = WEBrick::HTTPUtils.parse_form_data(request.body, boundary)
+      $logger.debug 'BODY:'
+      LogUtil.log_hash(Logger::Severity::DEBUG, body)
     else
       $logger.debug "BODY: #{JSON.pretty_generate(JSON.parse(request.body))}"
     end
   end
 end
+
+

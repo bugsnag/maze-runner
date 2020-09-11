@@ -37,8 +37,8 @@ After do |scenario|
     else
       $logger.info 'The following requests were received:'
       Server.stored_requests.each.with_index(1) do |request, number|
-        json = JSON.pretty_generate request
-        $logger.info "Request #{number}: \n#{json}"
+        $logger.info "Request #{number}:"
+        LogUtil.log_hash(Logger::Severity::INFO, request)
       end
     end
   end

@@ -38,7 +38,7 @@ After do |scenario|
       $logger.info 'The following requests were received:'
       Server.stored_requests.each.with_index(1) do |request, number|
         $logger.info "Request #{number}:"
-        LogUtil.log(Logger::Severity::INFO, request)
+        LogUtil.log_hash(Logger::Severity::INFO, request)
       end
     end
   end

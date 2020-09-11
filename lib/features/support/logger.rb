@@ -22,11 +22,11 @@ $logger = MazeLogger.instance
 # A collection of logging utilities
 class LogUtil
   class << self
-    # Logs requests and other data, accounting for things file upload requests that are too big to log meaningfully.
+    # Logs Hash-based data, accounting for things like file upload requests that are too big to log meaningfully.
     #
-    # @param severity [Integer] A Logger::Severity
+    # @param severity [Integer] A constant from Logger::Severity
     # @param data [Hash] The data to log (currently needs to be a Hash)
-    def log(severity, data)
+    def log_hash(severity, data)
       return unless data.is_a? Hash
 
       # Try to pretty print as JSON, if not too big
@@ -49,11 +49,11 @@ class LogUtil
     def log_hash_by_field(severity, hash)
       hash.keys.each do |key|
         value = hash[key].to_s
-        if value.length < 512
+        if value.length < 1024
           $logger.add severity, "  #{key}: #{value}"
         else
           $logger.add severity, "  #{key} (length): #{value.length}"
-          $logger.add severity, "  #{key} (start): #{value[0, 512]}"
+          $logger.add severity, "  #{key} (start): #{value[0, 1024]}"
         end
       end
     end

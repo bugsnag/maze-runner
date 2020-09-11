@@ -24,7 +24,7 @@ class Servlet < WEBrick::HTTPServlet::AbstractServlet
       body = WEBrick::HTTPUtils.parse_form_data(request.body, boundary)
       Server.stored_requests << { body: body, request: request }
     else
-      # "content-type" is assumed to be JSON (which mimicks the behaviour of
+      # "content-type" is assumed to be JSON (which mimics the behaviour of
       # the actual API). This supports browsers that can't set this header for
       # cross-domain requests (IE8/9)
       Server.stored_requests << { body: JSON.parse(request.body),
@@ -62,7 +62,7 @@ class Servlet < WEBrick::HTTPServlet::AbstractServlet
       boundary = WEBrick::HTTPUtils.dequote(Regexp.last_match(1))
       body = WEBrick::HTTPUtils.parse_form_data(request.body, boundary)
       $logger.debug 'BODY:'
-      LogUtil.log(Logger::Severity::DEBUG, body)
+      LogUtil.log_hash(Logger::Severity::DEBUG, body)
     else
       $logger.debug "BODY: #{JSON.pretty_generate(JSON.parse(request.body))}"
     end

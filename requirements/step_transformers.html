@@ -67,7 +67,7 @@
   <div class="title">Step Definitions &amp; Transforms</div>
 
   <div class="summary">
-    <div>108<a href="#step_definitions">Step Definitions</a></div>
+    <div>113<a href="#step_definitions">Step Definitions</a></div>
     <div>0<a href="#step_transforms">Step Transforms</a></div>
     <div>0<a href="#undefined_steps">Undefined Steps</a></div>
   </div>
@@ -90,6 +90,383 @@
                         nodefinitions
                         ">
   <a name="step_definition1-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'I start an http proxy'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='I+start+an+http+proxy'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/proxy_steps.rb:5</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Starts an HTTP proxy server.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">5
+6
+7</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I start an http proxy</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
+  <span class='const'><span class='object_link'><a href="../Proxy.html" title="Proxy (class)">Proxy</a></span></span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span><span class='period'>.</span><span class='id identifier rubyid_start'>start</span> <span class='symbol'>:Http</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition2-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'I start an authenticated http proxy'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='I+start+an+authenticated+http+proxy'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/proxy_steps.rb:11</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Starts an authenticated HTTP proxy server.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">11
+12
+13</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I start an authenticated http proxy</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
+  <span class='const'><span class='object_link'><a href="../Proxy.html" title="Proxy (class)">Proxy</a></span></span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span><span class='period'>.</span><span class='id identifier rubyid_start'>start</span> <span class='symbol'>:Http</span><span class='comma'>,</span> <span class='kw'>true</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition3-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'I start an https proxy'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='I+start+an+https+proxy'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/proxy_steps.rb:17</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Starts an HTTPS proxy server.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">17
+18
+19</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I start an https proxy</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
+  <span class='const'><span class='object_link'><a href="../Proxy.html" title="Proxy (class)">Proxy</a></span></span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span><span class='period'>.</span><span class='id identifier rubyid_start'>start</span> <span class='symbol'>:Https</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition4-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'I start an authenticated https proxy'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='I+start+an+authenticated+https+proxy'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/proxy_steps.rb:23</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Starts an authenticated HTTPS proxy server.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">23
+24
+25</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I start an authenticated https proxy</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
+  <span class='const'><span class='object_link'><a href="../Proxy.html" title="Proxy (class)">Proxy</a></span></span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span><span class='period'>.</span><span class='id identifier rubyid_start'>start</span> <span class='symbol'>:Https</span><span class='comma'>,</span> <span class='kw'>true</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition5-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the proxy handled a request for {string}'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+proxy+handled+a+request+for+%7Bstring%7D'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/proxy_steps.rb:30</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Test the proxy server handled a request for a host.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>host [String] Destination host to check</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">30
+31
+32
+33</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the proxy handled a request for {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_host'>host</span><span class='op'>|</span>
+  <span class='const'>Test</span><span class='op'>::</span><span class='const'>Unit</span><span class='op'>::</span><span class='const'>Assertions</span><span class='period'>.</span><span class='id identifier rubyid_assert_true'>assert_true</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Proxy.html" title="Proxy (class)">Proxy</a></span></span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span><span class='period'>.</span><span class='id identifier rubyid_handled_host?'>handled_host?</span><span class='lparen'>(</span><span class='id identifier rubyid_host'>host</span><span class='rparen'>)</span><span class='comma'>,</span>
+                                     <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The proxy did not handle a request for </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_host'>host</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition6-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the payload field {string} is stored as the value {string}"</span>
@@ -189,7 +566,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition2-stepdefinition"></a>
+  <a name="step_definition7-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the payload field {string} equals the stored value {string}"</span>
@@ -293,7 +670,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition3-stepdefinition"></a>
+  <a name="step_definition8-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the payload field {string} does not equal the stored value {string}"</span>
@@ -397,7 +774,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition4-stepdefinition"></a>
+  <a name="step_definition9-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I set environment variable {string} to {string}'</span>
@@ -495,7 +872,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition5-stepdefinition"></a>
+  <a name="step_definition10-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I store the endpoint in the environment variable {string}'</span>
@@ -586,7 +963,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition6-stepdefinition"></a>
+  <a name="step_definition11-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I store the api key in the environment variable {string}'</span>
@@ -677,7 +1054,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition7-stepdefinition"></a>
+  <a name="step_definition12-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I run the script {string} synchronously'</span>
@@ -764,7 +1141,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition8-stepdefinition"></a>
+  <a name="step_definition13-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I run the script {string}'</span>
@@ -851,7 +1228,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition9-stepdefinition"></a>
+  <a name="step_definition14-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I start the service {string}'</span>
@@ -938,7 +1315,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition10-stepdefinition"></a>
+  <a name="step_definition15-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I run the service {string} with the command {string}'</span>
@@ -1036,7 +1413,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition11-stepdefinition"></a>
+  <a name="step_definition16-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I wait for {int} second(s)'</span>
@@ -1125,7 +1502,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition12-stepdefinition"></a>
+  <a name="step_definition17-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">"I start Android emulator {string}"</span>
@@ -1220,7 +1597,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition13-stepdefinition"></a>
+  <a name="step_definition18-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">"I clear the Android app data"</span>
@@ -1293,7 +1670,7 @@ Requires an ADB connection</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition14-stepdefinition"></a>
+  <a name="step_definition19-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">"I force stop the Android app"</span>
@@ -1366,7 +1743,7 @@ Requires an ADB connection</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition15-stepdefinition"></a>
+  <a name="step_definition20-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">"I install the {string} Android app from {string}"</span>
@@ -1473,7 +1850,7 @@ Requires an ADB connection</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition16-stepdefinition"></a>
+  <a name="step_definition21-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">"I start the {string} Android app using the {string} activity"</span>
@@ -1582,7 +1959,7 @@ Requires an ADB connection</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition17-stepdefinition"></a>
+  <a name="step_definition22-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">"I wait for the host {string} to open port {string}"</span>
@@ -1680,7 +2057,7 @@ Requires an ADB connection</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition18-stepdefinition"></a>
+  <a name="step_definition23-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">"I open the URL {string}"</span>
@@ -1775,7 +2152,7 @@ Requires an ADB connection</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition19-stepdefinition"></a>
+  <a name="step_definition24-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the request is valid for the Build API"</span>
@@ -1827,7 +2204,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the request is valid for the Build API</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_steps'>steps</span> <span class='tstring'><span class='tstring_beg'>%Q{</span><span class='tstring_content'>
     And the payload field &quot;apiKey&quot; equals &quot;</span><span class='embexpr_beg'>#{</span><span class='gvar'>$api_key</span><span class='embexpr_end'>}</span><span class='tstring_content'>&quot;
-    the payload field &quot;appVersion&quot; is not null
+    And the payload field &quot;appVersion&quot; is not null
   </span><span class='tstring_end'>}</span></span>
 <span class='kw'>end</span></pre>
           </td>
@@ -1854,7 +2231,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition20-stepdefinition"></a>
+  <a name="step_definition25-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the request is valid for the Android Mapping API"</span>
@@ -1910,11 +2287,11 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the request is valid for the Android Mapping API</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_steps'>steps</span> <span class='tstring'><span class='tstring_beg'>%Q{</span><span class='tstring_content'>
     And the payload field &quot;apiKey&quot; equals &quot;</span><span class='embexpr_beg'>#{</span><span class='gvar'>$api_key</span><span class='embexpr_end'>}</span><span class='tstring_content'>&quot;
-    the payload field &quot;proguard&quot; is not null
-    the payload field &quot;appId&quot; is not null
-    the payload field &quot;versionCode&quot; is not null
-    the payload field &quot;buildUUID&quot; is not null
-    the payload field &quot;versionName&quot; is not null
+    And the payload field &quot;proguard&quot; is not null
+    And the payload field &quot;appId&quot; is not null
+    And the payload field &quot;versionCode&quot; is not null
+    And the payload field &quot;buildUUID&quot; is not null
+    And the payload field &quot;versionName&quot; is not null
   </span><span class='tstring_end'>}</span></span>
 <span class='kw'>end</span></pre>
           </td>
@@ -1941,7 +2318,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition21-stepdefinition"></a>
+  <a name="step_definition26-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event has a {string} breadcrumb named {string}"</span>
@@ -2053,7 +2430,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition22-stepdefinition"></a>
+  <a name="step_definition27-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event has a {string} breadcrumb with message {string}"</span>
@@ -2165,7 +2542,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition23-stepdefinition"></a>
+  <a name="step_definition28-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event does not have a {string} breadcrumb"</span>
@@ -2267,7 +2644,7 @@ Used for confirming filtering of breadcrumbs</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition24-stepdefinition"></a>
+  <a name="step_definition29-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event contains a breadcrumb matching the JSON fixture in {string}"</span>
@@ -2360,7 +2737,7 @@ Used for confirming filtering of breadcrumbs</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition25-stepdefinition"></a>
+  <a name="step_definition30-stepdefinition"></a>
   <div class="title">
     <span class="pre">Given</span>
     <span class="name">"the element {string} is present"</span>
@@ -2450,7 +2827,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition26-stepdefinition"></a>
+  <a name="step_definition31-stepdefinition"></a>
   <div class="title">
     <span class="pre">Given</span>
     <span class="name">"the element {string} is present within {int} seconds"</span>
@@ -2551,7 +2928,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition27-stepdefinition"></a>
+  <a name="step_definition32-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">"I click the element {string}"</span>
@@ -2639,7 +3016,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition28-stepdefinition"></a>
+  <a name="step_definition33-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">"I send the app to the background for {int} seconds"</span>
@@ -2727,7 +3104,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition29-stepdefinition"></a>
+  <a name="step_definition34-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">"I clear the element {string}"</span>
@@ -2815,7 +3192,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition30-stepdefinition"></a>
+  <a name="step_definition35-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">"I send the keys {string} to the element {string}"</span>
@@ -2914,7 +3291,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition31-stepdefinition"></a>
+  <a name="step_definition36-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the payload field {string} equals the platform-dependent string:"</span>
@@ -3020,7 +3397,7 @@ If the step is invoked when a remote BrowserStack device is not in use this step
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition32-stepdefinition"></a>
+  <a name="step_definition37-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event {string} equals the platform-dependent string:"</span>
@@ -3118,7 +3495,7 @@ If the step is invoked when a remote BrowserStack device is not in use this step
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition33-stepdefinition"></a>
+  <a name="step_definition38-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the payload field {string} equals the platform-dependent numeric:"</span>
@@ -3224,7 +3601,7 @@ If the step is invoked when a remote BrowserStack device is not in use this step
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition34-stepdefinition"></a>
+  <a name="step_definition39-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event {string} equals the platform-dependent numeric:"</span>
@@ -3322,7 +3699,7 @@ If the step is invoked when a remote BrowserStack device is not in use this step
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition35-stepdefinition"></a>
+  <a name="step_definition40-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the payload field {string} equals the platform-dependent boolean:"</span>
@@ -3428,7 +3805,7 @@ If the step is invoked when a remote BrowserStack device is not in use this step
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition36-stepdefinition"></a>
+  <a name="step_definition41-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event {string} equals the platform-dependent boolean:"</span>
@@ -3526,7 +3903,7 @@ If the step is invoked when a remote BrowserStack device is not in use this step
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition37-stepdefinition"></a>
+  <a name="step_definition42-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">"I clear and send the keys {string} to the element {string}"</span>
@@ -3625,7 +4002,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition38-stepdefinition"></a>
+  <a name="step_definition43-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the request is valid for the error reporting API version {string} for the {string} notifier"</span>
@@ -3758,7 +4135,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition39-stepdefinition"></a>
+  <a name="step_definition44-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"event {int} is unhandled"</span>
@@ -3834,7 +4211,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition40-stepdefinition"></a>
+  <a name="step_definition45-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"event {int} is unhandled with the severity {string}"</span>
@@ -3910,7 +4287,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition41-stepdefinition"></a>
+  <a name="step_definition46-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"event {int} is handled"</span>
@@ -3986,7 +4363,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition42-stepdefinition"></a>
+  <a name="step_definition47-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"event {int} is handled with the severity {string}"</span>
@@ -4062,7 +4439,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition43-stepdefinition"></a>
+  <a name="step_definition48-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the payload contains the payloadVersion {string}"</span>
@@ -4159,7 +4536,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition44-stepdefinition"></a>
+  <a name="step_definition49-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">/^the event "(.+)" is (true|false|null|not null)$/</span>
@@ -4257,7 +4634,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition45-stepdefinition"></a>
+  <a name="step_definition50-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event {string} equals {string}"</span>
@@ -4355,7 +4732,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition46-stepdefinition"></a>
+  <a name="step_definition51-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event {string} equals {int}"</span>
@@ -4453,7 +4830,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition47-stepdefinition"></a>
+  <a name="step_definition52-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event {string} starts with {string}"</span>
@@ -4551,7 +4928,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition48-stepdefinition"></a>
+  <a name="step_definition53-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event {string} ends with {string}"</span>
@@ -4649,7 +5026,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition49-stepdefinition"></a>
+  <a name="step_definition54-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event {string} matches {string}"</span>
@@ -4747,7 +5124,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition50-stepdefinition"></a>
+  <a name="step_definition55-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event {string} is a timestamp"</span>
@@ -4835,7 +5212,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition51-stepdefinition"></a>
+  <a name="step_definition56-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event {string} is a parsable timestamp in seconds"</span>
@@ -4922,7 +5299,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition52-stepdefinition"></a>
+  <a name="step_definition57-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event {string} equals the environment variable {string}"</span>
@@ -5020,7 +5397,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition53-stepdefinition"></a>
+  <a name="step_definition58-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event {string} matches the JSON fixture in {string}"</span>
@@ -5118,7 +5495,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition54-stepdefinition"></a>
+  <a name="step_definition59-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the exception {string} starts with {string}"</span>
@@ -5216,7 +5593,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition55-stepdefinition"></a>
+  <a name="step_definition60-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the exception {string} ends with {string}"</span>
@@ -5314,7 +5691,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition56-stepdefinition"></a>
+  <a name="step_definition61-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the exception {string} equals {string}"</span>
@@ -5412,7 +5789,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition57-stepdefinition"></a>
+  <a name="step_definition62-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the exception {string} matches {string}"</span>
@@ -5510,7 +5887,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition58-stepdefinition"></a>
+  <a name="step_definition63-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the {string} of stack frame {int} equals {int}"</span>
@@ -5621,7 +5998,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition59-stepdefinition"></a>
+  <a name="step_definition64-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the {string} of stack frame {int} matches {string}"</span>
@@ -5732,7 +6109,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition60-stepdefinition"></a>
+  <a name="step_definition65-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the {string} of stack frame {int} equals {string}"</span>
@@ -5843,7 +6220,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition61-stepdefinition"></a>
+  <a name="step_definition66-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the {string} of stack frame {int} starts with {string}"</span>
@@ -5954,7 +6331,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition62-stepdefinition"></a>
+  <a name="step_definition67-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the {string} of stack frame {int} ends with {string}"</span>
@@ -6065,7 +6442,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition63-stepdefinition"></a>
+  <a name="step_definition68-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">/^the "(.*)" of stack frame (\d*) is (true|false|null|not null)$/</span>
@@ -6176,7 +6553,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition64-stepdefinition"></a>
+  <a name="step_definition69-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the thread with name {string} contains the error reporting flag"</span>
@@ -6263,7 +6640,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition65-stepdefinition"></a>
+  <a name="step_definition70-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the thread with id {string} contains the error reporting flag"</span>
@@ -6350,7 +6727,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition66-stepdefinition"></a>
+  <a name="step_definition71-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the request is valid for the session reporting API version {string} for the {string} notifier"</span>
@@ -6473,7 +6850,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition67-stepdefinition"></a>
+  <a name="step_definition72-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">/^the session "(.+)" is (true|false|null|not null)$/</span>
@@ -6571,7 +6948,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition68-stepdefinition"></a>
+  <a name="step_definition73-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the session {string} equals {string}"</span>
@@ -6669,7 +7046,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition69-stepdefinition"></a>
+  <a name="step_definition74-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the session {string} is a timestamp"</span>
@@ -6757,7 +7134,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition70-stepdefinition"></a>
+  <a name="step_definition75-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">/^the sessionCount "(.+)" is (true|false|null|not null)$/</span>
@@ -6855,7 +7232,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition71-stepdefinition"></a>
+  <a name="step_definition76-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the sessionCount {string} equals {string}"</span>
@@ -6953,7 +7330,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition72-stepdefinition"></a>
+  <a name="step_definition77-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the sessionCount {string} equals {int}"</span>
@@ -7051,7 +7428,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition73-stepdefinition"></a>
+  <a name="step_definition78-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the sessionCount {string} is a timestamp"</span>
@@ -7139,7 +7516,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition74-stepdefinition"></a>
+  <a name="step_definition79-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the payload has a valid sessions array"</span>
@@ -7231,7 +7608,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition75-stepdefinition"></a>
+  <a name="step_definition80-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I wait to receive a request'</span>
@@ -7303,7 +7680,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition76-stepdefinition"></a>
+  <a name="step_definition81-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I wait to receive {int} request(s)'</span>
@@ -7408,7 +7785,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition77-stepdefinition"></a>
+  <a name="step_definition82-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I should receive no requests'</span>
@@ -7480,7 +7857,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition78-stepdefinition"></a>
+  <a name="step_definition83-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I discard the oldest request'</span>
@@ -7552,7 +7929,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition79-stepdefinition"></a>
+  <a name="step_definition84-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} header is not null'</span>
@@ -7641,7 +8018,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition80-stepdefinition"></a>
+  <a name="step_definition85-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} header equals {string}'</span>
@@ -7739,7 +8116,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition81-stepdefinition"></a>
+  <a name="step_definition86-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} header equals one of:'</span>
@@ -7837,7 +8214,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition82-stepdefinition"></a>
+  <a name="step_definition87-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} header is a timestamp'</span>
@@ -7927,7 +8304,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition83-stepdefinition"></a>
+  <a name="step_definition88-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} query parameter equals {string}'</span>
@@ -8025,7 +8402,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition84-stepdefinition"></a>
+  <a name="step_definition89-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} query parameter is not null'</span>
@@ -8112,7 +8489,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition85-stepdefinition"></a>
+  <a name="step_definition90-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} query parameter is a timestamp'</span>
@@ -8202,7 +8579,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition86-stepdefinition"></a>
+  <a name="step_definition91-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the multipart request has {int} fields'</span>
@@ -8291,7 +8668,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition87-stepdefinition"></a>
+  <a name="step_definition92-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the field {string} for multipart request is not null'</span>
@@ -8380,7 +8757,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition88-stepdefinition"></a>
+  <a name="step_definition93-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the field {string} for multipart request equals {string}'</span>
@@ -8480,7 +8857,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition89-stepdefinition"></a>
+  <a name="step_definition94-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the field {string} for multipart request is null'</span>
@@ -8569,7 +8946,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition90-stepdefinition"></a>
+  <a name="step_definition95-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload body does not match the JSON fixture in {string}'</span>
@@ -8662,7 +9039,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition91-stepdefinition"></a>
+  <a name="step_definition96-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload body matches the JSON fixture in {string}'</span>
@@ -8755,7 +9132,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition92-stepdefinition"></a>
+  <a name="step_definition97-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload field {string} matches the JSON fixture in {string}'</span>
@@ -8859,7 +9236,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition93-stepdefinition"></a>
+  <a name="step_definition98-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload field {string} is true'</span>
@@ -8946,7 +9323,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition94-stepdefinition"></a>
+  <a name="step_definition99-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload field {string} is false'</span>
@@ -9033,7 +9410,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition95-stepdefinition"></a>
+  <a name="step_definition100-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload field {string} is null'</span>
@@ -9122,7 +9499,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition96-stepdefinition"></a>
+  <a name="step_definition101-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload field {string} is not null'</span>
@@ -9211,7 +9588,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition97-stepdefinition"></a>
+  <a name="step_definition102-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload field {string} equals {int}'</span>
@@ -9309,7 +9686,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition98-stepdefinition"></a>
+  <a name="step_definition103-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload field {string} equals the environment variable {string}'</span>
@@ -9415,7 +9792,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition99-stepdefinition"></a>
+  <a name="step_definition104-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload field {string} is greater than {int}'</span>
@@ -9517,7 +9894,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition100-stepdefinition"></a>
+  <a name="step_definition105-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload field {string} is less than {int}'</span>
@@ -9619,7 +9996,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition101-stepdefinition"></a>
+  <a name="step_definition106-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload field {string} equals {string}'</span>
@@ -9717,7 +10094,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition102-stepdefinition"></a>
+  <a name="step_definition107-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload field {string} starts with {string}'</span>
@@ -9819,7 +10196,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition103-stepdefinition"></a>
+  <a name="step_definition108-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload field {string} ends with {string}'</span>
@@ -9921,7 +10298,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition104-stepdefinition"></a>
+  <a name="step_definition109-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload field {string} is an array with {int} elements'</span>
@@ -10023,7 +10400,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition105-stepdefinition"></a>
+  <a name="step_definition110-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload field {string} is a non-empty array'</span>
@@ -10114,7 +10491,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition106-stepdefinition"></a>
+  <a name="step_definition111-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload field {string} matches the regex {string}'</span>
@@ -10216,7 +10593,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition107-stepdefinition"></a>
+  <a name="step_definition112-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload field {string} is a parsable timestamp in seconds'</span>
@@ -10315,7 +10692,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition108-stepdefinition"></a>
+  <a name="step_definition113-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'each element in payload field {string} has {string}'</span>
@@ -10451,7 +10828,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 </div>
 
       <div id="footer">
-  Generated on Tue Sep  1 14:25:51 2020 by
+  Generated on Fri Sep 11 10:56:12 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.7.1).
 </div>

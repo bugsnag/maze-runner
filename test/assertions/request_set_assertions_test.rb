@@ -19,30 +19,30 @@ class RequestSetAssertionsTest < Test::Unit::TestCase
       },
       {
         body: {
-          'name' => 'Brian',
+          'name' => 'Bret',
           'age' => 22,
-          'town' => 'Bournemouth'
+          'town' => 'Birmingham'
         }
       },
       {
         body: {
-          'name' => 'Brian',
-          'age' => 30,
-          'town' => 'Blandford'
+          'name' => 'Bret',
+          'age' => 23,
+          'town' => 'Houston'
         }
       },
       {
         body: {
           'name' => 'Camilla',
-          'age' => 133,
-          'town' => 'Coventry'
+          'age' => 33,
+          'town' => 'New York'
         }
       }
     ]
   end
 
-  def create_table(rows)
-    headered_rows = [%w[name age town]]
+  def create_table(header, rows)
+    headered_rows = [header]
     rows.each { |row| headered_rows.append(row) }
 
     data = Cucumber::Core::Ast::DataTable.new headered_rows, nil
@@ -50,10 +50,65 @@ class RequestSetAssertionsTest < Test::Unit::TestCase
   end
 
   def test_simple_match
+    header = %w[name age town]
     rows = [
-      %w[Camilla 133 Coventry]
+      ['Camilla', '33', 'New York']
     ]
-    matches = RequestSetAssertions.matching_rows @requests, create_table(rows)
+    matches = RequestSetAssertions.matching_rows @requests, create_table(header, rows)
     assert_equal({ 0 => 3 }, matches)
+  end
+
+  def test_simple_no_match
+    header = %w[name age town]
+    rows = [
+        %w[Camilla 33 'York']
+    ]
+    matches = RequestSetAssertions.matching_rows @requests, create_table(header, rows)
+    assert_equal({}, matches)
+  end
+
+  def test_all_match
+    header = %w[name age town]
+    rows = [
+      ['Camilla', '33', 'New York'],
+      %w[Bret 22 Birmingham],
+      %w[Alice 11 Arkansas],
+      %w[Bret 23 Houston],
+    ]
+    matches = RequestSetAssertions.matching_rows @requests, create_table(header, rows)
+    assert_equal({ 0 => 3, 1 => 1, 2 => 0, 3 => 2 }, matches)
+  end
+
+  def test_one_column
+    header = ['age']
+    rows = [
+      ['33'],
+      ['22'],
+      ['11'],
+      ['23']
+    ]
+    matches = RequestSetAssertions.matching_rows @requests, create_table(header, rows)
+    assert_equal({ 0 => 3, 1 => 1, 2 => 0, 3 => 2 }, matches)
+  end
+
+  def test_regexp
+    header = %w[name age town]
+    rows = [
+      %w[Bret 22 /ming/]
+    ]
+    matches = RequestSetAssertions.matching_rows @requests, create_table(header, rows)
+    assert_equal({ 0 => 1 }, matches)
+  end
+
+  def test_multiple_rows_same
+    header = ['name']
+    rows = [
+      ['Bret'],
+      ['Bret']
+    ]
+    matches = RequestSetAssertions.matching_rows @requests, create_table(header, rows)
+    # Order unimportant, but it must find two different requests
+    assert_equal(2, matches.length)
+    assert_not_equal(matches[0], matches[1])
   end
 end

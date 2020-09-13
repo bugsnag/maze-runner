@@ -56,6 +56,13 @@ class RequestSetAssertions
       row_to_request_matches
     end
 
+    # Determines if a request body satisfies the criteria expressed by a row.
+    # The special string "null" is interpreted as nil in comparisons and
+    # regular expressions are assumed is the start and end of the string is a '/'.
+    #
+    # @param body [Hash] Request body to consider
+    # @param row [Hash] Hash of keys to expected value, where the keys given can
+    #   be a Mongo-style dot notation path.
     def request_matches_row(body, row)
       row.each do |key, expected_value|
         obs_val = read_key_path(body, key)

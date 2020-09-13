@@ -14,6 +14,7 @@ class RequestSetAssertions
     #   - headings can be provided as key paths (e.g. events.0.breadcrumbs.0.name)
     #   - table values can be written as "null" for nil
     def assert_requests_match(requests, table)
+      assert_equal(table.hashes.length, requests.length, 'Number of requests do not match number of entries in table.')
       matches = matching_rows requests, table
       return if matches.length == table.hashes.length
 
@@ -37,8 +38,6 @@ class RequestSetAssertions
     # @return [Hash] A hash of row to request indexes, indicating the first request matching each row.
     #   E.g. {0 => 2} means that the first row was satisfied by the 3rd request.
     def matching_rows(requests, table)
-      request_count = requests.length
-      assert_equal(table.hashes.length, requests.length, 'Number of requests do not match number of entries in table.')
 
       # iterate through each row in the table. exactly 1 request should match each row.
       row_to_request_matches = {}

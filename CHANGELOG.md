@@ -5,6 +5,12 @@
 - Clear environment as start of scenarios
   [#130](https://github.com/bugsnag/maze-runner/pull/130)
 
+## Enhancements
+
+- Table-based assertions on requests, including option to specify 
+  expected values with Regexps.
+  [#131](https://github.com/bugsnag/maze-runner/pull/131)
+
 # 2.5.0 - 2020/09/11
 
 ## Enhancements

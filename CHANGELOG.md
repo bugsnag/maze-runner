@@ -1,3 +1,10 @@
+# 2.5.0 - 2020/09/14
+
+# Fixes
+
+- Clear environment as start of scenarios
+  [#130](https://github.com/bugsnag/maze-runner/pull/130)
+
 # 2.5.0 - 2020/09/11
 
 ## Enhancements

@@ -5,3 +5,8 @@ When(/^I send an? "(.+)"-type request$/) do |request_type|
     And I run the script "features/scripts/send_request.sh" synchronously
   }
 end
+
+Then('the tests match the following:') do |data_table|
+  requests = Server.stored_requests
+  RequestSetAssertions.assert_requests_match requests, data_table
+end

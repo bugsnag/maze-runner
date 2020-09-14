@@ -18,7 +18,7 @@ Feature: Using the different varieties of proxy server
         When I start an authenticated http proxy
         And I run the script "features/scripts/http.sh"
         Then I wait for 5 seconds
-        And I should receive no requests
+        And I should receive no errors
 
     Scenario: Basic HTTPS proxy use
         When I start an https proxy
@@ -38,4 +38,4 @@ Feature: Using the different varieties of proxy server
         When I start an authenticated https proxy
         And I run the script "features/scripts/https.sh"
         Then I wait for 5 seconds
-        And I should receive no requests
+        And I should receive no errors

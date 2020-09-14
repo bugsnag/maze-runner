@@ -1,3 +1,17 @@
+# 2.6.0 - 2020/09/14
+
+## Enhancements
+
+- Table-based assertions on requests, including option to specify 
+  expected values with Regexps.
+  [#131](https://github.com/bugsnag/maze-runner/pull/131)
+
+## Fixes
+
+- Clear environment as start of scenarios
+  [#130](https://github.com/bugsnag/maze-runner/pull/130)
+
+
 # 2.5.0 - 2020/09/11
 
 ## Enhancements
@@ -8,7 +22,7 @@
 - Ability to run an HTTP/S proxy added
   [#128](https://github.com/bugsnag/maze-runner/pull/128)
 
-# Fixes
+## Fixes
 
 - Fix broken Build API step syntax
   [#125](https://github.com/bugsnag/maze-runner/pull/125)

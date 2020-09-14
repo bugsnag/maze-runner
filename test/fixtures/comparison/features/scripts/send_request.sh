@@ -31,6 +31,10 @@ when 'ignore'
  '{"animals":["bear","fox","goat","parrot"],"fruits":{"apple":"some nonsense","cherry":{"color":"black","types":17}}}'
 when 'different fixnum in object'
  '{"animals":["bear","fox","goat","parrot"],"fruits":{"apple":{"color":"red","types":24},"cherry":{"color":"black","types":17}}}'
+when 'ordered 1'
+ '{"foo":"a", "bar":"b"}'
+when 'ordered 2'
+ '{"foo":"b", "bar":"a"}'
 else
   exit(1)
 end

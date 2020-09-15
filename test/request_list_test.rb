@@ -107,4 +107,20 @@ class RequestListTest < Test::Unit::TestCase
     list.add item2
     assert_equal item2, list.current
   end
+
+  def test_remaining
+    item1 = build_item 1
+    item2 = build_item 2
+    item3 = build_item 3
+
+    list = RequestList.new
+    list.add item1
+    list.add item2
+    list.add item3
+
+    list.next
+    remaining = list.remaining
+
+    assert_equal [item2, item3], remaining
+  end
 end

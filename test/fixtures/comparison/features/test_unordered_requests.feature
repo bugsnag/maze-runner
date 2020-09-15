@@ -4,11 +4,11 @@ Feature: Unordered requests can be tested using a table
         When I send a "ordered 1"-type request
         And I send a "ordered 2"-type request
         And I wait to receive 2 errors
-        Then the tests match the following:
+        Then the requests match the following:
           | foo | bar |
           | a   | b   |
           | b   | a   |
-        And the tests match the following:
+        And the requests match the following:
           | foo | bar |
           | b   | a   |
           | a   | b   |

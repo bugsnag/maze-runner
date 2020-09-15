@@ -6,7 +6,7 @@ When(/^I send an? "(.+)"-type request$/) do |request_type|
   }
 end
 
-Then('the tests match the following:') do |data_table|
-  requests = Server.stored_requests
+Then('the requests match the following:') do |data_table|
+  requests = Server.instance.errors.all
   RequestSetAssertions.assert_requests_match requests, data_table
 end

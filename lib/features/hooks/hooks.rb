@@ -4,15 +4,15 @@ require 'cucumber'
 require 'json'
 
 AfterConfiguration do |config|
-  Server.instance.start
+  Server.start
 end
 
 # Before each scenario
 Before do |scenario|
   STDOUT.puts "--- Scenario: #{scenario.name}"
   Runner.environment.clear
-  Server.instance.errors.clear
-  Server.instance.sessions.clear
+  Server.errors.clear
+  Server.sessions.clear
   Store.values.clear
 
   $driver.start_driver if MazeRunner.configuration.appium_session_isolation
@@ -39,11 +39,11 @@ After do |scenario|
   # TODO Revamp and log sessions
   if scenario.failed?
     STDOUT.puts '^^^ +++'
-    if Server.instance.errors.empty?
+    if Server.errors.empty?
       $logger.info 'No errors received'
     else
-      $logger.info "#{Server.instance.errors.size} errors were received:"
-      Server.instance.errors.all.each.with_index(1) do |request, number|
+      $logger.info "#{Server.errors.size} errors were received:"
+      Server.errors.all.each.with_index(1) do |request, number|
         $logger.info "Request #{number}:"
         LogUtil.log_hash(Logger::Severity::INFO, request)
       end
@@ -54,7 +54,7 @@ end
 # After all tests
 at_exit do
   # Stop the mock server
-  Server.instance.stop
+  Server.stop
 
   # In order to not impact future test runs, we down
   # all services (which removes networks etc) so that

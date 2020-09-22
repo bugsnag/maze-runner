@@ -5,7 +5,7 @@
 # @step_input type [String] The expected breadcrumb's type
 # @step_input name [String] The expected breadcrumb's name
 Then("the event has a {string} breadcrumb named {string}") do |type, name|
-  value = Server.instance.errors.current[:body]["events"].first["breadcrumbs"]
+  value = Server.errors.current[:body]["events"].first["breadcrumbs"]
   found = false
   value.each do |crumb|
     if crumb["type"] == type and crumb["name"] == name then
@@ -20,7 +20,7 @@ end
 # @step_input type [String] The expected breadcrumb's type
 # @step_input message [String] The expected breadcrumb's message
 Then("the event has a {string} breadcrumb with message {string}") do |type, message|
-  value = Server.instance.errors.current[:body]["events"].first["breadcrumbs"]
+  value = Server.errors.current[:body]["events"].first["breadcrumbs"]
   found = false
   value.each do |crumb|
     if crumb["type"] == type and crumb["metaData"] and crumb["metaData"]["message"] == message then
@@ -35,7 +35,7 @@ end
 #
 # @step_input type [String] The type of breadcrumb expected to not be present
 Then("the event does not have a {string} breadcrumb") do |type|
-  value = Server.instance.errors.current[:body]["events"].first["breadcrumbs"]
+  value = Server.errors.current[:body]["events"].first["breadcrumbs"]
   found = false
   value.each do |crumb|
     if crumb["type"] == type
@@ -49,7 +49,7 @@ end
 #
 # @step_input json_fixture [String] A path to the JSON fixture to compare against
 Then("the event contains a breadcrumb matching the JSON fixture in {string}") do |json_fixture|
-  breadcrumbs = read_key_path(Server.instance.errors.current[:body], "events.0.breadcrumbs")
+  breadcrumbs = read_key_path(Server.errors.current[:body], "events.0.breadcrumbs")
   expected = JSON.parse(open(json_fixture, &:read))
   match = breadcrumbs.any? { |breadcrumb| value_compare(expected, breadcrumb).equal? }
   assert(match, "No breadcrumbs in the event matched the given breadcrumb")

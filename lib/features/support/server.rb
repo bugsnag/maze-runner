@@ -9,12 +9,12 @@ require_relative './request_list'
 # Receives and stores requests through a WEBrick HTTPServer
 class Server
 
-  class << self
+  # There are some constraints on the port from driving remote browsers on BrowserStack.
+  # E.g. the ports/ranges that Safari will access on "localhost" urls are restricted to the following:
+  #   80, 3000, 4000, 5000, 8000, 8080 or 9000-9999 [ from https://stackoverflow.com/a/28678652 ]
+  PORT = 9339
 
-    # There are some constraints on the port from driving remote browsers on BrowserStack.
-    # E.g. the ports/ranges that Safari will access on "localhost" urls are restricted to the following:
-    #   80, 3000, 4000, 5000, 8000, 8080 or 9000-9999 [ from https://stackoverflow.com/a/28678652 ]
-    PORT = 9339
+  class << self
 
     # A list of error requests received
     #

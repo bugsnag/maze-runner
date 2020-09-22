@@ -32,11 +32,11 @@ class ServerTest < Test::Unit::TestCase
                                            AccessLog: []).returns(mock_http_server)
 
     # End of first and only loop
-    Server.instance.expects(:sleep).with(1)
-    Server.instance.expects(:running?).returns(true)
+    Server.expects(:sleep).with(1)
+    Server.expects(:running?).returns(true)
 
     # Call the method
-    Server.instance.start
+    Server.start
   end
 
   def test_start_on_retry
@@ -63,12 +63,12 @@ class ServerTest < Test::Unit::TestCase
                                            AccessLog: []).returns(mock_http_server)
 
     # End of loop
-    Server.instance.expects(:sleep).with(1).twice
-    Server.instance.expects(:sleep).with(5)
-    Server.instance.expects(:running?).twice.returns(false).then.returns(true)
+    Server.expects(:sleep).with(1).twice
+    Server.expects(:sleep).with(5)
+    Server.expects(:running?).twice.returns(false).then.returns(true)
 
     # Call the method
-    Server.instance.start
+    Server.start
   end
 
   def test_start_fails
@@ -95,13 +95,13 @@ class ServerTest < Test::Unit::TestCase
                                            AccessLog: []).throws('Failed to start')
 
     # End of loop
-    Server.instance.expects(:sleep).with(1).times(3)
-    Server.instance.expects(:sleep).with(5).twice
-    Server.instance.expects(:running?).twice.returns(false).times(3)
+    Server.expects(:sleep).with(1).times(3)
+    Server.expects(:sleep).with(5).twice
+    Server.expects(:running?).twice.returns(false).times(3)
 
     # Call the method
     assert_raise RuntimeError do
-      Server.instance.start
+      Server.start
     end
   end
 end

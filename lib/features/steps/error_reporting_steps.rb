@@ -78,9 +78,9 @@ end
 #
 # @step_input payload_version [String] The payload version expected
 Then('the payload contains the payloadVersion {string}') do |payload_version|
-  body_version = read_key_path(Server.instance.errors.current[:body], 'payloadVersion')
+  body_version = read_key_path(Server.errors.current[:body], 'payloadVersion')
   body_set = payload_version == body_version
-  event_version = read_key_path(Server.instance.errors.current[:body], 'events.0.payloadVersion')
+  event_version = read_key_path(Server.errors.current[:body], 'events.0.payloadVersion')
   event_set = payload_version == event_version
   assert_true(body_set || event_set, "The payloadVersion was not the expected value of #{payload_version}. #{body_version} found in body, #{event_version} found in event")
 end
@@ -275,7 +275,7 @@ end
 # @param payload_key [String] The thread identifier key
 # @param payload_value [Any] The thread identifier value
 def validate_error_reporting_thread(payload_key, payload_value)
-  threads = Server.instance.errors.current[:body]['events'].first['threads']
+  threads = Server.errors.current[:body]['events'].first['threads']
   assert_kind_of Array, threads
   count = 0
 
@@ -305,7 +305,7 @@ def test_unhandled_state(event, unhandled, severity=nil)
     Then the payload field "events.#{event}.unhandled" is #{expected_unhandled_state}
     And the payload field "events.#{event}.severity" equals "#{expected_severity}"
   )
-  unless read_key_path(Server.instance.errors.current[:body], "events.#{event}.session").nil?
+  unless read_key_path(Server.errors.current[:body], "events.#{event}.session").nil?
     session_field = unhandled ? 'unhandled' : 'handled'
     steps %(
       And the payload field "events.#{event}.session.events.#{session_field}" is greater than 0

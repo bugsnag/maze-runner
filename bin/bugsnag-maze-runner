@@ -3,10 +3,12 @@
 
 require 'cucumber/cli/main'
 require 'optimist'
+require_relative '../lib/features/support/maze_runner'
 require_relative '../lib/version'
 
 # Encapsulates the MazeRunner entry point
-class MazeRunner
+class MazeRunnerEntry
+
   def initialize
     @parser = Optimist::Parser.new do
       text 'Maze Runner extends the functionality of Cucumber, ' \
@@ -19,6 +21,7 @@ class MazeRunner
       opt :init, 'Initialises a new Maze Runner project'
 
       opt :version, 'Display Maze Runner and Cucumber versions'
+      opt 'separate-sessions', 'Start a new Appium session for each scenario', short: :none
       version "Maze Runner v#{BugsnagMazeRunner::VERSION} " \
               "(Cucumber v#{Cucumber::VERSION.strip})"
       text ''
@@ -62,6 +65,9 @@ class MazeRunner
     options = @parser.parse args
 
     init if options[:init]
+    MazeRunner.configuration.appium_session_isolation = true if options['separate-sessions']
+
+    puts MazeRunner.configuration.appium_session_isolation
 
     # Call down to Cucumber
     add_maze_runner_options
@@ -78,4 +84,4 @@ class MazeRunner
   end
 end
 
-MazeRunner.new.start(ARGV)
+MazeRunnerEntry.new.start(ARGV)

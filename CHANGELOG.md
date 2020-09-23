@@ -1,3 +1,10 @@
+# 2.7.0 - TBD
+
+## Enhancements
+
+- Added option to start a new Appium session for every scenario.
+  [#XYZ](https://github.com/bugsnag/maze-runner/pull/XYZ)
+
 # 2.6.0 - 2020/09/14
 
 ## Enhancements

@@ -15,9 +15,9 @@ AfterConfiguration do |config|
 end
 
 After do
-  $driver.reset_with_timeout
+  $driver.reset_with_timeout unless MazeRunner.configuration.appium_session_isolation
 end
 
 at_exit do
-  $driver.driver_quit
+  $driver.driver_quit unless MazeRunner.configuration.appium_session_isolation
 end

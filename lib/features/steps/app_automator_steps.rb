@@ -134,7 +134,7 @@ When('I clear and send the keys {string} to the element {string}') do |keys, ele
 end
 
 def getExpectedValueForPlatform(platform_values)
-  if !defined?($driver) || MazeRunner.driver.nil?
+  if MazeRunner.driver.nil?
     raise('This step should only be used if the AppAutomateDriver is present')
   end
 

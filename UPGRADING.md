@@ -24,19 +24,22 @@ end
 ```
 
 When using the `--separate-sessions` option, Maze Runner with start and stop the driver for you, so the above should be
-modified to:
+modified to the following.
+
+`MazeRunner.driver` is also preferred to using `$driver` as it wraps the raw driver in a facade with restart-on-error
+functionality.
 
 ```ruby
 AfterConfiguration do |config|
   AppAutomateDriver.new(bs_username, bs_access_key, bs_local_id, bs_device, app_location)
-  $driver.start_driver unless MazeRunner.configuration.appium_session_isolation
+  MazeRunner.driver.start_driver unless MazeRunner.configuration.appium_session_isolation
 end
 
 After do |scenario|
-  $driver.reset unless MazeRunner.configuration.appium_session_isolation
+  MazeRunner.driver.reset unless MazeRunner.configuration.appium_session_isolation
 end
 
 at_exit do
-  $driver.driver_quit unless MazeRunner.configuration.appium_session_isolation
+  MazeRunner.driver.driver_quit unless MazeRunner.configuration.appium_session_isolation
 end
 ```

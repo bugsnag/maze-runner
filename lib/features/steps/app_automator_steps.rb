@@ -5,7 +5,7 @@
 #
 # @step_input element_id [String] The locator id
 Given("the element {string} is present") do |element_id|
-  present = $driver.wait_for_element(element_id)
+  present = MazeRunner.driver.wait_for_element(element_id)
   assert(present, "The element #{element_id} could not be found")
 end
 

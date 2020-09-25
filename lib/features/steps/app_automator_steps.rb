@@ -134,9 +134,7 @@ When('I clear and send the keys {string} to the element {string}') do |keys, ele
 end
 
 def getExpectedValueForPlatform(platform_values)
-  if MazeRunner.driver.nil?
-    raise('This step should only be used if the AppAutomateDriver is present')
-  end
+  raise('This step should only be used if the AppAutomateDriver is present') if MazeRunner.driver.nil?
 
   os = MazeRunner.driver.capabilities['os']
   expected_value = Hash[platform_values.raw][os]
@@ -151,10 +149,10 @@ end
 
 def testStringPlatformValues(field_path, platform_values)
   expected_value = getExpectedValueForPlatform(platform_values)
-  unless shouldSkipPlatformCheck(expected_value)
-    payload_value = read_key_path(Server.current_request[:body], field_path)
-    assert_equal(expected_value, payload_value)
-  end
+  return if shouldSkipPlatformCheck(expected_value)
+
+  payload_value = read_key_path(Server.current_request[:body], field_path)
+  assert_equal(expected_value, payload_value)
 end
 
 def testBooleanPlatformValues(field_path, platform_values)

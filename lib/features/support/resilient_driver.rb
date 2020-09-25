@@ -9,6 +9,11 @@ class ResilientDriver
     @driver = driver
   end
 
+  # Deliberately no error handling here
+  def start_driver
+    @driver.start_driver
+  end
+
   # Checks for an element, waiting until it is present or the method times out
   #
   # @param element_id [String] the element to search for using the @element_locator strategy

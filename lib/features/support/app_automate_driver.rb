@@ -60,28 +60,13 @@ class AppAutomateDriver < Appium::Driver
       }
     }, true)
 
-    MazeRunner.driver = self
+    MazeRunner.driver = ResilientDriver.new(self)
   end
 
   # Starts the BrowserStackLocal tunnel and the Appium driver
   def start_driver
     start_local_tunnel
     super
-  end
-
-  # Resets the app, reconnecting the Appium driver if it fails
-  def reset
-    $logger.info 'Resetting app'
-    super
-  rescue Selenium::WebDriver::Error::UnknownError, Selenium::WebDriver::Error::WebDriverError
-    # BrowserStack's iOS devices, esp. iOS 10 and 11 seem prone to this.
-    # There is potential for an infinite loop here, but in reality a single restart seems
-    # sufficient each time the error occurs.  CI step timeouts are also in place to guard
-    # against an infinite loop.
-    $logger.warn 'Appium Error occurred - restarting driver.'
-    restart
-    sleep 5 # Only to avoid possible tight loop
-    reset
   end
 
   # Checks for an element, waiting until it is present or the method times out
@@ -101,15 +86,6 @@ class AppAutomateDriver < Appium::Driver
       $logger.warn "StaleElementReferenceError occurred: #{stale_error}"
       false
     end
-  rescue Selenium::WebDriver::Error::UnknownError, Selenium::WebDriver::Error::WebDriverError
-    # BrowserStack's iOS devices, esp. iOS 10 and 11 seem prone to this.
-    # There is potential for an infinite loop here, but in reality a single restart seems
-    # sufficient each time the error occurs.  CI step timeouts are also in place to guard
-    # against an infinite loop.
-    $logger.warn 'Appium Error occurred - restarting driver.'
-    sleep 5 # Only to avoid possible tight loop
-    restart
-    wait_for_element(element_id, timeout, retry_if_stale)
   else
     true
   end

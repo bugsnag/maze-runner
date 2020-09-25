@@ -51,12 +51,14 @@ class AppAutomateDriver < Appium::Driver
     $logger.info "    name    : #{name_capabilities[:name]}"
 
     @capabilities = {
-      'browserstack.console': 'errors',
-      'browserstack.localIdentifier': local_id,
-      'browserstack.local': 'true',
-      'browserstack.networkLogs': 'true',
+      # 'browserstack.console': 'errors',
+      # 'browserstack.localIdentifier': local_id,
+      # 'browserstack.local': 'true',
+      # 'browserstack.networkLogs': 'true',
+      'platformName': 'Android',
+      'automationName': 'UiAutomator2',
       'autoAcceptAlerts': 'true',
-      'app': app_url
+      'app': 'features/fixtures/mazerunner/build/outputs/apk/release/mazerunner-release.apk'
     }
     @capabilities.merge! additional_capabilities
     @capabilities.merge! devices[target_device]
@@ -64,14 +66,14 @@ class AppAutomateDriver < Appium::Driver
     super({
       'caps' => @capabilities,
       'appium_lib' => {
-        server_url: "http://#{username}:#{access_key}@hub-cloud.browserstack.com/wd/hub"
+        server_url: 'http://localhost:4723/wd/hub'
       }
     }, true)
   end
 
   # Starts the BrowserStackLocal tunnel and the Appium driver
   def start_driver
-    start_local_tunnel
+    # start_local_tunnel
     $logger.info 'Starting Appium driver'
     super
   end

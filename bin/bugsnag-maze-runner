@@ -3,10 +3,14 @@
 
 require 'cucumber/cli/main'
 require 'optimist'
+require_relative '../lib/features/support/maze_runner'
 require_relative '../lib/version'
 
 # Encapsulates the MazeRunner entry point
-class MazeRunner
+class MazeRunnerEntry
+
+  OPTION_SEPARATE_SESSIONS = 'separate-sessions'
+
   def initialize
     @parser = Optimist::Parser.new do
       text 'Maze Runner extends the functionality of Cucumber, ' \
@@ -19,12 +23,14 @@ class MazeRunner
       opt :init, 'Initialises a new Maze Runner project'
 
       opt :version, 'Display Maze Runner and Cucumber versions'
+      opt OPTION_SEPARATE_SESSIONS, 'Start a new Appium session for each scenario', short: :none
       version "Maze Runner v#{BugsnagMazeRunner::VERSION} " \
               "(Cucumber v#{Cucumber::VERSION.strip})"
       text ''
       text 'The Cucumber help follows:'
       text ''
     end
+    # Allow for options destined for Cucumber
     @parser.ignore_invalid_options = true
   end
 
@@ -33,7 +39,15 @@ class MazeRunner
     exit 0
   end
 
-  def add_maze_runner_options
+  # Removes Maze Runner specific args from the array, as these will cause Cucumber to error.
+  def remove_maze_runner_args
+    [
+      OPTION_SEPARATE_SESSIONS
+    ].each { |arg| @args.delete "--#{arg}" }
+  end
+
+  # Adds arguments to the Cucumber
+  def add_cucumber_args
     @args << 'features' if @args.empty?
 
     # Add strict mode unless any no/strict option is given,
@@ -62,10 +76,13 @@ class MazeRunner
     options = @parser.parse args
 
     init if options[:init]
+    MazeRunner.configuration.appium_session_isolation = true if options[OPTION_SEPARATE_SESSIONS]
 
-    # Call down to Cucumber
-    add_maze_runner_options
+    puts MazeRunner.configuration.appium_session_isolation
 
+    # Adjust CL options before calling down to Cucumber
+    remove_maze_runner_args
+    add_cucumber_args
     Cucumber::Cli::Main.new(@args).execute!
 
   rescue Optimist::HelpNeeded
@@ -78,4 +95,4 @@ class MazeRunner
   end
 end
 
-MazeRunner.new.start(ARGV)
+MazeRunnerEntry.new.start(ARGV)

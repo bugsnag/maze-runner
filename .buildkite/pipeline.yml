@@ -50,13 +50,13 @@ steps:
         run: proxy-tests
     command: 'bundle exec bugsnag-maze-runner'
 
-  - label: 'Browserstack app-automate test - Android 6 (separate Appium sessions)'
+  - label: 'Browserstack app-automate test - Android 6'
     env:
       DEVICE_TYPE: ANDROID_6_0
     plugins:
       docker-compose#v3.3.0:
         run: browserstack-app-automate
-    command: 'bundle exec bugsnag-maze-runner --separate-sessions'
+    command: 'bundle exec bugsnag-maze-runner'
     concurrency: 10
     concurrency_group: 'browserstack-app'
 

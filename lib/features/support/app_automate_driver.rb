@@ -59,8 +59,6 @@ class AppAutomateDriver < Appium::Driver
         server_url: "http://#{username}:#{access_key}@hub-cloud.browserstack.com/wd/hub"
       }
     }, true)
-
-    MazeRunner.driver = ResilientDriver.new(self)
   end
 
   # Starts the BrowserStackLocal tunnel and the Appium driver

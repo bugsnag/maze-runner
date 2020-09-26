@@ -25,6 +25,10 @@ class ResilientDriver < AppAutomateDriver
   # @param timeout [Integer] the maximum time to wait for an element to be present in seconds
   # @param retry_if_stale [Boolean] enables the method to retry acquiring the element if a StaleObjectException occurs
   def wait_for_element(element_id, timeout = 15, retry_if_stale = true)
+    if rand(5) == 1
+      puts 'Oops - raising'
+      raise Selenium::WebDriver::Error::UnknownError
+    end
     super
   rescue Selenium::WebDriver::Error::UnknownError, Selenium::WebDriver::Error::WebDriverError
     recover { wait_for_element element_id, timeout, retry_if_stale }
@@ -92,7 +96,7 @@ class ResilientDriver < AppAutomateDriver
     # sufficient each time the error occurs.  CI step timeouts are also in place to guard
     # against an infinite loop.
     $logger.warn 'Appium Error occurred - restarting driver.'
-    super.restart
+    restart
     sleep 5 # Only to avoid a possible tight loop
     yield
   end

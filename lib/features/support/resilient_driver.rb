@@ -17,7 +17,6 @@ class ResilientDriver < AppAutomateDriver
   def initialize(username, access_key, local_id, target_device, app_location, locator = :id, additional_capabilities = {})
     MazeRunner.driver = self
     super
-    @@counter = 0
   end
 
   # Checks for an element, waiting until it is present or the method times out
@@ -26,14 +25,6 @@ class ResilientDriver < AppAutomateDriver
   # @param timeout [Integer] the maximum time to wait for an element to be present in seconds
   # @param retry_if_stale [Boolean] enables the method to retry acquiring the element if a StaleObjectException occurs
   def wait_for_element(element_id, timeout = 15, retry_if_stale = true)
-    $logger.info 'Oops - raising'
-    @@counter += 1
-    if @@counter % 2 == 1
-      $logger.info 'Oops - raising'
-      raise Selenium::WebDriver::Error::UnknownError
-    else
-      $logger.info 'Not raising'
-    end
     super
   rescue Selenium::WebDriver::Error::UnknownError, Selenium::WebDriver::Error::WebDriverError
     recover { wait_for_element element_id, timeout, retry_if_stale }

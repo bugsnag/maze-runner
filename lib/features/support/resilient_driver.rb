@@ -16,7 +16,7 @@ class ResilientDriver < AppAutomateDriver
   # @param additional_capabilities [Hash] a hash of additional capabilities to be used in this test run
   def initialize(username, access_key, local_id, target_device, app_location, locator = :id, additional_capabilities = {})
     MazeRunner.driver = self
-    super username, access_key, local_id, target_device, app_location, locator, additional_capabilities
+    super
   end
 
   # Checks for an element, waiting until it is present or the method times out
@@ -25,7 +25,7 @@ class ResilientDriver < AppAutomateDriver
   # @param timeout [Integer] the maximum time to wait for an element to be present in seconds
   # @param retry_if_stale [Boolean] enables the method to retry acquiring the element if a StaleObjectException occurs
   def wait_for_element(element_id, timeout = 15, retry_if_stale = true)
-    super.wait_for_element(element_id, timeout, retry_if_stale)
+    super
   rescue Selenium::WebDriver::Error::UnknownError, Selenium::WebDriver::Error::WebDriverError
     recover { wait_for_element element_id, timeout, retry_if_stale }
   end
@@ -33,7 +33,7 @@ class ResilientDriver < AppAutomateDriver
   # Resets the app
   def reset
     $logger.info 'Resetting app'
-    super.reset
+    super
   rescue Selenium::WebDriver::Error::UnknownError, Selenium::WebDriver::Error::WebDriverError
     recover { reset }
   end
@@ -42,7 +42,7 @@ class ResilientDriver < AppAutomateDriver
   #
   # @param element_id [String] the element to click using the @element_locator strategy
   def click_element(element_id)
-    super.click_element(element_id)
+    super
   rescue Selenium::WebDriver::Error::UnknownError, Selenium::WebDriver::Error::WebDriverError
     recover { click_element element_id }
   end
@@ -51,7 +51,7 @@ class ResilientDriver < AppAutomateDriver
   #
   # @param element_id [String] the element to clear, found using the @element_locator strategy
   def clear_element(element_id)
-    super.clear_element(element_id)
+    super
   rescue Selenium::WebDriver::Error::UnknownError, Selenium::WebDriver::Error::WebDriverError
     recover { clear_element element_id }
   end
@@ -61,7 +61,7 @@ class ResilientDriver < AppAutomateDriver
   # @param element_id [String] the element to send text to using the @element_locator strategy
   # @param text [String] the text to send
   def send_keys_to_element(element_id, text)
-    super.send_keys_to_element(element_id, text)
+    super
   rescue Selenium::WebDriver::Error::UnknownError, Selenium::WebDriver::Error::WebDriverError
     recover { send_keys_to_element element_id, text }
   end
@@ -71,7 +71,7 @@ class ResilientDriver < AppAutomateDriver
   # @param element_id [String] the element to clear and send text to using the @element_locator strategy
   # @param text [String] the text to send
   def clear_and_send_keys_to_element(element_id, text)
-    super.clear_and_send_keys_to_element(element_id, text)
+    super
   rescue Selenium::WebDriver::Error::UnknownError, Selenium::WebDriver::Error::WebDriverError
     recover { clear_and_send_keys_to_element element_id, text }
   end
@@ -80,7 +80,7 @@ class ResilientDriver < AppAutomateDriver
   #
   # @param timeout [Number] the amount of time in seconds to wait before resetting
   def reset_with_timeout(timeout=0.1)
-    super.reset_with_timeout(timeout)
+    super
   rescue Selenium::WebDriver::Error::UnknownError, Selenium::WebDriver::Error::WebDriverError
     recover { reset_with_timeout timeout }
   end

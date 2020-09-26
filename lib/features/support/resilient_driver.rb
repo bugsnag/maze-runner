@@ -15,8 +15,8 @@ class ResilientDriver < AppAutomateDriver
   # @param locator [Symbol] the primary locator strategy Appium should use to find elements
   # @param additional_capabilities [Hash] a hash of additional capabilities to be used in this test run
   def initialize(username, access_key, local_id, target_device, app_location, locator = :id, additional_capabilities = {})
-    super username, access_key, local_id, target_device, app_location, locator, additional_capabilities
     MazeRunner.driver = self
+    super username, access_key, local_id, target_device, app_location, locator, additional_capabilities
   end
 
   # Checks for an element, waiting until it is present or the method times out

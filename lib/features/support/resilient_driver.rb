@@ -85,6 +85,27 @@ class ResilientDriver < AppAutomateDriver
     recover { reset_with_timeout timeout }
   end
 
+  # Wraps @see Appium::Device#background_app
+  def background_app(timeout)
+    super
+  rescue Selenium::WebDriver::Error::UnknownError, Selenium::WebDriver::Error::WebDriverError
+    recover { background_app timeout }
+  end
+
+  # Wraps @see Appium::Device#close_app
+  def close_app
+    super
+  rescue Selenium::WebDriver::Error::UnknownError, Selenium::WebDriver::Error::WebDriverError
+    recover { close_app }
+  end
+
+  # Wraps @see Appium::Device#launch_app
+  def launch_app
+    super
+  rescue Selenium::WebDriver::Error::UnknownError, Selenium::WebDriver::Error::WebDriverError
+    recover { launch_app }
+  end
+
   # Restarts the underlying driver and calls the block given.
   def recover
     # BrowserStack's iOS 10 and 11 iOS devices seemed prone to the underlying Appium connection failing.

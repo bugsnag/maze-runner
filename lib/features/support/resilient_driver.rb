@@ -3,9 +3,9 @@ require_relative './fast_selenium'
 require_relative './logger'
 
 # Handles Appium driver restarts and retries in the case of failure
-class ResilientDriver < AppAutomateDriver
+class ResilientAppiumDriver < AppAutomateDriver
 
-  # Creates the ResilientDriver
+  # Creates the ResilientAppiumDriver
   #
   # @param username [String] the BrowserStack username
   # @param access_key [String] the BrowserStack access key

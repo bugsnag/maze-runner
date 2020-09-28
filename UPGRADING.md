@@ -2,6 +2,32 @@
 
 ### Upgrading from 2.6.0 to 2.7.0
 
+#### Resilient Appium Driver
+
+The new `ResilientAppiumDriver` class can be used to handle flaky Appium sessions.  It simply wraps each call to an
+underlying `AppAutomateDriver` instance, restarting the Appium session in response to any of the following errors:
+- Selenium::WebDriver::Error::UnknownError
+- Selenium::WebDriver::Error::WebDriverError
+
+To use, simply instantiate in place of `AppAutomateDriver`.  It's also preferable to access the driver via 
+`MazeRunner.driver` rather than the global `$driver` variable:
+
+```ruby
+AfterConfiguration do |config|
+  AppAutomateDriver.new(bs_username, bs_access_key, bs_local_id, bs_device, app_location)
+  $driver.start_driver
+end
+```
+
+Becomes:
+
+```ruby
+AfterConfiguration do |config|
+  ResilientAppiumDriver.new(bs_username, bs_access_key, bs_local_id, bs_device, app_location)
+  MazeRunner.driver.start_driver
+end
+```
+
 #### Separate Appium sessions option
 
 If using the new `--separate-sessions` option to have each Cucumber scenario run in its own Appium session, you may
@@ -23,11 +49,8 @@ at_exit do
 end
 ```
 
-When using the `--separate-sessions` option, Maze Runner with start and stop the driver for you, so the above should be
+When using the `--separate-sessions` option, Maze Runner will start and stop the driver for you, so the above should be
 modified to the following.
-
-`MazeRunner.driver` is also preferred to using `$driver` as it wraps the raw driver in a facade with restart-on-error
-functionality.
 
 ```ruby
 AfterConfiguration do |config|

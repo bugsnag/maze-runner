@@ -4,21 +4,7 @@ require_relative './logger'
 
 # Handles Appium driver restarts and retries in the case of failure
 class ResilientAppiumDriver < AppAutomateDriver
-
-  # Creates the ResilientAppiumDriver
-  #
-  # @param username [String] the BrowserStack username
-  # @param access_key [String] the BrowserStack access key
-  # @param local_id [String] the identifier for the BrowserStackLocal tunnel
-  # @param target_device [String] a key from the Devices array selecting which device capabilities to target
-  # @param app_location [String] the location of the test-app to upload
-  # @param locator [Symbol] the primary locator strategy Appium should use to find elements
-  # @param additional_capabilities [Hash] a hash of additional capabilities to be used in this test run
-  def initialize(username, access_key, local_id, target_device, app_location, locator = :id, additional_capabilities = {})
-    MazeRunner.driver = self
-    super
-  end
-
+  
   # Checks for an element, waiting until it is present or the method times out
   #
   # @param element_id [String] the element to search for using the @element_locator strategy

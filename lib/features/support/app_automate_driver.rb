@@ -3,6 +3,7 @@ require 'open3'
 require 'securerandom'
 require_relative './fast_selenium'
 require_relative './logger'
+require_relative './maze_runner'
 
 # Wraps Appium::Driver to enable control of a BrowserStack app-automate session
 class AppAutomateDriver < Appium::Driver
@@ -28,6 +29,7 @@ class AppAutomateDriver < Appium::Driver
   # @param locator [Symbol] the primary locator strategy Appium should use to find elements
   # @param additional_capabilities [Hash] a hash of additional capabilities to be used in this test run
   def initialize(username, access_key, local_id, target_device, app_location, locator = :id, additional_capabilities = {})
+    MazeRunner.driver = self
     @device_type = target_device
     @element_locator = locator
     @access_key = access_key

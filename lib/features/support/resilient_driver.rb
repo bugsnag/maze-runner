@@ -3,6 +3,7 @@ require_relative './fast_selenium'
 require_relative './logger'
 
 # Handles Appium driver restarts and retries in the case of failure
+# For methods available on this class, @see AppAutomateDriver.
 class ResilientAppiumDriver
   # Creates the ResilientAppiumDriver
   #
@@ -27,9 +28,8 @@ class ResilientAppiumDriver
     @driver.respond_to_missing? method_name
   end
 
-  # rubocop: disable MethodMissingSuper
   def method_missing(method, *args, &block)
-    raise "Method '#{method}' does not exist" unless @driver.respond_to?(method)
+    return super unless @driver.respond_to?(method)
 
     retries = 0
     until retries >= 5

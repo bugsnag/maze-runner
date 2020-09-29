@@ -4,6 +4,8 @@
 
 - Allow BrowserStackLocal path to be provided in environment.
   [#137](https://github.com/bugsnag/maze-runner/pull/137)
+- Allow URLs to be provided for app location to avoid duplicate uploads.
+  [#136](https://github.com/bugsnag/maze-runner/pull/136)
 - Addition of ResilientAppiumDriver to catch and restart broken Appium sessions.
   [#134](https://github.com/bugsnag/maze-runner/pull/134)
 - Added option to start a new Appium session for every scenario.

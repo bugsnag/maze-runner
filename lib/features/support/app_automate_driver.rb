@@ -34,7 +34,13 @@ class AppAutomateDriver < Appium::Driver
     @element_locator = locator
     @access_key = access_key
     @local_id = local_id
-    app_url = upload_app(username, access_key, app_location)
+    if app_location.start_with? 'bs://'
+      app_url = app_location
+    else
+      app_url = upload_app(username, access_key, app_location)
+      $logger.info "app uploaded to: #{app_url}"
+      $logger.info 'You can use this url to avoid uploading the same app more than once.'
+    end
 
     # Sets up identifiers for ease of connecting jobs
     name_capabilities = project_name_capabilities(target_device)

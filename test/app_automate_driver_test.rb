@@ -9,7 +9,7 @@ class AppAutomateDriverTest < Test::Unit::TestCase
   USERNAME = 'Username'
   ACCESS_KEY = 'Access_key'
   LOCAL_ID = 'Local_id'
-  APP_LOCATION = 'App_location'
+  APP_LOCATION = 'app_location'
   TEST_APP_URL = 'Test_app_url'
   TARGET_DEVICE = 'ANDROID_9'
   LOCAL_TUNNEL_COMMAND_OPTIONS = "-d start --key #{ACCESS_KEY} --local-identifier #{LOCAL_ID} --force-local"
@@ -26,6 +26,8 @@ class AppAutomateDriverTest < Test::Unit::TestCase
   def start_logger_mock
     logger_mock = mock('logger')
     $logger = logger_mock
+    logger_mock.expects(:info).with("app uploaded to: #{TEST_APP_URL}").once
+    logger_mock.expects(:info).with('You can use this url to avoid uploading the same app more than once.').once
     logger_mock.expects(:info).with('Appium driver initialised for:').once
     logger_mock.expects(:info).with('    project : local').once
     logger_mock.expects(:info).with(regexp_matches(/^\s{4}build\s{3}:\s\S{36}$/))
@@ -232,9 +234,9 @@ class AppAutomateDriverTest < Test::Unit::TestCase
     mocked_element = mock('element')
     mocked_element.expects(:clear)
 
-    driver.expects(:find_element).with(:id, "test_text_entry").returns(mocked_element)
+    driver.expects(:find_element).with(:id, 'test_text_entry').returns(mocked_element)
 
-    driver.clear_element("test_text_entry")
+    driver.clear_element('test_text_entry')
   end
 
   def test_send_keys_to_element_defaults
@@ -257,11 +259,11 @@ class AppAutomateDriverTest < Test::Unit::TestCase
 
     mocked_element = mock('element')
     mocked_element.expects(:clear)
-    mocked_element.expects(:send_keys).with("Test_text")
+    mocked_element.expects(:send_keys).with('Test_text')
 
-    driver.expects(:find_element).with(:id, "test_text_entry").returns(mocked_element)
+    driver.expects(:find_element).with(:id, 'test_text_entry').returns(mocked_element)
 
-    driver.clear_and_send_keys_to_element("test_text_entry", "Test_text")
+    driver.clear_and_send_keys_to_element('test_text_entry', 'Test_text')
   end
 
   def test_clear_element_locator
@@ -272,9 +274,9 @@ class AppAutomateDriverTest < Test::Unit::TestCase
     mocked_element = mock('element')
     mocked_element.expects(:clear)
 
-    driver.expects(:find_element).with(:accessibility_id, "test_text_entry").returns(mocked_element)
+    driver.expects(:find_element).with(:accessibility_id, 'test_text_entry').returns(mocked_element)
 
-    driver.clear_element("test_text_entry")
+    driver.clear_element('test_text_entry')
   end
 
   def test_send_keys_to_element_locator
@@ -297,11 +299,11 @@ class AppAutomateDriverTest < Test::Unit::TestCase
 
     mocked_element = mock('element')
     mocked_element.expects(:clear)
-    mocked_element.expects(:send_keys).with("Test_text")
+    mocked_element.expects(:send_keys).with('Test_text')
 
-    driver.expects(:find_element).with(:accessibility_id, "test_text_entry").returns(mocked_element)
+    driver.expects(:find_element).with(:accessibility_id, 'test_text_entry').returns(mocked_element)
 
-    driver.clear_and_send_keys_to_element("test_text_entry", "Test_text")
+    driver.clear_and_send_keys_to_element('test_text_entry', 'Test_text')
   end
 
   def test_start_driver_no_env
@@ -343,6 +345,8 @@ class AppAutomateDriverTest < Test::Unit::TestCase
     ENV['BUILDKITE_STEP_KEY'] = 'tests-05'
     logger_mock = mock('logger')
     $logger = logger_mock
+    logger_mock.expects(:info).with("app uploaded to: #{TEST_APP_URL}").once
+    logger_mock.expects(:info).with('You can use this url to avoid uploading the same app more than once.').once
     logger_mock.expects(:info).with('Appium driver initialised for:').once
     logger_mock.expects(:info).with('    project : TEST').once
     logger_mock.expects(:info).with('    build   : 156 TEST BRANCH')

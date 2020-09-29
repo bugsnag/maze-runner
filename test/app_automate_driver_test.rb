@@ -12,7 +12,7 @@ class AppAutomateDriverTest < Test::Unit::TestCase
   APP_LOCATION = 'App_location'
   TEST_APP_URL = 'Test_app_url'
   TARGET_DEVICE = 'ANDROID_9'
-  LOCAL_TUNNEL_COMMAND = "/BrowserStackLocal -d start --key #{ACCESS_KEY} --local-identifier #{LOCAL_ID} --force-local"
+  LOCAL_TUNNEL_COMMAND_OPTIONS = "-d start --key #{ACCESS_KEY} --local-identifier #{LOCAL_ID} --force-local"
 
   def setup
     ENV.delete('BRANCH_NAME')
@@ -304,14 +304,32 @@ class AppAutomateDriverTest < Test::Unit::TestCase
     driver.clear_and_send_keys_to_element("test_text_entry", "Test_text")
   end
 
-  def test_start_driver
+  def test_start_driver_no_env
     start_logger_mock
+    $logger.expects(:info).with('Starting BrowserStack local tunnel').once
+    $logger.expects(:info).with('Starting Appium driver').once
     AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
     driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
 
     Appium::Driver.any_instance.expects(:start_driver)
     waiter = mock('Process::Waiter', value: mock('Process::Status'))
-    Open3.expects(:popen2).with(LOCAL_TUNNEL_COMMAND).yields(mock('stdin'), mock('stdout'), waiter)
+    Open3.expects(:popen2).with("/BrowserStackLocal #{LOCAL_TUNNEL_COMMAND_OPTIONS}").yields(mock('stdin'), mock('stdout'), waiter)
+
+    driver.start_driver
+  end
+
+  def test_start_driver_with_env
+    my_path = '/my/path'
+    ENV['BROWSER_STACK_LOCAL'] = my_path
+    start_logger_mock
+    $logger.expects(:info).with('Starting BrowserStack local tunnel').once
+    $logger.expects(:info).with('Starting Appium driver').once
+    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
+    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
+
+    Appium::Driver.any_instance.expects(:start_driver)
+    waiter = mock('Process::Waiter', value: mock('Process::Status'))
+    Open3.expects(:popen2).with("#{my_path} #{LOCAL_TUNNEL_COMMAND_OPTIONS}").yields(mock('stdin'), mock('stdout'), waiter)
 
     driver.start_driver
   end

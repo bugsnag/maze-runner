@@ -2,6 +2,8 @@
 
 ## Enhancements
 
+- Allow BrowserStackLocal path to be provided in environment.
+  [#137](https://github.com/bugsnag/maze-runner/pull/137)
 - Addition of ResilientAppiumDriver to catch and restart broken Appium sessions.
   [#134](https://github.com/bugsnag/maze-runner/pull/134)
 - Added option to start a new Appium session for every scenario.

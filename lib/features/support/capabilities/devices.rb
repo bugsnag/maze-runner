@@ -61,18 +61,18 @@ class Devices
       hash['ANDROID_4'] = hash['ANDROID_4_4']
 
       # Specific Android devices
-      add_android 'Google Pixel 4', '11.0', hash
-      add_android 'Samsung Galaxy Note 9', '8.1', hash
-      add_android 'Samsung Galaxy J7 Prime', '8.1', hash
-      add_android 'Samsung Galaxy Tab S4', '8.1', hash
-      add_android 'Google Pixel', '8.0', hash
-      add_android 'Google Pixel 2', '8.0', hash
-      add_android 'Samsung Galaxy S9', '8.0', hash
-      add_android 'Samsung Galaxy S9 Plus', '8.0', hash
-      add_android 'Samsung Galaxy Tab S3', '8.0', hash
-      add_android 'Motorola Moto X 2nd Gen', '6.0', hash
-      add_android 'Google Nexus 6', '6.0', hash
-      add_android 'Samsung Galaxy S7', '6.0', hash
+      add_android 'Google Pixel 4', '11.0', hash          # ANDROID_11_0_GOOGLE_PIXEL_4
+      add_android 'Samsung Galaxy Note 9', '8.1', hash    # ANDROID_8_1_SAMSUNG_GALAXY_NOTE_9
+      add_android 'Samsung Galaxy J7 Prime', '8.1', hash  # ANDROID_8_1_SAMSUNG_GALAXY_J7_PRIME
+      add_android 'Samsung Galaxy Tab S4', '8.1', hash    # ANDROID_8_1_SAMSUNG_GALAXY_TAB_S4
+      add_android 'Google Pixel', '8.0', hash             # ANDROID_8_0_GOOGLE_PIXEL
+      add_android 'Google Pixel 2', '8.0', hash           # ANDROID_8_0_GOOGLE_PIXEL_2
+      add_android 'Samsung Galaxy S9', '8.0', hash        # ANDROID_8_0_SAMSUNG_GALAXY_S9
+      add_android 'Samsung Galaxy S9 Plus', '8.0', hash   # ANDROID_8_0_SAMSUNG_GALAXY_S9_PLUS
+      add_android 'Samsung Galaxy Tab S3', '7.0', hash    # ANDROID_7_0_SAMSUNG_GALAXY_TAB_S3
+      add_android 'Motorola Moto X 2nd Gen', '6.0', hash  # ANDROID_6_0_MOTOROLA_MOTO_X_2ND_GEN
+      add_android 'Google Nexus 6', '6.0', hash           # ANDROID_6_0_GOOGLE_NEXUS_6
+      add_android 'Samsung Galaxy S7', '6.0', hash        # ANDROID_6_0_SAMSUNG_GALAXY_S7
 
       hash
     end

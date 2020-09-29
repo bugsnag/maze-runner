@@ -7,6 +7,11 @@
 - Added option to start a new Appium session for every scenario.
   [#133](https://github.com/bugsnag/maze-runner/pull/133)
 
+## Fixes
+
+- Correct Android version for device entry Galaxy Tab S3
+  [#135](https://github.com/bugsnag/maze-runner/pull/135)
+
 # 2.6.0 - 2020/09/14
 
 ## Enhancements
@@ -19,7 +24,6 @@
 
 - Clear environment as start of scenarios
   [#130](https://github.com/bugsnag/maze-runner/pull/130)
-
 
 # 2.5.0 - 2020/09/11
 

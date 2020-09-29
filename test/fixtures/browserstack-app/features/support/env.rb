@@ -10,14 +10,14 @@ $api_key = '12312312312312312312312312312312'
 ENV['BUGSNAG_API_KEY'] = $api_key
 
 AfterConfiguration do |config|
-  AppAutomateDriver.new(bs_username, bs_access_key, bs_local_id, bs_device, app_location)
-  $driver.start_driver unless MazeRunner.configuration.appium_session_isolation
+  ResilientAppiumDriver.new(bs_username, bs_access_key, bs_local_id, bs_device, app_location)
+  MazeRunner.driver.start_driver unless MazeRunner.configuration.appium_session_isolation
 end
 
 After do
-  $driver.reset_with_timeout unless MazeRunner.configuration.appium_session_isolation
+  MazeRunner.driver.reset_with_timeout unless MazeRunner.configuration.appium_session_isolation
 end
 
 at_exit do
-  $driver.driver_quit unless MazeRunner.configuration.appium_session_isolation
+  MazeRunner.driver.driver_quit unless MazeRunner.configuration.appium_session_isolation
 end

@@ -14,13 +14,13 @@ Before do |scenario|
   Server.stored_requests.clear
   Store.values.clear
 
-  $driver.start_driver if MazeRunner.configuration.appium_session_isolation
+  MazeRunner.driver.start_driver if MazeRunner.configuration.appium_session_isolation
 end
 
 # After each scenario
 After do |scenario|
 
-  $driver.driver_quit if MazeRunner.configuration.appium_session_isolation
+  MazeRunner.driver.driver_quit if MazeRunner.configuration.appium_session_isolation
 
   # This is here to stop sessions from one test hitting another.
   # However this does mean that tests take longer.

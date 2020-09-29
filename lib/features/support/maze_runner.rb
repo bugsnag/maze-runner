@@ -6,6 +6,7 @@ require_relative './configuration'
 # providing an alternative to the proliferation of global variables or singletons.
 class MazeRunner
   class << self
+    attr_accessor :driver
     def configuration
       @configuration ||= Configuration.new
     end

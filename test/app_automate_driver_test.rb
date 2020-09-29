@@ -306,6 +306,8 @@ class AppAutomateDriverTest < Test::Unit::TestCase
 
   def test_start_driver_no_env
     start_logger_mock
+    $logger.expects(:info).with('Starting BrowserStack local tunnel').once
+    $logger.expects(:info).with('Starting Appium driver').once
     AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
     driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
 
@@ -320,6 +322,8 @@ class AppAutomateDriverTest < Test::Unit::TestCase
     my_path = '/my/path'
     ENV['BROWSER_STACK_LOCAL'] = my_path
     start_logger_mock
+    $logger.expects(:info).with('Starting BrowserStack local tunnel').once
+    $logger.expects(:info).with('Starting Appium driver').once
     AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
     driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
 

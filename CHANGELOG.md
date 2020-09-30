@@ -1,4 +1,4 @@
-# 2.7.0 - TBD
+# 2.7.0 - 2020/09/30
 
 ## Enhancements
 
@@ -8,6 +8,7 @@
   [#136](https://github.com/bugsnag/maze-runner/pull/136)
 - Addition of ResilientAppiumDriver to catch and restart broken Appium sessions.
   [#134](https://github.com/bugsnag/maze-runner/pull/134)
+  [#138](https://github.com/bugsnag/maze-runner/pull/138)
 - Added option to start a new Appium session for every scenario.
   [#133](https://github.com/bugsnag/maze-runner/pull/133)
 

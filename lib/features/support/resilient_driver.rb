@@ -2,7 +2,9 @@ require 'appium_lib'
 require_relative './fast_selenium'
 require_relative './logger'
 
-# Handles Appium driver restarts and retries in the case of failure
+# Handles Appium driver restarts and retries in the case of failure. BrowserStack's iOS 10 and 11 iOS devices in
+# particular seemed prone to the underlying Appium connection failing.
+#
 # For methods available on this class, @see AppAutomateDriver.
 class ResilientAppiumDriver
   # Creates the ResilientAppiumDriver
@@ -22,6 +24,9 @@ class ResilientAppiumDriver
                                     app_location,
                                     locator,
                                     additional_capabilities
+
+    # This must appear after creation of @driver as AppAutomateDriver also does this
+    MazeRunner.driver = self
   end
 
   def respond_to_missing?(method_name, include_private = false)
@@ -34,30 +39,19 @@ class ResilientAppiumDriver
     retries = 0
     until retries >= 5
       begin
-        @driver.send(method, *args, &block)
-        return
+        return @driver.send(method, *args, &block)
       rescue Selenium::WebDriver::Error::UnknownError, Selenium::WebDriver::Error::WebDriverError => error
         retries += 1
-        recover
+        $logger.warn 'Appium Error occurred - restarting driver.'
+        restart
       end
     end
 
     # Re-raise the last error, although it might be better to re-raise the
-    # first error instead.  Review based on whther we ever hit this.
-    raise error unless error.nil?
-  end
+    # first error instead.  Review based on whether we ever hit this.
+    return if error.nil?
 
-  private
-
-  # Restarts the underlying driver and calls the block given.
-  def recover
-    # BrowserStack's iOS 10 and 11 iOS devices seemed prone to the underlying Appium connection failing.
-    # There is potential for an infinite loop here, but in reality a single restart seems
-    # sufficient each time the error occurs.  CI step timeouts are also in place to guard
-    # against an infinite loop.
-    $logger.warn 'Appium Error occurred - restarting driver.'
-    restart
-    sleep 5 # Only to avoid a possible tight loop
-    yield
+    $logger.error 'Maximum retries exceeded - raising the last error'
+    raise error
   end
 end

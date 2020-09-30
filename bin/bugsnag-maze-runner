@@ -78,8 +78,6 @@ class MazeRunnerEntry
     init if options[:init]
     MazeRunner.configuration.appium_session_isolation = true if options[OPTION_SEPARATE_SESSIONS]
 
-    puts MazeRunner.configuration.appium_session_isolation
-
     # Adjust CL options before calling down to Cucumber
     remove_maze_runner_args
     add_cucumber_args

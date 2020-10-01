@@ -1,0 +1,38 @@
+# frozen_string_literal: true
+
+# Utils supporting the BrowserStack device farm integration
+class BrowserStackUtils
+  # The App upload uri for BrowserStack App Automate
+  BROWSER_STACK_APP_UPLOAD_URI = 'https://api-cloud.browserstack.com/app-automate/upload'
+
+  class << self
+
+    # Uploads an app to BrowserStack for later consumption
+    # @param username [String] the BrowserStack username
+    # @param access_key [String] the BrowserStack access key
+    def upload_app(username, access_key, app_location)
+      res = `curl -u "#{username}:#{access_key}" -X POST "#{BROWSER_STACK_APP_UPLOAD_URI}" -F "file=@#{app_location}"`
+      response = JSON.parse(res)
+      raise "BrowserStack upload failed due to error: #{response['error']}" if response.include?('error')
+
+      app_url = response['app_url']
+      $logger.info "app uploaded to: #{app_url}"
+      $logger.info 'You can use this url to avoid uploading the same app more than once.'
+      app_url
+    end
+
+    # Starts the BrowserStack local tunnel
+    # @param key [String] BrowserStack access key
+    # @param local_identifier [String] the identifier for the BrowserStackLocal tunnel
+    def start_local_tunnel(key, local_identifier)
+      $logger.info 'Starting BrowserStack local tunnel'
+      status = nil
+      bs_local = MazeRunner.configuration.browser_stack_local
+      command = "#{bs_local} -d start --key #{key} --local-identifier #{local_identifier} --force-local"
+      Open3.popen2(command) do |_stdin, _stdout, wait|
+        status = wait.value
+      end
+      status
+    end
+  end
+end

@@ -1,3 +1,10 @@
+# 3.0.0 - 2020/10/02
+
+## Enhancements
+
+- BrowserStack specific elements separated from AppAutomateDriver (now simply AppiumDriver)
+  [#139](https://github.com/bugsnag/maze-runner/pull/139)
+
 # 2.7.0 - 2020/09/30
 
 ## Enhancements

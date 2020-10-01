@@ -1,5 +1,21 @@
 ## Upgrading Guide
 
+### Upgrading from v2 to v3
+
+The `AppAutomateDriver` class has been renamed to `AppiumDriver` and its BrowserStack specific elements
+has been moved into a new `BrowserStackUtils` class.  This changes the arguments needed to create an `AppiumDriver`
+or `ResilientAppiumDriver` and an extra call is needed to upload the app to BrowserStack:
+
+```ruby
+
+```
+
+Changes to:
+
+```ruby
+
+```
+
 ### Upgrading from 2.6.0 to 2.7.0
 
 #### Resilient Appium Driver

@@ -18,13 +18,12 @@ class AppiumDriver < Appium::Driver
 
   # Creates the AppiumDriver
   #
+  # @param server_url [String] URL of the Appium server
   # @param target_device [String] a key from the Devices array selecting which device capabilities to target
-  # @param locator [Symbol] the primary locator strategy Appium should use to find elements
-  # @param additional_capabilities [Hash] a hash of additional capabilities to be used in this test run
-  def initialize(target_device, locator = :id, additional_capabilities = {})
+  # @param capabilities [Hash] a hash of capabilities to be used in this test run
+  def initialize(server_url, target_device, capabilities = {})
     MazeRunner.driver = self
     @device_type = target_device
-    @element_locator = locator
 
     # Sets up identifiers for ease of connecting jobs
     name_capabilities = project_name_capabilities(target_device)
@@ -34,7 +33,8 @@ class AppiumDriver < Appium::Driver
     $logger.info "    build   : #{name_capabilities[:build]}"
     $logger.info "    name    : #{name_capabilities[:name]}"
 
-    @capabilities = {
+    @capabilities = capabilities
+        {
       # 'browserstack.console': 'errors',
       # 'browserstack.localIdentifier': local_id,
       # 'browserstack.local': 'true',
@@ -44,7 +44,6 @@ class AppiumDriver < Appium::Driver
       'autoAcceptAlerts': 'true',
       'app': 'features/fixtures/mazerunner/build/outputs/apk/release/mazerunner-release.apk'
     }
-    @capabilities.merge! additional_capabilities
     @capabilities.merge! Devices::DEVICE_HASH[target_device]
     @capabilities.merge! name_capabilities
     super({
@@ -64,12 +63,12 @@ class AppiumDriver < Appium::Driver
 
   # Checks for an element, waiting until it is present or the method times out
   #
-  # @param element_id [String] the element to search for using the @element_locator strategy
+  # @param element_id [String] the element to search for
   # @param timeout [Integer] the maximum time to wait for an element to be present in seconds
   # @param retry_if_stale [Boolean] enables the method to retry acquiring the element if a StaleObjectException occurs
   def wait_for_element(element_id, timeout = 15, retry_if_stale = true)
     wait = Selenium::WebDriver::Wait.new(timeout: timeout)
-    wait.until { find_element(@element_locator, element_id).displayed? }
+    wait.until { find_element(:id, element_id).displayed? }
   rescue Selenium::WebDriver::Error::TimeoutError
     false
   rescue Selenium::WebDriver::Error::StaleElementReferenceError => stale_error
@@ -85,32 +84,32 @@ class AppiumDriver < Appium::Driver
 
   # Clicks a given element
   #
-  # @param element_id [String] the element to click using the @element_locator strategy
+  # @param element_id [String] the element to click
   def click_element(element_id)
-    find_element(@element_locator, element_id).click
+    find_element(:id, element_id).click
   end
 
   # Clears a given element
   #
-  # @param element_id [String] the element to clear, found using the @element_locator strategy
+  # @param element_id [String] the element to clear
   def clear_element(element_id)
-    find_element(@element_locator, element_id).clear
+    find_element(:id, element_id).clear
   end
 
   # Sends keys to a given element
   #
-  # @param element_id [String] the element to send text to using the @element_locator strategy
+  # @param element_id [String] the element to send text to
   # @param text [String] the text to send
   def send_keys_to_element(element_id, text)
-    find_element(@element_locator, element_id).send_keys(text)
+    find_element(:id, element_id).send_keys(text)
   end
 
   # Sends keys to a given element, clearing it first
   #
-  # @param element_id [String] the element to clear and send text to using the @element_locator strategy
+  # @param element_id [String] the element to clear and send text to
   # @param text [String] the text to send
   def clear_and_send_keys_to_element(element_id, text)
-    element = find_element(@element_locator, element_id)
+    element = find_element(:id, element_id)
     element.clear
     element.send_keys(text)
   end

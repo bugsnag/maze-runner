@@ -10,6 +10,7 @@ $api_key = '12312312312312312312312312312312'
 ENV['BUGSNAG_API_KEY'] = $api_key
 
 AfterConfiguration do |config|
+  BrowserStackUtils.upload_app(bs_username, bs_access_key, app_location)
   ResilientAppiumDriver.new(bs_username, bs_access_key, bs_local_id, bs_device, app_location)
   MazeRunner.driver.start_driver unless MazeRunner.configuration.appium_session_isolation
 end

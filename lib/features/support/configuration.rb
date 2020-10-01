@@ -14,6 +14,9 @@ class Configuration
   # Location of the BrowserStackLocal binary (if used)
   attr_accessor :browser_stack_local
 
+  # URL of the Appium server
+  attr_accessor :appium_server_url
+
   # Location of the app (IPA or APK) that tests will be run against
   attr_accessor :app_location
 end

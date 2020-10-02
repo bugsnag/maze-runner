@@ -11,6 +11,9 @@ class Configuration
   # Whether each scenario should have its own Appium session
   attr_accessor :appium_session_isolation
 
+  # Device farm to be used
+  attr_accessor :farm
+
   # Location of the BrowserStackLocal binary (if used)
   attr_accessor :browser_stack_local
 

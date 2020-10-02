@@ -7,26 +7,15 @@ require_relative './logger'
 #
 # For methods available on this class, @see AppAutomateDriver.
 class ResilientAppiumDriver
-  # Creates the ResilientAppiumDriver
+  # Creates the AppiumDriver
   #
-  # @param username [String] the BrowserStack username
-  # @param access_key [String] the BrowserStack access key
-  # @param local_id [String] the identifier for the BrowserStackLocal tunnel
-  # @param target_device [String] a key from the Devices array selecting which device capabilities to target
-  # @param app_location [String] the location of the test-app to upload
-  # @param locator [Symbol] the primary locator strategy Appium should use to find elements
-  # @param additional_capabilities [Hash] a hash of additional capabilities to be used in this test run
-  def initialize(username, access_key, local_id, target_device, app_location, locator = :id, additional_capabilities = {})
-    @driver = AppAutomateDriver.new username,
-                                    access_key,
-                                    local_id,
-                                    target_device,
-                                    app_location,
-                                    locator,
-                                    additional_capabilities
-
-    # This must appear after creation of @driver as AppAutomateDriver also does this
-    MazeRunner.driver = self
+  # @param server_url [String] URL of the Appium server
+  # @param app_location [String] URL or file location of the app to be used
+  # @param capabilities [Hash] a hash of capabilities to be used in this test run
+  def initialize(server_url, app_location, capabilities = {})
+    @driver = AppiumDriver.new server_url,
+                               app_location,
+                               capabilities
   end
 
   def respond_to_missing?(method_name, include_private = false)

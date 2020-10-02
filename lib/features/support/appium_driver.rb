@@ -19,10 +19,9 @@ class AppiumDriver < Appium::Driver
   # Creates the AppiumDriver
   #
   # @param server_url [String] URL of the Appium server
+  # @param app_location [String] URL or file location of the app to be used
   # @param capabilities [Hash] a hash of capabilities to be used in this test run
-  def initialize(server_url, capabilities = {})
-    MazeRunner.driver = self
-
+  def initialize(server_url, app_location, capabilities = {})
     # Sets up identifiers for ease of connecting jobs
     name_capabilities = project_name_capabilities
 
@@ -43,7 +42,6 @@ class AppiumDriver < Appium::Driver
 
   # Starts the BrowserStackLocal tunnel and the Appium driver
   def start_driver
-    # start_local_tunnel
     $logger.info 'Starting Appium driver'
     super
   end

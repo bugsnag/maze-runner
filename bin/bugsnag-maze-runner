@@ -10,6 +10,8 @@ require_relative '../lib/version'
 class MazeRunnerEntry
 
   OPTION_SEPARATE_SESSIONS = 'separate-sessions'
+  OPTION_FARM = 'farm'
+  OPTION_DEVICE = 'device'
 
   def initialize
     @parser = Optimist::Parser.new do
@@ -23,13 +25,21 @@ class MazeRunnerEntry
       opt :init, 'Initialises a new Maze Runner project'
 
       opt :version, 'Display Maze Runner and Cucumber versions'
-      opt OPTION_SEPARATE_SESSIONS, 'Start a new Appium session for each scenario', short: :none
+      opt 'separate-sessions', 'Start a new Appium session for each scenario', short: :none, type: :boolean, default: false
+      opt OPTION_FARM, 'Device farm to use: "bs" (BrowserStack) or "local"', short: :none, type: :string, default: 'bs'
+      opt OPTION_DEVICE,
+          'Device type to use ("ios", "android" or one of Devices.DEVICE_HASH',
+          short: :none,
+          required: true
       version "Maze Runner v#{BugsnagMazeRunner::VERSION} " \
               "(Cucumber v#{Cucumber::VERSION.strip})"
       text ''
       text 'The Cucumber help follows:'
       text ''
+
     end
+
+
     # Allow for options destined for Cucumber
     @parser.ignore_invalid_options = true
   end
@@ -41,8 +51,11 @@ class MazeRunnerEntry
 
   # Removes Maze Runner specific args from the array, as these will cause Cucumber to error.
   def remove_maze_runner_args
+    puts @args
     [
-      OPTION_SEPARATE_SESSIONS
+      OPTION_SEPARATE_SESSIONS,
+      OPTION_DEVICE,
+      OPTION_FARM
     ].each { |arg| @args.delete "--#{arg}" }
   end
 
@@ -76,12 +89,22 @@ class MazeRunnerEntry
     options = @parser.parse args
 
     init if options[:init]
-    MazeRunner.configuration.appium_session_isolation = true if options[OPTION_SEPARATE_SESSIONS]
+    MazeRunner.configuration.appium_session_isolation = options[OPTION_SEPARATE_SESSIONS]
+    MazeRunner.configuration.farm = if options[OPTION_FARM] == 'bs'
+                                      :bs
+                                    else
+                                      :local
+                                    end
 
     # Adjust CL options before calling down to Cucumber
     remove_maze_runner_args
     add_cucumber_args
-    Cucumber::Cli::Main.new(@args).execute!
+
+
+    puts MazeRunner.configuration.inspect
+    puts @args
+
+    # Cucumber::Cli::Main.new(@args).execute!
 
   rescue Optimist::HelpNeeded
     # Display

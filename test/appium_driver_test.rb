@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
 require 'test_helper'
-require_relative '../lib/features/support/app_automate_driver'
-require_relative '../lib/features/support/capabilities/devices'
+require_relative '../lib/features/support/appium_driver'
 
-class AppAutomateDriverTest < Test::Unit::TestCase
+class AppiumDriverTest < Test::Unit::TestCase
 
   USERNAME = 'Username'
   ACCESS_KEY = 'Access_key'

@@ -19,37 +19,24 @@ class AppiumDriver < Appium::Driver
   # Creates the AppiumDriver
   #
   # @param server_url [String] URL of the Appium server
-  # @param target_device [String] a key from the Devices array selecting which device capabilities to target
   # @param capabilities [Hash] a hash of capabilities to be used in this test run
-  def initialize(server_url, target_device, capabilities = {})
+  def initialize(server_url, capabilities = {})
     MazeRunner.driver = self
-    @device_type = target_device
 
     # Sets up identifiers for ease of connecting jobs
-    name_capabilities = project_name_capabilities(target_device)
+    name_capabilities = project_name_capabilities
 
     $logger.info 'Appium driver initialised for:'
     $logger.info "    project : #{name_capabilities[:project]}"
     $logger.info "    build   : #{name_capabilities[:build]}"
-    $logger.info "    name    : #{name_capabilities[:name]}"
+    $logger.info "    capabilities    : #{name_capabilities[:name]}"
 
     @capabilities = capabilities
-        {
-      # 'browserstack.console': 'errors',
-      # 'browserstack.localIdentifier': local_id,
-      # 'browserstack.local': 'true',
-      # 'browserstack.networkLogs': 'true',
-      'platformName': 'Android',
-      'automationName': 'UiAutomator2',
-      'autoAcceptAlerts': 'true',
-      'app': 'features/fixtures/mazerunner/build/outputs/apk/release/mazerunner-release.apk'
-    }
-    @capabilities.merge! Devices::DEVICE_HASH[target_device]
     @capabilities.merge! name_capabilities
     super({
       'caps' => @capabilities,
       'appium_lib' => {
-        server_url: 'http://localhost:4723/wd/hub'
+        server_url: server_url
       }
     }, true)
   end
@@ -124,29 +111,29 @@ class AppiumDriver < Appium::Driver
 
   # Determines and returns sensible project, build, and name capabilities
   #
-  # @param target_device [String] the device in the device list being targeted
-  #
   # @return [Hash] A hash containing the 'project', 'build', and 'name' capabilities
-  def project_name_capabilities(target_device)
+  def project_name_capabilities
+    # Default to values for running locally
     project = 'local'
+    name = 'local'
     build = SecureRandom.uuid
-    name = target_device.to_s
-    if ENV['BUILDKITE']
-      bk_project = ENV['BUILDKITE_PIPELINE_NAME']
 
+    if ENV['BUILDKITE']
+      # Project
+      project = ENV['BUILDKITE_PIPELINE_NAME']
+
+      # Build
       bk_build_array = []
       bk_build_array << ENV['BUILDKITE_BUILD_NUMBER'] if ENV['BUILDKITE_BUILD_NUMBER']
       bk_build_array << ENV['BRANCH_NAME'] if ENV['BRANCH_NAME']
-      bk_build = bk_build_array.join(' ')
+      bk_build = bk_build_array.join(' ').strip
+      build = bk_build unless bk_build.nil? || bk_build.empty?
 
-      bk_name_array = [name]
+      # Name
+      bk_name_array = []
       bk_name_array << ENV['BUILDKITE_STEP_KEY'] if ENV['BUILDKITE_STEP_KEY']
       bk_name_array << ENV['BUILDKITE_RETRY_COUNT'] if ENV['BUILDKITE_RETRY_COUNT']
-      bk_name = bk_name_array.join(' ')
-
-      project = bk_project unless bk_project.nil? or bk_project.empty?
-      build = bk_build unless bk_build.nil? or bk_build.empty?
-      name = bk_name
+      name = bk_name_array.join(' ')
     end
     {
       project: project,

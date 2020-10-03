@@ -67,10 +67,8 @@ class MazeRunnerEntry
       OPTION_USERNAME,
       OPTION_ACCESS_KEY
     ]
-    @args.each do |arg|
-      remove.each do |opt|
-        @args.delete(arg) if arg == "--#{opt}" || (arg.start_with? "--#{opt}=")
-      end
+    remove.each do |opt|
+      @args.reject! { |arg| arg == "--#{opt}" || (arg.start_with? "--#{opt}=") }
     end
   end
 
@@ -137,7 +135,9 @@ class MazeRunnerEntry
     # TODO Remove this
     puts MazeRunner.configuration.inspect
 
-    # Cucumber::Cli::Main.new(@args).execute!
+    puts @args
+
+    Cucumber::Cli::Main.new(@args).execute!
 
   rescue Optimist::HelpNeeded
     # Display

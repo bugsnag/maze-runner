@@ -124,6 +124,10 @@ class MazeRunnerEntry
     # Farm specific options
     if MazeRunner.configuration.farm == :bs
       raise "option --#{OPTION_USERNAME} must be specified" if options[OPTION_USERNAME].nil?
+      raise "option --#{OPTION_ACCESS_KEY} must be specified" if options[OPTION_ACCESS_KEY].nil?
+
+      MazeRunner.configuration.username = options[OPTION_USERNAME]
+      MazeRunner.configuration.access_key = options[OPTION_ACCESS_KEY]
     end
 
     # Adjust CL options before calling down to Cucumber

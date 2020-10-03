@@ -11,7 +11,9 @@ class Configuration
   # Whether each scenario should have its own Appium session
   attr_accessor :appium_session_isolation
 
-  # Device farm to be used
+  # Device farm to be used, one of:
+  # bs (BrowserStack)
+  # local (Using Appium Server with a local device)
   attr_accessor :farm
 
   # Location of the BrowserStackLocal binary (if used)
@@ -20,6 +22,9 @@ class Configuration
   # URL of the Appium server
   attr_accessor :appium_server_url
 
-  # Location of the app (IPA or APK) that tests will be run against
+  # Appium capabilities
+  attr_accessor :capabilities
+
+  # File path or URL of the app (IPA or APK) that tests will be run against
   attr_accessor :app_location
 end

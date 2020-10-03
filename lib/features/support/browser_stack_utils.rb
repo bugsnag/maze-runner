@@ -2,7 +2,7 @@
 
 # Utils supporting the BrowserStack device farm integration
 class BrowserStackUtils
-  # BrowserStacka's App Automate upload url
+  # BrowserStack's App Automate upload url
   APP_UPLOAD_URL = 'https://api-cloud.browserstack.com/app-automate/upload'
 
   # BrowserStack's Appium server url
@@ -26,12 +26,11 @@ class BrowserStackUtils
 
     # Starts the BrowserStack local tunnel
     # @param key [String] BrowserStack access key
-    # @param local_identifier [String] the identifier for the BrowserStackLocal tunnel
-    def start_local_tunnel(key, local_identifier)
+    def start_local_tunnel(key)
       $logger.info 'Starting BrowserStack local tunnel'
       status = nil
       bs_local = MazeRunner.configuration.browser_stack_local
-      command = "#{bs_local} -d start --key #{key} --local-identifier #{local_identifier} --force-local"
+      command = "#{bs_local} -d start --key #{key} --local-identifier local_id --force-local --only-automate --force"
       Open3.popen2(command) do |_stdin, _stdout, wait|
         status = wait.value
       end

@@ -28,7 +28,7 @@ class MazeRunnerEntry
       opt 'separate-sessions', 'Start a new Appium session for each scenario', short: :none, type: :boolean, default: false
       opt OPTION_FARM, 'Device farm to use: "bs" (BrowserStack) or "local"', short: :none, type: :string, default: 'bs'
       opt OPTION_DEVICE,
-          'Device type to use ("ios", "android" or one of Devices.DEVICE_HASH',
+          'Device type to use ("ios", "android" or a Devices.DEVICE_HASH key)',
           short: :none,
           required: true
       version "Maze Runner v#{BugsnagMazeRunner::VERSION} " \
@@ -50,13 +50,23 @@ class MazeRunnerEntry
   end
 
   # Removes Maze Runner specific args from the array, as these will cause Cucumber to error.
+  # TODO This seems messy - option processing could do with a rethink
   def remove_maze_runner_args
+    puts 'Before'
     puts @args
-    [
+    remove = [
       OPTION_SEPARATE_SESSIONS,
       OPTION_DEVICE,
       OPTION_FARM
-    ].each { |arg| @args.delete "--#{arg}" }
+    ]
+    @args.each do |arg|
+      remove.each do |opt|
+        @args.delete(arg) if arg == "--#{opt}" || (arg.start_with? "--#{opt}=")
+      end
+    end
+    puts 'After'
+    puts @args
+    puts 'Done'
   end
 
   # Adds arguments to the Cucumber

@@ -4,6 +4,9 @@ require 'cucumber'
 require 'json'
 
 AfterConfiguration do |config|
+  BrowserStackUtils.upload_app(bs_username, bs_access_key, app_location)
+  MazeRunner.driver = ResilientAppiumDriver.new(bs_username, bs_access_key, bs_local_id, bs_device, app_location)
+  MazeRunner.driver.start_driver unless MazeRunner.configuration.appium_session_isolation
   Server.start_server
 end
 
@@ -20,7 +23,11 @@ end
 # After each scenario
 After do |scenario|
 
-  MazeRunner.driver.driver_quit if MazeRunner.configuration.appium_session_isolation
+  if MazeRunner.configuration.appium_session_isolation
+    MazeRunner.driver.driver_quit
+  else
+    MazeRunner.driver.reset_with_timeout
+  end
 
   # This is here to stop sessions from one test hitting another.
   # However this does mean that tests take longer.
@@ -51,6 +58,9 @@ end
 
 # After all tests
 at_exit do
+  # Stop the Appium session
+  MazeRunner.driver.driver_quit unless MazeRunner.configuration.appium_session_isolation
+
   # Stop the mock server
   Server.stop_server
 

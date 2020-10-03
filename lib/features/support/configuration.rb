@@ -19,6 +19,12 @@ class Configuration
   # Location of the BrowserStackLocal binary (if used)
   attr_accessor :browser_stack_local
 
+  # Farm username
+  attr_accessor :username
+
+  # Farm access key
+  attr_accessor :access_key
+
   # URL of the Appium server
   attr_accessor :appium_server_url
 

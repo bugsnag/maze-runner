@@ -6,7 +6,8 @@ require_relative './devices'
 class Capabilities
   class << self
     def for_browser_stack(device_type)
-      raise "Device type '#{device_type}' not known" unless Devices::DEVICE_HASH.keys.include? device_type
+      raise "Device type '#{device_type}' not known on BrowserStack" \
+        unless Devices::DEVICE_HASH.keys.include? device_type
 
       capabilities = {
         'browserstack.console': 'errors',
@@ -18,14 +19,14 @@ class Capabilities
     end
 
     def for_local(platform)
-      capabilities = if platform == :android
+      capabilities = if platform.downcase == 'android'
                        {
                          'platformName': 'Android',
                          'automationName': 'UiAutomator2'
                        }
-                     elsif platform == :ios
+                     elsif platform.downcase == 'ios'
                        {
-                           'platformName': 'Android',
+                           'platformName': 'iOS',
                            'automationName': 'UiAutomator2'
                        }
                      end

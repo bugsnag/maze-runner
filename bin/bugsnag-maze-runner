@@ -13,6 +13,8 @@ class MazeRunnerEntry
   OPTION_SEPARATE_SESSIONS = 'separate-sessions'
   OPTION_FARM = 'farm'
   OPTION_DEVICE = 'device'
+  OPTION_USERNAME = 'username'
+  OPTION_ACCESS_KEY = 'access-key'
 
   def initialize
     @parser = Optimist::Parser.new do
@@ -33,6 +35,9 @@ class MazeRunnerEntry
           short: :none,
           type: :string,
           required: true
+      opt OPTION_USERNAME, 'Device farm username', short: :none, type: :string
+      opt OPTION_ACCESS_KEY, 'Device farm access key', short: :none, type: :string
+
       version "Maze Runner v#{BugsnagMazeRunner::VERSION} " \
               "(Cucumber v#{Cucumber::VERSION.strip})"
       text ''
@@ -55,7 +60,9 @@ class MazeRunnerEntry
     remove = [
       OPTION_SEPARATE_SESSIONS,
       OPTION_DEVICE,
-      OPTION_FARM
+      OPTION_FARM,
+      OPTION_USERNAME,
+      OPTION_ACCESS_KEY
     ]
     @args.each do |arg|
       remove.each do |opt|
@@ -111,6 +118,10 @@ class MazeRunnerEntry
                                             else
                                               Capabilities.for_local device
                                             end
+    # Farm specific options
+    if MazeRunner.configuration.farm == :bs
+      raise "option --#{OPTION_USERNAME} must be specified" if options[OPTION_USERNAME].nil?
+    end
 
     # Adjust CL options before calling down to Cucumber
     remove_maze_runner_args

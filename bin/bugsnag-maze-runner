@@ -11,6 +11,7 @@ require_relative '../lib/version'
 class MazeRunnerEntry
 
   OPTION_SEPARATE_SESSIONS = 'separate-sessions'
+  OPTION_APP = 'app'
   OPTION_FARM = 'farm'
   OPTION_DEVICE = 'device'
   OPTION_USERNAME = 'username'
@@ -29,6 +30,7 @@ class MazeRunnerEntry
 
       opt :version, 'Display Maze Runner and Cucumber versions'
       opt 'separate-sessions', 'Start a new Appium session for each scenario', short: :none, type: :boolean, default: false
+      opt OPTION_APP, 'The app to be installed and run against', short: :none, type: :string, required: true
       opt OPTION_FARM, 'Device farm to use: "bs" (BrowserStack) or "local"', short: :none, type: :string, default: 'bs'
       opt OPTION_DEVICE,
           'Device type to use ("ios", "android" or a Devices.DEVICE_HASH key)',
@@ -59,6 +61,7 @@ class MazeRunnerEntry
   def remove_maze_runner_args
     remove = [
       OPTION_SEPARATE_SESSIONS,
+      OPTION_APP,
       OPTION_DEVICE,
       OPTION_FARM,
       OPTION_USERNAME,

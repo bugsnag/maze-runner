@@ -22,12 +22,15 @@ class Capabilities
       capabilities = if platform.downcase == 'android'
                        {
                          'platformName': 'Android',
-                         'automationName': 'UiAutomator2'
+                         'automationName': 'UiAutomator2',
+                         'autoGrantPermissions' => 'true',
+                         'os': 'android'
                        }
                      elsif platform.downcase == 'ios'
                        {
                          'platformName': 'iOS',
-                         'automationName': 'XCUITest'
+                         'automationName': 'XCUITest',
+                         'os': 'ios'
                        }
                      end
       common = {

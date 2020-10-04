@@ -113,7 +113,7 @@ end
 # @step_input field_path [String] The field to test
 # @step_input platform_values [DataTable] A table of acceptable values for each platform
 Then('the payload field {string} equals the platform-dependent boolean:') do |field_path, platform_values|
-  testBooleanPlatformValues(field_path, platform_values)
+  test_boolean_platform_values(field_path, platform_values)
 end
 
 # See `the payload field {string} equals the platform-dependent boolean:`
@@ -121,7 +121,7 @@ end
 # @step_input field_path [String] The field to test, prepended with "events.0"
 # @step_input platform_values [DataTable] A table of acceptable values for each platform
 Then('the event {string} equals the platform-dependent boolean:') do |field_path, platform_values|
-  testBooleanPlatformValues("events.0.#{field_path}", platform_values)
+  test_boolean_platform_values("events.0.#{field_path}", platform_values)
 end
 
 # Sends keys to a given element, clearing it first
@@ -133,31 +133,31 @@ When('I clear and send the keys {string} to the element {string}') do |keys, ele
   MazeRunner.driver.clear_and_send_keys_to_element(element_id, keys)
 end
 
-def getExpectedValueForPlatform(platform_values)
+def get_expected_platform_value(platform_values)
   raise('This step should only be used if the AppAutomateDriver is present') if MazeRunner.driver.nil?
 
-  os = MazeRunner.driver.capabilities['os']
+  os = MazeRunner.configuration.capabilities['os']
   expected_value = Hash[platform_values.raw][os]
   raise("There is no expected value for the current platform \"#{os}\"") if expected_value.nil?
 
   expected_value
 end
 
-def shouldSkipPlatformCheck(expected_value)
+def should_skip_platform_check(expected_value)
   expected_value.eql?('@skip')
 end
 
-def testStringPlatformValues(field_path, platform_values)
-  expected_value = getExpectedValueForPlatform(platform_values)
-  return if shouldSkipPlatformCheck(expected_value)
+def test_string_platform_values(field_path, platform_values)
+  expected_value = get_expected_platform_value(platform_values)
+  return if should_skip_platform_check(expected_value)
 
   payload_value = read_key_path(Server.current_request[:body], field_path)
   assert_equal(expected_value, payload_value)
 end
 
-def testBooleanPlatformValues(field_path, platform_values)
-  expected_value = getExpectedValueForPlatform(platform_values)
-  return if shouldSkipPlatformCheck(expected_value)
+def test_boolean_platform_values(field_path, platform_values)
+  expected_value = get_expected_platform_value(platform_values)
+  return if should_skip_platform_check(expected_value)
 
   expected_bool = if expected_value.downcase == 'true'
                     true
@@ -170,10 +170,10 @@ def testBooleanPlatformValues(field_path, platform_values)
   assert_equal(expected_bool, payload_value)
 end
 
-def testNumericPlatformValues(field_path, platform_values)
-  expected_value = getExpectedValueForPlatform(platform_values)
-  unless shouldSkipPlatformCheck(expected_value)
-    payload_value = read_key_path(Server.current_request[:body], field_path)
-    assert_equal(expected_value.to_f, payload_value)
-  end
+def test_numeric_platform_values(field_path, platform_values)
+  expected_value = get_expected_platform_value(platform_values)
+  return if should_skip_platform_check(expected_value)
+
+  payload_value = read_key_path(Server.current_request[:body], field_path)
+  assert_equal(expected_value.to_f, payload_value)
 end

@@ -65,7 +65,7 @@ end
 # @step_input field_path [String] The field to test
 # @step_input platform_values [DataTable] A table of acceptable values for each platform
 Then('the payload field {string} equals the platform-dependent string:') do |field_path, platform_values|
-  testStringPlatformValues(field_path, platform_values)
+  test_string_platform_values(field_path, platform_values)
 end
 
 # See `the payload field {string} equals the platform-dependent string:`
@@ -73,7 +73,7 @@ end
 # @step_input field_path [String] The field to test, prepended with "events.0"
 # @step_input platform_values [DataTable] A table of acceptable values for each platform
 Then('the event {string} equals the platform-dependent string:') do |field_path, platform_values|
-  testStringPlatformValues("events.0.#{field_path}", platform_values)
+  test_string_platform_values("events.0.#{field_path}", platform_values)
 end
 
 # Tests that the given payload value is correct for the target BrowserStack platform.
@@ -89,7 +89,7 @@ end
 # @step_input field_path [String] The field to test
 # @step_input platform_values [DataTable] A table of acceptable values for each platform
 Then('the payload field {string} equals the platform-dependent numeric:') do |field_path, platform_values|
-  testNumericPlatformValues(field_path, platform_values)
+  test_numeric_platform_values(field_path, platform_values)
 end
 
 # See `the payload field {string} equals the platform-dependent numeric:`
@@ -97,7 +97,7 @@ end
 # @step_input field_path [String] The field to test, prepended with "events.0"
 # @step_input platform_values [DataTable] A table of acceptable values for each platform
 Then('the event {string} equals the platform-dependent numeric:') do |field_path, platform_values|
-  testNumericPlatformValues("events.0.#{field_path}", platform_values)
+  test_numeric_platform_values("events.0.#{field_path}", platform_values)
 end
 
 # Tests that the given payload value is correct for the target BrowserStack platform.

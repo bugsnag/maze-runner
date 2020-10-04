@@ -15,13 +15,8 @@ class BrowserStackUtils
         app_url = app_location
         $logger.info "Skipping upload for pre-uploaded app #{app_location}"
       else
-        puts 'Uploading...'
-        puts username
-        puts access_key
-        puts app_location
         url = 'https://api-cloud.browserstack.com/app-automate/upload'
         res = `curl -u "#{username}:#{access_key}" -X POST "#{url}" -F "file=@#{app_location}"`
-        puts res
         response = JSON.parse(res)
         raise "BrowserStack upload failed due to error: #{response['error']}" if response.include?('error')
 

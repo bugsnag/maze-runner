@@ -31,14 +31,7 @@ class AppiumDriver < Appium::Driver
     $logger.info "    capabilities    : #{name_capabilities[:name]}"
 
     @capabilities = capabilities
-    puts 'Capabilities 1:'
-    puts JSON.pretty_generate @capabilities
-
     @capabilities.merge! name_capabilities
-
-    puts 'Capabilities 2:'
-    puts JSON.pretty_generate @capabilities
-
 
     super({
       'caps' => @capabilities,

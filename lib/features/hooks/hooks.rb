@@ -13,9 +13,6 @@ AfterConfiguration do |config|
   end
   MazeRunner.configuration.capabilities['app'] = MazeRunner.configuration.app_location
 
-  require 'json'
-  puts JSON.pretty_generate MazeRunner.configuration.capabilities
-
   MazeRunner.driver = ResilientAppiumDriver.new(MazeRunner.configuration.appium_server_url,
                                                 MazeRunner.configuration.capabilities)
   MazeRunner.driver.start_driver unless MazeRunner.configuration.appium_session_isolation

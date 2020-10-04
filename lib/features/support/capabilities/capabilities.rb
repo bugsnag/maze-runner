@@ -26,13 +26,12 @@ class Capabilities
                        }
                      elsif platform.downcase == 'ios'
                        {
-                           'platformName': 'iOS',
-                           'automationName': 'UiAutomator2'
+                         'platformName': 'iOS',
+                         'automationName': 'XCUITest'
                        }
                      end
       common = {
-        'autoAcceptAlerts': 'true',
-        'app': 'features/fixtures/mazerunner/build/outputs/apk/release/mazerunner-release.apk'
+        'autoAcceptAlerts': 'true'
       }
       capabilities.merge! common
     end

@@ -4,11 +4,15 @@ require 'cucumber'
 require 'json'
 
 AfterConfiguration do |config|
-  BrowserStackUtils.upload_app(MazeRunner.configuration.username,
-                               MazeRunner.configuration.access_key,
-                               MazeRunner.configuration.app_location)
+  if MazeRunner.configuration.farm == :bs
+    MazeRunner.configuration.app_location = BrowserStackUtils.upload_app(MazeRunner.configuration.username,
+                                                                         MazeRunner.configuration.access_key,
+                                                                         MazeRunner.configuration.app_location)
+    BrowserStackUtils.start_local_tunnel(MazeRunner.configuration.bs_local,
+                                         MazeRunner.configuration.access_key)
+  end
+  MazeRunner.configuration.capabilities['app'] = MazeRunner.configuration.app_location
   MazeRunner.driver = ResilientAppiumDriver.new(MazeRunner.configuration.appium_server_url,
-                                                MazeRunner.configuration.app_location,
                                                 MazeRunner.configuration.capabilities)
   MazeRunner.driver.start_driver unless MazeRunner.configuration.appium_session_isolation
   Server.start_server

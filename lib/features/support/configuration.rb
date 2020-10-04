@@ -2,12 +2,6 @@
 
 # MazeRunner configuration
 class Configuration
-
-  def initialize
-    @appium_session_isolation = false
-    @browser_stack_local = '/BrowserStackLocal'
-  end
-
   # Whether each scenario should have its own Appium session
   attr_accessor :appium_session_isolation
 
@@ -17,7 +11,7 @@ class Configuration
   attr_accessor :farm
 
   # Location of the BrowserStackLocal binary (if used)
-  attr_accessor :browser_stack_local
+  attr_accessor :bs_local
 
   # Farm username
   attr_accessor :username

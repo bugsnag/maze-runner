@@ -15,7 +15,7 @@ class BrowserStackUtils
         app_url = app_location
         $logger.info "Skipping upload for pre-uploaded app #{app_location}"
       else
-        puts "Uploading..."
+        puts 'Uploading...'
         puts username
         puts access_key
         puts app_location
@@ -33,12 +33,13 @@ class BrowserStackUtils
     end
 
     # Starts the BrowserStack local tunnel
-    # @param key [String] BrowserStack access key
-    def start_local_tunnel(key)
+    # @param bs_local [String] path to the BrowserStackLocal binary
+    # @param access_key [String] BrowserStack access key
+    def start_local_tunnel(bs_local, access_key)
       $logger.info 'Starting BrowserStack local tunnel'
       status = nil
-      bs_local = MazeRunner.configuration.browser_stack_local
-      command = "#{bs_local} -d start --key #{key} --local-identifier local_id --force-local --only-automate --force"
+      command = "#{bs_local} -d start --key #{access_key} --local-identifier local_id " \
+                  '--force-local --only-automate --force'
       Open3.popen2(command) do |_stdin, _stdout, wait|
         status = wait.value
       end

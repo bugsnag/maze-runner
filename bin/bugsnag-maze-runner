@@ -12,6 +12,7 @@ class MazeRunnerEntry
 
   OPTION_SEPARATE_SESSIONS = 'separate-sessions'
   OPTION_APP = 'app'
+  OPTION_BS_LOCAL = 'bs-local'
   OPTION_FARM = 'farm'
   OPTION_DEVICE = 'device'
   OPTION_USERNAME = 'username'
@@ -29,8 +30,16 @@ class MazeRunnerEntry
       opt :init, 'Initialises a new Maze Runner project'
 
       opt :version, 'Display Maze Runner and Cucumber versions'
-      opt 'separate-sessions', 'Start a new Appium session for each scenario', short: :none, type: :boolean, default: false
+      opt 'separate-sessions', 'Start a new Appium session for each scenario',
+          short: :none,
+          type: :boolean,
+          default: false
       opt OPTION_APP, 'The app to be installed and run against', short: :none, type: :string, required: true
+      opt OPTION_BS_LOCAL,
+          '(BS only) Path to the BrowserStackLocal binary',
+          short: :none,
+          type: :string,
+          default: '/BrowserStackLocal'
       opt OPTION_FARM, 'Device farm to use: "bs" (BrowserStack) or "local"', short: :none, type: :string, default: 'bs'
       opt OPTION_DEVICE,
           'Device type to use ("ios", "android" or a Devices.DEVICE_HASH key)',
@@ -62,6 +71,7 @@ class MazeRunnerEntry
     remove = [
       OPTION_SEPARATE_SESSIONS,
       OPTION_APP,
+      OPTION_BS_LOCAL,
       OPTION_DEVICE,
       OPTION_FARM,
       OPTION_USERNAME,
@@ -125,6 +135,7 @@ class MazeRunnerEntry
       raise "option --#{OPTION_USERNAME} must be specified" if options[OPTION_USERNAME].nil?
       raise "option --#{OPTION_ACCESS_KEY} must be specified" if options[OPTION_ACCESS_KEY].nil?
 
+      MazeRunner.configuration.bs_local = options[OPTION_BS_LOCAL]
       username = MazeRunner.configuration.username = options[OPTION_USERNAME]
       access_key = MazeRunner.configuration.access_key = options[OPTION_ACCESS_KEY]
       MazeRunner.configuration.appium_server_url = "http://#{username}:#{access_key}@hub-cloud.browserstack.com/wd/hub"

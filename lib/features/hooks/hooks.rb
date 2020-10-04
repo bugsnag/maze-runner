@@ -8,10 +8,14 @@ AfterConfiguration do |config|
     MazeRunner.configuration.app_location = BrowserStackUtils.upload_app(MazeRunner.configuration.username,
                                                                          MazeRunner.configuration.access_key,
                                                                          MazeRunner.configuration.app_location)
-    BrowserStackUtils.start_local_tunnel(MazeRunner.configuration.bs_local,
-                                         MazeRunner.configuration.access_key)
+    # BrowserStackUtils.start_local_tunnel(MazeRunner.configuration.bs_local,
+    #                                      MazeRunner.configuration.access_key)
   end
   MazeRunner.configuration.capabilities['app'] = MazeRunner.configuration.app_location
+
+  require 'json'
+  puts JSON.pretty_generate MazeRunner.configuration.capabilities
+
   MazeRunner.driver = ResilientAppiumDriver.new(MazeRunner.configuration.appium_server_url,
                                                 MazeRunner.configuration.capabilities)
   MazeRunner.driver.start_driver unless MazeRunner.configuration.appium_session_isolation

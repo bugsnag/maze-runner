@@ -130,6 +130,9 @@ class MazeRunnerEntry
                                             else
                                               Capabilities.for_local device
                                             end
+    puts JSON.pretty_generate MazeRunner.configuration.capabilities
+
+
     # Farm specific options
     if MazeRunner.configuration.farm == :bs
       raise "option --#{OPTION_USERNAME} must be specified" if options[OPTION_USERNAME].nil?

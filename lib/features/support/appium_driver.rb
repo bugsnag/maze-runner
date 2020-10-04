@@ -1,4 +1,5 @@
 require 'appium_lib'
+require 'json'
 require 'open3'
 require 'securerandom'
 require_relative './fast_selenium'
@@ -19,9 +20,8 @@ class AppiumDriver < Appium::Driver
   # Creates the AppiumDriver
   #
   # @param server_url [String] URL of the Appium server
-  # @param app_location [String] URL or file location of the app to be used
   # @param capabilities [Hash] a hash of capabilities to be used in this test run
-  def initialize(server_url, app_location, capabilities = {})
+  def initialize(server_url, capabilities)
     # Sets up identifiers for ease of connecting jobs
     name_capabilities = project_name_capabilities
 
@@ -31,7 +31,15 @@ class AppiumDriver < Appium::Driver
     $logger.info "    capabilities    : #{name_capabilities[:name]}"
 
     @capabilities = capabilities
+    puts 'Capabilities 1:'
+    puts JSON.pretty_generate @capabilities
+
     @capabilities.merge! name_capabilities
+
+    puts 'Capabilities 2:'
+    puts JSON.pretty_generate @capabilities
+
+
     super({
       'caps' => @capabilities,
       'appium_lib' => {

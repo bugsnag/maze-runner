@@ -10,11 +10,9 @@ class ResilientAppiumDriver
   # Creates the AppiumDriver
   #
   # @param server_url [String] URL of the Appium server
-  # @param app_location [String] URL or file location of the app to be used
   # @param capabilities [Hash] a hash of capabilities to be used in this test run
-  def initialize(server_url, app_location, capabilities = {})
+  def initialize(server_url, capabilities)
     @driver = AppiumDriver.new server_url,
-                               app_location,
                                capabilities
   end
 

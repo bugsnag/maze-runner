@@ -57,7 +57,7 @@ class MazeRunnerEntry
   end
 
   # Removes Maze Runner specific args from the array, as these will cause Cucumber to error.
-  # TODO This seems messy - option processing may benefit from a rethink
+  # TODO: This seems messy - option processing may benefit from a rethink
   def remove_maze_runner_args
     remove = [
       OPTION_SEPARATE_SESSIONS,
@@ -102,9 +102,10 @@ class MazeRunnerEntry
     options = @parser.parse args
 
     # Process CL options
-    # TODO Option processing will warrant its own class soon.
+    # TODO: Option processing will warrant its own class soon.
     init if options[:init]
     MazeRunner.configuration.appium_session_isolation = options[OPTION_SEPARATE_SESSIONS]
+    MazeRunner.configuration.app_location = options[OPTION_APP]
     farm = options[OPTION_FARM]
     device = options[OPTION_DEVICE]
     MazeRunner.configuration.farm = if farm == 'bs'
@@ -128,16 +129,13 @@ class MazeRunnerEntry
       access_key = MazeRunner.configuration.access_key = options[OPTION_ACCESS_KEY]
       MazeRunner.configuration.appium_server_url = "http://#{username}:#{access_key}@hub-cloud.browserstack.com/wd/hub"
     else
-      # TODO Make configurable
+      # TODO: Add CL switch for this
       MazeRunner.configuration.appium_server_url = 'http://localhost:4762/wd/hub'
     end
 
     # Adjust CL options before calling down to Cucumber
     remove_maze_runner_args
     add_cucumber_args
-
-    # TODO Remove this
-    #puts MazeRunner.configuration.inspect
 
     Cucumber::Cli::Main.new(@args).execute!
 

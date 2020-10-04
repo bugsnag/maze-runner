@@ -124,8 +124,12 @@ class MazeRunnerEntry
       raise "option --#{OPTION_USERNAME} must be specified" if options[OPTION_USERNAME].nil?
       raise "option --#{OPTION_ACCESS_KEY} must be specified" if options[OPTION_ACCESS_KEY].nil?
 
-      MazeRunner.configuration.username = options[OPTION_USERNAME]
-      MazeRunner.configuration.access_key = options[OPTION_ACCESS_KEY]
+      username = MazeRunner.configuration.username = options[OPTION_USERNAME]
+      access_key = MazeRunner.configuration.access_key = options[OPTION_ACCESS_KEY]
+      MazeRunner.configuration.appium_server_url = "http://#{username}:#{access_key}@hub-cloud.browserstack.com/wd/hub"
+    else
+      # TODO Make configurable
+      MazeRunner.configuration.appium_server_url = 'http://localhost:4762/wd/hub'
     end
 
     # Adjust CL options before calling down to Cucumber
@@ -133,9 +137,7 @@ class MazeRunnerEntry
     add_cucumber_args
 
     # TODO Remove this
-    puts MazeRunner.configuration.inspect
-
-    puts @args
+    #puts MazeRunner.configuration.inspect
 
     Cucumber::Cli::Main.new(@args).execute!
 

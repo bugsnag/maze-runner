@@ -144,7 +144,7 @@ class MazeRunnerEntry
       MazeRunner.configuration.appium_server_url = "http://#{username}:#{access_key}@hub-cloud.browserstack.com/wd/hub"
     else
       # TODO: Add CL switch for this
-      MazeRunner.configuration.appium_server_url = 'http://localhost:4762/wd/hub'
+      MazeRunner.configuration.appium_server_url = 'http://localhost:4723/wd/hub'
     end
 
     # Adjust CL options before calling down to Cucumber

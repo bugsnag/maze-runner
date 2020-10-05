@@ -31,7 +31,8 @@ class Capabilities
                        {
                          'platformName' => 'iOS',
                          'automationName' => 'XCUITest',
-                         'os' => 'ios'
+                         'os' => 'ios',
+                         'deviceName' => 'iPhone 11'
                        }
                      end
       common = {

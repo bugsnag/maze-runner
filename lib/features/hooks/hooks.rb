@@ -4,18 +4,31 @@ require 'cucumber'
 require 'json'
 
 AfterConfiguration do |config|
+  # BrowserStack specific setup
   if MazeRunner.configuration.farm == :bs
     MazeRunner.configuration.app_location = BrowserStackUtils.upload_app(MazeRunner.configuration.username,
                                                                          MazeRunner.configuration.access_key,
                                                                          MazeRunner.configuration.app_location)
-    # BrowserStackUtils.start_local_tunnel(MazeRunner.configuration.bs_local,
-    #                                      MazeRunner.configuration.access_key)
+    BrowserStackUtils.start_local_tunnel(MazeRunner.configuration.bs_local,
+                                         MazeRunner.configuration.access_key)
   end
+  # Set app location (file or url) in capabilities
   MazeRunner.configuration.capabilities['app'] = MazeRunner.configuration.app_location
 
+  # Create and start the drive
   MazeRunner.driver = ResilientAppiumDriver.new(MazeRunner.configuration.appium_server_url,
                                                 MazeRunner.configuration.capabilities)
   MazeRunner.driver.start_driver unless MazeRunner.configuration.appium_session_isolation
+
+  # TODO: Debugging ability to fetch actual OS version - one seems to only work on BrowserStack
+  #   and the other only locally.
+  # puts "Actual driver capabilities #{MazeRunner.driver.capabilities}"
+  # puts 'Device info:'
+  # puts JSON.pretty_generate MazeRunner.driver.device_info
+  # puts 'Session capabilities:'
+  # puts JSON.pretty_generate MazeRunner.driver.session_capabilities
+
+  # Start mock server
   Server.start_server
 end
 

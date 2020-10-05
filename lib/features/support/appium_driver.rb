@@ -25,7 +25,7 @@ class AppiumDriver < Appium::Driver
     # Sets up identifiers for ease of connecting jobs
     name_capabilities = project_name_capabilities
 
-    $logger.info 'Appium driver initialised for:'
+    $logger.info 'Appium driver initialized for:'
     $logger.info "    project : #{name_capabilities[:project]}"
     $logger.info "    build   : #{name_capabilities[:build]}"
     $logger.info "    capabilities    : #{name_capabilities[:name]}"
@@ -139,5 +139,13 @@ class AppiumDriver < Appium::Driver
       build: build,
       name: name
     }
+  end
+
+  def device_info
+    @driver.execute_script('mobile:deviceInfo')
+  end
+
+  def session_capabilities
+    @driver.session_capabilities
   end
 end

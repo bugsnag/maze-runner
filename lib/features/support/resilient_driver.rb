@@ -31,6 +31,7 @@ class ResilientAppiumDriver
         retries += 1
         $logger.warn error
         $logger.warn 'Appium Error occurred - restarting driver.'
+        sleep 3
         restart
       end
     end

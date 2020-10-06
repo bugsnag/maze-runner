@@ -19,6 +19,12 @@ class Configuration
   # Farm access key
   attr_accessor :access_key
 
+  # Apple Team Id
+  attr_accessor :apple_team_id
+
+  # Device id for running on local iOS devices
+  attr_accessor :device_id
+
   # URL of the Appium server
   attr_accessor :appium_server_url
 

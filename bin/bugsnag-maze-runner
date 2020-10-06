@@ -128,7 +128,7 @@ class MazeRunnerEntry
     MazeRunner.configuration.appium_session_isolation = options[OPTION_SEPARATE_SESSIONS]
     MazeRunner.configuration.app_location = options[OPTION_APP]
     farm = options[OPTION_FARM]
-    device = options[OPTION_DEVICE].downcase
+    device = options[OPTION_DEVICE]
     MazeRunner.configuration.farm = if farm == 'bs'
                                       :bs
                                     elsif farm == 'local'
@@ -150,6 +150,7 @@ class MazeRunnerEntry
       MazeRunner.configuration.appium_server_url = "http://#{username}:#{access_key}@hub-cloud.browserstack.com/wd/hub"
     else
       MazeRunner.configuration.appium_server_url = options[OPTION_APPIUM_SERVER]
+      device = device.downcase
       raise 'device must be ios or android' unless %w[ios android].include? device
 
       if device == 'ios'

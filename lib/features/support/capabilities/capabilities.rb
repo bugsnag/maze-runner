@@ -32,7 +32,7 @@ class Capabilities
                        {
                          'platformName' => 'iOS',
                          'automationName' => 'XCUITest',
-                         'deviceName' => 'a8aa3799a6d598da496f3fb1a30fad1c3f79e03f',
+                         'deviceName' => udid,
                          'xcodeOrgId' => team_id,
                          'xcodeSigningId' => 'iPhone Developer',
                          'udid' => udid

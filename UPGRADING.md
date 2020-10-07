@@ -2,19 +2,31 @@
 
 ### Upgrading from v2 to v3
 
-The `AppAutomateDriver` class has been renamed to `AppiumDriver` and its BrowserStack specific elements
-has been moved into a new `BrowserStackUtils` class.  This changes the arguments needed to create an `AppiumDriver`
-or `ResilientAppiumDriver` and an extra call is needed to upload the app to BrowserStack:
+v3 contains some breaking changes in order to support testing on locally held devices using Appium, as well as device
+farms other than BrowserStack.
+
+The Cucumber hooks previously required to initialize the `ResilientAppium`/`AppAutomateDriver` have been moved 
+internally, and the following typical code use should  be removed from the notifier repository's `env.rb` file:
 
 ```ruby
+AfterConfiguration do |config|	
+  ResilientAppiumDriver.new(bs_username, bs_access_key, bs_local_id, bs_device, app_location)	
+  MazeRunner.driver.start_driver unless MazeRunner.configuration.appium_session_isolation	
+end	
 
+After do	
+  MazeRunner.driver.reset_with_timeout unless MazeRunner.configuration.appium_session_isolation	
+end	
+
+at_exit do	
+  MazeRunner.driver.driver_quit unless MazeRunner.configuration.appium_session_isolation	
+end
 ```
 
-Changes to:
+Arguments that were passed here to `AppAutomateDriver.new`/`ResilientAppiumDriver.new` should now be 
+provided on the command line.  Run `bundle exec bugsnag-maze-runner --help` for details.
 
-```ruby
 
-```
 
 ### Upgrading from 2.6.0 to 2.7.0
 

@@ -12,4 +12,3 @@ class MazeRunner
     end
   end
 end
-

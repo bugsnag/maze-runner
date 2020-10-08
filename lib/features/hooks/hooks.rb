@@ -4,6 +4,11 @@ require 'cucumber'
 require 'json'
 
 AfterConfiguration do |config|
+
+  # Start mock server
+  Server.start_server
+  next if MazeRunner.configuration.farm == :no_farm
+
   # BrowserStack specific setup
   if MazeRunner.configuration.farm == :bs
     MazeRunner.configuration.app_location = BrowserStackUtils.upload_app(MazeRunner.configuration.username,
@@ -20,16 +25,13 @@ AfterConfiguration do |config|
                                                 MazeRunner.configuration.capabilities)
   MazeRunner.driver.start_driver unless MazeRunner.configuration.appium_session_isolation
 
-  # TODO: Debugging ability to fetch actual OS version - one seems to only work on BrowserStack
-  #   and the other only locally.
+  # TODO: Debugging ability to fetch actual OS version, which will be needed for @skipping.
+  # One seems to only work on BrowserStack and the other only locally.
   # puts "Actual driver capabilities #{MazeRunner.driver.capabilities}"
   # puts 'Device info:'
   # puts JSON.pretty_generate MazeRunner.driver.device_info
   # puts 'Session capabilities:'
   # puts JSON.pretty_generate MazeRunner.driver.session_capabilities
-
-  # Start mock server
-  Server.start_server
 end
 
 # Before each scenario
@@ -39,17 +41,13 @@ Before do |scenario|
   Server.stored_requests.clear
   Store.values.clear
 
+  next if MazeRunner.configuration.farm == :no_farm
+
   MazeRunner.driver.start_driver if MazeRunner.configuration.appium_session_isolation
 end
 
 # After each scenario
 After do |scenario|
-
-  if MazeRunner.configuration.appium_session_isolation
-    MazeRunner.driver.driver_quit
-  else
-    MazeRunner.driver.reset_with_timeout
-  end
 
   # This is here to stop sessions from one test hitting another.
   # However this does mean that tests take longer.
@@ -76,13 +74,18 @@ After do |scenario|
       end
     end
   end
+
+  next if MazeRunner.configuration.farm == :no_farm
+
+  if MazeRunner.configuration.appium_session_isolation
+    MazeRunner.driver.driver_quit
+  else
+    MazeRunner.driver.reset_with_timeout 2
+  end
 end
 
 # After all tests
 at_exit do
-  # Stop the Appium session
-  MazeRunner.driver.driver_quit unless MazeRunner.configuration.appium_session_isolation
-
   # Stop the mock server
   Server.stop_server
 
@@ -90,5 +93,10 @@ at_exit do
   # all services (which removes networks etc) so that
   # future test runs are from a clean slate.
   Docker.down_all_services
+
+  next if MazeRunner.configuration.farm == :no_farm
+
+  # Stop the Appium session
+  MazeRunner.driver.driver_quit unless MazeRunner.configuration.appium_session_isolation
 end
 

@@ -32,11 +32,11 @@ steps:
 
   - wait
 
-  - label: 'Unit tests'
-    plugins:
-      docker-compose#v3.3.0:
-        run: ci
-    command: 'bundle exec rake'
+#  - label: 'Unit tests'
+#    plugins:
+#      docker-compose#v3.3.0:
+#        run: ci
+#    command: 'bundle exec rake'
 
   - label: 'Comparison tests'
     plugins:
@@ -56,7 +56,12 @@ steps:
     plugins:
       docker-compose#v3.3.0:
         run: browserstack-app-automate
-    command: 'bundle exec bugsnag-maze-runner --app=app/build/outputs/apk/release/app-release.apk --device=ANDROID_6_0 --username=$BROWSER_STACK_USERNAME --access-key=$BROWSER_STACK_ACCESS_KEY'
+    command: >-
+      bundle exec bugsnag-maze-runner
+      --app=app/build/outputs/apk/release/app-release.apk
+      --device=ANDROID_6_0
+      --username=$BROWSER_STACK_USERNAME
+      --access-key=$BROWSER_STACK_ACCESS_KEY
     concurrency: 10
     concurrency_group: 'browserstack-app'
 

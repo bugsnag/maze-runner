@@ -37,18 +37,17 @@ class MazeRunnerEntry
           short: :none,
           type: :boolean,
           default: false
-      opt OPTION_APP, 'The app to be installed and run against', short: :none, type: :string, required: true
+      opt OPTION_APP, 'The app to be installed and run against', short: :none, type: :string
       opt OPTION_BS_LOCAL,
           '(BS only) Path to the BrowserStackLocal binary',
           short: :none,
           type: :string,
           default: '/BrowserStackLocal'
-      opt OPTION_FARM, 'Device farm to use: "bs" (BrowserStack) or "local"', short: :none, type: :string, default: 'bs'
+      opt OPTION_FARM, 'Device farm to use: "bs" (BrowserStack) or "local"', short: :none, type: :string
       opt OPTION_DEVICE,
           'Device type to use ("ios", "android" or a Devices.DEVICE_HASH key)',
           short: :none,
-          type: :string,
-          required: true
+          type: :string
       opt OPTION_APPLE_TEAM_ID, 'Apple Team Id, required for local iOS testing', short: :none, type: :string
       opt OPTION_UDID, 'Apple UDID, required for local iOS testing', short: :none, type: :string
       opt OPTION_USERNAME, 'Device farm username', short: :none, type: :string
@@ -129,7 +128,9 @@ class MazeRunnerEntry
     MazeRunner.configuration.app_location = options[OPTION_APP]
     farm = options[OPTION_FARM]
     device = options[OPTION_DEVICE]
-    MazeRunner.configuration.farm = if farm == 'bs'
+    MazeRunner.configuration.farm = if farm.nil?
+                                      :no_farm
+                                    elsif farm == 'bs'
                                       :bs
                                     elsif farm == 'local'
                                       :local
@@ -148,7 +149,7 @@ class MazeRunnerEntry
       username = MazeRunner.configuration.username = options[OPTION_USERNAME]
       access_key = MazeRunner.configuration.access_key = options[OPTION_ACCESS_KEY]
       MazeRunner.configuration.appium_server_url = "http://#{username}:#{access_key}@hub-cloud.browserstack.com/wd/hub"
-    else
+    elsif MazeRunner.configuration.farm == :local
       MazeRunner.configuration.appium_server_url = options[OPTION_APPIUM_SERVER]
       device = device.downcase
       raise 'device must be ios or android' unless %w[ios android].include? device
@@ -164,7 +165,9 @@ class MazeRunnerEntry
 
     # Setup Appium capabilities.  Note that the 'app' capability is
     # set in a hook as it will change if uploaded to BrowserStack.
-    MazeRunner.configuration.capabilities = if MazeRunner.configuration.farm == :bs
+    MazeRunner.configuration.capabilities = if MazeRunner.configuration.farm == :no_farm
+                                              nil
+                                            elsif MazeRunner.configuration.farm == :bs
                                               Capabilities.for_browser_stack device
                                             else
                                               Capabilities.for_local device,

@@ -2,20 +2,33 @@
 
 require 'cucumber'
 require 'json'
+require 'securerandom'
 
 AfterConfiguration do |config|
 
   # Start mock server
   Server.start_server
-  next if MazeRunner.configuration.farm == :no_farm
+  next if MazeRunner.configuration.farm == :none
+
+  # Setup Appium capabilities.  Note that the 'app' capability is
+  # set in a hook as it will change if uploaded to BrowserStack.
 
   # BrowserStack specific setup
   if MazeRunner.configuration.farm == :bs
+    tunnel_id = SecureRandom.uuid
+    MazeRunner.configuration.capabilities = Capabilities.for_browser_stack MazeRunner.configuration.device_type,
+                                                                           tunnel_id
+
     MazeRunner.configuration.app_location = BrowserStackUtils.upload_app(MazeRunner.configuration.username,
                                                                          MazeRunner.configuration.access_key,
                                                                          MazeRunner.configuration.app_location)
     BrowserStackUtils.start_local_tunnel(MazeRunner.configuration.bs_local,
+                                         tunnel_id,
                                          MazeRunner.configuration.access_key)
+  elsif MazeRunner.configuration.farm == :local
+    MazeRunner.configuration.capabilities = Capabilities.for_local MazeRunner.configuration.device_type,
+                                                                   MazeRunner.configuration.apple_team_id,
+                                                                   MazeRunner.configuration.device_id
   end
   # Set app location (file or url) in capabilities
   MazeRunner.configuration.capabilities['app'] = MazeRunner.configuration.app_location
@@ -41,7 +54,7 @@ Before do |scenario|
   Server.stored_requests.clear
   Store.values.clear
 
-  next if MazeRunner.configuration.farm == :no_farm
+  next if MazeRunner.configuration.farm == :none
 
   MazeRunner.driver.start_driver if MazeRunner.configuration.appium_session_isolation
 end
@@ -75,7 +88,7 @@ After do |scenario|
     end
   end
 
-  next if MazeRunner.configuration.farm == :no_farm
+  next if MazeRunner.configuration.farm == :none
 
   if MazeRunner.configuration.appium_session_isolation
     MazeRunner.driver.driver_quit
@@ -94,7 +107,7 @@ at_exit do
   # future test runs are from a clean slate.
   Docker.down_all_services
 
-  next if MazeRunner.configuration.farm == :no_farm
+  next if MazeRunner.configuration.farm == :none
 
   # Stop the Appium session
   MazeRunner.driver.driver_quit unless MazeRunner.configuration.appium_session_isolation

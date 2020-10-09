@@ -29,11 +29,12 @@ class BrowserStackUtils
 
     # Starts the BrowserStack local tunnel
     # @param bs_local [String] path to the BrowserStackLocal binary
+    # @param local_id [String] unique key for the tunnel instance
     # @param access_key [String] BrowserStack access key
-    def start_local_tunnel(bs_local, access_key)
+    def start_local_tunnel(bs_local, local_id, access_key)
       $logger.info 'Starting BrowserStack local tunnel'
       status = nil
-      command = "#{bs_local} -d start --key #{access_key} --local-identifier local_id " \
+      command = "#{bs_local} -d start --key #{access_key} --local-identifier #{local_id} " \
                   '--force-local --only-automate --force'
       Open3.popen2(command) do |_stdin, _stdout, wait|
         status = wait.value

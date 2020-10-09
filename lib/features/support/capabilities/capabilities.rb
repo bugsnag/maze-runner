@@ -5,11 +5,12 @@ require_relative './devices'
 # Appium capabilities for each target farm
 class Capabilities
   class << self
-    # @param [String] device_type A key from @see Devices::DEVICE_HASH
-    def for_browser_stack(device_type)
+    # @param device_type [String] A key from @see Devices::DEVICE_HASH
+    # @param local_id [String] unique key for the tunnel instance
+    def for_browser_stack(device_type, local_id)
       capabilities = {
         'browserstack.console' => 'errors',
-        'browserstack.localIdentifier' => 'local_id',
+        'browserstack.localIdentifier' => local_id,
         'browserstack.local' => 'true',
         'browserstack.networkLogs' => 'true'
       }
@@ -17,9 +18,9 @@ class Capabilities
     end
 
     # Constructs Appium capabilities for running on a local Android or iOS device.
-    # @param [String] platform 'ios' or 'android'
-    # @param [String] team_id Apple Team Id, for iOS only
-    # @param [String] udid device UDID, for iOS only
+    # @param platform [String] 'ios' or 'android'
+    # @param team_id [String] Apple Team Id, for iOS only
+    # @param udid [String] device UDID, for iOS only
     # noinspection RubyStringKeysInHashInspection
     def for_local(platform, team_id = nil, udid = nil)
       capabilities = if platform.downcase == 'android'

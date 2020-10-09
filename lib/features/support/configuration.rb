@@ -22,6 +22,9 @@ class Configuration
   # Apple Team Id
   attr_accessor :apple_team_id
 
+  # Device type
+  attr_accessor :device_type
+
   # Device id for running on local iOS devices
   attr_accessor :device_id
 

@@ -134,7 +134,7 @@ When('I clear and send the keys {string} to the element {string}') do |keys, ele
 end
 
 def get_expected_platform_value(platform_values)
-  raise('This step should only be used if the AppAutomateDriver is present') if MazeRunner.driver.nil?
+  raise('This step should only be used when running tests with Appium') if MazeRunner.driver.nil?
 
   os = MazeRunner.configuration.capabilities['os']
   expected_value = Hash[platform_values.raw][os]

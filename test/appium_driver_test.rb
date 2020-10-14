@@ -5,8 +5,8 @@ require_relative '../lib/features/support/appium_driver'
 
 class AppiumDriverTest < Test::Unit::TestCase
 
+  CAPABILITIES = { key: 'value' }.freeze
   SERVER_URL = 'server_url'
-  LOCAL_TUNNEL_COMMAND_OPTIONS = "-d start --key #{ACCESS_KEY} --local-identifier #{LOCAL_ID} --force-local"
 
   def setup
     ENV.delete('BRANCH_NAME')
@@ -27,29 +27,12 @@ class AppiumDriverTest < Test::Unit::TestCase
     logger_mock
   end
 
-  def test_defaults
-    start_logger_mock
-    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
-    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
-
-    assert_equal('errors', driver.caps[:'browserstack.console'])
-    assert_equal(LOCAL_ID, driver.caps[:'browserstack.localIdentifier'])
-    assert_equal('true', driver.caps[:'browserstack.local'])
-    assert_equal('true', driver.caps[:'browserstack.networkLogs'])
-    assert_equal(TEST_APP_URL, driver.caps[:app])
-
-    Devices::DEVICE_HASH[TARGET_DEVICE].each do |key, value|
-      assert_equal(value, driver.caps[key.to_sym])
-    end
-  end
-
   def test_add_capabilities
     start_logger_mock
-    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
     added_capabilities = {
       automationName: 'Appium'
     }
-    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION, :id, added_capabilities)
+    driver = AppiumDriver.new SERVER_URL, added_capabilities
 
     assert_equal('errors', driver.caps[:'browserstack.console'])
     assert_equal(LOCAL_ID, driver.caps[:'browserstack.localIdentifier'])
@@ -66,8 +49,7 @@ class AppiumDriverTest < Test::Unit::TestCase
 
   def test_click_element_defaults
     start_logger_mock
-    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
-    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
+    driver = AppiumDriver.new SERVER_URL, CAPABILITIES
 
     mocked_element = mock('element')
     mocked_element.expects(:click)
@@ -79,8 +61,7 @@ class AppiumDriverTest < Test::Unit::TestCase
 
   def test_click_element_locator
     start_logger_mock
-    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
-    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION, :accessibility_id)
+    driver = AppiumDriver.new SERVER_URL, CAPABILITIES
 
     mocked_element = mock('element')
     mocked_element.expects(:click)
@@ -92,8 +73,7 @@ class AppiumDriverTest < Test::Unit::TestCase
 
   def test_wait_for_element_defaults
     start_logger_mock
-    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
-    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
+    driver = AppiumDriver.new SERVER_URL, CAPABILITIES
 
     mocked_element = mock('element')
     mocked_element.expects(:displayed?).returns(true)
@@ -106,8 +86,7 @@ class AppiumDriverTest < Test::Unit::TestCase
 
   def test_wait_for_element_locator
     start_logger_mock
-    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
-    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION, :accessibility_id)
+    driver = AppiumDriver.new SERVER_URL, CAPABILITIES
 
     mocked_element = mock('element')
     mocked_element.expects(:displayed?).returns(true)
@@ -120,8 +99,7 @@ class AppiumDriverTest < Test::Unit::TestCase
 
   def test_wait_for_element_failure
     start_logger_mock
-    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
-    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION, :accessibility_id)
+    driver = AppiumDriver.new SERVER_URL, CAPABILITIES
 
     mocked_element = mock('element')
     mocked_element.expects(:displayed?).returns(false).at_least_once
@@ -134,8 +112,7 @@ class AppiumDriverTest < Test::Unit::TestCase
 
   def test_wait_for_element_stale_error_retry
     start_logger_mock
-    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
-    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION, :accessibility_id)
+    driver = AppiumDriver.new SERVER_URL, CAPABILITIES
 
     mocked_element = mock('element')
     mocked_element.expects(:displayed?).times(2).raises(Selenium::WebDriver::Error::StaleElementReferenceError, 'Element is stale').then.returns(true)
@@ -148,8 +125,7 @@ class AppiumDriverTest < Test::Unit::TestCase
 
   def test_wait_for_element_stale_error_retry_disabled
     logger = start_logger_mock
-    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
-    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION, :accessibility_id)
+    driver = AppiumDriver.new SERVER_URL, CAPABILITIES
 
     stale_error = Selenium::WebDriver::Error::StaleElementReferenceError.new('Element is stale')
     mocked_element = mock('element')
@@ -165,8 +141,7 @@ class AppiumDriverTest < Test::Unit::TestCase
 
   def test_wait_for_element_stale_error_retry_only_once
     logger = start_logger_mock
-    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
-    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION, :accessibility_id)
+    driver = AppiumDriver.new SERVER_URL, CAPABILITIES
 
     stale_error = Selenium::WebDriver::Error::StaleElementReferenceError.new('Element is stale')
     mocked_element = mock('element')
@@ -184,8 +159,7 @@ class AppiumDriverTest < Test::Unit::TestCase
 
   def test_clear_element_defaults
     start_logger_mock
-    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
-    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
+    driver = AppiumDriver.new SERVER_URL, CAPABILITIES
 
     mocked_element = mock('element')
     mocked_element.expects(:clear)
@@ -197,8 +171,7 @@ class AppiumDriverTest < Test::Unit::TestCase
 
   def test_send_keys_to_element_defaults
     start_logger_mock
-    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
-    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
+    driver = AppiumDriver.new SERVER_URL, CAPABILITIES
 
     mocked_element = mock('element')
     mocked_element.expects(:send_keys).with('Test_text')
@@ -210,8 +183,7 @@ class AppiumDriverTest < Test::Unit::TestCase
 
   def test_clear_and_send_keys_to_element_defaults
     start_logger_mock
-    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
-    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
+    driver = AppiumDriver.new SERVER_URL, CAPABILITIES
 
     mocked_element = mock('element')
     mocked_element.expects(:clear)
@@ -224,8 +196,7 @@ class AppiumDriverTest < Test::Unit::TestCase
 
   def test_clear_element_locator
     start_logger_mock
-    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
-    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION, :accessibility_id)
+    driver = AppiumDriver.new SERVER_URL, CAPABILITIES
 
     mocked_element = mock('element')
     mocked_element.expects(:clear)
@@ -237,8 +208,7 @@ class AppiumDriverTest < Test::Unit::TestCase
 
   def test_send_keys_to_element_locator
     start_logger_mock
-    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
-    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION, :accessibility_id)
+    driver = AppiumDriver.new SERVER_URL, CAPABILITIES
 
     mocked_element = mock('element')
     mocked_element.expects(:send_keys).with('Test_text')
@@ -250,8 +220,7 @@ class AppiumDriverTest < Test::Unit::TestCase
 
   def test_clear_and_send_keys_to_element_locator
     start_logger_mock
-    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
-    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION, :accessibility_id)
+    driver = AppiumDriver.new SERVER_URL, CAPABILITIES
 
     mocked_element = mock('element')
     mocked_element.expects(:clear)
@@ -260,36 +229,6 @@ class AppiumDriverTest < Test::Unit::TestCase
     driver.expects(:find_element).with(:accessibility_id, 'test_text_entry').returns(mocked_element)
 
     driver.clear_and_send_keys_to_element('test_text_entry', 'Test_text')
-  end
-
-  def test_start_driver_no_env
-    start_logger_mock
-    $logger.expects(:info).with('Starting BrowserStack local tunnel').once
-    $logger.expects(:info).with('Starting Appium driver').once
-    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
-    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
-
-    Appium::Driver.any_instance.expects(:start_driver)
-    waiter = mock('Process::Waiter', value: mock('Process::Status'))
-    Open3.expects(:popen2).with("/BrowserStackLocal #{LOCAL_TUNNEL_COMMAND_OPTIONS}").yields(mock('stdin'), mock('stdout'), waiter)
-
-    driver.start_driver
-  end
-
-  def test_start_driver_with_env
-    my_path = '/my/path'
-    ENV['BROWSER_STACK_LOCAL'] = my_path
-    start_logger_mock
-    $logger.expects(:info).with('Starting BrowserStack local tunnel').once
-    $logger.expects(:info).with('Starting Appium driver').once
-    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
-    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
-
-    Appium::Driver.any_instance.expects(:start_driver)
-    waiter = mock('Process::Waiter', value: mock('Process::Status'))
-    Open3.expects(:popen2).with("#{my_path} #{LOCAL_TUNNEL_COMMAND_OPTIONS}").yields(mock('stdin'), mock('stdout'), waiter)
-
-    driver.start_driver
   end
 
   def test_environment_ids
@@ -308,8 +247,7 @@ class AppiumDriverTest < Test::Unit::TestCase
     logger_mock.expects(:info).with('    build   : 156 TEST BRANCH')
     logger_mock.expects(:info).with("    name    : #{TARGET_DEVICE} tests-05 5")
 
-    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
-    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
+    driver = AppiumDriver.new SERVER_URL, CAPABILITIES
 
     assert_equal('TEST', driver.caps[:project])
     assert_equal('156 TEST BRANCH', driver.caps[:build])

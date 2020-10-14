@@ -5,12 +5,7 @@ require_relative '../lib/features/support/appium_driver'
 
 class AppiumDriverTest < Test::Unit::TestCase
 
-  USERNAME = 'Username'
-  ACCESS_KEY = 'Access_key'
-  LOCAL_ID = 'Local_id'
-  APP_LOCATION = 'app_location'
-  TEST_APP_URL = 'Test_app_url'
-  TARGET_DEVICE = 'ANDROID_9'
+  SERVER_URL = 'server_url'
   LOCAL_TUNNEL_COMMAND_OPTIONS = "-d start --key #{ACCESS_KEY} --local-identifier #{LOCAL_ID} --force-local"
 
   def setup
@@ -25,8 +20,6 @@ class AppiumDriverTest < Test::Unit::TestCase
   def start_logger_mock
     logger_mock = mock('logger')
     $logger = logger_mock
-    logger_mock.expects(:info).with("app uploaded to: #{TEST_APP_URL}").once
-    logger_mock.expects(:info).with('You can use this url to avoid uploading the same app more than once.').once
     logger_mock.expects(:info).with('Appium driver initialised for:').once
     logger_mock.expects(:info).with('    project : local').once
     logger_mock.expects(:info).with(regexp_matches(/^\s{4}build\s{3}:\s\S{36}$/))
@@ -38,22 +31,6 @@ class AppiumDriverTest < Test::Unit::TestCase
     start_logger_mock
     AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
     driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
-
-    assert_equal('errors', driver.caps[:'browserstack.console'])
-    assert_equal(LOCAL_ID, driver.caps[:'browserstack.localIdentifier'])
-    assert_equal('true', driver.caps[:'browserstack.local'])
-    assert_equal('true', driver.caps[:'browserstack.networkLogs'])
-    assert_equal(TEST_APP_URL, driver.caps[:app])
-
-    Devices::DEVICE_HASH[TARGET_DEVICE].each do |key, value|
-      assert_equal(value, driver.caps[key.to_sym])
-    end
-  end
-
-  def test_overridden_locator
-    start_logger_mock
-    AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
-    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION, :accessibility_id)
 
     assert_equal('errors', driver.caps[:'browserstack.console'])
     assert_equal(LOCAL_ID, driver.caps[:'browserstack.localIdentifier'])
@@ -85,26 +62,6 @@ class AppiumDriverTest < Test::Unit::TestCase
     end
 
     assert_equal('Appium', driver.caps[:automationName])
-  end
-
-  def test_upload_app_success
-    start_logger_mock
-    json_response = JSON.dump(app_url: TEST_APP_URL)
-    expected_command = %(curl -u "#{USERNAME}:#{ACCESS_KEY}" -X POST "https://api-cloud.browserstack.com/app-automate/upload" -F "file=@#{APP_LOCATION}")
-    AppAutomateDriver.any_instance.stubs(:`).with(expected_command).returns(json_response)
-    driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
-    assert_equal(TEST_APP_URL, driver.caps[:app])
-  end
-
-  def test_upload_app_error
-    json_response = JSON.dump(
-      error: 'Error'
-                              )
-    expected_command = %(curl -u "#{USERNAME}:#{ACCESS_KEY}" -X POST "https://api-cloud.browserstack.com/app-automate/upload" -F "file=@#{APP_LOCATION}")
-    AppAutomateDriver.any_instance.stubs(:`).with(expected_command).returns(json_response)
-    assert_raise(RuntimeError, 'BrowserStack upload failed due to error: Error') do
-      AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)
-    end
   end
 
   def test_click_element_defaults

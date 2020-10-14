@@ -6,8 +6,9 @@ class Configuration
   attr_accessor :appium_session_isolation
 
   # Device farm to be used, one of:
-  # bs (BrowserStack)
-  # local (Using Appium Server with a local device)
+  # :bs (BrowserStack)
+  # :local (Using Appium Server with a local device)
+  # :none (Cucumber-driven testing with no devices)
   attr_accessor :farm
 
   # Location of the BrowserStackLocal binary (if used)

@@ -21,7 +21,8 @@ class AppiumDriver < Appium::Driver
   #
   # @param server_url [String] URL of the Appium server
   # @param capabilities [Hash] a hash of capabilities to be used in this test run
-  def initialize(server_url, capabilities)
+  # @param locator [Symbol] the primary locator strategy Appium should use to find elements
+  def initialize(server_url, capabilities, locator = :id)
     # Sets up identifiers for ease of connecting jobs
     name_capabilities = project_name_capabilities
 
@@ -30,6 +31,7 @@ class AppiumDriver < Appium::Driver
     $logger.info "    build   : #{name_capabilities[:build]}"
     $logger.info "    capabilities    : #{name_capabilities[:name]}"
 
+    @element_locator = locator
     @capabilities = capabilities
     @capabilities.merge! name_capabilities
 
@@ -54,7 +56,7 @@ class AppiumDriver < Appium::Driver
   # @param retry_if_stale [Boolean] enables the method to retry acquiring the element if a StaleObjectException occurs
   def wait_for_element(element_id, timeout = 15, retry_if_stale = true)
     wait = Selenium::WebDriver::Wait.new(timeout: timeout)
-    wait.until { find_element(:id, element_id).displayed? }
+    wait.until { find_element(@element_locator, element_id).displayed? }
   rescue Selenium::WebDriver::Error::TimeoutError
     false
   rescue Selenium::WebDriver::Error::StaleElementReferenceError => stale_error
@@ -72,14 +74,14 @@ class AppiumDriver < Appium::Driver
   #
   # @param element_id [String] the element to click
   def click_element(element_id)
-    find_element(:id, element_id).click
+    find_element(@element_locator, element_id).click
   end
 
   # Clears a given element
   #
   # @param element_id [String] the element to clear
   def clear_element(element_id)
-    find_element(:id, element_id).clear
+    find_element(@element_locator, element_id).clear
   end
 
   # Sends keys to a given element
@@ -87,7 +89,7 @@ class AppiumDriver < Appium::Driver
   # @param element_id [String] the element to send text to
   # @param text [String] the text to send
   def send_keys_to_element(element_id, text)
-    find_element(:id, element_id).send_keys(text)
+    find_element(@element_locator, element_id).send_keys(text)
   end
 
   # Sends keys to a given element, clearing it first
@@ -95,7 +97,7 @@ class AppiumDriver < Appium::Driver
   # @param element_id [String] the element to clear and send text to
   # @param text [String] the text to send
   def clear_and_send_keys_to_element(element_id, text)
-    element = find_element(:id, element_id)
+    element = find_element(@element_locator, element_id)
     element.clear
     element.send_keys(text)
   end

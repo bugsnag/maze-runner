@@ -29,7 +29,9 @@ class AppiumDriver < Appium::Driver
     $logger.info 'Appium driver initialized for:'
     $logger.info "    project : #{name_capabilities[:project]}"
     $logger.info "    build   : #{name_capabilities[:build]}"
-    $logger.info "    capabilities    : #{name_capabilities[:name]}"
+    # TODO This existing "name" needed to change as part of making MR more device farm
+    #   agnostic, but is currently broken and will be fixed in a follow-up change.
+    # $logger.info "    capabilities    : #{name_capabilities[:name]}"
 
     @element_locator = locator
     @capabilities = capabilities

@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
     private fun initialiseBugsnag() {
         val config = Configuration("12312312312312312312312312312312")
         config.autoCaptureSessions = false
-        config.setEndpoints("http://bs-local.com:9339", "http://bs-local.com:9339")
+        config.setEndpoints("http://localhost:9339", "http://localhost:9339")
 
         Bugsnag.init(this, config)
         Bugsnag.setLoggingEnabled(true)

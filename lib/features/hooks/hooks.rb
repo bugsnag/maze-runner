@@ -38,8 +38,10 @@ AfterConfiguration do |config|
                                                 MazeRunner.configuration.capabilities)
   MazeRunner.driver.start_driver unless MazeRunner.configuration.appium_session_isolation
 
-  # TODO: Debugging ability to fetch actual OS version, which will be needed for @skipping.
-  # One seems to only work on BrowserStack and the other only locally.
+  # TODO: We need to get hold of OS version (or API level) of the actual device that is used.  We used to take this from
+  #   the DEVICE_TYPE provided, but with local device use you can just ask for "iOS" and it will use whatever you have
+  #   plugged in.
+  #   One of these seems to only work on BrowserStack and the other only locally - further investigation needed.
   # puts "Actual driver capabilities #{MazeRunner.driver.capabilities}"
   # puts 'Device info:'
   # puts JSON.pretty_generate MazeRunner.driver.device_info

@@ -33,7 +33,7 @@ class MazeRunnerEntry
       opt :init, 'Initialises a new Maze Runner project'
 
       opt :version, 'Display Maze Runner and Cucumber versions'
-      opt 'separate-sessions', 'Start a new Appium session for each scenario',
+      opt OPTION_SEPARATE_SESSIONS, 'Start a new Appium session for each scenario',
           short: :none,
           type: :boolean,
           default: false
@@ -144,7 +144,7 @@ class MazeRunnerEntry
       raise "option --#{OPTION_USERNAME} must be specified" if options[OPTION_USERNAME].nil?
       raise "option --#{OPTION_ACCESS_KEY} must be specified" if options[OPTION_ACCESS_KEY].nil?
       raise "Device type '#{device}' not known on BrowserStack.  Must be one of #{Devices::DEVICE_HASH.keys}" \
-        unless Devices::DEVICE_HASH.keys.include? device_type
+        unless Devices::DEVICE_HASH.key? device_type
 
       config.bs_local = options[OPTION_BS_LOCAL]
       username = config.username = options[OPTION_USERNAME]

@@ -4,12 +4,22 @@
 require 'cucumber/cli/main'
 require 'optimist'
 require_relative '../lib/features/support/maze_runner'
+require_relative '../lib/features/support/capabilities/capabilities'
 require_relative '../lib/version'
 
 # Encapsulates the MazeRunner entry point
+# TODO: Factor out CL options/processing to reduce overall size
 class MazeRunnerEntry
-
   OPTION_SEPARATE_SESSIONS = 'separate-sessions'
+  OPTION_APP = 'app'
+  OPTION_BS_LOCAL = 'bs-local'
+  OPTION_FARM = 'farm'
+  OPTION_DEVICE = 'device'
+  OPTION_USERNAME = 'username'
+  OPTION_ACCESS_KEY = 'access-key'
+  OPTION_APPIUM_SERVER = 'appium-server'
+  OPTION_APPLE_TEAM_ID = 'apple-team-id'
+  OPTION_UDID = 'udid'
 
   def initialize
     @parser = Optimist::Parser.new do
@@ -23,13 +33,38 @@ class MazeRunnerEntry
       opt :init, 'Initialises a new Maze Runner project'
 
       opt :version, 'Display Maze Runner and Cucumber versions'
-      opt OPTION_SEPARATE_SESSIONS, 'Start a new Appium session for each scenario', short: :none
+      opt OPTION_SEPARATE_SESSIONS, 'Start a new Appium session for each scenario',
+          short: :none,
+          type: :boolean,
+          default: false
+      opt OPTION_APP, 'The app to be installed and run against', short: :none, type: :string
+      opt OPTION_BS_LOCAL,
+          '(BS only) Path to the BrowserStackLocal binary',
+          short: :none,
+          type: :string,
+          default: '/BrowserStackLocal'
+      opt OPTION_FARM, 'Device farm to use: "bs" (BrowserStack) or "local"', short: :none, type: :string
+      opt OPTION_DEVICE,
+          'Device type to use ("ios", "android" or a Devices.DEVICE_HASH key)',
+          short: :none,
+          type: :string
+      opt OPTION_APPLE_TEAM_ID, 'Apple Team Id, required for local iOS testing', short: :none, type: :string
+      opt OPTION_UDID, 'Apple UDID, required for local iOS testing', short: :none, type: :string
+      opt OPTION_USERNAME, 'Device farm username', short: :none, type: :string
+      opt OPTION_ACCESS_KEY, 'Device farm access key', short: :none, type: :string
+      opt OPTION_APPIUM_SERVER,
+          'Appium server URL, only used for --farm=local',
+          short: :none,
+          type: :string,
+          default: 'http://localhost:4723/wd/hub'
+
       version "Maze Runner v#{BugsnagMazeRunner::VERSION} " \
               "(Cucumber v#{Cucumber::VERSION.strip})"
       text ''
       text 'The Cucumber help follows:'
       text ''
     end
+
     # Allow for options destined for Cucumber
     @parser.ignore_invalid_options = true
   end
@@ -41,12 +76,24 @@ class MazeRunnerEntry
 
   # Removes Maze Runner specific args from the array, as these will cause Cucumber to error.
   def remove_maze_runner_args
-    [
-      OPTION_SEPARATE_SESSIONS
-    ].each { |arg| @args.delete "--#{arg}" }
+    remove = [
+      OPTION_SEPARATE_SESSIONS,
+      OPTION_APP,
+      OPTION_BS_LOCAL,
+      OPTION_DEVICE,
+      OPTION_FARM,
+      OPTION_USERNAME,
+      OPTION_ACCESS_KEY,
+      OPTION_APPIUM_SERVER,
+      OPTION_UDID,
+      OPTION_APPLE_TEAM_ID
+    ]
+    remove.each do |opt|
+      @args.reject! { |arg| arg == "--#{opt}" || (arg.start_with? "--#{opt}=") }
+    end
   end
 
-  # Adds arguments to the Cucumber
+  # Adds arguments to Cucumber
   def add_cucumber_args
     @args << 'features' if @args.empty?
 
@@ -75,12 +122,52 @@ class MazeRunnerEntry
     @args = args.dup
     options = @parser.parse args
 
+    # Process CL options
     init if options[:init]
-    MazeRunner.configuration.appium_session_isolation = true if options[OPTION_SEPARATE_SESSIONS]
+    config = MazeRunner.configuration
+    config.appium_session_isolation = options[OPTION_SEPARATE_SESSIONS]
+    config.app_location = options[OPTION_APP]
+    farm = options[OPTION_FARM]
+    device_type = config.device_type = options[OPTION_DEVICE]
+    config.farm = case farm
+                  when nil then :none
+                  when 'bs' then :bs
+                  when 'local' then :local
+                  else
+                    raise "Unknown farm '#{farm}'"
+                  end
+
+    # Farm specific options
+    case config.farm
+    when :bs then
+      raise "option --#{OPTION_USERNAME} must be specified" if options[OPTION_USERNAME].nil?
+      raise "option --#{OPTION_ACCESS_KEY} must be specified" if options[OPTION_ACCESS_KEY].nil?
+      unless Devices::DEVICE_HASH.key? device_type
+        raise "Device type '#{device}' not known on BrowserStack.  Must be one of #{Devices::DEVICE_HASH.keys}"
+      end
+
+      config.bs_local = options[OPTION_BS_LOCAL]
+      username = config.username = options[OPTION_USERNAME]
+      access_key = config.access_key = options[OPTION_ACCESS_KEY]
+      config.appium_server_url = "http://#{username}:#{access_key}@hub-cloud.browserstack.com/wd/hub"
+    when :local then
+      config.appium_server_url = options[OPTION_APPIUM_SERVER]
+      device_type = device_type.downcase
+      raise 'device must be ios or android' unless %w[ios android].include? device_type
+
+      if device_type == 'ios'
+        raise 'option --apple-team-id must be specified for iOS' if options[OPTION_APPLE_TEAM_ID].nil?
+        raise 'option --udid must be specified for iOS' if options[OPTION_UDID].nil?
+
+        config.apple_team_id = options[OPTION_APPLE_TEAM_ID]
+        config.device_id = options[OPTION_UDID]
+      end
+    end
 
     # Adjust CL options before calling down to Cucumber
     remove_maze_runner_args
     add_cucumber_args
+
     Cucumber::Cli::Main.new(@args).execute!
 
   rescue Optimist::HelpNeeded

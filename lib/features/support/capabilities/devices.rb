@@ -79,5 +79,5 @@ class Devices
   end
 
   # The hash of device capabilities, accessible by simple names
-  DEVICE_HASH = create_hash
+  DEVICE_HASH ||= create_hash
 end

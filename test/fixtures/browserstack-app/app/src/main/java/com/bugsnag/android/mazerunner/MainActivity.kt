@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val button = findViewById<Button>(R.id.trigger_error)
-        button.setOnClickListener { 
+        button.setOnClickListener {
             Bugsnag.notify(Exception("HandledException!"), {
                 val error = it.error!!
                 error.metaData.addToTab("test", "boolean_false", false)

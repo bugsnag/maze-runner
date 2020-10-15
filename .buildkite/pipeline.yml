@@ -51,62 +51,86 @@ steps:
     command: 'bundle exec bugsnag-maze-runner'
 
   - label: 'Browserstack app-automate test - Android 6'
-    env:
-      DEVICE_TYPE: ANDROID_6_0
     plugins:
       docker-compose#v3.3.0:
         run: browserstack-app-automate
-    command: 'bundle exec bugsnag-maze-runner'
+    command: >-
+      bundle exec bugsnag-maze-runner
+      --app=app/build/outputs/apk/release/app-release.apk
+      --farm=bs
+      --device=ANDROID_6_0
+      --username=$BROWSER_STACK_USERNAME
+      --access-key=$BROWSER_STACK_ACCESS_KEY
     concurrency: 10
     concurrency_group: 'browserstack-app'
 
   - label: 'Browserstack app-automate test - Android 7.1 (separate Appium sessions)'
-    env:
-      DEVICE_TYPE: ANDROID_7_1
     plugins:
       docker-compose#v3.3.0:
         run: browserstack-app-automate
-    command: 'bundle exec bugsnag-maze-runner --separate-sessions'
+    command: >-
+      bundle exec bugsnag-maze-runner
+      --app=app/build/outputs/apk/release/app-release.apk
+      --farm=bs
+      --device=ANDROID_7_1
+      --username=$BROWSER_STACK_USERNAME
+      --access-key=$BROWSER_STACK_ACCESS_KEY
     concurrency: 10
     concurrency_group: 'browserstack-app'
 
   - label: 'Browserstack app-automate test - Android 8.1'
-    env:
-      DEVICE_TYPE: ANDROID_8_1
     plugins:
       docker-compose#v3.3.0:
         run: browserstack-app-automate
-    command: 'bundle exec bugsnag-maze-runner'
+    command: >-
+      bundle exec bugsnag-maze-runner
+      --app=app/build/outputs/apk/release/app-release.apk
+      --farm=bs
+      --device=ANDROID_8_1
+      --username=$BROWSER_STACK_USERNAME
+      --access-key=$BROWSER_STACK_ACCESS_KEY
     concurrency: 10
     concurrency_group: 'browserstack-app'
 
   - label: 'Browserstack app-automate test - Android 9'
-    env:
-      DEVICE_TYPE: ANDROID_9_0
     plugins:
       docker-compose#v3.3.0:
         run: browserstack-app-automate
-    command: 'bundle exec bugsnag-maze-runner'
+    command: >-
+      bundle exec bugsnag-maze-runner
+      --app=app/build/outputs/apk/release/app-release.apk
+      --farm=bs
+      --device=ANDROID_9_0
+      --username=$BROWSER_STACK_USERNAME
+      --access-key=$BROWSER_STACK_ACCESS_KEY
     concurrency: 10
     concurrency_group: 'browserstack-app'
 
   - label: 'Browserstack app-automate test - Android 10 (separate Appium sessions)'
-    env:
-      DEVICE_TYPE: ANDROID_10_0
     plugins:
       docker-compose#v3.3.0:
         run: browserstack-app-automate
-    command: 'bundle exec bugsnag-maze-runner --separate-sessions'
+    command: >-
+      bundle exec bugsnag-maze-runner
+      --app=app/build/outputs/apk/release/app-release.apk
+      --farm=bs
+      --device=ANDROID_10_0
+      --username=$BROWSER_STACK_USERNAME
+      --access-key=$BROWSER_STACK_ACCESS_KEY
     concurrency: 10
     concurrency_group: 'browserstack-app'
 
   - label: 'Browserstack app-automate test - Android 11 (separate Appium sessions)'
-    env:
-      DEVICE_TYPE: ANDROID_11_0
     plugins:
       docker-compose#v3.3.0:
         run: browserstack-app-automate
-    command: 'bundle exec bugsnag-maze-runner --separate-sessions'
+    command: >-
+      bundle exec bugsnag-maze-runner
+      --app=app/build/outputs/apk/release/app-release.apk
+      --farm=bs
+      --device=ANDROID_11_0
+      --username=$BROWSER_STACK_USERNAME
+      --access-key=$BROWSER_STACK_ACCESS_KEY
     concurrency: 10
     concurrency_group: 'browserstack-app'
 
@@ -163,6 +187,6 @@ steps:
       - docker-compose#v3.3.0:
           push:
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BUILDKITE_TAG}-cli
-            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:latest-v2-cli
+            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:latest-v3-cli
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:latest-cli
 

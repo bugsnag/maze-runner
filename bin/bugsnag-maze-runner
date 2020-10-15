@@ -129,18 +129,17 @@ class MazeRunnerEntry
     config.app_location = options[OPTION_APP]
     farm = options[OPTION_FARM]
     device_type = config.device_type = options[OPTION_DEVICE]
-    config.farm = if farm.nil?
-                    :none
-                  elsif farm == 'bs'
-                    :bs
-                  elsif farm == 'local'
-                    :local
+    config.farm = case farm
+                  when nil then :none
+                  when 'bs' then :bs
+                  when 'local' then :local
                   else
                     raise "Unknown farm '#{farm}'"
                   end
 
     # Farm specific options
-    if config.farm == :bs
+    case config.farm
+    when :bs then
       raise "option --#{OPTION_USERNAME} must be specified" if options[OPTION_USERNAME].nil?
       raise "option --#{OPTION_ACCESS_KEY} must be specified" if options[OPTION_ACCESS_KEY].nil?
       unless Devices::DEVICE_HASH.key? device_type
@@ -151,7 +150,7 @@ class MazeRunnerEntry
       username = config.username = options[OPTION_USERNAME]
       access_key = config.access_key = options[OPTION_ACCESS_KEY]
       config.appium_server_url = "http://#{username}:#{access_key}@hub-cloud.browserstack.com/wd/hub"
-    elsif config.farm == :local
+    when :local then
       config.appium_server_url = options[OPTION_APPIUM_SERVER]
       device_type = device_type.downcase
       raise 'device must be ios or android' unless %w[ios android].include? device_type

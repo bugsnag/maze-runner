@@ -8,35 +8,36 @@ AfterConfiguration do |config|
 
   # Start mock server
   Server.start_server
-  next if MazeRunner.configuration.farm == :none
+  config = MazeRunner.configuration
+  next if config.farm == :none
 
   # Setup Appium capabilities.  Note that the 'app' capability is
   # set in a hook as it will change if uploaded to BrowserStack.
 
   # BrowserStack specific setup
-  if MazeRunner.configuration.farm == :bs
+  if config.farm == :bs
     tunnel_id = SecureRandom.uuid
-    MazeRunner.configuration.capabilities = Capabilities.for_browser_stack MazeRunner.configuration.device_type,
-                                                                           tunnel_id
+    config.capabilities = Capabilities.for_browser_stack config.device_type,
+                                                         tunnel_id
 
-    MazeRunner.configuration.app_location = BrowserStackUtils.upload_app(MazeRunner.configuration.username,
-                                                                         MazeRunner.configuration.access_key,
-                                                                         MazeRunner.configuration.app_location)
-    BrowserStackUtils.start_local_tunnel(MazeRunner.configuration.bs_local,
+    config.app_location = BrowserStackUtils.upload_app config.username,
+                                                       config.access_key,
+                                                       config.app_location
+    BrowserStackUtils.start_local_tunnel config.bs_local,
                                          tunnel_id,
-                                         MazeRunner.configuration.access_key)
-  elsif MazeRunner.configuration.farm == :local
-    MazeRunner.configuration.capabilities = Capabilities.for_local MazeRunner.configuration.device_type,
-                                                                   MazeRunner.configuration.apple_team_id,
-                                                                   MazeRunner.configuration.device_id
+                                         config.access_key
+  elsif config.farm == :local
+    config.capabilities = Capabilities.for_local config.device_type,
+                                                 config.apple_team_id,
+                                                 config.device_id
   end
   # Set app location (file or url) in capabilities
-  MazeRunner.configuration.capabilities['app'] = MazeRunner.configuration.app_location
+  config.capabilities['app'] = config.app_location
 
   # Create and start the drive
-  MazeRunner.driver = ResilientAppiumDriver.new(MazeRunner.configuration.appium_server_url,
-                                                MazeRunner.configuration.capabilities)
-  MazeRunner.driver.start_driver unless MazeRunner.configuration.appium_session_isolation
+  MazeRunner.driver = ResilientAppiumDriver.new config.appium_server_url,
+                                                config.capabilities
+  MazeRunner.driver.start_driver unless config.appium_session_isolation
 
   # TODO: We need to get hold of OS version (or API level) of the actual device that is used.  We used to take this from
   #   the DEVICE_TYPE provided, but with local device use you can just ask for "iOS" and it will use whatever you have

@@ -143,8 +143,9 @@ class MazeRunnerEntry
     if config.farm == :bs
       raise "option --#{OPTION_USERNAME} must be specified" if options[OPTION_USERNAME].nil?
       raise "option --#{OPTION_ACCESS_KEY} must be specified" if options[OPTION_ACCESS_KEY].nil?
-      raise "Device type '#{device}' not known on BrowserStack.  Must be one of #{Devices::DEVICE_HASH.keys}" \
-        unless Devices::DEVICE_HASH.key? device_type
+      unless Devices::DEVICE_HASH.key? device_type
+        raise "Device type '#{device}' not known on BrowserStack.  Must be one of #{Devices::DEVICE_HASH.keys}"
+      end
 
       config.bs_local = options[OPTION_BS_LOCAL]
       username = config.username = options[OPTION_USERNAME]

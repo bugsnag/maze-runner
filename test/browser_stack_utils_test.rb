@@ -20,7 +20,7 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
   end
 
   def test_upload_app_skip
-    $logger.expects(:info).with("Skipping upload for pre-uploaded app #{TEST_APP_URL}")
+    $logger.expects(:info).with("Using pre-uploaded app from #{TEST_APP_URL}")
 
     url = BrowserStackUtils.upload_app USERNAME, ACCESS_KEY, TEST_APP_URL
     assert_equal(TEST_APP_URL, url)

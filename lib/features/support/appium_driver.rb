@@ -44,8 +44,10 @@ class AppiumDriver < Appium::Driver
 
   # Starts the BrowserStackLocal tunnel and the Appium driver
   def start_driver
-    $logger.info 'Starting Appium driver'
+    $logger.info 'Starting Appium driver...'
+    time = Time.now
     super
+    $logger.info "Appium driver started in #{(Time.now - time).to_i}s"
   end
 
   # Checks for an element, waiting until it is present or the method times out

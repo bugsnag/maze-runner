@@ -1,8 +1,11 @@
 FROM ubuntu:20.04 as ci
 
 RUN apt-get update
-RUN apt-get install -y ruby-full apt-utils docker-compose wget unzip
-RUN apt-get install -y bundler zlib1g libpng-dev zlibc zlib1g zlib1g-dev curl
+RUN apt-get install -y ruby-full apt-utils docker-compose wget unzip bash bundler
+# Needed by nokogiri (a dependency of appium_lib)
+RUN apt-get install -y zlib1g libpng-dev zlibc zlib1g zlib1g-dev curl
+# Needed by curb (a dependency of Cucumber)
+RUN apt-get install -y libcurl4 libcurl4-openssl-dev
 
 RUN ruby -v
 
@@ -10,12 +13,10 @@ RUN wget -q https://www.browserstack.com/browserstack-local/BrowserStackLocal-li
   && unzip BrowserStackLocal-linux-x64.zip \
   && rm BrowserStackLocal-linux-x64.zip
 
-
 WORKDIR /app/
 
 # We dont copy the gemfile in because this builds a gem so it needs the source
 COPY . ./
-RUN apt-get install -y libcurl4 libcurl4-openssl-dev
 RUN bundle install
 
 FROM ci as cli

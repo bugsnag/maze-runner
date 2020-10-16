@@ -26,13 +26,6 @@ class AppiumDriver < Appium::Driver
     # Sets up identifiers for ease of connecting jobs
     name_capabilities = project_name_capabilities
 
-    $logger.info 'Appium driver initialized for:'
-    $logger.info "    project : #{name_capabilities[:project]}"
-    $logger.info "    build   : #{name_capabilities[:build]}"
-    # TODO This existing "name" needed to change as part of making MR more device farm
-    #   agnostic, but is currently broken and will be fixed in a follow-up change.
-    # $logger.info "    capabilities    : #{name_capabilities[:name]}"
-
     @element_locator = locator
     @capabilities = capabilities
     @capabilities.merge! name_capabilities
@@ -43,6 +36,10 @@ class AppiumDriver < Appium::Driver
         server_url: server_url
       }
     }, true)
+
+    $logger.info 'Appium driver initialized for:'
+    $logger.info "    project : #{name_capabilities[:project]}"
+    $logger.info "    build   : #{name_capabilities[:build]}"
   end
 
   # Starts the BrowserStackLocal tunnel and the Appium driver
@@ -114,42 +111,27 @@ class AppiumDriver < Appium::Driver
 
   # Determines and returns sensible project, build, and name capabilities
   #
-  # @return [Hash] A hash containing the 'project', 'build', and 'name' capabilities
+  # @return [Hash] A hash containing the 'project' and 'build' capabilities
   def project_name_capabilities
     # Default to values for running locally
     project = 'local'
-    name = 'local'
     build = SecureRandom.uuid
 
     if ENV['BUILDKITE']
       # Project
       project = ENV['BUILDKITE_PIPELINE_NAME']
-
-      # Build
-      bk_build_array = []
-      bk_build_array << ENV['BUILDKITE_BUILD_NUMBER'] if ENV['BUILDKITE_BUILD_NUMBER']
-      bk_build_array << ENV['BRANCH_NAME'] if ENV['BRANCH_NAME']
-      bk_build = bk_build_array.join(' ').strip
-      build = bk_build unless bk_build.nil? || bk_build.empty?
-
-      # Name
-      bk_name_array = []
-      bk_name_array << ENV['BUILDKITE_STEP_KEY'] if ENV['BUILDKITE_STEP_KEY']
-      bk_name_array << ENV['BUILDKITE_RETRY_COUNT'] if ENV['BUILDKITE_RETRY_COUNT']
-      name = bk_name_array.join(' ')
     end
     {
       project: project,
-      build: build,
-      name: name
+      build: build
     }
   end
 
   def device_info
-    @driver.execute_script('mobile:deviceInfo')
+    execute_script('mobile:deviceInfo')
   end
 
   def session_capabilities
-    @driver.session_capabilities
+    session_capabilities
   end
 end

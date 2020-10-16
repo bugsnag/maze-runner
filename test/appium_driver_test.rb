@@ -6,6 +6,7 @@ require_relative '../lib/features/support/appium_driver'
 class AppiumDriverTest < Test::Unit::TestCase
 
   SERVER_URL = 'server_url'
+  UUID_REGEX = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.freeze
 
   def setup
     @capabilities = { key: 'value' }
@@ -24,7 +25,6 @@ class AppiumDriverTest < Test::Unit::TestCase
     logger_mock.expects(:info).with('Appium driver initialized for:').once
     logger_mock.expects(:info).with('    project : local').once
     logger_mock.expects(:info).with(regexp_matches(/^\s{4}build\s{3}:\s\S{36}$/))
-    # logger_mock.expects(:info).with(regexp_matches(/^\s{4}capabilities\s{4}:\s.+$/))
     logger_mock
   end
 
@@ -242,6 +242,28 @@ class AppiumDriverTest < Test::Unit::TestCase
   #   assert_equal("#{TARGET_DEVICE} tests-05 5", driver.caps[:name])
   # end
 
-  # TODO Test project_name_capabilities
+  def test_project_name_capabilities_local
+    # BUILDKITE environment variable is cleared in setup
+    start_logger_mock
+    driver = AppiumDriver.new SERVER_URL, @capabilities, :accessibility_id
+    hash = driver.project_name_capabilities
+
+    assert_equal 'local', hash[:project]
+    assert_match UUID_REGEX, hash[:build]
+  end
+
+  def test_project_name_capabilities_browser_stack
+    start_logger_mock
+
+    pipeline = 'Android Bugsnag Notifier'
+    driver = AppiumDriver.new SERVER_URL, @capabilities, :accessibility_id
+
+    ENV['BUILDKITE'] = 'true'
+    ENV['BUILDKITE_PIPELINE_NAME'] = pipeline
+    hash = driver.project_name_capabilities
+
+    assert_equal pipeline, hash[:project]
+    assert_match UUID_REGEX, hash[:build]
+  end
 end
 

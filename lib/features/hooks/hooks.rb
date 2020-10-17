@@ -37,6 +37,12 @@ AfterConfiguration do |config|
   # Create and start the drive
   MazeRunner.driver = ResilientAppiumDriver.new config.appium_server_url,
                                                 config.capabilities
+  if config.farm == :bs
+    # Log a link to the BrowserStack session search dashboard
+    build = MazeRunner.driver.caps[:build]
+    url = "https://app-automate.browserstack.com/dashboard/v2/?searchQuery=#{build}"
+    $logger.info LogUtil.linkify url, 'BrowserStack session(s)'
+  end
   MazeRunner.driver.start_driver unless config.appium_session_isolation
 
   # TODO: We need to get hold of OS version (or API level) of the actual device that is used.  We used to take this from

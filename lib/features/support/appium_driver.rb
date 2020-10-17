@@ -130,10 +130,10 @@ class AppiumDriver < Appium::Driver
   end
 
   def device_info
-    execute_script('mobile:deviceInfo')
+    driver.execute_script('mobile:deviceInfo')
   end
 
   def session_capabilities
-    session_capabilities
+    driver.session_capabilities
   end
 end

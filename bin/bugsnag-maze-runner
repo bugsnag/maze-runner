@@ -124,7 +124,7 @@ class MazeRunnerEntry
 
     # Process CL options
     init if options[:init]
-    config = MazeRunner.configuration
+    config = MazeRunner.config
     config.appium_session_isolation = options[OPTION_SEPARATE_SESSIONS]
     config.app_location = options[OPTION_APP]
     farm = options[OPTION_FARM]

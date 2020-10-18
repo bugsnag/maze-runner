@@ -8,7 +8,7 @@ AfterConfiguration do |config|
 
   # Start mock server
   Server.start_server
-  config = MazeRunner.configuration
+  config = MazeRunner.config
   next if config.farm == :none
 
   # Setup Appium capabilities.  Note that the 'app' capability is
@@ -57,9 +57,9 @@ Before do |scenario|
   Server.stored_requests.clear
   Store.values.clear
 
-  next if MazeRunner.configuration.farm == :none
+  next if MazeRunner.config.farm == :none
 
-  MazeRunner.driver.start_driver if MazeRunner.configuration.appium_session_isolation
+  MazeRunner.driver.start_driver if MazeRunner.config.appium_session_isolation
 end
 
 # After each scenario
@@ -91,9 +91,9 @@ After do |scenario|
     end
   end
 
-  next if MazeRunner.configuration.farm == :none
+  next if MazeRunner.config.farm == :none
 
-  if MazeRunner.configuration.appium_session_isolation
+  if MazeRunner.config.appium_session_isolation
     MazeRunner.driver.driver_quit
   else
     MazeRunner.driver.reset_with_timeout 2
@@ -110,9 +110,9 @@ at_exit do
   # future test runs are from a clean slate.
   Docker.down_all_services
 
-  next if MazeRunner.configuration.farm == :none
+  next if MazeRunner.config.farm == :none
 
   # Stop the Appium session
-  MazeRunner.driver.driver_quit unless MazeRunner.configuration.appium_session_isolation
+  MazeRunner.driver.driver_quit unless MazeRunner.config.appium_session_isolation
 end
 

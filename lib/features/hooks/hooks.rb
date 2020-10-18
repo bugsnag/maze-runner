@@ -17,7 +17,7 @@ AfterConfiguration do |config|
   # BrowserStack specific setup
   if config.farm == :bs
     tunnel_id = SecureRandom.uuid
-    config.capabilities = Capabilities.for_browser_stack config.device_type,
+    config.capabilities = Capabilities.for_browser_stack config.bs_device,
                                                          tunnel_id
 
     config.app_location = BrowserStackUtils.upload_app config.username,
@@ -27,7 +27,7 @@ AfterConfiguration do |config|
                                          tunnel_id,
                                          config.access_key
   elsif config.farm == :local
-    config.capabilities = Capabilities.for_local config.device_type,
+    config.capabilities = Capabilities.for_local config.os,
                                                  config.apple_team_id,
                                                  config.device_id
   end

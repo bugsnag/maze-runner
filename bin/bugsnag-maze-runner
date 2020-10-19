@@ -14,9 +14,7 @@ class MazeRunnerEntry
   OPTION_APP = 'app'
   OPTION_BS_LOCAL = 'bs-local'
   OPTION_FARM = 'farm'
-  OPTION_BS_DEVICE = 'device'
-  OPTION_OS = 'os'
-  OPTION_OS_VERSION = 'os-version'
+  OPTION_DEVICE = 'device'
   OPTION_USERNAME = 'username'
   OPTION_ACCESS_KEY = 'access-key'
   OPTION_APPIUM_SERVER = 'appium-server'
@@ -46,16 +44,8 @@ class MazeRunnerEntry
           type: :string,
           default: '/BrowserStackLocal'
       opt OPTION_FARM, 'Device farm to use: "bs" (BrowserStack) or "local"', short: :none, type: :string
-      opt OPTION_BS_DEVICE,
-          'BrowserStack device to use (a key of Devices.DEVICE_HASH)',
-          short: :none,
-          type: :string
-      opt OPTION_OS,
-          'OS type to use ("ios", "android")',
-          short: :none,
-          type: :string
-      opt OPTION_OS_VERSION,
-          'The intended OS version when running on a local device',
+      opt OPTION_DEVICE,
+          'Device type to use ("ios", "android" or a Devices.DEVICE_HASH key)',
           short: :none,
           type: :string
       opt OPTION_APPLE_TEAM_ID, 'Apple Team Id, required for local iOS testing', short: :none, type: :string
@@ -90,9 +80,7 @@ class MazeRunnerEntry
       OPTION_SEPARATE_SESSIONS,
       OPTION_APP,
       OPTION_BS_LOCAL,
-      OPTION_BS_DEVICE,
-      OPTION_OS,
-      OPTION_OS_VERSION,
+      OPTION_DEVICE,
       OPTION_FARM,
       OPTION_USERNAME,
       OPTION_ACCESS_KEY,
@@ -136,10 +124,11 @@ class MazeRunnerEntry
 
     # Process CL options
     init if options[:init]
-    config = MazeRunner.config
+    config = MazeRunner.configuration
     config.appium_session_isolation = options[OPTION_SEPARATE_SESSIONS]
     config.app_location = options[OPTION_APP]
     farm = options[OPTION_FARM]
+    device_type = config.device_type = options[OPTION_DEVICE]
     config.farm = case farm
                   when nil then :none
                   when 'bs' then :bs
@@ -153,34 +142,20 @@ class MazeRunnerEntry
     when :bs then
       raise "option --#{OPTION_USERNAME} must be specified" if options[OPTION_USERNAME].nil?
       raise "option --#{OPTION_ACCESS_KEY} must be specified" if options[OPTION_ACCESS_KEY].nil?
-
-      bs_device = options[OPTION_BS_DEVICE]
-      raise "option --#{OPTION_BS_DEVICE} must be specified" if bs_device.nil?
-      unless Devices::DEVICE_HASH.key? bs_device
-        raise "Device type '#{bs_device}' not known on BrowserStack.  Must be one of #{Devices::DEVICE_HASH.keys}"
+      unless Devices::DEVICE_HASH.key? device_type
+        raise "Device type '#{device}' not known on BrowserStack.  Must be one of #{Devices::DEVICE_HASH.keys}"
       end
 
-      config.bs_device = bs_device
-      config.os_version = Devices::DEVICE_HASH[config.bs_device]['os_version'].to_f
       config.bs_local = options[OPTION_BS_LOCAL]
       username = config.username = options[OPTION_USERNAME]
       access_key = config.access_key = options[OPTION_ACCESS_KEY]
       config.appium_server_url = "http://#{username}:#{access_key}@hub-cloud.browserstack.com/wd/hub"
     when :local then
-      raise "option --#{OPTION_OS} must be specified" if options[OPTION_OS].nil?
-      raise "option --#{OPTION_OS_VERSION} must be specified" if options[OPTION_OS_VERSION].nil?
-      # Ensure OS version is a valid float so that notifier tests can perform numeric checks, e.g:
-      # 'MazeRunner.config.os_version > 7'
-      unless /^[1-9][0-9]*(\.[0-9])?/.match? options[OPTION_OS_VERSION]
-        raise "option --#{OPTION_OS_VERSION} must be a valid OS version matching '/^[1-9][0-9]*(\\.[0-9])?/'"
-      end
-
-      os = options[OPTION_OS].downcase
-      MazeRunner.config.os_version = options[OPTION_OS_VERSION].to_f
-      raise 'os must be ios or android' unless %w[ios android].include? os
-
       config.appium_server_url = options[OPTION_APPIUM_SERVER]
-      if os == 'ios'
+      device_type = device_type.downcase
+      raise 'device must be ios or android' unless %w[ios android].include? device_type
+
+      if device_type == 'ios'
         raise 'option --apple-team-id must be specified for iOS' if options[OPTION_APPLE_TEAM_ID].nil?
         raise 'option --udid must be specified for iOS' if options[OPTION_UDID].nil?
 

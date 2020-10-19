@@ -1,4 +1,5 @@
 require 'open3'
+require_relative './interactive_cli'
 
 # Determines the default path to the `scripts` directory.  Can be overwritten in the env.rb file.
 SCRIPT_PATH ||= File.expand_path(File.join(File.dirname(__FILE__), "..", "scripts")) unless defined? SCRIPT_PATH
@@ -69,8 +70,22 @@ class Runner
       return run_command(script_path, blocking: blocking, success_codes: success_codes)
     end
 
+    # Returns the current interactive session, creating a new one if necessary
+    #
+    # @return [InteractiveCLI] The interactiveCLI instance
+    def get_interactive_session
+      @interactive_session ||= InteractiveCLI.new(environment)
+    end
+
+    # Stops the interactive session, allowing a new one to be started
+    def stop_interactive_session
+      @interactive_session.stop
+      @interactive_session = nil
+    end
+
     # Stops all script processes previously started by this class.
     def kill_running_scripts
+      pids << @interactive_session.pid if @interactive_session && @interactive_session.running
       pids.each {|p|
         begin
           Process.kill("KILL", p)
@@ -88,6 +103,7 @@ class Runner
     end
 
     private
+
     def pids
       @pids ||= []
     end

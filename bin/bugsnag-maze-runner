@@ -169,6 +169,8 @@ class MazeRunnerEntry
     when :local then
       raise "option --#{OPTION_OS} must be specified" if options[OPTION_OS].nil?
       raise "option --#{OPTION_OS_VERSION} must be specified" if options[OPTION_OS_VERSION].nil?
+      # Ensure OS version is a valid float so that notifier tests can perform numeric checks, e.g:
+      # 'MazeRunner.config.os_version > 7'
       unless /^[1-9][0-9]*(\.[0-9])?/.match? options[OPTION_OS_VERSION]
         raise "option --#{OPTION_OS_VERSION} must be a valid OS version matching '/^[1-9][0-9]*(\\.[0-9])?/'"
       end

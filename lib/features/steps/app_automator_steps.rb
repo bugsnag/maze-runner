@@ -136,7 +136,7 @@ end
 def get_expected_platform_value(platform_values)
   raise('This step should only be used when running tests with Appium') if MazeRunner.driver.nil?
 
-  os = MazeRunner.config.capabilities['os']
+  os = MazeRunner.configuration.capabilities['os']
   expected_value = Hash[platform_values.raw][os]
   raise("There is no expected value for the current platform \"#{os}\"") if expected_value.nil?
 

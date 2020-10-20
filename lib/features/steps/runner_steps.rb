@@ -62,3 +62,49 @@ When('I wait for {int} second(s)') do |seconds|
   $logger.warn 'Sleep was used! Please avoid using sleep in tests!'
   sleep(seconds)
 end
+
+# Starts an interactive terminal
+When('I start a new terminal') do
+  Runner.stop_interactive_session
+  Runner.get_interactive_session
+end
+
+# Stops currently running interactive terminal
+When('I stop the current terminal') do
+  Runner.stop_interactive_session
+end
+
+# Run a command on the terminal
+#
+# @step_input command [String] The command to run on the terminal
+When('I run {string} on the current terminal') do |command|
+  current_terminal = Runner.get_interactive_session
+  success = current_terminal.run_command(command)
+  assert(success, 'The terminal had already closed')
+end
+
+# Verify a string appears in the stdout logs
+#
+# @step_input expected_line [String] The string present in stdout logs
+Then('the terminal has output {string}') do |expected_line|
+  current_terminal = Runner.get_interactive_session
+  match = current_terminal.parsed_output.any? { |line| line == expected_line }
+  assert(match, "No output lines matched #{expected_line}")
+end
+
+# Verify a string appears in the stderr logs
+#
+# @step_input expected_err [String] The string present in stderr logs
+Then('the terminal has the error message {string}') do |expected_err|
+  current_terminal = Runner.get_interactive_session
+  match = current_terminal.parsed_errors.any? { |line| line == expected_err }
+  assert(match, "No output lines matched #{expected_err}")
+end
+
+# Verify the exit code of the terminal
+#
+# @step_input exit_code [Integer] The expected exit code
+Then('the terminal exit code equals {int}') do |exit_code|
+  current_terminal = Runner.get_interactive_session
+  assert_equal(exit_code, current_terminal.last_exit_code)
+end

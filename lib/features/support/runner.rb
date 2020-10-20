@@ -79,13 +79,17 @@ class Runner
 
     # Stops the interactive session, allowing a new one to be started
     def stop_interactive_session
-      @interactive_session.stop
-      @interactive_session = nil
+      if @interactive_session && @interactive_session.running
+        @interactive_session.stop
+        # Make sure the process is properly ended
+        pids << @interactive_session.pid
+        @interactive_session = nil
+      end
     end
 
     # Stops all script processes previously started by this class.
     def kill_running_scripts
-      pids << @interactive_session.pid if @interactive_session && @interactive_session.running
+      stop_interactive_session
       pids.each {|p|
         begin
           Process.kill("KILL", p)

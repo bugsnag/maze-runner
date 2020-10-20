@@ -222,7 +222,7 @@ configuration should go.</p>
 <p>The driver needs to be started within the <code>AfterConfiguration</code> callback in the <code>features/support/env.rb</code> file, where the arguments indicate the particular test setup:</p>
 
 <pre class="code ruby"><code class="ruby"><span class='const'>AfterConfiguration</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_config'>config</span><span class='op'>|</span>
-  <span class='const'><span class='object_link'><a href="AppAutomateDriver.html" title="AppAutomateDriver (class)">AppAutomateDriver</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="AppAutomateDriver.html#initialize-instance_method" title="AppAutomateDriver#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_bs_username'>bs_username</span><span class='comma'>,</span> <span class='id identifier rubyid_bs_access_key'>bs_access_key</span><span class='comma'>,</span> <span class='id identifier rubyid_bs_local_id'>bs_local_id</span><span class='comma'>,</span> <span class='id identifier rubyid_device_type'>device_type</span><span class='comma'>,</span> <span class='id identifier rubyid_app_location'>app_location</span><span class='rparen'>)</span>
+  <span class='const'>AppAutomateDriver</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_bs_username'>bs_username</span><span class='comma'>,</span> <span class='id identifier rubyid_bs_access_key'>bs_access_key</span><span class='comma'>,</span> <span class='id identifier rubyid_bs_local_id'>bs_local_id</span><span class='comma'>,</span> <span class='id identifier rubyid_device_type'>device_type</span><span class='comma'>,</span> <span class='id identifier rubyid_app_location'>app_location</span><span class='rparen'>)</span>
   <span class='gvar'>$driver</span><span class='period'>.</span><span class='id identifier rubyid_start_driver'>start_driver</span>
 <span class='kw'>end</span>
 </code></pre>
@@ -354,9 +354,9 @@ sample app suites in the test fixtures. Run <code>bundle exec rake</code> to run
 </div></div>
 
       <div id="footer">
-  Generated on Wed Sep 30 11:51:05 2020 by
+  Generated on Tue Oct 20 13:11:05 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.7.1).
+  0.9.25 (ruby-2.7.2).
 </div>
 
     </div>

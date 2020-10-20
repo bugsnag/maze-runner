@@ -2,6 +2,13 @@
 
 ### Upgrading from v2 to v3
 
+#### Published Docker image
+
+The base Docker image has changed from Alpine to Ubuntu in order to resolve logged errors when running the 
+BrowserStackLocal binary.  Any Docker files `FROM` maze-runner will need to be reviewed for anything Alpine-specific.
+
+#### Appium driver
+
 v3 contains breaking changes in order to support testing on locally held devices using Appium, as well as device
 farms other than BrowserStack.
 

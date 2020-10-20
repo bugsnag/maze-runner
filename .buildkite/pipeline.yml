@@ -181,11 +181,12 @@ steps:
         run: docs
     command: 'bundle exec rake docs:build_and_publish'
 
+    # Release images are pushed to their own repository so that they don't get aged off.
   - label: 'Push Docker image for tag'
     if: build.tag =~ /^v[2-9]\.[0-9]+\.[0-9]+\$/
     plugins:
       - docker-compose#v3.3.0:
           push:
-            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BUILDKITE_TAG}-cli
-            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:latest-v3-cli
-            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:latest-cli
+            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:${BUILDKITE_TAG}-cli
+            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-v3-cli
+            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-cli

@@ -1,3 +1,10 @@
+# 3.0.1 - 2020/10/20
+
+## Fixes
+
+- Push released Docker images to their own repository to avoid deletion.
+  [#146](https://github.com/bugsnag/maze-runner/pull/146)
+
 # 3.0.0 - 2020/10/20
 
 ## Enhancements

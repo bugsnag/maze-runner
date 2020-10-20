@@ -83,6 +83,14 @@ When('I run {string} on the current terminal') do |command|
   assert(success, 'The terminal had already closed')
 end
 
+# Get the current buffer values in the terminal
+#
+# @step_input expected_chars [String] The chars present in current buffer
+Then('the terminal is outputting {string}') do |expected_chars|
+  current_terminal = Runner.get_interactive_session
+  assert_equal(expected_chars, current_terminal.current_buffer)
+end
+
 # Verify a string appears in the stdout logs
 #
 # @step_input expected_line [String] The string present in stdout logs

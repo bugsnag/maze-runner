@@ -18,6 +18,7 @@ class InteractiveCLI
   #   @return [Number] The PID of the running terminal
   attr_reader :pid
 
+  attr_reader :current_buffer
   # Creates an InteractiveCLI instance
   #
   # @param environment [Hash] A hash of environment variables
@@ -27,6 +28,7 @@ class InteractiveCLI
     @env = environment
     @parsed_output = []
     @parsed_errors = []
+    @current_buffer = ''
     @last_exit_code = nil
     @running = false
     @stop_command = stop_command
@@ -70,9 +72,16 @@ class InteractiveCLI
         $logger.debug(pid) { 'Starting terminal session' }
 
         @in_stream = stdin
-        stdout.each do |line|
-          @parsed_output << parse_terminal_line(line)
-          $logger.debug(pid) { line }
+        @out_stream = stdout
+
+        stdout.each_char do |char|
+          if char == "\n"
+            @parsed_output << parse_terminal_line(@current_buffer)
+            $logger.debug(pid) { current_buffer }
+            @current_buffer.clear
+          else
+            @current_buffer << char
+          end
         end
 
         stderr.each do |line|

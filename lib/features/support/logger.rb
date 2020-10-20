@@ -57,5 +57,12 @@ class LogUtil
         end
       end
     end
+
+    # Produces a clickable link when logged in Buildkite
+    # @param url [String] Link URL
+    # @param text [String] Link text
+    def linkify(url, text)
+      "\033]1339;url='#{url}';content='#{text}'\a"
+    end
   end
 end

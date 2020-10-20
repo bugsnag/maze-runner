@@ -4,6 +4,9 @@
 
 - BrowserStack specific elements separated from AppAutomateDriver (now simply AppiumDriver),
   providing the ability to use MazeRunner with local devices.
+  [#139](https://github.com/bugsnag/maze-runner/pull/139)
+- Logging improvements when starting Appium driver (including BrowserStack link)
+  [#141](https://github.com/bugsnag/maze-runner/pull/141)
 
 ## Fixes
 

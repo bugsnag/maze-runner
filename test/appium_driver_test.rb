@@ -6,6 +6,7 @@ require_relative '../lib/features/support/appium_driver'
 class AppiumDriverTest < Test::Unit::TestCase
 
   SERVER_URL = 'server_url'
+  UUID_REGEX = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.freeze
 
   def setup
     @capabilities = { key: 'value' }
@@ -24,7 +25,6 @@ class AppiumDriverTest < Test::Unit::TestCase
     logger_mock.expects(:info).with('Appium driver initialized for:').once
     logger_mock.expects(:info).with('    project : local').once
     logger_mock.expects(:info).with(regexp_matches(/^\s{4}build\s{3}:\s\S{36}$/))
-    # logger_mock.expects(:info).with(regexp_matches(/^\s{4}capabilities\s{4}:\s.+$/))
     logger_mock
   end
 
@@ -218,30 +218,28 @@ class AppiumDriverTest < Test::Unit::TestCase
     driver.clear_and_send_keys_to_element('test_text_entry', 'Test_text')
   end
 
-  # TODO Tests will follow in a subsequent PR after properly reassessing the logging
-  # def test_environment_ids
-  #   ENV['BRANCH_NAME'] = 'TEST BRANCH'
-  #   ENV['BUILDKITE'] = 'true'
-  #   ENV['BUILDKITE_PIPELINE_NAME'] = 'TEST'
-  #   ENV['BUILDKITE_BUILD_NUMBER'] = '156'
-  #   ENV['BUILDKITE_RETRY_COUNT'] = '5'
-  #   ENV['BUILDKITE_STEP_KEY'] = 'tests-05'
-  #   logger_mock = mock('logger')
-  #   $logger = logger_mock
-  #   logger_mock.expects(:info).with("app uploaded to: #{TEST_APP_URL}").once
-  #   logger_mock.expects(:info).with('You can use this url to avoid uploading the same app more than once.').once
-  #   logger_mock.expects(:info).with('Appium driver initialised for:').once
-  #   logger_mock.expects(:info).with('    project : TEST').once
-  #   logger_mock.expects(:info).with('    build   : 156 TEST BRANCH')
-  #   logger_mock.expects(:info).with("    name    : #{TARGET_DEVICE} tests-05 5")
-  #
-  #   driver = AppiumDriver.new SERVER_URL, @capabilities
-  #
-  #   assert_equal('TEST', driver.caps[:project])
-  #   assert_equal('156 TEST BRANCH', driver.caps[:build])
-  #   assert_equal("#{TARGET_DEVICE} tests-05 5", driver.caps[:name])
-  # end
+  def test_project_name_capabilities_local
+    # BUILDKITE environment variable is cleared in setup
+    start_logger_mock
+    driver = AppiumDriver.new SERVER_URL, @capabilities, :accessibility_id
+    hash = driver.project_name_capabilities
 
-  # TODO Test project_name_capabilities
+    assert_equal 'local', hash[:project]
+    assert_match UUID_REGEX, hash[:build]
+  end
+
+  def test_project_name_capabilities_browser_stack
+    start_logger_mock
+
+    pipeline = 'Android Bugsnag Notifier'
+    driver = AppiumDriver.new SERVER_URL, @capabilities, :accessibility_id
+
+    ENV['BUILDKITE'] = 'true'
+    ENV['BUILDKITE_PIPELINE_NAME'] = pipeline
+    hash = driver.project_name_capabilities
+
+    assert_equal pipeline, hash[:project]
+    assert_match UUID_REGEX, hash[:build]
+  end
 end
 

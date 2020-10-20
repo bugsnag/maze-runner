@@ -13,7 +13,7 @@ class BrowserStackUtils
       #   - what if app_location doesn't exist locally
       if app_location.start_with? 'bs://'
         app_url = app_location
-        $logger.info "Skipping upload for pre-uploaded app #{app_location}"
+        $logger.info "Using pre-uploaded app from #{app_location}"
       else
         url = 'https://api-cloud.browserstack.com/app-automate/upload'
         res = `curl -u "#{username}:#{access_key}" -X POST "#{url}" -F "file=@#{app_location}"`

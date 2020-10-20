@@ -7,6 +7,17 @@
 The base Docker image has changed from Alpine to Ubuntu in order to resolve logged errors when running the 
 BrowserStackLocal binary.  Any Docker files `FROM` maze-runner will need to be reviewed for anything Alpine-specific.
 
+Also, released images are now pushed to their own ECR repository, maze-runner-releases.
+
+So instead of:
+```
+FROM 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:latest-v2-cli
+```
+You will need:
+```
+FROM 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-v3-cli
+```
+
 #### Appium driver
 
 v3 contains breaking changes in order to support testing on locally held devices using Appium, as well as device

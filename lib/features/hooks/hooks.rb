@@ -59,7 +59,9 @@ end
 # Before each scenario
 Before do |scenario|
   STDOUT.puts "--- Scenario: #{scenario.name}"
-  Runner.environment.clear
+  # TODO: PLAT-5309 - Building a clear environment for each scenario into MazeRunner would be a good
+  #   thing, but a number of our pipelines rely on certain variables existing throughout (e.g. Ruby).
+  # Runner.environment.clear
   Server.stored_requests.clear
   Store.values.clear
 

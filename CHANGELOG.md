@@ -1,3 +1,10 @@
+# 3.0.2 - 2020/10/21
+
+## Fixes
+
+- Do not clear environment between scenarios (introduced in v2.6.0).
+  [#149](https://github.com/bugsnag/maze-runner/pull/149)
+
 # 3.0.1 - 2020/10/20
 
 ## Fixes
@@ -49,7 +56,7 @@
 
 ## Fixes
 
-- Clear environment as start of scenarios
+- Clear environment at start of scenarios
   [#130](https://github.com/bugsnag/maze-runner/pull/130)
 
 # 2.5.0 - 2020/09/11

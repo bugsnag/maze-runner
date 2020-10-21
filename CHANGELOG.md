@@ -1,3 +1,10 @@
+# 2.7.1 - 2020/10/21
+
+## Fixes
+
+- Push released Docker images to separate repository to avoid loss
+  [#149](https://github.com/bugsnag/maze-runner/pull/149)
+
 # 2.7.0 - 2020/09/30
 
 ## Enhancements

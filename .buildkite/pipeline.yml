@@ -129,40 +129,10 @@ steps:
 
   - wait
 
-  - label: 'Trigger Android build against new master'
-    branches: 'master'
-    trigger: 'android-bugsnag-notifier'
-    build:
-      branch: 'maze-runner-master'
-    async: true
-
-  - label: 'Trigger Cocoa build against new master'
-    branches: 'master'
-    trigger: 'cocoa-bugsnag-notifier'
-    build:
-      branch: 'maze-runner-master'
-    async: true
-
-  - label: 'Trigger JS build against new master'
-    branches: 'master'
-    trigger: 'at-bugsnag-js'
-    build:
-      branch: 'maze-runner-master'
-    async: true
-
-  - label: 'Update docs'
-    if: build.tag =~ /^v[2-9]\.[0-9]+\.[0-9]+\$/
-    plugins:
-      docker-compose#v3.3.0:
-        run: docs
-    command: 'bundle exec rake docs:build_and_publish'
-
   - label: 'Push Docker image for tag'
     if: build.tag =~ /^v[2-9]\.[0-9]+\.[0-9]+\$/
     plugins:
       - docker-compose#v3.3.0:
           push:
-            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BUILDKITE_TAG}-cli
-            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:latest-v2-cli
-            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:latest-cli
-
+            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:${BUILDKITE_TAG}-cli
+            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-v2-cli

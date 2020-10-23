@@ -77,7 +77,7 @@ end
 # Run a command on the terminal
 #
 # @step_input command [String] The command to run on the terminal
-When('I run {string} on the current terminal') do |command|
+When('I input {string} interactively') do |command|
   current_terminal = Runner.get_interactive_session
   success = current_terminal.run_command(command)
   assert(success, 'The terminal had already closed')
@@ -115,4 +115,12 @@ end
 Then('the terminal exit code equals {int}') do |exit_code|
   current_terminal = Runner.get_interactive_session
   assert_equal(exit_code, current_terminal.last_exit_code)
+end
+
+# Assert that the terminal exited with an error code
+#
+# @step_input exit_code [Integer] The expected exit code
+Then('the terminal exited with an error code') do
+  current_terminal = Runner.get_interactive_session
+  assert(current_terminal.last_exit_code != 0, "Terminal exited with code 0")
 end

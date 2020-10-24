@@ -8,7 +8,7 @@ AfterConfiguration do |config|
 
   # Start mock server
   Server.start_server
-  config = MazeRunner.configuration
+  config = MazeRunner.config
   next if config.farm == :none
 
   # Setup Appium capabilities.  Note that the 'app' capability is
@@ -17,7 +17,7 @@ AfterConfiguration do |config|
   # BrowserStack specific setup
   if config.farm == :bs
     tunnel_id = SecureRandom.uuid
-    config.capabilities = Capabilities.for_browser_stack config.device_type,
+    config.capabilities = Capabilities.for_browser_stack config.bs_device,
                                                          tunnel_id
 
     config.app_location = BrowserStackUtils.upload_app config.username,
@@ -27,7 +27,7 @@ AfterConfiguration do |config|
                                          tunnel_id,
                                          config.access_key
   elsif config.farm == :local
-    config.capabilities = Capabilities.for_local config.device_type,
+    config.capabilities = Capabilities.for_local config.os,
                                                  config.apple_team_id,
                                                  config.device_id
   end
@@ -44,16 +44,6 @@ AfterConfiguration do |config|
     $logger.info LogUtil.linkify url, 'BrowserStack session(s)'
   end
   MazeRunner.driver.start_driver unless config.appium_session_isolation
-
-  # TODO: We need to get hold of OS version (or API level) of the actual device that is used.  We used to take this from
-  #   the DEVICE_TYPE provided, but with local device use you can just ask for "iOS" and it will use whatever you have
-  #   plugged in.
-  #   One of these seems to only work on BrowserStack and the other only locally - further investigation needed.
-  # puts "Actual driver capabilities #{MazeRunner.driver.capabilities}"
-  # puts 'Device info:'
-  # puts JSON.pretty_generate MazeRunner.driver.device_info
-  # puts 'Session capabilities:'
-  # puts JSON.pretty_generate MazeRunner.driver.session_capabilities
 end
 
 # Before each scenario
@@ -65,9 +55,9 @@ Before do |scenario|
   Server.stored_requests.clear
   Store.values.clear
 
-  next if MazeRunner.configuration.farm == :none
+  next if MazeRunner.config.farm == :none
 
-  MazeRunner.driver.start_driver if MazeRunner.configuration.appium_session_isolation
+  MazeRunner.driver.start_driver if MazeRunner.config.appium_session_isolation
 end
 
 # After each scenario
@@ -99,9 +89,9 @@ After do |scenario|
     end
   end
 
-  next if MazeRunner.configuration.farm == :none
+  next if MazeRunner.config.farm == :none
 
-  if MazeRunner.configuration.appium_session_isolation
+  if MazeRunner.config.appium_session_isolation
     MazeRunner.driver.driver_quit
   else
     MazeRunner.driver.reset_with_timeout 2
@@ -118,9 +108,9 @@ at_exit do
   # future test runs are from a clean slate.
   Docker.down_all_services
 
-  next if MazeRunner.configuration.farm == :none
+  next if MazeRunner.config.farm == :none
 
   # Stop the Appium session
-  MazeRunner.driver.driver_quit unless MazeRunner.configuration.appium_session_isolation
+  MazeRunner.driver.driver_quit unless MazeRunner.config.appium_session_isolation
 end
 

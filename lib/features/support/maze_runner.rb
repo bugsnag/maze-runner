@@ -7,8 +7,8 @@ require_relative './configuration'
 class MazeRunner
   class << self
     attr_accessor :driver
-    def configuration
-      @configuration ||= Configuration.new
+    def config
+      @config ||= Configuration.new
     end
   end
 end

@@ -23,8 +23,11 @@ class Configuration
   # Apple Team Id
   attr_accessor :apple_team_id
 
-  # Device type
-  attr_accessor :device_type
+  # BrowserStack device type
+  attr_accessor :bs_device
+
+  # OS version
+  attr_accessor :os_version
 
   # Device id for running on local iOS devices
   attr_accessor :device_id

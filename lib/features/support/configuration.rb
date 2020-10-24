@@ -26,6 +26,9 @@ class Configuration
   # BrowserStack device type
   attr_accessor :bs_device
 
+  # OS
+  attr_accessor :os
+
   # OS version
   attr_accessor :os_version
 

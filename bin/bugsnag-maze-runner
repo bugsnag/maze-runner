@@ -21,6 +21,7 @@ class MazeRunnerEntry
   OPTION_USERNAME = 'username'
   OPTION_ACCESS_KEY = 'access-key'
   OPTION_APPIUM_SERVER = 'appium-server'
+  OPTION_A11Y_LOCATOR = 'a11y-locator'
   OPTION_APPLE_TEAM_ID = 'apple-team-id'
   OPTION_UDID = 'udid'
 
@@ -69,6 +70,11 @@ class MazeRunnerEntry
           short: :none,
           type: :string,
           default: 'http://localhost:4723/wd/hub'
+      opt OPTION_A11Y_LOCATOR,
+          'Locate elements by accessibility id rather than id',
+          short: :none,
+          type: :boolean,
+          default: false
 
       version "Maze Runner v#{BugsnagMazeRunner::VERSION} " \
               "(Cucumber v#{Cucumber::VERSION.strip})"
@@ -99,6 +105,7 @@ class MazeRunnerEntry
       OPTION_USERNAME,
       OPTION_ACCESS_KEY,
       OPTION_APPIUM_SERVER,
+      OPTION_A11Y_LOCATOR,
       OPTION_UDID,
       OPTION_APPLE_TEAM_ID
     ]
@@ -149,6 +156,7 @@ class MazeRunnerEntry
                   else
                     raise "Unknown farm '#{farm}'"
                   end
+    config.locator = options[OPTION_A11Y_LOCATOR] ? :accessibility_id : :id
 
     # Farm specific options
     case config.farm

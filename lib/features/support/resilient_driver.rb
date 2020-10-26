@@ -11,9 +11,11 @@ class ResilientAppiumDriver
   #
   # @param server_url [String] URL of the Appium server
   # @param capabilities [Hash] a hash of capabilities to be used in this test run
-  def initialize(server_url, capabilities)
+  # @param locator [Symbol] the primary locator strategy Appium should use to find elements
+  def initialize(server_url, capabilities, locator = :id)
     @driver = AppiumDriver.new server_url,
-                               capabilities
+                               capabilities,
+                               locator
   end
 
   def respond_to_missing?(method_name, include_private = false)

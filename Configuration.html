@@ -253,6 +253,32 @@
       <li class="public ">
   <span class="summary_signature">
     
+      <a href="#bs_device-instance_method" title="#bs_device (instance method)">#<strong>bs_device</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>BrowserStack device type.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#bs_local-instance_method" title="#bs_local (instance method)">#<strong>bs_local</strong>  &#x21d2; Object </a>
     
 
@@ -331,32 +357,6 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#device_type-instance_method" title="#device_type (instance method)">#<strong>device_type</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-    
-    
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>Device type.</p>
-</div></span>
-  
-</li>
-
-    
-      <li class="public ">
-  <span class="summary_signature">
-    
       <a href="#farm-instance_method" title="#farm (instance method)">#<strong>farm</strong>  &#x21d2; Object </a>
     
 
@@ -375,6 +375,58 @@
 
   
     <span class="summary_desc"><div class='inline'><p>Device farm to be used, one of: :bs (BrowserStack) :local (Using Appium Server with a local device) :none (Cucumber-driven testing with no devices).</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#os-instance_method" title="#os (instance method)">#<strong>os</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>OS.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#os_version-instance_method" title="#os_version (instance method)">#<strong>os_version</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>OS version.</p>
 </div></span>
   
 </li>
@@ -484,12 +536,12 @@
       <pre class="lines">
 
 
-39
-40
-41</pre>
+45
+46
+47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/configuration.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/configuration.rb', line 45</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_app_location'>app_location</span>
   <span class='ivar'>@app_location</span>
@@ -526,12 +578,12 @@
       <pre class="lines">
 
 
-33
-34
-35</pre>
+39
+40
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/configuration.rb', line 33</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/configuration.rb', line 39</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_appium_server_url'>appium_server_url</span>
   <span class='ivar'>@appium_server_url</span>
@@ -626,6 +678,48 @@
 </div>
     
       
+      <span id="bs_device=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="bs_device-instance_method">
+  
+    #<strong>bs_device</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>BrowserStack device type</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+27
+28
+29</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/features/support/configuration.rb', line 27</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bs_device'>bs_device</span>
+  <span class='ivar'>@bs_device</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
       <span id="bs_local=-instance_method"></span>
       <div class="method_details ">
   <h3 class="signature " id="bs_local-instance_method">
@@ -694,12 +788,12 @@
       <pre class="lines">
 
 
-36
-37
-38</pre>
+42
+43
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/configuration.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/configuration.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_capabilities'>capabilities</span>
   <span class='ivar'>@capabilities</span>
@@ -736,57 +830,15 @@
       <pre class="lines">
 
 
-30
-31
-32</pre>
+36
+37
+38</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/configuration.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/configuration.rb', line 36</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_device_id'>device_id</span>
   <span class='ivar'>@device_id</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      
-      <span id="device_type=-instance_method"></span>
-      <div class="method_details ">
-  <h3 class="signature " id="device_type-instance_method">
-  
-    #<strong>device_type</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>Device type</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-27
-28
-29</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/configuration.rb', line 27</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_device_type'>device_type</span>
-  <span class='ivar'>@device_type</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -832,6 +884,90 @@
 
 <span class='kw'>def</span> <span class='id identifier rubyid_farm'>farm</span>
   <span class='ivar'>@farm</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="os=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="os-instance_method">
+  
+    #<strong>os</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>OS</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+30
+31
+32</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/features/support/configuration.rb', line 30</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_os'>os</span>
+  <span class='ivar'>@os</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="os_version=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="os_version-instance_method">
+  
+    #<strong>os_version</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>OS version</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+33
+34
+35</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/features/support/configuration.rb', line 33</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_os_version'>os_version</span>
+  <span class='ivar'>@os_version</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -886,7 +1022,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Oct 21 12:00:00 2020 by
+  Generated on Mon Oct 26 11:38:33 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.7.2).
 </div>

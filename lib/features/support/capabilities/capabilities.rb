@@ -16,6 +16,7 @@ class Capabilities
       }
       capabilities.merge! Devices::DEVICE_HASH[device_type]
       capabilities['browserstack.appium_version'] = appium_version unless appium_version.nil?
+      capabilities
     end
 
     # Constructs Appium capabilities for running on a local Android or iOS device.

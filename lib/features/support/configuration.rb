@@ -2,14 +2,32 @@
 
 # MazeRunner configuration
 class Configuration
+
+  #
+  # Common configuration
+  #
+
   # Whether each scenario should have its own Appium session
   attr_accessor :appium_session_isolation
+
+  # Element locator strategy, :id or :accessibility_id
+  attr_accessor :locator
+
+  # Appium capabilities
+  attr_accessor :capabilities
+
+  # File path or URL of the app (IPA or APK) that tests will be run against
+  attr_accessor :app_location
 
   # Device farm to be used, one of:
   # :bs (BrowserStack)
   # :local (Using Appium Server with a local device)
   # :none (Cucumber-driven testing with no devices)
   attr_accessor :farm
+
+  #
+  # BrowserStack specific configuration
+  #
 
   # Location of the BrowserStackLocal binary (if used)
   attr_accessor :bs_local
@@ -20,11 +38,18 @@ class Configuration
   # Farm access key
   attr_accessor :access_key
 
-  # Apple Team Id
-  attr_accessor :apple_team_id
-
   # BrowserStack device type
   attr_accessor :bs_device
+
+  # Appium version to use on BrowserStack
+  attr_accessor :appium_version
+
+  #
+  # Local testing specific configuration
+  #
+
+  # Apple Team Id
+  attr_accessor :apple_team_id
 
   # OS
   attr_accessor :os
@@ -37,13 +62,4 @@ class Configuration
 
   # URL of the Appium server
   attr_accessor :appium_server_url
-
-  # Element locator strategy, :id or :accessibility_id
-  attr_accessor :locator
-
-  # Appium capabilities
-  attr_accessor :capabilities
-
-  # File path or URL of the app (IPA or APK) that tests will be run against
-  attr_accessor :app_location
 end

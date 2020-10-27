@@ -123,7 +123,8 @@ class MazeRunnerEntry
       OPTION_APPIUM_SERVER,
       OPTION_A11Y_LOCATOR,
       OPTION_UDID,
-      OPTION_APPLE_TEAM_ID
+      OPTION_APPLE_TEAM_ID,
+      OPTION_BS_APPIUM_VERSION
     ]
     remove.each do |opt|
       @args.reject! { |arg| arg == "--#{opt}" || (arg.start_with? "--#{opt}=") }

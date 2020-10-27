@@ -38,6 +38,9 @@ class Configuration
   # URL of the Appium server
   attr_accessor :appium_server_url
 
+  # Element locator strategy, :id or :accessibility_id
+  attr_accessor :locator
+
   # Appium capabilities
   attr_accessor :capabilities
 

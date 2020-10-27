@@ -1,4 +1,13 @@
+# 3.1.0 - TBD
+
+## Enhancements
+
+- Provide ability to locate elements by accessibility id
+  [#151](https://github.com/bugsnag/maze-runner/pull/151)
+
 # 3.0.3 - 2020/10/26
+
+## Fixes
 
 - Roll in OS version changes from [#145](https://github.com/bugsnag/maze-runner/pull/145) somehow lost by Git/hub
   [#150](https://github.com/bugsnag/maze-runner/pull/150)

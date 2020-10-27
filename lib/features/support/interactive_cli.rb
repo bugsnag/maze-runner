@@ -18,7 +18,10 @@ class InteractiveCLI
   #   @return [Number] The PID of the running terminal
   attr_reader :pid
 
+  # @!attribute [r] current_buffer
+  #   @return [String] A string representation of the current output present in the terminal
   attr_reader :current_buffer
+
   # Creates an InteractiveCLI instance
   #
   # @param environment [Hash] A hash of environment variables
@@ -30,9 +33,11 @@ class InteractiveCLI
     @parsed_errors = []
     @current_buffer = ''
     @last_exit_code = nil
+    @in_stream = nil
+    @pid = nil
     @running = false
     @stop_command = stop_command
-    start_terminal(terminal)
+    start_threaded_terminal(terminal)
   end
 
   # Attempts to stop the terminal using the preset command
@@ -46,7 +51,7 @@ class InteractiveCLI
   #
   # @return [Boolean] Whether the stream is currently running
   def running
-    @in_stream && !@in_stream.closed?
+    !(@in_stream.nil? || @in_stream.closed?)
   end
 
   # Runs the given command if the terminal is running
@@ -65,36 +70,44 @@ class InteractiveCLI
   # Starts a terminal on another thread
   #
   # @param terminal [String] A path to the terminal to run
-  def start_terminal(terminal)
+  def start_threaded_terminal(terminal)
     executor = lambda do
-      Open3.popen3(@env, terminal) do |stdin, stdout, stderr, wait_thr|
-        @pid = wait_thr.pid
-        $logger.debug(pid) { 'Starting terminal session' }
-
-        @in_stream = stdin
-        @out_stream = stdout
-
-        stdout.each_char do |char|
-          if char == "\n"
-            @parsed_output << parse_terminal_line(@current_buffer)
-            $logger.debug(pid) { current_buffer }
-            @current_buffer.clear
-          else
-            @current_buffer << char
-          end
-        end
-
-        stderr.each do |line|
-          @parsed_errors << parse_terminal_line(line)
-          $logger.debug(pid) { line }
-        end
-
-        exit_status = wait_thr.value.to_i
-        @last_exit_code = exit_status
-        $logger.debug(pid) { "exit status: #{exit_status}" }
-      end
+      start_terminal(terminal)
     end
+
     Thread.new &executor
+  end
+
+  # Starts a terminal
+  #
+  # @param terminal [String] A path to the terminal to run
+  def start_terminal(terminal)
+    Open3.popen3(@env, terminal) do |stdin, stdout, stderr, wait_thr|
+      @pid = wait_thr.pid
+      $logger.debug(pid) { 'Starting terminal session' }
+
+      @in_stream = stdin
+      @out_stream = stdout
+
+      stdout.each_char do |char|
+        if char == "\n"
+          @parsed_output << parse_terminal_line(@current_buffer)
+          $logger.debug(pid) { current_buffer }
+          @current_buffer.clear
+        else
+          @current_buffer << char
+        end
+      end
+
+      stderr.each do |line|
+        @parsed_errors << parse_terminal_line(line)
+        $logger.debug(pid) { line }
+      end
+
+      exit_status = wait_thr.value.to_i
+      @last_exit_code = exit_status
+      $logger.debug(pid) { "exit status: #{exit_status}" }
+    end
   end
 
   # Strips whitespace from terminal lines, can be used to sanitize further if required

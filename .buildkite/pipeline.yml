@@ -63,6 +63,11 @@ steps:
       --access-key=$BROWSER_STACK_ACCESS_KEY
     concurrency: 10
     concurrency_group: 'browserstack-app'
+    #
+    # TODO: Remove as soon as possible - working around BrowserStack network problem
+    #
+    soft_fail:
+      - exit_status: "*"
 
   - label: 'Browserstack app-automate test - Android 7.1 (separate Appium sessions)'
     plugins:
@@ -77,6 +82,11 @@ steps:
       --access-key=$BROWSER_STACK_ACCESS_KEY
     concurrency: 10
     concurrency_group: 'browserstack-app'
+    #
+    # TODO: Remove as soon as possible - working around BrowserStack network problem
+    #
+    soft_fail:
+      - exit_status: "*"
 
   - label: 'Browserstack app-automate test - Android 8.1'
     plugins:

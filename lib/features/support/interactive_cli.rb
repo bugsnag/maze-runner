@@ -98,7 +98,7 @@ class InteractiveCLI
       stdout.each_char do |char|
         if char == "\n"
           @stdout_lines << format_line(@current_buffer)
-          $logger.debug(pid) { current_buffer }
+          $logger.debug(pid) { @current_buffer }
           @current_buffer.clear
         else
           @current_buffer << char

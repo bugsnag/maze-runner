@@ -75,16 +75,22 @@ class Runner
     # @return [InteractiveCLI] The interactiveCLI instance
     def get_interactive_session
       @interactive_session ||= InteractiveCLI.new(environment)
+      attempts = 0
+      until @interactive_session.pid
+        raise "Shell session would not start within 3 seconds" if attempts > 10 # allows 3 seconds of opening
+        attempts += 1
+        sleep(0.3)
+      end
+      @interactive_cli
     end
 
     # Stops the interactive session, allowing a new one to be started
     def stop_interactive_session
-      if @interactive_session && @interactive_session.running
-        @interactive_session.stop
-        # Make sure the process is properly ended
-        pids << @interactive_session.pid
-        @interactive_session = nil
-      end
+      return unless @interactive_session&.running
+      @interactive_session.stop
+      # Make sure the process is properly ended
+      pids << @interactive_session.pid
+      @interactive_session = nil
     end
 
     # Stops all script processes previously started by this class.

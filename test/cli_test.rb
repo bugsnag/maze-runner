@@ -29,7 +29,6 @@ class InteractiveCLITest < Test::Unit::TestCase
     assert_equal(cli.current_buffer, '')
     assert_false(cli.running)
     assert_false(cli.run_command('foo'))
-    assert_false(cli.stop)
 
     Open3.expects(:popen3).with({}, '/bin/sh')
     cli.send(:start_shell, '/bin/sh')
@@ -57,7 +56,6 @@ class InteractiveCLITest < Test::Unit::TestCase
     assert_equal(cli.current_buffer, '')
     assert_false(cli.running)
     assert_false(cli.run_command('foo'))
-    assert_false(cli.stop)
 
     Open3.expects(:popen3).with(environment, new_shell_cmd)
     # Bypass the `private` modifier to call the start shell method directly

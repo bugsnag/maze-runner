@@ -46,10 +46,9 @@ class InteractiveCLI
   end
 
   # Attempts to stop the shell using the preset command
-  #
-  # @return [Boolean] true if the command is executed, false otherwise
   def stop
     run_command(@stop_command)
+    @thread&.join(5)
   end
 
   # Returns whether the shell is running by verifying the in_stream exists and is open
@@ -79,7 +78,6 @@ class InteractiveCLI
     executor = lambda do
       start_shell(shell)
     end
-
     @thread = Thread.new &executor
   end
 

@@ -4,6 +4,8 @@
 
 - Provide ability to locate elements by accessibility id
   [#151](https://github.com/bugsnag/maze-runner/pull/151)
+- Add command line option to set Appium version
+  [#152](https://github.com/bugsnag/maze-runner/pull/152)
 
 # 3.0.3 - 2020/10/26
 

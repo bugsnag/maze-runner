@@ -11,17 +11,23 @@ require_relative '../lib/version'
 #
 # TODO: Factor out CL options/processing to reduce overall size
 class MazeRunnerEntry
+  # Common options
   OPTION_SEPARATE_SESSIONS = 'separate-sessions'
-  OPTION_APP = 'app'
-  OPTION_BS_LOCAL = 'bs-local'
   OPTION_FARM = 'farm'
+  OPTION_APP = 'app'
+  OPTION_A11Y_LOCATOR = 'a11y-locator'
+
+  # BrowserStack-only options
+  OPTION_BS_LOCAL = 'bs-local'
   OPTION_BS_DEVICE = 'device'
-  OPTION_OS = 'os'
-  OPTION_OS_VERSION = 'os-version'
   OPTION_USERNAME = 'username'
   OPTION_ACCESS_KEY = 'access-key'
+  OPTION_BS_APPIUM_VERSION = 'appium-version'
+
+  # Local-only options
+  OPTION_OS = 'os'
+  OPTION_OS_VERSION = 'os-version'
   OPTION_APPIUM_SERVER = 'appium-server'
-  OPTION_A11Y_LOCATOR = 'a11y-locator'
   OPTION_APPLE_TEAM_ID = 'apple-team-id'
   OPTION_UDID = 'udid'
 
@@ -37,22 +43,39 @@ class MazeRunnerEntry
       opt :init, 'Initialises a new Maze Runner project'
 
       opt :version, 'Display Maze Runner and Cucumber versions'
+
+      # Common options
       opt OPTION_SEPARATE_SESSIONS,
           'Start a new Appium session for each scenario',
           short: :none,
           type: :boolean,
           default: false
+      opt OPTION_FARM, 'Device farm to use: "bs" (BrowserStack) or "local"', short: :none, type: :string
       opt OPTION_APP, 'The app to be installed and run against', short: :none, type: :string
+      opt OPTION_A11Y_LOCATOR,
+          'Locate elements by accessibility id rather than id',
+          short: :none,
+          type: :boolean,
+          default: false
+
+      # BrowserStack-only options
       opt OPTION_BS_LOCAL,
           '(BS only) Path to the BrowserStackLocal binary',
           short: :none,
           type: :string,
           default: '/BrowserStackLocal'
-      opt OPTION_FARM, 'Device farm to use: "bs" (BrowserStack) or "local"', short: :none, type: :string
       opt OPTION_BS_DEVICE,
           'BrowserStack device to use (a key of Devices.DEVICE_HASH)',
           short: :none,
           type: :string
+      opt OPTION_USERNAME, 'Device farm username', short: :none, type: :string
+      opt OPTION_ACCESS_KEY, 'Device farm access key', short: :none, type: :string
+      opt OPTION_BS_APPIUM_VERSION,
+          'The Appium version to use with BrowserStack',
+          short: :none,
+          type: :string
+
+      # Local-only options
       opt OPTION_OS,
           'OS type to use ("ios", "android")',
           short: :none,
@@ -61,20 +84,13 @@ class MazeRunnerEntry
           'The intended OS version when running on a local device',
           short: :none,
           type: :string
-      opt OPTION_APPLE_TEAM_ID, 'Apple Team Id, required for local iOS testing', short: :none, type: :string
-      opt OPTION_UDID, 'Apple UDID, required for local iOS testing', short: :none, type: :string
-      opt OPTION_USERNAME, 'Device farm username', short: :none, type: :string
-      opt OPTION_ACCESS_KEY, 'Device farm access key', short: :none, type: :string
       opt OPTION_APPIUM_SERVER,
           'Appium server URL, only used for --farm=local',
           short: :none,
           type: :string,
           default: 'http://localhost:4723/wd/hub'
-      opt OPTION_A11Y_LOCATOR,
-          'Locate elements by accessibility id rather than id',
-          short: :none,
-          type: :boolean,
-          default: false
+      opt OPTION_APPLE_TEAM_ID, 'Apple Team Id, required for local iOS testing', short: :none, type: :string
+      opt OPTION_UDID, 'Apple UDID, required for local iOS testing', short: :none, type: :string
 
       version "Maze Runner v#{BugsnagMazeRunner::VERSION} " \
               "(Cucumber v#{Cucumber::VERSION.strip})"
@@ -107,7 +123,8 @@ class MazeRunnerEntry
       OPTION_APPIUM_SERVER,
       OPTION_A11Y_LOCATOR,
       OPTION_UDID,
-      OPTION_APPLE_TEAM_ID
+      OPTION_APPLE_TEAM_ID,
+      OPTION_BS_APPIUM_VERSION
     ]
     remove.each do |opt|
       @args.reject! { |arg| arg == "--#{opt}" || (arg.start_with? "--#{opt}=") }
@@ -173,6 +190,7 @@ class MazeRunnerEntry
       config.bs_device = bs_device
       config.os_version = Devices::DEVICE_HASH[config.bs_device]['os_version'].to_f
       config.bs_local = options[OPTION_BS_LOCAL]
+      config.appium_version = options[OPTION_BS_APPIUM_VERSION]
       username = config.username = options[OPTION_USERNAME]
       access_key = config.access_key = options[OPTION_ACCESS_KEY]
       config.appium_server_url = "http://#{username}:#{access_key}@hub-cloud.browserstack.com/wd/hub"

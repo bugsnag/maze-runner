@@ -18,7 +18,8 @@ AfterConfiguration do |config|
   if config.farm == :bs
     tunnel_id = SecureRandom.uuid
     config.capabilities = Capabilities.for_browser_stack config.bs_device,
-                                                         tunnel_id
+                                                         tunnel_id,
+                                                         config.appium_version
 
     config.app_location = BrowserStackUtils.upload_app config.username,
                                                        config.access_key,

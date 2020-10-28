@@ -7,7 +7,7 @@ class Capabilities
   class << self
     # @param device_type [String] A key from @see Devices::DEVICE_HASH
     # @param local_id [String] unique key for the tunnel instance
-    def for_browser_stack(device_type, local_id)
+    def for_browser_stack(device_type, local_id, appium_version)
       capabilities = {
         'browserstack.console' => 'errors',
         'browserstack.localIdentifier' => local_id,
@@ -15,6 +15,8 @@ class Capabilities
         'browserstack.networkLogs' => 'true'
       }
       capabilities.merge! Devices::DEVICE_HASH[device_type]
+      capabilities['browserstack.appium_version'] = appium_version unless appium_version.nil?
+      capabilities
     end
 
     # Constructs Appium capabilities for running on a local Android or iOS device.

@@ -81,7 +81,7 @@ class Runner
         attempts += 1
         sleep(0.3)
       end
-      @interactive_cli
+      @interactive_session
     end
 
     # Stops the interactive session, allowing a new one to be started

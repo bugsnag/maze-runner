@@ -9,5 +9,5 @@ const rl = readline.createInterface({
 })
 
 rl.question("Input anything to error ", function(repeater) {
-    throw("Oh no it's all gone wrong")
+    throw new Error("Oh no it's all gone wrong")
 })

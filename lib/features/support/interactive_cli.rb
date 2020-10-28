@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'open3'
 
 # Encapsulates a shell session, retaining state and input streams for interactive tests

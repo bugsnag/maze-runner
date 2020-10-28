@@ -27,6 +27,10 @@ class SampleTest < Test::Unit::TestCase
     run_scenario("test/fixtures/comparison")
   end
 
+  def test_interactive_cli
+    run_scenario("test/fixtures/cli")
+  end
+
   def test_init_command
     fixture_dir = "test/fixtures/init-test"
     FileUtils.rm_rf fixture_dir

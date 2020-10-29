@@ -5,6 +5,11 @@
 - Provide ability to locate elements by accessibility id
   [#151](https://github.com/bugsnag/maze-runner/pull/151)
 
+## Fixes
+
+- Explicitly set Appium version for use with BrowserStack devices.
+  [#154](https://github.com/bugsnag/maze-runner/pull/154)
+
 # 3.0.3 - 2020/10/26
 
 ## Fixes

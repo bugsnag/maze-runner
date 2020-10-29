@@ -1,3 +1,10 @@
+# 2.7.2 - TBD
+
+## Fixes
+
+- Explicitly set Appium version for use with BrowserStack devices.
+  [#153](https://github.com/bugsnag/maze-runner/pull/153)
+
 # 2.7.1 - 2020/10/21
 
 ## Fixes

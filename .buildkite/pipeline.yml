@@ -127,6 +127,7 @@ steps:
       --device=ANDROID_10_0
       --username=$BROWSER_STACK_USERNAME
       --access-key=$BROWSER_STACK_ACCESS_KEY
+      --appium-version=1.17.0
     concurrency: 10
     concurrency_group: 'browserstack-app'
 
@@ -141,6 +142,7 @@ steps:
       --device=ANDROID_11_0
       --username=$BROWSER_STACK_USERNAME
       --access-key=$BROWSER_STACK_ACCESS_KEY
+      --appium-version=1.17.0
     concurrency: 10
     concurrency_group: 'browserstack-app'
 

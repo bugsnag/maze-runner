@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'runner'
 
 # Responsible for running docker containers in the local environment
@@ -36,7 +38,7 @@ class Docker
       # as it is still in use, that is ok to ignore so we pass success codes!
       # We set timeout to 0 so this kills the services rather than stopping them
       # as its quicker and they are stateless anyway.
-      run_docker_compose_command("down -t 0", success_codes: [0,256]) if compose_stack_exists?
+      run_docker_compose_command('down -t 0', success_codes: [0,256]) if compose_stack_exists?
     end
 
     def compose_project_name
@@ -48,8 +50,9 @@ class Docker
     end
 
     private
-    def run_docker_compose_command(command, compose_file:COMPOSE_FILENAME, success_codes:nil)
-      project_name = compose_project_name.nil? ? "" : "-p #{compose_project_name}"
+
+    def run_docker_compose_command(command, compose_file: COMPOSE_FILENAME, success_codes: nil)
+      project_name = compose_project_name.nil? ? '' : "-p #{compose_project_name}"
       command = "docker-compose #{project_name} -f #{compose_file} #{command}"
       Runner.run_command(command, success_codes: success_codes)
     end

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative './devices'
-
 # Appium capabilities for each target farm
 class Capabilities
   class << self

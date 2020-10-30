@@ -60,7 +60,8 @@ end
 # @step_input service [String] The name of the service to run
 # @step_input command [String] The command to run inside the service (as a Gherkin multi-line string)
 When('I run the service {string} with the command') do |service, command|
-  Docker.start_service(service, command: command)
+  one_line_cmd = command.gsub("\n", ' ').gsub(/ +/, ' ')
+  Docker.start_service(service, command: one_line_cmd)
 end
 
 # Waits for a number of seconds, performing no actions.

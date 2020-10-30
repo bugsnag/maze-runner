@@ -7,6 +7,11 @@
 - Add command line option to set Appium version
   [#152](https://github.com/bugsnag/maze-runner/pull/152)
 
+## Fixes
+
+- Explicitly set Appium version for use with BrowserStack devices.
+  [#154](https://github.com/bugsnag/maze-runner/pull/154)
+
 # 3.0.3 - 2020/10/26
 
 ## Fixes

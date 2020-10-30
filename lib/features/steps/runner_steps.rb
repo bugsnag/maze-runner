@@ -55,6 +55,14 @@ When('I run the service {string} with the command {string}') do |service, comman
   Docker.start_service(service, command: command)
 end
 
+# Runs a docker-compose service using a specific command provided as a Gherkin multi-line string.
+#
+# @step_input service [String] The name of the service to run
+# @step_input command [String] The command to run inside the service (as a Gherkin multi-line string)
+When('I run the service {string} with the command') do |service, command|
+  Docker.start_service(service, command: command)
+end
+
 # Waits for a number of seconds, performing no actions.
 #
 # @step_input seconds [Integer] The number of seconds to sleep for

@@ -3,9 +3,9 @@
 # Provides a source of capabilities used to run tests against specific BrowserStack devices
 # noinspection RubyStringKeysInHashInspection
 class Devices
-  APPIUM_1_6_5 = '1.6.5'
-  APPIUM_1_7_2 = '1.7.2'
-  APPIUM_1_8_0 = '1.8.0'
+  APPIUM_1_6_5 ||= '1.6.5'
+  APPIUM_1_7_2 ||= '1.7.2'
+  APPIUM_1_8_0 ||= '1.8.0'
 
   class << self
 

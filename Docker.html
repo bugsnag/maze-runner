@@ -291,12 +291,12 @@
       <pre class="lines">
 
 
-42
-43
-44</pre>
+44
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/docker.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/docker.rb', line 44</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_compose_project_name'>compose_project_name</span>
   <span class='ivar'>@compose_project_name</span> <span class='op'>||=</span> <span class='kw'>nil</span>
@@ -321,12 +321,12 @@
       <pre class="lines">
 
 
-46
-47
-48</pre>
+48
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/docker.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/docker.rb', line 48</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_compose_project_name='>compose_project_name=</span><span class='lparen'>(</span><span class='id identifier rubyid_project_name'>project_name</span><span class='rparen'>)</span>
   <span class='ivar'>@compose_project_name</span> <span class='op'>=</span> <span class='id identifier rubyid_project_name'>project_name</span>
@@ -361,23 +361,23 @@
       <pre class="lines">
 
 
-34
-35
 36
 37
 38
 39
-40</pre>
+40
+41
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/docker.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/docker.rb', line 36</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_down_all_services'>down_all_services</span>
   <span class='comment'># This will fail to remove the network that maze is connected to
 </span>  <span class='comment'># as it is still in use, that is ok to ignore so we pass success codes!
 </span>  <span class='comment'># We set timeout to 0 so this kills the services rather than stopping them
 </span>  <span class='comment'># as its quicker and they are stateless anyway.
-</span>  <span class='id identifier rubyid_run_docker_compose_command'>run_docker_compose_command</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>down -t 0</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>success_codes:</span> <span class='lbracket'>[</span><span class='int'>0</span><span class='comma'>,</span><span class='int'>256</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_compose_stack_exists?'>compose_stack_exists?</span>
+</span>  <span class='id identifier rubyid_run_docker_compose_command'>run_docker_compose_command</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>down -t 0</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>success_codes:</span> <span class='lbracket'>[</span><span class='int'>0</span><span class='comma'>,</span><span class='int'>256</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_compose_stack_exists?'>compose_stack_exists?</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -428,14 +428,14 @@
       <pre class="lines">
 
 
-27
-28
 29
 30
-31</pre>
+31
+32
+33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/docker.rb', line 27</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/docker.rb', line 29</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_down_service'>down_service</span><span class='lparen'>(</span><span class='id identifier rubyid_service'>service</span><span class='rparen'>)</span>
   <span class='comment'># We set timeout to 0 so this kills the services rather than stopping them
@@ -508,8 +508,6 @@
       <pre class="lines">
 
 
-13
-14
 15
 16
 17
@@ -517,10 +515,12 @@
 19
 20
 21
-22</pre>
+22
+23
+24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/docker.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/docker.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_start_service'>start_service</span><span class='lparen'>(</span><span class='id identifier rubyid_service'>service</span><span class='comma'>,</span> <span class='label'>command:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_command'>command</span>
@@ -542,7 +542,7 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Oct 26 11:38:32 2020 by
+  Generated on Mon Nov  2 10:49:21 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.7.2).
 </div>

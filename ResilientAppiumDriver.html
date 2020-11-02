@@ -134,7 +134,7 @@ particular seemed prone to the underlying Appium connection failing.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(server_url, capabilities)  &#x21d2; ResilientAppiumDriver </a>
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(server_url, capabilities, locator = :id)  &#x21d2; ResilientAppiumDriver </a>
     
 
     
@@ -209,7 +209,7 @@ particular seemed prone to the underlying Appium connection failing.</p>
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
   
-    #<strong>initialize</strong>(server_url, capabilities)  &#x21d2; <tt><span class='object_link'><a href="" title="ResilientAppiumDriver (class)">ResilientAppiumDriver</a></span></tt> 
+    #<strong>initialize</strong>(server_url, capabilities, locator = :id)  &#x21d2; <tt><span class='object_link'><a href="" title="ResilientAppiumDriver (class)">ResilientAppiumDriver</a></span></tt> 
   
 
   
@@ -256,6 +256,23 @@ particular seemed prone to the underlying Appium connection failing.</p>
       
     </li>
   
+    <li>
+      
+        <span class='name'>locator</span>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>:id</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>the primary locator strategy Appium should use to find elements</p>
+</div>
+      
+    </li>
+  
 </ul>
 
 
@@ -265,17 +282,19 @@ particular seemed prone to the underlying Appium connection failing.</p>
       <pre class="lines">
 
 
-14
 15
 16
-17</pre>
+17
+18
+19</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/resilient_driver.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/resilient_driver.rb', line 15</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_server_url'>server_url</span><span class='comma'>,</span> <span class='id identifier rubyid_capabilities'>capabilities</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_server_url'>server_url</span><span class='comma'>,</span> <span class='id identifier rubyid_capabilities'>capabilities</span><span class='comma'>,</span> <span class='id identifier rubyid_locator'>locator</span> <span class='op'>=</span> <span class='symbol'>:id</span><span class='rparen'>)</span>
   <span class='ivar'>@driver</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="AppiumDriver.html" title="AppiumDriver (class)">AppiumDriver</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="AppiumDriver.html#initialize-instance_method" title="AppiumDriver#initialize (method)">new</a></span></span> <span class='id identifier rubyid_server_url'>server_url</span><span class='comma'>,</span>
-                             <span class='id identifier rubyid_capabilities'>capabilities</span>
+                             <span class='id identifier rubyid_capabilities'>capabilities</span><span class='comma'>,</span>
+                             <span class='id identifier rubyid_locator'>locator</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -305,8 +324,6 @@ particular seemed prone to the underlying Appium connection failing.</p>
       <pre class="lines">
 
 
-23
-24
 25
 26
 27
@@ -327,10 +344,12 @@ particular seemed prone to the underlying Appium connection failing.</p>
 42
 43
 44
-45</pre>
+45
+46
+47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/resilient_driver.rb', line 23</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/resilient_driver.rb', line 25</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_method_missing'>method_missing</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='kw'>super</span> <span class='kw'>unless</span> <span class='ivar'>@driver</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='rparen'>)</span>
@@ -404,12 +423,12 @@ particular seemed prone to the underlying Appium connection failing.</p>
       <pre class="lines">
 
 
-19
-20
-21</pre>
+21
+22
+23</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/resilient_driver.rb', line 19</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/resilient_driver.rb', line 21</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_respond_to_missing?'>respond_to_missing?</span><span class='lparen'>(</span><span class='id identifier rubyid_method_name'>method_name</span><span class='comma'>,</span> <span class='id identifier rubyid_include_private'>include_private</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
   <span class='ivar'>@driver</span><span class='period'>.</span><span class='id identifier rubyid_respond_to_missing?'>respond_to_missing?</span> <span class='id identifier rubyid_method_name'>method_name</span>
@@ -424,7 +443,7 @@ particular seemed prone to the underlying Appium connection failing.</p>
 </div>
 
       <div id="footer">
-  Generated on Mon Oct 26 11:38:33 2020 by
+  Generated on Mon Nov  2 10:49:21 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.7.2).
 </div>

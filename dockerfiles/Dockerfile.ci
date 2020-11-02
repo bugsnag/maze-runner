@@ -1,4 +1,4 @@
-FROM ubuntu:20.04 as ci
+FROM ubuntu:20.04 as base
 
 RUN apt-get update && apt-get install -y ruby-full apt-utils docker-compose wget unzip bash bundler \
                                         # Needed by nokogiri (a dependency of appium_lib)
@@ -18,5 +18,9 @@ COPY lib/ lib/
 COPY Gemfile* bugsnag-maze-runner.gemspec ./
 RUN bundle install
 
-FROM ci as cli
+FROM base as cli
 ENTRYPOINT ["bundle", "exec", "maze-runner"]
+
+FROM base as unit-test
+COPY test/ test/
+COPY Rakefile .

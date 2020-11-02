@@ -55,3 +55,9 @@ services:
       context: test/fixtures/http-response
       args:
         BRANCH_NAME:
+
+  unit-test:
+    build:
+      dockerfile: dockerfiles/Dockerfile.ci
+      context: .
+      target: unit-test

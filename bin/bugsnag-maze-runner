@@ -5,6 +5,7 @@ require 'cucumber/cli/main'
 require 'optimist'
 require_relative '../lib/features/support/maze_runner'
 require_relative '../lib/features/support/capabilities/capabilities'
+require_relative '../lib/features/support/capabilities/devices'
 require_relative '../lib/version'
 
 # Encapsulates the MazeRunner entry point

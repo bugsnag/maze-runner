@@ -1,4 +1,4 @@
-# 3.1.0 - TBD
+# 3.1.0 - 2020/11/02
 
 ## Enhancements
 
@@ -6,6 +6,8 @@
   [#151](https://github.com/bugsnag/maze-runner/pull/151)
 - Add command line option to set Appium version
   [#152](https://github.com/bugsnag/maze-runner/pull/152)
+- New steps for running Docker service with multiline commands and checking values are of certain types.
+  [#155](https://github.com/bugsnag/maze-runner/pull/155)
 
 ## Fixes
 

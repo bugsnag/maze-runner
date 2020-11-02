@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'open3'
 
 # Determines the default path to the `scripts` directory.  Can be overwritten in the env.rb file.
-SCRIPT_PATH ||= File.expand_path(File.join(File.dirname(__FILE__), "..", "scripts")) unless defined? SCRIPT_PATH
+SCRIPT_PATH ||= File.expand_path(File.join(File.dirname(__FILE__), '..', 'scripts')) unless defined? SCRIPT_PATH
 
 # Runs scripts and commands, applying relevant environment variables as necessary
 class Runner
@@ -14,27 +16,27 @@ class Runner
     # @param blocking [Boolean] Optional. Whether to wait for a return code before proceeding
     # @param success_codes [Array] Optional. An array of integer codes which indicate the run was successful
     #
-    # @return [Array] If blocking, the output and exit_status are returned
+    # @return [Array, Thread] If blocking, the output and exit_status are returned
     def run_command(cmd, blocking: true, success_codes: [0])
       executor = lambda do
-        $logger.debug(cmd) { 'executing' }
+        $logger.debug "Executing: #{cmd}"
 
-        Open3.popen2e(environment, cmd) do |stdin, stdout_and_stderr, wait_thr|
+        Open3.popen2e(environment, cmd) do |_stdin, stdout_and_stderr, wait_thr|
           # Add the pid to the list of pids to kill at the end
           pids << wait_thr.pid unless blocking
 
           output = []
           stdout_and_stderr.each do |line|
             output << line
-            $logger.debug(cmd) {line}
+            $logger.debug line
           end
 
           exit_status = wait_thr.value.to_i
-          $logger.debug(cmd) { "exit status: #{exit_status}" }
+          $logger.debug "Exit status: #{exit_status}"
 
           # if the command fails we log the output at warn level too
-          if success_codes != nil && !success_codes.include?(exit_status) && $logger.level != Logger::DEBUG
-            output.each {|line| $logger.warn(cmd) {line}}
+          if !success_codes.nil? && !success_codes.include?(exit_status) && $logger.level != Logger::DEBUG
+            output.each { |line| $logger.warn(cmd) { line } }
           end
 
           return [output, exit_status]
@@ -44,7 +46,7 @@ class Runner
       if blocking
         executor.call
       else
-        Thread.new &executor
+        Thread.new(&executor)
       end
     end
 
@@ -66,15 +68,16 @@ class Runner
         # using ruby etc.
         script_path = "cmd /c #{script_path}"
       end
-      return run_command(script_path, blocking: blocking, success_codes: success_codes)
+      run_command(script_path, blocking: blocking, success_codes: success_codes)
     end
 
     # Stops all script processes previously started by this class.
     def kill_running_scripts
-      pids.each {|p|
+      pids.each { |p|
         begin
-          Process.kill("KILL", p)
+          Process.kill('KILL', p)
         rescue Errno::ESRCH
+          # ignored
         end
       }
       pids.clear
@@ -84,10 +87,11 @@ class Runner
     #
     # @return [Hash] The hash of currently set environment variables and their values
     def environment
-      @env ||= {}
+      @environment ||= {}
     end
 
     private
+
     def pids
       @pids ||= []
     end

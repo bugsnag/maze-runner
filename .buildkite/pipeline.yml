@@ -6,16 +6,9 @@ steps:
             - ci
           image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
           cache-from:
-            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:latest-ci
             - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
-
-  - wait
-
-  - label: ':docker: Push CI'
-    plugins:
       - docker-compose#v3.7.0:
           push:
-            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:latest-ci
             - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
 
   - wait
@@ -28,7 +21,10 @@ steps:
             - browserstack-app-automate
             - payload-helper-tests
             - http-response-tests
+            - unit-test
           image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
+          cache-from:
+            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
           build-parallel: true
 
   - wait
@@ -53,7 +49,7 @@ steps:
 
   - label: 'HTTP response tests'
     plugins:
-      docker-compose#v3.3.0:
+      docker-compose#v3.7.0:
         run: http-response-tests
     command: 'bundle exec bugsnag-maze-runner'
 

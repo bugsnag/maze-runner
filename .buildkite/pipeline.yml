@@ -53,7 +53,7 @@ steps:
 
   - label: 'HTTP response tests'
     plugins:
-      docker-compose#v3.3.3:
+      docker-compose#v3.3.0:
         run: http-response-tests
     command: 'bundle exec bugsnag-maze-runner'
 

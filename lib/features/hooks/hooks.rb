@@ -65,6 +65,10 @@ end
 # After each scenario
 After do |scenario|
 
+  # Make sure we reset to HTTP 200 return status after each scenario
+  Server.status_code = 200
+  Server.reset_status_code = false
+
   # This is here to stop sessions from one test hitting another.
   # However this does mean that tests take longer.
   # TODO:SM We could try and fix this by generating unique endpoints

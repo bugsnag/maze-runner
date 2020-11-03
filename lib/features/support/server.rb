@@ -19,6 +19,25 @@ MOCK_API_PORT = 9339
 # Receives and stores requests through a WEBrick HTTPServer
 class Server
   class << self
+    # Allows overwriting of the server status code
+    attr_writer :status_code
+
+    # Dictates if the status code should be reset after used
+    attr_writer :reset_status_code
+
+    # The intended HTTP status code on a successful request
+    #
+    # @return [Integer] The HTTP status code, defaults to 200
+    def status_code
+      code = @status_code ||= 200
+      @status_code = 200 if reset_status_code
+      code
+    end
+
+    def reset_status_code
+      @reset_status_code ||= false
+    end
+
     # Whether the server thread is running
     #
     # @return [Boolean] If the server is running

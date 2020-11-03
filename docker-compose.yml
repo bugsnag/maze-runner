@@ -49,3 +49,9 @@ services:
       context: test/fixtures/payload-helpers
       args:
         BRANCH_NAME:
+
+  http-response-tests:
+    build:
+      context: test/fixtures/http-response
+      args:
+        BRANCH_NAME:

@@ -27,6 +27,7 @@ steps:
             - comparison-tests
             - browserstack-app-automate
             - payload-helper-tests
+            - http-response-tests
           image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
           build-parallel: true
 
@@ -48,6 +49,12 @@ steps:
     plugins:
       docker-compose#v3.3.0:
         run: proxy-tests
+    command: 'bundle exec bugsnag-maze-runner'
+
+  - label: 'HTTP response tests'
+    plugins:
+      docker-compose#v3.3.0:
+        run: http-response-tests
     command: 'bundle exec bugsnag-maze-runner'
 
   - label: 'Browserstack app-automate test - Android 6'

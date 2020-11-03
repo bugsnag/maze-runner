@@ -31,7 +31,7 @@ class Servlet < WEBrick::HTTPServlet::AbstractServlet
                                   request: request }
     end
     response.header['Access-Control-Allow-Origin'] = '*'
-    response.status = 200
+    response.status = Server.status_code
   end
 
   # Logs and returns a set of valid headers for this servlet.
@@ -44,7 +44,7 @@ class Servlet < WEBrick::HTTPServlet::AbstractServlet
     response.header['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
     response.header['Access-Control-Allow-Headers'] =
       'Origin,Content-Type,Bugsnag-Sent-At,Bugsnag-Api-Key,Bugsnag-Payload-Version,Accept'
-    response.status = 200
+    response.status = Server.status_code
   end
 
   private

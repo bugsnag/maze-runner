@@ -19,6 +19,9 @@ class Configuration
   # File path or URL of the app (IPA or APK) that tests will be run against
   attr_accessor :app_location
 
+  # Whether the ResilientAppiumDriver should be used (only applicable when using Appium in the first place)
+  attr_accessor :resilient
+
   # Device farm to be used, one of:
   # :bs (BrowserStack)
   # :local (Using Appium Server with a local device)

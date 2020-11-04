@@ -97,6 +97,7 @@ steps:
         run: browserstack-app-automate
     command: >-
       bundle exec bugsnag-maze-runner
+      --resilient
       --app=app/build/outputs/apk/release/app-release.apk
       --farm=bs
       --device=ANDROID_8_1

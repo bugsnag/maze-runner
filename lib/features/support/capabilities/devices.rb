@@ -6,9 +6,9 @@ class Devices
   APPIUM_1_6_5 ||= '1.6.5'
   APPIUM_1_7_2 ||= '1.7.2'
   APPIUM_1_8_0 ||= '1.8.0'
+  APPIUM_1_15_0 ||= '1.15.0'
 
   class << self
-
     def make_android_hash(device, version, appium_version)
       {
         'device' => device,
@@ -35,7 +35,8 @@ class Devices
         'device' => device,
         'os_version' => version,
         'platformName' => 'iOS',
-        'os' => 'ios'
+        'os' => 'ios',
+        'browserstack.appium_version' => APPIUM_1_15_0
       }.freeze
     end
 

@@ -143,18 +143,10 @@
 
 
 
-
-
-
-  
-    <h2>
-      Class Method Summary
-      <small><a href="#" class="summary_toggle">collapse</a></small>
-    </h2>
-
-    <ul class="summary">
-      
-        <li class="public ">
+  <h2>Class Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
   <span class="summary_signature">
     
       <a href="#compose_project_name-class_method" title="compose_project_name (class method)">.<strong>compose_project_name</strong>  &#x21d2; Object </a>
@@ -165,27 +157,8 @@
   
   
   
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
     
-      <a href="#compose_project_name=-class_method" title="compose_project_name= (class method)">.<strong>compose_project_name=</strong>(project_name)  &#x21d2; Object </a>
     
-
-    
-  </span>
-  
-  
   
   
   
@@ -197,6 +170,19 @@
   
 </li>
 
+    
+  </ul>
+
+
+
+
+  
+    <h2>
+      Class Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
       
         <li class="public ">
   <span class="summary_signature">
@@ -271,11 +257,11 @@
   
 
 
-
-  <div id="class_method_details" class="method_details_list">
-    <h2>Class Method Details</h2>
-
+  <div id="class_attr_details" class="attr_details">
+    <h2>Class Attribute Details</h2>
     
+      
+      <span id="compose_project_name=-class_method"></span>
       <div class="method_details first">
   <h3 class="signature first" id="compose_project_name-class_method">
   
@@ -291,12 +277,12 @@
       <pre class="lines">
 
 
-44
-45
-46</pre>
+47
+48
+49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/docker.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/docker.rb', line 47</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_compose_project_name'>compose_project_name</span>
   <span class='ivar'>@compose_project_name</span> <span class='op'>||=</span> <span class='kw'>nil</span>
@@ -306,38 +292,15 @@
 </table>
 </div>
     
-      <div class="method_details ">
-  <h3 class="signature " id="compose_project_name=-class_method">
-  
-    .<strong>compose_project_name=</strong>(project_name)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
+  </div>
 
 
-48
-49
-50</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/docker.rb', line 48</span>
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_compose_project_name='>compose_project_name=</span><span class='lparen'>(</span><span class='id identifier rubyid_project_name'>project_name</span><span class='rparen'>)</span>
-  <span class='ivar'>@compose_project_name</span> <span class='op'>=</span> <span class='id identifier rubyid_project_name'>project_name</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
     
-      <div class="method_details ">
-  <h3 class="signature " id="down_all_services-class_method">
+      <div class="method_details first">
+  <h3 class="signature first" id="down_all_services-class_method">
   
     .<strong>down_all_services</strong>  &#x21d2; <tt>Object</tt> 
   
@@ -361,23 +324,23 @@
       <pre class="lines">
 
 
-36
-37
-38
 39
 40
 41
-42</pre>
+42
+43
+44
+45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/docker.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/docker.rb', line 39</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_down_all_services'>down_all_services</span>
   <span class='comment'># This will fail to remove the network that maze is connected to
 </span>  <span class='comment'># as it is still in use, that is ok to ignore so we pass success codes!
 </span>  <span class='comment'># We set timeout to 0 so this kills the services rather than stopping them
 </span>  <span class='comment'># as its quicker and they are stateless anyway.
-</span>  <span class='id identifier rubyid_run_docker_compose_command'>run_docker_compose_command</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>down -t 0</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>success_codes:</span> <span class='lbracket'>[</span><span class='int'>0</span><span class='comma'>,</span><span class='int'>256</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_compose_stack_exists?'>compose_stack_exists?</span>
+</span>  <span class='id identifier rubyid_run_docker_compose_command'>run_docker_compose_command</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>down -t 0</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>success_codes:</span> <span class='lbracket'>[</span><span class='int'>0</span><span class='comma'>,</span> <span class='int'>256</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_compose_stack_exists?'>compose_stack_exists?</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -428,14 +391,14 @@
       <pre class="lines">
 
 
-29
-30
-31
 32
-33</pre>
+33
+34
+35
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/docker.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/docker.rb', line 32</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_down_service'>down_service</span><span class='lparen'>(</span><span class='id identifier rubyid_service'>service</span><span class='rparen'>)</span>
   <span class='comment'># We set timeout to 0 so this kills the services rather than stopping them
@@ -458,7 +421,9 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Builds and starts a service, using a command if given.</p>
+    <p>Builds and starts a service, using a command if given.
+If running a command, it will be executed as an attached process, otherwise it
+will run detached.</p>
 
 
   </div>
@@ -508,8 +473,6 @@
       <pre class="lines">
 
 
-15
-16
 17
 18
 19
@@ -517,20 +480,24 @@
 21
 22
 23
-24</pre>
+24
+25
+26
+27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/docker.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/docker.rb', line 17</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_start_service'>start_service</span><span class='lparen'>(</span><span class='id identifier rubyid_service'>service</span><span class='comma'>,</span> <span class='label'>command:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_command'>command</span>
     <span class='comment'># We build the service before running it as there is no --build
 </span>    <span class='comment'># option for run.
 </span>    <span class='id identifier rubyid_run_docker_compose_command'>run_docker_compose_command</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>build </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_service'>service</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_run_docker_compose_command'>run_docker_compose_command</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>run -d --use-aliases </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_service'>service</span><span class='embexpr_end'>}</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_command'>command</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_run_docker_compose_command'>run_docker_compose_command</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>run --use-aliases </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_service'>service</span><span class='embexpr_end'>}</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_command'>command</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='kw'>else</span>
     <span class='id identifier rubyid_run_docker_compose_command'>run_docker_compose_command</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>up -d --build </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_service'>service</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
+    <span class='comment'># TODO: Consider adding a logs command here
+</span>  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -542,7 +509,7 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Nov  2 10:49:21 2020 by
+  Generated on Wed Nov  4 12:51:50 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.7.2).
 </div>

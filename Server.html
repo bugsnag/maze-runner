@@ -117,6 +117,62 @@
 
 
 
+  <h2>Class Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#reset_status_code-class_method" title="reset_status_code (class method)">.<strong>reset_status_code</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#status_code-class_method" title="status_code (class method)">.<strong>status_code</strong>  &#x21d2; Integer </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>The intended HTTP status code on a successful request.</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
 
 
 
@@ -247,6 +303,106 @@
   
 
 
+  <div id="class_attr_details" class="attr_details">
+    <h2>Class Attribute Details</h2>
+    
+      
+      <span id="reset_status_code=-class_method"></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="reset_status_code-class_method">
+  
+    .<strong>reset_status_code</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+37
+38
+39</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/features/support/server.rb', line 37</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_reset_status_code'>reset_status_code</span>
+  <span class='ivar'>@reset_status_code</span> <span class='op'>||=</span> <span class='kw'>false</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="status_code=-class_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="status_code-class_method">
+  
+    .<strong>status_code</strong>  &#x21d2; <tt>Integer</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>The intended HTTP status code on a successful request</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The HTTP status code, defaults to 200</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+31
+32
+33
+34
+35</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/features/support/server.rb', line 31</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_status_code'>status_code</span>
+  <span class='id identifier rubyid_code'>code</span> <span class='op'>=</span> <span class='ivar'>@status_code</span> <span class='op'>||=</span> <span class='int'>200</span>
+  <span class='ivar'>@status_code</span> <span class='op'>=</span> <span class='int'>200</span> <span class='kw'>if</span> <span class='id identifier rubyid_reset_status_code'>reset_status_code</span>
+  <span class='id identifier rubyid_code'>code</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
 
   <div id="class_method_details" class="method_details_list">
     <h2>Class Method Details</h2>
@@ -294,12 +450,12 @@
       <pre class="lines">
 
 
-42
-43
-44</pre>
+61
+62
+63</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/server.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/server.rb', line 61</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_current_request'>current_request</span>
   <span class='id identifier rubyid_stored_requests'>stored_requests</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span>
@@ -351,12 +507,12 @@
       <pre class="lines">
 
 
-25
-26
-27</pre>
+44
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/server.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/server.rb', line 44</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_running?'>running?</span>
   <span class='ivar'>@thread</span><span class='op'>&amp;.</span><span class='id identifier rubyid_alive?'>alive?</span>
@@ -391,25 +547,6 @@
       <pre class="lines">
 
 
-47
-48
-49
-50
-51
-52
-53
-54
-55
-56
-57
-58
-59
-60
-61
-62
-63
-64
-65
 66
 67
 68
@@ -421,10 +558,29 @@
 74
 75
 76
-77</pre>
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/server.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/server.rb', line 66</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_start_server'>start_server</span>
   <span class='id identifier rubyid_attempts'>attempts</span> <span class='op'>=</span> <span class='int'>0</span>
@@ -487,13 +643,13 @@
       <pre class="lines">
 
 
-80
-81
-82
-83</pre>
+99
+100
+101
+102</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/server.rb', line 80</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/server.rb', line 99</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stop_server'>stop_server</span>
   <span class='ivar'>@thread</span><span class='op'>&amp;.</span><span class='id identifier rubyid_kill'>kill</span> <span class='kw'>if</span> <span class='ivar'>@thread</span><span class='op'>&amp;.</span><span class='id identifier rubyid_alive?'>alive?</span>
@@ -549,12 +705,12 @@ Each request is hash consisting of:
       <pre class="lines">
 
 
-35
-36
-37</pre>
+54
+55
+56</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/server.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/server.rb', line 54</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stored_requests'>stored_requests</span>
   <span class='ivar'>@stored_requests</span> <span class='op'>||=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -569,7 +725,7 @@ Each request is hash consisting of:
 </div>
 
       <div id="footer">
-  Generated on Mon Nov  2 10:49:21 2020 by
+  Generated on Wed Nov  4 12:51:50 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.7.2).
 </div>

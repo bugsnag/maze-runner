@@ -1,3 +1,10 @@
+# TBD
+
+## Enhancements
+
+- Add assertions to verify Bugsnag-Integrity header is correct
+  [#159](https://github.com/bugsnag/maze-runner/pull/159)
+
 # 3.3.0 - 2020/11/05
 
 ## Enhancements

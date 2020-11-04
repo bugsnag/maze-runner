@@ -17,6 +17,7 @@ class MazeRunnerEntry
   OPTION_FARM = 'farm'
   OPTION_APP = 'app'
   OPTION_A11Y_LOCATOR = 'a11y-locator'
+  OPTION_RESILIENT = 'resilient'
 
   # BrowserStack-only options
   OPTION_BS_LOCAL = 'bs-local'
@@ -57,6 +58,10 @@ class MazeRunnerEntry
           'Locate elements by accessibility id rather than id',
           short: :none,
           type: :boolean,
+          default: false
+      opt OPTION_RESILIENT,
+          'Use the resilient Appium driver',
+          short: :none,
           default: false
 
       # BrowserStack-only options
@@ -125,7 +130,8 @@ class MazeRunnerEntry
       OPTION_A11Y_LOCATOR,
       OPTION_UDID,
       OPTION_APPLE_TEAM_ID,
-      OPTION_BS_APPIUM_VERSION
+      OPTION_BS_APPIUM_VERSION,
+      OPTION_RESILIENT
     ]
     remove.each do |opt|
       @args.reject! { |arg| arg == "--#{opt}" || (arg.start_with? "--#{opt}=") }
@@ -166,6 +172,7 @@ class MazeRunnerEntry
     config = MazeRunner.config
     config.appium_session_isolation = options[OPTION_SEPARATE_SESSIONS]
     config.app_location = options[OPTION_APP]
+    config.resilient = options[OPTION_RESILIENT]
     farm = options[OPTION_FARM]
     config.farm = case farm
                   when nil then :none

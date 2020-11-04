@@ -1,3 +1,10 @@
+# 3.3.0 - TBD
+
+## Enhancements
+
+- Make use of ResilientAppiumDriver optional
+  [#159](https://github.com/bugsnag/maze-runner/pull/159)
+
 # 3.2.0 - 2020/11/04
 
 ## Enhancements

@@ -35,10 +35,18 @@ AfterConfiguration do |config|
   # Set app location (file or url) in capabilities
   config.capabilities['app'] = config.app_location
 
-  # Create and start the driver
-  MazeRunner.driver = ResilientAppiumDriver.new config.appium_server_url,
-                                                config.capabilities,
-                                                config.locator
+  # Create and start the relevant driver
+  MazeRunner.driver = if MazeRunner.config.resilient
+                        $logger.info 'Creating ResilientAppiumDriver instance'
+                        ResilientAppiumDriver.new config.appium_server_url,
+                                                  config.capabilities,
+                                                  config.locator
+                      else
+                        $logger.info 'Creating AppiumDriver instance'
+                        AppiumDriver.new config.appium_server_url,
+                                         config.capabilities,
+                                         config.locator
+                      end
   if config.farm == :bs
     # Log a link to the BrowserStack session search dashboard
     build = MazeRunner.driver.caps[:build]

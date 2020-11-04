@@ -1,65 +1,61 @@
 steps:
   - label: ':docker: Build CI image'
     plugins:
-      - docker-compose#v3.3.0:
+      - docker-compose#v3.7.0:
           build:
             - ci
           image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
           cache-from:
-            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:latest-ci
             - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
-
-  - wait
-
-  - label: ':docker: Push CI'
-    plugins:
-      - docker-compose#v3.3.0:
+      - docker-compose#v3.7.0:
           push:
-            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:latest-ci
             - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
 
   - wait
 
   - label: ':docker: Build test images'
     plugins:
-      - docker-compose#v3.3.0:
+      - docker-compose#v3.7.0:
           build:
             - comparison-tests
             - browserstack-app-automate
             - payload-helper-tests
             - http-response-tests
+            - unit-test
           image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
+          cache-from:
+            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
           build-parallel: true
 
   - wait
 
   - label: 'Unit tests'
     plugins:
-      docker-compose#v3.3.0:
-        run: ci
+      docker-compose#v3.7.0:
+        run: unit-test
     command: 'bundle exec rake'
 
   - label: 'Comparison tests'
     plugins:
-      docker-compose#v3.3.0:
+      docker-compose#v3.7.0:
         run: comparison-tests
     command: 'bundle exec bugsnag-maze-runner'
 
   - label: 'Proxy tests'
     plugins:
-      docker-compose#v3.3.0:
+      docker-compose#v3.7.0:
         run: proxy-tests
     command: 'bundle exec bugsnag-maze-runner'
 
   - label: 'HTTP response tests'
     plugins:
-      docker-compose#v3.3.0:
+      docker-compose#v3.7.0:
         run: http-response-tests
     command: 'bundle exec bugsnag-maze-runner'
 
   - label: 'Browserstack app-automate test - Android 6'
     plugins:
-      docker-compose#v3.3.0:
+      docker-compose#v3.7.0:
         run: browserstack-app-automate
     command: >-
       bundle exec bugsnag-maze-runner
@@ -78,7 +74,7 @@ steps:
 
   - label: 'Browserstack app-automate test - Android 7.1 (separate Appium sessions)'
     plugins:
-      docker-compose#v3.3.0:
+      docker-compose#v3.7.0:
         run: browserstack-app-automate
     command: >-
       bundle exec bugsnag-maze-runner
@@ -97,7 +93,7 @@ steps:
 
   - label: 'Browserstack app-automate test - Android 8.1'
     plugins:
-      docker-compose#v3.3.0:
+      docker-compose#v3.7.0:
         run: browserstack-app-automate
     command: >-
       bundle exec bugsnag-maze-runner
@@ -111,7 +107,7 @@ steps:
 
   - label: 'Browserstack app-automate test - Android 9'
     plugins:
-      docker-compose#v3.3.0:
+      docker-compose#v3.7.0:
         run: browserstack-app-automate
     command: >-
       bundle exec bugsnag-maze-runner
@@ -125,7 +121,7 @@ steps:
 
   - label: 'Browserstack app-automate test - Android 10 (separate Appium sessions)'
     plugins:
-      docker-compose#v3.3.0:
+      docker-compose#v3.7.0:
         run: browserstack-app-automate
     command: >-
       bundle exec bugsnag-maze-runner
@@ -140,7 +136,7 @@ steps:
 
   - label: 'Browserstack app-automate test - Android 11 (separate Appium sessions)'
     plugins:
-      docker-compose#v3.3.0:
+      docker-compose#v3.7.0:
         run: browserstack-app-automate
     command: >-
       bundle exec bugsnag-maze-runner
@@ -155,7 +151,7 @@ steps:
 
   - label: 'Payload helper tests'
     plugins:
-      docker-compose#v3.3.0:
+      docker-compose#v3.7.0:
         run: payload-helper-tests
     command: 'bundle exec bugsnag-maze-runner'
 
@@ -163,10 +159,10 @@ steps:
 
   - label: 'Push Docker image for branch'
     plugins:
-      - docker-compose#v3.3.0:
+      - docker-compose#v3.7.0:
           build: cli
           cache-from: cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
-      - docker-compose#v3.3.0:
+      - docker-compose#v3.7.0:
           push:
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
 
@@ -196,7 +192,7 @@ steps:
   - label: 'Update docs'
     if: build.tag =~ /^v[2-9]\.[0-9]+\.[0-9]+\$/
     plugins:
-      docker-compose#v3.3.0:
+      docker-compose#v3.7.0:
         run: docs
     command: 'bundle exec rake docs:build_and_publish'
 
@@ -204,7 +200,7 @@ steps:
   - label: 'Push Docker image for tag'
     if: build.tag =~ /^v[2-9]\.[0-9]+\.[0-9]+\$/
     plugins:
-      - docker-compose#v3.3.0:
+      - docker-compose#v3.7.0:
           push:
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:${BUILDKITE_TAG}-cli
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-v3-cli

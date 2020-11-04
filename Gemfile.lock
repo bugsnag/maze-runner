@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    bugsnag-maze-runner (3.1.0)
+    bugsnag-maze-runner (3.2.0)
       appium_lib (~> 10.2)
       cucumber (~> 3.1.2)
       cucumber-expressions (~> 6.0.0)
@@ -50,7 +50,7 @@ GEM
     cucumber-expressions (6.0.1)
     cucumber-tag_expressions (1.1.1)
     cucumber-wire (0.0.1)
-    curb (0.9.10)
+    curb (0.9.11)
     diff-lcs (1.4.4)
     eventmachine (1.2.7)
     faye-websocket (0.11.0)

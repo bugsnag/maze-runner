@@ -9,6 +9,8 @@ class Docker
     COMPOSE_FILENAME = 'features/fixtures/docker-compose.yml'
 
     # Builds and starts a service, using a command if given.
+    # If running a command, it will be executed as an attached process, otherwise it
+    # will run detached.
     #
     # @param service [String] The name of the service to start
     # @param command [String] Optional. The command to use when running the service
@@ -17,9 +19,10 @@ class Docker
         # We build the service before running it as there is no --build
         # option for run.
         run_docker_compose_command("build #{service}")
-        run_docker_compose_command("run -d --use-aliases #{service} #{command}")
+        run_docker_compose_command("run --use-aliases #{service} #{command}")
       else
         run_docker_compose_command("up -d --build #{service}")
+        # TODO: Consider adding a logs command here
       end
     end
 
@@ -38,16 +41,14 @@ class Docker
       # as it is still in use, that is ok to ignore so we pass success codes!
       # We set timeout to 0 so this kills the services rather than stopping them
       # as its quicker and they are stateless anyway.
-      run_docker_compose_command('down -t 0', success_codes: [0,256]) if compose_stack_exists?
+      run_docker_compose_command('down -t 0', success_codes: [0, 256]) if compose_stack_exists?
     end
 
     def compose_project_name
       @compose_project_name ||= nil
     end
 
-    def compose_project_name=(project_name)
-      @compose_project_name = project_name
-    end
+    attr_writer :compose_project_name
 
     private
 

@@ -64,6 +64,23 @@ When('I run the service {string} with the command') do |service, command|
   Docker.start_service(service, command: one_line_cmd)
 end
 
+# Allows validation of the last exit code of the last run docker-compose command.
+# Will fail if no commands have been run.
+#
+# @step_input expected_code [Integer] The expected exit code
+Then('the exit code of the last docker command was {Int}') do |expected_code|
+  exit_code = Docker.last_exit_code
+  assert_not_nil(exit_code, 'No docker exit code available to verify')
+  asset_equal(exit_code, expected_code)
+end
+
+# A shortcut for the above assuming 0 as a successful exit code
+Then('the last run docker command exited succesfully') do
+  exit_code = Docker.last_exit_code
+  assert_not_nil(exit_code, 'No docker exit code available to verify')
+  asset_equal(exit_code, 0)
+end
+
 # Waits for a number of seconds, performing no actions.
 #
 # @step_input seconds [Integer] The number of seconds to sleep for

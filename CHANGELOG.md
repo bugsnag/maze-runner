@@ -1,9 +1,14 @@
-# 3.3.0 - TBD
+# 3.3.0 - 2020/11/05
 
 ## Enhancements
 
 - Make use of ResilientAppiumDriver optional
   [#159](https://github.com/bugsnag/maze-runner/pull/159)
+
+## Fixes
+
+- Fix Appium version for iOS devices to 1.15.0.
+  [#161](https://github.com/bugsnag/maze-runner/pull/161)
 
 # 3.2.0 - 2020/11/04
 

@@ -75,7 +75,7 @@ Then('the exit code of the last docker command was {Int}') do |expected_code|
 end
 
 # A shortcut for the above assuming 0 as a successful exit code
-Then('the last run docker command exited succesfully') do
+Then('the last run docker command exited successfully') do
   exit_code = Docker.last_exit_code
   assert_not_nil(exit_code, 'No docker exit code available to verify')
   asset_equal(exit_code, 0)

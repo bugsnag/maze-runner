@@ -68,7 +68,7 @@ end
 # Will fail if no commands have been run.
 #
 # @step_input expected_code [Integer] The expected exit code
-Then('the exit code of the last docker command was {Int}') do |expected_code|
+Then('the exit code of the last docker command was {int}') do |expected_code|
   exit_code = Docker.last_exit_code
   assert_not_nil(exit_code, 'No docker exit code available to verify')
   asset_equal(exit_code, expected_code)

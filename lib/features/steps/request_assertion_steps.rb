@@ -55,6 +55,16 @@ Then('the {string} header equals {string}') do |header_name, header_value|
   assert_equal(header_value, Server.current_request[:request][header_name])
 end
 
+# Tests that a header matches a regex
+#
+# @step_input header_name [String] The header to test
+# @step_input regex_string [String] The regex to match with
+Then('the {string} header matches the regex {string}') do |header_name, regex_string|
+  regex = Regexp.new(regex_string)
+  value = Server.current_request[:request][header_name]
+  assert_match(regex, value)
+end
+
 # Tests that a header matches one of a list of strings
 #
 # @step_input header_name [String] The header to test
@@ -94,39 +104,6 @@ end
 Then('the {string} query parameter is a timestamp') do |parameter_name|
   param = parse_querystring(Server.current_request)[parameter_name][0]
   assert_match(TIMESTAMP_REGEX, param)
-end
-
-# Tests the number of fields a multipart request contains.
-#
-# @step_input part_count [Integer] The number of expected fields
-Then('the multipart request has {int} fields') do |part_count|
-  parts = Server.current_request[:body]
-  assert_equal(part_count, parts.size)
-end
-
-# Tests that a multipart request field exists and is not null.
-#
-# @step_input part_key [String] The key to the multipart element
-Then('the field {string} for multipart request is not null') do |part_key|
-  parts = Server.current_request[:body]
-  assert_not_nil(parts[part_key], "The field '#{part_key}' should not be null")
-end
-
-# Tests that a multipart request field equals a string.
-#
-# @step_input part_key [String] The key to the multipart element
-# @step_input expected_value [String] The string to match against
-Then('the field {string} for multipart request equals {string}') do |part_key, expected_value|
-  parts = Server.current_request[:body]
-  assert_equal(parts[part_key], expected_value)
-end
-
-# Tests that a multipart request field is null.
-#
-# @step_input part_key [String] The key to the multipart element
-Then('the field {string} for multipart request is null') do |part_key|
-  parts = Server.current_request[:body]
-  assert_nil(parts[part_key], "The field '#{part_key}' should be null")
 end
 
 # Tests the payload body does not match a JSON fixture.

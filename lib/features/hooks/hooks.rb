@@ -54,14 +54,13 @@ AfterConfiguration do |config|
     $logger.info LogUtil.linkify url, 'BrowserStack session(s)'
   end
   MazeRunner.driver.start_driver unless config.appium_session_isolation
+
+  # Call any blocks registered by the client
+  MazeRunner.hooks.call_after_configuration config
 end
 
 # Before each scenario
 Before do |scenario|
-  STDOUT.puts "--- Scenario: #{scenario.name}"
-  # TODO: PLAT-5309 - Building a clear environment for each scenario into MazeRunner would be a good
-  #   thing, but a number of our pipelines rely on certain variables existing throughout (e.g. Ruby).
-  # TODO: Temporary hack to get BAGP running on v3
   Runner.environment.clear
   Server.stored_requests.clear
   Store.values.clear
@@ -69,10 +68,16 @@ Before do |scenario|
   next if MazeRunner.config.farm == :none
 
   MazeRunner.driver.start_driver if MazeRunner.config.appium_session_isolation
+
+  # Call any blocks registered by the client
+  MazeRunner.hooks.call_before scenario
 end
 
 # After each scenario
 After do |scenario|
+
+  # Call any blocks registered by the client
+  MazeRunner.hooks.call_after scenario
 
   # Make sure we reset to HTTP 200 return status after each scenario
   Server.status_code = 200
@@ -115,6 +120,9 @@ end
 
 # After all tests
 at_exit do
+
+  STDOUT.puts '^^^ +++'
+
   # Stop the mock server
   Server.stop_server
 
@@ -128,4 +136,5 @@ at_exit do
   # Stop the Appium session
   MazeRunner.driver.driver_quit unless MazeRunner.config.appium_session_isolation
 end
+
 

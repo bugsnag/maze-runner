@@ -65,9 +65,9 @@ Before do |scenario|
   Server.stored_requests.clear
   Store.values.clear
 
-  next if MazeRunner.config.farm == :none
-
-  MazeRunner.driver.start_driver if MazeRunner.config.appium_session_isolation
+  unless MazeRunner.config.farm == :none
+    MazeRunner.driver.start_driver if MazeRunner.config.appium_session_isolation
+  end
 
   # Call any blocks registered by the client
   MazeRunner.hooks.call_before scenario
@@ -121,7 +121,7 @@ end
 # After all tests
 at_exit do
 
-  STDOUT.puts '^^^ +++'
+  STDOUT.puts '+++ All scenarios complete'
 
   # Stop the mock server
   Server.stop_server

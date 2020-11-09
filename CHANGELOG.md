@@ -1,10 +1,12 @@
-# TBD
+# 3.4.0 - TBD
 
 ## Enhancements
 
 - Add Cucumber steps for checking Bugsnag-Integrity headers, in addition to automatically 
   verifying digests on all received requests when the header is present.
   [#159](https://github.com/bugsnag/maze-runner/pull/159)
+- Reinstate environment clearing between scenarios
+  [#164](https://github.com/bugsnag/maze-runner/pull/164)
 
 ## Fixes
 

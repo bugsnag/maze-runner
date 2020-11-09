@@ -2,7 +2,7 @@
 
 ## Enhancements
 
-- Add assertions to verify Bugsnag-Integrity header is correct
+- Add assertions for and automatic verification of Bugsnag-Integrity headers
   [#159](https://github.com/bugsnag/maze-runner/pull/159)
 
 # 3.3.0 - 2020/11/05

@@ -15,28 +15,30 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val button = findViewById<Button>(R.id.trigger_error)
         button.setOnClickListener {
-            Bugsnag.notify(Exception("HandledException!"), {
-                val error = it.error!!
-                error.metaData.addToTab("test", "boolean_false", false)
-                error.metaData.addToTab("test", "boolean_true", true)
-                error.metaData.addToTab("test", "float", 1.55)
-                error.metaData.addToTab("test", "integer", 2)
-            })
+
+            Bugsnag.notify(Exception("HandledException!"))
         }
     }
 
     override fun onResume() {
         super.onResume()
-        initialiseBugsnag()
+        startBugsnag()
     }
 
-    private fun initialiseBugsnag() {
+    private fun startBugsnag() {
         val config = Configuration("12312312312312312312312312312312")
-        config.autoCaptureSessions = false
-        config.setEndpoints("http://localhost:9339", "http://localhost:9339")
+        config.autoTrackSessions = false
+        config.setEndpoints(EndpointConfiguration("http://localhost:9339", "http://localhost:9339"))
+        config.addOnError(OnErrorCallback { event ->
+            event.addMetadata("test", "boolean_false", false)
+            event.addMetadata("test", "boolean_true", true)
+            event.addMetadata("test", "float", 1.55)
+            event.addMetadata("test", "integer", 2)
 
-        Bugsnag.init(this, config)
-        Bugsnag.setLoggingEnabled(true)
+            true
+        })
+
+        Bugsnag.start(this, config)
     }
 
 }

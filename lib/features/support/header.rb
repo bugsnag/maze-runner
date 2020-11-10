@@ -26,7 +26,7 @@ def valid_simple_digest_header(request)
   header = request[:request]['Bugsnag-Integrity']
   assert_not_nil(request[:body], 'No request body present')
   body = JSON.generate(request[:body])
-  computed_digest = "simple #{body.to_s.size}"
+  computed_digest = "simple #{body.to_s.bytesize}"
   assert_equal(header, computed_digest, "SHA1 digest does not match request payload. Computed #{computed_digest}.")
   header == computed_digest
 end

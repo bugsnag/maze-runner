@@ -79,7 +79,7 @@ class Servlet < WEBrick::HTTPServlet::AbstractServlet
 
     # Both digest types are stored whatever
     sha1 = Digest::SHA1.hexdigest(request.body)
-    simple = request.body.length
+    simple = request.body.bytesize
     $logger.debug "DIGESTS computed: sha1=#{sha1} simple=#{simple}"
 
     # Check digests match

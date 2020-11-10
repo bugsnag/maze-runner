@@ -8,21 +8,6 @@ When('I set environment variable {string} to {string}') do |key, value|
   Runner.environment[key] = value
 end
 
-# Verifies that an environment variable is set to a given value.
-#
-# @step_input key [String] The environment variable
-# @step_input value [String] The intended value of the environment variable
-Then('the environment variable {string} equals {string}') do |key, expected_value|
-  assert_equal(expected_value, Runner.environment[key])
-end
-
-# Verifies that an environment variable is not set.
-#
-# @step_input key [String] The environment variable
-Then('the environment variable {string} is null') do |key|
-  assert_nil(Runner.environment[key])
-end
-
 # Sets an environment variable to the server endpoint.
 #
 # @step_input name [String] The environment variable

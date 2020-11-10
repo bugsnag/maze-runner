@@ -38,6 +38,12 @@ services:
       args:
         BRANCH_NAME:
 
+  framework-tests:
+    build:
+      context: test/fixtures/framework
+      args:
+        BRANCH_NAME:
+
   proxy-tests:
     build:
       context: test/fixtures/proxy

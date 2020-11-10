@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative './configuration'
+require_relative '../hooks/client_hooks'
 
 # Glues the various parts of MazeRunner together that need to be accessed globally,
 # providing an alternative to the proliferation of global variables or singletons.
@@ -9,6 +10,10 @@ class MazeRunner
     attr_accessor :driver
     def config
       @config ||= Configuration.new
+    end
+
+    def hooks
+      @hooks ||= Hooks.new
     end
   end
 end

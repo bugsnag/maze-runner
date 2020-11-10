@@ -2,7 +2,8 @@
 
 ## Enhancements
 
-- Add assertions for and automatic verification of Bugsnag-Integrity headers
+- Add Cucumber steps for checking Bugsnag-Integrity headers, in addition to automatically 
+  verifying digests on all received requests when the header is present.
   [#159](https://github.com/bugsnag/maze-runner/pull/159)
 
 # 3.3.0 - 2020/11/05

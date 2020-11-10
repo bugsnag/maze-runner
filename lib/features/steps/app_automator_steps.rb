@@ -40,7 +40,7 @@ end
 #
 # @step_input element_id [String] The locator id
 When('I clear the element {string}') do |element_id|
-  MazeRunner.driver.clear(element_id, keys)
+  MazeRunner.driver.clear_element(element_id)
 end
 
 # Sends keys to a given element

@@ -173,12 +173,12 @@ configuration should go.</p>
 </span> <span class='backtick'>`</span><span class='tstring_content'>echo Peanut Butter Jelly Time</span><span class='tstring_end'>`</span></span>
 
  <span class='comment'># Run before every scenarios
-</span> <span class='const'>Before</span> <span class='kw'>do</span>
+</span> <span class='const'><span class='object_link'><a href="MazeRunner.html" title="MazeRunner (class)">MazeRunner</a></span></span><span class='period'>.</span><span class='id identifier rubyid_hooks'><span class='object_link'><a href="MazeRunner.html#hooks-class_method" title="MazeRunner.hooks (method)">hooks</a></span></span><span class='period'>.</span><span class='id identifier rubyid_before'>before</span> <span class='kw'>do</span>
    <span class='id identifier rubyid_clean_build_artifacts'>clean_build_artifacts</span>
  <span class='kw'>end</span>
 
 <span class='comment'># Run after every scenario
-</span><span class='const'>After</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_scenario'>scenario</span><span class='op'>|</span>
+</span><span class='const'><span class='object_link'><a href="MazeRunner.html" title="MazeRunner (class)">MazeRunner</a></span></span><span class='period'>.</span><span class='id identifier rubyid_hooks'><span class='object_link'><a href="MazeRunner.html#hooks-class_method" title="MazeRunner.hooks (method)">hooks</a></span></span><span class='period'>.</span><span class='id identifier rubyid_after'>after</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_scenario'>scenario</span><span class='op'>|</span>
   <span class='comment'># Teardown scenario configuration here
 </span>
   <span class='kw'>if</span> <span class='id identifier rubyid_scenario'>scenario</span><span class='period'>.</span><span class='id identifier rubyid_failed?'>failed?</span>
@@ -203,7 +203,8 @@ configuration should go.</p>
 
 <h4 id="field-path-notation">Field path notation</h4>
 
-<p>Anywhere a <code>{field}</code>, <code>{path}</code>, <code>{key_path}</code>, etc is denoted, it can be replaced with dot-delimited key path to indicate the path from the root of an object to the intended target.</p>
+<p>Anywhere a <code>{field}</code>, <code>{path}</code>, <code>{key_path}</code>, etc is denoted, it can be replaced with dot-delimited key path to indicate 
+the path from the root of an object to the intended target.</p>
 
 <p>For example, to match the name of the second objects in the the key <code>fruits</code> below, use <code>fruits.1.name</code> as the keypath.</p>
 
@@ -217,17 +218,21 @@ configuration should go.</p>
 
 <h4 id="using-browserstack">Using BrowserStack</h4>
 
-<p>BrowserStack is used to drive many of the mobile device tests written using maze-runner.  For these tests we can use a driver class and accompanying set of steps to interface with the BrowserStack AppAutomate server.</p>
+<p>BrowserStack is used to drive many of the mobile device tests written using maze-runner.  For these tests we can use a 
+driver class and accompanying set of steps to interface with the BrowserStack AppAutomate server.  <code>MazeRunner.driver</code> 
+can be used to write custom steps using the API provided by the <code>Appium::Driver</code> class.</p>
 
-<p>The driver needs to be started within the <code>AfterConfiguration</code> callback in the <code>features/support/env.rb</code> file, where the arguments indicate the particular test setup:</p>
+<p>The options needed to create a connection to the Appium server should be passed in via the command line when invoking
+Maze Runner.  See <code>bundle exec maze-runner --help</code> for details, but the most pertinent are:</p>
 
-<pre class="code ruby"><code class="ruby"><span class='const'>AfterConfiguration</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_config'>config</span><span class='op'>|</span>
-  <span class='const'>AppAutomateDriver</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_bs_username'>bs_username</span><span class='comma'>,</span> <span class='id identifier rubyid_bs_access_key'>bs_access_key</span><span class='comma'>,</span> <span class='id identifier rubyid_bs_local_id'>bs_local_id</span><span class='comma'>,</span> <span class='id identifier rubyid_device_type'>device_type</span><span class='comma'>,</span> <span class='id identifier rubyid_app_location'>app_location</span><span class='rparen'>)</span>
-  <span class='gvar'>$driver</span><span class='period'>.</span><span class='id identifier rubyid_start_driver'>start_driver</span>
-<span class='kw'>end</span>
-</code></pre>
-
-<p>This adds the <code>$driver</code> global variable which can be used to write custom steps using the API provided by the <code>Appium::Driver</code> class.</p>
+<ul>
+<li> <code>--farm=&lt;s&gt;</code> - Device farm to use: &quot;bs&quot; (BrowserStack) or &quot;local&quot;</li>
+<li> <code>--app=&lt;s&gt;</code> - The app to be installed and run against</li>
+<li> <code>--bs-local=&lt;s&gt;</code> - Path to the BrowserStackLocal binary</li>
+<li> <code>--device=&lt;s&gt;</code> - BrowserStack device to use (a key of Devices.DEVICE_HASH)</li>
+<li> <code>--username=&lt;s&gt;</code> - BrowserStack username</li>
+<li> <code>--access-key=&lt;s&gt;</code> - BrowserStack access key</li>
+</ul>
 
 <h4 id="on-matching-json-templates">On matching JSON templates</h4>
 
@@ -237,7 +242,8 @@ configuration should go.</p>
 Then the payload field &quot;items.0.subset&quot; matches the JSON fixture in &quot;features/fixtures/template.json&quot;
 </code></pre>
 
-<p>The template file can either be an exact match or specify regex matches for string fields. For example, given the template</p>
+<p>The template file can either be an exact match or specify regex matches for string fields. For example, given the 
+template:</p>
 
 <pre class="code json"><code class="json">{ &quot;fruit&quot;: { &quot;apple&quot;: { &quot;color&quot;: &quot;\\w+&quot; } } }
 </code></pre>
@@ -266,21 +272,21 @@ Then the payload field &quot;items.0.subset&quot; matches the JSON fixture in &q
 
 <h2 id="running-features">Running features</h2>
 
-<p>Run the entire suite using <code>bundle exec bugsnag-maze-runner</code>. Alternately, you
-can specify specific files to run:</p>
+<p>Run the entire suite using <code>bundle exec bugsnag-maze-runner</code>. Alternately, you can specify specific files to run:</p>
 
 <pre class="code shell"><code class="shell">bundle exec bugsnag-maze-runner features/something.feature
 </code></pre>
 
-<p>Add the <code>--verbose</code> option to print script output and a trace of what Ruby file
-is being run.</p>
+<p>Add the <code>--verbose</code> option to print script output and a trace of what Ruby file is being run.</p>
 
 <h2 id="troubleshooting">Troubleshooting</h2>
 
 <h3 id="logging">Logging</h3>
 
-<p>Maze-runner contains a Ruby logger connected to <code>STDOUT</code> that will attempt to log several events that occur during the testing life-cycle.
-By default the logger is set to report <code>INFO</code> level events or higher, but will log <code>DEBUG</code> level events if the <code>VERBOSE</code> or <code>DEBUG</code> flags are set.  If the <code>QUIET</code> flag is set it will instead log at the <code>ERROR</code> level and above.</p>
+<p>Maze-runner contains a Ruby logger connected to <code>STDOUT</code> that will attempt to log several events that occur during the 
+testing life-cycle.  By default, the logger is set to report <code>INFO</code> level events or higher, but will log <code>DEBUG</code> level 
+events if the <code>VERBOSE</code> or <code>DEBUG</code> flags are set.  If the <code>QUIET</code> flag is set it will instead log at the <code>ERROR</code> level 
+and above.</p>
 
 <table><thead>
 <tr>
@@ -334,27 +340,23 @@ By default the logger is set to report <code>INFO</code> level events or higher,
 <h3 id="known-issues">Known issues</h3>
 
 <ul>
-<li>Testing on iOS sometimes fails while Android Studio or gradle or some Android
-emulators are running.</li>
-<li>Payload field matching for raw string values can be ambiguous when there is a
-possible regex match (e.g. when using &quot;.&quot; as a part of an expected value
-without escaping it).</li>
+<li>Payload field matching for raw string values can be ambiguous when there is a possible regex match (e.g. when using 
+&quot;.&quot; as a part of an expected value without escaping it).</li>
 </ul>
 
 <h2 id="contributing">Contributing</h2>
 
-<p>If steps would be useful for different projects using maze-runner, add them to
-<code>lib/features/steps/</code>. If there are useful helper functions, add them to
-<code>lib/features/support/*.rb</code>.</p>
+<p>If steps would be useful for different projects using maze-runner, add them to <code>lib/features/steps/</code>. If there are 
+useful helper functions, add them to <code>lib/features/support/*.rb</code>.</p>
 
 <h3 id="running-the-tests">Running the tests</h3>
 
-<p>bugsnag-maze-runner uses test-unit and minunit to bootstrap itself and run the
-sample app suites in the test fixtures. Run <code>bundle exec rake</code> to run the suite.</p>
+<p>bugsnag-maze-runner uses test-unit and minunit to bootstrap itself and run the sample app suites in the test fixtures. 
+Run <code>bundle exec rake</code> to run the suite.</p>
 </div></div>
 
       <div id="footer">
-  Generated on Thu Nov  5 09:28:03 2020 by
+  Generated on Tue Nov 10 18:42:33 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.7.2).
 </div>

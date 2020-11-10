@@ -182,6 +182,28 @@ providing an alternative to the proliferation of global variables or singletons.
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#hooks-class_method" title="hooks (class method)">.<strong>hooks</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
     </ul>
   
 
@@ -216,12 +238,12 @@ providing an alternative to the proliferation of global variables or singletons.
       <pre class="lines">
 
 
-9
 10
-11</pre>
+11
+12</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/maze_runner.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/maze_runner.rb', line 10</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_driver'>driver</span>
   <span class='ivar'>@driver</span>
@@ -253,15 +275,45 @@ providing an alternative to the proliferation of global variables or singletons.
       <pre class="lines">
 
 
-10
 11
-12</pre>
+12
+13</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/maze_runner.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/maze_runner.rb', line 11</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_config'>config</span>
   <span class='ivar'>@config</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="Configuration.html" title="Configuration (class)">Configuration</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="hooks-class_method">
+  
+    .<strong>hooks</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+15
+16
+17</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/features/support/maze_runner.rb', line 15</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_hooks'>hooks</span>
+  <span class='ivar'>@hooks</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="Hooks.html" title="Hooks (class)">Hooks</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Hooks.html#initialize-instance_method" title="Hooks#initialize (method)">new</a></span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -273,7 +325,7 @@ providing an alternative to the proliferation of global variables or singletons.
 </div>
 
       <div id="footer">
-  Generated on Thu Nov  5 09:28:03 2020 by
+  Generated on Tue Nov 10 18:42:33 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.7.2).
 </div>

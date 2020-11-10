@@ -342,17 +342,17 @@
       <pre class="lines">
 
 
-41
-42
-43
-44
-45
-46
-47
-48</pre>
+49
+50
+51
+52
+53
+54
+55
+56</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/servlet.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/servlet.rb', line 49</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_do_OPTIONS'>do_OPTIONS</span><span class='lparen'>(</span><span class='id identifier rubyid_request'>request</span><span class='comma'>,</span> <span class='id identifier rubyid_response'>response</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_log_request'>log_request</span><span class='lparen'>(</span><span class='id identifier rubyid_request'>request</span><span class='rparen'>)</span>
@@ -444,24 +444,40 @@ Parsed requests are added to the Server.stored_requests Array.</p>
 32
 33
 34
-35</pre>
+35
+36
+37
+38
+39
+40
+41
+42
+43</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/features/support/servlet.rb', line 19</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_do_POST'>do_POST</span><span class='lparen'>(</span><span class='id identifier rubyid_request'>request</span><span class='comma'>,</span> <span class='id identifier rubyid_response'>response</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_log_request'>log_request</span><span class='lparen'>(</span><span class='id identifier rubyid_request'>request</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_digests'>digests</span> <span class='op'>=</span> <span class='id identifier rubyid_check_digest'>check_digest</span> <span class='id identifier rubyid_request'>request</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_request'>request</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Content-Type</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
   <span class='kw'>when</span> <span class='tstring'><span class='regexp_beg'>%r{</span><span class='tstring_content'>^multipart/form-data; boundary=([^;]+)</span><span class='regexp_end'>}</span></span>
     <span class='id identifier rubyid_boundary'>boundary</span> <span class='op'>=</span> <span class='const'>WEBrick</span><span class='op'>::</span><span class='const'>HTTPUtils</span><span class='op'>::</span><span class='id identifier rubyid_dequote'>dequote</span><span class='lparen'>(</span><span class='backref'>$1</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='const'>WEBrick</span><span class='op'>::</span><span class='const'>HTTPUtils</span><span class='period'>.</span><span class='id identifier rubyid_parse_form_data'>parse_form_data</span><span class='lparen'>(</span><span class='id identifier rubyid_request'>request</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='comma'>,</span> <span class='id identifier rubyid_boundary'>boundary</span><span class='rparen'>)</span>
-    <span class='const'><span class='object_link'><a href="Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_stored_requests'><span class='object_link'><a href="Server.html#stored_requests-class_method" title="Server.stored_requests (method)">stored_requests</a></span></span> <span class='op'>&lt;&lt;</span> <span class='lbrace'>{</span> <span class='label'>body:</span> <span class='id identifier rubyid_body'>body</span><span class='comma'>,</span> <span class='label'>request:</span> <span class='id identifier rubyid_request'>request</span> <span class='rbrace'>}</span>
+    <span class='const'><span class='object_link'><a href="Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_stored_requests'><span class='object_link'><a href="Server.html#stored_requests-class_method" title="Server.stored_requests (method)">stored_requests</a></span></span> <span class='op'>&lt;&lt;</span> <span class='lbrace'>{</span>
+      <span class='label'>body:</span> <span class='id identifier rubyid_body'>body</span><span class='comma'>,</span>
+      <span class='label'>request:</span> <span class='id identifier rubyid_request'>request</span><span class='comma'>,</span>
+      <span class='label'>digests:</span> <span class='id identifier rubyid_digests'>digests</span>
+    <span class='rbrace'>}</span>
   <span class='kw'>else</span>
     <span class='comment'># &quot;content-type&quot; is assumed to be JSON (which mimics the behaviour of
 </span>    <span class='comment'># the actual API). This supports browsers that can&#39;t set this header for
 </span>    <span class='comment'># cross-domain requests (IE8/9)
-</span>    <span class='const'><span class='object_link'><a href="Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_stored_requests'><span class='object_link'><a href="Server.html#stored_requests-class_method" title="Server.stored_requests (method)">stored_requests</a></span></span> <span class='op'>&lt;&lt;</span> <span class='lbrace'>{</span> <span class='label'>body:</span> <span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_request'>request</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span><span class='comma'>,</span>
-                                <span class='label'>request:</span> <span class='id identifier rubyid_request'>request</span> <span class='rbrace'>}</span>
+</span>    <span class='const'><span class='object_link'><a href="Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_stored_requests'><span class='object_link'><a href="Server.html#stored_requests-class_method" title="Server.stored_requests (method)">stored_requests</a></span></span> <span class='op'>&lt;&lt;</span> <span class='lbrace'>{</span>
+      <span class='label'>body:</span> <span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_request'>request</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span><span class='comma'>,</span>
+      <span class='label'>request:</span> <span class='id identifier rubyid_request'>request</span><span class='comma'>,</span>
+      <span class='label'>digests:</span> <span class='id identifier rubyid_digests'>digests</span>
+    <span class='rbrace'>}</span>
   <span class='kw'>end</span>
   <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_header'>header</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Access-Control-Allow-Origin</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>*</span><span class='tstring_end'>&#39;</span></span>
   <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_status_code'><span class='object_link'><a href="Server.html#status_code-class_method" title="Server.status_code (method)">status_code</a></span></span>
@@ -476,7 +492,7 @@ Parsed requests are added to the Server.stored_requests Array.</p>
 </div>
 
       <div id="footer">
-  Generated on Thu Nov  5 09:28:03 2020 by
+  Generated on Tue Nov 10 18:42:33 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.7.2).
 </div>

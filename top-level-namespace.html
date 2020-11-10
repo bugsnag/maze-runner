@@ -95,7 +95,7 @@
     
   
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="AppiumDriver.html" title="AppiumDriver (class)">AppiumDriver</a></span>, <span class='object_link'><a href="BrowserStackUtils.html" title="BrowserStackUtils (class)">BrowserStackUtils</a></span>, <span class='object_link'><a href="Capabilities.html" title="Capabilities (class)">Capabilities</a></span>, <span class='object_link'><a href="CompareResult.html" title="CompareResult (class)">CompareResult</a></span>, <span class='object_link'><a href="Configuration.html" title="Configuration (class)">Configuration</a></span>, <span class='object_link'><a href="Devices.html" title="Devices (class)">Devices</a></span>, <span class='object_link'><a href="Docker.html" title="Docker (class)">Docker</a></span>, <span class='object_link'><a href="LogUtil.html" title="LogUtil (class)">LogUtil</a></span>, <span class='object_link'><a href="MazeLogger.html" title="MazeLogger (class)">MazeLogger</a></span>, <span class='object_link'><a href="MazeRunner.html" title="MazeRunner (class)">MazeRunner</a></span>, <span class='object_link'><a href="Network.html" title="Network (class)">Network</a></span>, <span class='object_link'><a href="Proxy.html" title="Proxy (class)">Proxy</a></span>, <span class='object_link'><a href="RequestSetAssertions.html" title="RequestSetAssertions (class)">RequestSetAssertions</a></span>, <span class='object_link'><a href="ResilientAppiumDriver.html" title="ResilientAppiumDriver (class)">ResilientAppiumDriver</a></span>, <span class='object_link'><a href="Runner.html" title="Runner (class)">Runner</a></span>, <span class='object_link'><a href="Server.html" title="Server (class)">Server</a></span>, <span class='object_link'><a href="Servlet.html" title="Servlet (class)">Servlet</a></span>, <span class='object_link'><a href="Store.html" title="Store (class)">Store</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="AppiumDriver.html" title="AppiumDriver (class)">AppiumDriver</a></span>, <span class='object_link'><a href="BrowserStackUtils.html" title="BrowserStackUtils (class)">BrowserStackUtils</a></span>, <span class='object_link'><a href="Capabilities.html" title="Capabilities (class)">Capabilities</a></span>, <span class='object_link'><a href="CompareResult.html" title="CompareResult (class)">CompareResult</a></span>, <span class='object_link'><a href="Configuration.html" title="Configuration (class)">Configuration</a></span>, <span class='object_link'><a href="Devices.html" title="Devices (class)">Devices</a></span>, <span class='object_link'><a href="Docker.html" title="Docker (class)">Docker</a></span>, <span class='object_link'><a href="Hooks.html" title="Hooks (class)">Hooks</a></span>, <span class='object_link'><a href="LogUtil.html" title="LogUtil (class)">LogUtil</a></span>, <span class='object_link'><a href="MazeLogger.html" title="MazeLogger (class)">MazeLogger</a></span>, <span class='object_link'><a href="MazeRunner.html" title="MazeRunner (class)">MazeRunner</a></span>, <span class='object_link'><a href="Network.html" title="Network (class)">Network</a></span>, <span class='object_link'><a href="Proxy.html" title="Proxy (class)">Proxy</a></span>, <span class='object_link'><a href="RequestSetAssertions.html" title="RequestSetAssertions (class)">RequestSetAssertions</a></span>, <span class='object_link'><a href="ResilientAppiumDriver.html" title="ResilientAppiumDriver (class)">ResilientAppiumDriver</a></span>, <span class='object_link'><a href="Runner.html" title="Runner (class)">Runner</a></span>, <span class='object_link'><a href="Server.html" title="Server (class)">Server</a></span>, <span class='object_link'><a href="Servlet.html" title="Servlet (class)">Servlet</a></span>, <span class='object_link'><a href="Store.html" title="Store (class)">Store</a></span>
     
   
 </p>
@@ -485,6 +485,28 @@ on &quot;localhost&quot; urls are restricted to the following:</p>
   
     <span class="summary_desc"><div class='inline'><p>Compares two strings, writing the results to the given CompareResult object.</p>
 </div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="top-level-namespace.html#valid_bugsnag_integrity_header-instance_method" title="#valid_bugsnag_integrity_header (instance method)">#<strong>valid_bugsnag_integrity_header</strong>(request)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -1484,6 +1506,54 @@ Results are written to the given CompareResult object.</p>
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="valid_bugsnag_integrity_header-instance_method">
+  
+    #<strong>valid_bugsnag_integrity_header</strong>(request)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/features/support/header.rb', line 4</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_valid_bugsnag_integrity_header'>valid_bugsnag_integrity_header</span><span class='lparen'>(</span><span class='id identifier rubyid_request'>request</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_header'>header</span> <span class='op'>=</span> <span class='id identifier rubyid_request'>request</span><span class='lbracket'>[</span><span class='symbol'>:request</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Bugsnag-Integrity</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_digests'>digests</span> <span class='op'>=</span> <span class='id identifier rubyid_request'>request</span><span class='lbracket'>[</span><span class='symbol'>:digests</span><span class='rbracket'>]</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_header'>header</span><span class='period'>.</span><span class='id identifier rubyid_start_with?'>start_with?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>sha1</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_computed_digest'>computed_digest</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>sha1 </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_digests'>digests</span><span class='lbracket'>[</span><span class='symbol'>:sha1</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>elsif</span> <span class='id identifier rubyid_header'>header</span><span class='period'>.</span><span class='id identifier rubyid_start_with?'>start_with?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>simple</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_computed_digest'>computed_digest</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>simple </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_digests'>digests</span><span class='lbracket'>[</span><span class='symbol'>:simple</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>else</span>
+    <span class='kw'>return</span> <span class='kw'>false</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_header'>header</span> <span class='op'>==</span> <span class='id identifier rubyid_computed_digest'>computed_digest</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="validate_error_reporting_thread-instance_method">
   
     #<strong>validate_error_reporting_thread</strong>(payload_key, payload_value)  &#x21d2; <tt>Object</tt> 
@@ -1751,7 +1821,7 @@ nested object.</p>
 </div>
 
       <div id="footer">
-  Generated on Thu Nov  5 09:28:03 2020 by
+  Generated on Tue Nov 10 18:42:33 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.7.2).
 </div>

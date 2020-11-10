@@ -65,9 +65,7 @@ Before do |scenario|
   Server.stored_requests.clear
   Store.values.clear
 
-  unless MazeRunner.config.farm == :none
-    MazeRunner.driver.start_driver if MazeRunner.config.appium_session_isolation
-  end
+  MazeRunner.driver.start_driver if MazeRunner.config.farm != :none && MazeRunner.config.appium_session_isolation
 
   # Call any blocks registered by the client
   MazeRunner.hooks.call_before scenario

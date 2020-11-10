@@ -18,17 +18,25 @@ class Servlet < WEBrick::HTTPServlet::AbstractServlet
   # @param response [HTTPResponse] The response to return
   def do_POST(request, response)
     log_request(request)
+    digests = check_digest request
     case request['Content-Type']
     when %r{^multipart/form-data; boundary=([^;]+)}
       boundary = WEBrick::HTTPUtils::dequote($1)
       body = WEBrick::HTTPUtils.parse_form_data(request.body, boundary)
-      Server.stored_requests << { body: body, request: request }
+      Server.stored_requests << {
+        body: body,
+        request: request,
+        digests: digests
+      }
     else
       # "content-type" is assumed to be JSON (which mimics the behaviour of
       # the actual API). This supports browsers that can't set this header for
       # cross-domain requests (IE8/9)
-      Server.stored_requests << { body: JSON.parse(request.body),
-                                  request: request }
+      Server.stored_requests << {
+        body: JSON.parse(request.body),
+        request: request,
+        digests: digests
+      }
     end
     response.header['Access-Control-Allow-Origin'] = '*'
     response.status = Server.status_code
@@ -66,6 +74,35 @@ class Servlet < WEBrick::HTTPServlet::AbstractServlet
     else
       $logger.debug "BODY: #{JSON.pretty_generate(JSON.parse(request.body))}"
     end
+  end
+
+  def check_digest(request)
+    header = request['Bugsnag-Integrity']
+    return if header.nil?
+
+    # Header must have type and digest
+    parts = header.split ' '
+    raise "Invalid Bugsnag-Integrity header: #{header}" unless parts.size == 2
+
+    # Both digest types are stored whatever
+    sha1 = Digest::SHA1.hexdigest(request.body)
+    simple = request.body.bytesize
+    $logger.debug "DIGESTS computed: sha1=#{sha1} simple=#{simple}"
+
+    # Check digests match
+    case parts[0]
+    when 'sha1'
+      raise "Given sha1 #{parts[1]} does not match the computed #{sha1}" unless parts[1] == sha1
+    when 'simple'
+      raise "Given simple digest #{parts[1]} does not match the computed #{simple}" unless parts[1] == simple
+    else
+      raise "Invalid Bugsnag-Integrity digest type: #{parts[0]}"
+    end
+
+    {
+      sha1: sha1,
+      simple: simple
+    }
   end
 end
 

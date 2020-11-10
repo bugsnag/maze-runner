@@ -6,6 +6,11 @@
   verifying digests on all received requests when the header is present.
   [#159](https://github.com/bugsnag/maze-runner/pull/159)
 
+## Fixes
+
+- Fix `I clear the element {string}` step.
+  [#165](https://github.com/bugsnag/maze-runner/pull/165)
+
 # 3.3.0 - 2020/11/05
 
 ## Enhancements

@@ -41,7 +41,7 @@ class Devices
     end
 
     def add_ios(device, version, hash)
-      # Key format is "ANDROID_<version>_<device>", with:
+      # Key format is "IOS_<version>_<device>", with:
       # - dots in versions and all spaces replaced with underscores
       # - device made upper case
       name = device.upcase.gsub ' ', '_'
@@ -92,7 +92,7 @@ class Devices
       add_android 'Google Nexus 6', '6.0', APPIUM_1_6_5, hash           # ANDROID_6_0_GOOGLE_NEXUS_6
       add_android 'Samsung Galaxy S7', '6.0', APPIUM_1_6_5, hash        # ANDROID_6_0_SAMSUNG_GALAXY_S7
 
-      # Specific Android devices
+      # Specific iOS devices
       add_ios 'iPhone 8 Plus', '11.0', hash                             # IOS_11_0_IPHONE_8_PLUS
       add_ios 'iPhone X', '11.0', hash                                  # IOS_11_0_IPHONE_X
       add_ios 'iPhone SE', '11.0', hash                                 # IOS_11_0_IPHONE_SE

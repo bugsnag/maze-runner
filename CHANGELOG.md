@@ -1,3 +1,10 @@
+# 3.5.0 - TBD
+
+## Enhancements
+
+- Add full range of iOS 11 devices on BrowserStack to test against
+  [#166](https://github.com/bugsnag/maze-runner/pull/166)
+
 # 3.4.0 - 2020/11/10
 
 ## Enhancements

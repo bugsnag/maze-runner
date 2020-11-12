@@ -40,6 +40,16 @@ class Devices
       }.freeze
     end
 
+    def add_ios(device, version, hash)
+      # Key format is "IOS_<version>_<device>", with:
+      # - dots in versions and all spaces replaced with underscores
+      # - device made upper case
+      name = device.upcase.gsub ' ', '_'
+      new_version = version.gsub '.', '_'
+      key = "IOS_#{new_version}_#{name}"
+      hash[key] = make_ios_hash device, version
+    end
+
     def create_hash
       hash = {
         # Classic, non-specific devices for each Android version
@@ -81,6 +91,14 @@ class Devices
       add_android 'Motorola Moto X 2nd Gen', '6.0', APPIUM_1_6_5, hash  # ANDROID_6_0_MOTOROLA_MOTO_X_2ND_GEN
       add_android 'Google Nexus 6', '6.0', APPIUM_1_6_5, hash           # ANDROID_6_0_GOOGLE_NEXUS_6
       add_android 'Samsung Galaxy S7', '6.0', APPIUM_1_6_5, hash        # ANDROID_6_0_SAMSUNG_GALAXY_S7
+
+      # Specific iOS devices
+      add_ios 'iPhone 8 Plus', '11.0', hash                             # IOS_11_0_IPHONE_8_PLUS
+      add_ios 'iPhone X', '11.0', hash                                  # IOS_11_0_IPHONE_X
+      add_ios 'iPhone SE', '11.0', hash                                 # IOS_11_0_IPHONE_SE
+      add_ios 'iPhone 6', '11.0', hash                                  # IOS_11_0_IPHONE_6
+      add_ios 'iPhone 6S', '11.0', hash                                 # IOS_11_0_IPHONE_6S
+      add_ios 'iPhone 6S Plus', '11.0', hash                            # IOS_11_0_IPHONE_6S_PLUS
 
       hash
     end

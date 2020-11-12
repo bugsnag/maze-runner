@@ -22,6 +22,7 @@ steps:
             - payload-helper-tests
             - http-response-tests
             - unit-test
+            - docker-tests
           image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
           cache-from:
             - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
@@ -47,6 +48,8 @@ steps:
           run: http-response-tests
       - docker-compose#v3.7.0:
           run: payload-helper-tests
+      - docker-compose#v3.7.0:
+          run: docker-tests
     command: 'bundle exec maze-runner'
 
   - label: 'Browserstack app-automate test - Android 6'

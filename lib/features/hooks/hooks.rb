@@ -90,6 +90,7 @@ After do |scenario|
   # for each test.
   Docker.down_all_services
   Docker.last_exit_code = nil
+  Docker.last_command_logs = nil
 
   # Make sure that any scripts are killed between test runs
   # so future tests are run from a clean slate.

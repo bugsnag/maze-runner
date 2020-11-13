@@ -18,6 +18,19 @@ steps:
           push:
             - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
 
+  - label: 'Push Docker image for branch'
+    key: "cli-image"
+    depends_on: "ci-image"
+    plugins:
+      - docker-compose#v3.7.0:
+          build: cli
+          cache-from:
+            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
+            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
+      - docker-compose#v3.7.0:
+          push:
+            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
+
   - label: ':docker: Build test images'
     key: "test-images"
     depends_on: "ci-image"
@@ -141,17 +154,6 @@ steps:
       --appium-version=1.17.0
     concurrency: 10
     concurrency_group: 'browserstack-app'
-
-  - wait
-
-  - label: 'Push Docker image for branch'
-    plugins:
-      - docker-compose#v3.7.0:
-          build: cli
-          cache-from: cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
-      - docker-compose#v3.7.0:
-          push:
-            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
 
   - wait
 

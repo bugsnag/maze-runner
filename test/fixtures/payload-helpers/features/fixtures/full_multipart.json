@@ -1,0 +1,18 @@
+{
+    "foo": "bar",
+    "some_json": {
+        "a":"b",
+        "c":"d"
+    },
+    "file": "hello world",
+    "json_file": {
+        "hello":"world",
+        "array":[
+            1,
+            2,
+            3,
+            4,
+            5
+        ]
+    }
+}

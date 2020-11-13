@@ -8,6 +8,12 @@ class Docker
     # The default place to look for the docker-compose file
     COMPOSE_FILENAME = 'features/fixtures/docker-compose.yml'
 
+    # @!attribute [a] last_exit_code Provides access to the exit code of the last run docker command
+    attr_accessor :last_exit_code
+
+    # @!attribute [a] last_command_logs Provides access to the output from the last run docker command
+    attr_accessor :last_command_logs
+
     # Builds and starts a service, using a command if given.
     # If running a command, it will be executed as an attached process, otherwise it
     # will run detached.
@@ -55,7 +61,7 @@ class Docker
     def run_docker_compose_command(command, compose_file: COMPOSE_FILENAME, success_codes: nil)
       project_name = compose_project_name.nil? ? '' : "-p #{compose_project_name}"
       command = "docker-compose #{project_name} -f #{compose_file} #{command}"
-      Runner.run_command(command, success_codes: success_codes)
+      @last_exit_code, @last_command_logs = Runner.run_command(command, success_codes: success_codes)
     end
 
     def compose_stack_exists?

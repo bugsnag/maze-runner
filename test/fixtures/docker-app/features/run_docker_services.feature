@@ -12,14 +12,17 @@ Feature: Running docker services
         Given I have built the service "test_1"
         When I start the service "test_1"
         Then the service "test_1" should be running
+        And the last run docker command exited successfully
         When I stop the service "test_1"
         Then the service "test_1" should not be running
+        And the last run docker command exited successfully
 
     Scenario: A service with dependencies can be built and run
         Given I have built the service "test_2"
         When I start the service "test_2"
         Then the service "test_2" should be running
         And the service "dep" should be running
+        And the exit code of the last docker command was 0
 
     Scenario: A service can be run with a different command
         Given I have built the service "test_1"

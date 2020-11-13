@@ -44,6 +44,12 @@ services:
       args:
         BRANCH_NAME:
 
+  docker-tests:
+    build:
+      context: test/fixtures/docker-app
+      args:
+        BRANCH_NAME:
+
   proxy-tests:
     build:
       context: test/fixtures/proxy

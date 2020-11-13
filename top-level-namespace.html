@@ -345,6 +345,61 @@ on &quot;localhost&quot; urls are restricted to the following:</p>
     </ul>
   
     <h2>
+      Multipart request assertion steps
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="top-level-namespace.html#parse_multipart_body-instance_method" title="#parse_multipart_body (instance method)">#<strong>parse_multipart_body</strong>(body)  &#x21d2; Hash </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Takes a hashmap and parses all fields into strings or hashes depending on their format Used to convert a multipart/form-data request into a JSON comparable hash.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="top-level-namespace.html#valid_multipart_form_data%3F-instance_method" title="#valid_multipart_form_data? (instance method)">#<strong>valid_multipart_form_data?</strong>(request)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Verifies a request contains the correct Content-Type header and some contents for a multipart/form-data request.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>
       Instance Method Summary
       <small><a href="#" class="summary_toggle">collapse</a></small>
     </h2>
@@ -619,11 +674,6 @@ Results are written to the given CompareResult object.</p>
       <pre class="lines">
 
 
-86
-87
-88
-89
-90
 91
 92
 93
@@ -633,10 +683,15 @@ Results are written to the given CompareResult object.</p>
 97
 98
 99
-100</pre>
+100
+101
+102
+103
+104
+105</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/compare.rb', line 86</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/compare.rb', line 91</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_array_compare'>array_compare</span><span class='lparen'>(</span><span class='id identifier rubyid_array1'>array1</span><span class='comma'>,</span> <span class='id identifier rubyid_array2'>array2</span><span class='comma'>,</span> <span class='id identifier rubyid_result'>result</span><span class='rparen'>)</span>
   <span class='kw'>unless</span> <span class='id identifier rubyid_array1'>array1</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>==</span> <span class='id identifier rubyid_array2'>array2</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span>
@@ -775,11 +830,6 @@ Results are written to the given CompareResult object.</p>
       <pre class="lines">
 
 
-108
-109
-110
-111
-112
 113
 114
 115
@@ -792,10 +842,15 @@ Results are written to the given CompareResult object.</p>
 122
 123
 124
-125</pre>
+125
+126
+127
+128
+129
+130</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/compare.rb', line 108</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/compare.rb', line 113</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_hash_compare'>hash_compare</span><span class='lparen'>(</span><span class='id identifier rubyid_hash1'>hash1</span><span class='comma'>,</span> <span class='id identifier rubyid_hash2'>hash2</span><span class='comma'>,</span> <span class='id identifier rubyid_result'>result</span><span class='rparen'>)</span>
   <span class='kw'>unless</span> <span class='id identifier rubyid_hash1'>hash1</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>==</span> <span class='id identifier rubyid_hash2'>hash2</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span>
@@ -813,6 +868,91 @@ Results are written to the given CompareResult object.</p>
       <span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_key'>key</span>
       <span class='kw'>break</span>
     <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="parse_multipart_body-instance_method">
+  
+    #<strong>parse_multipart_body</strong>(body)  &#x21d2; <tt>Hash</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Takes a hashmap and parses all fields into strings or hashes depending on their format
+Used to convert a multipart/form-data request into a JSON comparable hash</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>body</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The multipart/form-data hash to parse</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The result of parsing hash fields to strings/JSON hashes</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+85
+86
+87
+88
+89
+90
+91</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/features/steps/multipart_request_steps.rb', line 85</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_parse_multipart_body'>parse_multipart_body</span><span class='lparen'>(</span><span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_body'>body</span><span class='period'>.</span><span class='id identifier rubyid_each_with_object'>each_with_object</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='lparen'>(</span><span class='id identifier rubyid_k'>k</span><span class='comma'>,</span> <span class='id identifier rubyid_v'>v</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_out'>out</span><span class='op'>|</span>
+    <span class='id identifier rubyid_out'>out</span><span class='lbracket'>[</span><span class='id identifier rubyid_k'>k</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_v'>v</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
+  <span class='kw'>rescue</span> <span class='const'>JSON</span><span class='op'>::</span><span class='const'>ParserError</span>
+    <span class='id identifier rubyid_out'>out</span><span class='lbracket'>[</span><span class='id identifier rubyid_k'>k</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_v'>v</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1108,14 +1248,14 @@ Results are written to the given CompareResult object.</p>
       <pre class="lines">
 
 
-145
-146
-147
-148
-149</pre>
+150
+151
+152
+153
+154</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/compare.rb', line 145</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/compare.rb', line 150</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_regex_match'>regex_match</span><span class='lparen'>(</span><span class='id identifier rubyid_template'>template</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_regex'>regex</span> <span class='op'>=</span> <span class='id identifier rubyid_template'>template</span>
@@ -1231,15 +1371,15 @@ Results are written to the given CompareResult object.</p>
       <pre class="lines">
 
 
-132
-133
-134
-135
-136
-137</pre>
+137
+138
+139
+140
+141
+142</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/compare.rb', line 132</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/compare.rb', line 137</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_string_compare'>string_compare</span><span class='lparen'>(</span><span class='id identifier rubyid_template'>template</span><span class='comma'>,</span> <span class='id identifier rubyid_str2'>str2</span><span class='comma'>,</span> <span class='id identifier rubyid_result'>result</span><span class='rparen'>)</span>
   <span class='kw'>unless</span> <span class='id identifier rubyid_template'>template</span> <span class='op'>==</span> <span class='id identifier rubyid_str2'>str2</span> <span class='kw'>or</span> <span class='id identifier rubyid_regex_match'><span class='object_link'><a href="#regex_match-instance_method" title="#regex_match (method)">regex_match</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_template'>template</span><span class='comma'>,</span> <span class='id identifier rubyid_str2'>str2</span><span class='rparen'>)</span>
@@ -1554,6 +1694,85 @@ Results are written to the given CompareResult object.</p>
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="valid_multipart_form_data?-instance_method">
+  
+    #<strong>valid_multipart_form_data?</strong>(request)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Verifies a request contains the correct Content-Type header and some contents
+for a multipart/form-data request</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>request</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The payload to test</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+14
+15
+16
+17
+18
+19</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/features/steps/multipart_request_steps.rb', line 14</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_valid_multipart_form_data?'>valid_multipart_form_data?</span><span class='lparen'>(</span><span class='id identifier rubyid_request'>request</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_content_regex'>content_regex</span> <span class='op'>=</span> <span class='const'>Regexp</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>^multipart\\/form-data; boundary=[\\h-]+$</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_content_header'>content_header</span> <span class='op'>=</span> <span class='id identifier rubyid_request'>request</span><span class='lbracket'>[</span><span class='symbol'>:request</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Content-Type</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_assert_match'>assert_match</span><span class='lparen'>(</span><span class='id identifier rubyid_content_regex'>content_regex</span><span class='comma'>,</span> <span class='id identifier rubyid_content_header'>content_header</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span><span class='id identifier rubyid_request'>request</span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='period'>.</span><span class='id identifier rubyid_positive?'>positive?</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Multipart request payload contained </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_request'>request</span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='embexpr_end'>}</span><span class='tstring_content'> fields</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="validate_error_reporting_thread-instance_method">
   
     #<strong>validate_error_reporting_thread</strong>(payload_key, payload_value)  &#x21d2; <tt>Object</tt> 
@@ -1739,11 +1958,6 @@ nested object.</p>
       <pre class="lines">
 
 
-45
-46
-47
-48
-49
 50
 51
 52
@@ -1772,10 +1986,15 @@ nested object.</p>
 75
 76
 77
-78</pre>
+78
+79
+80
+81
+82
+83</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/compare.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/compare.rb', line 50</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_value_compare'>value_compare</span><span class='lparen'>(</span><span class='id identifier rubyid_obj1'>obj1</span><span class='comma'>,</span> <span class='id identifier rubyid_obj2'>obj2</span><span class='comma'>,</span> <span class='id identifier rubyid_result'>result</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="CompareResult.html" title="CompareResult (class)">CompareResult</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="CompareResult.html#initialize-instance_method" title="CompareResult#initialize (method)">new</a></span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_result'>result</span>
@@ -1821,7 +2040,7 @@ nested object.</p>
 </div>
 
       <div id="footer">
-  Generated on Tue Nov 10 18:42:33 2020 by
+  Generated on Fri Nov 13 14:47:38 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.7.2).
 </div>

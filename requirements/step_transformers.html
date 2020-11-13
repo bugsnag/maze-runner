@@ -67,7 +67,7 @@
   <div class="title">Step Definitions &amp; Transforms</div>
 
   <div class="summary">
-    <div>121<a href="#step_definitions">Step Definitions</a></div>
+    <div>132<a href="#step_definitions">Step Definitions</a></div>
     <div>0<a href="#step_transforms">Step Transforms</a></div>
     <div>0<a href="#undefined_steps">Undefined Steps</a></div>
   </div>
@@ -1957,6 +1957,354 @@
                         ">
   <a name="step_definition22-stepdefinition"></a>
   <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the exit code of the last docker command was {int}'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+exit+code+of+the+last+docker+command+was+%7Bint%7D'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/runner_steps.rb:71</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Allows validation of the last exit code of the last run docker-compose command.
+Will fail if no commands have been run.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>expected_code [Integer] The expected exit code</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">71
+72
+73
+74
+75</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the exit code of the last docker command was {int}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_expected_code'>expected_code</span><span class='op'>|</span>
+  <span class='id identifier rubyid_exit_code'>exit_code</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Docker.html" title="Docker (class)">Docker</a></span></span><span class='period'>.</span><span class='id identifier rubyid_last_exit_code'><span class='object_link'><a href="../Docker.html#last_exit_code-class_method" title="Docker.last_exit_code (method)">last_exit_code</a></span></span>
+  <span class='id identifier rubyid_assert_not_nil'>assert_not_nil</span><span class='lparen'>(</span><span class='id identifier rubyid_exit_code'>exit_code</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>No docker exit code available to verify</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_assert_equal'>assert_equal</span><span class='lparen'>(</span><span class='id identifier rubyid_exit_code'>exit_code</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_code'>expected_code</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition23-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the last run docker command exited successfully'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+last+run+docker+command+exited+successfully'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/runner_steps.rb:79</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>A shortcut for the above assuming 0 as a successful exit code
+Will fail if no commands have been run</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">79
+80
+81
+82
+83</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the last run docker command exited successfully</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_exit_code'>exit_code</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Docker.html" title="Docker (class)">Docker</a></span></span><span class='period'>.</span><span class='id identifier rubyid_last_exit_code'><span class='object_link'><a href="../Docker.html#last_exit_code-class_method" title="Docker.last_exit_code (method)">last_exit_code</a></span></span>
+  <span class='id identifier rubyid_assert_not_nil'>assert_not_nil</span><span class='lparen'>(</span><span class='id identifier rubyid_exit_code'>exit_code</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>No docker exit code available to verify</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_assert_equal'>assert_equal</span><span class='lparen'>(</span><span class='id identifier rubyid_exit_code'>exit_code</span><span class='comma'>,</span> <span class='int'>0</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition24-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the last run docker command did not exit successfully'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+last+run+docker+command+did+not+exit+successfully'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/runner_steps.rb:87</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Allows testing that the last exit code was not 0
+Will fail if no commands have been run</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">87
+88
+89
+90
+91</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the last run docker command did not exit successfully</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_exit_code'>exit_code</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Docker.html" title="Docker (class)">Docker</a></span></span><span class='period'>.</span><span class='id identifier rubyid_last_exit_code'><span class='object_link'><a href="../Docker.html#last_exit_code-class_method" title="Docker.last_exit_code (method)">last_exit_code</a></span></span>
+  <span class='id identifier rubyid_assert_not_nil'>assert_not_nil</span><span class='lparen'>(</span><span class='id identifier rubyid_exit_code'>exit_code</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>No docker exit code available to verify</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_assert_not_equal'>assert_not_equal</span><span class='lparen'>(</span><span class='id identifier rubyid_exit_code'>exit_code</span><span class='comma'>,</span> <span class='int'>0</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition25-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the last run docker command output {string}'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+last+run+docker+command+output+%7Bstring%7D'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/runner_steps.rb:97</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Allows testing a docker command output a specific string
+Will fail if no commands have been run</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>expected_string [String] The string expected in a single log line</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">97
+98
+99
+100
+101
+102
+103
+104
+105
+106</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the last run docker command output {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_expected_string'>expected_string</span><span class='op'>|</span>
+  <span class='id identifier rubyid_docker_output'>docker_output</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Docker.html" title="Docker (class)">Docker</a></span></span><span class='period'>.</span><span class='id identifier rubyid_last_command_logs'><span class='object_link'><a href="../Docker.html#last_command_logs-class_method" title="Docker.last_command_logs (method)">last_command_logs</a></span></span>
+  <span class='id identifier rubyid_assert_not_nil'>assert_not_nil</span><span class='lparen'>(</span><span class='id identifier rubyid_docker_output'>docker_output</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>No docker logs available to verify</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_output_included'>output_included</span> <span class='op'>=</span> <span class='id identifier rubyid_docker_output'>docker_output</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_line'>line</span><span class='op'>|</span> <span class='id identifier rubyid_line'>line</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_expected_string'>expected_string</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span><span class='id identifier rubyid_output_included'>output_included</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>%(</span><span class='tstring_content'>
+    No line of output included &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_expected_string'>expected_string</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39;.
+    Full output:
+    </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_docker_output'>docker_output</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>
+  </span><span class='tstring_end'>)</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition26-stepdefinition"></a>
+  <div class="title">
     <span class="pre">When</span>
     <span class="name">'I wait for {int} second(s)'</span>
     <div style="float: right;">
@@ -1971,7 +2319,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:70</div>
+      <div class="file">lib/features/steps/runner_steps.rb:111</div>
     </div>
     
     <!-- Comments -->
@@ -2010,10 +2358,10 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">70
-71
-72
-73</pre>
+            <pre class="lines">111
+112
+113
+114</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>When</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I wait for {int} second(s)</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_seconds'>seconds</span><span class='op'>|</span>
@@ -2044,7 +2392,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition23-stepdefinition"></a>
+  <a name="step_definition27-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">"I start Android emulator {string}"</span>
@@ -2139,7 +2487,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition24-stepdefinition"></a>
+  <a name="step_definition28-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">"I clear the Android app data"</span>
@@ -2212,7 +2560,7 @@ Requires an ADB connection</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition25-stepdefinition"></a>
+  <a name="step_definition29-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">"I force stop the Android app"</span>
@@ -2285,7 +2633,7 @@ Requires an ADB connection</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition26-stepdefinition"></a>
+  <a name="step_definition30-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">"I install the {string} Android app from {string}"</span>
@@ -2392,7 +2740,7 @@ Requires an ADB connection</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition27-stepdefinition"></a>
+  <a name="step_definition31-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">"I start the {string} Android app using the {string} activity"</span>
@@ -2501,7 +2849,7 @@ Requires an ADB connection</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition28-stepdefinition"></a>
+  <a name="step_definition32-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">"I wait for the host {string} to open port {string}"</span>
@@ -2599,7 +2947,7 @@ Requires an ADB connection</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition29-stepdefinition"></a>
+  <a name="step_definition33-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">"I set the HTTP status code to {int}"</span>
@@ -2686,7 +3034,7 @@ Requires an ADB connection</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition30-stepdefinition"></a>
+  <a name="step_definition34-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">"I set the HTTP status code for the next request to {int}"</span>
@@ -2775,7 +3123,7 @@ Requires an ADB connection</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition31-stepdefinition"></a>
+  <a name="step_definition35-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">"I open the URL {string}"</span>
@@ -2870,7 +3218,7 @@ Requires an ADB connection</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition32-stepdefinition"></a>
+  <a name="step_definition36-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the request is valid for the Build API"</span>
@@ -2949,7 +3297,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition33-stepdefinition"></a>
+  <a name="step_definition37-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the request is valid for the Android Mapping API"</span>
@@ -3036,7 +3384,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition34-stepdefinition"></a>
+  <a name="step_definition38-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event has a {string} breadcrumb named {string}"</span>
@@ -3148,7 +3496,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition35-stepdefinition"></a>
+  <a name="step_definition39-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event has a {string} breadcrumb with message {string}"</span>
@@ -3260,7 +3608,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition36-stepdefinition"></a>
+  <a name="step_definition40-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event does not have a {string} breadcrumb"</span>
@@ -3362,7 +3710,7 @@ Used for confirming filtering of breadcrumbs</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition37-stepdefinition"></a>
+  <a name="step_definition41-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event contains a breadcrumb matching the JSON fixture in {string}"</span>
@@ -3455,7 +3803,7 @@ Used for confirming filtering of breadcrumbs</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition38-stepdefinition"></a>
+  <a name="step_definition42-stepdefinition"></a>
   <div class="title">
     <span class="pre">Given</span>
     <span class="name">'the element {string} is present'</span>
@@ -3545,7 +3893,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition39-stepdefinition"></a>
+  <a name="step_definition43-stepdefinition"></a>
   <div class="title">
     <span class="pre">Given</span>
     <span class="name">'the element {string} is present within {int} seconds'</span>
@@ -3646,7 +3994,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition40-stepdefinition"></a>
+  <a name="step_definition44-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I click the element {string}'</span>
@@ -3734,7 +4082,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition41-stepdefinition"></a>
+  <a name="step_definition45-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I send the app to the background for {int} seconds'</span>
@@ -3822,7 +4170,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition42-stepdefinition"></a>
+  <a name="step_definition46-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I clear the element {string}'</span>
@@ -3910,7 +4258,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition43-stepdefinition"></a>
+  <a name="step_definition47-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I send the keys {string} to the element {string}'</span>
@@ -4009,7 +4357,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition44-stepdefinition"></a>
+  <a name="step_definition48-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload field {string} equals the platform-dependent string:'</span>
@@ -4115,7 +4463,7 @@ If the step is invoked when a remote BrowserStack device is not in use this step
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition45-stepdefinition"></a>
+  <a name="step_definition49-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} equals the platform-dependent string:'</span>
@@ -4213,7 +4561,7 @@ If the step is invoked when a remote BrowserStack device is not in use this step
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition46-stepdefinition"></a>
+  <a name="step_definition50-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload field {string} equals the platform-dependent numeric:'</span>
@@ -4319,7 +4667,7 @@ If the step is invoked when a remote BrowserStack device is not in use this step
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition47-stepdefinition"></a>
+  <a name="step_definition51-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} equals the platform-dependent numeric:'</span>
@@ -4417,7 +4765,7 @@ If the step is invoked when a remote BrowserStack device is not in use this step
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition48-stepdefinition"></a>
+  <a name="step_definition52-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload field {string} equals the platform-dependent boolean:'</span>
@@ -4523,7 +4871,7 @@ If the step is invoked when a remote BrowserStack device is not in use this step
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition49-stepdefinition"></a>
+  <a name="step_definition53-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} equals the platform-dependent boolean:'</span>
@@ -4621,7 +4969,7 @@ If the step is invoked when a remote BrowserStack device is not in use this step
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition50-stepdefinition"></a>
+  <a name="step_definition54-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I clear and send the keys {string} to the element {string}'</span>
@@ -4720,7 +5068,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition51-stepdefinition"></a>
+  <a name="step_definition55-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the request is valid for the error reporting API version {string} for the {string} notifier"</span>
@@ -4853,7 +5201,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition52-stepdefinition"></a>
+  <a name="step_definition56-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"event {int} is unhandled"</span>
@@ -4929,7 +5277,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition53-stepdefinition"></a>
+  <a name="step_definition57-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"event {int} is unhandled with the severity {string}"</span>
@@ -5005,7 +5353,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition54-stepdefinition"></a>
+  <a name="step_definition58-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"event {int} is handled"</span>
@@ -5081,7 +5429,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition55-stepdefinition"></a>
+  <a name="step_definition59-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"event {int} is handled with the severity {string}"</span>
@@ -5157,7 +5505,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition56-stepdefinition"></a>
+  <a name="step_definition60-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the payload contains the payloadVersion {string}"</span>
@@ -5254,7 +5602,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition57-stepdefinition"></a>
+  <a name="step_definition61-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">/^the event "(.+)" is (true|false|null|not null)$/</span>
@@ -5352,7 +5700,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition58-stepdefinition"></a>
+  <a name="step_definition62-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event {string} equals {string}"</span>
@@ -5450,7 +5798,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition59-stepdefinition"></a>
+  <a name="step_definition63-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event {string} equals {int}"</span>
@@ -5548,7 +5896,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition60-stepdefinition"></a>
+  <a name="step_definition64-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event {string} starts with {string}"</span>
@@ -5646,7 +5994,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition61-stepdefinition"></a>
+  <a name="step_definition65-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event {string} ends with {string}"</span>
@@ -5744,7 +6092,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition62-stepdefinition"></a>
+  <a name="step_definition66-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event {string} matches {string}"</span>
@@ -5842,7 +6190,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition63-stepdefinition"></a>
+  <a name="step_definition67-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event {string} is a timestamp"</span>
@@ -5930,7 +6278,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition64-stepdefinition"></a>
+  <a name="step_definition68-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event {string} is a parsable timestamp in seconds"</span>
@@ -6017,7 +6365,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition65-stepdefinition"></a>
+  <a name="step_definition69-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event {string} equals the environment variable {string}"</span>
@@ -6115,7 +6463,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition66-stepdefinition"></a>
+  <a name="step_definition70-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event {string} matches the JSON fixture in {string}"</span>
@@ -6213,7 +6561,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition67-stepdefinition"></a>
+  <a name="step_definition71-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the exception {string} starts with {string}"</span>
@@ -6311,7 +6659,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition68-stepdefinition"></a>
+  <a name="step_definition72-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the exception {string} ends with {string}"</span>
@@ -6409,7 +6757,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition69-stepdefinition"></a>
+  <a name="step_definition73-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the exception {string} equals {string}"</span>
@@ -6507,7 +6855,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition70-stepdefinition"></a>
+  <a name="step_definition74-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the exception {string} matches {string}"</span>
@@ -6605,7 +6953,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition71-stepdefinition"></a>
+  <a name="step_definition75-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the {string} of stack frame {int} equals {int}"</span>
@@ -6716,7 +7064,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition72-stepdefinition"></a>
+  <a name="step_definition76-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the {string} of stack frame {int} matches {string}"</span>
@@ -6827,7 +7175,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition73-stepdefinition"></a>
+  <a name="step_definition77-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the {string} of stack frame {int} equals {string}"</span>
@@ -6938,7 +7286,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition74-stepdefinition"></a>
+  <a name="step_definition78-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the {string} of stack frame {int} starts with {string}"</span>
@@ -7049,7 +7397,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition75-stepdefinition"></a>
+  <a name="step_definition79-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the {string} of stack frame {int} ends with {string}"</span>
@@ -7160,7 +7508,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition76-stepdefinition"></a>
+  <a name="step_definition80-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">/^the "(.*)" of stack frame (\d*) is (true|false|null|not null)$/</span>
@@ -7271,7 +7619,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition77-stepdefinition"></a>
+  <a name="step_definition81-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the thread with name {string} contains the error reporting flag"</span>
@@ -7358,7 +7706,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition78-stepdefinition"></a>
+  <a name="step_definition82-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the thread with id {string} contains the error reporting flag"</span>
@@ -7445,7 +7793,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition79-stepdefinition"></a>
+  <a name="step_definition83-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the request is valid for the session reporting API version {string} for the {string} notifier"</span>
@@ -7568,7 +7916,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition80-stepdefinition"></a>
+  <a name="step_definition84-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">/^the session "(.+)" is (true|false|null|not null)$/</span>
@@ -7666,7 +8014,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition81-stepdefinition"></a>
+  <a name="step_definition85-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the session {string} equals {string}"</span>
@@ -7764,7 +8112,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition82-stepdefinition"></a>
+  <a name="step_definition86-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the session {string} is a timestamp"</span>
@@ -7852,7 +8200,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition83-stepdefinition"></a>
+  <a name="step_definition87-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">/^the sessionCount "(.+)" is (true|false|null|not null)$/</span>
@@ -7950,7 +8298,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition84-stepdefinition"></a>
+  <a name="step_definition88-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the sessionCount {string} equals {string}"</span>
@@ -8048,7 +8396,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition85-stepdefinition"></a>
+  <a name="step_definition89-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the sessionCount {string} equals {int}"</span>
@@ -8146,7 +8494,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition86-stepdefinition"></a>
+  <a name="step_definition90-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the sessionCount {string} is a timestamp"</span>
@@ -8234,7 +8582,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition87-stepdefinition"></a>
+  <a name="step_definition91-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the payload has a valid sessions array"</span>
@@ -8326,7 +8674,904 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition88-stepdefinition"></a>
+  <a name="step_definition92-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the request is valid multipart form-data'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+request+is+valid+multipart+form-data'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/multipart_request_steps.rb:22</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Verifies that the request contains multipart form-data</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">22
+23
+24</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the request is valid multipart form-data</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_valid_multipart_form_data?'><span class='object_link'><a href="../top-level-namespace.html#valid_multipart_form_data%3F-instance_method" title="#valid_multipart_form_data? (method)">valid_multipart_form_data?</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition93-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'all requests are valid multipart form-data'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='all+requests+are+valid+multipart+form-data'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/multipart_request_steps.rb:27</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Verifies all received requests contain multipart form-data</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">27
+28
+29</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>all requests are valid multipart form-data</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
+  <span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_stored_requests'><span class='object_link'><a href="../Server.html#stored_requests-class_method" title="Server.stored_requests (method)">stored_requests</a></span></span><span class='period'>.</span><span class='id identifier rubyid_all?'>all?</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_request'>request</span><span class='op'>|</span> <span class='id identifier rubyid_valid_multipart_form_data?'><span class='object_link'><a href="../top-level-namespace.html#valid_multipart_form_data%3F-instance_method" title="#valid_multipart_form_data? (method)">valid_multipart_form_data?</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_request'>request</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition94-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the multipart request has {int} fields'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+multipart+request+has+%7Bint%7D+fields'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/multipart_request_steps.rb:34</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Tests the number of fields a multipart request contains.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>part_count [Integer] The number of expected fields</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">34
+35
+36
+37</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the multipart request has {int} fields</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_part_count'>part_count</span><span class='op'>|</span>
+  <span class='id identifier rubyid_parts'>parts</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_assert_equal'>assert_equal</span><span class='lparen'>(</span><span class='id identifier rubyid_part_count'>part_count</span><span class='comma'>,</span> <span class='id identifier rubyid_parts'>parts</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition95-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the multipart request has a non-empty body'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+multipart+request+has+a+non-empty+body'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/multipart_request_steps.rb:40</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Tests the multipart request has at least one field.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">40
+41
+42
+43</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the multipart request has a non-empty body</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_parts'>parts</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span><span class='id identifier rubyid_parts'>parts</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='period'>.</span><span class='id identifier rubyid_positive?'>positive?</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Multipart request payload contained </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_parts'>parts</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='embexpr_end'>}</span><span class='tstring_content'> fields</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition96-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the field {string} for multipart request is not null'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+field+%7Bstring%7D+for+multipart+request+is+not+null'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/multipart_request_steps.rb:51</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>(Deprecated) Retained for backwards compatibility.
+Use &quot;the payload field string is not null&quot;</p>
+
+<p>Tests that a multipart request field exists and is not null.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>part_key [String] The key to the multipart element</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">51
+52
+53
+54</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the field {string} for multipart request is not null</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_part_key'>part_key</span><span class='op'>|</span>
+  <span class='id identifier rubyid_parts'>parts</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_assert_not_nil'>assert_not_nil</span><span class='lparen'>(</span><span class='id identifier rubyid_parts'>parts</span><span class='lbracket'>[</span><span class='id identifier rubyid_part_key'>part_key</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The field &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_part_key'>part_key</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; should not be null</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition97-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the field {string} for multipart request equals {string}'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+field+%7Bstring%7D+for+multipart+request+equals+%7Bstring%7D'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/multipart_request_steps.rb:63</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>(Deprecated) Retained for backwards compatibility
+Use &quot;the payload field string equals string&quot;</p>
+
+<p>Tests that a multipart request field equals a string.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>part_key [String] The key to the multipart element</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>expected_value [String] The string to match against</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">63
+64
+65
+66</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the field {string} for multipart request equals {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_part_key'>part_key</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_value'>expected_value</span><span class='op'>|</span>
+  <span class='id identifier rubyid_parts'>parts</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_assert_equal'>assert_equal</span><span class='lparen'>(</span><span class='id identifier rubyid_parts'>parts</span><span class='lbracket'>[</span><span class='id identifier rubyid_part_key'>part_key</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_value'>expected_value</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition98-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the field {string} for multipart request is null'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+field+%7Bstring%7D+for+multipart+request+is+null'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/multipart_request_steps.rb:74</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>(Deprecated) Retained for backwards compatibility
+Use &quot;the payload field string is null&quot;</p>
+
+<p>Tests that a multipart request field is null.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>part_key [String] The key to the multipart element</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">74
+75
+76
+77</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the field {string} for multipart request is null</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_part_key'>part_key</span><span class='op'>|</span>
+  <span class='id identifier rubyid_parts'>parts</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span>	
+  <span class='id identifier rubyid_assert_nil'>assert_nil</span><span class='lparen'>(</span><span class='id identifier rubyid_parts'>parts</span><span class='lbracket'>[</span><span class='id identifier rubyid_part_key'>part_key</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The field &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_part_key'>part_key</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; should be null</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition99-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the multipart body does not match the JSON file in {string}'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+multipart+body+does+not+match+the+JSON+file+in+%7Bstring%7D'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/multipart_request_steps.rb:97</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Tests that the multipart payload body does not match a JSON file.
+JSON formatted multipart fields will be parsed into hashes.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>json_path [String] Path to a JSON file relative to maze-runner root</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">97
+98
+99
+100
+101
+102
+103
+104</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the multipart body does not match the JSON file in {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_json_path'>json_path</span><span class='op'>|</span>
+  <span class='id identifier rubyid_assert_true'>assert_true</span><span class='lparen'>(</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_exist?'>exist?</span><span class='lparen'>(</span><span class='id identifier rubyid_json_path'>json_path</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_json_path'>json_path</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; does not exist</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_raw_payload_value'>raw_payload_value</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_payload_value'>payload_value</span> <span class='op'>=</span> <span class='id identifier rubyid_parse_multipart_body'><span class='object_link'><a href="../top-level-namespace.html#parse_multipart_body-instance_method" title="#parse_multipart_body (method)">parse_multipart_body</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_raw_payload_value'>raw_payload_value</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_expected_value'>expected_value</span> <span class='op'>=</span> <span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='id identifier rubyid_json_path'>json_path</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='symbol'>:read</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='id identifier rubyid_value_compare'><span class='object_link'><a href="../top-level-namespace.html#value_compare-instance_method" title="#value_compare (method)">value_compare</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_expected_value'>expected_value</span><span class='comma'>,</span> <span class='id identifier rubyid_payload_value'>payload_value</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_assert_false'>assert_false</span><span class='lparen'>(</span><span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_equal?'>equal?</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Payload:\n</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_payload_value'>payload_value</span><span class='embexpr_end'>}</span><span class='tstring_content'>\nExpected:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_expected_value'>expected_value</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition100-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the multipart body matches the JSON file in {string}'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+multipart+body+matches+the+JSON+file+in+%7Bstring%7D'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/multipart_request_steps.rb:110</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Tests that the multipart payload body matches a JSON fixture.
+JSON formatted multipart fields will be parsed into hashes.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>json_path [String] Path to a JSON file relative to maze-runner root</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">110
+111
+112
+113
+114
+115
+116
+117</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the multipart body matches the JSON file in {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_json_path'>json_path</span><span class='op'>|</span>
+  <span class='id identifier rubyid_assert_true'>assert_true</span><span class='lparen'>(</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_exist?'>exist?</span><span class='lparen'>(</span><span class='id identifier rubyid_json_path'>json_path</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_json_path'>json_path</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; does not exist</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_raw_payload_value'>raw_payload_value</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_payload_value'>payload_value</span> <span class='op'>=</span> <span class='id identifier rubyid_parse_multipart_body'><span class='object_link'><a href="../top-level-namespace.html#parse_multipart_body-instance_method" title="#parse_multipart_body (method)">parse_multipart_body</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_raw_payload_value'>raw_payload_value</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_expected_value'>expected_value</span> <span class='op'>=</span> <span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='id identifier rubyid_json_path'>json_path</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='symbol'>:read</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='id identifier rubyid_value_compare'><span class='object_link'><a href="../top-level-namespace.html#value_compare-instance_method" title="#value_compare (method)">value_compare</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_expected_value'>expected_value</span><span class='comma'>,</span> <span class='id identifier rubyid_payload_value'>payload_value</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_assert_true'>assert_true</span><span class='lparen'>(</span><span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_equal?'>equal?</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The payload field &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_keypath'>keypath</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; does not match the fixture:\n </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_reasons'>reasons</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition101-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the multipart field {string} matches the JSON file in {string}'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+multipart+field+%7Bstring%7D+matches+the+JSON+file+in+%7Bstring%7D'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/multipart_request_steps.rb:124</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Tests that a multipart field matches a JSON fixture.
+The field will be parsed into a hash.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>field_path [String] Path to the tested element</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>json_path [String] Path to a JSON file relative to maze-runner root</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">124
+125
+126
+127
+128
+129
+130</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the multipart field {string} matches the JSON file in {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_json_path'>json_path</span><span class='op'>|</span>
+  <span class='id identifier rubyid_assert_true'>assert_true</span><span class='lparen'>(</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_exist?'>exist?</span><span class='lparen'>(</span><span class='id identifier rubyid_json_path'>json_path</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_json_path'>json_path</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; does not exist</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_payload_value'>payload_value</span> <span class='op'>=</span> <span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_field_path'>field_path</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_expected_value'>expected_value</span> <span class='op'>=</span> <span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='id identifier rubyid_json_path'>json_path</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='symbol'>:read</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='id identifier rubyid_value_compare'><span class='object_link'><a href="../top-level-namespace.html#value_compare-instance_method" title="#value_compare (method)">value_compare</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_expected_value'>expected_value</span><span class='comma'>,</span> <span class='id identifier rubyid_payload_value'>payload_value</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_assert_true'>assert_true</span><span class='lparen'>(</span><span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_equal?'>equal?</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The multipart field &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_keypath'>keypath</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; does not match the fixture:\n </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_reasons'>reasons</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition102-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I wait to receive a request'</span>
@@ -8398,7 +9643,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition89-stepdefinition"></a>
+  <a name="step_definition103-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I wait to receive {int} request(s)'</span>
@@ -8503,7 +9748,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition90-stepdefinition"></a>
+  <a name="step_definition104-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I should receive no requests'</span>
@@ -8575,7 +9820,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition91-stepdefinition"></a>
+  <a name="step_definition105-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I discard the oldest request'</span>
@@ -8647,7 +9892,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition92-stepdefinition"></a>
+  <a name="step_definition106-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} header is not null'</span>
@@ -8736,7 +9981,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition93-stepdefinition"></a>
+  <a name="step_definition107-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} header equals {string}'</span>
@@ -8804,10 +10049,14 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
           <td>
             <pre class="lines">54
 55
-56</pre>
+56
+57
+58</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {string} header equals {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_header_name'>header_name</span><span class='comma'>,</span> <span class='id identifier rubyid_header_value'>header_value</span><span class='op'>|</span>
+  <span class='id identifier rubyid_assert_not_nil'>assert_not_nil</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:request</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_header_name'>header_name</span><span class='rbracket'>]</span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_header_name'>header_name</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; header wasn&#39;t present in the request</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='id identifier rubyid_assert_equal'>assert_equal</span><span class='lparen'>(</span><span class='id identifier rubyid_header_value'>header_value</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:request</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_header_name'>header_name</span><span class='rbracket'>]</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
           </td>
@@ -8834,7 +10083,109 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition94-stepdefinition"></a>
+  <a name="step_definition108-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the {string} header matches the regex {string}'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+%7Bstring%7D+header+matches+the+regex+%7Bstring%7D'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/request_assertion_steps.rb:64</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Tests that a header matches a regex</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>header_name [String] The header to test</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>regex_string [String] The regex to match with</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">64
+65
+66
+67
+68</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {string} header matches the regex {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_header_name'>header_name</span><span class='comma'>,</span> <span class='id identifier rubyid_regex_string'>regex_string</span><span class='op'>|</span>
+  <span class='id identifier rubyid_regex'>regex</span> <span class='op'>=</span> <span class='const'>Regexp</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_regex_string'>regex_string</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:request</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_header_name'>header_name</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_assert_match'>assert_match</span><span class='lparen'>(</span><span class='id identifier rubyid_regex'>regex</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition109-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} header equals one of:'</span>
@@ -8850,7 +10201,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:62</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:74</div>
     </div>
     
     <!-- Comments -->
@@ -8900,9 +10251,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">62
-63
-64</pre>
+            <pre class="lines">74
+75
+76</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {string} header equals one of:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_header_name'>header_name</span><span class='comma'>,</span> <span class='id identifier rubyid_header_values'>header_values</span><span class='op'>|</span>
@@ -8932,7 +10283,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition95-stepdefinition"></a>
+  <a name="step_definition110-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} header is a timestamp'</span>
@@ -8948,7 +10299,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:70</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:82</div>
     </div>
     
     <!-- Comments -->
@@ -8988,10 +10339,10 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">70
-71
-72
-73</pre>
+            <pre class="lines">82
+83
+84
+85</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {string} header is a timestamp</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_header_name'>header_name</span><span class='op'>|</span>
@@ -9022,7 +10373,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition96-stepdefinition"></a>
+  <a name="step_definition111-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} query parameter equals {string}'</span>
@@ -9038,7 +10389,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:79</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:91</div>
     </div>
     
     <!-- Comments -->
@@ -9088,9 +10439,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">79
-80
-81</pre>
+            <pre class="lines">91
+92
+93</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {string} query parameter equals {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_parameter_name'>parameter_name</span><span class='comma'>,</span> <span class='id identifier rubyid_parameter_value'>parameter_value</span><span class='op'>|</span>
@@ -9120,7 +10471,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition97-stepdefinition"></a>
+  <a name="step_definition112-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} query parameter is not null'</span>
@@ -9136,7 +10487,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:86</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:98</div>
     </div>
     
     <!-- Comments -->
@@ -9175,9 +10526,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">86
-87
-88</pre>
+            <pre class="lines">98
+99
+100</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {string} query parameter is not null</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_parameter_name'>parameter_name</span><span class='op'>|</span>
@@ -9207,7 +10558,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition98-stepdefinition"></a>
+  <a name="step_definition113-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} query parameter is a timestamp'</span>
@@ -9223,7 +10574,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:94</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:106</div>
     </div>
     
     <!-- Comments -->
@@ -9263,10 +10614,10 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">94
-95
-96
-97</pre>
+            <pre class="lines">106
+107
+108
+109</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {string} query parameter is a timestamp</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_parameter_name'>parameter_name</span><span class='op'>|</span>
@@ -9297,374 +10648,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition99-stepdefinition"></a>
-  <div class="title">
-    <span class="pre">Then</span>
-    <span class="name">'the multipart request has {int} fields'</span>
-    <div style="float: right;">
-      <a href="http://rubular.com/?regex='the+multipart+request+has+%7Bint%7D+fields'" target="_blank">Rubular</a>
-      
-      | UNUSED
-      <a class="stepdef" href="#">[Collapse]</a>
-    </div>
-    <div style="clear: both;"></div>
-  </div>
-
-  <div class="details">
-    
-    <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:102</div>
-    </div>
-    
-    <!-- Comments -->
-    <div>
-      <div class="docstring">
-  <div class="discussion">
-    <p>Tests the number of fields a multipart request contains.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Step parameters:</p>
-<ul class="step_input">
-  
-    <li>
-      
-      
-      
-      
-        
-        <div class='inline'><p>part_count [Integer] The number of expected fields</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div>
-    </div>
-    
-
-    <!-- Source Code -->
-    <div class="method_details_list">
-      <table class="source_code">
-        <tr>
-          <td>
-            <pre class="lines">102
-103
-104
-105</pre>
-          </td>
-          <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the multipart request has {int} fields</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_part_count'>part_count</span><span class='op'>|</span>
-  <span class='id identifier rubyid_parts'>parts</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span>
-  <span class='id identifier rubyid_assert_equal'>assert_equal</span><span class='lparen'>(</span><span class='id identifier rubyid_part_count'>part_count</span><span class='comma'>,</span> <span class='id identifier rubyid_parts'>parts</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-          </td>
-        </tr>
-      </table>
-    </div>
-
-    <!-- Matching Step Instances -->
-    
-    <div class="steps">
-      
-      <div class="undefined">No steps were found to match this step definition.</div>
-      
-    </div>
-    
-  </div>
-
-  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
-
-</div>
-
-
-
-<div class="transformer stepdefinition
-                        nodefinitions
-                        ">
-  <a name="step_definition100-stepdefinition"></a>
-  <div class="title">
-    <span class="pre">Then</span>
-    <span class="name">'the field {string} for multipart request is not null'</span>
-    <div style="float: right;">
-      <a href="http://rubular.com/?regex='the+field+%7Bstring%7D+for+multipart+request+is+not+null'" target="_blank">Rubular</a>
-      
-      | UNUSED
-      <a class="stepdef" href="#">[Collapse]</a>
-    </div>
-    <div style="clear: both;"></div>
-  </div>
-
-  <div class="details">
-    
-    <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:110</div>
-    </div>
-    
-    <!-- Comments -->
-    <div>
-      <div class="docstring">
-  <div class="discussion">
-    <p>Tests that a multipart request field exists and is not null.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Step parameters:</p>
-<ul class="step_input">
-  
-    <li>
-      
-      
-      
-      
-        
-        <div class='inline'><p>part_key [String] The key to the multipart element</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div>
-    </div>
-    
-
-    <!-- Source Code -->
-    <div class="method_details_list">
-      <table class="source_code">
-        <tr>
-          <td>
-            <pre class="lines">110
-111
-112
-113</pre>
-          </td>
-          <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the field {string} for multipart request is not null</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_part_key'>part_key</span><span class='op'>|</span>
-  <span class='id identifier rubyid_parts'>parts</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span>
-  <span class='id identifier rubyid_assert_not_nil'>assert_not_nil</span><span class='lparen'>(</span><span class='id identifier rubyid_parts'>parts</span><span class='lbracket'>[</span><span class='id identifier rubyid_part_key'>part_key</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The field &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_part_key'>part_key</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; should not be null</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-          </td>
-        </tr>
-      </table>
-    </div>
-
-    <!-- Matching Step Instances -->
-    
-    <div class="steps">
-      
-      <div class="undefined">No steps were found to match this step definition.</div>
-      
-    </div>
-    
-  </div>
-
-  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
-
-</div>
-
-
-
-<div class="transformer stepdefinition
-                        nodefinitions
-                        ">
-  <a name="step_definition101-stepdefinition"></a>
-  <div class="title">
-    <span class="pre">Then</span>
-    <span class="name">'the field {string} for multipart request equals {string}'</span>
-    <div style="float: right;">
-      <a href="http://rubular.com/?regex='the+field+%7Bstring%7D+for+multipart+request+equals+%7Bstring%7D'" target="_blank">Rubular</a>
-      
-      | UNUSED
-      <a class="stepdef" href="#">[Collapse]</a>
-    </div>
-    <div style="clear: both;"></div>
-  </div>
-
-  <div class="details">
-    
-    <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:119</div>
-    </div>
-    
-    <!-- Comments -->
-    <div>
-      <div class="docstring">
-  <div class="discussion">
-    <p>Tests that a multipart request field equals a string.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Step parameters:</p>
-<ul class="step_input">
-  
-    <li>
-      
-      
-      
-      
-        
-        <div class='inline'><p>part_key [String] The key to the multipart element</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-      
-      
-      
-        
-        <div class='inline'><p>expected_value [String] The string to match against</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div>
-    </div>
-    
-
-    <!-- Source Code -->
-    <div class="method_details_list">
-      <table class="source_code">
-        <tr>
-          <td>
-            <pre class="lines">119
-120
-121
-122</pre>
-          </td>
-          <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the field {string} for multipart request equals {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_part_key'>part_key</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_value'>expected_value</span><span class='op'>|</span>
-  <span class='id identifier rubyid_parts'>parts</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span>
-  <span class='id identifier rubyid_assert_equal'>assert_equal</span><span class='lparen'>(</span><span class='id identifier rubyid_parts'>parts</span><span class='lbracket'>[</span><span class='id identifier rubyid_part_key'>part_key</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_value'>expected_value</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-          </td>
-        </tr>
-      </table>
-    </div>
-
-    <!-- Matching Step Instances -->
-    
-    <div class="steps">
-      
-      <div class="undefined">No steps were found to match this step definition.</div>
-      
-    </div>
-    
-  </div>
-
-  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
-
-</div>
-
-
-
-<div class="transformer stepdefinition
-                        nodefinitions
-                        ">
-  <a name="step_definition102-stepdefinition"></a>
-  <div class="title">
-    <span class="pre">Then</span>
-    <span class="name">'the field {string} for multipart request is null'</span>
-    <div style="float: right;">
-      <a href="http://rubular.com/?regex='the+field+%7Bstring%7D+for+multipart+request+is+null'" target="_blank">Rubular</a>
-      
-      | UNUSED
-      <a class="stepdef" href="#">[Collapse]</a>
-    </div>
-    <div style="clear: both;"></div>
-  </div>
-
-  <div class="details">
-    
-    <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:127</div>
-    </div>
-    
-    <!-- Comments -->
-    <div>
-      <div class="docstring">
-  <div class="discussion">
-    <p>Tests that a multipart request field is null.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Step parameters:</p>
-<ul class="step_input">
-  
-    <li>
-      
-      
-      
-      
-        
-        <div class='inline'><p>part_key [String] The key to the multipart element</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div>
-    </div>
-    
-
-    <!-- Source Code -->
-    <div class="method_details_list">
-      <table class="source_code">
-        <tr>
-          <td>
-            <pre class="lines">127
-128
-129
-130</pre>
-          </td>
-          <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the field {string} for multipart request is null</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_part_key'>part_key</span><span class='op'>|</span>
-  <span class='id identifier rubyid_parts'>parts</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Server.html" title="Server (class)">Server</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_request'><span class='object_link'><a href="../Server.html#current_request-class_method" title="Server.current_request (method)">current_request</a></span></span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span>
-  <span class='id identifier rubyid_assert_nil'>assert_nil</span><span class='lparen'>(</span><span class='id identifier rubyid_parts'>parts</span><span class='lbracket'>[</span><span class='id identifier rubyid_part_key'>part_key</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The field &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_part_key'>part_key</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; should be null</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-          </td>
-        </tr>
-      </table>
-    </div>
-
-    <!-- Matching Step Instances -->
-    
-    <div class="steps">
-      
-      <div class="undefined">No steps were found to match this step definition.</div>
-      
-    </div>
-    
-  </div>
-
-  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
-
-</div>
-
-
-
-<div class="transformer stepdefinition
-                        nodefinitions
-                        ">
-  <a name="step_definition103-stepdefinition"></a>
+  <a name="step_definition114-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload body does not match the JSON fixture in {string}'</span>
@@ -9680,7 +10664,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:135</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:114</div>
     </div>
     
     <!-- Comments -->
@@ -9719,12 +10703,12 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">135
-136
-137
-138
-139
-140</pre>
+            <pre class="lines">114
+115
+116
+117
+118
+119</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the payload body does not match the JSON fixture in {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_fixture_path'>fixture_path</span><span class='op'>|</span>
@@ -9757,7 +10741,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition104-stepdefinition"></a>
+  <a name="step_definition115-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload body matches the JSON fixture in {string}'</span>
@@ -9773,7 +10757,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:145</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:124</div>
     </div>
     
     <!-- Comments -->
@@ -9812,12 +10796,12 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">145
-146
-147
-148
-149
-150</pre>
+            <pre class="lines">124
+125
+126
+127
+128
+129</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the payload body matches the JSON fixture in {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_fixture_path'>fixture_path</span><span class='op'>|</span>
@@ -9850,7 +10834,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition105-stepdefinition"></a>
+  <a name="step_definition116-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload field {string} matches the JSON fixture in {string}'</span>
@@ -9866,7 +10850,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:156</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:135</div>
     </div>
     
     <!-- Comments -->
@@ -9916,12 +10900,12 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">156
-157
-158
-159
-160
-161</pre>
+            <pre class="lines">135
+136
+137
+138
+139
+140</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the payload field {string} matches the JSON fixture in {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_fixture_path'>fixture_path</span><span class='op'>|</span>
@@ -9954,7 +10938,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition106-stepdefinition"></a>
+  <a name="step_definition117-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload field {string} is true'</span>
@@ -9970,7 +10954,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:166</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:145</div>
     </div>
     
     <!-- Comments -->
@@ -10009,9 +10993,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">166
-167
-168</pre>
+            <pre class="lines">145
+146
+147</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the payload field {string} is true</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='op'>|</span>
@@ -10041,7 +11025,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition107-stepdefinition"></a>
+  <a name="step_definition118-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload field {string} is false'</span>
@@ -10057,7 +11041,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:173</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:152</div>
     </div>
     
     <!-- Comments -->
@@ -10096,9 +11080,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">173
-174
-175</pre>
+            <pre class="lines">152
+153
+154</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the payload field {string} is false</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='op'>|</span>
@@ -10128,7 +11112,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition108-stepdefinition"></a>
+  <a name="step_definition119-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload field {string} is null'</span>
@@ -10144,7 +11128,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:180</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:159</div>
     </div>
     
     <!-- Comments -->
@@ -10183,10 +11167,10 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">180
-181
-182
-183</pre>
+            <pre class="lines">159
+160
+161
+162</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the payload field {string} is null</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='op'>|</span>
@@ -10217,7 +11201,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition109-stepdefinition"></a>
+  <a name="step_definition120-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload field {string} is not null'</span>
@@ -10233,7 +11217,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:188</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:167</div>
     </div>
     
     <!-- Comments -->
@@ -10272,10 +11256,10 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">188
-189
-190
-191</pre>
+            <pre class="lines">167
+168
+169
+170</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the payload field {string} is not null</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='op'>|</span>
@@ -10306,7 +11290,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition110-stepdefinition"></a>
+  <a name="step_definition121-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload field {string} equals {int}'</span>
@@ -10322,7 +11306,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:197</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:176</div>
     </div>
     
     <!-- Comments -->
@@ -10372,9 +11356,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">197
-198
-199</pre>
+            <pre class="lines">176
+177
+178</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the payload field {string} equals {int}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_int_value'>int_value</span><span class='op'>|</span>
@@ -10404,7 +11388,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition111-stepdefinition"></a>
+  <a name="step_definition122-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload field {string} equals the environment variable {string}'</span>
@@ -10420,7 +11404,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:205</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:184</div>
     </div>
     
     <!-- Comments -->
@@ -10470,13 +11454,13 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">205
-206
-207
-208
-209
-210
-211</pre>
+            <pre class="lines">184
+185
+186
+187
+188
+189
+190</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the payload field {string} equals the environment variable {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_env_var'>env_var</span><span class='op'>|</span>
@@ -10510,7 +11494,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition112-stepdefinition"></a>
+  <a name="step_definition123-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload field {string} is greater than {int}'</span>
@@ -10526,7 +11510,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:217</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:196</div>
     </div>
     
     <!-- Comments -->
@@ -10576,11 +11560,11 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">217
-218
-219
-220
-221</pre>
+            <pre class="lines">196
+197
+198
+199
+200</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the payload field {string} is greater than {int}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_int_value'>int_value</span><span class='op'>|</span>
@@ -10612,7 +11596,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition113-stepdefinition"></a>
+  <a name="step_definition124-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload field {string} is less than {int}'</span>
@@ -10628,7 +11612,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:227</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:206</div>
     </div>
     
     <!-- Comments -->
@@ -10678,11 +11662,11 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">227
-228
-229
-230
-231</pre>
+            <pre class="lines">206
+207
+208
+209
+210</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the payload field {string} is less than {int}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_int_value'>int_value</span><span class='op'>|</span>
@@ -10714,7 +11698,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition114-stepdefinition"></a>
+  <a name="step_definition125-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload field {string} equals {string}'</span>
@@ -10730,7 +11714,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:237</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:216</div>
     </div>
     
     <!-- Comments -->
@@ -10780,9 +11764,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">237
-238
-239</pre>
+            <pre class="lines">216
+217
+218</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the payload field {string} equals {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_string_value'>string_value</span><span class='op'>|</span>
@@ -10812,7 +11796,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition115-stepdefinition"></a>
+  <a name="step_definition126-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload field {string} starts with {string}'</span>
@@ -10828,7 +11812,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:245</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:224</div>
     </div>
     
     <!-- Comments -->
@@ -10878,11 +11862,11 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">245
-246
-247
-248
-249</pre>
+            <pre class="lines">224
+225
+226
+227
+228</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the payload field {string} starts with {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_string_value'>string_value</span><span class='op'>|</span>
@@ -10914,7 +11898,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition116-stepdefinition"></a>
+  <a name="step_definition127-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload field {string} ends with {string}'</span>
@@ -10930,7 +11914,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:255</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:234</div>
     </div>
     
     <!-- Comments -->
@@ -10980,11 +11964,11 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">255
-256
-257
-258
-259</pre>
+            <pre class="lines">234
+235
+236
+237
+238</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the payload field {string} ends with {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_string_value'>string_value</span><span class='op'>|</span>
@@ -11016,7 +12000,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition117-stepdefinition"></a>
+  <a name="step_definition128-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload field {string} is an array with {int} elements'</span>
@@ -11032,7 +12016,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:265</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:244</div>
     </div>
     
     <!-- Comments -->
@@ -11082,11 +12066,11 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">265
-266
-267
-268
-269</pre>
+            <pre class="lines">244
+245
+246
+247
+248</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the payload field {string} is an array with {int} elements</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_count'>count</span><span class='op'>|</span>
@@ -11118,7 +12102,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition118-stepdefinition"></a>
+  <a name="step_definition129-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload field {string} is a non-empty array'</span>
@@ -11134,7 +12118,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:274</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:253</div>
     </div>
     
     <!-- Comments -->
@@ -11173,11 +12157,11 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">274
-275
-276
-277
-278</pre>
+            <pre class="lines">253
+254
+255
+256
+257</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the payload field {string} is a non-empty array</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='op'>|</span>
@@ -11209,7 +12193,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition119-stepdefinition"></a>
+  <a name="step_definition130-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload field {string} matches the regex {string}'</span>
@@ -11225,7 +12209,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:284</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:263</div>
     </div>
     
     <!-- Comments -->
@@ -11275,11 +12259,11 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">284
-285
-286
-287
-288</pre>
+            <pre class="lines">263
+264
+265
+266
+267</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the payload field {string} matches the regex {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_regex_string'>regex_string</span><span class='op'>|</span>
@@ -11311,7 +12295,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition120-stepdefinition"></a>
+  <a name="step_definition131-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the payload field {string} is a parsable timestamp in seconds'</span>
@@ -11327,7 +12311,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:293</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:272</div>
     </div>
     
     <!-- Comments -->
@@ -11366,15 +12350,15 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">293
-294
-295
-296
-297
-298
-299
-300
-301</pre>
+            <pre class="lines">272
+273
+274
+275
+276
+277
+278
+279
+280</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the payload field {string} is a parsable timestamp in seconds</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='op'>|</span>
@@ -11410,7 +12394,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition121-stepdefinition"></a>
+  <a name="step_definition132-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'each element in payload field {string} has {string}'</span>
@@ -11426,7 +12410,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:307</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:286</div>
     </div>
     
     <!-- Comments -->
@@ -11476,14 +12460,14 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">307
-308
-309
-310
-311
-312
-313
-314</pre>
+            <pre class="lines">286
+287
+288
+289
+290
+291
+292
+293</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>each element in payload field {string} has {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key_path'>key_path</span><span class='comma'>,</span> <span class='id identifier rubyid_element_key_path'>element_key_path</span><span class='op'>|</span>
@@ -11546,7 +12530,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 </div>
 
       <div id="footer">
-  Generated on Tue Nov 10 18:42:34 2020 by
+  Generated on Fri Nov 13 14:47:39 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.7.2).
 </div>

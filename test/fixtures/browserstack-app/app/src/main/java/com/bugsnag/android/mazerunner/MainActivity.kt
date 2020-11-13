@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Button
+import android.widget.EditText
 import com.bugsnag.android.*
 import java.lang.Exception
 
@@ -15,8 +16,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val button = findViewById<Button>(R.id.trigger_error)
         button.setOnClickListener {
-
-            Bugsnag.notify(Exception("HandledException!"))
+            val metadata = findViewById<EditText>(R.id.metadata).text.toString()
+            val text = if (metadata == "") "HandledException!" else metadata
+            Bugsnag.notify(Exception(text))
         }
     }
 

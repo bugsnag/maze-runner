@@ -18,7 +18,7 @@ steps:
           push:
             - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
 
-  - label: 'Push Docker image for branch'
+  - label: ':docker: Push Docker image for branch'
     key: "cli-image"
     depends_on: "ci-image"
     plugins:

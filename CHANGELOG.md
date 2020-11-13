@@ -1,18 +1,13 @@
-# 3.5.0 - TBD
+# 3.5.0 - 2020/11/13
 
 ## Enhancements
 
-- Add full range of iOS 11 devices on BrowserStack to test against
-  [#166](https://github.com/bugsnag/maze-runner/pull/166)
 - Refactor of request steps and additional multipart/form-data steps
   [#163](https://github.com/bugsnag/maze-runner/pull/163)
-
+- Add full range of iOS 11 devices on BrowserStack to test against
+  [#166](https://github.com/bugsnag/maze-runner/pull/166)
 - Add the Bugsnag-Integrity header to Access-Control-Allow-Headers
   [#167](https://github.com/bugsnag/maze-runner/pull/167)
-
-- Add the Bugsnag-Integrity header to Access-Control-Allow-Headers
-  [#167](https://github.com/bugsnag/maze-runner/pull/167)
-
 - Fix always false comparison when checking the simple digest
   [#170](https://github.com/bugsnag/maze-runner/pull/170)
 

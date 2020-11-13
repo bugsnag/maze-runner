@@ -25,7 +25,8 @@ Then('I wait to receive {int} request(s)') do |request_count|
     received = (Server.stored_requests.size >= request_count)
     sleep 0.1
   end
-  raise "Requests not received in 30s (received #{Server.stored_requests.size})" unless received
+  raise "Expected #{request_count} requests but received #{Server.stored_requests.size} within the 30s timeout. This could indicate that Bugsnag crashed with a fatal error, or that it hasn’t made the requests that it should have done. Please check the device logs to confirm." unless received
+  
   assert_equal(request_count, Server.stored_requests.size, "#{Server.stored_requests.size} requests received")
 end
 

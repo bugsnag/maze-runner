@@ -8,6 +8,9 @@
 - Add the Bugsnag-Integrity header to Access-Control-Allow-Headers
   [#167](https://github.com/bugsnag/maze-runner/pull/167)
 
+- Fix always false comparison when checking the simple digest
+  [#170](https://github.com/bugsnag/maze-runner/pull/170)
+
 # 3.4.0 - 2020/11/10
 
 ## Enhancements

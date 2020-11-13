@@ -79,6 +79,7 @@ end
 #
 # @step_input json_path [String] Path to a JSON file relative to maze-runner root
 Then('the multipart body does not match the JSON file in {string}') do |json_path|
+  assert_true(File.exist?(json_path, "'#{json_path}' does not exist"))
   raw_payload_value = Server.current_request[:body]
   payload_value = parse_multipart_body(raw_payload_value)
   expected_value = JSON.parse(open(json_path, &:read))
@@ -91,6 +92,7 @@ end
 #
 # @step_input json_path [String] Path to a JSON file relative to maze-runner root
 Then('the multipart body matches the JSON file in {string}') do |json_path|
+  assert_true(File.exist?(json_path, "'#{json_path}' does not exist"))
   raw_payload_value = Server.current_request[:body]
   payload_value = parse_multipart_body(raw_payload_value)
   expected_value = JSON.parse(open(json_path, &:read))
@@ -104,6 +106,7 @@ end
 # @step_input field_path [String] Path to the tested element
 # @step_input json_path [String] Path to a JSON file relative to maze-runner root
 Then('the multipart field {string} matches the JSON file in {string}') do |field_path, json_path|
+  assert_true(File.exist?(json_path, "'#{json_path}' does not exist"))
   payload_value = JSON.parse(Server.current_request[:body][field_path].to_s)
   expected_value = JSON.parse(open(json_path, &:read))
   result = value_compare(expected_value, payload_value)

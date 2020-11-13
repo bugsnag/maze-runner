@@ -12,3 +12,4 @@ doc/
 .rakeTasks
 .yardoc/
 **/src/main/gen/
+.DS_Store

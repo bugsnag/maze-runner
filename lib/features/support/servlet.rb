@@ -50,8 +50,16 @@ class Servlet < WEBrick::HTTPServlet::AbstractServlet
     log_request(request)
     response.header['Access-Control-Allow-Origin'] = '*'
     response.header['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
-    response.header['Access-Control-Allow-Headers'] =
-      'Origin,Content-Type,Bugsnag-Sent-At,Bugsnag-Api-Key,Bugsnag-Payload-Version,Accept'
+    response.header['Access-Control-Allow-Headers'] = [
+      'Accept',
+      'Bugsnag-Api-Key',
+      'Bugsnag-Integrity',
+      'Bugsnag-Payload-Version',
+      'Bugsnag-Sent-At',
+      'Content-Type',
+      'Origin',
+    ].join(',')
+
     response.status = Server.status_code
   end
 

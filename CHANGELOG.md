@@ -1,3 +1,10 @@
+# 2.8.0 - 2020/11/13
+
+## Enhancements
+
+- Add the Bugsnag-Integrity header to Access-Control-Allow-Headers
+  [#171](https://github.com/bugsnag/maze-runner/pull/171)
+
 # 2.7.2 - 2020/11/02
 
 ## Fixes
@@ -35,7 +42,7 @@
 
 ## Enhancements
 
-- Table-based assertions on requests, including option to specify 
+- Table-based assertions on requests, including option to specify
   expected values with Regexps.
   [#131](https://github.com/bugsnag/maze-runner/pull/131)
 
@@ -48,7 +55,7 @@
 
 ## Enhancements
 
-- Range of additional Android 6, 8.0 and 8.1 device options provided, 
+- Range of additional Android 6, 8.0 and 8.1 device options provided,
   together with Android 11 and iOS 14.
   [#127](https://github.com/bugsnag/maze-runner/pull/127)
 - Ability to run an HTTP/S proxy added
@@ -74,7 +81,7 @@
   [#122](https://github.com/bugsnag/maze-runner/pull/122)
 - Use BRANCH_NAME throughout instead of BUILDKITE_BRANCH
   [#123](https://github.com/bugsnag/maze-runner/pull/123)
-    
+
 # 2.3.2 - 2020/08/26
 
 ## Fixes
@@ -153,7 +160,7 @@ Addition of HTTP version steps.
 # 1.1.0
 
 Various changes have been made since the 1.0.0 release, but no specific versioning strategy
-was not employed.  This minor release encapsulates those changes and no further significant 
+was not employed.  This minor release encapsulates those changes and no further significant
 changes to the v1 series is expected (v2 already exists and should be used in preference).
 
 # 1.0.0

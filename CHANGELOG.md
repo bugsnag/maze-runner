@@ -10,6 +10,9 @@
 - Add the Bugsnag-Integrity header to Access-Control-Allow-Headers
   [#167](https://github.com/bugsnag/maze-runner/pull/167)
 
+- Add the Bugsnag-Integrity header to Access-Control-Allow-Headers
+  [#167](https://github.com/bugsnag/maze-runner/pull/167)
+
 # 3.4.0 - 2020/11/10
 
 ## Enhancements

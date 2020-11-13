@@ -1,5 +1,12 @@
 steps:
+  - label: 'Unit tests'
+    plugins:
+      docker-compose#v3.7.0:
+        run: unit-test
+    command: 'bundle exec rake'
+
   - label: ':docker: Build CI image'
+    key: "ci-image"
     plugins:
       - docker-compose#v3.7.0:
           build:
@@ -11,9 +18,22 @@ steps:
           push:
             - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
 
-  - wait
+  - label: ':docker: Push Docker image for branch'
+    key: "cli-image"
+    depends_on: "ci-image"
+    plugins:
+      - docker-compose#v3.7.0:
+          build: cli
+          cache-from:
+            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
+            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
+      - docker-compose#v3.7.0:
+          push:
+            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
 
   - label: ':docker: Build test images'
+    key: "test-images"
+    depends_on: "ci-image"
     plugins:
       - docker-compose#v3.7.0:
           build:
@@ -28,15 +48,8 @@ steps:
             - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
           build-parallel: true
 
-  - wait
-
-  - label: 'Unit tests'
-    plugins:
-      docker-compose#v3.7.0:
-        run: unit-test
-    command: 'bundle exec rake'
-
   - label: 'No-device tests'
+    depends_on: "test-images"
     plugins:
       - docker-compose#v3.7.0:
           run: framework-tests
@@ -51,6 +64,7 @@ steps:
     command: 'bundle exec maze-runner'
 
   - label: 'Browserstack app-automate test - Android 6'
+    depends_on: "ci-image"
     plugins:
       docker-compose#v3.7.0:
         run: browserstack-app-automate
@@ -65,6 +79,7 @@ steps:
     concurrency_group: 'browserstack-app'
 
   - label: 'Browserstack app-automate test - Android 7.1 (separate Appium sessions)'
+    depends_on: "ci-image"
     plugins:
       docker-compose#v3.7.0:
         run: browserstack-app-automate
@@ -79,6 +94,7 @@ steps:
     concurrency_group: 'browserstack-app'
 
   - label: 'Browserstack app-automate test - Android 8.1'
+    depends_on: "ci-image"
     plugins:
       docker-compose#v3.7.0:
         run: browserstack-app-automate
@@ -94,6 +110,7 @@ steps:
     concurrency_group: 'browserstack-app'
 
   - label: 'Browserstack app-automate test - Android 9'
+    depends_on: "ci-image"
     plugins:
       docker-compose#v3.7.0:
         run: browserstack-app-automate
@@ -108,6 +125,7 @@ steps:
     concurrency_group: 'browserstack-app'
 
   - label: 'Browserstack app-automate test - Android 10 (separate Appium sessions)'
+    depends_on: "ci-image"
     plugins:
       docker-compose#v3.7.0:
         run: browserstack-app-automate
@@ -123,6 +141,7 @@ steps:
     concurrency_group: 'browserstack-app'
 
   - label: 'Browserstack app-automate test - Android 11 (separate Appium sessions)'
+    depends_on: "ci-image"
     plugins:
       docker-compose#v3.7.0:
         run: browserstack-app-automate
@@ -136,17 +155,6 @@ steps:
       --appium-version=1.17.0
     concurrency: 10
     concurrency_group: 'browserstack-app'
-
-  - wait
-
-  - label: 'Push Docker image for branch'
-    plugins:
-      - docker-compose#v3.7.0:
-          build: cli
-          cache-from: cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
-      - docker-compose#v3.7.0:
-          push:
-            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
 
   - wait
 

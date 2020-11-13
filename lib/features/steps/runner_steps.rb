@@ -94,7 +94,7 @@ end
 # Will fail if no commands have been run
 #
 # @step_input expected_string [String] The string expected in a single log line
-Then('the last run docker command output {string}') do |expected_string|
+Then('the last run docker command output {string} to stdout') do |expected_string|
   docker_output = Docker.last_command_logs
   assert_not_nil(docker_output, 'No docker logs available to verify')
   output_included = docker_output.any? { |line| line.include?(expected_string) }

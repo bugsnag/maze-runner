@@ -102,7 +102,7 @@ class Servlet < WEBrick::HTTPServlet::AbstractServlet
     when 'sha1'
       raise "Given sha1 #{parts[1]} does not match the computed #{sha1}" unless parts[1] == sha1
     when 'simple'
-      raise "Given simple digest #{parts[1]} does not match the computed #{simple}" unless parts[1] == simple
+      raise "Given simple digest #{parts[1].inspect} does not match the computed #{simple.inspect}" unless parts[1].to_i == simple
     else
       raise "Invalid Bugsnag-Integrity digest type: #{parts[0]}"
     end
@@ -113,5 +113,3 @@ class Servlet < WEBrick::HTTPServlet::AbstractServlet
     }
   end
 end
-
-

@@ -30,7 +30,7 @@ Then('I wait to receive {int} request(s)') do |request_count|
       'This could indicate that Bugsnag crashed with a fatal error, or that it hasn’t made the requests that it ' \
       'should have done. Please check the device logs to confirm.'
   end
-  
+
   assert_equal(request_count, Server.stored_requests.size, "#{Server.stored_requests.size} requests received")
 end
 
@@ -81,7 +81,6 @@ Then('the {string} header equals one of:') do |header_name, header_values|
 end
 
 # Tests that a header is a timestamp.
-#   Uses the regex /^\d{4}\-\d{2}\-\d{2}T\d{2}:\d{2}:[\d\.]+Z?$/
 #
 # @step_input header_name [String] The header to test
 Then('the {string} header is a timestamp') do |header_name|
@@ -105,7 +104,6 @@ Then('the {string} query parameter is not null') do |parameter_name|
 end
 
 # Tests that a query parameter is a timestamp.
-#   Uses the regex /^\d{4}\-\d{2}\-\d{2}T\d{2}:\d{2}:[\d\.]+Z?$/
 #
 # @step_input parameter_name [String] The parameter to test
 Then('the {string} query parameter is a timestamp') do |parameter_name|

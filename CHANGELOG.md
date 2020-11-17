@@ -1,3 +1,10 @@
+# 3.5.1 - 2020/11/17
+
+## Fixes
+
+- Allow timezone offsets in timestamps
+  [#174](https://github.com/bugsnag/maze-runner/pull/174)
+
 # 3.5.0 - 2020/11/13
 
 ## Enhancements

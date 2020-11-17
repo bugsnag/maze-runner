@@ -61,8 +61,8 @@ steps:
           run: http-response-tests
       - docker-compose#v3.7.0:
           run: payload-helper-tests
-      - docker-compose#v3.7.0:
-          run: docker-tests
+      # - docker-compose#v3.7.0:
+      #     run: docker-tests
     command: 'bundle exec maze-runner'
 
   - label: 'Browserstack app-automate test - Android 6'

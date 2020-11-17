@@ -49,6 +49,10 @@ services:
       context: test/fixtures/docker-app
       args:
         BRANCH_NAME:
+    environment:
+      NETWORK_NAME: "${BUILDKITE_JOB_ID:-core-maze-runner}"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 
   proxy-tests:
     build:
@@ -73,3 +77,7 @@ services:
       dockerfile: dockerfiles/Dockerfile.ci
       context: .
       target: unit-test
+
+networks:
+  default:
+    name: ${BUILDKITE_JOB_ID:-core-maze-runner}

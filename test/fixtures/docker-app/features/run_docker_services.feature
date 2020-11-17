@@ -9,7 +9,7 @@ Feature: Running docker services and commands
         And the last run docker command output "SOME OUTPUT"
 
     Scenario: A service can be started with a command
-        When I run the service "sends_request" with the command "curl -F somedata=manual http://host.docker.internal:9339"
+        When I run the service "sends_request" with the command "curl -F somedata=manual http://docker-tests:9339"
         And I wait to receive a request
         Then the payload field "somedata" equals "manual"
         And the last run docker command exited successfully
@@ -17,7 +17,7 @@ Feature: Running docker services and commands
     Scenario: A service can be started with a multiline command
         When I run the service "sends_request" with the command
         """
-        curl -F somedata=multiline http://host.docker.internal:9339
+        curl -F somedata=multiline http://docker-tests:9339
         """
         And I wait to receive a request
         Then the payload field "somedata" equals "multiline"

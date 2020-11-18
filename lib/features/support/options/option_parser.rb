@@ -2,7 +2,7 @@
 
 require 'cucumber/cli/main'
 require 'optimist'
-require_relative '../../version'
+require_relative '../../../version'
 
 module Maze
   # Parses the command line options
@@ -27,8 +27,8 @@ module Maze
               short: :none,
               type: :boolean,
               default: false
-          opt Option::FARM, 'Device farm to use: "bs" (BrowserStack) or "local"', short: :none, type: :string
-          opt Option::APP, 'The app to be installed and run against', short: :none, type: :string
+          opt Option::FARM, 'Device farm to use: "bs" (BrowserStack) or "local"', short: '-f', type: :string
+          opt Option::APP, 'The app to be installed and run against', short: '-a', type: :string
           opt Option::A11Y_LOCATOR,
               'Locate elements by accessibility id rather than id',
               short: :none,
@@ -36,8 +36,12 @@ module Maze
               default: false
           opt Option::RESILIENT,
               'Use the resilient Appium driver',
-              short: :none,
+              short: '-r',
               default: false
+          opt Option::CAPABILITIES,
+              'Additional desired Appium capabilities as a JSON string',
+              short: '-c',
+              default: '{}'
 
           # BrowserStack-only options
           opt Option::BS_LOCAL,
@@ -49,8 +53,8 @@ module Maze
               'BrowserStack device to use (a key of Devices.DEVICE_HASH)',
               short: :none,
               type: :string
-          opt Option::USERNAME, 'Device farm username', short: :none, type: :string
-          opt Option::ACCESS_KEY, 'Device farm access key', short: :none, type: :string
+          opt Option::USERNAME, 'Device farm username', short: '-u', type: :string
+          opt Option::ACCESS_KEY, 'Device farm access key', short: '-p', type: :string
           opt Option::BS_APPIUM_VERSION,
               'The Appium version to use with BrowserStack',
               short: :none,

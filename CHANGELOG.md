@@ -1,3 +1,10 @@
+# TBD
+
+## Fixes
+
+- Fix ordering issue with docker exit code/output
+  [#175](https://github.com/bugsnag/maze-runner/pull/175)
+
 # 3.5.1 - 2020/11/17
 
 ## Fixes

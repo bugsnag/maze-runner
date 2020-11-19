@@ -44,23 +44,30 @@ module Maze
 
     # Validates Local device options
     def validate_local
-      @errors << "--#{Maze::Option::OS_VERSION} must be specified" if options[Maze::Option::OS_VERSION].nil?
-      # Ensure OS version is a valid float so that notifier tests can perform numeric checks
-      # e.g 'MazeRunner.config.os_version > 7'
-      unless /^[1-9][0-9]*(\.[0-9])?/.match? options[Maze::Option::OS_VERSION]
-        @errors << "option --#{Maze::Option::OS_VERSION} must be a valid version matching '/^[1-9][0-9]*(\\.[0-9])?/'"
-      end
+      @errors << "--#{Maze::Option::APP} must be specified" if @options[Maze::Option::APP].nil?
 
-      if options[Maze::Option::OS].nil?
+      # OS
+      if @options[Maze::Option::OS].nil?
         @errors << "--#{Maze::Option::OS} must be specified"
       else
-        os = config.os = options[Maze::Option::OS].downcase
+        os = @options[Maze::Option::OS].downcase
         @errors << 'os must be ios or android' unless %w[ios android].include? os
         if os == 'ios'
-          if options[Maze::Option::APPLE_TEAM_ID].nil?
+          if @options[Maze::Option::APPLE_TEAM_ID].nil?
             @errors << "--#{Maze::Option::APPLE_TEAM_ID} must be specified for iOS"
           end
-          @errors << "--#{Maze::Option::UDID}" if options[Maze::Option::UDID].nil?
+          @errors << "--#{Maze::Option::UDID} must be specified for iOS" if @options[Maze::Option::UDID].nil?
+        end
+      end
+
+      # OS Version
+      if @options[Maze::Option::OS_VERSION].nil?
+        @errors << "--#{Maze::Option::OS_VERSION} must be specified"
+      else
+        # Ensure OS version is a valid float so that notifier tests can perform numeric checks
+        # e.g 'MazeRunner.config.os_version > 7'
+        unless /^[1-9][0-9]*(\.[0-9])?/.match? @options[Maze::Option::OS_VERSION]
+          @errors << "--#{Maze::Option::OS_VERSION} must be a valid version matching '/^[1-9][0-9]*(\\.[0-9])?/'"
         end
       end
     end

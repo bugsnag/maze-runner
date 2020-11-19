@@ -32,8 +32,8 @@ module Maze
           access_key = config.access_key = options[Maze::Option::ACCESS_KEY]
           config.appium_server_url = "http://#{username}:#{access_key}@hub-cloud.browserstack.com/wd/hub"
         when :local then
-          os = MazeRunner.config.os = options[Maze::Option::OS].downcase
-          MazeRunner.config.os_version = options[Maze::Option::OS_VERSION].to_f
+          os = config.os = options[Maze::Option::OS].downcase
+          config.os_version = options[Maze::Option::OS_VERSION].to_f
 
           config.appium_server_url = options[Maze::Option::APPIUM_SERVER]
           if os == 'ios'

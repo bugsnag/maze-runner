@@ -40,7 +40,7 @@ module Maze
       if options[Maze::Option::OS].nil?
         @errors << "--#{Maze::Option::OS} must be specified"
       else
-        os = MazeRunner.config.os = options[Maze::Option::OS].downcase
+        os = config.os = options[Maze::Option::OS].downcase
         @errors << 'os must be ios or android' unless %w[ios android].include? os
       end
 

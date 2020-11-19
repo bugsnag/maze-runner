@@ -17,6 +17,9 @@ module Maze
     # Appium capabilities
     attr_accessor :capabilities
 
+    # Appium capabilities provided via the CL
+    attr_accessor :capabilities_option
+
     # File path or URL of the app (IPA or APK) that tests will be run against
     attr_accessor :app_location
 

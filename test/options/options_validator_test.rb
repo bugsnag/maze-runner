@@ -154,4 +154,21 @@ class OptionsTest < Test::Unit::TestCase
     assert_equal 1, errors.length
     assert_equal '--udid must be specified for iOS', errors[0]
   end
+
+  def test_valid_capabilities
+    args = %w[--capabilities={"cap":"ability"}]
+    options = Maze::OptionParser.parse args
+    errors = @validator.validate options
+
+    assert_empty errors
+  end
+
+  def test_invalid_capabilities
+    args = %w[--capabilities={"cap":ability"}]
+    options = Maze::OptionParser.parse args
+    errors = @validator.validate options
+
+    assert_equal 1, errors.length
+    assert_equal '--capabilities must be valid JSON', errors[0]
+  end
 end

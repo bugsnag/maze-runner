@@ -35,7 +35,8 @@ class MazeRunnerEntry
       Maze::Option::UDID,
       Maze::Option::APPLE_TEAM_ID,
       Maze::Option::BS_APPIUM_VERSION,
-      Maze::Option::RESILIENT
+      Maze::Option::RESILIENT,
+      Maze::Option::CAPABILITIES
     ]
     remove.each do |opt|
       @args.reject! { |arg| arg == "--#{opt}" || (arg.start_with? "--#{opt}=") }

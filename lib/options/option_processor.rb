@@ -23,6 +23,7 @@ module Maze
                         raise "Unknown farm '#{farm}'"
                       end
         config.locator = options[Maze::Option::A11Y_LOCATOR] ? :accessibility_id : :id
+        config.capabilities_option = options[Maze::Option::CAPABILITIES]
 
         # Farm specific options
         case config.farm

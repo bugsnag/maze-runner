@@ -18,6 +18,12 @@ module Maze
         @errors << "--#{Maze::Option::FARM} must be either 'bs' or 'local' if provided"
       end
 
+      begin
+        JSON.parse(options[Option::CAPABILITIES])
+      rescue JSON::ParserError
+        @errors << "--#{Maze::Option::CAPABILITIES} must be valid JSON"
+      end
+
       # Farm specific options
       validate_bs if farm == 'bs'
       validate_local if farm == 'local'

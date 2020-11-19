@@ -19,7 +19,8 @@ AfterConfiguration do |config|
     tunnel_id = SecureRandom.uuid
     config.capabilities = Capabilities.for_browser_stack config.bs_device,
                                                          tunnel_id,
-                                                         config.appium_version
+                                                         config.appium_version,
+                                                         config.capabilities_option
 
     config.app_location = BrowserStackUtils.upload_app config.username,
                                                        config.access_key,
@@ -30,7 +31,8 @@ AfterConfiguration do |config|
   elsif config.farm == :local
     config.capabilities = Capabilities.for_local config.os,
                                                  config.apple_team_id,
-                                                 config.device_id
+                                                 config.device_id,
+                                                 config.capabilities_option
   end
   # Set app location (file or url) in capabilities
   config.capabilities['app'] = config.app_location

@@ -2,112 +2,15 @@
 # frozen_string_literal: true
 
 require 'cucumber/cli/main'
-require 'optimist'
 require_relative '../lib/features/support/maze_runner'
+require_relative '../lib/features/support/option'
+require_relative '../lib/features/support/option_parser'
+require_relative '../lib/features/support/option_processor'
 require_relative '../lib/features/support/capabilities/capabilities'
 require_relative '../lib/features/support/capabilities/devices'
-require_relative '../lib/version'
 
 # Encapsulates the MazeRunner entry point
-#
-# TODO: Factor out CL options/processing to reduce overall size
 class MazeRunnerEntry
-  # Common options
-  OPTION_SEPARATE_SESSIONS = 'separate-sessions'
-  OPTION_FARM = 'farm'
-  OPTION_APP = 'app'
-  OPTION_A11Y_LOCATOR = 'a11y-locator'
-  OPTION_RESILIENT = 'resilient'
-
-  # BrowserStack-only options
-  OPTION_BS_LOCAL = 'bs-local'
-  OPTION_BS_DEVICE = 'device'
-  OPTION_USERNAME = 'username'
-  OPTION_ACCESS_KEY = 'access-key'
-  OPTION_BS_APPIUM_VERSION = 'appium-version'
-
-  # Local-only options
-  OPTION_OS = 'os'
-  OPTION_OS_VERSION = 'os-version'
-  OPTION_APPIUM_SERVER = 'appium-server'
-  OPTION_APPLE_TEAM_ID = 'apple-team-id'
-  OPTION_UDID = 'udid'
-
-  def initialize
-    @parser = Optimist::Parser.new do
-      text 'Maze Runner extends the functionality of Cucumber, ' \
-        'providing all of the command line arguments that it provides.'
-      text ''
-      text 'Usage [OPTIONS] <filenames>'
-      text ''
-      text 'Overridden Cucumber options:'
-      opt :help, 'Print this help.'
-      opt :init, 'Initialises a new Maze Runner project'
-
-      opt :version, 'Display Maze Runner and Cucumber versions'
-
-      # Common options
-      opt OPTION_SEPARATE_SESSIONS,
-          'Start a new Appium session for each scenario',
-          short: :none,
-          type: :boolean,
-          default: false
-      opt OPTION_FARM, 'Device farm to use: "bs" (BrowserStack) or "local"', short: :none, type: :string
-      opt OPTION_APP, 'The app to be installed and run against', short: :none, type: :string
-      opt OPTION_A11Y_LOCATOR,
-          'Locate elements by accessibility id rather than id',
-          short: :none,
-          type: :boolean,
-          default: false
-      opt OPTION_RESILIENT,
-          'Use the resilient Appium driver',
-          short: :none,
-          default: false
-
-      # BrowserStack-only options
-      opt OPTION_BS_LOCAL,
-          '(BS only) Path to the BrowserStackLocal binary',
-          short: :none,
-          type: :string,
-          default: '/BrowserStackLocal'
-      opt OPTION_BS_DEVICE,
-          'BrowserStack device to use (a key of Devices.DEVICE_HASH)',
-          short: :none,
-          type: :string
-      opt OPTION_USERNAME, 'Device farm username', short: :none, type: :string
-      opt OPTION_ACCESS_KEY, 'Device farm access key', short: :none, type: :string
-      opt OPTION_BS_APPIUM_VERSION,
-          'The Appium version to use with BrowserStack',
-          short: :none,
-          type: :string
-
-      # Local-only options
-      opt OPTION_OS,
-          'OS type to use ("ios", "android")',
-          short: :none,
-          type: :string
-      opt OPTION_OS_VERSION,
-          'The intended OS version when running on a local device',
-          short: :none,
-          type: :string
-      opt OPTION_APPIUM_SERVER,
-          'Appium server URL, only used for --farm=local',
-          short: :none,
-          type: :string,
-          default: 'http://localhost:4723/wd/hub'
-      opt OPTION_APPLE_TEAM_ID, 'Apple Team Id, required for local iOS testing', short: :none, type: :string
-      opt OPTION_UDID, 'Apple UDID, required for local iOS testing', short: :none, type: :string
-
-      version "Maze Runner v#{BugsnagMazeRunner::VERSION} " \
-              "(Cucumber v#{Cucumber::VERSION.strip})"
-      text ''
-      text 'The Cucumber help follows:'
-      text ''
-    end
-
-    # Allow for options destined for Cucumber
-    @parser.ignore_invalid_options = true
-  end
 
   def init
     require_relative 'commands/init'
@@ -117,21 +20,21 @@ class MazeRunnerEntry
   # Removes Maze Runner specific args from the array, as these will cause Cucumber to error.
   def remove_maze_runner_args
     remove = [
-      OPTION_SEPARATE_SESSIONS,
-      OPTION_APP,
-      OPTION_BS_LOCAL,
-      OPTION_BS_DEVICE,
-      OPTION_OS,
-      OPTION_OS_VERSION,
-      OPTION_FARM,
-      OPTION_USERNAME,
-      OPTION_ACCESS_KEY,
-      OPTION_APPIUM_SERVER,
-      OPTION_A11Y_LOCATOR,
-      OPTION_UDID,
-      OPTION_APPLE_TEAM_ID,
-      OPTION_BS_APPIUM_VERSION,
-      OPTION_RESILIENT
+      Option::SEPARATE_SESSIONS,
+      Option::APP,
+      Option::BS_LOCAL,
+      Option::BS_DEVICE,
+      Option::OS,
+      Option::OS_VERSION,
+      Option::FARM,
+      Option::USERNAME,
+      Option::ACCESS_KEY,
+      Option::APPIUM_SERVER,
+      Option::A11Y_LOCATOR,
+      Option::UDID,
+      Option::APPLE_TEAM_ID,
+      Option::BS_APPIUM_VERSION,
+      Option::RESILIENT
     ]
     remove.each do |opt|
       @args.reject! { |arg| arg == "--#{opt}" || (arg.start_with? "--#{opt}=") }
@@ -165,79 +68,17 @@ class MazeRunnerEntry
   def start(args)
     # Parse args, processing any Maze Runner specific options
     @args = args.dup
-    options = @parser.parse args
+    options = Maze::OptionParser.parse args
 
     # Process CL options
     init if options[:init]
-    config = MazeRunner.config
-    config.appium_session_isolation = options[OPTION_SEPARATE_SESSIONS]
-    config.app_location = options[OPTION_APP]
-    config.resilient = options[OPTION_RESILIENT]
-    farm = options[OPTION_FARM]
-    config.farm = case farm
-                  when nil then :none
-                  when 'bs' then :bs
-                  when 'local' then :local
-                  else
-                    raise "Unknown farm '#{farm}'"
-                  end
-    config.locator = options[OPTION_A11Y_LOCATOR] ? :accessibility_id : :id
-
-    # Farm specific options
-    case config.farm
-    when :bs then
-      raise "option --#{OPTION_USERNAME} must be specified" if options[OPTION_USERNAME].nil?
-      raise "option --#{OPTION_ACCESS_KEY} must be specified" if options[OPTION_ACCESS_KEY].nil?
-
-      bs_device = options[OPTION_BS_DEVICE]
-      raise "option --#{OPTION_BS_DEVICE} must be specified" if bs_device.nil?
-      unless Devices::DEVICE_HASH.key? bs_device
-        raise "Device type '#{bs_device}' not known on BrowserStack.  Must be one of #{Devices::DEVICE_HASH.keys}"
-      end
-
-      config.bs_device = bs_device
-      config.os_version = Devices::DEVICE_HASH[config.bs_device]['os_version'].to_f
-      config.bs_local = options[OPTION_BS_LOCAL]
-      config.appium_version = options[OPTION_BS_APPIUM_VERSION]
-      username = config.username = options[OPTION_USERNAME]
-      access_key = config.access_key = options[OPTION_ACCESS_KEY]
-      config.appium_server_url = "http://#{username}:#{access_key}@hub-cloud.browserstack.com/wd/hub"
-    when :local then
-      raise "option --#{OPTION_OS} must be specified" if options[OPTION_OS].nil?
-      raise "option --#{OPTION_OS_VERSION} must be specified" if options[OPTION_OS_VERSION].nil?
-      # Ensure OS version is a valid float so that notifier tests can perform numeric checks, e.g:
-      # 'MazeRunner.config.os_version > 7'
-      unless /^[1-9][0-9]*(\.[0-9])?/.match? options[OPTION_OS_VERSION]
-        raise "option --#{OPTION_OS_VERSION} must be a valid OS version matching '/^[1-9][0-9]*(\\.[0-9])?/'"
-      end
-
-      os = MazeRunner.config.os = options[OPTION_OS].downcase
-      MazeRunner.config.os_version = options[OPTION_OS_VERSION].to_f
-      raise 'os must be ios or android' unless %w[ios android].include? os
-
-      config.appium_server_url = options[OPTION_APPIUM_SERVER]
-      if os == 'ios'
-        raise 'option --apple-team-id must be specified for iOS' if options[OPTION_APPLE_TEAM_ID].nil?
-        raise 'option --udid must be specified for iOS' if options[OPTION_UDID].nil?
-
-        config.apple_team_id = options[OPTION_APPLE_TEAM_ID]
-        config.device_id = options[OPTION_UDID]
-      end
-    end
+    Maze::OptionProcessor.populate MazeRunner.config, options
 
     # Adjust CL options before calling down to Cucumber
     remove_maze_runner_args
     add_cucumber_args
 
     Cucumber::Cli::Main.new(@args).execute!
-
-  rescue Optimist::HelpNeeded
-    # Display
-    @parser.educate
-    Cucumber::Cli::Main.new(['--help']).execute!
-
-  rescue Optimist::VersionNeeded
-    puts @parser.version
   end
 end
 

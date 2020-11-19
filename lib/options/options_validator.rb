@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'option'
+require_relative '../features/support/capabilities/devices'
 
 module Maze
   # Validates command line options

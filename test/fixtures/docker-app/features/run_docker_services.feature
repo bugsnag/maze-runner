@@ -18,9 +18,12 @@ Feature: Running docker services and commands
         When I run the service "sends_request" with the command
         """
         curl -F somedata=multiline http://docker-tests:9339
+        curl -F somedata=multiline2 http://docker-tests:9339
         """
-        And I wait to receive a request
+        And I wait to receive 2 requests
         Then the payload field "somedata" equals "multiline"
+        And I discard the oldest request
+        And the payload field "somedata" equals "multiline2"
         And the last run docker command exited successfully
 
     Scenario: A services error status can be checked

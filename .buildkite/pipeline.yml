@@ -61,6 +61,7 @@ steps:
           run: http-response-tests
       - docker-compose#v3.7.0:
           run: payload-helper-tests
+      # Temporarily disabled due to networking issues - see [PLAT-5431]
       # - docker-compose#v3.7.0:
       #     run: docker-tests
     command: 'bundle exec maze-runner'

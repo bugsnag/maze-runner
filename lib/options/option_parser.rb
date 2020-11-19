@@ -2,6 +2,7 @@
 
 require 'cucumber/cli/main'
 require 'optimist'
+require_relative 'option'
 require_relative '../version'
 
 module Maze

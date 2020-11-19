@@ -2,7 +2,7 @@
 
 require_relative '../test_helper'
 require_relative '../../lib/options/option_parser'
-require_relative '../../lib/options/options_validator'
+require_relative '../../lib/options/option_validator'
 
 # Tests the options parser and validator together.
 class OptionsTest < Test::Unit::TestCase

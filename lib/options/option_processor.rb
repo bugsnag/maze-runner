@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require_relative 'option'
+require_relative '../../lib/features/support/capabilities/devices'
+
 module Maze
   # Processes the parsed command line options
   class OptionProcessor

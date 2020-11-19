@@ -2,7 +2,7 @@
 
 require 'cucumber/cli/main'
 require 'optimist'
-require_relative '../../../version'
+require_relative '../version'
 
 module Maze
   # Parses the command line options

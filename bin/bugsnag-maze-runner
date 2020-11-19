@@ -2,11 +2,11 @@
 # frozen_string_literal: true
 
 require 'cucumber/cli/main'
+require_relative '../lib/options/option'
+require_relative '../lib/options/option_parser'
+require_relative '../lib/options/option_processor'
+require_relative '../lib/options/options_validator'
 require_relative '../lib/features/support/maze_runner'
-require_relative '../lib/features/support/options/option'
-require_relative '../lib/features/support/options/option_parser'
-require_relative '../lib/features/support/options/option_processor'
-require_relative '../lib/features/support/options/options_validator'
 require_relative '../lib/features/support/capabilities/capabilities'
 require_relative '../lib/features/support/capabilities/devices'
 

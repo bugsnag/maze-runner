@@ -85,12 +85,12 @@ module Maze
         parser.parse args
 
       rescue Optimist::HelpNeeded
-        # Display
         parser.educate
         Cucumber::Cli::Main.new(['--help']).execute!
-
+        exit
       rescue Optimist::VersionNeeded
         puts parser.version
+        exit
       end
     end
   end

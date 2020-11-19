@@ -69,7 +69,6 @@ class MazeRunnerEntry
     # Parse args, processing any Maze Runner specific options
     @args = args.dup
     options = Maze::OptionParser.parse args
-    exit unless options
 
     # Process CL options
     init if options[:init]

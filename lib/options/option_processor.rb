@@ -34,17 +34,13 @@ module Maze
         when :local then
           os = config.os = options[Maze::Option::OS].downcase
           config.os_version = options[Maze::Option::OS_VERSION].to_f
-
           config.appium_server_url = options[Maze::Option::APPIUM_SERVER]
           if os == 'ios'
-            raise 'option --apple-team-id must be specified for iOS' if options[Maze::Option::APPLE_TEAM_ID].nil?
-            raise 'option --udid must be specified for iOS' if options[Maze::Option::UDID].nil?
-
             config.apple_team_id = options[Maze::Option::APPLE_TEAM_ID]
             config.device_id = options[Maze::Option::UDID]
           end
         when :none
-          # Nothing to do
+          nil
         else
           raise "Unexpected farm option #{config.farm}"
         end

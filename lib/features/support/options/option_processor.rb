@@ -24,14 +24,7 @@ module Maze
         # Farm specific options
         case config.farm
         when :bs then
-
-          bs_device = options[Maze::Option::BS_DEVICE]
-          raise "option --#{Maze::Option::BS_DEVICE} must be specified" if bs_device.nil?
-          unless Devices::DEVICE_HASH.key? bs_device
-            raise "Device type '#{bs_device}' not known on BrowserStack.  Must be one of #{Devices::DEVICE_HASH.keys}"
-          end
-
-          config.bs_device = bs_device
+          config.bs_device = options[Maze::Option::BS_DEVICE]
           config.os_version = Devices::DEVICE_HASH[config.bs_device]['os_version'].to_f
           config.bs_local = options[Maze::Option::BS_LOCAL]
           config.appium_version = options[Maze::Option::BS_APPIUM_VERSION]
@@ -39,17 +32,8 @@ module Maze
           access_key = config.access_key = options[Maze::Option::ACCESS_KEY]
           config.appium_server_url = "http://#{username}:#{access_key}@hub-cloud.browserstack.com/wd/hub"
         when :local then
-          raise "option --#{Maze::Option::OS} must be specified" if options[Maze::Option::OS].nil?
-          raise "option --#{Maze::Option::OS_VERSION} must be specified" if options[Maze::Option::OS_VERSION].nil?
-          # Ensure OS version is a valid float so that notifier tests can perform numeric checks, e.g:
-          # 'MazeRunner.config.os_version > 7'
-          unless /^[1-9][0-9]*(\.[0-9])?/.match? options[Maze::Option::OS_VERSION]
-            raise "option --#{Maze::Option::OS_VERSION} must be a valid OS version matching '/^[1-9][0-9]*(\\.[0-9])?/'"
-          end
-
           os = MazeRunner.config.os = options[Maze::Option::OS].downcase
           MazeRunner.config.os_version = options[Maze::Option::OS_VERSION].to_f
-          raise 'os must be ios or android' unless %w[ios android].include? os
 
           config.appium_server_url = options[Maze::Option::APPIUM_SERVER]
           if os == 'ios'

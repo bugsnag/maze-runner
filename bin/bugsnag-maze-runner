@@ -71,13 +71,14 @@ class MazeRunnerEntry
     @args = args.dup
     options = Maze::OptionParser.parse args
 
-    # Process CL options
+    # Validate CL options
     errors = Maze::OptionValidator.new.validate options
-    if !errors.empty?
+    unless errors.empty?
       puts errors
       exit 1
     end
 
+    #
     init if options[:init]
     Maze::OptionProcessor.populate MazeRunner.config, options
 

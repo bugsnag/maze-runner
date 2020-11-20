@@ -67,7 +67,7 @@ steps:
     command: 'bundle exec maze-runner'
 
   - label: 'Browserstack app-automate test - Android 6'
-    depends_on: "ci-image"
+    depends_on: "test-images"
     plugins:
       docker-compose#v3.7.0:
         run: browserstack-app-automate
@@ -82,7 +82,7 @@ steps:
     concurrency_group: 'browserstack-app'
 
   - label: 'Browserstack app-automate test - Android 7.1 (separate Appium sessions)'
-    depends_on: "ci-image"
+    depends_on: "test-images"
     plugins:
       docker-compose#v3.7.0:
         run: browserstack-app-automate
@@ -97,7 +97,7 @@ steps:
     concurrency_group: 'browserstack-app'
 
   - label: 'Browserstack app-automate test - Android 8.1'
-    depends_on: "ci-image"
+    depends_on: "test-images"
     plugins:
       docker-compose#v3.7.0:
         run: browserstack-app-automate
@@ -113,7 +113,7 @@ steps:
     concurrency_group: 'browserstack-app'
 
   - label: 'Browserstack app-automate test - Android 9'
-    depends_on: "ci-image"
+    depends_on: "test-images"
     plugins:
       docker-compose#v3.7.0:
         run: browserstack-app-automate
@@ -128,7 +128,7 @@ steps:
     concurrency_group: 'browserstack-app'
 
   - label: 'Browserstack app-automate test - Android 10 (separate Appium sessions)'
-    depends_on: "ci-image"
+    depends_on: "test-images"
     plugins:
       docker-compose#v3.7.0:
         run: browserstack-app-automate
@@ -144,7 +144,7 @@ steps:
     concurrency_group: 'browserstack-app'
 
   - label: 'Browserstack app-automate test - Android 11 (separate Appium sessions)'
-    depends_on: "ci-image"
+    depends_on: "test-images"
     plugins:
       docker-compose#v3.7.0:
         run: browserstack-app-automate

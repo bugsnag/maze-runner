@@ -25,6 +25,15 @@ end
 # @step_input element_id [String] The locator id
 When('I click the element {string}') do |element_id|
   MazeRunner.driver.click_element(element_id)
+  begin
+    MazeRunner.driver.click_element(element_id)
+  rescue StandardError
+    # AppiumForMac raises an to run a scenario that crashes the app
+    raise unless MazeRunner.config.os == 'macos'
+
+    $logger.warn 'Ignoring exception raised on click_element - this is normal for AppiumForMac if the button click ' \
+      'causes the app to crash.'
+  end
 end
 
 # Sends the app to the background for a number of seconds
@@ -122,6 +131,23 @@ end
 # @step_input platform_values [DataTable] A table of acceptable values for each platform
 Then('the event {string} equals the platform-dependent boolean:') do |field_path, platform_values|
   test_boolean_platform_values("events.0.#{field_path}", platform_values)
+end
+
+# See `the payload field {string} equals the platform-dependent string:`
+#
+# @step_input field_path [String] The field to test, prepended with "events.0.exceptions.0."
+# @step_input platform_values [DataTable] A table of acceptable values for each platform
+Then('the exception {string} equals the platform-dependent string:') do |field_path, platform_values|
+  test_string_platform_values("events.0.exceptions.0.#{field_path}", platform_values)
+end
+
+# See `the payload field {string} equals the platform-dependent string:`
+#
+# @step_input field_path [String] The field to test, prepended with "events.0.exceptions.0.stacktrace.#{num}"
+# @step_input field_path [String] The index of the stack frame to test
+# @step_input platform_values [DataTable] A table of acceptable values for each platform
+Then('the {string} of stack frame {int} equals the platform-dependent string:') do |field_path, num, platform_values|
+  test_string_platform_values("events.0.exceptions.0.stacktrace.#{num}.#{field_path}", platform_values)
 end
 
 # Sends keys to a given element, clearing it first

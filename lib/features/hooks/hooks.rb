@@ -53,7 +53,11 @@ AfterConfiguration do |config|
     # Log a link to the BrowserStack session search dashboard
     build = MazeRunner.driver.caps[:build]
     url = "https://app-automate.browserstack.com/dashboard/v2/?searchQuery=#{build}"
-    $logger.info LogUtil.linkify url, 'BrowserStack session(s)'
+    if ENV['BUILDKITE']
+      $logger.info LogUtil.linkify url, 'BrowserStack session(s)'
+    else
+      $logger.info "BrowserStack session(s): #{url}"
+    end
   end
   MazeRunner.driver.start_driver unless config.appium_session_isolation
 

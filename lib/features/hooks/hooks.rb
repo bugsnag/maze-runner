@@ -30,10 +30,11 @@ AfterConfiguration do |config|
                                          config.access_key
   elsif config.farm == :local
     config.capabilities = Capabilities.for_local config.os,
+                                                 config.capabilities_option,
                                                  config.apple_team_id,
-                                                 config.device_id,
-                                                 config.capabilities_option
+                                                 config.device_id
   end
+
   # Set app location (file or url) in capabilities
   config.capabilities['app'] = config.app_location
 
@@ -76,7 +77,7 @@ Before do |scenario|
   MazeRunner.driver.start_driver if MazeRunner.config.farm != :none && MazeRunner.config.appium_session_isolation
 
   # Launch the app on MacOS
-  MazeRunner.driver.get(MazeRunner.config.app_location) if MazeRunner.driver.os == 'macos'
+  MazeRunner.driver.get(MazeRunner.config.app_location) if MazeRunner.config.os == 'macos'
 
   # Call any blocks registered by the client
   MazeRunner.hooks.call_before scenario

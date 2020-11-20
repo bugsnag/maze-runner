@@ -2,10 +2,11 @@
 # frozen_string_literal: true
 
 require 'cucumber/cli/main'
+require_relative '../lib/options/option'
+require_relative '../lib/options/option_parser'
+require_relative '../lib/options/option_processor'
+require_relative '../lib/options/option_validator'
 require_relative '../lib/features/support/maze_runner'
-require_relative '../lib/features/support/option'
-require_relative '../lib/features/support/option_parser'
-require_relative '../lib/features/support/option_processor'
 require_relative '../lib/features/support/capabilities/capabilities'
 require_relative '../lib/features/support/capabilities/devices'
 
@@ -20,21 +21,22 @@ class MazeRunnerEntry
   # Removes Maze Runner specific args from the array, as these will cause Cucumber to error.
   def remove_maze_runner_args
     remove = [
-      Option::SEPARATE_SESSIONS,
-      Option::APP,
-      Option::BS_LOCAL,
-      Option::BS_DEVICE,
-      Option::OS,
-      Option::OS_VERSION,
-      Option::FARM,
-      Option::USERNAME,
-      Option::ACCESS_KEY,
-      Option::APPIUM_SERVER,
-      Option::A11Y_LOCATOR,
-      Option::UDID,
-      Option::APPLE_TEAM_ID,
-      Option::BS_APPIUM_VERSION,
-      Option::RESILIENT
+      Maze::Option::SEPARATE_SESSIONS,
+      Maze::Option::APP,
+      Maze::Option::BS_LOCAL,
+      Maze::Option::BS_DEVICE,
+      Maze::Option::OS,
+      Maze::Option::OS_VERSION,
+      Maze::Option::FARM,
+      Maze::Option::USERNAME,
+      Maze::Option::ACCESS_KEY,
+      Maze::Option::APPIUM_SERVER,
+      Maze::Option::A11Y_LOCATOR,
+      Maze::Option::UDID,
+      Maze::Option::APPLE_TEAM_ID,
+      Maze::Option::BS_APPIUM_VERSION,
+      Maze::Option::RESILIENT,
+      Maze::Option::CAPABILITIES
     ]
     remove.each do |opt|
       @args.reject! { |arg| arg == "--#{opt}" || (arg.start_with? "--#{opt}=") }
@@ -70,7 +72,14 @@ class MazeRunnerEntry
     @args = args.dup
     options = Maze::OptionParser.parse args
 
-    # Process CL options
+    # Validate CL options
+    errors = Maze::OptionValidator.new.validate options
+    unless errors.empty?
+      puts errors
+      exit 1
+    end
+
+    #
     init if options[:init]
     Maze::OptionProcessor.populate MazeRunner.config, options
 

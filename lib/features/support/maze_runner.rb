@@ -9,7 +9,7 @@ class MazeRunner
   class << self
     attr_accessor :driver
     def config
-      @config ||= Configuration.new
+      @config ||= Maze::Configuration.new
     end
 
     def hooks

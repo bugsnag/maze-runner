@@ -1,68 +1,73 @@
 # frozen_string_literal: true
 
-# MazeRunner configuration
-class Configuration
+module Maze
+  # MazeRunner configuration
+  class Configuration
 
-  #
-  # Common configuration
-  #
+    #
+    # Common configuration
+    #
 
-  # Whether each scenario should have its own Appium session
-  attr_accessor :appium_session_isolation
+    # Whether each scenario should have its own Appium session
+    attr_accessor :appium_session_isolation
 
-  # Element locator strategy, :id or :accessibility_id
-  attr_accessor :locator
+    # Element locator strategy, :id or :accessibility_id
+    attr_accessor :locator
 
-  # Appium capabilities
-  attr_accessor :capabilities
+    # Appium capabilities
+    attr_accessor :capabilities
 
-  # File path or URL of the app (IPA or APK) that tests will be run against
-  attr_accessor :app_location
+    # Appium capabilities provided via the CL
+    attr_accessor :capabilities_option
 
-  # Whether the ResilientAppiumDriver should be used (only applicable when using Appium in the first place)
-  attr_accessor :resilient
+    # File path or URL of the app (IPA or APK) that tests will be run against
+    attr_accessor :app_location
 
-  # Device farm to be used, one of:
-  # :bs (BrowserStack)
-  # :local (Using Appium Server with a local device)
-  # :none (Cucumber-driven testing with no devices)
-  attr_accessor :farm
+    # Whether the ResilientAppiumDriver should be used (only applicable when using Appium in the first place)
+    attr_accessor :resilient
 
-  #
-  # BrowserStack specific configuration
-  #
+    # Device farm to be used, one of:
+    # :bs (BrowserStack)
+    # :local (Using Appium Server with a local device)
+    # :none (Cucumber-driven testing with no devices)
+    attr_accessor :farm
 
-  # Location of the BrowserStackLocal binary (if used)
-  attr_accessor :bs_local
+    #
+    # BrowserStack specific configuration
+    #
 
-  # Farm username
-  attr_accessor :username
+    # Location of the BrowserStackLocal binary (if used)
+    attr_accessor :bs_local
 
-  # Farm access key
-  attr_accessor :access_key
+    # Farm username
+    attr_accessor :username
 
-  # BrowserStack device type
-  attr_accessor :bs_device
+    # Farm access key
+    attr_accessor :access_key
 
-  # Appium version to use on BrowserStack
-  attr_accessor :appium_version
+    # BrowserStack device type
+    attr_accessor :bs_device
 
-  #
-  # Local testing specific configuration
-  #
+    # Appium version to use on BrowserStack
+    attr_accessor :appium_version
 
-  # Apple Team Id
-  attr_accessor :apple_team_id
+    #
+    # Local testing specific configuration
+    #
 
-  # OS
-  attr_accessor :os
+    # Apple Team Id
+    attr_accessor :apple_team_id
 
-  # OS version
-  attr_accessor :os_version
+    # OS
+    attr_accessor :os
 
-  # Device id for running on local iOS devices
-  attr_accessor :device_id
+    # OS version
+    attr_accessor :os_version
 
-  # URL of the Appium server
-  attr_accessor :appium_server_url
+    # Device id for running on local iOS devices
+    attr_accessor :device_id
+
+    # URL of the Appium server
+    attr_accessor :appium_server_url
+  end
 end

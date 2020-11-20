@@ -1,5 +1,10 @@
 # TBD
 
+## Enhancements
+
+- Add `--capabilities` option
+  [#176](https://github.com/bugsnag/maze-runner/pull/176)
+
 ## Fixes
 
 - Fix ordering issue with docker exit code/output

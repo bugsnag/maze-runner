@@ -6,7 +6,7 @@ require_relative '../../lib/options/option_processor'
 require_relative '../../lib/features/support/configuration'
 
 # Tests the options parser and processor together (using only valid options and with no validator).
-class OptionsTest < Test::Unit::TestCase
+class OptionsProcessorTest < Test::Unit::TestCase
   def test_populate_bs_config_separate
     args = %w[--farm=bs --app=my_app.apk --username=user --access-key=key --device=ANDROID_6_0 --separate-sessions]
     options = Maze::OptionParser.parse args

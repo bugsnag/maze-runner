@@ -5,7 +5,7 @@ require_relative '../../lib/options/option_parser'
 require_relative '../../lib/options/option_validator'
 
 # Tests the options parser and validator together.
-class OptionsTest < Test::Unit::TestCase
+class OptionValidatorTest < Test::Unit::TestCase
 
   def setup
     @validator = Maze::OptionValidator.new

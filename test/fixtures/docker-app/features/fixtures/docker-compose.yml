@@ -1,24 +1,10 @@
-version: '3.4'
+version: '3.6'
 services:
-  test_1:
+  sends_request:
     build:
-      context: test_1
+      context: sends_request
     restart: "no"
 
-  test_2:
-    build:
-      context: test_2
-    depends_on:
-      - dep
-    restart: "no"
-    links:
-      - dep
-
-  dep:
-    build:
-      context: dep
-    restart: "no"
-    environment:
-      - PORT=8080
-    expose:
-      - "8080"
+networks:
+  default:
+    name: ${NETWORK_NAME:-core-maze-runner}

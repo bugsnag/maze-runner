@@ -3,6 +3,8 @@ require 'json'
 
 def valid_bugsnag_integrity_header(request)
   header = request[:request]['Bugsnag-Integrity']
+  return false if header.nil?
+
   digests = request[:digests]
   if header.start_with?('sha1')
     computed_digest = "sha1 #{digests[:sha1]}"

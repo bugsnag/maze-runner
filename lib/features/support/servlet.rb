@@ -18,20 +18,19 @@ class Servlet < WEBrick::HTTPServlet::AbstractServlet
   # @param response [HTTPResponse] The response to return
   def do_POST(request, response)
     log_request(request)
-    digests = check_digest request
     case request['Content-Type']
     when %r{^multipart/form-data; boundary=([^;]+)}
       boundary = WEBrick::HTTPUtils::dequote($1)
       body = WEBrick::HTTPUtils.parse_form_data(request.body, boundary)
       Server.stored_requests << {
         body: body,
-        request: request,
-        digests: digests
+        request: request
       }
     else
       # "content-type" is assumed to be JSON (which mimics the behaviour of
       # the actual API). This supports browsers that can't set this header for
       # cross-domain requests (IE8/9)
+      digests = check_digest request
       Server.stored_requests << {
         body: JSON.parse(request.body),
         request: request,
@@ -50,15 +49,11 @@ class Servlet < WEBrick::HTTPServlet::AbstractServlet
     log_request(request)
     response.header['Access-Control-Allow-Origin'] = '*'
     response.header['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
-    response.header['Access-Control-Allow-Headers'] = [
-      'Accept',
-      'Bugsnag-Api-Key',
-      'Bugsnag-Integrity',
-      'Bugsnag-Payload-Version',
-      'Bugsnag-Sent-At',
-      'Content-Type',
-      'Origin',
-    ].join(',')
+    response.header['Access-Control-Allow-Headers'] = %w[Accept
+                                                         Bugsnag-Api-Key Bugsnag-Integrity
+                                                         Bugsnag-Payload-Version
+                                                         Bugsnag-Sent-At Content-Type
+                                                         Origin].join(',')
 
     response.status = Server.status_code
   end

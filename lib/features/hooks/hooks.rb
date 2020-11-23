@@ -84,7 +84,7 @@ Before do |scenario|
   MazeRunner.hooks.call_before scenario
 end
 
-# After each scenario
+# General processing to be run after each scenario
 After do |scenario|
 
   # Call any blocks registered by the client
@@ -109,16 +109,6 @@ After do |scenario|
 
   Proxy.instance.stop
 
-  # Check for invalid requests
-  unless Server.invalid_requests.empty?
-    Server.stored_requests.each.with_index(1) do |request, number|
-      $logger.error "Invalid request #{number} (#{request[:reason]}):"
-      LogUtil.log_hash(Logger::Severity::ERROR, request)
-    end
-    msg = "#{Server.invalid_requests.length} invalid request(s) received during scenario"
-    assert_empty Server.invalid_requests, msg
-  end
-
   # Log unprocessed requests if the scenario fails
   if scenario.failed?
     STDOUT.puts '^^^ +++'
@@ -142,6 +132,21 @@ After do |scenario|
     system("killall #{MazeRunner.config.app} && sleep 1")
   else
     MazeRunner.driver.reset_with_timeout 2
+  end
+
+  STDOUT.puts scenario.inspect
+end
+
+# Check for invalid requests after each scenario.  In its own hook as failing a scenario raises an exception.
+# Furthermore, this hook should appear after the general hook as they are exectued in reverse order by Cucumber.
+After do |scenario|
+  unless Server.invalid_requests.empty?
+    Server.invalid_requests.each.with_index(1) do |request, number|
+      $logger.error "Invalid request #{number} (#{request[:reason]}):"
+      LogUtil.log_hash(Logger::Severity::ERROR, request)
+    end
+    msg = "#{Server.invalid_requests.length} invalid request(s) received during scenario"
+    scenario.fail msg
   end
 end
 

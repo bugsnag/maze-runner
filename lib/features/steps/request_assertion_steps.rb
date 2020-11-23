@@ -31,8 +31,11 @@ Then('I wait to receive {int} request(s)') do |request_count|
   end
   unless received
     raise "Expected #{request_count} requests but received #{Server.stored_requests.size} within the 30s timeout. " \
-      'This could indicate that Bugsnag crashed with a fatal error, or that it hasn’t made the requests that it ' \
-      'should have done. Please check the device logs to confirm.'
+      "This could indicate that:\n" \
+      " - Bugsnag crashed with a fatal error\n" \
+      " - Bugsnag did not make the requests that it should have done.\n" \
+      " - The requests were made, but not deemed to be valid (e.g. missing integrity header)\n" \
+      'Please check the Maze Runner and device logs to confirm.'
   end
 
   assert_equal(request_count, Server.stored_requests.size, "#{Server.stored_requests.size} requests received")

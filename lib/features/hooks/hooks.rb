@@ -113,7 +113,7 @@ After do |scenario|
   if scenario.failed?
     STDOUT.puts '^^^ +++'
     if Server.stored_requests.empty?
-      $logger.info 'No requests received'
+      $logger.info 'No valid requests received'
     else
       $logger.info 'The following requests were received:'
       Server.stored_requests.each.with_index(1) do |request, number|

@@ -4,7 +4,7 @@ require 'cucumber'
 require 'json'
 require 'securerandom'
 
-AfterConfiguration do |config|
+AfterConfiguration do |_cucumber_config|
 
   # Start mock server
   Server.start_server
@@ -72,6 +72,7 @@ Before do |scenario|
 
   Runner.environment.clear
   Server.stored_requests.clear
+  Server.invalid_requests.clear
   Store.values.clear
 
   MazeRunner.driver.start_driver if MazeRunner.config.farm != :none && MazeRunner.config.appium_session_isolation
@@ -107,6 +108,16 @@ After do |scenario|
   Runner.kill_running_scripts
 
   Proxy.instance.stop
+
+  # Check for invalid requests
+  unless Server.invalid_requests.empty?
+    $logger.error "#{Server.invalid_requests.length} invalid request(s) received during scenario"
+    Server.stored_requests.each.with_index(1) do |request, number|
+      $logger.error "Invalid request #{number} (#{request[:reason]}):"
+      LogUtil.log_hash(Logger::Severity::ERROR, request)
+    end
+    assert_empty Server.invalid_requests
+  end
 
   # Log unprocessed requests if the scenario fails
   if scenario.failed?

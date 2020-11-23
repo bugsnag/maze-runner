@@ -45,14 +45,24 @@ class Server
       @thread&.alive?
     end
 
-    # An array of requests received.
+    # An array of (deemed to be valid) requests received.
     # Each request is hash consisting of:
     #   body: The parsed body of the request
     #   request: The original HTTPRequest object
+    #   digests: (for JSON requests only) the computed digests for the body
     #
     # @return [Array] An array of received requests
     def stored_requests
       @stored_requests ||= []
+    end
+
+    # An array of any invalid requests received.
+    # Each request is hash consisting of:
+    #   request: The original HTTPRequest object
+    #   reason: Reason for being considered invalid. Examples include invalid JSON and missing/invalid digest.
+    # @return [Array] An array of received requests
+    def invalid_requests
+      @invalid_requests ||= []
     end
 
     # The first request received by the server.

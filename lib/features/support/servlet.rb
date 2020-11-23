@@ -92,8 +92,14 @@ class Servlet < WEBrick::HTTPServlet::AbstractServlet
     end
   end
 
+  # Checks the Bugsnag-Integrity header, if present, against the request and based on configuration.
+  # If the header is present, if the digest must be correct.  However, the header need only be present
+  # if configuration says so.
   def check_digest(request)
     header = request['Bugsnag-Integrity']
+    if MazeRunner.config.enforce_bugsnag_integrity
+      raise 'Bugsnag-Integrity header must be present according to MazeRunner.config.enforce_bugsnag_integrity'
+    end
     return if header.nil?
 
     # Header must have type and digest

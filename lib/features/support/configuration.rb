@@ -8,6 +8,7 @@ module Maze
     def initialize
       self.receive_no_requests_wait = 30
       self.receive_requests_wait = 30
+      self.enforce_bugsnag_integrity = true
     end
 
     #
@@ -46,6 +47,9 @@ module Maze
 
     # Maximum time in seconds to wait in the `I wait to receive {int} request(s)` step
     attr_accessor :receive_requests_wait
+
+    # Whether presence of the Bugsnag-Integrity header should be enforced
+    attr_accessor :enforce_bugsnag_integrity
 
     #
     # BrowserStack specific configuration

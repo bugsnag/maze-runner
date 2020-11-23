@@ -178,6 +178,6 @@ class OptionValidatorTest < Test::Unit::TestCase
     errors = @validator.validate options
 
     assert_equal 1, errors.length
-    assert_equal '--capabilities must be valid JSON', errors[0]
+    assert_equal '--capabilities must be valid JSON (given {"cap":ability"})', errors[0]
   end
 end

@@ -6,7 +6,7 @@
   [#176](https://github.com/bugsnag/maze-runner/pull/176)
 - Add support for macOS devices using AppiumForMac
   [#177](https://github.com/bugsnag/maze-runner/pull/177)
-- Enforce presence of `Bugsnag-Integrity` header (with `--no-enforce-integrity` option to opt out)
+- Enforce presence of `Bugsnag-Integrity` based on MazeRunner.config.enforce_bugsnag_integrity
   [#178](https://github.com/bugsnag/maze-runner/pull/178)
 
 ## Fixes

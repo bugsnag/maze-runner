@@ -22,20 +22,21 @@ AfterConfiguration do |config|
                                                          config.appium_version,
                                                          config.capabilities_option
 
-    config.app_location = BrowserStackUtils.upload_app config.username,
-                                                       config.access_key,
-                                                       config.app_location
+    config.app = BrowserStackUtils.upload_app config.username,
+                                              config.access_key,
+                                              config.app
     BrowserStackUtils.start_local_tunnel config.bs_local,
                                          tunnel_id,
                                          config.access_key
   elsif config.farm == :local
     config.capabilities = Capabilities.for_local config.os,
+                                                 config.capabilities_option,
                                                  config.apple_team_id,
-                                                 config.device_id,
-                                                 config.capabilities_option
+                                                 config.device_id
   end
+
   # Set app location (file or url) in capabilities
-  config.capabilities['app'] = config.app_location
+  config.capabilities['app'] = config.app
 
   # Create and start the relevant driver
   MazeRunner.driver = if MazeRunner.config.resilient
@@ -74,6 +75,9 @@ Before do |scenario|
   Store.values.clear
 
   MazeRunner.driver.start_driver if MazeRunner.config.farm != :none && MazeRunner.config.appium_session_isolation
+
+  # Launch the app on macOS
+  MazeRunner.driver.get(MazeRunner.config.app) if MazeRunner.config.os == 'macos'
 
   # Call any blocks registered by the client
   MazeRunner.hooks.call_before scenario
@@ -122,6 +126,9 @@ After do |scenario|
 
   if MazeRunner.config.appium_session_isolation
     MazeRunner.driver.driver_quit
+  elsif MazeRunner.config.os == 'macos'
+    # Close the app - without the sleep, launching the app for the next scenario intermittently fails
+    system("killall #{MazeRunner.config.app} && sleep 1")
   else
     MazeRunner.driver.reset_with_timeout 2
   end

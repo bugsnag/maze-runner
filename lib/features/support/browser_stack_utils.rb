@@ -7,16 +7,16 @@ class BrowserStackUtils
     # Uploads an app to BrowserStack for later consumption
     # @param username [String] the BrowserStack username
     # @param access_key [String] the BrowserStack access key
-    def upload_app(username, access_key, app_location)
+    def upload_app(username, access_key, app)
       # TODO: Improve error handling:
       #   - res may not be JSON at all
-      #   - what if app_location doesn't exist locally
-      if app_location.start_with? 'bs://'
-        app_url = app_location
-        $logger.info "Using pre-uploaded app from #{app_location}"
+      #   - what if app doesn't exist locally
+      if app.start_with? 'bs://'
+        app_url = app
+        $logger.info "Using pre-uploaded app from #{app}"
       else
         url = 'https://api-cloud.browserstack.com/app-automate/upload'
-        res = `curl -u "#{username}:#{access_key}" -X POST "#{url}" -F "file=@#{app_location}"`
+        res = `curl -u "#{username}:#{access_key}" -X POST "#{url}" -F "file=@#{app}"`
         response = JSON.parse(res)
         raise "BrowserStack upload failed due to error: #{response['error']}" if response.include?('error')
 

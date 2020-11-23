@@ -20,8 +20,11 @@ module Maze
     # Appium capabilities provided via the CL
     attr_accessor :capabilities_option
 
-    # File path or URL of the app (IPA or APK) that tests will be run against
-    attr_accessor :app_location
+    # The app that tests will be run against.  Could be one of:
+    # - a local file path
+    # - a BrowserStack url for a previously uploaded app (bs://...)
+    # - on macOS, the name of an installed or previously executed application
+    attr_accessor :app
 
     # Whether the ResilientAppiumDriver should be used (only applicable when using Appium in the first place)
     attr_accessor :resilient

@@ -93,6 +93,15 @@ class OptionValidatorTest < Test::Unit::TestCase
     assert_empty errors
   end
 
+  def test_local_invalid_os
+    args = %w[--farm=local --app=my_app --os=invalid --os-version=8]
+    options = Maze::OptionParser.parse args
+    errors = @validator.validate options
+
+    assert_equal 1, errors.length
+    assert_equal 'os must be android, ios or macos', errors[0]
+  end
+
   def test_local_missing_os
     args = %w[--farm=local --app=my_app --os-version=8]
     options = Maze::OptionParser.parse args

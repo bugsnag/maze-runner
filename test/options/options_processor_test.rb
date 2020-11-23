@@ -16,7 +16,7 @@ class OptionsProcessorTest < Test::Unit::TestCase
     assert_true config.appium_session_isolation
     assert_false config.resilient
     assert_equal :bs, config.farm
-    assert_equal 'my_app.apk', config.app_location
+    assert_equal 'my_app.apk', config.app
     assert_equal 'user', config.username
     assert_equal 'key', config.access_key
     assert_equal 'ANDROID_6_0', config.bs_device
@@ -43,7 +43,7 @@ class OptionsProcessorTest < Test::Unit::TestCase
     Maze::OptionProcessor.populate config, options
 
     assert_equal :local, config.farm
-    assert_equal 'my_app.ipa', config.app_location
+    assert_equal 'my_app.ipa', config.app
     assert_equal 'ios', config.os
     assert_equal 7.1, config.os_version
     assert_equal 'ABC', config.apple_team_id

@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y ruby-full apt-utils docker-compose wget
                                         libcurl4 libcurl4-openssl-dev
 RUN ruby -v
 
-RUN wget -q https://www.browserstack.com/browserstack-local/BrowserStackLocal-linux-x64.zip \
+RUN wget -q https://storage.googleapis.com/bugsnag-public-test-dependencies/BrowserStackLocal-linux-x64.zip \
   && unzip BrowserStackLocal-linux-x64.zip \
   && rm BrowserStackLocal-linux-x64.zip
 

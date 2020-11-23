@@ -4,6 +4,12 @@ module Maze
   # MazeRunner configuration
   class Configuration
 
+    # Set default values
+    def initialize
+      self.receive_no_requests_wait = 30
+      self.receive_requests_wait = 30
+    end
+
     #
     # Common configuration
     #
@@ -34,6 +40,12 @@ module Maze
     # :local (Using Appium Server with a local device)
     # :none (Cucumber-driven testing with no devices)
     attr_accessor :farm
+
+    # Time in seconds to wait in the `I should receive no requests` step
+    attr_accessor :receive_no_requests_wait
+
+    # Maximum time in seconds to wait in the `I wait to receive {int} request(s)` step
+    attr_accessor :receive_requests_wait
 
     #
     # BrowserStack specific configuration

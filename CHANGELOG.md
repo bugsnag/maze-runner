@@ -4,7 +4,7 @@
 
 - Add `--capabilities` option
   [#176](https://github.com/bugsnag/maze-runner/pull/176)
-- Add support for MacOS devices using AppiumForMac
+- Add support for macOS devices using AppiumForMac
   [#177](https://github.com/bugsnag/maze-runner/pull/177)
 
 ## Fixes

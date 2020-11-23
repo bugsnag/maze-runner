@@ -111,12 +111,12 @@ After do |scenario|
 
   # Check for invalid requests
   unless Server.invalid_requests.empty?
-    $logger.error "#{Server.invalid_requests.length} invalid request(s) received during scenario"
     Server.stored_requests.each.with_index(1) do |request, number|
       $logger.error "Invalid request #{number} (#{request[:reason]}):"
       LogUtil.log_hash(Logger::Severity::ERROR, request)
     end
-    assert_empty Server.invalid_requests
+    msg = "#{Server.invalid_requests.length} invalid request(s) received during scenario"
+    assert_empty Server.invalid_requests, msg
   end
 
   # Log unprocessed requests if the scenario fails

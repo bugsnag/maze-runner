@@ -39,6 +39,19 @@ class Servlet < WEBrick::HTTPServlet::AbstractServlet
     end
     response.header['Access-Control-Allow-Origin'] = '*'
     response.status = Server.status_code
+  rescue JSON::ParserError => e
+    msg = "Unable to parse request as JSON: #{e.message}"
+    $logger.error msg
+    Server.invalid_requests << {
+      reason: msg,
+      request: request
+    }
+  rescue StandardError => e
+    $logger.error "Invalid request: #{e.message}"
+    Server.invalid_requests << {
+      reason: e.message,
+      request: request
+    }
   end
 
   # Logs and returns a set of valid headers for this servlet.

@@ -21,7 +21,8 @@ end
 # @step_input request_count [Integer] The amount of requests expected
 Then('I wait to receive {int} request(s)') do |request_count|
   INTERVAL = 0.1
-  max_attempts = MazeRunner.config.receive_requests_wait / INTERVAL
+  timeout = MazeRunner.config.receive_requests_wait
+  max_attempts = timeout / INTERVAL
   attempts = 0
   received = false
   until (attempts >= max_attempts) || received
@@ -30,12 +31,14 @@ Then('I wait to receive {int} request(s)') do |request_count|
     sleep INTERVAL
   end
   unless received
-    raise "Expected #{request_count} requests but received #{Server.stored_requests.size} within the 30s timeout. " \
-      "This could indicate that:\n" \
-      " - Bugsnag crashed with a fatal error\n" \
-      " - Bugsnag did not make the requests that it should have done.\n" \
-      " - The requests were made, but not deemed to be valid (e.g. missing integrity header)\n" \
-      'Please check the Maze Runner and device logs to confirm.'
+    raise <<-MESSAGE
+    Expected #{request_count} requests but received #{Server.stored_requests.size} within the #{timeout}s timeout.
+    This could indicate that:
+    - Bugsnag crashed with a fatal error.
+    - Bugsnag did not make the requests that it should have done.
+    - The requests were made, but not deemed to be valid (e.g. missing integrity header).
+    Please check the Maze Runner and device logs to confirm.)
+    MESSAGE
   end
 
   assert_equal(request_count, Server.stored_requests.size, "#{Server.stored_requests.size} requests received")

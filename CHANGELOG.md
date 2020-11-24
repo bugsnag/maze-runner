@@ -3,9 +3,11 @@
 ## Enhancements
 
 - Add `--capabilities` option
-  [#176](https://github.com/bugsnag/maze-runner/pull/176)
-- Add support for macOS devices using AppiumForMac
   [#177](https://github.com/bugsnag/maze-runner/pull/177)
+- Add support for macOS devices using AppiumForMac
+  [#178](https://github.com/bugsnag/maze-runner/pull/178)
+- Enforce presence of `Bugsnag-Integrity` based on MazeRunner.config.enforce_bugsnag_integrity
+  [#179](https://github.com/bugsnag/maze-runner/pull/179)
 
 ## Fixes
 

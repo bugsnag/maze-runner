@@ -20,7 +20,7 @@ module Maze
       begin
         JSON.parse(options[Option::CAPABILITIES])
       rescue JSON::ParserError
-        errors << "--#{Maze::Option::CAPABILITIES} must be valid JSON"
+        errors << "--#{Maze::Option::CAPABILITIES} must be valid JSON (given #{options[Option::CAPABILITIES]})"
       end
 
       # Farm specific options

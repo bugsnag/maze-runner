@@ -18,20 +18,19 @@ class Servlet < WEBrick::HTTPServlet::AbstractServlet
   # @param response [HTTPResponse] The response to return
   def do_POST(request, response)
     log_request(request)
-    digests = check_digest request
     case request['Content-Type']
     when %r{^multipart/form-data; boundary=([^;]+)}
       boundary = WEBrick::HTTPUtils::dequote($1)
       body = WEBrick::HTTPUtils.parse_form_data(request.body, boundary)
       Server.stored_requests << {
         body: body,
-        request: request,
-        digests: digests
+        request: request
       }
     else
       # "content-type" is assumed to be JSON (which mimics the behaviour of
       # the actual API). This supports browsers that can't set this header for
       # cross-domain requests (IE8/9)
+      digests = check_digest request
       Server.stored_requests << {
         body: JSON.parse(request.body),
         request: request,
@@ -40,6 +39,19 @@ class Servlet < WEBrick::HTTPServlet::AbstractServlet
     end
     response.header['Access-Control-Allow-Origin'] = '*'
     response.status = Server.status_code
+  rescue JSON::ParserError => e
+    msg = "Unable to parse request as JSON: #{e.message}"
+    $logger.error msg
+    Server.invalid_requests << {
+      reason: msg,
+      request: request
+    }
+  rescue StandardError => e
+    $logger.error "Invalid request: #{e.message}"
+    Server.invalid_requests << {
+      reason: e.message,
+      request: request
+    }
   end
 
   # Logs and returns a set of valid headers for this servlet.
@@ -50,15 +62,11 @@ class Servlet < WEBrick::HTTPServlet::AbstractServlet
     log_request(request)
     response.header['Access-Control-Allow-Origin'] = '*'
     response.header['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
-    response.header['Access-Control-Allow-Headers'] = [
-      'Accept',
-      'Bugsnag-Api-Key',
-      'Bugsnag-Integrity',
-      'Bugsnag-Payload-Version',
-      'Bugsnag-Sent-At',
-      'Content-Type',
-      'Origin',
-    ].join(',')
+    response.header['Access-Control-Allow-Headers'] = %w[Accept
+                                                         Bugsnag-Api-Key Bugsnag-Integrity
+                                                         Bugsnag-Payload-Version
+                                                         Bugsnag-Sent-At Content-Type
+                                                         Origin].join(',')
 
     response.status = Server.status_code
   end
@@ -84,8 +92,14 @@ class Servlet < WEBrick::HTTPServlet::AbstractServlet
     end
   end
 
+  # Checks the Bugsnag-Integrity header, if present, against the request and based on configuration.
+  # If the header is present, if the digest must be correct.  However, the header need only be present
+  # if configuration says so.
   def check_digest(request)
     header = request['Bugsnag-Integrity']
+    if MazeRunner.config.enforce_bugsnag_integrity
+      raise 'Bugsnag-Integrity header must be present according to MazeRunner.config.enforce_bugsnag_integrity'
+    end
     return if header.nil?
 
     # Header must have type and digest

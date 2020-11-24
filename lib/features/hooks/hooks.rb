@@ -4,7 +4,7 @@ require 'cucumber'
 require 'json'
 require 'securerandom'
 
-AfterConfiguration do |config|
+AfterConfiguration do |_cucumber_config|
 
   # Start mock server
   Server.start_server
@@ -72,6 +72,7 @@ Before do |scenario|
 
   Runner.environment.clear
   Server.stored_requests.clear
+  Server.invalid_requests.clear
   Store.values.clear
 
   MazeRunner.driver.start_driver if MazeRunner.config.farm != :none && MazeRunner.config.appium_session_isolation
@@ -83,7 +84,7 @@ Before do |scenario|
   MazeRunner.hooks.call_before scenario
 end
 
-# After each scenario
+# General processing to be run after each scenario
 After do |scenario|
 
   # Call any blocks registered by the client
@@ -112,7 +113,7 @@ After do |scenario|
   if scenario.failed?
     STDOUT.puts '^^^ +++'
     if Server.stored_requests.empty?
-      $logger.info 'No requests received'
+      $logger.info 'No valid requests received'
     else
       $logger.info 'The following requests were received:'
       Server.stored_requests.each.with_index(1) do |request, number|
@@ -131,6 +132,21 @@ After do |scenario|
     system("killall #{MazeRunner.config.app} && sleep 1")
   else
     MazeRunner.driver.reset_with_timeout 2
+  end
+
+  STDOUT.puts scenario.inspect
+end
+
+# Check for invalid requests after each scenario.  In its own hook as failing a scenario raises an exception.
+# Furthermore, this hook should appear after the general hook as they are exectued in reverse order by Cucumber.
+After do |scenario|
+  unless Server.invalid_requests.empty?
+    Server.invalid_requests.each.with_index(1) do |request, number|
+      $logger.error "Invalid request #{number} (#{request[:reason]}):"
+      LogUtil.log_hash(Logger::Severity::ERROR, request)
+    end
+    msg = "#{Server.invalid_requests.length} invalid request(s) received during scenario"
+    scenario.fail msg
   end
 end
 

@@ -5,8 +5,12 @@ def output_logs
     begin
       response = run_docker_compose_command(service[:file], command)
     rescue => exception
-      response = "Couldn't retreive logs for #{service[:file]}:#{logged_service}"
+      response = "Couldn't retrieve logs for #{service[:file]}:#{logged_service}"
     end
     STDOUT.puts response.is_a?(String) ? response : response.to_a
   end
+end
+
+AfterConfiguration do |_config|
+  MazeRunner.config.enforce_bugsnag_integrity = false
 end

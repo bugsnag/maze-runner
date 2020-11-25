@@ -19,6 +19,25 @@ MOCK_API_PORT = 9339
 # Receives and stores requests through a WEBrick HTTPServer
 class Server
   class << self
+    # Allows overwriting of the server status code
+    attr_writer :status_code
+
+    # Dictates if the status code should be reset after used
+    attr_writer :reset_status_code
+
+    # The intended HTTP status code on a successful request
+    #
+    # @return [Integer] The HTTP status code, defaults to 200
+    def status_code
+      code = @status_code ||= 200
+      @status_code = 200 if reset_status_code
+      code
+    end
+
+    def reset_status_code
+      @reset_status_code ||= false
+    end
+
     # Whether the server thread is running
     #
     # @return [Boolean] If the server is running
@@ -26,14 +45,24 @@ class Server
       @thread&.alive?
     end
 
-    # An array of requests received.
+    # An array of (deemed to be valid) requests received.
     # Each request is hash consisting of:
     #   body: The parsed body of the request
     #   request: The original HTTPRequest object
+    #   digests: (for JSON requests only) the computed digests for the body
     #
     # @return [Array] An array of received requests
     def stored_requests
       @stored_requests ||= []
+    end
+
+    # An array of any invalid requests received.
+    # Each request is hash consisting of:
+    #   request: The original HTTPRequest object
+    #   reason: Reason for being considered invalid. Examples include invalid JSON and missing/invalid digest.
+    # @return [Array] An array of received requests
+    def invalid_requests
+      @invalid_requests ||= []
     end
 
     # The first request received by the server.

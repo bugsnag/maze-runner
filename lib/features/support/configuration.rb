@@ -1,49 +1,92 @@
 # frozen_string_literal: true
 
-# MazeRunner configuration
-class Configuration
-  # Whether each scenario should have its own Appium session
-  attr_accessor :appium_session_isolation
+module Maze
+  # MazeRunner configuration
+  class Configuration
 
-  # Device farm to be used, one of:
-  # :bs (BrowserStack)
-  # :local (Using Appium Server with a local device)
-  # :none (Cucumber-driven testing with no devices)
-  attr_accessor :farm
+    # Set default values
+    def initialize
+      self.receive_no_requests_wait = 30
+      self.receive_requests_wait = 30
+      self.enforce_bugsnag_integrity = true
+    end
 
-  # Location of the BrowserStackLocal binary (if used)
-  attr_accessor :bs_local
+    #
+    # Common configuration
+    #
 
-  # Farm username
-  attr_accessor :username
+    # Whether each scenario should have its own Appium session
+    attr_accessor :appium_session_isolation
 
-  # Farm access key
-  attr_accessor :access_key
+    # Element locator strategy, :id or :accessibility_id
+    attr_accessor :locator
 
-  # Apple Team Id
-  attr_accessor :apple_team_id
+    # Appium capabilities
+    attr_accessor :capabilities
 
-  # BrowserStack device type
-  attr_accessor :bs_device
+    # Appium capabilities provided via the CL
+    attr_accessor :capabilities_option
 
-  # OS
-  attr_accessor :os
+    # The app that tests will be run against.  Could be one of:
+    # - a local file path
+    # - a BrowserStack url for a previously uploaded app (bs://...)
+    # - on macOS, the name of an installed or previously executed application
+    attr_accessor :app
 
-  # OS version
-  attr_accessor :os_version
+    # Whether the ResilientAppiumDriver should be used (only applicable when using Appium in the first place)
+    attr_accessor :resilient
 
-  # Device id for running on local iOS devices
-  attr_accessor :device_id
+    # Device farm to be used, one of:
+    # :bs (BrowserStack)
+    # :local (Using Appium Server with a local device)
+    # :none (Cucumber-driven testing with no devices)
+    attr_accessor :farm
 
-  # URL of the Appium server
-  attr_accessor :appium_server_url
+    # Time in seconds to wait in the `I should receive no requests` step
+    attr_accessor :receive_no_requests_wait
 
-  # Element locator strategy, :id or :accessibility_id
-  attr_accessor :locator
+    # Maximum time in seconds to wait in the `I wait to receive {int} request(s)` step
+    attr_accessor :receive_requests_wait
 
-  # Appium capabilities
-  attr_accessor :capabilities
+    # Whether presence of the Bugsnag-Integrity header should be enforced
+    attr_accessor :enforce_bugsnag_integrity
 
-  # File path or URL of the app (IPA or APK) that tests will be run against
-  attr_accessor :app_location
+    #
+    # BrowserStack specific configuration
+    #
+
+    # Location of the BrowserStackLocal binary (if used)
+    attr_accessor :bs_local
+
+    # Farm username
+    attr_accessor :username
+
+    # Farm access key
+    attr_accessor :access_key
+
+    # BrowserStack device type
+    attr_accessor :bs_device
+
+    # Appium version to use on BrowserStack
+    attr_accessor :appium_version
+
+    #
+    # Local testing specific configuration
+    #
+
+    # Apple Team Id
+    attr_accessor :apple_team_id
+
+    # OS
+    attr_accessor :os
+
+    # OS version
+    attr_accessor :os_version
+
+    # Device id for running on local iOS devices
+    attr_accessor :device_id
+
+    # URL of the Appium server
+    attr_accessor :appium_server_url
+  end
 end

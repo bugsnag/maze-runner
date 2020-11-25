@@ -35,6 +35,8 @@ when 'ordered 1'
  '{"foo":"a", "bar":"b"}'
 when 'ordered 2'
  '{"foo":"b", "bar":"a"}'
+when 'values'
+ '{"values":{"uuid":"123e4567-e89b-12d3-a456-426614174000","number":1.23,"integer":123,"date":"2001-02-03"}}'
 else
   exit(1)
 end

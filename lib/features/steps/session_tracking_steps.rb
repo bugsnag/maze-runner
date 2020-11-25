@@ -38,7 +38,6 @@ Then("the session {string} equals {string}") do |field, string_value|
 end
 
 # Tests whether a value in the first session entry is a timestamp.
-#   Uses the regex /^\d{4}\-\d{2}\-\d{2}T\d{2}:\d{2}:[\d\.]+Z?$/
 #
 # @step_input field [String] The relative location of the value to test
 Then("the session {string} is a timestamp") do |field|
@@ -70,7 +69,6 @@ Then("the sessionCount {string} equals {int}") do |field, int_value|
 end
 
 # Tests whether a value in the first sessionCount entry is a timestamp.
-#   Uses the regex /^\d{4}\-\d{2}\-\d{2}T\d{2}:\d{2}:[\d\.]+Z?$/
 #
 # @step_input field [String] The relative location of the value to test
 Then("the sessionCount {string} is a timestamp") do |field|

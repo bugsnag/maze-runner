@@ -31,6 +31,10 @@ class SampleTest < Test::Unit::TestCase
     run_scenario("test/fixtures/cli")
   end
 
+  def test_http_response_codes
+    run_scenario("test/fixtures/http-response")
+  end
+
   def test_init_command
     fixture_dir = "test/fixtures/init-test"
     FileUtils.rm_rf fixture_dir

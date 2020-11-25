@@ -134,7 +134,6 @@ Then("the event {string} matches {string}") do |field, pattern|
 end
 
 # Tests whether a value in the first event entry is a timestamp.
-#   Uses the regex /^\d{4}\-\d{2}\-\d{2}T\d{2}:\d{2}:[\d\.]+Z?$/
 #
 # @step_input field [String] The relative location of the value to test
 Then("the event {string} is a timestamp") do |field|

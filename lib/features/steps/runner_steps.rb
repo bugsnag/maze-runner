@@ -55,6 +55,56 @@ When('I run the service {string} with the command {string}') do |service, comman
   Docker.start_service(service, command: command)
 end
 
+# Runs a docker-compose service using a specific command provided as a Gherkin multi-line string.
+#
+# @step_input service [String] The name of the service to run
+# @step_input command [String] The command to run inside the service (as a Gherkin multi-line string)
+When('I run the service {string} with the command') do |service, command|
+  one_line_cmd = command.gsub("\n", ' ').gsub(/ +/, ' ')
+  Docker.start_service(service, command: one_line_cmd)
+end
+
+# Allows validation of the last exit code of the last run docker-compose command.
+# Will fail if no commands have been run.
+#
+# @step_input expected_code [Integer] The expected exit code
+Then('the exit code of the last docker command was {int}') do |expected_code|
+  exit_code = Docker.last_exit_code
+  assert_not_nil(exit_code, 'No docker exit code available to verify')
+  assert_equal(exit_code, expected_code)
+end
+
+# A shortcut for the above assuming 0 as a successful exit code
+# Will fail if no commands have been run
+Then('the last run docker command exited successfully') do
+  exit_code = Docker.last_exit_code
+  assert_not_nil(exit_code, 'No docker exit code available to verify')
+  assert_equal(exit_code, 0)
+end
+
+# Allows testing that the last exit code was not 0
+# Will fail if no commands have been run
+Then('the last run docker command did not exit successfully') do
+  exit_code = Docker.last_exit_code
+  assert_not_nil(exit_code, 'No docker exit code available to verify')
+  assert_not_equal(exit_code, 0)
+end
+
+# Allows testing a docker command output a specific string
+# Will fail if no commands have been run
+#
+# @step_input expected_string [String] The string expected in a single log line
+Then('the last run docker command output {string}') do |expected_string|
+  docker_output = Docker.last_command_logs
+  assert_not_nil(docker_output, 'No docker logs available to verify')
+  output_included = docker_output.any? { |line| line.include?(expected_string) }
+  assert(output_included, %(
+    No line of output included '#{expected_string}'.
+    Full output:
+    #{docker_output.join('\n')}
+  ))
+end
+
 # Waits for a number of seconds, performing no actions.
 #
 # @step_input seconds [Integer] The number of seconds to sleep for

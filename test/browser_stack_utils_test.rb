@@ -8,7 +8,7 @@ require_relative '../lib/features/support/browser_stack_utils'
 class BrowserStackUtilsTest < Test::Unit::TestCase
 
   ACCESS_KEY = 'access_key'
-  APP_LOCATION = '/app/location'
+  APP = '/app/location'
   BS_LOCAL = '/home/BrowserStackLocal'
   LOCAL_ID = 'abcde'
   TEST_APP_URL = 'bs://1234567890abcdef'
@@ -31,9 +31,9 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
     $logger.expects(:info).with('You can use this url to avoid uploading the same app more than once.').once
 
     json_response = JSON.dump(app_url: TEST_APP_URL)
-    expected_command = %(curl -u "#{USERNAME}:#{ACCESS_KEY}" -X POST "https://api-cloud.browserstack.com/app-automate/upload" -F "file=@#{APP_LOCATION}")
+    expected_command = %(curl -u "#{USERNAME}:#{ACCESS_KEY}" -X POST "https://api-cloud.browserstack.com/app-automate/upload" -F "file=@#{APP}")
     BrowserStackUtils.stubs(:`).with(expected_command).returns(json_response)
-    url = BrowserStackUtils.upload_app USERNAME, ACCESS_KEY, APP_LOCATION
+    url = BrowserStackUtils.upload_app USERNAME, ACCESS_KEY, APP
     assert_equal(TEST_APP_URL, url)
   end
 
@@ -41,10 +41,10 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
     json_response = JSON.dump(
       error: 'Error'
     )
-    expected_command = %(curl -u "#{USERNAME}:#{ACCESS_KEY}" -X POST "https://api-cloud.browserstack.com/app-automate/upload" -F "file=@#{APP_LOCATION}")
+    expected_command = %(curl -u "#{USERNAME}:#{ACCESS_KEY}" -X POST "https://api-cloud.browserstack.com/app-automate/upload" -F "file=@#{APP}")
     BrowserStackUtils.stubs(:`).with(expected_command).returns(json_response)
     assert_raise(RuntimeError, 'BrowserStack upload failed due to error: Error') do
-      BrowserStackUtils.upload_app USERNAME, ACCESS_KEY, APP_LOCATION
+      BrowserStackUtils.upload_app USERNAME, ACCESS_KEY, APP
     end
   end
 

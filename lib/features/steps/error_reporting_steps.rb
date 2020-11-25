@@ -288,7 +288,7 @@ end
 
 # Tests whether an event has the correct attributes we'd expect for un/handled events
 #
-# @param event [Hash] The body of the event
+# @param event [Integer] The index of the event
 # @param unhandled [Boolean] Whether the event is unhandled or handled
 # @param severity [String] Optional. An overwritten severity to look for
 def test_unhandled_state(event, unhandled, severity=nil)

@@ -1,4 +1,4 @@
-# TBD
+# 3.6.0 - 2020/11/25
 
 ## Enhancements
 
@@ -8,6 +8,7 @@
   [#178](https://github.com/bugsnag/maze-runner/pull/178)
 - Enforce presence of `Bugsnag-Integrity` based on MazeRunner.config.enforce_bugsnag_integrity
   [#179](https://github.com/bugsnag/maze-runner/pull/179)
+  [#180](https://github.com/bugsnag/maze-runner/pull/180)
 
 ## Fixes
 

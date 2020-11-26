@@ -36,7 +36,6 @@ class InteractiveCLI
     @last_exit_code = nil
     @in_stream = nil
     @pid = nil
-    @running = false
     @stop_command = stop_command
     start_threaded_shell(shell)
   end
@@ -45,16 +44,25 @@ class InteractiveCLI
     threaded ? start_threaded_shell(@shell) : start_shell(@shell)
   end
 
-  # Attempts to stop the shell using the preset command
+  # Attempts to stop the shell using the preset command and wait for it to exit
   def stop
     run_command(@stop_command)
-    @thread&.join(5)
+    wait_for_exit
+  end
+
+  # Attempt to wait for the shell to exit. This can fail as it will not kill the
+  # shell, instead it expects the shell to be ready to exit
+  #
+  # @return [Thread, nil] The thread that exited or nil if it didn't exit
+  def wait_for_exit
+    @in_stream&.close
+    @thread&.join(15)
   end
 
   # Returns whether the shell is running by verifying the in_stream exists and is open
   #
   # @return [Boolean] Whether the stream is currently running
-  def running
+  def running?
     !(@in_stream.nil? || @in_stream.closed?)
   end
 
@@ -64,7 +72,8 @@ class InteractiveCLI
   #
   # @return [Boolean] true if the command is executed, false otherwise
   def run_command(command)
-    return false unless running
+    return false unless running?
+
     @in_stream.puts(command)
     true
   end
@@ -75,41 +84,56 @@ class InteractiveCLI
   #
   # @param shell [String] A path to the shell to run
   def start_threaded_shell(shell)
-    executor = lambda do
+    @thread = Thread.new do
       start_shell(shell)
     end
-    @thread = Thread.new &executor
   end
 
   # Starts a shell
   #
   # @param shell [String] A path to the shell to run
   def start_shell(shell)
-    Open3.popen3(@env, shell) do |stdin, stdout, stderr, wait_thr|
-      @pid = wait_thr.pid
-      $logger.debug(pid) { "Starting shell session: #{shell}" }
-
+    exit_status = Open3.popen3(@env, shell) do |stdin, stdout, stderr, wait_thr|
       @in_stream = stdin
+      @pid = wait_thr.pid
+      $logger.debug(pid) { "Started shell session: #{shell}" }
 
-      stdout.each_char do |char|
-        if char == "\n"
-          @stdout_lines << format_line(@current_buffer)
-          $logger.debug(pid) { @current_buffer }
-          @current_buffer.clear
-        else
-          @current_buffer << char
+      stdout_thread = Thread.new do
+        stdout.each_char do |char|
+          if char == "\n"
+            $logger.debug("#{pid} STDOUT") { @current_buffer }
+            @stdout_lines << format_line(@current_buffer)
+            @current_buffer.clear
+          else
+            @current_buffer << char
+          end
         end
       end
 
-      stderr.each do |line|
-        @stderr_lines << format_line(line)
-        $logger.debug(pid) { line }
+      stderr_thread = Thread.new do
+        stderr.each do |line|
+          @stderr_lines << format_line(line)
+          $logger.debug("#{pid} STDERR") { line.chomp }
+        end
       end
 
+      # Wait for the process to exit. This will usually require 'wait_for_exit'
+      # to be called first (via the "I wait for the current shell to exit" step)
       exit_status = wait_thr.value.to_i
-      @last_exit_code = exit_status
-      $logger.debug(pid) { "exit status: #{exit_status}" }
+
+      # Stop the thread that's reading from stdout
+      failed = stdout_thread.join(5).nil?
+      raise 'stdout is blocked!' if failed
+
+      # Stop the thread that's reading from stderr
+      failed = stderr_thread.join(5).nil?
+      raise 'stderr is blocked!' if failed
+
+      exit_status
     end
+
+    @last_exit_code = exit_status
+    $logger.debug(pid) { "exit status: #{exit_status}" }
   end
 
   # Strips whitespace from shell lines, can be used to sanitize further if required

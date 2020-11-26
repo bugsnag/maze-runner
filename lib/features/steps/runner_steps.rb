@@ -124,6 +124,17 @@ When('I stop the current shell') do
   Runner.stop_interactive_session
 end
 
+# Attempts to wait for the currently running interactive shell to exit
+When('I wait for the current shell to exit') do
+  shell = Runner.get_interactive_session
+  result = shell.wait_for_exit
+
+  # The result should be the Thread object if it successfully stopped; if it
+  # timed out then 'nil' is returned
+  assert_false(result.nil?, 'The shell is still running when it should have exited')
+  assert_false(shell.running?, 'The shell is still running when it should have exited')
+end
+
 # Run a command on the shell
 #
 # @step_input command [String] The command to run on the shell

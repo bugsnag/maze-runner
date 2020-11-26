@@ -27,7 +27,7 @@ class InteractiveCLITest < Test::Unit::TestCase
     assert_nil(cli.last_exit_code)
     assert_nil(cli.pid)
     assert_equal(cli.current_buffer, '')
-    assert_false(cli.running)
+    assert_false(cli.running?)
     assert_false(cli.run_command('foo'))
 
     Open3.expects(:popen3).with({}, '/bin/sh')
@@ -54,7 +54,7 @@ class InteractiveCLITest < Test::Unit::TestCase
     assert_nil(cli.last_exit_code)
     assert_nil(cli.pid)
     assert_equal(cli.current_buffer, '')
-    assert_false(cli.running)
+    assert_false(cli.running?)
     assert_false(cli.run_command('foo'))
 
     Open3.expects(:popen3).with(environment, new_shell_cmd)

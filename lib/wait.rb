@@ -7,8 +7,11 @@ module Maze
     # @param interval [Numeric] Optional. The time to sleep between attempts
     # @param timeout [Numeric] The amount of time to spend on attempts before giving up
     def initialize(interval: 0.1, timeout:)
+      raise "Interval must be greater than zero, got '#{interval}'" unless interval > 0
+      raise "Timeout (#{timeout}) must be greater than interval (#{interval})" unless timeout > interval
+
       @interval = interval
-      @max_attempts = interval / timeout
+      @max_attempts = timeout / interval
     end
 
     # Wait until the given block succeeds (returns a truthy value) or the
@@ -20,6 +23,7 @@ module Maze
       attempts = 0
 
       until success || attempts >= @max_attempts do
+        attempts += 1
         success = block.call
 
         sleep @interval unless success

@@ -48,6 +48,23 @@ Feature: Running docker services and commands
         And I wait for the current shell to exit
         Then the shell exited successfully
 
+    Scenario: A service can be run interactively with lots of interaction
+        When I run the service "interactive" interactively
+        And I input "./guessing-game" interactively
+        Then I wait for the shell to output "What number am I thinking of?" to stdout
+        When I input "1" interactively
+        Then I wait for the shell to output "Nope, it's not 1. Try again!" to stdout
+        When I input "12" interactively
+        Then I wait for the shell to output "Nope, it's not 12. Try again!" to stdout
+        When I input "456" interactively
+        Then I wait for the shell to output "Nope, it's not 456. Try again!" to stdout
+        When I input "ugh" interactively
+        Then I wait for the shell to output "Nope, it's not ugh. Try again!" to stdout
+        When I input "123" interactively
+        Then I wait for the shell to output "Yeah, it's 123!" to stdout
+        And I wait for the current shell to exit
+        Then the shell exited successfully
+
     Scenario: A service can be run with a command interactively when it does not require interaction
         When I run the service "interactive" with the command "./hello" interactively
         Then I wait for the shell to output "Hello" to stdout

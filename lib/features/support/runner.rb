@@ -29,7 +29,7 @@ class Runner
           output = []
           stdout_and_stderr.each do |line|
             output << line
-            $logger.debug line
+            $logger.debug line.chomp
           end
 
           exit_status = wait_thr.value.to_i
@@ -37,7 +37,7 @@ class Runner
 
           # if the command fails we log the output at warn level too
           if !success_codes.nil? && !success_codes.include?(exit_status) && $logger.level != Logger::DEBUG
-            output.each { |line| $logger.warn(cmd) { line } }
+            output.each { |line| $logger.warn(cmd) { line.chomp } }
           end
 
           return [output, exit_status]

@@ -1,3 +1,5 @@
+require_relative '../../wait'
+
 # @!group Runner steps
 
 # Sets an environment variable for subsequent scripts or commands.
@@ -165,24 +167,14 @@ end
 #
 # @step_input expected_line [String] The string present in stdout logs
 Then('I wait for the shell to output {string} to stdout') do |expected_line|
+  wait = Maze::Wait.new(timeout: MazeRunner.config.receive_requests_wait)
   current_shell = Runner.get_interactive_session
 
-  interval = 0.1
-  timeout = MazeRunner.config.receive_requests_wait
-  max_attempts = timeout / interval
-
-  attempts = 0
-  matches = false
-
-  until matches do
-    break if attempts >= max_attempts
-
-    matches = current_shell.stdout_lines.any? { |line| line == expected_line }
-
-    sleep interval unless matches
+  success = wait.until do
+    current_shell.stdout_lines.any? { |line| line == expected_line }
   end
 
-  assert(matches, "No output lines from #{current_shell.stdout_lines} matched #{expected_line}")
+  assert(success, "No output lines from #{current_shell.stdout_lines} matched #{expected_line}")
 end
 
 # Verify a string appears in the stderr logs
@@ -198,21 +190,11 @@ end
 #
 # @step_input expected_line [String] The string present in stderr logs
 Then('I wait for the shell to output {string} to stderr') do |expected_line|
+  wait = Maze::Wait.new(timeout: MazeRunner.config.receive_requests_wait)
   current_shell = Runner.get_interactive_session
 
-  interval = 0.1
-  timeout = MazeRunner.config.receive_requests_wait
-  max_attempts = timeout / interval
-
-  attempts = 0
-  matches = false
-
-  until matches do
-    break if attempts >= max_attempts
-
-    matches = current_shell.stderr_lines.any? { |line| line == expected_line }
-
-    sleep interval unless matches
+  success = wait.until do
+    current_shell.stderr_lines.any? { |line| line == expected_line }
   end
 
   assert(matches, "No output lines from #{current_shell.stderr_lines} matched #{expected_line}")

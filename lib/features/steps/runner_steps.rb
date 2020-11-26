@@ -197,7 +197,7 @@ Then('I wait for the shell to output {string} to stderr') do |expected_line|
     current_shell.stderr_lines.any? { |line| line == expected_line }
   end
 
-  assert(matches, "No output lines from #{current_shell.stderr_lines} matched #{expected_line}")
+  assert(success, "No output lines from #{current_shell.stderr_lines} matched #{expected_line}")
 end
 
 # Verify the shell exited successfully (assuming a 0 is a success)

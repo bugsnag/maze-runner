@@ -75,10 +75,10 @@ class Runner
     # Returns the current interactive session, creating a new one if necessary
     #
     # @return [InteractiveCLI] The interactiveCLI instance
-    def get_interactive_session
+    def get_interactive_session(*args)
       return @interactive_session unless @interactive_session.nil?
 
-      interactive_session = InteractiveCLI.new(environment)
+      interactive_session = InteractiveCLI.new(environment, *args)
 
       attempts = 0
 

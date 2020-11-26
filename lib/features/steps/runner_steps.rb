@@ -57,6 +57,21 @@ When('I run the service {string} with the command {string}') do |service, comman
   Docker.start_service(service, command: command)
 end
 
+# Runs a docker-compose service in an interactive CLI.
+#
+# @step_input service [String] The name of the service to run
+When('I run the service {string} interactively') do |service|
+  Docker.start_service(service, interactive: true)
+end
+
+# Runs a docker-compose service using a specific command in an interactive CLI.
+#
+# @step_input service [String] The name of the service to run
+# @step_input command [String] The command to run inside the service
+When('I run the service {string} with the command {string} interactively') do |service, command|
+  Docker.start_service(service, command: command, interactive: true)
+end
+
 # Runs a docker-compose service using a specific command provided as a Gherkin multi-line string.
 #
 # @step_input service [String] The name of the service to run

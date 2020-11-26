@@ -5,6 +5,11 @@ services:
       context: sends_request
     restart: "no"
 
+  interactive:
+    build:
+      context: interactive
+    restart: "no"
+
 networks:
   default:
     name: ${NETWORK_NAME:-core-maze-runner}

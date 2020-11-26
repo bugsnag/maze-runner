@@ -161,6 +161,30 @@ Then('the shell has output {string} to stdout') do |expected_line|
   assert(match, "No output lines from #{current_shell.stdout_lines} matched #{expected_line}")
 end
 
+# Wait for a string to appear in the stdout logs
+#
+# @step_input expected_line [String] The string present in stdout logs
+Then('I wait for the shell to output {string} to stdout') do |expected_line|
+  current_shell = Runner.get_interactive_session
+
+  interval = 0.1
+  timeout = MazeRunner.config.receive_requests_wait
+  max_attempts = timeout / interval
+
+  attempts = 0
+  matches = false
+
+  until matches do
+    break if attempts >= max_attempts
+
+    matches = current_shell.stdout_lines.any? { |line| line == expected_line }
+
+    sleep interval unless matches
+  end
+
+  assert(matches, "No output lines from #{current_shell.stdout_lines} matched #{expected_line}")
+end
+
 # Verify a string appears in the stderr logs
 #
 # @step_input expected_err [String] The string present in stderr logs
@@ -168,6 +192,30 @@ Then('the shell has output {string} to stderr') do |expected_err|
   current_shell = Runner.get_interactive_session
   match = current_shell.stderr_lines.any? { |line| line == expected_err }
   assert(match, "No output lines from #{current_shell.stderr_lines} matched #{expected_err}")
+end
+
+# Wait for a string to appear in the stderr logs
+#
+# @step_input expected_line [String] The string present in stderr logs
+Then('I wait for the shell to output {string} to stderr') do |expected_line|
+  current_shell = Runner.get_interactive_session
+
+  interval = 0.1
+  timeout = MazeRunner.config.receive_requests_wait
+  max_attempts = timeout / interval
+
+  attempts = 0
+  matches = false
+
+  until matches do
+    break if attempts >= max_attempts
+
+    matches = current_shell.stderr_lines.any? { |line| line == expected_line }
+
+    sleep interval unless matches
+  end
+
+  assert(matches, "No output lines from #{current_shell.stderr_lines} matched #{expected_line}")
 end
 
 # Verify the shell exited successfully (assuming a 0 is a success)

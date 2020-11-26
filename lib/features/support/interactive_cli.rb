@@ -111,11 +111,16 @@ class InteractiveCLI
       end
 
       stderr_thread = Thread.new do
-        stderr.each do |raw_line|
-          line = format_line(raw_line)
+        buffer = ''
 
-          @stderr_lines << line
-          $logger.debug("#{pid} STDERR") { line }
+        stderr.each_char do |char|
+          if char == "\n"
+            $logger.debug("#{pid} STDERR") { buffer }
+            @stderr_lines << format_line(buffer)
+            buffer.clear
+          else
+            buffer << char
+          end
         end
       end
 

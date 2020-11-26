@@ -163,7 +163,7 @@ Then('the shell has output {string} to stdout') do |expected_line|
   assert(match, "No output lines from #{current_shell.stdout_lines} matched #{expected_line}")
 end
 
-# Wait for a string to appear in the stdout logs
+# Wait for a string to appear in the stdout logs, timing out after MazeRunner.config.receive_requests_wait seconds.
 #
 # @step_input expected_line [String] The string present in stdout logs
 Then('I wait for the shell to output {string} to stdout') do |expected_line|

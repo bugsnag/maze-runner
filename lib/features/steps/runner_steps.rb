@@ -1,3 +1,5 @@
+require_relative '../../wait'
+
 # @!group Runner steps
 
 # Sets an environment variable for subsequent scripts or commands.
@@ -124,6 +126,17 @@ When('I stop the current shell') do
   Runner.stop_interactive_session
 end
 
+# Attempts to wait for the currently running interactive shell to exit
+When('I wait for the current shell to exit') do
+  shell = Runner.get_interactive_session
+  result = shell.wait_for_exit
+
+  # The result should be the Thread object if it successfully stopped; if it
+  # timed out then 'nil' is returned
+  assert_false(result.nil?, 'The shell is still running when it should have exited')
+  assert_false(shell.running?, 'The shell is still running when it should have exited')
+end
+
 # Run a command on the shell
 #
 # @step_input command [String] The command to run on the shell
@@ -150,6 +163,20 @@ Then('the shell has output {string} to stdout') do |expected_line|
   assert(match, "No output lines from #{current_shell.stdout_lines} matched #{expected_line}")
 end
 
+# Wait for a string to appear in the stdout logs, timing out after MazeRunner.config.receive_requests_wait seconds.
+#
+# @step_input expected_line [String] The string present in stdout logs
+Then('I wait for the shell to output {string} to stdout') do |expected_line|
+  wait = Maze::Wait.new(timeout: MazeRunner.config.receive_requests_wait)
+  current_shell = Runner.get_interactive_session
+
+  success = wait.until do
+    current_shell.stdout_lines.any? { |line| line == expected_line }
+  end
+
+  assert(success, "No output lines from #{current_shell.stdout_lines} matched #{expected_line}")
+end
+
 # Verify a string appears in the stderr logs
 #
 # @step_input expected_err [String] The string present in stderr logs
@@ -157,6 +184,20 @@ Then('the shell has output {string} to stderr') do |expected_err|
   current_shell = Runner.get_interactive_session
   match = current_shell.stderr_lines.any? { |line| line == expected_err }
   assert(match, "No output lines from #{current_shell.stderr_lines} matched #{expected_err}")
+end
+
+# Wait for a string to appear in the stderr logs
+#
+# @step_input expected_line [String] The string present in stderr logs
+Then('I wait for the shell to output {string} to stderr') do |expected_line|
+  wait = Maze::Wait.new(timeout: MazeRunner.config.receive_requests_wait)
+  current_shell = Runner.get_interactive_session
+
+  success = wait.until do
+    current_shell.stderr_lines.any? { |line| line == expected_line }
+  end
+
+  assert(matches, "No output lines from #{current_shell.stderr_lines} matched #{expected_line}")
 end
 
 # Verify the shell exited successfully (assuming a 0 is a success)

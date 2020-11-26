@@ -59,6 +59,8 @@ steps:
       - docker-compose#v3.7.0:
           run: proxy-tests
       - docker-compose#v3.7.0:
+          run: cli-tests
+      - docker-compose#v3.7.0:
           run: http-response-tests
       - docker-compose#v3.7.0:
           run: payload-helper-tests

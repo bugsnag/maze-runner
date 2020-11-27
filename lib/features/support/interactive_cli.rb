@@ -70,7 +70,7 @@ class InteractiveCLI
     @in_stream.puts(command)
 
     true
-  rescue Errno::EIO => err
+  rescue ::Errno::EIO => err
     $logger.debug(pid) { "EIO error: #{err}" }
     false
   end
@@ -114,6 +114,8 @@ class InteractiveCLI
             @current_buffer << char
           end
         end
+      rescue ::Errno::EIO => err
+        $logger.debug(pid) { "EIO error: #{err}" }
       end
 
       stderr_thread = Thread.new do
@@ -128,6 +130,8 @@ class InteractiveCLI
             buffer << char
           end
         end
+      rescue ::Errno::EIO => err
+        $logger.debug(pid) { "EIO error: #{err}" }
       end
 
       _, status = Process.wait2(@pid)

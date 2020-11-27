@@ -21,7 +21,8 @@ end
 #
 # @step_input request_count [Integer] The amount of requests expected
 Then('I wait to receive {int} request(s)') do |request_count|
-  wait = Maze::Wait.new(timeout: MazeRunner.config.receive_requests_wait)
+  timeout = MazeRunner.config.receive_requests_wait
+  wait = Maze::Wait.new(timeout: timeout)
 
   received = wait.until { Server.stored_requests.size >= request_count }
 

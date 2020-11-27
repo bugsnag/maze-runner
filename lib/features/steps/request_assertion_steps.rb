@@ -20,15 +20,15 @@ end
 #
 # @step_input request_count [Integer] The amount of requests expected
 Then('I wait to receive {int} request(s)') do |request_count|
-  INTERVAL = 0.1
+  interval = 0.1
   timeout = MazeRunner.config.receive_requests_wait
-  max_attempts = timeout / INTERVAL
+  max_attempts = timeout / interval
   attempts = 0
   received = false
   until (attempts >= max_attempts) || received
     attempts += 1
     received = (Server.stored_requests.size >= request_count)
-    sleep INTERVAL
+    sleep interval
   end
   unless received
     raise <<-MESSAGE

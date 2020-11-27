@@ -1,4 +1,4 @@
-require 'open3'
+require 'pty'
 
 # Encapsulates a shell session, retaining state and input streams for interactive tests
 class InteractiveCLI
@@ -10,10 +10,6 @@ class InteractiveCLI
   #   @return [Array] An array of error strings received from the terminals STDERR pipe
   attr_reader :stderr_lines
 
-  # @!attribute [r] last_exit_code
-  #   @return [Number, nil] The exit code of the last terminal command
-  attr_reader :last_exit_code
-
   # @!attribute [r] pid
   #   @return [Number, nil] The PID of the running terminal
   attr_reader :pid
@@ -24,46 +20,43 @@ class InteractiveCLI
 
   # Creates an InteractiveCLI instance
   #
-  # @param environment [Hash] A hash of environment variables
   # @param shell [String] A path to the shell to run, defaults to `/bin/sh`
   # @param stop_command [String] The stop command, defaults to `exit`
-  def initialize(environment = {}, shell = '/bin/sh', stop_command = 'exit')
+  def initialize(shell = '/bin/sh', stop_command = 'exit')
     @shell = shell
-    @env = environment
+    @stop_command = stop_command
     @stdout_lines = []
     @stderr_lines = []
+    @on_exit_blocks = []
     @current_buffer = ''
-    @last_exit_code = nil
-    @in_stream = nil
-    @pid = nil
-    @stop_command = stop_command
+
     start_threaded_shell(shell)
   end
 
-  def start(threaded = true)
+  def start(threaded: true)
     threaded ? start_threaded_shell(@shell) : start_shell(@shell)
   end
 
   # Attempts to stop the shell using the preset command and wait for it to exit
+  #
+  # @return [Boolean] If the shell stopped successfully
   def stop
     run_command(@stop_command)
-    wait_for_exit
+
+    @in_stream.close
+
+    maybe_thread = @thread.join(15)
+
+    # The thread did not exit!
+    return false if maybe_thread.nil?
+
+    @pid = nil
+    true
   end
 
-  # Attempt to wait for the shell to exit. This can fail as it will not kill the
-  # shell, instead it expects the shell to be ready to exit
-  #
-  # @return [Thread, nil] The thread that exited or nil if it didn't exit
-  def wait_for_exit
-    @in_stream&.close
-    @thread&.join(15)
-  end
-
-  # Returns whether the shell is running by verifying the in_stream exists and is open
-  #
-  # @return [Boolean] Whether the stream is currently running
+  # @return [Boolean] Whether the shell is currently running
   def running?
-    !(@in_stream.nil? || @in_stream.closed?)
+    !@pid.nil?
   end
 
   # Runs the given command if the shell is running
@@ -75,7 +68,15 @@ class InteractiveCLI
     return false unless running?
 
     @in_stream.puts(command)
+
     true
+  rescue Errno::EIO => err
+    $logger.debug(pid) { "EIO error: #{err}" }
+    false
+  end
+
+  def on_exit(&block)
+    @on_exit_blocks << block
   end
 
   private
@@ -93,10 +94,15 @@ class InteractiveCLI
   #
   # @param shell [String] A path to the shell to run
   def start_shell(shell)
-    exit_status = Open3.popen3(@env, shell) do |stdin, stdout, stderr, wait_thr|
+    stderr_reader, stderr_writer = IO.pipe
+
+    PTY.spawn(shell, err: stderr_writer.fileno) do |stdout, stdin, pid|
+      # We don't need to write to stderr so close it ASAP
+      stderr_writer.close
+
+      $logger.debug(pid) { 'PTY spawned!' }
+      @pid = pid
       @in_stream = stdin
-      @pid = wait_thr.pid
-      $logger.debug(pid) { "Started shell session: #{shell}" }
 
       stdout_thread = Thread.new do
         stdout.each_char do |char|
@@ -113,7 +119,7 @@ class InteractiveCLI
       stderr_thread = Thread.new do
         buffer = ''
 
-        stderr.each_char do |char|
+        stderr_reader.each_char do |char|
           if char == "\n"
             $logger.debug("#{pid} STDERR") { buffer }
             @stderr_lines << format_line(buffer)
@@ -124,9 +130,8 @@ class InteractiveCLI
         end
       end
 
-      # Wait for the process to exit. This will usually require 'wait_for_exit'
-      # to be called first (via the "I wait for the current shell to exit" step)
-      exit_status = wait_thr.value.to_i
+      _, status = Process.wait2(@pid)
+      @pid = nil
 
       # Stop the thread that's reading from stdout
       failed = stdout_thread.join(5).nil?
@@ -136,11 +141,14 @@ class InteractiveCLI
       failed = stderr_thread.join(5).nil?
       raise 'stderr is blocked!' if failed
 
-      exit_status
+      $logger.debug(pid) { "PTY exit status: #{status.exitstatus}" }
+      @on_exit_blocks.each do |block|
+        block.call(status.exitstatus)
+      end
     end
-
-    @last_exit_code = exit_status
-    $logger.debug(pid) { "exit status: #{exit_status}" }
+  ensure
+    stderr_reader.close unless stderr_reader.closed?
+    stderr_writer.close unless stderr_writer.closed?
   end
 
   # Strips whitespace from shell lines, can be used to sanitize further if required

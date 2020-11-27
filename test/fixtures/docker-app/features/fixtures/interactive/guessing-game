@@ -1,8 +1,5 @@
 #!/usr/bin/env ruby
 
-# Force ruby to write to stdout immediately, instead of using an internal buffer
-$stdout.sync = true
-
 number = 123
 
 puts "What number am I thinking of?"

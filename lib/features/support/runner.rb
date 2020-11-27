@@ -72,40 +72,53 @@ class Runner
       run_command(script_path, blocking: blocking, success_codes: success_codes)
     end
 
-    # Returns the current interactive session, creating a new one if necessary
+    # Creates a new interactive session. Can only be called if no session already
+    # exists. Check with {interactive_session?} if necessary.
     #
     # @return [InteractiveCLI] The interactiveCLI instance
-    def get_interactive_session(*args)
-      return @interactive_session unless @interactive_session.nil?
+    def start_interactive_session(*args)
+      raise 'An interactive session is already running!' if interactive_session?
 
-      interactive_session = InteractiveCLI.new(environment, *args)
+      wait = Maze::Wait.new(interval: 0.3, timeout: 3)
 
-      attempts = 0
+      interactive_session = InteractiveCLI.new(*args)
 
-      until interactive_session.pid
-        raise "Shell session would not start within 3 seconds" if attempts > 10 # allows 3 seconds of opening
-
-        attempts += 1
-        sleep(0.3)
-      end
+      success = wait.until { interactive_session.running? }
+      raise 'Shell session did not start in time!' unless success
 
       @interactive_session = interactive_session
     end
 
+    def interactive_session?
+      !@interactive_session.nil?
+    end
+
+    def interactive_session
+      raise 'No interactive session is running!' unless interactive_session?
+
+      @interactive_session
+    end
+
     # Stops the interactive session, allowing a new one to be started
+    #
+    # @return [Boolean] True if the interactive session exited successfully
     def stop_interactive_session
-      return if @interactive_session.nil?
+      raise 'No interactive session is running!' unless interactive_session?
 
-      @interactive_session.stop
+      success = @interactive_session.stop
 
-      # Make sure the process is properly ended
-      pids << @interactive_session.pid if @interactive_session.pid
+      # Make sure the process is killed if it did not stop
+      pids << @interactive_session.pid if @interactive_session.running?
+
       @interactive_session = nil
+
+      success
     end
 
     # Stops all script processes previously started by this class.
     def kill_running_scripts
-      stop_interactive_session
+      stop_interactive_session if interactive_session?
+
       pids.each do |p|
         Process.kill('KILL', p)
       rescue Errno::ESRCH

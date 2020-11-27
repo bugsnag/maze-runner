@@ -31,9 +31,16 @@ class Docker
         # escape sequences from docker-compose as they can cause issues with
         # stderr expectations by 'leaking' into the next line
         command = get_docker_compose_command("--no-ansi run #{service} #{command}")
-        cli = Runner.get_interactive_session(command)
 
-        @last_command_logs, @last_exit_code = [cli.stdout_lines + cli.stderr_lines, cli.last_exit_code]
+        cli = Runner.start_interactive_session(command)
+        cli.on_exit do |status|
+          @last_exit_code = status
+          @last_command_logs = cli.stdout_lines + cli.stderr_lines
+        end
+
+        # The logs and exit code aren't available from the interactive session
+        # at this point (we've just started it!) so we can't provide them here
+        @last_command_logs, @last_exit_code = [[], nil]
       when command
         # We build the service before running it as there is no --build
         # option for run.

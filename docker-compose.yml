@@ -1,4 +1,4 @@
-version: '3.4'
+version: '3.6'
 services:
   ci:
     build:
@@ -31,16 +31,28 @@ services:
       BUILDKITE:
       BUILDKITE_BUILD_NUMBER:
       BUILDKITE_STEP_KEY:
-      BROWSER_STACK_USERNAME:
-      BROWSER_STACK_ACCESS_KEY:
-      BROWSER_STACK_LOCAL_IDENTIFIER: ${BUILDKITE_JOB_ID:-maze-runner}
-      DEVICE_TYPE:
 
   comparison-tests:
     build:
       context: test/fixtures/comparison
       args:
         BRANCH_NAME:
+
+  framework-tests:
+    build:
+      context: test/fixtures/framework
+      args:
+        BRANCH_NAME:
+
+  docker-tests:
+    build:
+      context: test/fixtures/docker-app
+      args:
+        BRANCH_NAME:
+    environment:
+      NETWORK_NAME: "${BUILDKITE_JOB_ID:-core-maze-runner}"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 
   proxy-tests:
     build:
@@ -53,3 +65,19 @@ services:
       context: test/fixtures/payload-helpers
       args:
         BRANCH_NAME:
+
+  http-response-tests:
+    build:
+      context: test/fixtures/http-response
+      args:
+        BRANCH_NAME:
+
+  unit-test:
+    build:
+      dockerfile: dockerfiles/Dockerfile.ci
+      context: .
+      target: unit-test
+
+networks:
+  default:
+    name: ${BUILDKITE_JOB_ID:-core-maze-runner}

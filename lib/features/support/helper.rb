@@ -28,7 +28,7 @@ def read_key_path(hash, key_path)
         return nil
       end
     else
-      if value.keys.include? key
+      if value.key? key
         value = value[key]
       else
         return nil

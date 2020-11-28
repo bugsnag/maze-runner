@@ -15,6 +15,24 @@ class Server
   PORT = 9339
 
   class << self
+    # Allows overwriting of the server status code
+    attr_writer :status_code
+
+    # Dictates if the status code should be reset after used
+    attr_writer :reset_status_code
+
+    # The intended HTTP status code on a successful request
+    #
+    # @return [Integer] The HTTP status code, defaults to 200
+    def status_code
+      code = @status_code ||= 200
+      @status_code = 200 if reset_status_code
+      code
+    end
+
+    def reset_status_code
+      @reset_status_code ||= false
+    end
 
     # A list of error requests received
     #
@@ -28,6 +46,16 @@ class Server
     # @return [RequestList] Received error requests
     def sessions
       @sessions ||= RequestList.new
+    end
+
+    # Whether the server thread is running
+    # An array of any invalid requests received.
+    # Each request is hash consisting of:
+    #   request: The original HTTPRequest object
+    #   reason: Reason for being considered invalid. Examples include invalid JSON and missing/invalid digest.
+    # @return [Array] An array of received requests
+    def invalid_requests
+      @invalid_requests ||= []
     end
 
     # Whether the server thread is running

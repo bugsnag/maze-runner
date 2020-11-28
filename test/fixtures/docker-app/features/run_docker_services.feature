@@ -1,33 +1,31 @@
-Feature: Running docker services
+Feature: Running docker services and commands
 
-    Background:
-        Given I stop the compose stack
+    Scenario: A service can be built and started
+        When I start the service "sends_request"
+        And I wait to receive a request
+        Then the payload field "somedata" equals "data"
+        And the exit code of the last docker command was 0
+        And the last run docker command exited successfully
+        And the last run docker command output "SOME OUTPUT"
 
-    Scenario: A service can be built and run
-        Given I have built the service "test_1"
-        When I start the service "test_1"
-        Then the service "test_1" should be running
+    Scenario: A service can be started with a command
+        When I run the service "sends_request" with the command "curl -F somedata=manual http://docker-tests:9339"
+        And I wait to receive a request
+        Then the payload field "somedata" equals "manual"
+        And the last run docker command exited successfully
 
-    Scenario: A service can be stopped
-        Given I have built the service "test_1"
-        When I start the service "test_1"
-        Then the service "test_1" should be running
-        When I stop the service "test_1"
-        Then the service "test_1" should not be running
+    Scenario: A service can be started with a multiline command
+        When I run the service "sends_request" with the command
+        """
+        curl -F somedata=multiline http://docker-tests:9339
+        curl -F somedata=multiline2 http://docker-tests:9339
+        """
+        And I wait to receive 2 requests
+        Then the payload field "somedata" equals "multiline"
+        And I discard the oldest request
+        And the payload field "somedata" equals "multiline2"
+        And the last run docker command exited successfully
 
-    Scenario: A service with dependencies can be built and run
-        Given I have built the service "test_2"
-        When I start the service "test_2"
-        Then the service "test_2" should be running
-        And the service "dep" should be running
-
-    Scenario: A service can be run with a different command
-        Given I have built the service "test_1"
-        When I run the service "test_1" with the command "bundle exec ruby server.rb"
-        Then the service "test_1" should be running
-        And I kill the service "test_1"
-
-    Scenario: A service can be started from a different stack
-        Given I have built the service "test_1" from the stack "features/fixtures/other-compose.yml"
-        When I start the service "test_1" from the stack "features/fixtures/other-compose.yml"
-        Then the service "test_1" should be running
+    Scenario: A services error status can be checked
+        When I run the service "sends_request" with the command "/foo"
+        Then the last run docker command did not exit successfully

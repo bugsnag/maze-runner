@@ -32,6 +32,11 @@ class CompareResult
   def keypath
     keys.length > 0 ? keys.reverse.join(".") : "<root>"
   end
+
+  # Provides a standard assertion of equality, with standardised output
+  def assert_equal
+    assert(@equal, "The compared fields do not match:\n #{result.reasons.join('\n')}")
+  end
 end
 
 # Compares two objects for value equality, traversing to compare each

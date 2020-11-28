@@ -1,29 +1,168 @@
-# 2.7.0 - TBD
+# 3.6.0 - 2020/11/25
 
 ## Enhancements
 
+- Add `--capabilities` option
+  [#177](https://github.com/bugsnag/maze-runner/pull/177)
+- Add support for macOS devices using AppiumForMac
+  [#178](https://github.com/bugsnag/maze-runner/pull/178)
+- Enforce presence of `Bugsnag-Integrity` based on MazeRunner.config.enforce_bugsnag_integrity
+  [#179](https://github.com/bugsnag/maze-runner/pull/179)
+  [#180](https://github.com/bugsnag/maze-runner/pull/180)
+
+## Fixes
+
+- Fix ordering issue with docker exit code/output
+  [#175](https://github.com/bugsnag/maze-runner/pull/175)
+
+# 3.5.1 - 2020/11/17
+
+## Fixes
+
+- Allow timezone offsets in timestamps
+  [#174](https://github.com/bugsnag/maze-runner/pull/174)
+
+# 3.5.0 - 2020/11/13
+
+## Enhancements
+
+- Refactor of request steps and additional multipart/form-data steps
+  [#163](https://github.com/bugsnag/maze-runner/pull/163)
+- Add full range of iOS 11 devices on BrowserStack to test against
+  [#166](https://github.com/bugsnag/maze-runner/pull/166)
+- Add the Bugsnag-Integrity header to Access-Control-Allow-Headers
+  [#167](https://github.com/bugsnag/maze-runner/pull/167)
+- Fix always false comparison when checking the simple digest
+  [#170](https://github.com/bugsnag/maze-runner/pull/170)
+
+# 3.4.0 - 2020/11/10
+
+## Enhancements
+
+- Add Cucumber steps for checking Bugsnag-Integrity headers, in addition to automatically
+  verifying digests on all received requests when the header is present.
+  [#159](https://github.com/bugsnag/maze-runner/pull/159)
+- Reinstate environment clearing between scenarios
+  [#164](https://github.com/bugsnag/maze-runner/pull/164)
+
+## Fixes
+
+- Fix `I clear the element {string}` step.
+  [#165](https://github.com/bugsnag/maze-runner/pull/165)
+
+# 3.3.0 - 2020/11/05
+
+## Enhancements
+
+- Make use of ResilientAppiumDriver optional
+  [#159](https://github.com/bugsnag/maze-runner/pull/159)
+
+## Fixes
+
+- Fix Appium version for iOS devices to 1.15.0.
+  [#161](https://github.com/bugsnag/maze-runner/pull/161)
+
+# 3.2.0 - 2020/11/04
+
+## Enhancements
+
+- Add steps for setting the HTTP status code to be returned to incoming requests
+  [#157](https://github.com/bugsnag/maze-runner/pull/157)
+
+## Fixes
+
+- Run docker-compose commands attached rather than detached.
+  [#158](https://github.com/bugsnag/maze-runner/pull/158)
+
+# 3.1.0 - 2020/11/02
+
+## Enhancements
+
+- Provide ability to locate elements by accessibility id
+  [#151](https://github.com/bugsnag/maze-runner/pull/151)
+- Add command line option to set Appium version
+  [#152](https://github.com/bugsnag/maze-runner/pull/152)
+- New steps for running Docker service with multiline commands and checking values are of certain types.
+  [#155](https://github.com/bugsnag/maze-runner/pull/155)
+
+## Fixes
+
+- Explicitly set Appium version for use with BrowserStack devices.
+  [#154](https://github.com/bugsnag/maze-runner/pull/154)
+
+# 3.0.3 - 2020/10/26
+
+## Fixes
+
+- Roll in OS version changes from [#145](https://github.com/bugsnag/maze-runner/pull/145) somehow lost by Git/hub
+  [#150](https://github.com/bugsnag/maze-runner/pull/150)
+
+# 3.0.2 - 2020/10/21
+
+## Fixes
+
+- Do not clear environment between scenarios (introduced in v2.6.0).
+  [#149](https://github.com/bugsnag/maze-runner/pull/149)
+
+# 3.0.1 - 2020/10/20
+
+## Fixes
+
+- Push released Docker images to their own repository to avoid deletion.
+  [#146](https://github.com/bugsnag/maze-runner/pull/146)
+
+# 3.0.0 - 2020/10/20
+
+## Enhancements
+
+- BrowserStack specific elements separated from AppAutomateDriver (now simply AppiumDriver),
+  providing the ability to use MazeRunner with local devices.
+  [#139](https://github.com/bugsnag/maze-runner/pull/139)
+- Logging improvements when starting Appium driver (including BrowserStack link)
+  [#141](https://github.com/bugsnag/maze-runner/pull/141)
+
+## Fixes
+
+- Resolve logged BrowserStackLocal errors by moving to Ubuntu base image
+  [#140](https://github.com/bugsnag/maze-runner/pull/140)
+
+# 2.7.0 - 2020/09/30
+
+## Enhancements
+
+- Allow BrowserStackLocal path to be provided in environment.
+  [#137](https://github.com/bugsnag/maze-runner/pull/137)
+- Allow URLs to be provided for app location to avoid duplicate uploads.
+  [#136](https://github.com/bugsnag/maze-runner/pull/136)
+- Addition of ResilientAppiumDriver to catch and restart broken Appium sessions.
+  [#134](https://github.com/bugsnag/maze-runner/pull/134)
+  [#138](https://github.com/bugsnag/maze-runner/pull/138)
 - Added option to start a new Appium session for every scenario.
   [#133](https://github.com/bugsnag/maze-runner/pull/133)
+
+## Fixes
+
+- Correct Android version for device entry Galaxy Tab S3
+  [#135](https://github.com/bugsnag/maze-runner/pull/135)
 
 # 2.6.0 - 2020/09/14
 
 ## Enhancements
 
-- Table-based assertions on requests, including option to specify 
+- Table-based assertions on requests, including option to specify
   expected values with Regexps.
   [#131](https://github.com/bugsnag/maze-runner/pull/131)
 
 ## Fixes
 
-- Clear environment as start of scenarios
+- Clear environment at start of scenarios
   [#130](https://github.com/bugsnag/maze-runner/pull/130)
-
 
 # 2.5.0 - 2020/09/11
 
 ## Enhancements
 
-- Range of additional Android 6, 8.0 and 8.1 device options provided, 
+- Range of additional Android 6, 8.0 and 8.1 device options provided,
   together with Android 11 and iOS 14.
   [#127](https://github.com/bugsnag/maze-runner/pull/127)
 - Ability to run an HTTP/S proxy added
@@ -49,7 +188,7 @@
   [#122](https://github.com/bugsnag/maze-runner/pull/122)
 - Use BRANCH_NAME throughout instead of BUILDKITE_BRANCH
   [#123](https://github.com/bugsnag/maze-runner/pull/123)
-    
+
 # 2.3.2 - 2020/08/26
 
 ## Fixes

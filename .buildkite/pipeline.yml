@@ -1,131 +1,164 @@
 steps:
-  - label: ':docker: Build CI image'
+  - label: 'Unit tests'
     plugins:
-      - docker-compose#v3.3.0:
+      docker-compose#v3.7.0:
+        run: unit-test
+    command: 'bundle exec rake'
+
+  - label: ':docker: Build CI image'
+    key: "ci-image"
+    plugins:
+      - docker-compose#v3.7.0:
           build:
             - ci
           image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
           cache-from:
-            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:latest-ci
             - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
-
-  - wait
-
-  - label: ':docker: Push CI'
-    plugins:
-      - docker-compose#v3.3.0:
+      - docker-compose#v3.7.0:
           push:
-            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:latest-ci
             - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
 
-  - wait
+  - label: ':docker: Push Docker image for branch'
+    key: "cli-image"
+    depends_on: "ci-image"
+    plugins:
+      - docker-compose#v3.7.0:
+          build: cli
+          image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
+          cache-from:
+            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
+            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
+      - docker-compose#v3.7.0:
+          push:
+            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
 
   - label: ':docker: Build test images'
+    key: "test-images"
+    depends_on: "ci-image"
     plugins:
-      - docker-compose#v3.3.0:
+      - docker-compose#v3.7.0:
           build:
             - comparison-tests
             - browserstack-app-automate
             - payload-helper-tests
+            - http-response-tests
+            - unit-test
+            - docker-tests
           image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
+          cache-from:
+            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
           build-parallel: true
 
-  - wait
-
-  - label: 'Unit tests'
+  - label: 'No-device tests'
+    depends_on: "test-images"
     plugins:
-      docker-compose#v3.3.0:
-        run: ci
-    command: 'bundle exec rake'
-
-  - label: 'Comparison tests'
-    plugins:
-      docker-compose#v3.3.0:
-        run: comparison-tests
-    command: 'bundle exec bugsnag-maze-runner'
-
-  - label: 'Proxy tests'
-    plugins:
-      docker-compose#v3.3.0:
-        run: proxy-tests
-    command: 'bundle exec bugsnag-maze-runner'
+      - docker-compose#v3.7.0:
+          run: framework-tests
+      - docker-compose#v3.7.0:
+          run: comparison-tests
+      - docker-compose#v3.7.0:
+          run: proxy-tests
+      - docker-compose#v3.7.0:
+          run: http-response-tests
+      - docker-compose#v3.7.0:
+          run: payload-helper-tests
+      # Temporarily disabled due to networking issues - see [PLAT-5431]
+      # - docker-compose#v3.7.0:
+      #     run: docker-tests
+    command: 'bundle exec maze-runner'
 
   - label: 'Browserstack app-automate test - Android 6'
-    env:
-      DEVICE_TYPE: ANDROID_6_0
+    depends_on: "test-images"
     plugins:
-      docker-compose#v3.3.0:
+      docker-compose#v3.7.0:
         run: browserstack-app-automate
-    command: 'bundle exec bugsnag-maze-runner'
+    command: >-
+      bundle exec bugsnag-maze-runner
+      --app=app/build/outputs/apk/release/app-release.apk
+      --farm=bs
+      --device=ANDROID_6_0
+      --username=$BROWSER_STACK_USERNAME
+      --access-key=$BROWSER_STACK_ACCESS_KEY
     concurrency: 10
     concurrency_group: 'browserstack-app'
 
   - label: 'Browserstack app-automate test - Android 7.1 (separate Appium sessions)'
-    env:
-      DEVICE_TYPE: ANDROID_7_1
+    depends_on: "test-images"
     plugins:
-      docker-compose#v3.3.0:
+      docker-compose#v3.7.0:
         run: browserstack-app-automate
-    command: 'bundle exec bugsnag-maze-runner --separate-sessions'
+    command: >-
+      bundle exec bugsnag-maze-runner
+      --app=app/build/outputs/apk/release/app-release.apk
+      --farm=bs
+      --device=ANDROID_7_1
+      --username=$BROWSER_STACK_USERNAME
+      --access-key=$BROWSER_STACK_ACCESS_KEY
     concurrency: 10
     concurrency_group: 'browserstack-app'
 
   - label: 'Browserstack app-automate test - Android 8.1'
-    env:
-      DEVICE_TYPE: ANDROID_8_1
+    depends_on: "test-images"
     plugins:
-      docker-compose#v3.3.0:
+      docker-compose#v3.7.0:
         run: browserstack-app-automate
-    command: 'bundle exec bugsnag-maze-runner'
+    command: >-
+      bundle exec bugsnag-maze-runner
+      --resilient
+      --app=app/build/outputs/apk/release/app-release.apk
+      --farm=bs
+      --device=ANDROID_8_1
+      --username=$BROWSER_STACK_USERNAME
+      --access-key=$BROWSER_STACK_ACCESS_KEY
     concurrency: 10
     concurrency_group: 'browserstack-app'
 
   - label: 'Browserstack app-automate test - Android 9'
-    env:
-      DEVICE_TYPE: ANDROID_9_0
+    depends_on: "test-images"
     plugins:
-      docker-compose#v3.3.0:
+      docker-compose#v3.7.0:
         run: browserstack-app-automate
-    command: 'bundle exec bugsnag-maze-runner'
+    command: >-
+      bundle exec bugsnag-maze-runner
+      --app=app/build/outputs/apk/release/app-release.apk
+      --farm=bs
+      --device=ANDROID_9_0
+      --username=$BROWSER_STACK_USERNAME
+      --access-key=$BROWSER_STACK_ACCESS_KEY
     concurrency: 10
     concurrency_group: 'browserstack-app'
 
   - label: 'Browserstack app-automate test - Android 10 (separate Appium sessions)'
-    env:
-      DEVICE_TYPE: ANDROID_10_0
+    depends_on: "test-images"
     plugins:
-      docker-compose#v3.3.0:
+      docker-compose#v3.7.0:
         run: browserstack-app-automate
-    command: 'bundle exec bugsnag-maze-runner --separate-sessions'
+    command: >-
+      bundle exec bugsnag-maze-runner
+      --app=app/build/outputs/apk/release/app-release.apk
+      --farm=bs
+      --device=ANDROID_10_0
+      --username=$BROWSER_STACK_USERNAME
+      --access-key=$BROWSER_STACK_ACCESS_KEY
+      --appium-version=1.17.0
     concurrency: 10
     concurrency_group: 'browserstack-app'
 
   - label: 'Browserstack app-automate test - Android 11 (separate Appium sessions)'
-    env:
-      DEVICE_TYPE: ANDROID_11_0
+    depends_on: "test-images"
     plugins:
-      docker-compose#v3.3.0:
+      docker-compose#v3.7.0:
         run: browserstack-app-automate
-    command: 'bundle exec bugsnag-maze-runner --separate-sessions'
+    command: >-
+      bundle exec bugsnag-maze-runner
+      --app=app/build/outputs/apk/release/app-release.apk
+      --farm=bs
+      --device=ANDROID_11_0
+      --username=$BROWSER_STACK_USERNAME
+      --access-key=$BROWSER_STACK_ACCESS_KEY
+      --appium-version=1.17.0
     concurrency: 10
     concurrency_group: 'browserstack-app'
-
-  - label: 'Payload helper tests'
-    plugins:
-      docker-compose#v3.3.0:
-        run: payload-helper-tests
-    command: 'bundle exec bugsnag-maze-runner'
-
-  - wait
-
-  - label: 'Push Docker image for branch'
-    plugins:
-      - docker-compose#v3.3.0:
-          build: cli
-          cache-from: cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
-      - docker-compose#v3.3.0:
-          push:
-            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
 
   - wait
 
@@ -153,16 +186,16 @@ steps:
   - label: 'Update docs'
     if: build.tag =~ /^v[2-9]\.[0-9]+\.[0-9]+\$/
     plugins:
-      docker-compose#v3.3.0:
+      docker-compose#v3.7.0:
         run: docs
     command: 'bundle exec rake docs:build_and_publish'
 
+    # Release images are pushed to their own repository so that they don't get aged off.
   - label: 'Push Docker image for tag'
     if: build.tag =~ /^v[2-9]\.[0-9]+\.[0-9]+\$/
     plugins:
-      - docker-compose#v3.3.0:
+      - docker-compose#v3.7.0:
           push:
-            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BUILDKITE_TAG}-cli
-            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:latest-v3-cli
-            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:latest-cli
-
+            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:${BUILDKITE_TAG}-cli
+            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-v4-cli
+            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-cli

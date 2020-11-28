@@ -2,6 +2,7 @@
 
 require 'net/http'
 require 'json'
+require 'time'
 
 http = Net::HTTP.new('localhost', ENV['MOCK_API_PORT'])
 request = Net::HTTP::Post.new('/notify')
@@ -12,7 +13,7 @@ templates = {
     'headers' => {
       'Bugsnag-Api-Key' => ENV['BUGSNAG_API_KEY'],
       'Bugsnag-Payload-Version' => '4.0',
-      'Bugsnag-Sent-At' => Time.now().utc().strftime('%Y-%m-%dT%H:%M:%S')
+      'Bugsnag-Sent-At' => Time.now().iso8601(3)
     },
     'body' => {
       'apiKey' => ENV['BUGSNAG_API_KEY'],
@@ -38,7 +39,7 @@ templates = {
     'headers' => {
       'Bugsnag-Api-Key' => ENV['BUGSNAG_API_KEY'],
       'Bugsnag-Payload-Version' => '1.0',
-      'Bugsnag-Sent-At' => Time.now().utc().strftime('%Y-%m-%dT%H:%M:%S')
+      'Bugsnag-Sent-At' => Time.now().iso8601(3)
     },
     'body' => {
       'notifier' => {

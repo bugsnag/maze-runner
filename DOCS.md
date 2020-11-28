@@ -108,12 +108,12 @@ configuration should go.
  `echo Peanut Butter Jelly Time`
 
  # Run before every scenarios
- Before do
+ MazeRunner.hooks.before do
    clean_build_artifacts
  end
 
 # Run after every scenario
-After do |scenario|
+MazeRunner.hooks.after do |scenario|
   # Teardown scenario configuration here
 
   if scenario.failed?
@@ -136,7 +136,8 @@ end
 
 #### Field path notation
 
-Anywhere a `{field}`, `{path}`, `{key_path}`, etc is denoted, it can be replaced with dot-delimited key path to indicate the path from the root of an object to the intended target.
+Anywhere a `{field}`, `{path}`, `{key_path}`, etc is denoted, it can be replaced with dot-delimited key path to indicate 
+the path from the root of an object to the intended target.
 
 For example, to match the name of the second objects in the the key `fruits` below, use `fruits.1.name` as the keypath.
 
@@ -151,18 +152,18 @@ For example, to match the name of the second objects in the the key `fruits` bel
 
 #### Using BrowserStack
 
-BrowserStack is used to drive many of the mobile device tests written using maze-runner.  For these tests we can use a driver class and accompanying set of steps to interface with the BrowserStack AppAutomate server.
+BrowserStack is used to drive many of the mobile device tests written using maze-runner.  For these tests we can use a 
+driver class and accompanying set of steps to interface with the BrowserStack AppAutomate server.  `MazeRunner.driver` 
+can be used to write custom steps using the API provided by the `Appium::Driver` class.
 
-The driver needs to be started within the `AfterConfiguration` callback in the `features/support/env.rb` file, where the arguments indicate the particular test setup:
-
-```ruby
-AfterConfiguration do |config|
-  AppAutomateDriver.new(bs_username, bs_access_key, bs_local_id, device_type, app_location)
-  $driver.start_driver
-end
-```
-
-This adds the `$driver` global variable which can be used to write custom steps using the API provided by the `Appium::Driver` class.
+The options needed to create a connection to the Appium server should be passed in via the command line when invoking
+Maze Runner.  See `bundle exec maze-runner --help` for details, but the most pertinent are:
+-  `--farm=<s>` - Device farm to use: "bs" (BrowserStack) or "local"
+-  `--app=<s>` - The app to be installed and run against
+-  `--bs-local=<s>` - Path to the BrowserStackLocal binary
+-  `--device=<s>` - BrowserStack device to use (a key of Devices.DEVICE_HASH)
+-  `--username=<s>` - BrowserStack username
+-  `--access-key=<s>` - BrowserStack access key
 
 #### On matching JSON templates
 
@@ -173,20 +174,18 @@ Then the payload body matches the JSON fixture in "features/fixtures/template.js
 Then the payload field "items.0.subset" matches the JSON fixture in "features/fixtures/template.json"
 ```
 
-The template file can either be an exact match or specify regex matches for string fields. For example, given the template
-
+The template file can either be an exact match or specify regex matches for string fields. For example, given the 
+template:
 ```json
 { "fruit": { "apple": { "color": "\\w+" } } }
 ```
 
 The following request will match:
-
 ```json
 { "fruit": { "apple": { "color": "red" } } }
 ```
 
 Though this request will not match:
-
 ```json
 { "fruit": { "apple": { "color": "red-orange" } } }
 ```
@@ -194,35 +193,33 @@ Though this request will not match:
 If "IGNORE" is specified as a value in a template, that value will be ignored in requests.
 
 Given the following template:
-
 ```json
 { "fruit": { "apple": "IGNORE" } }
 ```
 
 This request will match:
-
 ```json
 { "fruit": { "apple": "some nonsense" } }
 ```
 
 ## Running features
 
-Run the entire suite using `bundle exec bugsnag-maze-runner`. Alternately, you
-can specify specific files to run:
+Run the entire suite using `bundle exec bugsnag-maze-runner`. Alternately, you can specify specific files to run:
 
 ```shell
 bundle exec bugsnag-maze-runner features/something.feature
 ```
 
-Add the `--verbose` option to print script output and a trace of what Ruby file
-is being run.
+Add the `--verbose` option to print script output and a trace of what Ruby file is being run.
 
 ## Troubleshooting
 
 ### Logging
 
-Maze-runner contains a Ruby logger connected to `STDOUT` that will attempt to log several events that occur during the testing life-cycle.
-By default the logger is set to report `INFO` level events or higher, but will log `DEBUG` level events if the `VERBOSE` or `DEBUG` flags are set.  If the `QUIET` flag is set it will instead log at the `ERROR` level and above.
+Maze-runner contains a Ruby logger connected to `STDOUT` that will attempt to log several events that occur during the 
+testing life-cycle.  By default, the logger is set to report `INFO` level events or higher, but will log `DEBUG` level 
+events if the `VERBOSE` or `DEBUG` flags are set.  If the `QUIET` flag is set it will instead log at the `ERROR` level 
+and above.
 
 | Log Level | Event | Information |
 |-----------|-------|-------------|
@@ -237,19 +234,15 @@ By default the logger is set to report `INFO` level events or higher, but will l
 
 ### Known issues
 
-* Testing on iOS sometimes fails while Android Studio or gradle or some Android
-  emulators are running.
-* Payload field matching for raw string values can be ambiguous when there is a
-  possible regex match (e.g. when using "." as a part of an expected value
-  without escaping it).
+* Payload field matching for raw string values can be ambiguous when there is a possible regex match (e.g. when using 
+"." as a part of an expected value without escaping it).
 
 ## Contributing
 
-If steps would be useful for different projects using maze-runner, add them to
-`lib/features/steps/`. If there are useful helper functions, add them to
-`lib/features/support/*.rb`.
+If steps would be useful for different projects using maze-runner, add them to `lib/features/steps/`. If there are 
+useful helper functions, add them to `lib/features/support/*.rb`.
 
 ### Running the tests
 
-bugsnag-maze-runner uses test-unit and minunit to bootstrap itself and run the
-sample app suites in the test fixtures. Run `bundle exec rake` to run the suite.
+bugsnag-maze-runner uses test-unit and minunit to bootstrap itself and run the sample app suites in the test fixtures. 
+Run `bundle exec rake` to run the suite.

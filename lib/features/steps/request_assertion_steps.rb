@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test/unit'
 require 'minitest'
 require 'open-uri'
@@ -13,25 +15,39 @@ Then('I wait to receive an error') do
   step 'I wait to receive 1 error'
 end
 
-# Continually checks to see if the required amount of requests have been received. Times out after 30 seconds.
+# Continually checks to see if the required amount of requests have been received.
+# Times out according to @see MazeRunner.config.receive_requests_wait.
 #
 # @step_input request_count [Integer] The amount of requests expected
 Then('I wait to receive {int} error(s)') do |request_count|
-  max_attempts = 300
+  interval = 0.1
+  timeout = MazeRunner.config.receive_requests_wait
+  max_attempts = timeout / interval
   attempts = 0
   received = false
   until (attempts >= max_attempts) || received
     attempts += 1
     received = (Server.errors.size >= request_count)
-    sleep 0.1
+    sleep interval
   end
-  raise "Errors not received in 30s (received #{Server.errors.size})" unless received
+
+  unless received
+    raise <<-MESSAGE
+    Expected #{request_count} requests but received #{Server.stored_requests.size} within the #{timeout}s timeout.
+    This could indicate that:
+    - Bugsnag crashed with a fatal error.
+    - Bugsnag did not make the requests that it should have done.
+    - The requests were made, but not deemed to be valid (e.g. missing integrity header).
+    Please check the Maze Runner and device logs to confirm.)
+    MESSAGE
+  end
 
   assert_equal(request_count, Server.errors.size, "#{Server.errors.size} requests received")
 end
 
 # Assert that the test Server hasn't received any errors.
 Then('I should receive no errors') do
+  sleep MazeRunner.config.receive_no_requests_wait
   assert_equal(0, Server.errors.size, "#{Server.errors.size} errors received")
 end
 
@@ -57,7 +73,19 @@ end
 # @step_input header_name [String] The header to test
 # @step_input header_value [String] The string it should match
 Then('the {string} header equals {string}') do |header_name, header_value|
+  assert_not_nil(Server.errors.current[:request][header_name],
+                 "The '#{header_name}' header wasn't present in the request")
   assert_equal(header_value, Server.errors.current[:request][header_name])
+end
+
+# Tests that a header matches a regex
+#
+# @step_input header_name [String] The header to test
+# @step_input regex_string [String] The regex to match with
+Then('the {string} header matches the regex {string}') do |header_name, regex_string|
+  regex = Regexp.new(regex_string)
+  value = Server.current_request[:request][header_name]
+  assert_match(regex, value)
 end
 
 # Tests that a header matches one of a list of strings
@@ -69,7 +97,6 @@ Then('the {string} header equals one of:') do |header_name, header_values|
 end
 
 # Tests that a header is a timestamp.
-#   Uses the regex /^\d{4}\-\d{2}\-\d{2}T\d{2}:\d{2}:[\d\.]+Z?$/
 #
 # @step_input header_name [String] The header to test
 Then('the {string} header is a timestamp') do |header_name|
@@ -98,54 +125,12 @@ Then('the error {string} query parameter is not null') do |parameter_name|
 end
 
 # Tests that a query parameter is a timestamp.
-#   Uses the regex /^\d{4}\-\d{2}\-\d{2}T\d{2}:\d{2}:[\d\.]+Z?$/
 #
 # @step_input parameter_name [String] The parameter to test
 Then('the error {string} query parameter is a timestamp') do |parameter_name|
   param = parse_querystring(Server.errors.current)[parameter_name][0]
   assert_match(TIMESTAMP_REGEX, param)
 end
-
-#
-# TODO Split this section into multipart_assertion_steps
-#
-
-# Tests the number of fields a multipart request contains.
-#
-# @step_input part_count [Integer] The number of expected fields
-Then('the multipart request has {int} fields') do |part_count|
-  parts = Server.current[:body]
-  assert_equal(part_count, parts.size)
-end
-
-# Tests that a multipart request field exists and is not null.
-#
-# @step_input part_key [String] The key to the multipart element
-Then('the field {string} for multipart request is not null') do |part_key|
-  parts = Server.current[:body]
-  assert_not_nil(parts[part_key], "The field '#{part_key}' should not be null")
-end
-
-# Tests that a multipart request field equals a string.
-#
-# @step_input part_key [String] The key to the multipart element
-# @step_input expected_value [String] The string to match against
-Then('the field {string} for multipart request equals {string}') do |part_key, expected_value|
-  parts = Server.errors.current[:body]
-  assert_equal(parts[part_key], expected_value)
-end
-
-# Tests that a multipart request field is null.
-#
-# @step_input part_key [String] The key to the multipart element
-Then('the field {string} for multipart request is null') do |part_key|
-  parts = Server.errors.current[:body]
-  assert_nil(parts[part_key], "The field '#{part_key}' should be null")
-end
-
-#
-# TODO Split this section into payload_assertion_steps
-#
 
 # Tests the payload body does not match a JSON fixture.
 #
@@ -164,7 +149,8 @@ Then('the payload body matches the JSON fixture in {string}') do |fixture_path|
   payload_value = Server.errors.current[:body]
   expected_value = JSON.parse(open(fixture_path, &:read))
   result = value_compare(expected_value, payload_value)
-  assert_true(result.equal?, "The payload field '#{result.keypath}' does not match the fixture:\n #{result.reasons.join('\n')}")
+  assert_true(result.equal?,
+              "The payload field '#{result.keypath}' does not match the fixture:\n #{result.reasons.join('\n')}")
 end
 
 # Test that a payload element matches a JSON fixture.
@@ -175,7 +161,8 @@ Then('the payload field {string} matches the JSON fixture in {string}') do |fiel
   payload_value = read_key_path(Server.errors.current[:body], field_path)
   expected_value = JSON.parse(open(fixture_path, &:read))
   result = value_compare(expected_value, payload_value)
-  assert_true(result.equal?, "The payload field '#{result.keypath}' does not match the fixture:\n #{result.reasons.join('\n')}")
+  assert_true(result.equal?,
+              "The payload field '#{result.keypath}' does not match the fixture:\n #{result.reasons.join('\n')}")
 end
 
 # Tests that a payload element is true.
@@ -205,7 +192,7 @@ end
 # @step_input field_path [String] Path to the tested element
 Then('the payload field {string} is not null') do |field_path|
   assert_not_nil(read_key_path(Server.errors.current[:body], field_path),
-                "The field '#{field_path}' should not be null")
+                 "The field '#{field_path}' should not be null")
 end
 
 # Tests that a payload element equals an integer.
@@ -263,7 +250,8 @@ end
 Then('the payload field {string} starts with {string}') do |field_path, string_value|
   value = read_key_path(Server.errors.current[:body], field_path)
   assert_kind_of String, value
-  assert(value.start_with?(string_value), "Field '#{field_path}' value ('#{value}') does not start with '#{string_value}'")
+  assert(value.start_with?(string_value),
+         "Field '#{field_path}' value ('#{value}') does not start with '#{string_value}'")
 end
 
 # Tests a payload field ends with a string.
@@ -273,7 +261,8 @@ end
 Then('the payload field {string} ends with {string}') do |field_path, string_value|
   value = read_key_path(Server.errors.current[:body], field_path)
   assert_kind_of String, value
-  assert(value.end_with? string_value, "Field '#{field_path}' does not end with '#{string_value}'")
+  assert(value.end_with?(string_value),
+         "Field '#{field_path}' does not end with '#{string_value}'")
 end
 
 # Tests a payload field is an array with a specific element count.
@@ -292,7 +281,8 @@ end
 Then('the payload field {string} is a non-empty array') do |field|
   value = read_key_path(Server.errors.current[:body], field)
   assert_kind_of Array, value
-  assert(value.length > 0, "the field '#{field}' must be a non-empty array")
+  assert(value.length > 0,
+         "the field '#{field}' must be a non-empty array")
 end
 
 # Tests a payload field matches a regex.
@@ -313,7 +303,8 @@ Then('the payload field {string} is a parsable timestamp in seconds') do |field|
   begin
     int = value.to_i
     parsed_time = Time.at(int)
-  rescue => exception
+  rescue StandardError
+    parsed_time = nil
   end
   assert_not_nil(parsed_time)
 end
@@ -327,6 +318,6 @@ Then('each element in payload field {string} has {string}') do |key_path, elemen
   assert_kind_of Array, value
   value.each do |element|
     assert_not_nil(read_key_path(element, element_key_path),
-           "Each element in '#{key_path}' must have '#{element_key_path}'")
+                   "Each element in '#{key_path}' must have '#{element_key_path}'")
   end
 end

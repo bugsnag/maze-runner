@@ -18,7 +18,7 @@ Scenario: Verify text entry and clearing steps
   And I clear the element "metadata"
   And I clear and send the keys "Listen to me!" to the element "metadata"
   And I click the element "trigger_error"
-  Then I wait to receive a request
+  Then I wait to receive an error
   And the request is valid for the error reporting API version "4.0" for the "Android Bugsnag Notifier" notifier
   And the exception "errorClass" equals "java.lang.Exception"
   And the exception "message" equals "Listen to me!"

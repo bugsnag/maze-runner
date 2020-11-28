@@ -2,7 +2,7 @@ Feature: Testing multipart requests work correctly
 
     Scenario: The request body matches an expected error payload
         When I run the script "features/scripts/send_multipart.sh" synchronously
-        Then I wait to receive a request
+        Then I wait to receive an error
 
         # Verify the general multipart validation works
         And the request is valid multipart form-data
@@ -26,5 +26,5 @@ Feature: Testing multipart requests work correctly
 
     Scenario: Multiple multipart payloads can be validated at once
         When I run the script "features/scripts/send_multi_multipart.sh" synchronously
-        Then I wait to receive 3 requests
+        Then I wait to receive 3 errors
         And all requests are valid multipart form-data

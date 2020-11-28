@@ -33,7 +33,7 @@ Then('I wait to receive {int} error(s)') do |request_count|
 
   unless received
     raise <<-MESSAGE
-    Expected #{request_count} requests but received #{Server.stored_requests.size} within the #{timeout}s timeout.
+    Expected #{request_count} requests but received #{Server.errors.size} within the #{timeout}s timeout.
     This could indicate that:
     - Bugsnag crashed with a fatal error.
     - Bugsnag did not make the requests that it should have done.
@@ -84,7 +84,7 @@ end
 # @step_input regex_string [String] The regex to match with
 Then('the {string} header matches the regex {string}') do |header_name, regex_string|
   regex = Regexp.new(regex_string)
-  value = Server.current_request[:request][header_name]
+  value = Server.errors.current[:request][header_name]
   assert_match(regex, value)
 end
 

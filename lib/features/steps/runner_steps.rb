@@ -1,3 +1,4 @@
+require 'securerandom'
 require_relative '../../wait'
 
 # @!group Runner steps
@@ -244,9 +245,11 @@ end
 Then('the last interactive command exited successfully') do
   assert(Runner.interactive_session?, 'No interactive session is running so the exit code cannot be checked')
 
+  uuid = SecureRandom.uuid
+
   steps %Q{
-    When I input "[ $? = 0 ] && echo 'exited with 0' || echo 'exited with error'" interactively
-    Then I wait for the shell to output "exited with 0" to stdout
+    When I input "[ $? = 0 ] && echo '#{uuid} exited with 0' || echo '#{uuid} exited with error'" interactively
+    Then I wait for the shell to output "#{uuid} exited with 0" to stdout
   }
 end
 
@@ -256,9 +259,11 @@ end
 Then('the last interactive command exit code is {int}') do |exit_code|
   assert(Runner.interactive_session?, 'No interactive session is running so the exit code cannot be checked')
 
+  uuid = SecureRandom.uuid
+
   steps %Q{
-    When I input "echo $?" interactively
-    Then I wait for the shell to output "#{exit_code}" to stdout
+    When I input "echo #{uuid} $?" interactively
+    Then I wait for the shell to output "#{uuid} #{exit_code}" to stdout
   }
 end
 
@@ -266,8 +271,10 @@ end
 Then('the last interactive command exited with an error code') do
   assert(Runner.interactive_session?, 'No interactive session is running so the exit code cannot be checked')
 
+  uuid = SecureRandom.uuid
+
   steps %Q{
-    When I input "[ $? = 0 ] && echo 'exited with 0' || echo 'exited with error'" interactively
-    Then I wait for the shell to output "exited with error" to stdout
+    When I input "[ $? = 0 ] && echo '#{uuid} exited with 0' || echo '#{uuid} exited with error'" interactively
+    Then I wait for the shell to output "#{uuid} exited with error" to stdout
   }
 end

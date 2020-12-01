@@ -92,3 +92,15 @@ Feature: Running docker services and commands
         Then I wait for the shell to output "Hello" to stdout
 
         And the last interactive command exited successfully
+
+    Scenario: A service can be run multiple scripts with different exit codes
+        When I run the service "interactive" interactively
+        And I wait for the shell prompt "# "
+        And I input "(exit 0)" interactively
+        Then the last interactive command exited successfully
+        When I input "(exit 1)" interactively
+        Then the last interactive command exited with an error code
+        When I input "(exit 127)" interactively
+        Then the last interactive command exit code is 127
+        When I input "(exit 0)" interactively
+        Then the last interactive command exited successfully

@@ -1,4 +1,4 @@
-# 3.6.0 - 2020/11/25
+# 3.6.0 - TBD
 
 ## Enhancements
 
@@ -9,6 +9,8 @@
 - Enforce presence of `Bugsnag-Integrity` based on MazeRunner.config.enforce_bugsnag_integrity
   [#179](https://github.com/bugsnag/maze-runner/pull/179)
   [#180](https://github.com/bugsnag/maze-runner/pull/180)
+- Add steps for running interaction shells
+  [#185](https://github.com/bugsnag/maze-runner/pull/185)
 
 ## Fixes
 

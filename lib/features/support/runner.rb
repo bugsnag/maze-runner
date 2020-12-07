@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'open3'
+require_relative './interactive_cli'
 
 # Determines the default path to the `scripts` directory.  Can be overwritten in the env.rb file.
 SCRIPT_PATH ||= File.expand_path(File.join(File.dirname(__FILE__), '..', 'scripts')) unless defined? SCRIPT_PATH
@@ -28,7 +29,7 @@ class Runner
           output = []
           stdout_and_stderr.each do |line|
             output << line
-            $logger.debug line
+            $logger.debug line.chomp
           end
 
           exit_status = wait_thr.value.to_i
@@ -36,7 +37,7 @@ class Runner
 
           # if the command fails we log the output at warn level too
           if !success_codes.nil? && !success_codes.include?(exit_status) && $logger.level != Logger::DEBUG
-            output.each { |line| $logger.warn(cmd) { line } }
+            output.each { |line| $logger.warn(cmd) { line.chomp } }
           end
 
           return [output, exit_status]
@@ -71,15 +72,58 @@ class Runner
       run_command(script_path, blocking: blocking, success_codes: success_codes)
     end
 
+    # Creates a new interactive session. Can only be called if no session already
+    # exists. Check with {interactive_session?} if necessary.
+    #
+    # @return [InteractiveCLI] The interactiveCLI instance
+    def start_interactive_session(*args)
+      raise 'An interactive session is already running!' if interactive_session?
+
+      wait = Maze::Wait.new(interval: 0.3, timeout: 3)
+
+      interactive_session = InteractiveCLI.new(*args)
+
+      success = wait.until { interactive_session.running? }
+      raise 'Shell session did not start in time!' unless success
+
+      @interactive_session = interactive_session
+    end
+
+    def interactive_session?
+      !@interactive_session.nil?
+    end
+
+    def interactive_session
+      raise 'No interactive session is running!' unless interactive_session?
+
+      @interactive_session
+    end
+
+    # Stops the interactive session, allowing a new one to be started
+    #
+    # @return [Boolean] True if the interactive session exited successfully
+    def stop_interactive_session
+      raise 'No interactive session is running!' unless interactive_session?
+
+      success = @interactive_session.stop
+
+      # Make sure the process is killed if it did not stop
+      pids << @interactive_session.pid if @interactive_session.running?
+
+      @interactive_session = nil
+
+      success
+    end
+
     # Stops all script processes previously started by this class.
     def kill_running_scripts
-      pids.each { |p|
-        begin
-          Process.kill('KILL', p)
-        rescue Errno::ESRCH
-          # ignored
-        end
-      }
+      stop_interactive_session if interactive_session?
+
+      pids.each do |p|
+        Process.kill('KILL', p)
+      rescue Errno::ESRCH
+        # ignored
+      end
       pids.clear
     end
 

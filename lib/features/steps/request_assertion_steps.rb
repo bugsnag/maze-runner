@@ -5,6 +5,7 @@ require 'minitest'
 require 'open-uri'
 require 'json'
 require 'cgi'
+require_relative '../../wait'
 
 include Test::Unit::Assertions
 
@@ -20,16 +21,11 @@ end
 #
 # @step_input request_count [Integer] The amount of requests expected
 Then('I wait to receive {int} request(s)') do |request_count|
-  interval = 0.1
   timeout = MazeRunner.config.receive_requests_wait
-  max_attempts = timeout / interval
-  attempts = 0
-  received = false
-  until (attempts >= max_attempts) || received
-    attempts += 1
-    received = (Server.stored_requests.size >= request_count)
-    sleep interval
-  end
+  wait = Maze::Wait.new(timeout: timeout)
+
+  received = wait.until { Server.stored_requests.size >= request_count }
+
   unless received
     raise <<-MESSAGE
     Expected #{request_count} requests but received #{Server.stored_requests.size} within the #{timeout}s timeout.

@@ -20,15 +20,35 @@ class Docker
     #
     # @param service [String] The name of the service to start
     # @param command [String] Optional. The command to use when running the service
-    def start_service(service, command: nil)
-      if command
+    # @param interactive [Boolean] Optional. Whether to run interactively
+    def start_service(service, command: nil, interactive: false)
+      case
+      when interactive
+        run_docker_compose_command("build #{service}")
+
+        # Run the built service in an interactive session. The service _must_
+        # have an appropriate entrypoint, e.g. '/bin/sh'. We also disable ANSI
+        # escape sequences from docker-compose as they can cause issues with
+        # stderr expectations by 'leaking' into the next line
+        command = get_docker_compose_command("--no-ansi run #{service} #{command}")
+
+        cli = Runner.start_interactive_session(command)
+        cli.on_exit do |status|
+          @last_exit_code = status
+          @last_command_logs = cli.stdout_lines + cli.stderr_lines
+        end
+
+        # The logs and exit code aren't available from the interactive session
+        # at this point (we've just started it!) so we can't provide them here
+        @last_command_logs, @last_exit_code = [[], nil]
+      when command
         # We build the service before running it as there is no --build
         # option for run.
         run_docker_compose_command("build #{service}")
         run_docker_compose_command("run --use-aliases #{service} #{command}")
       else
-        run_docker_compose_command("up -d --build #{service}")
         # TODO: Consider adding a logs command here
+        run_docker_compose_command("up -d --build #{service}")
       end
     end
 
@@ -58,9 +78,15 @@ class Docker
 
     private
 
-    def run_docker_compose_command(command, compose_file: COMPOSE_FILENAME, success_codes: nil)
+    def get_docker_compose_command(command)
       project_name = compose_project_name.nil? ? '' : "-p #{compose_project_name}"
-      command = "docker-compose #{project_name} -f #{compose_file} #{command}"
+
+      "docker-compose #{project_name} -f #{COMPOSE_FILENAME} #{command}"
+    end
+
+    def run_docker_compose_command(command, success_codes: nil)
+      command = get_docker_compose_command(command)
+
       @last_command_logs, @last_exit_code = Runner.run_command(command, success_codes: success_codes)
     end
 

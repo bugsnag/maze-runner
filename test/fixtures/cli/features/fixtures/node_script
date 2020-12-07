@@ -1,0 +1,14 @@
+#!/usr/bin/env node
+
+console.log("Starting node script")
+
+const readline = require("readline")
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+})
+
+rl.question("Repeat 5 times ", function(repeater) {
+    console.log(repeater + repeater + repeater + repeater + repeater)
+    rl.close()
+})

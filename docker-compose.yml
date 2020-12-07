@@ -32,6 +32,12 @@ services:
       BUILDKITE_BUILD_NUMBER:
       BUILDKITE_STEP_KEY:
 
+  cli-tests:
+    build:
+      context: test/fixtures/cli
+      args:
+        BRANCH_NAME:
+
   comparison-tests:
     build:
       context: test/fixtures/comparison

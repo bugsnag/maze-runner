@@ -54,21 +54,21 @@ module Maze
 
           # BrowserStack-only options
           opt Option::BS_LOCAL,
-              '(BS only) Path to the BrowserStackLocal binary',
+              '(BS only) Path to the BrowserStackLocal binary. MAZE_BS_LOCAL env var or "/BrowserStackLocal" by default',
               short: :none,
               type: :string,
-              default: '/BrowserStackLocal'
+              default: ENV['MAZE_BS_LOCAL'] || '/BrowserStackLocal'
           opt Option::BS_DEVICE,
               'BrowserStack device to use (a key of Devices.DEVICE_HASH)',
               short: :none,
               type: :string
           opt Option::USERNAME,
-              'Device farm username',
+              'Device farm username. MAZE_DEVICE_FARM_USERNAME env var by default',
               short: '-u',
               type: :string,
               default: ENV['MAZE_DEVICE_FARM_USERNAME']
           opt Option::ACCESS_KEY,
-              'Device farm access key',
+              'Device farm access key. MAZE_DEVICE_FARM_ACCESS_KEY env var by default',
               short: '-p',
               type: :string,
               default: ENV['MAZE_DEVICE_FARM_ACCESS_KEY']
@@ -87,17 +87,17 @@ module Maze
               short: :none,
               type: :string
           opt Option::APPIUM_SERVER,
-              'Appium server URL, only used for --farm=local',
+              'Appium server URL, only used for --farm=local. MAZE_APPIUM_SERVER env var by default',
               short: :none,
               type: :string,
-              default: 'http://localhost:4723/wd/hub'
+              default: ENV['MAZE_APPIUM_SERVER'] || 'http://localhost:4723/wd/hub'
           opt Option::APPLE_TEAM_ID,
-              'Apple Team Id, required for local iOS testing',
+              'Apple Team Id, required for local iOS testing. MAZE_APPLE_TEAM_ID env var by default',
               short: :none,
               type: :string,
               default: ENV['MAZE_APPLE_TEAM_ID']
           opt Option::UDID,
-              'Apple UDID, required for local iOS testing',
+              'Apple UDID, required for local iOS testing. MAZE_UDID env var by default',
               short: :none,
               type: :string,
               default: ENV['MAZE_UDID']

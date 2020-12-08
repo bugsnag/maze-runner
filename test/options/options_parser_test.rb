@@ -9,6 +9,8 @@ class OptionsParserTest < Test::Unit::TestCase
   def setup
     ENV.delete('MAZE_DEVICE_FARM_USERNAME')
     ENV.delete('MAZE_DEVICE_FARM_ACCESS_KEY')
+    ENV.delete('MAZE_BS_LOCAL')
+    ENV.delete('MAZE_APPIUM_SERVER')
     ENV.delete('MAZE_APPLE_TEAM_ID')
     ENV.delete('MAZE_UDID')
   end
@@ -109,6 +111,8 @@ class OptionsParserTest < Test::Unit::TestCase
   def test_environment_values
     ENV['MAZE_DEVICE_FARM_USERNAME'] = 'ENV_USERNAME'
     ENV['MAZE_DEVICE_FARM_ACCESS_KEY'] = 'ENV_ACCESS_KEY'
+    ENV['MAZE_BS_LOCAL'] = 'ENV_BS_LOCAL'
+    ENV['MAZE_APPIUM_SERVER'] = 'ENV_APPIUM_SERVER'
     ENV['MAZE_APPLE_TEAM_ID'] = 'ENV_TEAM_ID'
     ENV['MAZE_UDID'] = 'ENV_UDID'
 
@@ -118,8 +122,10 @@ class OptionsParserTest < Test::Unit::TestCase
     # BrowserStack-only options
     assert_equal('ENV_USERNAME', options[Maze::Option::USERNAME])
     assert_equal('ENV_ACCESS_KEY', options[Maze::Option::ACCESS_KEY])
+    assert_equal('ENV_BS_LOCAL', options[Maze::Option::BS_LOCAL])
 
     # Local-only options
+    assert_equal('ENV_APPIUM_SERVER', options[Maze::Option::APPIUM_SERVER])
     assert_equal('ENV_TEAM_ID', options[Maze::Option::APPLE_TEAM_ID])
     assert_equal('ENV_UDID', options[Maze::Option::UDID])
   end
@@ -127,12 +133,16 @@ class OptionsParserTest < Test::Unit::TestCase
   def test_override_priority
     ENV['MAZE_DEVICE_FARM_USERNAME'] = 'ENV_USERNAME'
     ENV['MAZE_DEVICE_FARM_ACCESS_KEY'] = 'ENV_ACCESS_KEY'
+    ENV['MAZE_BS_LOCAL'] = 'ENV_BS_LOCAL'
+    ENV['MAZE_APPIUM_SERVER'] = 'ENV_APPIUM_SERVER'
     ENV['MAZE_APPLE_TEAM_ID'] = 'ENV_TEAM_ID'
     ENV['MAZE_UDID'] = 'ENV_UDID'
 
     args = %w[
       --username=ARG_USERNAME
       --access-key=ARG_ACCESS_KEY
+      --bs-local=ARG_BS_LOCAL
+      --appium-server=ARG_APPIUM_SERVER
       --apple-team-id=ARG_TEAM_ID
       --udid=ARG_UDID
     ]
@@ -141,8 +151,10 @@ class OptionsParserTest < Test::Unit::TestCase
     # BrowserStack-only options
     assert_equal('ARG_USERNAME', options[Maze::Option::USERNAME])
     assert_equal('ARG_ACCESS_KEY', options[Maze::Option::ACCESS_KEY])
+    assert_equal('ARG_BS_LOCAL', options[Maze::Option::BS_LOCAL])
 
     # Local-only options
+    assert_equal('ARG_APPIUM_SERVER', options[Maze::Option::APPIUM_SERVER])
     assert_equal('ARG_TEAM_ID', options[Maze::Option::APPLE_TEAM_ID])
     assert_equal('ARG_UDID', options[Maze::Option::UDID])
   end

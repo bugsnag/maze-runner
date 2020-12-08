@@ -42,11 +42,11 @@ class OptionsParserTest < Test::Unit::TestCase
 
   def test_overwritten_values
     args = %w[
-      --separate-sessions=true
+      --separate-sessions
       --farm=ARG_FARM
       --app=ARG_APP
-      --a11y-locator=true
-      --resilient=true
+      --a11y-locator
+      --resilient
       --capabilities=ARG_CAPABILITIES
       --bs-local=ARG_BS_LOCAL
       --device=ARG_DEVICE
@@ -88,7 +88,7 @@ class OptionsParserTest < Test::Unit::TestCase
     args = %w[
       -f SHORT_FARM
       -a SHORT_APP
-      -r true
+      -r
       -c SHORT_CAPABILITIES
       -u SHORT_USERNAME
       -p SHORT_ACCESS_KEY

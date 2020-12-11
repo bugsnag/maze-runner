@@ -59,12 +59,13 @@ steps:
       - docker-compose#v3.7.0:
           run: proxy-tests
       - docker-compose#v3.7.0:
+          run: cli-tests
+      - docker-compose#v3.7.0:
           run: http-response-tests
       - docker-compose#v3.7.0:
           run: payload-helper-tests
-      # Temporarily disabled due to networking issues - see [PLAT-5431]
-      # - docker-compose#v3.7.0:
-      #     run: docker-tests
+      - docker-compose#v3.7.0:
+          run: docker-tests
     command: 'bundle exec maze-runner'
 
   - label: 'Browserstack app-automate test - Android 6'
@@ -81,6 +82,11 @@ steps:
       --access-key=$BROWSER_STACK_ACCESS_KEY
     concurrency: 10
     concurrency_group: 'browserstack-app'
+    #
+    # TODO: Remove as soon as possible - working around BrowserStack network problem
+    #
+    soft_fail:
+      - exit_status: "*"
 
   - label: 'Browserstack app-automate test - Android 7.1 (separate Appium sessions)'
     depends_on: "test-images"
@@ -96,6 +102,11 @@ steps:
       --access-key=$BROWSER_STACK_ACCESS_KEY
     concurrency: 10
     concurrency_group: 'browserstack-app'
+    #
+    # TODO: Remove as soon as possible - working around BrowserStack network problem
+    #
+    soft_fail:
+      - exit_status: "*"
 
   - label: 'Browserstack app-automate test - Android 8.1'
     depends_on: "test-images"

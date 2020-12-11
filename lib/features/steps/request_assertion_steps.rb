@@ -5,6 +5,7 @@ require 'minitest'
 require 'open-uri'
 require 'json'
 require 'cgi'
+require_relative '../../wait'
 
 include Test::Unit::Assertions
 
@@ -19,17 +20,11 @@ end
 # Times out according to @see MazeRunner.config.receive_requests_wait.
 #
 # @step_input request_count [Integer] The amount of requests expected
-Then('I wait to receive {int} error(s)') do |request_count|
-  interval = 0.1
+Then('I wait to receive {int} request(s)') do |request_count|
   timeout = MazeRunner.config.receive_requests_wait
-  max_attempts = timeout / interval
-  attempts = 0
-  received = false
-  until (attempts >= max_attempts) || received
-    attempts += 1
-    received = (Server.errors.size >= request_count)
-    sleep interval
-  end
+  wait = Maze::Wait.new(timeout: timeout)
+
+  received = wait.until { Server.errors.size >= request_count }
 
   unless received
     raise <<-MESSAGE

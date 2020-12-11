@@ -27,6 +27,10 @@ class SampleTest < Test::Unit::TestCase
     run_scenario("test/fixtures/comparison")
   end
 
+  def test_interactive_cli
+    run_scenario("test/fixtures/cli")
+  end
+
   def test_http_response_codes
     run_scenario("test/fixtures/http-response")
   end

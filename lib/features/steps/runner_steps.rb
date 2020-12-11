@@ -1,3 +1,6 @@
+require 'securerandom'
+require_relative '../../wait'
+
 # @!group Runner steps
 
 # Sets an environment variable for subsequent scripts or commands.
@@ -55,6 +58,27 @@ When('I run the service {string} with the command {string}') do |service, comman
   Docker.start_service(service, command: command)
 end
 
+# Runs a docker-compose service in an interactive CLI.
+#
+# @step_input service [String] The name of the service to run
+When('I run the service {string} interactively') do |service|
+  # Stop the old session if one exists
+  step("I stop the current shell") if Runner.interactive_session?
+
+  Docker.start_service(service, interactive: true)
+end
+
+# Runs a docker-compose service using a specific command in an interactive CLI.
+#
+# @step_input service [String] The name of the service to run
+# @step_input command [String] The command to run inside the service
+When('I run the service {string} with the command {string} interactively') do |service, command|
+  # Stop the old session if one exists
+  step("I stop the current shell") if Runner.interactive_session?
+
+  Docker.start_service(service, command: command, interactive: true)
+end
+
 # Runs a docker-compose service using a specific command provided as a Gherkin multi-line string.
 #
 # @step_input service [String] The name of the service to run
@@ -69,25 +93,27 @@ end
 #
 # @step_input expected_code [Integer] The expected exit code
 Then('the exit code of the last docker command was {int}') do |expected_code|
-  exit_code = Docker.last_exit_code
-  assert_not_nil(exit_code, 'No docker exit code available to verify')
-  assert_equal(exit_code, expected_code)
+  wait = Maze::Wait.new(timeout: MazeRunner.config.receive_requests_wait)
+  success = wait.until { !Docker.last_exit_code.nil? }
+
+  assert(success, 'No docker exit code available to verify')
+  assert_equal(Docker.last_exit_code, expected_code)
 end
 
 # A shortcut for the above assuming 0 as a successful exit code
 # Will fail if no commands have been run
 Then('the last run docker command exited successfully') do
-  exit_code = Docker.last_exit_code
-  assert_not_nil(exit_code, 'No docker exit code available to verify')
-  assert_equal(exit_code, 0)
+  step('the exit code of the last docker command was 0')
 end
 
 # Allows testing that the last exit code was not 0
 # Will fail if no commands have been run
 Then('the last run docker command did not exit successfully') do
-  exit_code = Docker.last_exit_code
-  assert_not_nil(exit_code, 'No docker exit code available to verify')
-  assert_not_equal(exit_code, 0)
+  wait = Maze::Wait.new(timeout: MazeRunner.config.receive_requests_wait)
+  success = wait.until { !Docker.last_exit_code.nil? }
+
+  assert(success, 'No docker exit code available to verify')
+  assert_not_equal(Docker.last_exit_code, 0)
 end
 
 # Allows testing a docker command output a specific string
@@ -95,9 +121,14 @@ end
 #
 # @step_input expected_string [String] The string expected in a single log line
 Then('the last run docker command output {string}') do |expected_string|
+  wait = Maze::Wait.new(timeout: MazeRunner.config.receive_requests_wait)
+  success = wait.until { !Docker.last_command_logs.nil? }
+
+  assert(success, 'No docker logs available to verify')
+
   docker_output = Docker.last_command_logs
-  assert_not_nil(docker_output, 'No docker logs available to verify')
   output_included = docker_output.any? { |line| line.include?(expected_string) }
+
   assert(output_included, %(
     No line of output included '#{expected_string}'.
     Full output:
@@ -111,4 +142,139 @@ end
 When('I wait for {int} second(s)') do |seconds|
   $logger.warn 'Sleep was used! Please avoid using sleep in tests!'
   sleep(seconds)
+end
+
+# Starts an interactive shell
+When('I start a new shell') do
+  # Stop the old session if one exists
+  step("I stop the current shell") if Runner.interactive_session?
+
+  Runner.start_interactive_session
+end
+
+# Stops currently running interactive shell
+When('I stop the current shell') do
+  shell = Runner.interactive_session
+  result = Runner.stop_interactive_session
+
+  assert_true(result, 'The shell is still running when it should have exited')
+  assert_false(shell.running?, 'The shell is still running when it should have exited')
+end
+
+# Run a command on the shell
+#
+# @step_input command [String] The command to run on the shell
+When('I input {string} interactively') do |command|
+  current_shell = Runner.interactive_session
+  success = current_shell.run_command(command)
+  assert(success, 'The terminal had already closed')
+end
+
+# Assert the current stdout line in the shell exactly matches the given string
+#
+# @step_input expected [String] The expected string
+Then('the current stdout line is {string}') do |expected|
+  current_shell = Runner.interactive_session
+  assert_equal(expected, current_shell.current_buffer)
+end
+
+# Assert the current stdout line in the shell includes the given string
+#
+# @step_input expected [String] The expected string
+Then('the current stdout line contains {string}') do |expected|
+  current_shell = Runner.interactive_session
+  assert_includes(current_shell.current_buffer, expected)
+end
+
+Then('I wait for the shell prompt {string}') do |expected|
+  wait = Maze::Wait.new(timeout: MazeRunner.config.receive_requests_wait)
+  shell = Runner.interactive_session
+
+  success = wait.until { shell.current_buffer == expected }
+
+  assert(success, "The current output line #{shell.current_buffer} did not match #{expected}")
+end
+
+# Verify a string appears in the stdout logs
+#
+# @step_input expected_line [String] The string present in stdout logs
+Then('the shell has output {string} to stdout') do |expected_line|
+  current_shell = Runner.interactive_session
+  match = current_shell.stdout_lines.any? { |line| line == expected_line }
+  assert(match, "No output lines from #{current_shell.stdout_lines} matched #{expected_line}")
+end
+
+# Wait for a string to appear in the stdout logs, timing out after MazeRunner.config.receive_requests_wait seconds.
+#
+# @step_input expected_line [String] The string present in stdout logs
+Then('I wait for the shell to output {string} to stdout') do |expected_line|
+  wait = Maze::Wait.new(timeout: MazeRunner.config.receive_requests_wait)
+  current_shell = Runner.interactive_session
+
+  success = wait.until do
+    current_shell.stdout_lines.any? { |line| line == expected_line }
+  end
+
+  assert(success, "No output lines from #{current_shell.stdout_lines} matched #{expected_line}")
+end
+
+# Verify a string appears in the stderr logs
+#
+# @step_input expected_err [String] The string present in stderr logs
+Then('the shell has output {string} to stderr') do |expected_err|
+  current_shell = Runner.interactive_session
+  match = current_shell.stderr_lines.any? { |line| line == expected_err }
+  assert(match, "No output lines from #{current_shell.stderr_lines} matched #{expected_err}")
+end
+
+# Wait for a string to appear in the stderr logs
+#
+# @step_input expected_line [String] The string present in stderr logs
+Then('I wait for the shell to output {string} to stderr') do |expected_line|
+  wait = Maze::Wait.new(timeout: MazeRunner.config.receive_requests_wait)
+  current_shell = Runner.interactive_session
+
+  success = wait.until do
+    current_shell.stderr_lines.any? { |line| line == expected_line }
+  end
+
+  assert(success, "No output lines from #{current_shell.stderr_lines} matched #{expected_line}")
+end
+
+# Verify the last interactive command exited successfully (assuming a 0 is a success)
+Then('the last interactive command exited successfully') do
+  assert(Runner.interactive_session?, 'No interactive session is running so the exit code cannot be checked')
+
+  uuid = SecureRandom.uuid
+
+  steps %Q{
+    When I input "[ $? = 0 ] && echo '#{uuid} exited with 0' || echo '#{uuid} exited with error'" interactively
+    Then I wait for the shell to output "#{uuid} exited with 0" to stdout
+  }
+end
+
+# Verify the exit code of the last interactive command
+#
+# @step_input exit_code [Integer] The expected exit code
+Then('the last interactive command exit code is {int}') do |exit_code|
+  assert(Runner.interactive_session?, 'No interactive session is running so the exit code cannot be checked')
+
+  uuid = SecureRandom.uuid
+
+  steps %Q{
+    When I input "echo #{uuid} $?" interactively
+    Then I wait for the shell to output "#{uuid} #{exit_code}" to stdout
+  }
+end
+
+# Assert that the last interactive command exited with an error code (assuming non-0 is an error)
+Then('the last interactive command exited with an error code') do
+  assert(Runner.interactive_session?, 'No interactive session is running so the exit code cannot be checked')
+
+  uuid = SecureRandom.uuid
+
+  steps %Q{
+    When I input "[ $? = 0 ] && echo '#{uuid} exited with 0' || echo '#{uuid} exited with error'" interactively
+    Then I wait for the shell to output "#{uuid} exited with error" to stdout
+  }
 end

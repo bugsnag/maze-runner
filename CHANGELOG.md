@@ -1,3 +1,10 @@
+# 3.6.1 - 2020/12/16
+
+## Fixes
+
+- Clear request arrays after each scenario instead of beforehand
+  [#190](https://github.com/bugsnag/maze-runner/pull/190)
+
 # 3.6.0 - 2020/12/09
 
 ## Enhancements

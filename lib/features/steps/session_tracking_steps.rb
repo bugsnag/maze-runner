@@ -21,6 +21,30 @@ Then("the request is valid for the session reporting API version {string} for th
   }
 end
 
+
+# Verifies that generic elements of a session payload are present for the React Native notifier
+# APIKey fields and headers are tested against the '$api_key' global variable.
+#
+# @step_input payload_version [String] The payload version expected
+# @step_input notifier_name [String] The expected name of the notifier
+# TODO: I'm reluctant to risk changing the previous step implementation right now, but we should consider
+#   refactoring the two at some point to avoid duplication.
+Then('the request is valid for the session reporting API version {string} for the React Native notifier') do |payload_version|
+  steps %Q{
+    Then the "bugsnag-api-key" header equals "#{$api_key}"
+    And the "bugsnag-payload-version" header equals "#{payload_version}"
+    And the "Content-Type" header equals "application/json"
+    And the "Bugsnag-Sent-At" header is a timestamp
+
+    And the payload field "notifier.name" matches the regex "(Android|iOS) Bugsnag Notifier"
+    And the payload field "notifier.url" is not null
+    And the payload field "notifier.version" is not null
+
+    And the payload field "app" is not null
+    And the payload field "device" is not null
+  }
+end
+
 # Tests whether a value in the first session entry matches a literal.
 #
 # @step_input field [String] The relative location of the value to test

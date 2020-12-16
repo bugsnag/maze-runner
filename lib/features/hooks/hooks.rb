@@ -71,9 +71,9 @@ Before do |scenario|
   STDOUT.puts "--- Scenario: #{scenario.name}"
 
   Runner.environment.clear
-  Server.stored_requests.clear
-  Server.invalid_requests.clear
   Store.values.clear
+  # Request arrays are cleared after the scenario as some test fixtures
+  # will send requests on startup - before this hook takes place.
 
   MazeRunner.driver.start_driver if MazeRunner.config.farm != :none && MazeRunner.config.appium_session_isolation
 
@@ -148,6 +148,11 @@ After do |scenario|
     msg = "#{Server.invalid_requests.length} invalid request(s) received during scenario"
     scenario.fail msg
   end
+
+  # Request arrays are cleared after the scenario to allow requests to be registered
+  # when a test fixture starts (which can be before the first Before scenario hook fires).
+  Server.stored_requests.clear
+  Server.invalid_requests.clear
 end
 
 # After all tests

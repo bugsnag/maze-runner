@@ -70,11 +70,6 @@ end
 Before do |scenario|
   STDOUT.puts "--- Scenario: #{scenario.name}"
 
-  Runner.environment.clear
-  Store.values.clear
-  # Request arrays are cleared after the scenario as some test fixtures
-  # will send requests on startup - before this hook takes place.
-
   MazeRunner.driver.start_driver if MazeRunner.config.farm != :none && MazeRunner.config.appium_session_isolation
 
   # Launch the app on macOS
@@ -134,11 +129,17 @@ After do |scenario|
     MazeRunner.driver.reset_with_timeout 2
   end
 
-  STDOUT.puts scenario.inspect
+  # Request arrays in particular are cleared here, rather than in the Before hook, to allow requests to be registered
+  # when a test fixture starts (which can be before the first Before scenario hook fires).
+  Server.stored_requests.clear
+  Server.invalid_requests.clear
+  Runner.environment.clear
+  Store.values.clear
 end
 
-# Check for invalid requests after each scenario.  In its own hook as failing a scenario raises an exception.
-# Furthermore, this hook should appear after the general hook as they are exectued in reverse order by Cucumber.
+# Check for invalid requests after each scenario.  This is its own hook as failing a scenario raises an exception
+# and we need the logic in the other After hook to be performed.
+# Furthermore, this hook should appear after the general hook as they are executed in reverse order by Cucumber.
 After do |scenario|
   unless Server.invalid_requests.empty?
     Server.invalid_requests.each.with_index(1) do |request, number|
@@ -148,11 +149,6 @@ After do |scenario|
     msg = "#{Server.invalid_requests.length} invalid request(s) received during scenario"
     scenario.fail msg
   end
-
-  # Request arrays are cleared after the scenario to allow requests to be registered
-  # when a test fixture starts (which can be before the first Before scenario hook fires).
-  Server.stored_requests.clear
-  Server.invalid_requests.clear
 end
 
 # After all tests

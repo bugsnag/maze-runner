@@ -128,7 +128,7 @@ After do |scenario|
   else
     MazeRunner.driver.reset_with_timeout 2
   end
-
+ensure
   # Request arrays in particular are cleared here, rather than in the Before hook, to allow requests to be registered
   # when a test fixture starts (which can be before the first Before scenario hook fires).
   Server.stored_requests.clear

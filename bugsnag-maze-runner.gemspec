@@ -4,7 +4,7 @@ require 'version'
 
 Gem::Specification.new do |spec|
   spec.name    = 'bugsnag-maze-runner'
-  spec.version = BugsnagMazeRunner::VERSION
+  spec.version = Maze::VERSION
   spec.authors = ['Steve Kirkland']
   spec.email   = ['steve@bugsnag.com']
   spec.required_ruby_version = '>= 2.5.0'

@@ -102,7 +102,7 @@ module Maze
               type: :string,
               default: ENV['MAZE_UDID']
 
-          version "Maze Runner v#{BugsnagMazeRunner::VERSION} " \
+          version "Maze Runner v#{Maze::VERSION} " \
                   "(Cucumber v#{Cucumber::VERSION.strip})"
           text ''
           text 'The Cucumber help follows:'

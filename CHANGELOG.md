@@ -1,3 +1,9 @@
+# 3.7.0 - TBD
+
+## Enhancements
+
+- Display version at startup [#191](https://github.com/bugsnag/maze-runner/pull/191)
+
 # 3.6.1 - 2020/12/16
 
 ## Fixes

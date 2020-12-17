@@ -4,6 +4,7 @@ require 'webrick'
 require 'json'
 require_relative './servlet'
 require_relative './logger'
+require_relative '../../version'
 
 # This port number is semi-arbitrary. It doesn't matter for the sake of
 # the application what it is, but there are some constraints due to some
@@ -75,6 +76,7 @@ class Server
     # Starts the WEBrick server in a separate thread
     def start_server
       attempts = 0
+      $logger.info "Maze Runner v#{Maze::VERSION}"
       $logger.info 'Starting mock server'
       loop do
         @thread = Thread.new do

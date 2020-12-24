@@ -10,7 +10,6 @@ class BrowserStackUtils
     def upload_app(username, access_key, app)
       # TODO: Improve error handling:
       #   - res may not be JSON at all
-      #   - what if app doesn't exist locally
       if app.start_with? 'bs://'
         app_url = app
         $logger.info "Using pre-uploaded app from #{app}"

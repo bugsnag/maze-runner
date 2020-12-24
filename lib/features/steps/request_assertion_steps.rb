@@ -20,7 +20,7 @@ end
 # Times out according to @see MazeRunner.config.receive_requests_wait.
 #
 # @step_input request_count [Integer] The amount of requests expected
-Then('I wait to receive {int} request(s)') do |request_count|
+Then('I wait to receive {int} error(s)') do |request_count|
   timeout = MazeRunner.config.receive_requests_wait
   wait = Maze::Wait.new(timeout: timeout)
 

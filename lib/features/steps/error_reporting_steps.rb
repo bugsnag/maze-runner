@@ -9,12 +9,12 @@
 # @step_input name [String] The expected name of the notifier
 Then('the request is valid for the error reporting API version {string} for the {string} notifier') do |version, name|
   steps %(
-    Then the "Bugsnag-Api-Key" header equals "#{$api_key}"
+    Then the error "Bugsnag-Api-Key" header equals "#{$api_key}"
     And the payload field "apiKey" equals "#{$api_key}"
-    And the "Bugsnag-Payload-Version" header equals "#{version}"
+    And the error "Bugsnag-Payload-Version" header equals "#{version}"
     And the payload contains the payloadVersion "#{version}"
-    And the "Content-Type" header equals "application/json"
-    And the "Bugsnag-Sent-At" header is a timestamp
+    And the error "Content-Type" header equals "application/json"
+    And the error "Bugsnag-Sent-At" header is a timestamp
 
     And the payload field "notifier.name" equals "#{name}"
     And the payload field "notifier.url" is not null

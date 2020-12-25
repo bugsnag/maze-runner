@@ -7,8 +7,8 @@ Feature: Testing helper methods respond correctly
 
     Scenario: The request body matches an expected session payload
         When I send a "session"-type request
-        Then I wait to receive an error
-        And the request is valid for the session reporting API version "1.0" for the "Maze-runner" notifier
+        Then I wait to receive a session
+        And the session is valid for the session reporting API version "1.0" for the "Maze-runner" notifier
 
     Scenario: The request body is correct for an unhandled payload
         When I send a "unhandled"-type request

@@ -11,11 +11,6 @@ include Test::Unit::Assertions
 
 # @!group Request assertion steps
 
-# Shortcut to waiting to receive a single request
-Then('I wait to receive an error') do
-  step 'I wait to receive 1 error'
-end
-
 def check_for_requests(request_count, list, list_name)
   timeout = MazeRunner.config.receive_requests_wait
   wait = Maze::Wait.new(timeout: timeout)
@@ -36,12 +31,41 @@ def check_for_requests(request_count, list, list_name)
   assert_equal(request_count, list.size, "#{list.size} #{list_name} received")
 end
 
+#
+# Error request assertions
+#
+Then('I wait to receive an error') do
+  step 'I wait to receive 1 error'
+end
+
 # Continually checks to see if the required amount of errors have been received.
 # Times out according to @see MazeRunner.config.receive_requests_wait.
 #
 # @step_input request_count [Integer] The amount of requests expected
 Then('I wait to receive {int} error(s)') do |request_count|
   check_for_requests request_count, Server.errors, 'errors'
+end
+
+# Assert that the test Server hasn't received any errors.
+Then('I should receive no errors') do
+  sleep MazeRunner.config.receive_no_requests_wait
+  assert_equal(0, Server.errors.size, "#{Server.errors.size} errors received")
+end
+
+#
+# Session request assertions
+#
+
+# Shortcut to waiting to receive a single request
+
+# Shortcut to waiting to receive a single session
+Then('I wait to receive a session') do
+  step 'I wait to receive 1 session'
+end
+
+# Moves to the next error
+Then('I discard the oldest error') do
+  Server.errors.next
 end
 
 # Continually checks to see if the required amount of sessions have been received.
@@ -52,21 +76,10 @@ Then('I wait to receive {int} session(s)') do |request_count|
   check_for_requests request_count, Server.sessions, 'sessions'
 end
 
-# Assert that the test Server hasn't received any errors.
-Then('I should receive no errors') do
-  sleep MazeRunner.config.receive_no_requests_wait
-  assert_equal(0, Server.errors.size, "#{Server.errors.size} errors received")
-end
-
 # Assert that the test Server hasn't received any sessions.
 Then('I should receive no sessions') do
   sleep MazeRunner.config.receive_no_requests_wait
   assert_equal(0, Server.sessions.size, "#{Server.sessions.size} sessions received")
-end
-
-# Moves to the next error
-Then('I discard the oldest error') do
-  Server.errors.next
 end
 
 # Moves to the next sessions
@@ -74,51 +87,105 @@ Then('I discard the oldest session') do
   Server.sessions.next
 end
 
+
 #
-# TODO Split this section into header_assertion_steps
+# TODO There's a lot of overlap between error and session header assertions and only implemented this
+# way for ease when separating from a single request endpoint.
 #
 
-# Tests that a header is not null
+#
+# Errors
+#
+
+# Tests that an error header is not null
 #
 # @step_input header_name [String] The header to test
 Then('the error {string} header is not null') do |header_name|
   assert_not_nil(Server.errors.current[:request][header_name],
-                 "The '#{header_name}' header should not be null")
+                 "The error '#{header_name}' header should not be null")
 end
 
-# Tests that a header equals a string
+# Tests that an error header equals a string
 #
 # @step_input header_name [String] The header to test
 # @step_input header_value [String] The string it should match
-Then('the {string} header equals {string}') do |header_name, header_value|
+Then('the error {string} header equals {string}') do |header_name, header_value|
   assert_not_nil(Server.errors.current[:request][header_name],
-                 "The '#{header_name}' header wasn't present in the request")
+                 "The error '#{header_name}' header wasn't present in the request")
   assert_equal(header_value, Server.errors.current[:request][header_name])
 end
 
-# Tests that a header matches a regex
+# Tests that an error header matches a regex
 #
 # @step_input header_name [String] The header to test
 # @step_input regex_string [String] The regex to match with
-Then('the {string} header matches the regex {string}') do |header_name, regex_string|
+Then('the error {string} header matches the regex {string}') do |header_name, regex_string|
   regex = Regexp.new(regex_string)
   value = Server.errors.current[:request][header_name]
   assert_match(regex, value)
 end
 
-# Tests that a header matches one of a list of strings
+# Tests that an error header matches one of a list of strings
 #
 # @step_input header_name [String] The header to test
 # @step_input header_values [DataTable] A parsed data table
-Then('the {string} header equals one of:') do |header_name, header_values|
+Then('the error {string} header equals one of:') do |header_name, header_values|
   assert_includes(header_values.raw.flatten, Server.errors.current[:request][header_name])
 end
 
-# Tests that a header is a timestamp.
+# Tests that am error header is a timestamp.
 #
 # @step_input header_name [String] The header to test
-Then('the {string} header is a timestamp') do |header_name|
+Then('the error {string} header is a timestamp') do |header_name|
   header = Server.errors.current[:request][header_name]
+  assert_match(TIMESTAMP_REGEX, header)
+end
+
+#
+# Sessions
+#
+
+# Tests that a session header is not null
+#
+# @step_input header_name [String] The header to test
+Then('the session {string} header is not null') do |header_name|
+  assert_not_nil(Server.sessions.current[:request][header_name],
+                 "The session '#{header_name}' header should not be null")
+end
+
+# Tests that a session header equals a string
+#
+# @step_input header_name [String] The header to test
+# @step_input header_value [String] The string it should match
+Then('the session {string} header equals {string}') do |header_name, header_value|
+  assert_not_nil(Server.errors.current[:request][header_name],
+                 "The session '#{header_name}' header wasn't present in the request")
+  assert_equal(header_value, Server.sessions.current[:request][header_name])
+end
+
+# Tests that a session header matches a regex
+#
+# @step_input header_name [String] The header to test
+# @step_input regex_string [String] The regex to match with
+Then('the session {string} header matches the regex {string}') do |header_name, regex_string|
+  regex = Regexp.new(regex_string)
+  value = Server.sessions.current[:request][header_name]
+  assert_match(regex, value)
+end
+
+# Tests that a session header matches one of a list of strings
+#
+# @step_input header_name [String] The header to test
+# @step_input header_values [DataTable] A parsed data table
+Then('the session {string} header equals one of:') do |header_name, header_values|
+  assert_includes(header_values.raw.flatten, Server.sessions.current[:request][header_name])
+end
+
+# Tests that a session header is a timestamp.
+#
+# @step_input header_name [String] The header to test
+Then('the session {string} header is a timestamp') do |header_name|
+  header = Server.sessions.current[:request][header_name]
   assert_match(TIMESTAMP_REGEX, header)
 end
 

@@ -16,19 +16,15 @@ Then('I wait to receive an error') do
   step 'I wait to receive 1 error'
 end
 
-# Continually checks to see if the required amount of requests have been received.
-# Times out according to @see MazeRunner.config.receive_requests_wait.
-#
-# @step_input request_count [Integer] The amount of requests expected
-Then('I wait to receive {int} error(s)') do |request_count|
+def check_for_requests(request_count, list, list_name)
   timeout = MazeRunner.config.receive_requests_wait
   wait = Maze::Wait.new(timeout: timeout)
 
-  received = wait.until { Server.errors.size >= request_count }
+  received = wait.until { list.size >= request_count }
 
   unless received
     raise <<-MESSAGE
-    Expected #{request_count} requests but received #{Server.errors.size} within the #{timeout}s timeout.
+    Expected #{request_count} #{list_name} but received #{list.size} within the #{timeout}s timeout.
     This could indicate that:
     - Bugsnag crashed with a fatal error.
     - Bugsnag did not make the requests that it should have done.
@@ -37,7 +33,23 @@ Then('I wait to receive {int} error(s)') do |request_count|
     MESSAGE
   end
 
-  assert_equal(request_count, Server.errors.size, "#{Server.errors.size} requests received")
+  assert_equal(request_count, list.size, "#{list.size} #{list_name} received")
+end
+
+# Continually checks to see if the required amount of errors have been received.
+# Times out according to @see MazeRunner.config.receive_requests_wait.
+#
+# @step_input request_count [Integer] The amount of requests expected
+Then('I wait to receive {int} error(s)') do |request_count|
+  check_for_requests request_count, Server.errors, 'errors'
+end
+
+# Continually checks to see if the required amount of sessions have been received.
+# Times out according to @see MazeRunner.config.receive_requests_wait.
+#
+# @step_input request_count [Integer] The amount of requests expected
+Then('I wait to receive {int} session(s)') do |request_count|
+  check_for_requests request_count, Server.sessions, 'sessions'
 end
 
 # Assert that the test Server hasn't received any errors.
@@ -46,9 +58,20 @@ Then('I should receive no errors') do
   assert_equal(0, Server.errors.size, "#{Server.errors.size} errors received")
 end
 
+# Assert that the test Server hasn't received any sessions.
+Then('I should receive no sessions') do
+  sleep MazeRunner.config.receive_no_requests_wait
+  assert_equal(0, Server.sessions.size, "#{Server.sessions.size} sessions received")
+end
+
 # Moves to the next error
 Then('I discard the oldest error') do
   Server.errors.next
+end
+
+# Moves to the next sessions
+Then('I discard the oldest session') do
+  Server.sessions.next
 end
 
 #

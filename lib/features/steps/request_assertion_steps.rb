@@ -85,6 +85,8 @@ end
 
 # Moves to the next error
 Then('I discard the oldest error') do
+  raise 'No error to discard' if Server.errors.current.nil?
+
   Server.errors.next
 end
 
@@ -104,6 +106,8 @@ end
 
 # Moves to the next sessions
 Then('I discard the oldest session') do
+  raise 'No session to discard' if Server.sessions.current.nil?
+
   Server.sessions.next
 end
 

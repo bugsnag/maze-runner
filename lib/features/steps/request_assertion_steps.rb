@@ -158,7 +158,7 @@ end
 # @step_input header_name [String] The header to test
 # @step_input header_value [String] The string it should match
 Then('the session {string} header equals {string}') do |header_name, header_value|
-  assert_not_nil(Server.errors.current[:request][header_name],
+  assert_not_nil(Server.sessions.current[:request][header_name],
                  "The session '#{header_name}' header wasn't present in the request")
   assert_equal(header_value, Server.sessions.current[:request][header_name])
 end

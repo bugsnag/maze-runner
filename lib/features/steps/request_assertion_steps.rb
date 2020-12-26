@@ -52,6 +52,26 @@ Then('I should receive no errors') do
   assert_equal(0, Server.errors.size, "#{Server.errors.size} errors received")
 end
 
+Then('the received errors match:') do |table|
+  # Checks that each request matches one of the event fields
+  requests = Server.errors.remaining
+  match_count = 0
+
+  # iterate through each row in the table. exactly 1 request should match each row.
+  table.hashes.each do |row|
+    requests.each do |request|
+      if !request.key? :body or !request[:body].key? "events" then
+        # No body.events in this request - skip
+        return
+      end
+      events = request[:body]['events']
+      assert_equal(1, events.length, 'Expected exactly one event per request')
+      match_count += 1 if request_matches_row(events[0], row)
+    end
+  end
+  assert_equal(requests.size, match_count, 'Unexpected number of requests matched the received payloads')
+end
+
 #
 # Session request assertions
 #

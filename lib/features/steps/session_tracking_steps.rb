@@ -170,3 +170,26 @@ Then('the session payload field {string} matches the regex {string}') do |field,
   assert_match(regex, value)
 end
 
+# Tests a session payload field is an array with a specific element count.
+#
+# @step_input field [String] The payload element to test
+# @step_input count [Integer] The value expected
+Then('the session payload field {string} is an array with {int} elements') do |field, count|
+  value = read_key_path(Server.sessions.current[:body], field)
+  assert_kind_of Array, value
+  assert_equal(count, value.length)
+end
+
+# Tests a session payload field is a numeric timestamp.
+#
+# @step_input field [String] The payload element to test
+Then('the session payload field {string} is a parsable timestamp in seconds') do |field|
+  value = read_key_path(Server.sessions.current[:body], field)
+  begin
+    int = value.to_i
+    parsed_time = Time.at(int)
+  rescue StandardError
+    parsed_time = nil
+  end
+  assert_not_nil(parsed_time)
+end

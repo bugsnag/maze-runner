@@ -19,18 +19,22 @@ config.setEndpoints("http://localhost:9339/notify", "http://localhost:9339/sessi
 
 ### Cucumber steps changed
  
-Several Cucumber steps have changed their wording:
+Several Cucumber steps have changed their wording or been split into separate steps:
 
-Old step | New step
+Old step | New step(s)
 ----| -------- | 
-I wait to receive a request | I wait to receive an error
-I wait to receive {int} request(s) | I wait to receive {int} error(s)
-I discard the oldest request | I discard the oldest error
-I should receive no requests | I should receive no errors
-the {string} header is not null | the error {string} header is not null
+I wait to receive a request | I wait to receive an error <br> I wait to receive a session
+I wait to receive {int} request(s) | I wait to receive {int} error(s) <br> I wait to receive {int} session(s)
+I discard the oldest request | I discard the oldest error <br> I discard the oldest session
+the {string} header is not null | the error {string} header is not null <br> the session {string} header is not null
+the {string} header equals {string} | the error {string} header equals {string} <br> the session {string} header equals {string}
+the {string} header matches the regex {string} | the error {string} header matches the regex {string} <br> the session {string} header matches the regex {string}
+the {string} header equals one of: | the error {string} header equals one of: <br> the session {string} header equals one of:
+the {string} header is a timestamp | the error {string} header is a timestamp <br> the session {string} header is a timestamp
 the {string} query parameter equals {string} | the error {string} query parameter equals {string}
 the {string} query parameter is not null | the error {string} query parameter is not null
 the {string} query parameter is a timestamp | the error {string} query parameter is a timestamp
+
 
 ### Cucumber steps removed
 

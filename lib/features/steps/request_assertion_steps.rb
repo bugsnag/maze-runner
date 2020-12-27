@@ -31,6 +31,14 @@ def check_for_requests(request_count, list, list_name)
   assert_equal(request_count, list.size, "#{list.size} #{list_name} received")
 end
 
+
+# Assert that the test Server hasn't received any requests at all.
+Then('I should receive no requests') do
+  sleep MazeRunner.config.receive_no_requests_wait
+  assert_equal(0, Server.errors.size, "#{Server.errors.size} errors received")
+  assert_equal(0, Server.sessions.size, "#{Server.sessions.size} sessions received")
+end
+
 #
 # Error request assertions
 #

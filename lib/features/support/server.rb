@@ -78,6 +78,7 @@ class Server
             Logger: $logger,
             AccessLog: []
           )
+          # When adding more endpoints, be sure to update the 'I should receive no requests' step
           server.mount '/notify', Servlet, errors
           server.mount '/sessions', Servlet, sessions
           server.start

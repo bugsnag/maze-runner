@@ -17,14 +17,20 @@ AfterConfiguration do |_cucumber_config|
   # BrowserStack specific setup
   if config.farm == :bs
     tunnel_id = SecureRandom.uuid
-    config.capabilities = Capabilities.for_browser_stack config.bs_device,
-                                                         tunnel_id,
-                                                         config.appium_version,
-                                                         config.capabilities_option
+    if config.bs_device
+      config.capabilities = Capabilities.for_browser_stack_device config.bs_device,
+                                                                  tunnel_id,
+                                                                  config.appium_version,
+                                                                  config.capabilities_option
 
-    config.app = BrowserStackUtils.upload_app config.username,
-                                              config.access_key,
-                                              config.app
+      config.app = BrowserStackUtils.upload_app config.username,
+                                                config.access_key,
+                                                config.app
+    else
+      config.capabilities = Capabilities.for_browser_stack_browser config.bs_browser,
+                                                                   tunnel_id,
+                                                                   config.capabilities_option
+    end
     BrowserStackUtils.start_local_tunnel config.bs_local,
                                          tunnel_id,
                                          config.access_key
@@ -50,6 +56,12 @@ AfterConfiguration do |_cucumber_config|
                                          config.capabilities,
                                          config.locator
                       end
+
+  # TODO: Weave this into the driver
+  # Selenium::WebDriver.for :remote,
+  #                         url: "http://#{ENV['BROWSER_STACK_USERNAME']}:#{ENV['BROWSER_STACK_ACCESS_KEY']}@hub.browserstack.com/wd/hub",
+  #                         desired_capabilities: caps
+
   if config.farm == :bs
     # Log a link to the BrowserStack session search dashboard
     build = MazeRunner.driver.caps[:build]

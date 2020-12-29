@@ -28,8 +28,12 @@ module Maze
         # Farm specific options
         case config.farm
         when :bs then
-          config.bs_device = options[Maze::Option::BS_DEVICE]
-          config.os_version = Devices::DEVICE_HASH[config.bs_device]['os_version'].to_f
+          if options[Maze::Option::BS_DEVICE]
+            config.bs_device = options[Maze::Option::BS_DEVICE]
+            config.os_version = Devices::DEVICE_HASH[config.bs_device]['os_version'].to_f
+          else
+            config.bs_browser = options[Maze::Option::BS_BROWSER]
+          end
           config.bs_local = options[Maze::Option::BS_LOCAL]
           config.appium_version = options[Maze::Option::BS_APPIUM_VERSION]
           username = config.username = options[Maze::Option::USERNAME]

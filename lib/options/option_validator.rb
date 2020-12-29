@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'yaml'
 require_relative 'option'
 require_relative '../features/support/capabilities/devices'
 
@@ -32,24 +33,33 @@ module Maze
 
     # Validates BrowserStack options
     def validate_bs(options, errors)
-      # App
-      app = options[Maze::Option::APP]
-      errors << "--#{Maze::Option::APP} must be specified" if app.nil?
-      unless app.start_with? 'bs://'
-        errors << "app file '#{app}' not found" unless File.exist? app
-      end
-
       # BS local binary
       bs_local = options[Maze::Option::BS_LOCAL]
       errors << "BrowserStack local binary '#{bs_local}' not found" unless File.exist? bs_local
 
       # Device
+      bs_browser = options[Maze::Option::BS_BROWSER]
       bs_device = options[Maze::Option::BS_DEVICE]
-      if bs_device.nil?
-        errors << "--#{Maze::Option::BS_DEVICE} must be specified"
-      else
+      if bs_browser.nil? && bs_device.nil?
+        errors << "Either --#{Maze::Option::BS_BROWSER} or --#{Maze::Option::BS_DEVICE} must be specified"
+      elsif !bs_browser.nil?
+
+        browsers = YAML.safe_load(File.read("#{__dir__}/../features/support/capabilities/browsers.yml"))
+
+        unless browsers.include? bs_browser
+          browser_list = browsers.keys.join ', '
+          errors << "Browser type '#{bs_browser}' unknown on BrowserStack.  Must be one of: #{browser_list}."
+        end
+      elsif !bs_device.nil?
         unless Devices::DEVICE_HASH.key? bs_device
           errors << "Device type '#{bs_device}' unknown on BrowserStack.  Must be one of #{Devices::DEVICE_HASH.keys}"
+        end
+        # App
+        app = options[Maze::Option::APP]
+        if app.nil?
+          errors << "--#{Maze::Option::APP} must be provided when running on a device"
+        else
+          errors << "app file '#{app}' not found" unless app.start_with?('bs://') || File.exist?(app)
         end
       end
 

@@ -62,6 +62,10 @@ module Maze
               'BrowserStack device to use (a key of Devices.DEVICE_HASH)',
               short: :none,
               type: :string
+          opt Option::BS_BROWSER,
+              'BrowserStack browser to use (an entry in browsers.yml)',
+              short: :none,
+              type: :string
           opt Option::USERNAME,
               'Device farm username. MAZE_DEVICE_FARM_USERNAME env var by default',
               short: '-u',

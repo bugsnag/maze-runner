@@ -14,6 +14,7 @@ module Maze
     # BrowserStack-only options
     BS_LOCAL = 'bs-local'
     BS_DEVICE = 'device'
+    BS_BROWSER = 'browser'
     USERNAME = 'username'
     ACCESS_KEY = 'access-key'
     BS_APPIUM_VERSION = 'appium-version'

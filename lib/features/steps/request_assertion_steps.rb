@@ -35,8 +35,8 @@ end
 # Assert that the test Server hasn't received any requests at all.
 Then('I should receive no requests') do
   sleep MazeRunner.config.receive_no_requests_wait
-  assert_equal(0, Server.errors.size, "#{Server.errors.size} errors received")
-  assert_equal(0, Server.sessions.size, "#{Server.sessions.size} sessions received")
+  assert_equal(0, Maze::Maze::Server.errors.size, "#{Maze::Maze::Server.errors.size} errors received")
+  assert_equal(0, Maze::Maze::Server.sessions.size, "#{Maze::Maze::Server.sessions.size} sessions received")
 end
 
 #
@@ -52,18 +52,18 @@ end
 #
 # @step_input request_count [Integer] The amount of requests expected
 Then('I wait to receive {int} error(s)') do |request_count|
-  assert_received_requests request_count, Server.errors, 'errors'
+  assert_received_requests request_count, Maze::Server.errors, 'errors'
 end
 
 # Assert that the test Server hasn't received any errors.
 Then('I should receive no errors') do
   sleep MazeRunner.config.receive_no_requests_wait
-  assert_equal(0, Server.errors.size, "#{Server.errors.size} errors received")
+  assert_equal(0, Maze::Maze::Server.errors.size, "#{Maze::Maze::Server.errors.size} errors received")
 end
 
 Then('the received errors match:') do |table|
   # Checks that each request matches one of the event fields
-  requests = Server.errors.remaining
+  requests = Maze::Maze::Server.errors.remaining
   match_count = 0
 
   # iterate through each row in the table. exactly 1 request should match each row.
@@ -92,9 +92,9 @@ end
 
 # Moves to the next error
 Then('I discard the oldest error') do
-  raise 'No error to discard' if Server.errors.current.nil?
+  raise 'No error to discard' if Maze::Maze::Server.errors.current.nil?
 
-  Server.errors.next
+  Maze::Maze::Server.errors.next
 end
 
 # Continually checks to see if the required amount of sessions have been received.
@@ -102,20 +102,20 @@ end
 #
 # @step_input request_count [Integer] The amount of requests expected
 Then('I wait to receive {int} session(s)') do |request_count|
-  assert_received_requests request_count, Server.sessions, 'sessions'
+  assert_received_requests request_count, Maze::Server.sessions, 'sessions'
 end
 
 # Assert that the test Server hasn't received any sessions.
 Then('I should receive no sessions') do
   sleep MazeRunner.config.receive_no_requests_wait
-  assert_equal(0, Server.sessions.size, "#{Server.sessions.size} sessions received")
+  assert_equal(0, Maze::Maze::Server.sessions.size, "#{Maze::Maze::Server.sessions.size} sessions received")
 end
 
 # Moves to the next sessions
 Then('I discard the oldest session') do
-  raise 'No session to discard' if Server.sessions.current.nil?
+  raise 'No session to discard' if Maze::Maze::Server.sessions.current.nil?
 
-  Server.sessions.next
+  Maze::Maze::Server.sessions.next
 end
 
 
@@ -132,7 +132,7 @@ end
 #
 # @step_input header_name [String] The header to test
 Then('the error {string} header is not null') do |header_name|
-  assert_not_nil(Server.errors.current[:request][header_name],
+  assert_not_nil(Maze::Server.errors.current[:request][header_name],
                  "The error '#{header_name}' header should not be null")
 end
 
@@ -141,9 +141,9 @@ end
 # @step_input header_name [String] The header to test
 # @step_input header_value [String] The string it should match
 Then('the error {string} header equals {string}') do |header_name, header_value|
-  assert_not_nil(Server.errors.current[:request][header_name],
+  assert_not_nil(Maze::Server.errors.current[:request][header_name],
                  "The error '#{header_name}' header wasn't present in the request")
-  assert_equal(header_value, Server.errors.current[:request][header_name])
+  assert_equal(header_value, Maze::Server.errors.current[:request][header_name])
 end
 
 # Tests that an error header matches a regex
@@ -152,7 +152,7 @@ end
 # @step_input regex_string [String] The regex to match with
 Then('the error {string} header matches the regex {string}') do |header_name, regex_string|
   regex = Regexp.new(regex_string)
-  value = Server.errors.current[:request][header_name]
+  value = Maze::Server.errors.current[:request][header_name]
   assert_match(regex, value)
 end
 
@@ -161,14 +161,14 @@ end
 # @step_input header_name [String] The header to test
 # @step_input header_values [DataTable] A parsed data table
 Then('the error {string} header equals one of:') do |header_name, header_values|
-  assert_includes(header_values.raw.flatten, Server.errors.current[:request][header_name])
+  assert_includes(header_values.raw.flatten, Maze::Server.errors.current[:request][header_name])
 end
 
 # Tests that am error header is a timestamp.
 #
 # @step_input header_name [String] The header to test
 Then('the error {string} header is a timestamp') do |header_name|
-  header = Server.errors.current[:request][header_name]
+  header = Maze::Server.errors.current[:request][header_name]
   assert_match(TIMESTAMP_REGEX, header)
 end
 
@@ -180,7 +180,7 @@ end
 #
 # @step_input header_name [String] The header to test
 Then('the session {string} header is not null') do |header_name|
-  assert_not_nil(Server.sessions.current[:request][header_name],
+  assert_not_nil(Maze::Server.sessions.current[:request][header_name],
                  "The session '#{header_name}' header should not be null")
 end
 
@@ -189,9 +189,9 @@ end
 # @step_input header_name [String] The header to test
 # @step_input header_value [String] The string it should match
 Then('the session {string} header equals {string}') do |header_name, header_value|
-  assert_not_nil(Server.sessions.current[:request][header_name],
+  assert_not_nil(Maze::Server.sessions.current[:request][header_name],
                  "The session '#{header_name}' header wasn't present in the request")
-  assert_equal(header_value, Server.sessions.current[:request][header_name])
+  assert_equal(header_value, Maze::Server.sessions.current[:request][header_name])
 end
 
 # Tests that a session header matches a regex
@@ -200,7 +200,7 @@ end
 # @step_input regex_string [String] The regex to match with
 Then('the session {string} header matches the regex {string}') do |header_name, regex_string|
   regex = Regexp.new(regex_string)
-  value = Server.sessions.current[:request][header_name]
+  value = Maze::Server.sessions.current[:request][header_name]
   assert_match(regex, value)
 end
 
@@ -209,14 +209,14 @@ end
 # @step_input header_name [String] The header to test
 # @step_input header_values [DataTable] A parsed data table
 Then('the session {string} header equals one of:') do |header_name, header_values|
-  assert_includes(header_values.raw.flatten, Server.sessions.current[:request][header_name])
+  assert_includes(header_values.raw.flatten, Maze::Server.sessions.current[:request][header_name])
 end
 
 # Tests that a session header is a timestamp.
 #
 # @step_input header_name [String] The header to test
 Then('the session {string} header is a timestamp') do |header_name|
-  header = Server.sessions.current[:request][header_name]
+  header = Maze::Server.sessions.current[:request][header_name]
   assert_match(TIMESTAMP_REGEX, header)
 end
 
@@ -229,14 +229,14 @@ end
 # @step_input parameter_name [String] The parameter to test
 # @step_input parameter_value [String] The expected value
 Then('the error {string} query parameter equals {string}') do |parameter_name, parameter_value|
-  assert_equal(parameter_value, parse_querystring(Server.errors.current)[parameter_name][0])
+  assert_equal(parameter_value, parse_querystring(Maze::Server.errors.current)[parameter_name][0])
 end
 
 # Tests that a query parameter is present and not null.
 #
 # @step_input parameter_name [String] The parameter to test
 Then('the error {string} query parameter is not null') do |parameter_name|
-  assert_not_nil(parse_querystring(Server.errors.current)[parameter_name][0],
+  assert_not_nil(parse_querystring(Maze::Server.errors.current)[parameter_name][0],
                  "The '#{parameter_name}' query parameter should not be null")
 end
 
@@ -244,7 +244,7 @@ end
 #
 # @step_input parameter_name [String] The parameter to test
 Then('the error {string} query parameter is a timestamp') do |parameter_name|
-  param = parse_querystring(Server.errors.current)[parameter_name][0]
+  param = parse_querystring(Maze::Server.errors.current)[parameter_name][0]
   assert_match(TIMESTAMP_REGEX, param)
 end
 
@@ -252,7 +252,7 @@ end
 #
 # @step_input fixture_path [String] Path to a JSON fixture
 Then('the payload body does not match the JSON fixture in {string}') do |fixture_path|
-  payload_value = Server.errors.current[:body]
+  payload_value = Maze::Server.errors.current[:body]
   expected_value = JSON.parse(open(fixture_path, &:read))
   result = value_compare(expected_value, payload_value)
   assert_false(result.equal?, "Payload:\n#{payload_value}\nExpected:#{expected_value}")
@@ -262,7 +262,7 @@ end
 #
 # @step_input fixture_path [String] Path to a JSON fixture
 Then('the payload body matches the JSON fixture in {string}') do |fixture_path|
-  payload_value = Server.errors.current[:body]
+  payload_value = Maze::Server.errors.current[:body]
   expected_value = JSON.parse(open(fixture_path, &:read))
   result = value_compare(expected_value, payload_value)
   assert_true(result.equal?,
@@ -274,7 +274,7 @@ end
 # @step_input field_path [String] Path to the tested element
 # @step_input fixture_path [String] Path to a JSON fixture
 Then('the payload field {string} matches the JSON fixture in {string}') do |field_path, fixture_path|
-  payload_value = read_key_path(Server.errors.current[:body], field_path)
+  payload_value = read_key_path(Maze::Server.errors.current[:body], field_path)
   expected_value = JSON.parse(open(fixture_path, &:read))
   result = value_compare(expected_value, payload_value)
   assert_true(result.equal?,
@@ -285,21 +285,21 @@ end
 #
 # @step_input field_path [String] Path to the tested element
 Then('the payload field {string} is true') do |field_path|
-  assert_equal(true, read_key_path(Server.errors.current[:body], field_path))
+  assert_equal(true, read_key_path(Maze::Server.errors.current[:body], field_path))
 end
 
 # Tests that a payload element is false.
 #
 # @step_input field_path [String] Path to the tested element
 Then('the payload field {string} is false') do |field_path|
-  assert_equal(false, read_key_path(Server.errors.current[:body], field_path))
+  assert_equal(false, read_key_path(Maze::Server.errors.current[:body], field_path))
 end
 
 # Tests that a payload element is null.
 #
 # @step_input field_path [String] Path to the tested element
 Then('the payload field {string} is null') do |field_path|
-  value = read_key_path(Server.errors.current[:body], field_path)
+  value = read_key_path(Maze::Server.errors.current[:body], field_path)
   assert_nil(value, "The field '#{field_path}' should be null but is #{value}")
 end
 
@@ -307,7 +307,7 @@ end
 #
 # @step_input field_path [String] Path to the tested element
 Then('the payload field {string} is not null') do |field_path|
-  assert_not_nil(read_key_path(Server.errors.current[:body], field_path),
+  assert_not_nil(read_key_path(Maze::Server.errors.current[:body], field_path),
                  "The field '#{field_path}' should not be null")
 end
 
@@ -316,7 +316,7 @@ end
 # @step_input field_path [String] Path to the tested element
 # @step_input int_value [Integer] The value to test against
 Then('the payload field {string} equals {int}') do |field_path, int_value|
-  assert_equal(int_value, read_key_path(Server.errors.current[:body], field_path))
+  assert_equal(int_value, read_key_path(Maze::Server.errors.current[:body], field_path))
 end
 
 # Tests the payload field value against an environment variable.
@@ -326,7 +326,7 @@ end
 Then('the payload field {string} equals the environment variable {string}') do |field_path, env_var|
   environment_value = ENV[env_var]
   assert_false(environment_value.nil?, "The environment variable #{env_var} must not be nil")
-  value = read_key_path(Server.errors.current[:body], field_path)
+  value = read_key_path(Maze::Server.errors.current[:body], field_path)
 
   assert_equal(environment_value, value)
 end
@@ -336,7 +336,7 @@ end
 # @step_input field_path [String] The payload element to test
 # @step_input int_value [Integer] The value to compare against
 Then('the payload field {string} is greater than {int}') do |field_path, int_value|
-  value = read_key_path(Server.errors.current[:body], field_path)
+  value = read_key_path(Maze::Server.errors.current[:body], field_path)
   assert_kind_of Integer, value
   assert(value > int_value, "The payload field '#{field_path}' is not greater than '#{int_value}'")
 end
@@ -346,7 +346,7 @@ end
 # @step_input field_path [String] The payload element to test
 # @step_input int_value [Integer] The value to compare against
 Then('the payload field {string} is less than {int}') do |field_path, int_value|
-  value = read_key_path(Server.errors.current[:body], field_path)
+  value = read_key_path(Maze::Server.errors.current[:body], field_path)
   assert_kind_of Integer, value
   assert(value < int_value, "The payload field '#{field_path}' is not less than '#{int_value}'")
 end
@@ -356,7 +356,7 @@ end
 # @step_input field_path [String] The payload element to test
 # @step_input string_value [String] The string to test against
 Then('the payload field {string} equals {string}') do |field_path, string_value|
-  assert_equal(string_value, read_key_path(Server.errors.current[:body], field_path))
+  assert_equal(string_value, read_key_path(Maze::Server.errors.current[:body], field_path))
 end
 
 # Tests a payload field starts with a string.
@@ -364,7 +364,7 @@ end
 # @step_input field_path [String] The payload element to test
 # @step_input string_value [String] The string to test against
 Then('the payload field {string} starts with {string}') do |field_path, string_value|
-  value = read_key_path(Server.errors.current[:body], field_path)
+  value = read_key_path(Maze::Server.errors.current[:body], field_path)
   assert_kind_of String, value
   assert(value.start_with?(string_value),
          "Field '#{field_path}' value ('#{value}') does not start with '#{string_value}'")
@@ -375,7 +375,7 @@ end
 # @step_input field_path [String] The payload element to test
 # @step_input string_value [String] The string to test against
 Then('the payload field {string} ends with {string}') do |field_path, string_value|
-  value = read_key_path(Server.errors.current[:body], field_path)
+  value = read_key_path(Maze::Server.errors.current[:body], field_path)
   assert_kind_of String, value
   assert(value.end_with?(string_value),
          "Field '#{field_path}' does not end with '#{string_value}'")
@@ -386,7 +386,7 @@ end
 # @step_input field [String] The payload element to test
 # @step_input count [Integer] The value expected
 Then('the payload field {string} is an array with {int} elements') do |field, count|
-  value = read_key_path(Server.errors.current[:body], field)
+  value = read_key_path(Maze::Server.errors.current[:body], field)
   assert_kind_of Array, value
   assert_equal(count, value.length)
 end
@@ -395,7 +395,7 @@ end
 #
 # @step_input field [String] The payload element to test
 Then('the payload field {string} is a non-empty array') do |field|
-  value = read_key_path(Server.errors.current[:body], field)
+  value = read_key_path(Maze::Server.errors.current[:body], field)
   assert_kind_of Array, value
   assert(value.length > 0,
          "the field '#{field}' must be a non-empty array")
@@ -407,7 +407,7 @@ end
 # @step_input regex [String] The regex to test against
 Then('the payload field {string} matches the regex {string}') do |field, regex_string|
   regex = Regexp.new(regex_string)
-  value = read_key_path(Server.errors.current[:body], field)
+  value = read_key_path(Maze::Server.errors.current[:body], field)
   assert_match(regex, value)
 end
 
@@ -415,7 +415,7 @@ end
 #
 # @step_input field [String] The payload element to test
 Then('the payload field {string} is a parsable timestamp in seconds') do |field|
-  value = read_key_path(Server.errors.current[:body], field)
+  value = read_key_path(Maze::Server.errors.current[:body], field)
   begin
     int = value.to_i
     parsed_time = Time.at(int)
@@ -430,7 +430,7 @@ end
 # @step_input key_path [String] The path to the tested array
 # @step_input element_key_path [String] The key for the expected element inside the array
 Then('each element in payload field {string} has {string}') do |key_path, element_key_path|
-  value = read_key_path(Server.errors.current[:body], key_path)
+  value = read_key_path(Maze::Server.errors.current[:body], key_path)
   assert_kind_of Array, value
   value.each do |element|
     assert_not_nil(read_key_path(element, element_key_path),

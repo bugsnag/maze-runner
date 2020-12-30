@@ -101,7 +101,7 @@ end
 
 # Tests that a payload has an appropriately structured session array
 Then("the session payload has a valid sessions array") do
-  if sessions = Server.sessions.current[:body]["sessions"]
+  if sessions = Maze::Server.sessions.current[:body]["sessions"]
     steps %Q{
       Then the session "id" is not null
       And the session "startedAt" is a timestamp
@@ -118,21 +118,21 @@ end
 #
 # @step_input field_path [String] Path to the tested element
 Then('the session payload field {string} is true') do |field_path|
-  assert_equal(true, read_key_path(Server.sessions.current[:body], field_path))
+  assert_equal(true, read_key_path(Maze::Server.sessions.current[:body], field_path))
 end
 
 # Tests that a session payload element is false.
 #
 # @step_input field_path [String] Path to the tested element
 Then('the session payload field {string} is false') do |field_path|
-  assert_equal(false, read_key_path(Server.sessions.current[:body], field_path))
+  assert_equal(false, read_key_path(Maze::Server.sessions.current[:body], field_path))
 end
 
 # Tests that a payload element is null.
 #
 # @step_input field_path [String] Path to the tested element
 Then('the session payload field {string} is null') do |field_path|
-  value = read_key_path(Server.sessions.current[:body], field_path)
+  value = read_key_path(Maze::Server.sessions.current[:body], field_path)
   assert_nil(value, "The field '#{field_path}' should be null but is #{value}")
 end
 
@@ -140,7 +140,7 @@ end
 #
 # @step_input field_path [String] Path to the tested element
 Then('the session payload field {string} is not null') do |field_path|
-  assert_not_nil(read_key_path(Server.sessions.current[:body], field_path),
+  assert_not_nil(read_key_path(Maze::Server.sessions.current[:body], field_path),
                  "The field '#{field_path}' should not be null")
 end
 
@@ -149,7 +149,7 @@ end
 # @step_input field_path [String] Path to the tested element
 # @step_input int_value [Integer] The value to test against
 Then('the session payload field {string} equals {int}') do |field_path, int_value|
-  assert_equal(int_value, read_key_path(Server.sessions.current[:body], field_path))
+  assert_equal(int_value, read_key_path(Maze::Server.sessions.current[:body], field_path))
 end
 
 # Tests a session payload field equals a string.
@@ -157,7 +157,7 @@ end
 # @step_input field_path [String] The payload element to test
 # @step_input string_value [String] The string to test against
 Then('the session payload field {string} equals {string}') do |field_path, string_value|
-  assert_equal(string_value, read_key_path(Server.sessions.current[:body], field_path))
+  assert_equal(string_value, read_key_path(Maze::Server.sessions.current[:body], field_path))
 end
 
 # Tests a session payload field matches a regex.
@@ -166,7 +166,7 @@ end
 # @step_input regex [String] The regex to test against
 Then('the session payload field {string} matches the regex {string}') do |field, regex_string|
   regex = Regexp.new(regex_string)
-  value = read_key_path(Server.sessions.current[:body], field)
+  value = read_key_path(Maze::Server.sessions.current[:body], field)
   assert_match(regex, value)
 end
 
@@ -175,7 +175,7 @@ end
 # @step_input field [String] The payload element to test
 # @step_input count [Integer] The value expected
 Then('the session payload field {string} is an array with {int} elements') do |field, count|
-  value = read_key_path(Server.sessions.current[:body], field)
+  value = read_key_path(Maze::Server.sessions.current[:body], field)
   assert_kind_of Array, value
   assert_equal(count, value.length)
 end
@@ -184,7 +184,7 @@ end
 #
 # @step_input field [String] The payload element to test
 Then('the session payload field {string} is a parsable timestamp in seconds') do |field|
-  value = read_key_path(Server.sessions.current[:body], field)
+  value = read_key_path(Maze::Server.sessions.current[:body], field)
   begin
     int = value.to_i
     parsed_time = Time.at(int)

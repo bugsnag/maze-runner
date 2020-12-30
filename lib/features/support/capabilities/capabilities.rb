@@ -25,9 +25,9 @@ class Capabilities
     def for_browser_stack_browser(browser_type, local_id, capabilities_option)
       capabilities = Selenium::WebDriver::Remote::Capabilities.new
       capabilities['browserstack.local'] = 'true'
-      capabilities['browserstack.localIdentifier'] = bs_local_id
+      capabilities['browserstack.localIdentifier'] = local_id
       capabilities['browserstack.console'] = 'errors'
-      browsers = YAML.safe_load(File.read("#{__dir__}browsers.yml"))
+      browsers = YAML.safe_load(File.read("#{__dir__}/browsers.yml"))
       capabilities.merge! browsers[browser_type]
       capabilities
     end

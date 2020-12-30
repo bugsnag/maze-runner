@@ -3,11 +3,12 @@
 require 'cucumber'
 require 'json'
 require 'securerandom'
+require 'selenium-webdriver'
 
 AfterConfiguration do |_cucumber_config|
 
   # Start mock server
-  Server.start
+  Maze::Server.start
   config = MazeRunner.config
   next if config.farm == :none
 
@@ -18,6 +19,7 @@ AfterConfiguration do |_cucumber_config|
   if config.farm == :bs
     tunnel_id = SecureRandom.uuid
     if config.bs_device
+      # BrowserStack device
       config.capabilities = Capabilities.for_browser_stack_device config.bs_device,
                                                                   tunnel_id,
                                                                   config.appium_version,
@@ -26,7 +28,9 @@ AfterConfiguration do |_cucumber_config|
       config.app = BrowserStackUtils.upload_app config.username,
                                                 config.access_key,
                                                 config.app
+      config.capabilities['app'] = config.app
     else
+      # BrowserStack browser
       config.capabilities = Capabilities.for_browser_stack_browser config.bs_browser,
                                                                    tunnel_id,
                                                                    config.capabilities_option
@@ -35,34 +39,34 @@ AfterConfiguration do |_cucumber_config|
                                          tunnel_id,
                                          config.access_key
   elsif config.farm == :local
+    # Local device
     config.capabilities = Capabilities.for_local config.os,
                                                  config.capabilities_option,
                                                  config.apple_team_id,
                                                  config.device_id
+    config.capabilities['app'] = config.app
   end
 
-  # Set app location (file or url) in capabilities
-  config.capabilities['app'] = config.app
-
   # Create and start the relevant driver
-  MazeRunner.driver = if MazeRunner.config.resilient
-                        $logger.info 'Creating ResilientAppiumDriver instance'
-                        ResilientAppiumDriver.new config.appium_server_url,
-                                                  config.capabilities,
-                                                  config.locator
-                      else
-                        $logger.info 'Creating AppiumDriver instance'
-                        AppiumDriver.new config.appium_server_url,
-                                         config.capabilities,
-                                         config.locator
-                      end
+  if config.bs_browser
+    selenium_url = "http://#{config.username}:#{config.access_key}@hub.browserstack.com/wd/hub"
+    MazeRunner.driver = SeleniumDriver.new selenium_url, config.capabilities
+  else
+    MazeRunner.driver = if MazeRunner.config.resilient
+                          $logger.info 'Creating ResilientAppiumDriver instance'
+                          ResilientAppiumDriver.new config.appium_server_url,
+                                                    config.capabilities,
+                                                    config.locator
+                        else
+                          $logger.info 'Creating AppiumDriver instance'
+                          AppiumDriver.new config.appium_server_url,
+                                           config.capabilities,
+                                           config.locator
+                        end
+    MazeRunner.driver.start_driver unless config.appium_session_isolation
+  end
 
-  # TODO: Weave this into the driver
-  # Selenium::WebDriver.for :remote,
-  #                         url: "http://#{ENV['BROWSER_STACK_USERNAME']}:#{ENV['BROWSER_STACK_ACCESS_KEY']}@hub.browserstack.com/wd/hub",
-  #                         desired_capabilities: caps
-
-  if config.farm == :bs
+  if config.farm == :bs && config.bs_device
     # Log a link to the BrowserStack session search dashboard
     build = MazeRunner.driver.caps[:build]
     url = "https://app-automate.browserstack.com/dashboard/v2/?searchQuery=#{build}"
@@ -72,7 +76,6 @@ AfterConfiguration do |_cucumber_config|
       $logger.info "BrowserStack session(s): #{url}"
     end
   end
-  MazeRunner.driver.start_driver unless config.appium_session_isolation
 
   # Call any blocks registered by the client
   MazeRunner.hooks.call_after_configuration config
@@ -98,8 +101,8 @@ After do |scenario|
   MazeRunner.hooks.call_after scenario
 
   # Make sure we reset to HTTP 200 return status after each scenario
-  Server.status_code = 200
-  Server.reset_status_code = false
+  Maze::Server.status_code = 200
+  Maze::Server.reset_status_code = false
 
   # This is here to stop sessions from one test hitting another.
   # However this does mean that tests take longer.
@@ -120,21 +123,21 @@ After do |scenario|
   # TODO Revamp and log sessions
   if scenario.failed?
     STDOUT.puts '^^^ +++'
-    if Server.sessions.empty?
+    if Maze::Server.sessions.empty?
       $logger.info 'No valid sessions received'
     else
-      $logger.info "#{Server.sessions.size} sessions were received:"
-      Server.sessions.all.each.with_index(1) do |request, number|
+      $logger.info "#{Maze::Server.sessions.size} sessions were received:"
+      Maze::Server.sessions.all.each.with_index(1) do |request, number|
         $logger.info "Session #{number}:"
         LogUtil.log_hash(Logger::Severity::INFO, request)
       end
     end
 
-    if Server.errors.empty?
+    if Maze::Server.errors.empty?
       $logger.info 'No valid errors received'
     else
-      $logger.info "#{Server.errors.size} errors were received:"
-      Server.errors.all.each.with_index(1) do |request, number|
+      $logger.info "#{Maze::Server.errors.size} errors were received:"
+      Maze::Server.errors.all.each.with_index(1) do |request, number|
         $logger.info "Request #{number}:"
         LogUtil.log_hash(Logger::Severity::INFO, request)
       end
@@ -154,9 +157,9 @@ After do |scenario|
 ensure
   # Request arrays in particular are cleared here, rather than in the Before hook, to allow requests to be registered
   # when a test fixture starts (which can be before the first Before scenario hook fires).
-  Server.errors.clear
-  Server.sessions.clear
-  Server.invalid_requests.clear
+  Maze::Server.errors.clear
+  Maze::Server.sessions.clear
+  Maze::Server.invalid_requests.clear
   Runner.environment.clear
   Store.values.clear
 end
@@ -165,12 +168,12 @@ end
 # and we need the logic in the other After hook to be performed.
 # Furthermore, this hook should appear after the general hook as they are executed in reverse order by Cucumber.
 After do |scenario|
-  unless Server.invalid_requests.empty?
-    Server.invalid_requests.each.with_index(1) do |request, number|
+  unless Maze::Server.invalid_requests.empty?
+    Maze::Server.invalid_requests.each.with_index(1) do |request, number|
       $logger.error "Invalid request #{number} (#{request[:reason]}):"
       LogUtil.log_hash(Logger::Severity::ERROR, request)
     end
-    msg = "#{Server.invalid_requests.length} invalid request(s) received during scenario"
+    msg = "#{Maze::Server.invalid_requests.length} invalid request(s) received during scenario"
     scenario.fail msg
   end
 end
@@ -181,7 +184,7 @@ at_exit do
   STDOUT.puts '+++ All scenarios complete'
 
   # Stop the mock server
-  Server.stop
+  Maze::Server.stop
 
   # In order to not impact future test runs, we down
   # all services (which removes networks etc) so that

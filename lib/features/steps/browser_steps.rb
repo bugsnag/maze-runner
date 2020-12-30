@@ -1,7 +1,7 @@
 # @!group Browser steps
 
 When('I navigate to the URL {string}') do |path|
-  MazeRunner.driver.navigate.to get_test_url path
+  MazeRunner.driver.navigate.to path
 end
 
 When('the test should run in this browser') do

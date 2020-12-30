@@ -8,7 +8,7 @@ class SeleniumDriver
                                       desired_capabilities: capabilities
   end
 
-  def nevigate
+  def navigate
     @driver.navigate
   end
 

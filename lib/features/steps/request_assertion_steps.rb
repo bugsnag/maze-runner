@@ -35,8 +35,8 @@ end
 # Assert that the test Server hasn't received any requests at all.
 Then('I should receive no requests') do
   sleep MazeRunner.config.receive_no_requests_wait
-  assert_equal(0, Maze::Maze::Server.errors.size, "#{Maze::Maze::Server.errors.size} errors received")
-  assert_equal(0, Maze::Maze::Server.sessions.size, "#{Maze::Maze::Server.sessions.size} sessions received")
+  assert_equal(0, Maze::Server.errors.size, "#{Maze::Server.errors.size} errors received")
+  assert_equal(0, Maze::Server.sessions.size, "#{Maze::Server.sessions.size} sessions received")
 end
 
 #
@@ -58,12 +58,12 @@ end
 # Assert that the test Server hasn't received any errors.
 Then('I should receive no errors') do
   sleep MazeRunner.config.receive_no_requests_wait
-  assert_equal(0, Maze::Maze::Server.errors.size, "#{Maze::Maze::Server.errors.size} errors received")
+  assert_equal(0, Maze::Server.errors.size, "#{Maze::Server.errors.size} errors received")
 end
 
 Then('the received errors match:') do |table|
   # Checks that each request matches one of the event fields
-  requests = Maze::Maze::Server.errors.remaining
+  requests = Maze::Server.errors.remaining
   match_count = 0
 
   # iterate through each row in the table. exactly 1 request should match each row.
@@ -92,9 +92,9 @@ end
 
 # Moves to the next error
 Then('I discard the oldest error') do
-  raise 'No error to discard' if Maze::Maze::Server.errors.current.nil?
+  raise 'No error to discard' if Maze::Server.errors.current.nil?
 
-  Maze::Maze::Server.errors.next
+  Maze::Server.errors.next
 end
 
 # Continually checks to see if the required amount of sessions have been received.
@@ -108,16 +108,15 @@ end
 # Assert that the test Server hasn't received any sessions.
 Then('I should receive no sessions') do
   sleep MazeRunner.config.receive_no_requests_wait
-  assert_equal(0, Maze::Maze::Server.sessions.size, "#{Maze::Maze::Server.sessions.size} sessions received")
+  assert_equal(0, Maze::Server.sessions.size, "#{Maze::Server.sessions.size} sessions received")
 end
 
 # Moves to the next sessions
 Then('I discard the oldest session') do
-  raise 'No session to discard' if Maze::Maze::Server.sessions.current.nil?
+  raise 'No session to discard' if Maze::Server.sessions.current.nil?
 
-  Maze::Maze::Server.sessions.next
+  Maze::Server.sessions.next
 end
-
 
 #
 # TODO There's a lot of overlap between error and session header assertions and only implemented this

@@ -8,6 +8,10 @@ class SeleniumDriver
                                       desired_capabilities: capabilities
   end
 
+  def find_element(*args)
+    @driver.find_element *args
+  end
+
   def navigate
     @driver.navigate
   end

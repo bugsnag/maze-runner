@@ -144,7 +144,7 @@ After do |scenario|
     end
   end
 
-  next if MazeRunner.config.farm == :none
+  next if MazeRunner.config.farm == :none || !MazeRunner.config.bs_browser.nil?
 
   if MazeRunner.config.appium_session_isolation
     MazeRunner.driver.driver_quit

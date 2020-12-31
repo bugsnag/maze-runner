@@ -28,7 +28,7 @@ class SeleniumDriver
   # does not have working local storage
   def local_storage?
     # Assume we can use local storage if we aren't able to verify by running JavaScript
-    return true unless can_run_javascript
+    return true unless MazeRunner.driver.javascript?
 
     @driver.execute_script <<-JAVASCRIPT
   try {

@@ -193,3 +193,27 @@ Then('the session payload field {string} is a parsable timestamp in seconds') do
   end
   assert_not_nil(parsed_time)
 end
+
+# Tests that a query parameter on a session request matches a string.
+#
+# @step_input parameter_name [String] The parameter to test
+# @step_input parameter_value [String] The expected value
+Then('the session {string} query parameter equals {string}') do |parameter_name, parameter_value|
+  assert_equal(parameter_value, parse_querystring(Maze::Server.sesisons.current)[parameter_name][0])
+end
+
+# Tests that a query parameter on a session request is present and not null.
+#
+# @step_input parameter_name [String] The parameter to test
+Then('the session {string} query parameter is not null') do |parameter_name|
+  assert_not_nil(parse_querystring(Maze::Server.errors.current)[parameter_name][0],
+                 "The '#{parameter_name}' query parameter should not be null")
+end
+
+# Tests that a query parameter on a session request is a timestamp.
+#
+# @step_input parameter_name [String] The parameter to test
+Then('the session {string} query parameter is a timestamp') do |parameter_name|
+  param = parse_querystring(Maze::Server.errors.current)[parameter_name][0]
+  assert_match(TIMESTAMP_REGEX, param)
+end

@@ -11,7 +11,7 @@ include Test::Unit::Assertions
 
 # @!group Request assertion steps
 
-def check_for_requests(request_count, list, list_name)
+def assert_received_requests(request_count, list, list_name)
   timeout = MazeRunner.config.receive_requests_wait
   wait = Maze::Wait.new(timeout: timeout)
 
@@ -52,7 +52,7 @@ end
 #
 # @step_input request_count [Integer] The amount of requests expected
 Then('I wait to receive {int} error(s)') do |request_count|
-  check_for_requests request_count, Server.errors, 'errors'
+  assert_received_requests request_count, Server.errors, 'errors'
 end
 
 # Assert that the test Server hasn't received any errors.
@@ -102,7 +102,7 @@ end
 #
 # @step_input request_count [Integer] The amount of requests expected
 Then('I wait to receive {int} session(s)') do |request_count|
-  check_for_requests request_count, Server.sessions, 'sessions'
+  assert_received_requests request_count, Server.sessions, 'sessions'
 end
 
 # Assert that the test Server hasn't received any sessions.

@@ -42,7 +42,7 @@ module Maze
       bs_device = options[Maze::Option::BS_DEVICE]
       if bs_browser.nil? && bs_device.nil?
         errors << "Either --#{Maze::Option::BS_BROWSER} or --#{Maze::Option::BS_DEVICE} must be specified"
-      elsif !bs_browser.nil?
+      elsif bs_browser
 
         browsers = YAML.safe_load(File.read("#{__dir__}/../features/support/capabilities/browsers.yml"))
 
@@ -50,7 +50,7 @@ module Maze
           browser_list = browsers.keys.join ', '
           errors << "Browser type '#{bs_browser}' unknown on BrowserStack.  Must be one of: #{browser_list}."
         end
-      elsif !bs_device.nil?
+      elsif bs_device
         unless Devices::DEVICE_HASH.key? bs_device
           errors << "Device type '#{bs_device}' unknown on BrowserStack.  Must be one of #{Devices::DEVICE_HASH.keys}"
         end

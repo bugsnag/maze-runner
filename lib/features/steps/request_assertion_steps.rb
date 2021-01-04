@@ -42,6 +42,7 @@ end
 #
 # Error request assertions
 #
+# Shortcut to waiting to receive a single error
 Then('I wait to receive an error') do
   step 'I wait to receive 1 error'
 end
@@ -84,11 +85,9 @@ end
 # Session request assertions
 #
 
-# Shortcut to waiting to receive a single request
-
 # Shortcut to waiting to receive a single session
 Then('I wait to receive a session') do
-  step 'I wait to receive 1 session'
+  step '\I wait to receive 1 session'
 end
 
 # Moves to the next error

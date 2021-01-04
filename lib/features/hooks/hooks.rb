@@ -108,6 +108,16 @@ After do |scenario|
   # TODO Revamp and log sessions
   if scenario.failed?
     STDOUT.puts '^^^ +++'
+    if Server.sessions.empty?
+      $logger.info 'No valid sessions received'
+    else
+      $logger.info "#{Server.sessions.size} sessions were received:"
+      Server.sessions.all.each.with_index(1) do |request, number|
+        $logger.info "Session #{number}:"
+        LogUtil.log_hash(Logger::Severity::INFO, request)
+      end
+    end
+
     if Server.errors.empty?
       $logger.info 'No valid errors received'
     else

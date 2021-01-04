@@ -6,14 +6,16 @@ class RequestList
   def initialize
     @requests = []
     @current = 0
+    @count = 0
   end
 
   def empty?
     @requests.empty?
   end
 
+  # The number of unprocessed/remaining reqests in the list (not the total number actually held)
   def size
-    @requests.size
+    @count
   end
 
   # Add a request to the list
@@ -21,6 +23,7 @@ class RequestList
   # @param request The new request, from which a clone is made
   def add(request)
     @requests.append request.clone
+    @count += 1
   end
 
   # The current request
@@ -28,22 +31,20 @@ class RequestList
     @requests[@current] if @requests.size > @current
   end
 
-  # Requests yet to be processed - i.e. from current onwards
-  #  Return an empty array if there are no requests outstanding.
+  # Peek at requests yet to be processed - i.e. from current onwards.  All requests are left visible in the list.
+  # Returns an empty array if there are no requests outstanding.
   def remaining
-    requests = []
-    to_add = current
-    until to_add.nil?
-      requests.append to_add
-      self.next
-      to_add = current
-    end
-    requests
+    return [] if current.nil?
+
+    @requests[@current..@requests.size]
   end
 
   # Moves to the next request, if there is one
   def next
-    @current += 1 if @current < @requests.size
+    return if @current >= @requests.size
+
+    @current += 1
+    @count -= 1
   end
 
   # A frozen clone of all requests held, including those already orocessed
@@ -55,5 +56,6 @@ class RequestList
   def clear
     @requests.clear
     @current = 0
+    @count = 0
   end
 end

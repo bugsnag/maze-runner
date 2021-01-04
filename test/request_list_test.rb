@@ -120,7 +120,10 @@ class RequestListTest < Test::Unit::TestCase
 
     list.next
     remaining = list.remaining
+    assert_equal [item2, item3], remaining
 
+    # Check that remaining does not change when inspected
+    remaining = list.remaining
     assert_equal [item2, item3], remaining
   end
 end

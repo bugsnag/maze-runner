@@ -87,7 +87,7 @@ end
 
 # Shortcut to waiting to receive a single session
 Then('I wait to receive a session') do
-  step '\I wait to receive 1 session'
+  step 'I wait to receive 1 session'
 end
 
 # Moves to the next error

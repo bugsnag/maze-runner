@@ -144,14 +144,12 @@ After do |scenario|
     end
   end
 
-  next if MazeRunner.config.farm == :none || !MazeRunner.config.bs_browser.nil?
-
   if MazeRunner.config.appium_session_isolation
     MazeRunner.driver.driver_quit
   elsif MazeRunner.config.os == 'macos'
     # Close the app - without the sleep, launching the app for the next scenario intermittently fails
     system("killall #{MazeRunner.config.app} && sleep 1")
-  else
+  elsif MazeRunner.config.bs_device
     MazeRunner.driver.reset_with_timeout 2
   end
 ensure

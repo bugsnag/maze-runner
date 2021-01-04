@@ -5,28 +5,6 @@ When('I navigate to the URL {string}') do |path|
   MazeRunner.driver.navigate.to path
 end
 
-When('the test should run in this browser') do
-  wait = Selenium::WebDriver::Wait.new(timeout: 10)
-  wait.until {
-    MazeRunner.driver.find_element(id: 'bugsnag-test-should-run') &&
-    MazeRunner.driver.find_element(id: 'bugsnag-test-should-run').text != 'PENDING'
-  }
-  skip_this_scenario if MazeRunner.driver.find_element(id: 'bugsnag-test-should-run').text == 'NO'
-end
-
-When('I let the test page run for up to {int} seconds') do |n|
-  wait = Selenium::WebDriver::Wait.new(timeout: n)
-  wait.until {
-    MazeRunner.driver.find_element(id: 'bugsnag-test-state') &&
-    (
-      MazeRunner.driver.find_element(id: 'bugsnag-test-state').text == 'DONE' ||
-      MazeRunner.driver.find_element(id: 'bugsnag-test-state').text == 'ERROR'
-    )
-  }
-  txt = MazeRunner.driver.find_element(id: 'bugsnag-test-state').text
-  assert_equal('DONE', txt, "Expected #bugsnag-test-state text to be 'DONE'. It was '#{txt}'.")
-end
-
 Then(/^the request is a valid browser payload for the error reporting API$/) do
   if !/^ie_(8|9|10)$/.match(MazeRunner.config.bs_browser)
     steps %(

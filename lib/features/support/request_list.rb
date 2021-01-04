@@ -34,8 +34,7 @@ class RequestList
   # Peek at requests yet to be processed - i.e. from current onwards.  All requests are left visible in the list.
   # Returns an empty array if there are no requests outstanding.
   def remaining
-    requests = []
-    return requests if current.nil?
+    return [] if current.nil?
 
     @requests[@current..@requests.size]
   end

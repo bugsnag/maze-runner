@@ -1,8 +1,9 @@
-# 3.7.0 - TBD
+# 3.7.0 - 2021/01/05
 
 ## Enhancements
 
 - Display version at startup [#191](https://github.com/bugsnag/maze-runner/pull/191)
+- Disable BrowserStack network logs by default [#194](https://github.com/bugsnag/maze-runner/pull/194)
 
 # 3.6.1 - 2020/12/16
 

@@ -1,3 +1,9 @@
+# 3.7.1 - TBD
+
+## Fixes
+
+- Only run Docker compose to stop all services if any have been started [#195](https://github.com/bugsnag/maze-runner/pull/195)
+
 # 3.7.0 - 2021/01/05
 
 ## Enhancements

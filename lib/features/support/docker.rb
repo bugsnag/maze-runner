@@ -22,8 +22,7 @@ class Docker
     # @param command [String] Optional. The command to use when running the service
     # @param interactive [Boolean] Optional. Whether to run interactively
     def start_service(service, command: nil, interactive: false)
-      case
-      when interactive
+      if interactive
         run_docker_compose_command("build #{service}")
 
         # Run the built service in an interactive session. The service _must_
@@ -40,8 +39,9 @@ class Docker
 
         # The logs and exit code aren't available from the interactive session
         # at this point (we've just started it!) so we can't provide them here
-        @last_command_logs, @last_exit_code = [[], nil]
-      when command
+        @last_command_logs = []
+        @last_exit_code = nil
+      elsif command
         # We build the service before running it as there is no --build
         # option for run.
         run_docker_compose_command("build #{service}")
@@ -50,6 +50,7 @@ class Docker
         # TODO: Consider adding a logs command here
         run_docker_compose_command("up -d --build #{service}")
       end
+      @services_started = true
     end
 
     # Kills a running service
@@ -61,13 +62,21 @@ class Docker
       run_docker_compose_command("down -t 0 #{service}")
     end
 
+    # Resets any state ready for the next scenario
+    def reset
+      down_all_services
+      @last_exit_code = nil
+      @last_command_logs = nil
+    end
+
     # Kills all running services
     def down_all_services
       # This will fail to remove the network that maze is connected to
       # as it is still in use, that is ok to ignore so we pass success codes!
       # We set timeout to 0 so this kills the services rather than stopping them
       # as its quicker and they are stateless anyway.
-      run_docker_compose_command('down -t 0', success_codes: [0, 256]) if compose_stack_exists?
+      run_docker_compose_command('down -t 0', success_codes: [0, 256]) if compose_stack_exists? && @services_started
+      @services_started = false
     end
 
     def compose_project_name

@@ -42,7 +42,7 @@ class AppiumDriver < Appium::Driver
     $logger.info "    build   : #{name_capabilities[:build]}"
   end
 
-  # Starts the BrowserStackLocal tunnel and the Appium driver
+  # Starts the Appium driver
   def start_driver
     $logger.info 'Starting Appium driver...'
     time = Time.now

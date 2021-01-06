@@ -25,6 +25,7 @@ class MazeRunnerEntry
       Maze::Option::APP,
       Maze::Option::BS_LOCAL,
       Maze::Option::BS_DEVICE,
+      Maze::Option::BS_BROWSER,
       Maze::Option::OS,
       Maze::Option::OS_VERSION,
       Maze::Option::FARM,

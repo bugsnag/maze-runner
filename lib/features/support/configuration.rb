@@ -67,6 +67,9 @@ module Maze
     # BrowserStack device type
     attr_accessor :bs_device
 
+    # BrowserStack browser type
+    attr_accessor :bs_browser
+
     # Appium version to use on BrowserStack
     attr_accessor :appium_version
 

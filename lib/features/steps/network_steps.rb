@@ -12,15 +12,15 @@ end
 #
 # @step_input status_code [Integer] The status code to return
 When("I set the HTTP status code to {int}") do |status_code|
-  Server.status_code = status_code
+  Maze::Server.status_code = status_code
 end
 
 # Sets the HTTP status code to be used for the next request
 #
 # @step_input status_code [Integer] The status code to return
 When("I set the HTTP status code for the next request to {int}") do |status_code|
-  Server.reset_status_code = true
-  Server.status_code = status_code
+  Maze::Server.reset_status_code = true
+  Maze::Server.status_code = status_code
 end
 
 # Attempts to open a URL.

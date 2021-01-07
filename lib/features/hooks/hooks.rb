@@ -53,7 +53,7 @@ AfterConfiguration do |_cucumber_config|
   if config.farm == :bs
     # Log a link to the BrowserStack session search dashboard
     build = MazeRunner.driver.caps[:build]
-    url = "https://app-automate.browserstack.com/dashboard/v2/?searchQuery=#{build}"
+    url = "https://app-automate.browserstack.com/dashboard/v2/search?query=#{build}&type=builds"
     if ENV['BUILDKITE']
       $logger.info LogUtil.linkify url, 'BrowserStack session(s)'
     else

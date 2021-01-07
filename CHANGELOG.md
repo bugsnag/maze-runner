@@ -1,3 +1,9 @@
+# 3.7.2 - 2021/01/07
+
+## Fixes
+
+- Fix broken link to BrowserStack dashboard [#196](https://github.com/bugsnag/maze-runner/pull/196)
+
 # 3.7.1 - 2021/01/06
 
 ## Fixes

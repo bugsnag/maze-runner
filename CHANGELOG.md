@@ -1,3 +1,7 @@
+# 3.7.3 - 2021/01/08
+
+- Strip ANSI escape codes from interactive CLI output to improve reliability [#197](https://github.com/bugsnag/maze-runner/pull/197)
+
 # 3.7.2 - 2021/01/07
 
 ## Fixes

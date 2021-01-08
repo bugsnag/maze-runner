@@ -100,7 +100,7 @@ module Maze
               short: :none,
               type: :string
 
-          version "Maze Runner v#{Maze::VERSION} " \
+          version "Maze Runner v#{Maze.VERSION} " \
                   "(Cucumber v#{Cucumber::VERSION.strip})"
           text ''
           text 'The Cucumber help follows:'

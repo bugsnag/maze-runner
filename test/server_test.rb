@@ -16,7 +16,7 @@ module Maze
 
     def test_start_cleanily
       # Expected logging calls
-      @logger_mock.expects(:info).with("Maze Runner v#{Maze::VERSION}")
+      @logger_mock.expects(:info).with("Maze Runner v#{Maze.VERSION}")
       @logger_mock.expects(:info).with('Starting mock server')
 
       # Force synchronous execution
@@ -43,7 +43,7 @@ module Maze
 
     def test_start_on_retry
       # Expected logging calls
-      @logger_mock.expects(:info).with("Maze Runner v#{Maze::VERSION}")
+      @logger_mock.expects(:info).with("Maze Runner v#{Maze.VERSION}")
       @logger_mock.expects(:info).with('Starting mock server')
       @logger_mock.expects(:warn).with('Failed to start mock server: uncaught throw "Failed to start"')
       @logger_mock.expects(:info).with('Retrying in 5 seconds')
@@ -76,7 +76,7 @@ module Maze
 
     def test_start_fails
       # Expected logging calls
-      @logger_mock.expects(:info).with("Maze Runner v#{Maze::VERSION}")
+      @logger_mock.expects(:info).with("Maze Runner v#{Maze.VERSION}")
       @logger_mock.expects(:info).with('Starting mock server')
       @logger_mock.expects(:warn).with('Failed to start mock server: uncaught throw "Failed to start"')
       @logger_mock.expects(:info).with('Retrying in 5 seconds')

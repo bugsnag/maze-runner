@@ -70,7 +70,7 @@ module Maze
       # Starts the WEBrick server in a separate thread
       def start
         attempts = 0
-        $logger.info "Maze Runner v#{Maze::VERSION}"
+        $logger.info "Maze Runner v#{Maze.VERSION}"
         $logger.info 'Starting mock server'
         loop do
           @thread = Thread.new do

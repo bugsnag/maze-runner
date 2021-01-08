@@ -62,6 +62,8 @@ class MazeRunnerEntry
     # Load internal steps and helper functions
     load_dir = File.expand_path(File.dirname(File.dirname(__FILE__))).freeze
     paths = Dir.glob("#{load_dir}/lib/features/**/*.rb")
+    paths += Dir.glob("#{load_dir}/lib/maze.rb")
+    paths += Dir.glob("#{load_dir}/lib/maze/**/*.rb")
 
     # Load project-specific steps and helper functions
     paths += Dir.glob('features/{support,steps}/*.rb')

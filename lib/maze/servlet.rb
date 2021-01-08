@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-# Receives and parses the requests and payloads sent from the test fixture
 module Maze
+  # Receives and parses the requests and payloads sent from the test fixture
   class Servlet < WEBrick::HTTPServlet::AbstractServlet
     # Constructor
     #

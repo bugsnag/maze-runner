@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'digest/sha1'
+require 'json'
+
 # Parses a request's query string, because WEBrick doesn't in POST requests
 #
 # @param request [Hash] The received request
@@ -36,4 +39,19 @@ def read_key_path(hash, key_path)
     end
   end
   value
+end
+
+def valid_bugsnag_integrity_header(request)
+  header = request[:request]['Bugsnag-Integrity']
+  return false if header.nil?
+
+  digests = request[:digests]
+  if header.start_with?('sha1')
+    computed_digest = "sha1 #{digests[:sha1]}"
+  elsif header.start_with?('simple')
+    computed_digest = "simple #{digests[:simple]}"
+  else
+    return false
+  end
+  header == computed_digest
 end

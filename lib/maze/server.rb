@@ -7,8 +7,8 @@ require_relative './logger'
 require_relative './request_list'
 require_relative '../../version'
 
-# Receives and stores requests through a WEBrick HTTPServer
 module Maze
+  # Receives and stores requests through a WEBrick HTTPServer
   class Server
 
     # There are some constraints on the port from driving remote browsers on BrowserStack.

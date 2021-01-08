@@ -1,8 +1,21 @@
-# 3.7.0 - TBD
+# 3.7.2 - 2021/01/07
+
+## Fixes
+
+- Fix broken link to BrowserStack dashboard [#196](https://github.com/bugsnag/maze-runner/pull/196)
+
+# 3.7.1 - 2021/01/06
+
+## Fixes
+
+- Only run Docker compose to stop all services if any have been started [#195](https://github.com/bugsnag/maze-runner/pull/195)
+
+# 3.7.0 - 2021/01/05
 
 ## Enhancements
 
 - Display version at startup [#191](https://github.com/bugsnag/maze-runner/pull/191)
+- Disable BrowserStack network logs by default [#194](https://github.com/bugsnag/maze-runner/pull/194)
 
 # 3.6.1 - 2020/12/16
 

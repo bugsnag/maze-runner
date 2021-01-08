@@ -69,7 +69,7 @@ AfterConfiguration do |_cucumber_config|
   if config.farm == :bs && config.bs_device
     # Log a link to the BrowserStack session search dashboard
     build = MazeRunner.driver.caps[:build]
-    url = "https://app-automate.browserstack.com/dashboard/v2/?searchQuery=#{build}"
+    url = "https://app-automate.browserstack.com/dashboard/v2/search?query=#{build}&type=builds"
     if ENV['BUILDKITE']
       $logger.info LogUtil.linkify url, 'BrowserStack session(s)'
     else
@@ -109,9 +109,7 @@ After do |scenario|
   # In addition, reset the last captured exit code
   # TODO:SM We could try and fix this by generating unique endpoints
   # for each test.
-  Docker.down_all_services
-  Docker.last_exit_code = nil
-  Docker.last_command_logs = nil
+  Docker.reset
 
   # Make sure that any scripts are killed between test runs
   # so future tests are run from a clean slate.

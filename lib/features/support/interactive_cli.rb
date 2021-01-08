@@ -1,4 +1,5 @@
 require 'pty'
+require 'boring'
 
 # Encapsulates a shell session, retaining state and input streams for interactive tests
 class InteractiveCLI
@@ -29,6 +30,7 @@ class InteractiveCLI
     @stderr_lines = []
     @on_exit_blocks = []
     @current_buffer = ''
+    @boring = Boring.new
 
     start_threaded_shell(shell)
   end
@@ -107,8 +109,10 @@ class InteractiveCLI
       stdout_thread = Thread.new do
         stdout.each_char do |char|
           if char == "\n"
-            $logger.debug("#{pid} STDOUT") { @current_buffer }
-            @stdout_lines << format_line(@current_buffer)
+            line = format_line(@current_buffer)
+
+            $logger.debug("#{pid} STDOUT") { line.dump }
+            @stdout_lines << line
             @current_buffer.clear
           else
             @current_buffer << char
@@ -123,8 +127,10 @@ class InteractiveCLI
 
         stderr_reader.each_char do |char|
           if char == "\n"
-            $logger.debug("#{pid} STDERR") { buffer }
-            @stderr_lines << format_line(buffer)
+            line = format_line(buffer)
+
+            $logger.debug("#{pid} STDERR") { line.dump }
+            @stderr_lines << line
             buffer.clear
           else
             buffer << char
@@ -155,8 +161,7 @@ class InteractiveCLI
     stderr_writer.close unless stderr_writer.closed?
   end
 
-  # Strips whitespace from shell lines, can be used to sanitize further if required
   def format_line(line)
-    line.strip
+    @boring.scrub(line.strip)
   end
 end

@@ -12,9 +12,9 @@ loop do
   guess.chomp!
 
   if guess.to_i == number
-    puts "Yeah, it's #{number}!"
+    puts "\e[0;32;1mYeah\e[0m, it's \e[0;1m#{number}\e[0m!"
     break
   end
 
-  puts "Nope, it's not #{guess}. Try again!"
+  puts "\e[0;31;1mNope\e[0m, it's not \e[0;1m#{guess}\e[0m. Try again!"
 end

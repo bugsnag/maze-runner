@@ -6,7 +6,7 @@ Ensure that:
 1. All PRs to be included in the release have been merged.
 1. `CHANGELOG.md` details all changes relevant to end users and that PR links are correct.
 1. The release date in `CHANGELOG.md` is correct.
-1. `lib/version.rb` is correct for the release and that `Gemfile.lock` is up-to-date (run `bundle install`).
+1. The `VERSION` in `maze.rb` is correct for the release and that `Gemfile.lock` is up-to-date (run `bundle install`).
 1. The last merge to `master` (or relevant major version branch) built and ran all tests successfully.
 
 If the release will create a new major version, also ensure that:

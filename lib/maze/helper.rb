@@ -3,6 +3,7 @@
 require 'digest/sha1'
 require 'json'
 
+# A collection of helper routines
 module Maze
   # Parses a request's query string, because WEBrick doesn't in POST requests
   #

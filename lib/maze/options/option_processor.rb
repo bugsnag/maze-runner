@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative 'option'
-require_relative '../../lib/features/support/capabilities/devices'
+require_relative '../option'
+require_relative '../capabilities/devices'
 
 module Maze
   module Options

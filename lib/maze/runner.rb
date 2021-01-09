@@ -4,11 +4,11 @@ require 'open3'
 require_relative './interactive_cli'
 
 module Maze
-  # Determines the default path to the `scripts` directory.  Can be overwritten in the env.rb file.
-  SCRIPT_PATH ||= File.expand_path(File.join(File.dirname(__FILE__), '..', 'features', 'scripts')) unless defined? SCRIPT_PATH
-
   # Runs scripts and commands, applying relevant environment variables as necessary
   class Runner
+    # Determines the default path to the `scripts` directory.  Can be overwritten in the env.rb file.
+    SCRIPT_PATH ||= File.expand_path(File.join(File.dirname(__FILE__), '..', 'features', 'scripts')) unless defined? SCRIPT_PATH
+
     class << self
       # Runs a command, applying previously set environment variables.
       # The output from the command is always printed in debug mode -

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Maze
   # Provides a way to delivering results of element comparisons to test steps
   class CompareResult

@@ -2,6 +2,7 @@
 
 require 'logger'
 
+# Logger classes
 module Maze
   # A logger, with level configured according to the environment
   class MazeLogger < Logger

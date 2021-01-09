@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require_relative '../test_helper'
-require_relative '../../lib/options/option_parser'
-require_relative '../../lib/options/option_processor'
-require_relative '../../lib/features/support/configuration'
+require_relative '../../lib/maze/options/option_parser'
+require_relative '../../lib/maze/options/option_processor'
+require_relative '../../lib/maze/configuration'
 
 # Tests the options parser and processor together (using only valid options and with no validator).
 class OptionsProcessorTest < Test::Unit::TestCase
@@ -29,7 +29,7 @@ class OptionsProcessorTest < Test::Unit::TestCase
     args = %w[--farm=bs --app=a --username=b --access-key=c --device=ANDROID_6_0 --resilient --a11y-locator]
     options = Maze::Options::OptionParser.parse args
     config = Maze::Configuration.new
-    Maze::OptionProcessor.populate config, options
+    Maze::Options::OptionProcessor.populate config, options
 
     assert_false config.appium_session_isolation
     assert_true config.resilient
@@ -40,7 +40,7 @@ class OptionsProcessorTest < Test::Unit::TestCase
     args = %w[--farm=local --app=my_app.ipa --os=ios --os-version=7.1 --apple-team-id=ABC --udid=123]
     options = Maze::Options::OptionParser.parse args
     config = Maze::Configuration.new
-    Maze::OptionProcessor.populate config, options
+    Maze::Options::OptionProcessor.populate config, options
 
     assert_equal :local, config.farm
     assert_equal 'my_app.ipa', config.app

@@ -22,7 +22,7 @@ module Maze
   # @param key_path [String] The dot notation path within the hash
   #
   # @return [Any] The value found by the key path
-  def read_key_path(hash, key_path)
+  def Maze::Helper.read_key_path(hash, key_path)
     value = hash
     key_path.split('.').each do |key|
       if key =~ /^(\d+)$/

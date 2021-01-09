@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'test/unit'
+require_relative '../helper'
 
 module Maze
   module Assertions
@@ -67,7 +68,7 @@ module Maze
         #   be a Mongo-style dot notation path.
         def request_matches_row(body, row)
           row.each do |key, expected_value|
-            obs_val = Maze::Helper.read_key_path(body, key)
+            obs_val = Maze.read_key_path(body, key)
             next if ('null'.eql? expected_value) && obs_val.nil? # Both are null/nil
 
             unless obs_val.nil?

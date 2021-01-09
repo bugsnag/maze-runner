@@ -54,7 +54,7 @@ class RequestSetAssertionsTest < Test::Unit::TestCase
     rows = [
       ['Camilla', '33', 'New York']
     ]
-    matches = RequestSetAssertions.matching_rows @requests, create_table(header, rows)
+    matches = Maze::Assertions::RequestSetAssertions.matching_rows @requests, create_table(header, rows)
     assert_equal({ 0 => 3 }, matches)
   end
 

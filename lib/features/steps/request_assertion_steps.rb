@@ -273,7 +273,7 @@ end
 # @step_input field_path [String] Path to the tested element
 # @step_input fixture_path [String] Path to a JSON fixture
 Then('the payload field {string} matches the JSON fixture in {string}') do |field_path, fixture_path|
-  payload_value = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], field_path)
+  payload_value = Maze.read_key_path(Maze::Server.errors.current[:body], field_path)
   expected_value = JSON.parse(open(fixture_path, &:read))
   result = value_compare(expected_value, payload_value)
   assert_true(result.equal?,
@@ -284,21 +284,21 @@ end
 #
 # @step_input field_path [String] Path to the tested element
 Then('the payload field {string} is true') do |field_path|
-  assert_equal(true, Maze::Helper.read_key_path(Maze::Server.errors.current[:body], field_path))
+  assert_equal(true, Maze.read_key_path(Maze::Server.errors.current[:body], field_path))
 end
 
 # Tests that a payload element is false.
 #
 # @step_input field_path [String] Path to the tested element
 Then('the payload field {string} is false') do |field_path|
-  assert_equal(false, Maze::Helper.read_key_path(Maze::Server.errors.current[:body], field_path))
+  assert_equal(false, Maze.read_key_path(Maze::Server.errors.current[:body], field_path))
 end
 
 # Tests that a payload element is null.
 #
 # @step_input field_path [String] Path to the tested element
 Then('the payload field {string} is null') do |field_path|
-  value = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], field_path)
+  value = Maze.read_key_path(Maze::Server.errors.current[:body], field_path)
   assert_nil(value, "The field '#{field_path}' should be null but is #{value}")
 end
 
@@ -306,7 +306,7 @@ end
 #
 # @step_input field_path [String] Path to the tested element
 Then('the payload field {string} is not null') do |field_path|
-  assert_not_nil(Maze::Helper.read_key_path(Maze::Server.errors.current[:body], field_path),
+  assert_not_nil(Maze.read_key_path(Maze::Server.errors.current[:body], field_path),
                  "The field '#{field_path}' should not be null")
 end
 
@@ -315,7 +315,7 @@ end
 # @step_input field_path [String] Path to the tested element
 # @step_input int_value [Integer] The value to test against
 Then('the payload field {string} equals {int}') do |field_path, int_value|
-  assert_equal(int_value, Maze::Helper.read_key_path(Maze::Server.errors.current[:body], field_path))
+  assert_equal(int_value, Maze.read_key_path(Maze::Server.errors.current[:body], field_path))
 end
 
 # Tests the payload field value against an environment variable.
@@ -325,7 +325,7 @@ end
 Then('the payload field {string} equals the environment variable {string}') do |field_path, env_var|
   environment_value = ENV[env_var]
   assert_false(environment_value.nil?, "The environment variable #{env_var} must not be nil")
-  value = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], field_path)
+  value = Maze.read_key_path(Maze::Server.errors.current[:body], field_path)
 
   assert_equal(environment_value, value)
 end
@@ -335,7 +335,7 @@ end
 # @step_input field_path [String] The payload element to test
 # @step_input int_value [Integer] The value to compare against
 Then('the payload field {string} is greater than {int}') do |field_path, int_value|
-  value = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], field_path)
+  value = Maze.read_key_path(Maze::Server.errors.current[:body], field_path)
   assert_kind_of Integer, value
   assert(value > int_value, "The payload field '#{field_path}' is not greater than '#{int_value}'")
 end
@@ -345,7 +345,7 @@ end
 # @step_input field_path [String] The payload element to test
 # @step_input int_value [Integer] The value to compare against
 Then('the payload field {string} is less than {int}') do |field_path, int_value|
-  value = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], field_path)
+  value = Maze.read_key_path(Maze::Server.errors.current[:body], field_path)
   assert_kind_of Integer, value
   assert(value < int_value, "The payload field '#{field_path}' is not less than '#{int_value}'")
 end
@@ -355,7 +355,7 @@ end
 # @step_input field_path [String] The payload element to test
 # @step_input string_value [String] The string to test against
 Then('the payload field {string} equals {string}') do |field_path, string_value|
-  assert_equal(string_value, Maze::Helper.read_key_path(Maze::Server.errors.current[:body], field_path))
+  assert_equal(string_value, Maze.read_key_path(Maze::Server.errors.current[:body], field_path))
 end
 
 # Tests a payload field starts with a string.
@@ -363,7 +363,7 @@ end
 # @step_input field_path [String] The payload element to test
 # @step_input string_value [String] The string to test against
 Then('the payload field {string} starts with {string}') do |field_path, string_value|
-  value = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], field_path)
+  value = Maze.read_key_path(Maze::Server.errors.current[:body], field_path)
   assert_kind_of String, value
   assert(value.start_with?(string_value),
          "Field '#{field_path}' value ('#{value}') does not start with '#{string_value}'")
@@ -374,7 +374,7 @@ end
 # @step_input field_path [String] The payload element to test
 # @step_input string_value [String] The string to test against
 Then('the payload field {string} ends with {string}') do |field_path, string_value|
-  value = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], field_path)
+  value = Maze.read_key_path(Maze::Server.errors.current[:body], field_path)
   assert_kind_of String, value
   assert(value.end_with?(string_value),
          "Field '#{field_path}' does not end with '#{string_value}'")
@@ -385,7 +385,7 @@ end
 # @step_input field [String] The payload element to test
 # @step_input count [Integer] The value expected
 Then('the payload field {string} is an array with {int} elements') do |field, count|
-  value = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], field)
+  value = Maze.read_key_path(Maze::Server.errors.current[:body], field)
   assert_kind_of Array, value
   assert_equal(count, value.length)
 end
@@ -394,7 +394,7 @@ end
 #
 # @step_input field [String] The payload element to test
 Then('the payload field {string} is a non-empty array') do |field|
-  value = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], field)
+  value = Maze.read_key_path(Maze::Server.errors.current[:body], field)
   assert_kind_of Array, value
   assert(value.length > 0,
          "the field '#{field}' must be a non-empty array")
@@ -406,7 +406,7 @@ end
 # @step_input regex [String] The regex to test against
 Then('the payload field {string} matches the regex {string}') do |field, regex_string|
   regex = Regexp.new(regex_string)
-  value = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], field)
+  value = Maze.read_key_path(Maze::Server.errors.current[:body], field)
   assert_match(regex, value)
 end
 
@@ -414,7 +414,7 @@ end
 #
 # @step_input field [String] The payload element to test
 Then('the payload field {string} is a parsable timestamp in seconds') do |field|
-  value = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], field)
+  value = Maze.read_key_path(Maze::Server.errors.current[:body], field)
   begin
     int = value.to_i
     parsed_time = Time.at(int)
@@ -429,10 +429,10 @@ end
 # @step_input key_path [String] The path to the tested array
 # @step_input element_key_path [String] The key for the expected element inside the array
 Then('each element in payload field {string} has {string}') do |key_path, element_key_path|
-  value = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], key_path)
+  value = Maze.read_key_path(Maze::Server.errors.current[:body], key_path)
   assert_kind_of Array, value
   value.each do |element|
-    assert_not_nil(Maze::Helper.read_key_path(element, element_key_path),
+    assert_not_nil(Maze.read_key_path(element, element_key_path),
                    "Each element in '#{key_path}' must have '#{element_key_path}'")
   end
 end

@@ -9,9 +9,9 @@ require_relative '../../lib/features/support/configuration'
 class OptionsProcessorTest < Test::Unit::TestCase
   def test_populate_bs_config_separate
     args = %w[--farm=bs --app=my_app.apk --username=user --access-key=key --device=ANDROID_6_0 --separate-sessions]
-    options = Maze::OptionParser.parse args
+    options = Maze::Options::OptionParser.parse args
     config = Maze::Configuration.new
-    Maze::OptionProcessor.populate config, options
+    Maze::Options::OptionProcessor.populate config, options
 
     assert_true config.appium_session_isolation
     assert_false config.resilient
@@ -27,7 +27,7 @@ class OptionsProcessorTest < Test::Unit::TestCase
 
   def test_populate_bs_config_resilient
     args = %w[--farm=bs --app=a --username=b --access-key=c --device=ANDROID_6_0 --resilient --a11y-locator]
-    options = Maze::OptionParser.parse args
+    options = Maze::Options::OptionParser.parse args
     config = Maze::Configuration.new
     Maze::OptionProcessor.populate config, options
 
@@ -38,7 +38,7 @@ class OptionsProcessorTest < Test::Unit::TestCase
 
   def test_populate_local_config
     args = %w[--farm=local --app=my_app.ipa --os=ios --os-version=7.1 --apple-team-id=ABC --udid=123]
-    options = Maze::OptionParser.parse args
+    options = Maze::Options::OptionParser.parse args
     config = Maze::Configuration.new
     Maze::OptionProcessor.populate config, options
 

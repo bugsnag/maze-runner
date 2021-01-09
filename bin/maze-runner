@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 require 'cucumber/cli/main'
-require_relative '../lib/maze/options/option'
+require_relative '../lib/maze/option'
 require_relative '../lib/maze/options/option_parser'
 require_relative '../lib/maze/options/option_processor'
 require_relative '../lib/maze/options/option_validator'
@@ -73,10 +73,10 @@ class MazeRunnerEntry
   def start(args)
     # Parse args, processing any Maze Runner specific options
     @args = args.dup
-    options = Maze::OptionParser.parse args
+    options = Maze::Options::OptionParser.parse args
 
     # Validate CL options
-    errors = Maze::OptionValidator.new.validate options
+    errors = Maze::Options::OptionValidator.new.validate options
     unless errors.empty?
       puts errors
       exit 1
@@ -84,7 +84,7 @@ class MazeRunnerEntry
 
     #
     init if options[:init]
-    Maze::OptionProcessor.populate MazeRunner.config, options
+    Maze::Options::OptionProcessor.populate MazeRunner.config, options
 
     # Adjust CL options before calling down to Cucumber
     remove_maze_runner_args

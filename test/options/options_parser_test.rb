@@ -17,7 +17,7 @@ class OptionsParserTest < Test::Unit::TestCase
 
   def test_default_values
     args = %w[]
-    options = Maze::OptionParser.parse args
+    options = Maze::Options::OptionParser.parse args
 
     # Common options
     assert_false(options[Maze::Option::SEPARATE_SESSIONS])

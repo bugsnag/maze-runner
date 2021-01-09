@@ -1,6 +1,5 @@
 require 'appium_lib'
-require_relative './fast_selenium'
-require_relative './logger'
+require_relative '../logger'
 
 module Maze
   module Drivers

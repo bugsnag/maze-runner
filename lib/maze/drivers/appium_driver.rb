@@ -2,8 +2,8 @@ require 'appium_lib'
 require 'json'
 require 'open3'
 require 'securerandom'
-require_relative './logger'
-require_relative './maze_runner'
+require_relative '../logger'
+require_relative '../../maze'
 
 module Maze
   module Drivers

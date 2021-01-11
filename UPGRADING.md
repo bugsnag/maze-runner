@@ -17,7 +17,11 @@ v4:
 config.setEndpoints("http://localhost:9339/notify", "http://localhost:9339/sessions")
 ```
 
-### Cucumber steps changed
+### Namespace and class changes
+
+The `MazeRunner` class is renamed to just `Maze` and all other classes have been moved into the `Maze` namespace.
+
+### Cucumber step changes
  
 Several Cucumber steps have changed their wording or been split into separate steps:
 

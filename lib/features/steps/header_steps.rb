@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # @!group Header steps
 
 # Checks that the Bugsnag-Integrity header is a SHA1 or simple digest

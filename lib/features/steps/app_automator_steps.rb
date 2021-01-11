@@ -5,7 +5,7 @@
 #
 # @step_input element_id [String] The locator id
 Given('the element {string} is present') do |element_id|
-  present = MazeRunner.driver.wait_for_element(element_id)
+  present = Maze.driver.wait_for_element(element_id)
   assert(present, "The element #{element_id} could not be found")
 end
 
@@ -15,7 +15,7 @@ end
 # @step_input element_id [String] The locator id
 # @step_input timeout [Int] The number of seconds to wait before timing out
 Given('the element {string} is present within {int} seconds') do |element_id, timeout|
-  present = MazeRunner.driver.wait_for_element(element_id, timeout)
+  present = Maze.driver.wait_for_element(element_id, timeout)
   assert(present, "The element #{element_id} could not be found")
 end
 
@@ -24,10 +24,10 @@ end
 #
 # @step_input element_id [String] The locator id
 When('I click the element {string}') do |element_id|
-  MazeRunner.driver.click_element(element_id)
+  Maze.driver.click_element(element_id)
 rescue StandardError
   # AppiumForMac raises an to run a scenario that crashes the app
-  raise unless MazeRunner.config.os == 'macos'
+  raise unless Maze.config.os == 'macos'
 
   $logger.warn 'Ignoring exception raised on click_element - this is normal for AppiumForMac if the button click ' \
     'causes the app to crash.'
@@ -38,7 +38,7 @@ end
 #
 # @step_input timeout [Integer] The amount of time the app is in the background in seconds
 When('I send the app to the background for {int} seconds') do |timeout|
-  MazeRunner.driver.background_app(timeout)
+  Maze.driver.background_app(timeout)
 end
 
 # Clears a given element
@@ -46,7 +46,7 @@ end
 #
 # @step_input element_id [String] The locator id
 When('I clear the element {string}') do |element_id|
-  MazeRunner.driver.clear_element(element_id)
+  Maze.driver.clear_element(element_id)
 end
 
 # Sends keys to a given element
@@ -55,7 +55,7 @@ end
 # @step_input keys [String] The keys to send to the element
 # @step_input element_id [String] The locator id
 When('I send the keys {string} to the element {string}') do |keys, element_id|
-  MazeRunner.driver.send_keys_to_element(element_id, keys)
+  Maze.driver.send_keys_to_element(element_id, keys)
 end
 
 # Tests that the given payload value is correct for the target BrowserStack platform.
@@ -153,13 +153,13 @@ end
 # @step_input keys [String] The keys to send to the element
 # @step_input element_id [String] The locator id
 When('I clear and send the keys {string} to the element {string}') do |keys, element_id|
-  MazeRunner.driver.clear_and_send_keys_to_element(element_id, keys)
+  Maze.driver.clear_and_send_keys_to_element(element_id, keys)
 end
 
 def get_expected_platform_value(platform_values)
-  raise('This step should only be used when running tests with Appium') if MazeRunner.driver.nil?
+  raise('This step should only be used when running tests with Appium') if Maze.driver.nil?
 
-  os = MazeRunner.config.capabilities['os']
+  os = Maze.config.capabilities['os']
   expected_value = Hash[platform_values.raw][os]
   raise("There is no expected value for the current platform \"#{os}\"") if expected_value.nil?
 

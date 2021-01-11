@@ -84,7 +84,7 @@ class MazeRunnerEntry
 
     #
     init if options[:init]
-    Maze::Options::OptionProcessor.populate MazeRunner.config, options
+    Maze::Options::OptionProcessor.populate Maze.config, options
 
     # Adjust CL options before calling down to Cucumber
     remove_maze_runner_args

@@ -13,7 +13,7 @@ Then('the Runner.environment entry for {string} is null') do |key|
   assert_nil(Runner.environment[key])
 end
 
-MazeRunner.hooks.before do |scenario|
+Maze.hooks.before do |scenario|
   Runner.environment['TEST_KEY'] = 'TEST_VALUE' if scenario.name == 'Set variable'
 end
 

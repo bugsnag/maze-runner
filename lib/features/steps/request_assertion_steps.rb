@@ -5,14 +5,14 @@ require 'minitest'
 require 'open-uri'
 require 'json'
 require 'cgi'
-require_relative '../../wait'
+require_relative '../../maze/wait'
 
 include Test::Unit::Assertions
 
 # @!group Request assertion steps
 
 def assert_received_requests(request_count, list, list_name)
-  timeout = MazeRunner.config.receive_requests_wait
+  timeout = Maze.config.receive_requests_wait
   wait = Maze::Wait.new(timeout: timeout)
 
   received = wait.until { list.size >= request_count }
@@ -34,7 +34,7 @@ end
 
 # Assert that the test Server hasn't received any requests at all.
 Then('I should receive no requests') do
-  sleep MazeRunner.config.receive_no_requests_wait
+  sleep Maze.config.receive_no_requests_wait
   assert_equal(0, Maze::Server.errors.size, "#{Maze::Server.errors.size} errors received")
   assert_equal(0, Maze::Server.sessions.size, "#{Maze::Server.sessions.size} sessions received")
 end
@@ -48,7 +48,7 @@ Then('I wait to receive an error') do
 end
 
 # Continually checks to see if the required amount of errors have been received.
-# Times out according to @see MazeRunner.config.receive_requests_wait.
+# Times out according to @see Maze.config.receive_requests_wait.
 #
 # @step_input request_count [Integer] The amount of requests expected
 Then('I wait to receive {int} error(s)') do |request_count|
@@ -57,7 +57,7 @@ end
 
 # Assert that the test Server hasn't received any errors.
 Then('I should receive no errors') do
-  sleep MazeRunner.config.receive_no_requests_wait
+  sleep Maze.config.receive_no_requests_wait
   assert_equal(0, Maze::Server.errors.size, "#{Maze::Server.errors.size} errors received")
 end
 
@@ -98,7 +98,7 @@ Then('I discard the oldest error') do
 end
 
 # Continually checks to see if the required amount of sessions have been received.
-# Times out according to @see MazeRunner.config.receive_requests_wait.
+# Times out according to @see Maze.config.receive_requests_wait.
 #
 # @step_input request_count [Integer] The amount of requests expected
 Then('I wait to receive {int} session(s)') do |request_count|
@@ -107,7 +107,7 @@ end
 
 # Assert that the test Server hasn't received any sessions.
 Then('I should receive no sessions') do
-  sleep MazeRunner.config.receive_no_requests_wait
+  sleep Maze.config.receive_no_requests_wait
   assert_equal(0, Maze::Server.sessions.size, "#{Maze::Server.sessions.size} sessions received")
 end
 

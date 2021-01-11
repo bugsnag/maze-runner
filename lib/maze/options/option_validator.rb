@@ -52,7 +52,7 @@ module Maze
             errors << "Browser type '#{bs_browser}' unknown on BrowserStack.  Must be one of: #{browser_list}."
           end
         elsif bs_device
-          unless Devices::DEVICE_HASH.key? bs_device
+          unless Maze::Capabilities::Devices::DEVICE_HASH.key? bs_device
             errors << "Device type '#{bs_device}' unknown on BrowserStack.  Must be one of #{Devices::DEVICE_HASH.keys}"
           end
           # App
@@ -92,7 +92,7 @@ module Maze
           errors << "--#{Maze::Option::OS_VERSION} must be specified"
         else
           # Ensure OS version is a valid float so that notifier tests can perform numeric checks
-          # e.g 'MazeRunner.config.os_version > 7'
+          # e.g 'Maze.config.os_version > 7'
           unless /^[1-9][0-9]*(\.[0-9])?/.match? options[Maze::Option::OS_VERSION]
             errors << "--#{Maze::Option::OS_VERSION} must be a valid version matching '/^[1-9][0-9]*(\\.[0-9])?/'"
           end

@@ -108,12 +108,12 @@ configuration should go.
  `echo Peanut Butter Jelly Time`
 
  # Run before every scenarios
- MazeRunner.hooks.before do
+ Maze.hooks.before do
    clean_build_artifacts
  end
 
 # Run after every scenario
-MazeRunner.hooks.after do |scenario|
+Maze.hooks.after do |scenario|
   # Teardown scenario configuration here
 
   if scenario.failed?
@@ -153,7 +153,7 @@ For example, to match the name of the second objects in the the key `fruits` bel
 #### Using BrowserStack
 
 BrowserStack is used to drive many of the mobile device tests written using maze-runner.  For these tests we can use a 
-driver class and accompanying set of steps to interface with the BrowserStack AppAutomate server.  `MazeRunner.driver` 
+driver class and accompanying set of steps to interface with the BrowserStack AppAutomate server.  `Maze.driver` 
 can be used to write custom steps using the API provided by the `Appium::Driver` class.
 
 The options needed to create a connection to the Appium server should be passed in via the command line when invoking

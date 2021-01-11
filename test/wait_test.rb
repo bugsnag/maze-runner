@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'test_helper'
-require_relative '../lib/wait'
+require_relative '../lib/maze/wait'
 
 # noinspection RubyNilAnalysis
 class WaitTest < Test::Unit::TestCase
@@ -56,7 +56,7 @@ class WaitTest < Test::Unit::TestCase
   end
 
   def test_it_raises_when_interval_is_zero
-    assert_raises(RuntimeError, "Interval (0) must be greater than timeout (1)") do
+    assert_raises(RuntimeError, 'Interval (0) must be greater than timeout (1)') do
       Maze::Wait.new(interval: 0, timeout: 1)
     end
   end
@@ -68,7 +68,7 @@ class WaitTest < Test::Unit::TestCase
   end
 
   def test_it_raises_when_interval_is_negative
-    assert_raises(RuntimeError, "Interval (-5) must be greater than timeout (1)") do
+    assert_raises(RuntimeError, 'Interval (-5) must be greater than timeout (1)') do
       Maze::Wait.new(interval: -5, timeout: 1)
     end
   end

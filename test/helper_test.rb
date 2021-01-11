@@ -1,7 +1,7 @@
 require 'test_helper'
-require_relative '../lib/features/support/header'
+require_relative '../lib/maze/helper'
 
-class HeaderTest < Test::Unit::TestCase
+class HelperTest < Test::Unit::TestCase
 
   def test_valid_sha_digest_header
     request = {
@@ -12,7 +12,7 @@ class HeaderTest < Test::Unit::TestCase
         sha1: '3cac245198d9b6e6a91b7d46b5117311f20d9eba'
       }
     }
-    assert_true(valid_bugsnag_integrity_header(request))
+    assert_true(Maze.valid_bugsnag_integrity_header(request))
   end
 
   def test_valid_simple_digest_header
@@ -24,7 +24,7 @@ class HeaderTest < Test::Unit::TestCase
         simple: 12
       }
     }
-    assert_true(valid_bugsnag_integrity_header(request))
+    assert_true(Maze.valid_bugsnag_integrity_header(request))
   end
 
   def test_invalid_sha_digest_header
@@ -36,7 +36,7 @@ class HeaderTest < Test::Unit::TestCase
         sha1: '111115198d9b6e6a91b7d46b5117311f20d9eba'
       }
     }
-    assert_false(valid_bugsnag_integrity_header(request))
+    assert_false(Maze.valid_bugsnag_integrity_header(request))
   end
 
   def test_invalid_simple_digest_header
@@ -48,6 +48,6 @@ class HeaderTest < Test::Unit::TestCase
         simple: 13
       }
     }
-    assert_false(valid_bugsnag_integrity_header(request))
+    assert_false(Maze.valid_bugsnag_integrity_header(request))
   end
 end

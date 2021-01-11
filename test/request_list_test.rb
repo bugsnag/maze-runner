@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 
 require 'test_helper'
-require_relative '../lib/features/support/request_list'
+require_relative '../lib/maze/request_list'
 
 # noinspection RubyNilAnalysis
 class RequestListTest < Test::Unit::TestCase
 
   def build_item(id)
-    hash = {
+    {
       id: id,
       body: "{id: '#{id}'}"
     }
   end
 
   def test_fresh_state
-    list = RequestList.new
+    list = Maze::RequestList.new
     assert_nil list.current
     assert_empty list
     assert_equal 0, list.size
@@ -22,7 +22,7 @@ class RequestListTest < Test::Unit::TestCase
   end
 
   def test_add_and_next
-    list = RequestList.new
+    list = Maze::RequestList.new
 
     # Add 2
     item1 = build_item 1
@@ -54,7 +54,7 @@ class RequestListTest < Test::Unit::TestCase
     item4 = build_item 4
     item5 = build_item 5
 
-    list = RequestList.new
+    list = Maze::RequestList.new
     list.add item1
     list.add item2
     list.add item3
@@ -76,7 +76,7 @@ class RequestListTest < Test::Unit::TestCase
     item2 = build_item 2
     item3 = build_item 3
 
-    list = RequestList.new
+    list = Maze::RequestList.new
     list.add item1
     list.add item2
     list.add item3
@@ -98,7 +98,7 @@ class RequestListTest < Test::Unit::TestCase
     item1 = build_item 1
     item2 = build_item 2
 
-    list = RequestList.new
+    list = Maze::RequestList.new
     list.add item1
 
     3.times { list.next }
@@ -113,7 +113,7 @@ class RequestListTest < Test::Unit::TestCase
     item2 = build_item 2
     item3 = build_item 3
 
-    list = RequestList.new
+    list = Maze::RequestList.new
     list.add item1
     list.add item2
     list.add item3

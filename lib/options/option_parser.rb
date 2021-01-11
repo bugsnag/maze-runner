@@ -56,8 +56,7 @@ module Maze
           opt Option::BS_LOCAL,
               '(BS only) Path to the BrowserStackLocal binary. MAZE_BS_LOCAL env var or "/BrowserStackLocal" by default',
               short: :none,
-              type: :string,
-              default: ENV['MAZE_BS_LOCAL'] || '/BrowserStackLocal'
+              type: :string
           opt Option::BS_DEVICE,
               'BrowserStack device to use (a key of Devices.DEVICE_HASH)',
               short: :none,
@@ -65,13 +64,11 @@ module Maze
           opt Option::USERNAME,
               'Device farm username. MAZE_DEVICE_FARM_USERNAME env var by default',
               short: '-u',
-              type: :string,
-              default: ENV['MAZE_DEVICE_FARM_USERNAME']
+              type: :string
           opt Option::ACCESS_KEY,
               'Device farm access key. MAZE_DEVICE_FARM_ACCESS_KEY env var by default',
               short: '-p',
-              type: :string,
-              default: ENV['MAZE_DEVICE_FARM_ACCESS_KEY']
+              type: :string
           opt Option::BS_APPIUM_VERSION,
               'The Appium version to use with BrowserStack',
               short: :none,
@@ -87,20 +84,17 @@ module Maze
               short: :none,
               type: :string
           opt Option::APPIUM_SERVER,
-              'Appium server URL, only used for --farm=local. MAZE_APPIUM_SERVER env var by default',
+              'Appium server URL, only used for --farm=local. MAZE_APPIUM_SERVER env var or "http://localhost:4723/wd/hub" by default',
               short: :none,
-              type: :string,
-              default: ENV['MAZE_APPIUM_SERVER'] || 'http://localhost:4723/wd/hub'
+              type: :string
           opt Option::APPLE_TEAM_ID,
               'Apple Team Id, required for local iOS testing. MAZE_APPLE_TEAM_ID env var by default',
               short: :none,
-              type: :string,
-              default: ENV['MAZE_APPLE_TEAM_ID']
+              type: :string
           opt Option::UDID,
               'Apple UDID, required for local iOS testing. MAZE_UDID env var by default',
               short: :none,
-              type: :string,
-              default: ENV['MAZE_UDID']
+              type: :string
 
           version "Maze Runner v#{Maze::VERSION} " \
                   "(Cucumber v#{Cucumber::VERSION.strip})"
@@ -111,8 +105,8 @@ module Maze
 
         # Allow for options destined for Cucumber
         parser.ignore_invalid_options = true
-        parser.parse args
-
+        options = parser.parse args
+        populate_environmental_defaults(options)
       rescue Optimist::HelpNeeded
         parser.educate
         Cucumber::Cli::Main.new(['--help']).execute!
@@ -120,6 +114,21 @@ module Maze
       rescue Optimist::VersionNeeded
         puts parser.version
         exit
+      end
+
+      # Populates unset options with appropriate environment variables or default values if necessary
+      #
+      # @param options [Hash] The hash of already-parsed options
+      #
+      # @returns [Hash] The options hash with environment vars added
+      def populate_environmental_defaults(options)
+        options[Option::BS_LOCAL] ||= ENV['MAZE_BS_LOCAL'] || '/BrowserStackLocal'
+        options[Option::USERNAME] ||= ENV['MAZE_DEVICE_FARM_USERNAME']
+        options[Option::ACCESS_KEY] ||= ENV['MAZE_DEVICE_FARM_ACCESS_KEY']
+        options[Option::APPIUM_SERVER] ||= ENV['MAZE_APPIUM_SERVER'] || 'http://localhost:4723/wd/hub'
+        options[Option::APPLE_TEAM_ID] ||= ENV['MAZE_APPLE_TEAM_ID']
+        options[Option::UDID] ||= ENV['MAZE_UDID']
+        options
       end
     end
   end

@@ -1,4 +1,13 @@
+# 3.7.4 - 2021/01/12
+
+## Fixes
+
+- Ensure environment variables cannot leak through --help dialogue
+  [#198](https://github.com/bugsnag/maze-runner/pull/198)
+
 # 3.7.3 - 2021/01/08
+
+## Fixes
 
 - Strip ANSI escape codes from interactive CLI output to improve reliability [#197](https://github.com/bugsnag/maze-runner/pull/197)
 

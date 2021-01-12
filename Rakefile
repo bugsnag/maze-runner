@@ -28,7 +28,9 @@ namespace :test do
   Rake::TestTask.new(:unit) do |t|
     t.libs << 'test'
     t.libs << 'lib'
-    t.test_files = FileList['test/**/*_test.rb']
+    t.test_files = FileList.new('test/**/*_test.rb') do |fl|
+      fl.exclude(/integration/)
+    end
   end
   desc 'Run all tests'
   task :all => [:unit, :integration]

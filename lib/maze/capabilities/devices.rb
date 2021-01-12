@@ -5,10 +5,10 @@ module Maze
     # Provides a source of capabilities used to run tests against specific BrowserStack devices
     # noinspection RubyStringKeysInHashInspection
     class Devices
-      APPIUM_1_6_5 ||= '1.6.5'
-      APPIUM_1_7_2 ||= '1.7.2'
-      APPIUM_1_8_0 ||= '1.8.0'
-      APPIUM_1_15_0 ||= '1.15.0'
+      APPIUM_1_6_5 = '1.6.5'
+      APPIUM_1_7_2 = '1.7.2'
+      APPIUM_1_8_0 = '1.8.0'
+      APPIUM_1_15_0 = '1.15.0'
 
       class << self
         def make_android_hash(device, version, appium_version)
@@ -107,7 +107,7 @@ module Maze
       end
 
       # The hash of device capabilities, accessible by simple names
-      DEVICE_HASH ||= create_hash
+      DEVICE_HASH = create_hash
     end
   end
 end

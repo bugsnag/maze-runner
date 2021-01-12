@@ -40,7 +40,7 @@ class SampleTest < Test::Unit::TestCase
     FileUtils.rm_rf fixture_dir
     FileUtils.mkdir_p fixture_dir
     Dir.chdir(fixture_dir) do
-      Process.wait Process.spawn("../../../bin/bugsnag-maze-runner", "init", "--skip-install")
+      Process.wait Process.spawn("../../../bin/maze-runner", "init", "--skip-install")
       status = $?.exitstatus
       assert_equal(0, status, "Running init failed")
       open("Gemfile", "w") do |file|
@@ -57,7 +57,7 @@ CONTENTS
 
   def run_scenario fixture_path
     Dir.chdir(fixture_path) do
-        Process.wait Process.spawn("bundle", "exec", "bugsnag-maze-runner")
+        Process.wait Process.spawn("bundle", "exec", "maze-runner")
         status = $?.exitstatus
         assert_equal(0, status, "Scenario failed: #{fixture_path}")
     end

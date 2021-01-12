@@ -28,7 +28,7 @@ the hood to draft semantic tests.
 
 3. Run `bundle install` to fetch and install Maze Runner
 
-4. Run `bundle exec bugsnag-maze-runner init` from the root of your project to build the
+4. Run `bundle exec maze-runner init` from the root of your project to build the
    basic structure to run test scenarios.
    * `features/fixtures`: Test fixture files, such as sample JSON payloads
    * `features/scripts`: Scripts to be run in scenarios. Any environment
@@ -46,7 +46,7 @@ the hood to draft semantic tests.
    A sample feature is included after running `init`. Try it out with
 
    ```shell
-   bundle exec bugsnag-maze-runner
+   bundle exec maze-runner
    ```
 
 ## Documentation
@@ -61,5 +61,5 @@ If steps would be useful for different projects using maze-runner, add them to
 
 ### Running the tests
 
-bugsnag-maze-runner uses test-unit and minunit to bootstrap itself and run the
+maze-runner uses test-unit and minunit to bootstrap itself and run the
 sample app suites in the test fixtures. Run `bundle exec rake` to run the suite.

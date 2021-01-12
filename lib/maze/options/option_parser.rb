@@ -121,21 +121,21 @@ module Maze
           puts parser.version
           exit
         end
-      end
 
-      # Populates unset options with appropriate environment variables or default values if necessary
-      #
-      # @param options [Hash] The hash of already-parsed options
-      #
-      # @returns [Hash] The options hash with environment vars added
-      def populate_environmental_defaults(options)
-        options[Option::BS_LOCAL] ||= ENV['MAZE_BS_LOCAL'] || '/BrowserStackLocal'
-        options[Option::USERNAME] ||= ENV['MAZE_DEVICE_FARM_USERNAME']
-        options[Option::ACCESS_KEY] ||= ENV['MAZE_DEVICE_FARM_ACCESS_KEY']
-        options[Option::APPIUM_SERVER] ||= ENV['MAZE_APPIUM_SERVER'] || 'http://localhost:4723/wd/hub'
-        options[Option::APPLE_TEAM_ID] ||= ENV['MAZE_APPLE_TEAM_ID']
-        options[Option::UDID] ||= ENV['MAZE_UDID']
-        options
+        # Populates unset options with appropriate environment variables or default values if necessary
+        #
+        # @param options [Hash] The hash of already-parsed options
+        #
+        # @returns [Hash] The options hash with environment vars added
+        def populate_environmental_defaults(options)
+          options[Option::BS_LOCAL] ||= ENV['MAZE_BS_LOCAL'] || '/BrowserStackLocal'
+          options[Option::USERNAME] ||= ENV['MAZE_DEVICE_FARM_USERNAME']
+          options[Option::ACCESS_KEY] ||= ENV['MAZE_DEVICE_FARM_ACCESS_KEY']
+          options[Option::APPIUM_SERVER] ||= ENV['MAZE_APPIUM_SERVER'] || 'http://localhost:4723/wd/hub'
+          options[Option::APPLE_TEAM_ID] ||= ENV['MAZE_APPLE_TEAM_ID']
+          options[Option::UDID] ||= ENV['MAZE_UDID']
+          options
+        end
       end
     end
   end

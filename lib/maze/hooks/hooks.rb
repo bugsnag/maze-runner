@@ -5,7 +5,7 @@ module Maze
     # Provides the ability for callbacks to be provided as part of running Cucumber.
     # These are akin to Cucumber's AfterConfiguration, Before and After hooks, but are invoked in such a way that
     # Maze Runner's hooks do not interfere with callbacks registered by clients.
-    class ClientHooks
+    class Hooks
       def initialize
         @after_configuration = []
         @before = []

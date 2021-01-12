@@ -6,7 +6,7 @@ require 'singleton'
 # Logger classes
 module Maze
   # A logger, with level configured according to the environment
-  class MazeLogger < Logger
+  class Logger < Logger
     include Singleton
     def initialize
       if ENV['VERBOSE'] || ENV['DEBUG']
@@ -20,7 +20,7 @@ module Maze
     end
   end
 
-  $logger = MazeLogger.instance
+  $logger = Maze::Logger.instance
 
   # A collection of logging utilities
   class LogUtil

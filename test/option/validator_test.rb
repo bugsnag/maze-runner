@@ -9,6 +9,11 @@ class ValidatorTest < Test::Unit::TestCase
 
   def setup
     @validator = Maze::Option::Validator.new
+    # Prevent environment confusing tests
+    ENV.delete('MAZE_BS_LOCAL')
+    ENV.delete('MAZE_DEVICE_FARM_USERNAME')
+    ENV.delete('MAZE_DEVICE_FARM_ACCESS_KEY')
+    ENV.delete('MAZE_APPLE_TEAM_ID')
   end
 
   def test_invalid_farm
@@ -21,7 +26,10 @@ class ValidatorTest < Test::Unit::TestCase
   end
 
   def test_valid_browser_stack_options
-    args = %w[--farm=bs --app=Gemfile --username=user --access-key=key --device=ANDROID_6_0]
+    args = %w[--farm=bs --app=my_app.apk --username=user --access-key=key --device=ANDROID_6_0]
+    File.stubs(:exist?).with('/BrowserStackLocal').returns(true)
+    File.stubs(:exist?).with('my_app.apk').returns(true)
+
     options = Maze::Option::Parser.parse args
     errors = @validator.validate options
 
@@ -30,17 +38,22 @@ class ValidatorTest < Test::Unit::TestCase
 
   def test_browser_stack_invalid_device
     args = %w[--farm=bs --app=my_app.apk --username=user --access-key=key --device=MADE_UP]
+    File.stubs(:exist?).with('/BrowserStackLocal').returns(true)
+    File.stubs(:exist?).with('my_app.apk').returns(true)
+
     options = Maze::Option::Parser.parse args
     errors = @validator.validate options
 
     puts errors
-    assert_equal 2, errors.length
+    assert_equal 1, errors.length
     assert_match 'Device type \'MADE_UP\' unknown on BrowserStack.  Must be one of', errors[0]
-    assert_match 'app file \'my_app.apk\' not found', errors[1]
   end
 
   def test_browser_stack_missing_device
     args = %w[--farm=bs --app=my_app.apk --username=user --access-key=key]
+    File.stubs(:exist?).with('/BrowserStackLocal').returns(true)
+    File.stubs(:exist?).with('my_app.apk').returns(true)
+
     options = Maze::Option::Parser.parse args
     errors = @validator.validate options
 
@@ -50,6 +63,9 @@ class ValidatorTest < Test::Unit::TestCase
 
   def test_browser_stack_missing_app
     args = %w[--farm=bs --username=user --access-key=key --device=ANDROID_6_0]
+    File.stubs(:exist?).with('/BrowserStackLocal').returns(true)
+    File.stubs(:exist?).with('my_app.apk').returns(true)
+
     options = Maze::Option::Parser.parse args
     errors = @validator.validate options
 

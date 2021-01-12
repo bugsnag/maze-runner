@@ -4,7 +4,7 @@ require 'socket'
 
 module Maze
   # Sets the maximum number of times Maze runner will ping to see if a port is open, defaulting to 100
-  MAX_MAZE_CONNECT_ATTEMPTS = ENV.include?('MAX_MAZE_CONNECT_ATTEMPTS')? ENV['MAX_MAZE_CONNECT_ATTEMPTS'].to_i : 100
+  MAX_MAZE_CONNECT_ATTEMPTS = ENV.fetch('MAX_MAZE_CONNECT_ATTEMPTS', 100).to_i
 
   # Provides network utility functionality
   class Network

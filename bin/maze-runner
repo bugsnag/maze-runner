@@ -9,6 +9,19 @@ require_relative '../lib/maze/options/option_validator'
 require_relative '../lib/maze'
 require_relative '../lib/maze/capabilities/capabilities'
 require_relative '../lib/maze/capabilities/devices'
+require_relative '../lib/maze/hooks/client_hooks'
+require_relative '../lib/maze/browser_stack_utils'
+require_relative '../lib/maze/compare'
+require_relative '../lib/maze/docker'
+require_relative '../lib/maze/drivers/appium_driver'
+require_relative '../lib/maze/drivers/resilient_driver'
+require_relative '../lib/maze/drivers/selenium_driver'
+require_relative '../lib/maze/helper'
+require_relative '../lib/maze/logger'
+require_relative '../lib/maze/runner'
+require_relative '../lib/maze/proxy'
+require_relative '../lib/maze/server'
+require_relative '../lib/maze/store'
 
 # Encapsulates the MazeRunner entry point
 class MazeRunnerEntry
@@ -62,8 +75,6 @@ class MazeRunnerEntry
     # Load internal steps and helper functions
     load_dir = File.expand_path(File.dirname(File.dirname(__FILE__))).freeze
     paths = Dir.glob("#{load_dir}/lib/features/**/*.rb")
-    paths += Dir.glob("#{load_dir}/lib/maze.rb")
-    paths += Dir.glob("#{load_dir}/lib/maze/**/*.rb")
 
     # Load project-specific steps and helper functions
     paths += Dir.glob('features/{support,steps}/*.rb')

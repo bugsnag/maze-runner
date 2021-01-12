@@ -58,9 +58,9 @@ module Maze
 
       # Successful the second
       mock_http_server = mock('http')
-      mock_http_server::Server.expects(:mount).twice
-      mock_http_server::Server.expects(:start)
-      mock_http_server::Server.expects(:shutdown)
+      mock_http_server.expects(:mount).twice
+      mock_http_server.expects(:start)
+      mock_http_server.expects(:shutdown)
       WEBrick::HTTPServer.expects(:new).with(Port: Server::PORT,
                                              Logger: @logger_mock,
                                              AccessLog: []).returns(mock_http_server)

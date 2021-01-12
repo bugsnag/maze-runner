@@ -5,9 +5,9 @@ require_relative '../option'
 require_relative '../capabilities/devices'
 
 module Maze
-  module Options
+  module Option
     # Validates command line options
-    class OptionValidator
+    class Validator
       # Validates all provided options
       # @param options [Hash] Parsed command line options
       def validate(options)
@@ -53,7 +53,7 @@ module Maze
           end
         elsif bs_device
           unless Maze::Capabilities::Devices::DEVICE_HASH.key? bs_device
-            errors << "Device type '#{bs_device}' unknown on BrowserStack.  Must be one of #{Devices::DEVICE_HASH.keys}"
+            errors << "Device type '#{bs_device}' unknown on BrowserStack.  Must be one of #{Maze::Capabilities::Devices::DEVICE_HASH.keys}"
           end
           # App
           app = options[Option::APP]

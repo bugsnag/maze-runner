@@ -2,7 +2,7 @@
 
 # Provides the set of Maze Runner command line options
 module Maze
-  class Option
+  module Option
     # Common options
     SEPARATE_SESSIONS = 'separate-sessions'
     FARM = 'farm'

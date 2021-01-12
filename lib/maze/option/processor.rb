@@ -4,9 +4,9 @@ require_relative '../option'
 require_relative '../capabilities/devices'
 
 module Maze
-  module Options
+  module Option
     # Processes the parsed command line options
-    class OptionProcessor
+    class Processor
       class << self
         # Populates config from the parsed options given
         # @param config [Configuration] MazeRunner configuration to populate

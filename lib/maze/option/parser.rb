@@ -6,9 +6,9 @@ require_relative '../option'
 require_relative '../../maze'
 
 module Maze
-  module Options
+  module Option
     # Parses the command line options
-    class OptionParser
+    class Parser
       class << self
         def parse(args)
           parser = Optimist::Parser.new do

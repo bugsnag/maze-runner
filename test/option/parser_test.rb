@@ -2,10 +2,10 @@
 
 require_relative '../test_helper'
 require_relative '../../lib/maze/option'
-require_relative '../../lib/maze/options/option_parser'
+require_relative '../../lib/maze/option/parser'
 
 # Tests the options parser and processor together (using only valid options and with no validator).
-class OptionsParserTest < Test::Unit::TestCase
+class ParserTest < Test::Unit::TestCase
   def setup
     ENV.delete('MAZE_DEVICE_FARM_USERNAME')
     ENV.delete('MAZE_DEVICE_FARM_ACCESS_KEY')
@@ -17,7 +17,7 @@ class OptionsParserTest < Test::Unit::TestCase
 
   def test_default_values
     args = %w[]
-    options = Maze::Options::OptionParser.parse args
+    options = Maze::Option::Parser.parse args
 
     # Common options
     assert_false(options[Maze::Option::SEPARATE_SESSIONS])
@@ -63,7 +63,7 @@ class OptionsParserTest < Test::Unit::TestCase
       --apple-team-id=ARG_APPLE_TEAM_ID
       --udid=ARG_UDID
     ]
-    options = Maze::Options::OptionParser.parse args
+    options = Maze::Option::Parser.parse args
 
     # Common options
     assert_true(options[Maze::Option::SEPARATE_SESSIONS])
@@ -98,7 +98,7 @@ class OptionsParserTest < Test::Unit::TestCase
       -u SHORT_USERNAME
       -p SHORT_ACCESS_KEY
     ]
-    options = Maze::Options::OptionParser.parse args
+    options = Maze::Option::Parser.parse args
 
     # Common options
     assert_equal('SHORT_FARM', options[Maze::Option::FARM])
@@ -120,7 +120,7 @@ class OptionsParserTest < Test::Unit::TestCase
     ENV['MAZE_UDID'] = 'ENV_UDID'
 
     args = %w[]
-    options = Maze::Options::OptionParser.parse args
+    options = Maze::Option::Parser.parse args
 
     # BrowserStack-only options
     assert_equal('ENV_USERNAME', options[Maze::Option::USERNAME])
@@ -149,7 +149,7 @@ class OptionsParserTest < Test::Unit::TestCase
       --apple-team-id=ARG_TEAM_ID
       --udid=ARG_UDID
     ]
-    options = Maze::Options::OptionParser.parse args
+    options = Maze::Option::Parser.parse args
 
     # BrowserStack-only options
     assert_equal('ARG_USERNAME', options[Maze::Option::USERNAME])

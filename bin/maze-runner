@@ -3,9 +3,9 @@
 
 require 'cucumber/cli/main'
 require_relative '../lib/maze/option'
-require_relative '../lib/maze/options/option_parser'
-require_relative '../lib/maze/options/option_processor'
-require_relative '../lib/maze/options/option_validator'
+require_relative '../lib/maze/option/parser'
+require_relative '../lib/maze/option/processor'
+require_relative '../lib/maze/option/validator'
 require_relative '../lib/maze'
 require_relative '../lib/maze/assertions/request_set_assertions'
 require_relative '../lib/maze/capabilities/capabilities'
@@ -85,10 +85,10 @@ class MazeRunnerEntry
   def start(args)
     # Parse args, processing any Maze Runner specific options
     @args = args.dup
-    options = Maze::Options::OptionParser.parse args
+    options = Maze::Option::Parser.parse args
 
     # Validate CL options
-    errors = Maze::Options::OptionValidator.new.validate options
+    errors = Maze::Option::Validator.new.validate options
     unless errors.empty?
       puts errors
       exit 1
@@ -96,7 +96,7 @@ class MazeRunnerEntry
 
     #
     init if options[:init]
-    Maze::Options::OptionProcessor.populate Maze.config, options
+    Maze::Option::Processor.populate Maze.config, options
 
     # Adjust CL options before calling down to Cucumber
     remove_maze_runner_args

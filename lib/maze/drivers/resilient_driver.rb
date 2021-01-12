@@ -20,7 +20,7 @@ module Maze
       end
 
       def respond_to_missing?(method_name, include_private = false)
-        @driver.respond_to_missing? method_name
+        @driver.respond_to_missing? method_name, include_private
       end
 
       def method_missing(method, *args, &block)

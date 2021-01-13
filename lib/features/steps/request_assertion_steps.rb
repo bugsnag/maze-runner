@@ -253,7 +253,7 @@ end
 Then('the payload body does not match the JSON fixture in {string}') do |fixture_path|
   payload_value = Maze::Server.errors.current[:body]
   expected_value = JSON.parse(open(fixture_path, &:read))
-  result = Maze.value_compare(expected_value, payload_value)
+  result = Maze::Compare.value(expected_value, payload_value)
   assert_false(result.equal?, "Payload:\n#{payload_value}\nExpected:#{expected_value}")
 end
 
@@ -263,7 +263,7 @@ end
 Then('the payload body matches the JSON fixture in {string}') do |fixture_path|
   payload_value = Maze::Server.errors.current[:body]
   expected_value = JSON.parse(open(fixture_path, &:read))
-  result = Maze.value_compare(expected_value, payload_value)
+  result = Maze::Compare.value(expected_value, payload_value)
   assert_true(result.equal?,
               "The payload field '#{result.keypath}' does not match the fixture:\n #{result.reasons.join('\n')}")
 end
@@ -275,7 +275,7 @@ end
 Then('the payload field {string} matches the JSON fixture in {string}') do |field_path, fixture_path|
   payload_value = Maze.read_key_path(Maze::Server.errors.current[:body], field_path)
   expected_value = JSON.parse(open(fixture_path, &:read))
-  result = Maze.value_compare(expected_value, payload_value)
+  result = Maze::Compare.value(expected_value, payload_value)
   assert_true(result.equal?,
               "The payload field '#{result.keypath}' does not match the fixture:\n #{result.reasons.join('\n')}")
 end

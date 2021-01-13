@@ -22,7 +22,7 @@ end
 Then('the payload field {string} equals the stored value {string}') do |field, key|
   payload_value = Maze.read_key_path(Maze::Server.errors.current[:body], field)
   stored_value = Maze::Store.values[key]
-  result = Maze.value_compare(payload_value, stored_value)
+  result = Maze::Compare.value(payload_value, stored_value)
   assert_true(result.equal?, "Payload value: #{payload_value} does not equal stored value: #{stored_value}")
 end
 
@@ -33,7 +33,7 @@ end
 Then('the payload field {string} does not equal the stored value {string}') do |field, key|
   payload_value = Maze.read_key_path(Maze::Server.errors.current[:body], field)
   stored_value = Maze::Store.values[key]
-  result = Maze.value_compare(payload_value, stored_value)
+  result = Maze::Compare.value(payload_value, stored_value)
   assert_false(result.equal?, "Payload value: #{payload_value} equals stored value: #{stored_value}")
 end
 
@@ -96,7 +96,7 @@ end
 Then('the session payload field {string} equals the stored value {string}') do |field, key|
   payload_value = Maze.read_key_path(Maze::Server.sessions.current[:body], field)
   stored_value = Maze::Store.values[key]
-  result = Maze.value_compare(payload_value, stored_value)
+  result = Maze::Compare.value(payload_value, stored_value)
   assert_true(result.equal?, "Payload value: #{payload_value} does not equal stored value: #{stored_value}")
 end
 
@@ -107,7 +107,7 @@ end
 Then('the session payload field {string} does not equal the stored value {string}') do |field, key|
   payload_value = Maze.read_key_path(Maze::Server.sessions.current[:body], field)
   stored_value = Maze::Store.values[key]
-  result = Maze.value_compare(payload_value, stored_value)
+  result = Maze::Compare.value(payload_value, stored_value)
   assert_false(result.equal?, "Payload value: #{payload_value} equals stored value: #{stored_value}")
 end
 

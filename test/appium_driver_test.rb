@@ -3,7 +3,7 @@
 require 'test_helper'
 require_relative '../lib/maze/drivers/appium_driver'
 
-class Maze::Drivers::AppiumDriverTest < Test::Unit::TestCase
+class AppiumDriverTest < Test::Unit::TestCase
 
   SERVER_URL = 'server_url'
   UUID_REGEX = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.freeze

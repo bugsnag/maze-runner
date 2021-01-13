@@ -53,15 +53,15 @@ AfterConfiguration do |_cucumber_config|
     Maze.driver = Maze::SeleniumDriver.new selenium_url, config.capabilities
   else
     Maze.driver = if Maze.config.resilient
-                    $logger.info 'Creating ResilientAppiumDriver instance'
-                    Maze::Drivers::ResilientAppiumDriver.new config.appium_server_url,
-                                                             config.capabilities,
-                                                             config.locator
+                    $logger.info 'Creating ResilientAppium driver instance'
+                    Maze::Driver::ResilientAppium.new config.appium_server_url,
+                                                      config.capabilities,
+                                                      config.locator
                   else
-                    $logger.info 'Creating AppiumDriver instance'
-                    Maze::Drivers::AppiumDriver.new config.appium_server_url,
-                                                    config.capabilities,
-                                                    config.locator
+                    $logger.info 'Creating Appium driver instance'
+                    Maze::Driver::Appium.new config.appium_server_url,
+                                             config.capabilities,
+                                             config.locator
                   end
     Maze.driver.start_driver unless config.appium_session_isolation
   end

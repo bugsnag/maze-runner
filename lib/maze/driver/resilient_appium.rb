@@ -2,21 +2,21 @@ require 'appium_lib'
 require_relative '../logger'
 
 module Maze
-  module Drivers
+  module Driver
     # Handles Appium driver restarts and retries in the case of failure. BrowserStack's iOS 10 and 11 iOS devices in
     # particular seemed prone to the underlying Appium connection failing.
     #
     # For methods available on this class, @see AppAutomateDriver.
-    class ResilientAppiumDriver
-      # Creates the AppiumDriver
+    class ResilientAppium
+      # Creates the Appium Driver
       #
       # @param server_url [String] URL of the Appium server
       # @param capabilities [Hash] a hash of capabilities to be used in this test run
       # @param locator [Symbol] the primary locator strategy Appium should use to find elements
       def initialize(server_url, capabilities, locator = :id)
-        @driver = AppiumDriver.new server_url,
-                                   capabilities,
-                                   locator
+        @driver = Appium.new server_url,
+                             capabilities,
+                             locator
       end
 
       def respond_to_missing?(method_name, include_private = false)

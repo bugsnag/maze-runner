@@ -33,7 +33,7 @@ module Maze
     # - on macOS, the name of an installed or previously executed application
     attr_accessor :app
 
-    # Whether the ResilientAppiumDriver should be used (only applicable when using Appium in the first place)
+    # Whether the ResilientAppium driver should be used (only applicable when using Appium in the first place)
     attr_accessor :resilient
 
     # Device farm to be used, one of:

@@ -6,9 +6,9 @@ require_relative '../logger'
 require_relative '../../maze'
 
 module Maze
-  module Drivers
+  module Driver
     # Provide a thin layer of abstraction above @see Appium::Driver
-    class AppiumDriver < Appium::Driver
+    class Appium < Appium::Driver
 
       # @!attribute [r] device_type
       #   @return [String] The device, from the list of device capabilities, used for this test
@@ -18,7 +18,7 @@ module Maze
       #   @return [Hash] The capabilities used to launch the BrowserStack instance
       attr_reader :capabilities
 
-      # Creates the AppiumDriver
+      # Creates the Appium driver
       #
       # @param server_url [String] URL of the Appium server
       # @param capabilities [Hash] a hash of capabilities to be used in this test run

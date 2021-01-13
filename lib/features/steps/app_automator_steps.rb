@@ -174,7 +174,7 @@ def test_string_platform_values(field_path, platform_values)
   expected_value = get_expected_platform_value(platform_values)
   return if should_skip_platform_check(expected_value)
 
-  payload_value = Maze.read_key_path(Maze::Server.errors.current[:body], field_path)
+  payload_value = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], field_path)
   assert_equal(expected_value, payload_value)
 end
 
@@ -189,7 +189,7 @@ def test_boolean_platform_values(field_path, platform_values)
                   else
                     expected_value
                   end
-  payload_value = Maze.read_key_path(Maze::Server.errors.current[:body], field_path)
+  payload_value = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], field_path)
   assert_equal(expected_bool, payload_value)
 end
 
@@ -197,6 +197,6 @@ def test_numeric_platform_values(field_path, platform_values)
   expected_value = get_expected_platform_value(platform_values)
   return if should_skip_platform_check(expected_value)
 
-  payload_value = Maze.read_key_path(Maze::Server.errors.current[:body], field_path)
+  payload_value = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], field_path)
   assert_equal(expected_value.to_f, payload_value)
 end

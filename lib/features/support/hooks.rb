@@ -20,10 +20,10 @@ AfterConfiguration do |_cucumber_config|
     tunnel_id = SecureRandom.uuid
     if config.bs_device
       # BrowserStack device
-      config.capabilities = Maze::Capabilities::Capabilities.for_browser_stack_device config.bs_device,
-                                                                                      tunnel_id,
-                                                                                      config.appium_version,
-                                                                                      config.capabilities_option
+      config.capabilities = Maze::Capabilities.for_browser_stack_device config.bs_device,
+                                                                        tunnel_id,
+                                                                        config.appium_version,
+                                                                        config.capabilities_option
 
       config.app = Maze::BrowserStackUtils.upload_app config.username,
                                                       config.access_key,
@@ -31,16 +31,16 @@ AfterConfiguration do |_cucumber_config|
       config.capabilities['app'] = config.app
     else
       # BrowserStack browser
-      config.capabilities = Maze::Capabilities.for_browser_stack_browser config.bs_browser,
-                                                                         tunnel_id,
-                                                                         config.capabilities_option
+      config.capabilities = Maze.for_browser_stack_browser config.bs_browser,
+                                                           tunnel_id,
+                                                           config.capabilities_option
     end
     Maze::BrowserStackUtils.start_local_tunnel config.bs_local,
                                                tunnel_id,
                                                config.access_key
   elsif config.farm == :local
     # Local device
-    config.capabilities = Maze::Capabilities.for_local config.os,
+    config.capabilities = Maze.for_local config.os,
                                                        config.capabilities_option,
                                                        config.apple_team_id,
                                                        config.device_id

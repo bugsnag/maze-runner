@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../option'
-require_relative '../capabilities/devices'
+require_relative '../devices'
 
 module Maze
   module Option
@@ -31,7 +31,7 @@ module Maze
           when :bs then
             if options[Maze::Option::BS_DEVICE]
               config.bs_device = options[Maze::Option::BS_DEVICE]
-              config.os_version = Maze::Capabilities::Devices::DEVICE_HASH[config.bs_device]['os_version'].to_f
+              config.os_version = Maze::Devices::DEVICE_HASH[config.bs_device]['os_version'].to_f
             else
               config.bs_browser = options[Maze::Option::BS_BROWSER]
             end

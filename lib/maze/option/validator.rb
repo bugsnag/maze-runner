@@ -2,7 +2,7 @@
 
 require 'yaml'
 require_relative '../option'
-require_relative '../capabilities/devices'
+require_relative '../devices'
 
 module Maze
   module Option
@@ -45,14 +45,14 @@ module Maze
           errors << "Either --#{Option::BS_BROWSER} or --#{Option::BS_DEVICE} must be specified"
         elsif bs_browser
 
-          browsers = YAML.safe_load(File.read("#{__dir__}/../features/support/capabilities/browsers.yml"))
+          browsers = YAML.safe_load(File.read("#{__dir__}/../browsers.yml"))
 
           unless browsers.include? bs_browser
             browser_list = browsers.keys.join ', '
             errors << "Browser type '#{bs_browser}' unknown on BrowserStack.  Must be one of: #{browser_list}."
           end
         elsif bs_device
-          unless Maze::Capabilities::Devices::DEVICE_HASH.key? bs_device
+          unless Maze::Devices::DEVICE_HASH.key? bs_device
             errors << "Device type '#{bs_device}' unknown on BrowserStack.  Must be one of #{Maze::Capabilities::Devices::DEVICE_HASH.keys}"
           end
           # App

@@ -3,7 +3,7 @@
 require 'cucumber'
 require 'test_helper'
 require 'webrick'
-require_relative '../lib/features/support/server'
+require_relative '../lib/maze/server'
 
 # noinspection RubyNilAnalysis
 module Maze
@@ -34,11 +34,11 @@ module Maze
                                              AccessLog: []).returns(mock_http_server)
 
       # End of first and only loop
-      Server.expects(:sleep).with(1)
-      Server.expects(:running?).returns(true)
+      Maze::Server.expects(:sleep).with(1)
+      Maze::Server.expects(:running?).returns(true)
 
       # Call the method
-      Server.start
+      Maze::Server.start
     end
 
     def test_start_on_retry
@@ -66,12 +66,12 @@ module Maze
                                              AccessLog: []).returns(mock_http_server)
 
       # End of loop
-      Server.expects(:sleep).with(1).twice
-      Server.expects(:sleep).with(5)
-      Server.expects(:running?).twice.returns(false).then.returns(true)
+      Maze::Server.expects(:sleep).with(1).twice
+      Maze::Server.expects(:sleep).with(5)
+      Maze::Server.expects(:running?).twice.returns(false).then.returns(true)
 
       # Call the method
-      Server.start
+      Maze::Server.start
     end
 
     def test_start_fails
@@ -99,13 +99,13 @@ module Maze
                                              AccessLog: []).throws('Failed to start')
 
       # End of loop
-      Server.expects(:sleep).with(1).times(3)
-      Server.expects(:sleep).with(5).twice
-      Server.expects(:running?).twice.returns(false).times(3)
+      Maze::Server.expects(:sleep).with(1).times(3)
+      Maze::Server.expects(:sleep).with(5).twice
+      Maze::Server.expects(:running?).twice.returns(false).times(3)
 
       # Call the method
       assert_raise RuntimeError do
-        Server.start
+        Maze::Server.start
       end
     end
   end

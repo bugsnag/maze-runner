@@ -74,7 +74,7 @@ steps:
       docker-compose#v3.7.0:
         run: browserstack-app-automate
     command: >-
-      bundle exec bugsnag-maze-runner
+      bundle exec maze-runner
       --app=app/build/outputs/apk/release/app-release.apk
       --farm=bs
       --device=ANDROID_6_0
@@ -89,7 +89,7 @@ steps:
       docker-compose#v3.7.0:
         run: browserstack-app-automate
     command: >-
-      bundle exec bugsnag-maze-runner
+      bundle exec maze-runner
       --app=app/build/outputs/apk/release/app-release.apk
       --farm=bs
       --device=ANDROID_7_1
@@ -104,7 +104,7 @@ steps:
       docker-compose#v3.7.0:
         run: browserstack-app-automate
     command: >-
-      bundle exec bugsnag-maze-runner
+      bundle exec maze-runner
       --resilient
       --app=app/build/outputs/apk/release/app-release.apk
       --farm=bs
@@ -120,7 +120,7 @@ steps:
       docker-compose#v3.7.0:
         run: browserstack-app-automate
     command: >-
-      bundle exec bugsnag-maze-runner
+      bundle exec maze-runner
       --app=app/build/outputs/apk/release/app-release.apk
       --farm=bs
       --device=ANDROID_9_0
@@ -135,7 +135,7 @@ steps:
       docker-compose#v3.7.0:
         run: browserstack-app-automate
     command: >-
-      bundle exec bugsnag-maze-runner
+      bundle exec maze-runner
       --app=app/build/outputs/apk/release/app-release.apk
       --farm=bs
       --device=ANDROID_10_0
@@ -151,7 +151,7 @@ steps:
       docker-compose#v3.7.0:
         run: browserstack-app-automate
     command: >-
-      bundle exec bugsnag-maze-runner
+      bundle exec maze-runner
       --app=app/build/outputs/apk/release/app-release.apk
       --farm=bs
       --device=ANDROID_11_0

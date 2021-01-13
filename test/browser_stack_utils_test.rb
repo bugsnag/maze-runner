@@ -3,7 +3,7 @@
 require 'json'
 require 'open3'
 require 'test_helper'
-require_relative '../lib/features/support/browser_stack_utils'
+require_relative '../lib/maze/browser_stack_utils'
 
 class BrowserStackUtilsTest < Test::Unit::TestCase
 
@@ -22,7 +22,7 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
   def test_upload_app_skip
     $logger.expects(:info).with("Using pre-uploaded app from #{TEST_APP_URL}")
 
-    url = BrowserStackUtils.upload_app USERNAME, ACCESS_KEY, TEST_APP_URL
+    url = Maze::BrowserStackUtils.upload_app USERNAME, ACCESS_KEY, TEST_APP_URL
     assert_equal(TEST_APP_URL, url)
   end
 
@@ -32,8 +32,8 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
 
     json_response = JSON.dump(app_url: TEST_APP_URL)
     expected_command = %(curl -u "#{USERNAME}:#{ACCESS_KEY}" -X POST "https://api-cloud.browserstack.com/app-automate/upload" -F "file=@#{APP}")
-    BrowserStackUtils.stubs(:`).with(expected_command).returns(json_response)
-    url = BrowserStackUtils.upload_app USERNAME, ACCESS_KEY, APP
+    Maze::BrowserStackUtils.stubs(:`).with(expected_command).returns(json_response)
+    url = Maze::BrowserStackUtils.upload_app USERNAME, ACCESS_KEY, APP
     assert_equal(TEST_APP_URL, url)
   end
 
@@ -42,9 +42,9 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
       error: 'Error'
     )
     expected_command = %(curl -u "#{USERNAME}:#{ACCESS_KEY}" -X POST "https://api-cloud.browserstack.com/app-automate/upload" -F "file=@#{APP}")
-    BrowserStackUtils.stubs(:`).with(expected_command).returns(json_response)
+    Maze::BrowserStackUtils.stubs(:`).with(expected_command).returns(json_response)
     assert_raise(RuntimeError, 'BrowserStack upload failed due to error: Error') do
-      BrowserStackUtils.upload_app USERNAME, ACCESS_KEY, APP
+      Maze::BrowserStackUtils.upload_app USERNAME, ACCESS_KEY, APP
     end
   end
 
@@ -55,6 +55,6 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
     waiter = mock('Process::Waiter', value: mock('Process::Status'))
     Open3.expects(:popen2).with("#{BS_LOCAL} #{command_options}").yields(mock('stdin'), mock('stdout'), waiter)
 
-    BrowserStackUtils.start_local_tunnel BS_LOCAL, LOCAL_ID, ACCESS_KEY
+    Maze::BrowserStackUtils.start_local_tunnel BS_LOCAL, LOCAL_ID, ACCESS_KEY
   end
 end

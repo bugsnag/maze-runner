@@ -2,11 +2,11 @@
 
 When('I navigate to the URL {string}') do |path|
   $logger.debug "Navigating to: #{path}"
-  MazeRunner.driver.navigate.to path
+  Maze.driver.navigate.to path
 end
 
 Then(/^the request is a valid browser payload for the error reporting API$/) do
-  if !/^ie_(8|9|10)$/.match(MazeRunner.config.bs_browser)
+  if !/^ie_(8|9|10)$/.match(Maze.config.bs_browser)
     steps %(
       Then the error "Bugsnag-API-Key" header is not null
       And the error "Content-Type" header equals one of:
@@ -38,7 +38,7 @@ Then(/^the request is a valid browser payload for the error reporting API$/) do
 end
 
 Then('the request is a valid browser payload for the session tracking API') do
-  if !/^ie_(8|9|10)$/.match(MazeRunner.config.bs_browser)
+  if !/^ie_(8|9|10)$/.match(Maze.config.bs_browser)
     steps %(
       Then the session "Bugsnag-API-Key" header is not null
       And the session "Content-Type" header equals one of:
@@ -65,7 +65,7 @@ Then('the request is a valid browser payload for the session tracking API') do
 end
 
 Then('the event device ID is valid') do
-  if MazeRunner.driver.local_storage?
+  if Maze.driver.local_storage?
     step('the event "device.id" matches "^c[a-z0-9]{20,32}$"')
   else
     $logger.info('Local storage is not supported in this browser, assuming device ID is null')
@@ -74,7 +74,7 @@ Then('the event device ID is valid') do
 end
 
 Then('the event device ID is {string}') do |expected_id|
-  if MazeRunner.driver.local_storage?
+  if Maze.driver.local_storage?
     step("the event \"device.id\" equals \"#{expected_id}\"")
   else
     $logger.info('Local storage is not supported in this browser, assuming device ID is null')

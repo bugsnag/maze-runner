@@ -3,8 +3,8 @@
 require 'cucumber/core/ast/data_table'
 require 'cucumber/multiline_argument/data_table'
 require_relative '../test_helper'
-require_relative '../../lib/features/support/helper'
-require_relative '../../lib/features/support/assertions/request_set_assertions'
+require_relative '../../lib/maze/helper'
+require_relative '../../lib/maze/assertions/request_set_assertions'
 
 class RequestSetAssertionsTest < Test::Unit::TestCase
 
@@ -54,7 +54,7 @@ class RequestSetAssertionsTest < Test::Unit::TestCase
     rows = [
       ['Camilla', '33', 'New York']
     ]
-    matches = RequestSetAssertions.matching_rows @requests, create_table(header, rows)
+    matches = Maze::Assertions::RequestSetAssertions.matching_rows @requests, create_table(header, rows)
     assert_equal({ 0 => 3 }, matches)
   end
 
@@ -63,7 +63,7 @@ class RequestSetAssertionsTest < Test::Unit::TestCase
     rows = [
         %w[Camilla 33 'York']
     ]
-    matches = RequestSetAssertions.matching_rows @requests, create_table(header, rows)
+    matches = Maze::Assertions::RequestSetAssertions.matching_rows @requests, create_table(header, rows)
     assert_equal({}, matches)
   end
 
@@ -75,7 +75,7 @@ class RequestSetAssertionsTest < Test::Unit::TestCase
       %w[Alice 11 Arkansas],
       %w[Bret 23 Houston],
     ]
-    matches = RequestSetAssertions.matching_rows @requests, create_table(header, rows)
+    matches = Maze::Assertions::RequestSetAssertions.matching_rows @requests, create_table(header, rows)
     assert_equal({ 0 => 3, 1 => 1, 2 => 0, 3 => 2 }, matches)
   end
 
@@ -87,7 +87,7 @@ class RequestSetAssertionsTest < Test::Unit::TestCase
       ['11'],
       ['23']
     ]
-    matches = RequestSetAssertions.matching_rows @requests, create_table(header, rows)
+    matches = Maze::Assertions::RequestSetAssertions.matching_rows @requests, create_table(header, rows)
     assert_equal({ 0 => 3, 1 => 1, 2 => 0, 3 => 2 }, matches)
   end
 
@@ -96,7 +96,7 @@ class RequestSetAssertionsTest < Test::Unit::TestCase
     rows = [
       %w[Bret 22 /ming/]
     ]
-    matches = RequestSetAssertions.matching_rows @requests, create_table(header, rows)
+    matches = Maze::Assertions::RequestSetAssertions.matching_rows @requests, create_table(header, rows)
     assert_equal({ 0 => 1 }, matches)
   end
 
@@ -106,7 +106,7 @@ class RequestSetAssertionsTest < Test::Unit::TestCase
       ['Bret'],
       ['Bret']
     ]
-    matches = RequestSetAssertions.matching_rows @requests, create_table(header, rows)
+    matches = Maze::Assertions::RequestSetAssertions.matching_rows @requests, create_table(header, rows)
     # Order unimportant, but it must find two different requests
     assert_equal(2, matches.length)
     assert_not_equal(matches[0], matches[1])

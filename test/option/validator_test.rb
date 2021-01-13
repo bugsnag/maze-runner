@@ -49,6 +49,19 @@ class ValidatorTest < Test::Unit::TestCase
     assert_match 'Device type \'MADE_UP\' unknown on BrowserStack.  Must be one of', errors[0]
   end
 
+  def test_browser_stack_invalid_browser
+    args = %w[--farm=bs --username=user --access-key=key --browser=MADE_UP]
+    File.stubs(:exist?).with('/BrowserStackLocal').returns(true)
+    File.stubs(:exist?).with('my_app.apk').returns(true)
+
+    options = Maze::Option::Parser.parse args
+    errors = @validator.validate options
+
+    puts errors
+    assert_equal 1, errors.length
+    assert_match 'Browser type \'MADE_UP\' unknown on BrowserStack.  Must be one of', errors[0]
+  end
+
   def test_browser_stack_missing_device
     args = %w[--farm=bs --app=my_app.apk --username=user --access-key=key]
     File.stubs(:exist?).with('/BrowserStackLocal').returns(true)

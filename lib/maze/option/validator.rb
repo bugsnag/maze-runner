@@ -15,9 +15,7 @@ module Maze
 
         # Common options
         farm = options[Option::FARM]
-        if farm && !%w[bs local].include?(farm)
-          errors << "--#{Option::FARM} must be either 'bs' or 'local' if provided"
-        end
+        errors << "--#{Option::FARM} must be either 'bs' or 'local' if provided" if farm && !%w[bs local].include?(farm)
 
         begin
           JSON.parse(options[Option::CAPABILITIES])
@@ -53,7 +51,7 @@ module Maze
           end
         elsif bs_device
           unless Maze::Devices::DEVICE_HASH.key? bs_device
-            errors << "Device type '#{bs_device}' unknown on BrowserStack.  Must be one of #{Maze::Capabilities::Devices::DEVICE_HASH.keys}"
+            errors << "Device type '#{bs_device}' unknown on BrowserStack.  Must be one of #{Maze::Devices::DEVICE_HASH.keys}"
           end
           # App
           app = options[Option::APP]
@@ -80,9 +78,7 @@ module Maze
           os = options[Option::OS].downcase
           errors << 'os must be android, ios or macos' unless %w[android ios macos].include? os
           if os == 'ios'
-            if options[Option::APPLE_TEAM_ID].nil?
-              errors << "--#{Option::APPLE_TEAM_ID} must be specified for iOS"
-            end
+            errors << "--#{Option::APPLE_TEAM_ID} must be specified for iOS" if options[Option::APPLE_TEAM_ID].nil?
             errors << "--#{Option::UDID} must be specified for iOS" if options[Option::UDID].nil?
           end
         end

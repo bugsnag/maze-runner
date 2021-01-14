@@ -43,22 +43,30 @@ end
 # Error request assertions
 #
 # Shortcut to waiting to receive a single error
-Then('I wait to receive an error') do
-  step 'I wait to receive 1 error'
+Then('I wait to receive a(n) {word}') do |request_type|
+  step "I wait to receive 1 #{request_type}"
 end
 
 # Continually checks to see if the required amount of errors have been received.
 # Times out according to @see Maze.config.receive_requests_wait.
 #
 # @step_input request_count [Integer] The amount of requests expected
-Then('I wait to receive {int} error(s)') do |request_count|
-  assert_received_requests request_count, Maze::Server.errors, 'errors'
+Then('I wait to receive {int} {word}') do |request_type, request_count|
+  assert_received_requests request_count, Maze::Server.list_for(request_type), request_type
 end
 
-# Assert that the test Server hasn't received any errors.
-Then('I should receive no errors') do
+# Assert that the test Server hasn't received any requests of a given type.
+Then('I should receive no {word}') do |request_type|
   sleep Maze.config.receive_no_requests_wait
-  assert_equal(0, Maze::Server.errors.size, "#{Maze::Server.errors.size} errors received")
+  list = Maze::Server.list_for(request_type).size
+  assert_equal(0, list, "#{list.size} #{request_type} received")
+end
+
+# Moves to the next error
+Then('I discard the oldest {word}') do |request_type|
+  raise "No #{request_type} to discard" if Maze::Server.list_for(request_type).current.nil?
+
+  Maze::Server.list_for(request_type).next
 end
 
 Then('the received errors match:') do |table|
@@ -78,41 +86,4 @@ Then('the received errors match:') do |table|
     end
   end
   assert_equal(requests.size, match_count, 'Unexpected number of requests matched the received payloads')
-end
-
-#
-# Session request assertions
-#
-
-# Shortcut to waiting to receive a single session
-Then('I wait to receive a session') do
-  step 'I wait to receive 1 session'
-end
-
-# Moves to the next error
-Then('I discard the oldest error') do
-  raise 'No error to discard' if Maze::Server.errors.current.nil?
-
-  Maze::Server.errors.next
-end
-
-# Continually checks to see if the required amount of sessions have been received.
-# Times out according to @see Maze.config.receive_requests_wait.
-#
-# @step_input request_count [Integer] The amount of requests expected
-Then('I wait to receive {int} session(s)') do |request_count|
-  assert_received_requests request_count, Maze::Server.sessions, 'sessions'
-end
-
-# Assert that the test Server hasn't received any sessions.
-Then('I should receive no sessions') do
-  sleep Maze.config.receive_no_requests_wait
-  assert_equal(0, Maze::Server.sessions.size, "#{Maze::Server.sessions.size} sessions received")
-end
-
-# Moves to the next sessions
-Then('I discard the oldest session') do
-  raise 'No session to discard' if Maze::Server.sessions.current.nil?
-
-  Maze::Server.sessions.next
 end

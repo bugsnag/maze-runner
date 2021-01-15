@@ -37,7 +37,7 @@ module Maze
 
       # Provides dynamic access to request lists by name
       #
-      # @param type Request type
+      # @param type [String] Request type
       # @return Request list for the type given
       def list_for(type)
         case type

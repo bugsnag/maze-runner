@@ -42,27 +42,34 @@ end
 #
 # Error request assertions
 #
-# Shortcut to waiting to receive a single error
+# Shortcut to waiting to receive a single request of the given type
+#
+# @step_input request_type [String] The type of request (error, session, etc)
 Then('I wait to receive a(n) {word}') do |request_type|
   step "I wait to receive 1 #{request_type}"
 end
 
-# Continually checks to see if the required amount of errors have been received.
+# Continually checks to see if the required amount of requests have been received.
 # Times out according to @see Maze.config.receive_requests_wait.
 #
+# @step_input request_type [String] The type of request (error, session, etc)
 # @step_input request_count [Integer] The amount of requests expected
 Then('I wait to receive {int} {word}') do |request_count, request_type|
   assert_received_requests request_count, Maze::Server.list_for(request_type), request_type
 end
 
 # Assert that the test Server hasn't received any requests of a given type.
+#
+# @step_input request_type [String] The type of request (error, session, etc)
 Then('I should receive no {word}') do |request_type|
   sleep Maze.config.receive_no_requests_wait
   list = Maze::Server.list_for(request_type).size
   assert_equal(0, list, "#{list.size} #{request_type} received")
 end
 
-# Moves to the next error
+# Moves to the next request
+#
+# @step_input request_type [String] The type of request (error, session, etc)
 Then('I discard the oldest {word}') do |request_type|
   raise "No #{request_type} to discard" if Maze::Server.list_for(request_type).current.nil?
 

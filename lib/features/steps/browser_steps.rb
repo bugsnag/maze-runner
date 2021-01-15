@@ -31,7 +31,7 @@ Then(/^the request is a valid browser payload for the error reporting API$/) do
     And each element in error payload field "events" has "severity"
     And each element in error payload field "events" has "severityReason.type"
     And each element in error payload field "events" has "unhandled"
-    And each element in perror ayload field "events" has "exceptions"
+    And each element in error payload field "events" has "exceptions"
 
     And the exception "type" equals "browserjs"
   )

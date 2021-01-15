@@ -23,15 +23,15 @@ Then(/^the request is a valid browser payload for the error reporting API$/) do
     )
   end
   steps %(
-    And the payload field "notifier.name" is not null
-    And the payload field "notifier.url" is not null
-    And the payload field "notifier.version" is not null
-    And the payload field "events" is a non-empty array
+    And the error payload field "notifier.name" is not null
+    And the error payload field "notifier.url" is not null
+    And the error payload field "notifier.version" is not null
+    And the error payload field "events" is a non-empty array
 
-    And each element in payload field "events" has "severity"
-    And each element in payload field "events" has "severityReason.type"
-    And each element in payload field "events" has "unhandled"
-    And each element in payload field "events" has "exceptions"
+    And each element in error payload field "events" has "severity"
+    And each element in error payload field "events" has "severityReason.type"
+    And each element in error payload field "events" has "unhandled"
+    And each element in error payload field "events" has "exceptions"
 
     And the exception "type" equals "browserjs"
   )
@@ -81,3 +81,5 @@ Then('the event device ID is {string}') do |expected_id|
     step('the event "device.id" is null')
   end
 end
+
+# @!endgroup

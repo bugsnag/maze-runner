@@ -35,6 +35,21 @@ module Maze
         @reset_status_code ||= false
       end
 
+      # Provides dynamic access to request lists by name
+      #
+      # @param type [String] Request type
+      # @return Request list for the type given
+      def list_for(type)
+        case type
+        when 'error', 'errors'
+          errors
+        when 'session', 'sessions'
+          sessions
+        else
+          raise "Invalid request type '#{type}'"
+        end
+      end
+
       # A list of error requests received
       #
       # @return [RequestList] Received error requests

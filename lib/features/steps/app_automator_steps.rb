@@ -70,11 +70,11 @@ end
 #
 # @step_input field_path [String] The field to test
 # @step_input platform_values [DataTable] A table of acceptable values for each platform
-Then('the payload field {string} equals the platform-dependent string:') do |field_path, platform_values|
+Then('the error payload field {string} equals the platform-dependent string:') do |field_path, platform_values|
   test_string_platform_values(field_path, platform_values)
 end
 
-# See `the payload field {string} equals the platform-dependent string:`
+# See `the error payload field {string} equals the platform-dependent string:`
 #
 # @step_input field_path [String] The field to test, prepended with "events.0"
 # @step_input platform_values [DataTable] A table of acceptable values for each platform
@@ -94,7 +94,7 @@ end
 #
 # @step_input field_path [String] The field to test
 # @step_input platform_values [DataTable] A table of acceptable values for each platform
-Then('the payload field {string} equals the platform-dependent numeric:') do |field_path, platform_values|
+Then('the error payload field {string} equals the platform-dependent numeric:') do |field_path, platform_values|
   test_numeric_platform_values(field_path, platform_values)
 end
 
@@ -118,7 +118,7 @@ end
 #
 # @step_input field_path [String] The field to test
 # @step_input platform_values [DataTable] A table of acceptable values for each platform
-Then('the payload field {string} equals the platform-dependent boolean:') do |field_path, platform_values|
+Then('the error payload field {string} equals the platform-dependent boolean:') do |field_path, platform_values|
   test_boolean_platform_values(field_path, platform_values)
 end
 

@@ -23,22 +23,23 @@ The `MazeRunner` class is renamed to just `Maze` and all other classes have been
 
 ### Cucumber step changes
  
-Several Cucumber steps have changed their wording or been split into separate steps:
+Several Cucumber steps have changed their wording or been split into separate steps.  Where `{word}` is used in these
+steps it corresponds to either `error` or `session` (or their plurals).
 
 Old step | New step(s)
 ----| -------- | 
 I wait to receive a request | I wait to receive an error <br> I wait to receive a session
 I wait to receive {int} request(s) | I wait to receive {int} error(s) <br> I wait to receive {int} session(s)
 I discard the oldest request | I discard the oldest error <br> I discard the oldest session
-the {string} header is not null | the error {string} header is not null <br> the session {string} header is not null
-the {string} header equals {string} | the error {string} header equals {string} <br> the session {string} header equals {string}
-the {string} header matches the regex {string} | the error {string} header matches the regex {string} <br> the session {string} header matches the regex {string}
-the {string} header equals one of: | the error {string} header equals one of: <br> the session {string} header equals one of:
-the {string} header is a timestamp | the error {string} header is a timestamp <br> the session {string} header is a timestamp
-the {string} query parameter equals {string} | the error {string} query parameter equals {string}
-the {string} query parameter is not null | the error {string} query parameter is not null
-the {string} query parameter is a timestamp | the error {string} query parameter is a timestamp
-
+the {string} header is not null | the {word} {string} header is not null
+the {string} header equals {string} | the {word} {string} header equals {string}
+the {string} header matches the regex {string} | the {word} {string} header matches the regex {string}
+the {string} header equals one of: | the {word} {string} header equals one of:
+the {string} header is a timestamp | the {word} {string} header is a timestamp
+the {string} query parameter equals {string} | the {word} {string} query parameter equals {string}
+the {string} query parameter is not null | the {word} {string} query parameter is not null
+the {string} query parameter is a timestamp | the {word} {string} query parameter is a timestamp
+the payload field {string} ... <various> | the {word} payload field {string} ...
 
 ### Cucumber steps removed
 

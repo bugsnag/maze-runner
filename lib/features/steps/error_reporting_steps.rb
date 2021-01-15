@@ -7,7 +7,7 @@
 #
 # @step_input version [String] The payload version expected
 # @step_input name [String] The expected name of the notifier
-Then('the request is valid for the error reporting API version {string} for the {string} notifier') do |version, name|
+Then('the error is valid for the error reporting API version {string} for the {string} notifier') do |version, name|
   steps %(
     Then the error "Bugsnag-Api-Key" header equals "#{$api_key}"
     And the error payload field "apiKey" equals "#{$api_key}"

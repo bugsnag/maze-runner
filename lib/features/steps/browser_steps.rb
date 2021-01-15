@@ -5,7 +5,7 @@ When('I navigate to the URL {string}') do |path|
   Maze.driver.navigate.to path
 end
 
-Then(/^the request is a valid browser payload for the error reporting API$/) do
+Then(/^the error is a valid browser payload for the error reporting API$/) do
   if !/^ie_(8|9|10)$/.match(Maze.config.bs_browser)
     steps %(
       Then the error "Bugsnag-API-Key" header is not null
@@ -37,7 +37,7 @@ Then(/^the request is a valid browser payload for the error reporting API$/) do
   )
 end
 
-Then('the request is a valid browser payload for the session tracking API') do
+Then('the session is a valid browser payload for the session tracking API') do
   if !/^ie_(8|9|10)$/.match(Maze.config.bs_browser)
     steps %(
       Then the session "Bugsnag-API-Key" header is not null

@@ -46,9 +46,13 @@ module Maze
         value
       end
 
+      # Determines if the Bugsnag-Integrity header is valid.
+      # Whether a missing header is deemed valid depends on @see Maze.config.enforce_bugsnag_integrity.
+      #
+      # @return [Boolean] True if the header is present and valid, or not present and not enforced.  False otherwise.
       def valid_bugsnag_integrity_header(request)
         header = request[:request]['Bugsnag-Integrity']
-        return false if header.nil?
+        return !Maze.config.enforce_bugsnag_integrity if header.nil?
 
         digests = request[:digests]
         if header.start_with?('sha1')

@@ -8,25 +8,38 @@
 # @step_input version [String] The payload version expected
 # @step_input name [String] The expected name of the notifier
 Then('the error is valid for the error reporting API version {string} for the {string} notifier') do |version, name|
+  step "the error is valid for the error reporting API version \"#{version}\"" \
+       " for the \"#{name}\" notifier with the apiKey \"#{$api_key}\""
+end
+
+# Verifies that generic elements of an error payload are present.
+#
+# @step_input version [String] The payload version expected
+# @step_input name [String] The expected name of the notifier
+# @step_input api_key [String] The API key expected
+Then('the error is valid for the error reporting API version {string}' \
+     ' for the {string} notifier with the apiKey {string}') do |payload_version, notifier_name, api_key|
   steps %(
-    Then the error "Bugsnag-Api-Key" header equals "#{$api_key}"
-    And the error payload field "apiKey" equals "#{$api_key}"
-    And the error "Bugsnag-Payload-Version" header equals "#{version}"
-    And the error payload contains the payloadVersion "#{version}"
-    And the error "Content-Type" header equals "application/json"
-    And the error "Bugsnag-Sent-At" header is a timestamp
+    Then the "Bugsnag-Api-Key" header equals "#{api_key}"
+    And the payload field "apiKey" equals "#{api_key}"
+    And the "Bugsnag-Payload-Version" header equals "#{payload_version}"
+    And the payload contains the payloadVersion "#{payload_version}"
+    And the "Content-Type" header equals "application/json"
+    And the "Bugsnag-Sent-At" header is a timestamp
+    And the Bugsnag-Integrity header is valid
 
-    And the error payload field "notifier.name" equals "#{name}"
-    And the error payload field "notifier.url" is not null
-    And the error payload field "notifier.version" is not null
-    And the error payload field "events" is a non-empty array
+    And the payload field "notifier.name" equals "#{notifier_name}"
+    And the payload field "notifier.url" is not null
+    And the payload field "notifier.version" is not null
+    And the payload field "events" is a non-empty array
 
-    And each element in error payload field "events" has "severity"
-    And each element in error payload field "events" has "severityReason.type"
-    And each element in error payload field "events" has "unhandled"
-    And each element in error payload field "events" has "exceptions"
+    And each element in payload field "events" has "severity"
+    And each element in payload field "events" has "severityReason.type"
+    And each element in payload field "events" has "unhandled"
+    And each element in payload field "events" has "exceptions"
   )
 end
+
 
 # Verifies that an event is correct for an unhandled error
 # This checks various elements of the payload matching an unhandled error including:

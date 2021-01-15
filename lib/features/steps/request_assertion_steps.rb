@@ -51,7 +51,7 @@ end
 # Times out according to @see Maze.config.receive_requests_wait.
 #
 # @step_input request_count [Integer] The amount of requests expected
-Then('I wait to receive {int} {word}') do |request_type, request_count|
+Then('I wait to receive {int} {word}') do |request_count, request_type|
   assert_received_requests request_count, Maze::Server.list_for(request_type), request_type
 end
 

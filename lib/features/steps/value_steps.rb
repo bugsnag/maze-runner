@@ -82,7 +82,7 @@ Then('the {word} payload field {string} is a UUID') do |request_type, field|
   list = Maze::Server.list_for request_type
   value = Maze::Helper.read_key_path(list.current[:body], field)
   assert_not_nil(value, "Expected UUID, got nil for #{field}")
-  match = !/[a-fA-F0-9-]{36}/.match(value).empty?
+  match = /[a-fA-F0-9-]{36}/.match(value).size > 0
   assert_true(match, "Field #{field} is not a UUID, received #{value}")
 end
 

@@ -10,7 +10,7 @@ Scenario: Test Handled Android Exception
   And the exception "errorClass" equals "java.lang.Exception"
   And the exception "message" equals "HandledException!"
   # Verifies the environment variable change works
-  And the payload field "apiKey" equals the environment variable "BUGSNAG_API_KEY"
+  And the error payload field "apiKey" equals the environment variable "BUGSNAG_API_KEY"
 
 Scenario: Verify text entry and clearing steps
   Given the element "trigger_error" is present
@@ -33,21 +33,21 @@ Scenario: Verify "equals the correct platform value" step
   # Verify string comparisons
   And the event "exceptions.0.errorClass" equals the platform-dependent string:
     | android | java.lang.Exception |
-  And the payload field "events.0.exceptions.0.errorClass" equals the platform-dependent string:
+  And the error payload field "events.0.exceptions.0.errorClass" equals the platform-dependent string:
     | android | java.lang.Exception |
   # Verify boolean comparisons
-  And the payload field "events.0.metaData.test.boolean_true" equals the platform-dependent boolean:
+  And the error payload field "events.0.metaData.test.boolean_true" equals the platform-dependent boolean:
     | android | true |
   And the event "metaData.test.boolean_true" equals the platform-dependent boolean:
     | android | true |
-  And the payload field "events.0.metaData.test.boolean_false" equals the platform-dependent boolean:
+  And the error payload field "events.0.metaData.test.boolean_false" equals the platform-dependent boolean:
     | android | false |
   And the event "metaData.test.boolean_false" equals the platform-dependent boolean:
     | android | false |
   # Verify numeric comparisons
-  And the payload field "events.0.metaData.test.float" equals the platform-dependent numeric:
+  And the error payload field "events.0.metaData.test.float" equals the platform-dependent numeric:
     | android | 1.55 |
-  And the payload field "events.0.metaData.test.integer" equals the platform-dependent numeric:
+  And the error payload field "events.0.metaData.test.integer" equals the platform-dependent numeric:
     | android | 2 |
   And the event "metaData.test.float" equals the platform-dependent numeric:
     | android | 1.55 |
@@ -60,11 +60,11 @@ Scenario: Verify "equals the correct platform value" step
     | android | @skip |
   And the event "exceptions.0.errorClass" equals the platform-dependent numeric:
     | android | @skip |
-  And the payload field "events.0.metaData.test.integer" equals the platform-dependent string:
+  And the error payload field "events.0.metaData.test.integer" equals the platform-dependent string:
     | android | @skip |
-  And the payload field "events.0.metaData.test.integer" equals the platform-dependent boolean:
+  And the error payload field "events.0.metaData.test.integer" equals the platform-dependent boolean:
     | android | @skip |
-  And the payload field "events.0.exceptions.0.errorClass" equals the platform-dependent numeric:
+  And the error payload field "events.0.exceptions.0.errorClass" equals the platform-dependent numeric:
     | android | @skip |
   # Verifies the environment variable change works
-  And the payload field "apiKey" equals the environment variable "BUGSNAG_API_KEY"
+  And the error payload field "apiKey" equals the environment variable "BUGSNAG_API_KEY"

@@ -21,10 +21,10 @@ Then('the request is valid for the error reporting API version {string} for the 
     And the error payload field "notifier.version" is not null
     And the error payload field "events" is a non-empty array
 
-    And each element in payload field "events" has "severity"
-    And each element in payload field "events" has "severityReason.type"
-    And each element in payload field "events" has "unhandled"
-    And each element in payload field "events" has "exceptions"
+    And each element in error payload field "events" has "severity"
+    And each element in error payload field "events" has "severityReason.type"
+    And each element in error payload field "events" has "unhandled"
+    And each element in error payload field "events" has "exceptions"
   )
 end
 

@@ -20,23 +20,23 @@ end
 Then('the error is valid for the error reporting API version {string}' \
      ' for the {string} notifier with the apiKey {string}') do |payload_version, notifier_name, api_key|
   steps %(
-    Then the "Bugsnag-Api-Key" header equals "#{api_key}"
-    And the payload field "apiKey" equals "#{api_key}"
-    And the "Bugsnag-Payload-Version" header equals "#{payload_version}"
-    And the payload contains the payloadVersion "#{payload_version}"
-    And the "Content-Type" header equals "application/json"
-    And the "Bugsnag-Sent-At" header is a timestamp
+    Then the error "Bugsnag-Api-Key" header equals "#{api_key}"
+    And the error payload field "apiKey" equals "#{api_key}"
+    And the error "Bugsnag-Payload-Version" header equals "#{payload_version}"
+    And the error payload contains the payloadVersion "#{payload_version}"
+    And the error "Content-Type" header equals "application/json"
+    And the error "Bugsnag-Sent-At" header is a timestamp
     And the Bugsnag-Integrity header is valid
 
-    And the payload field "notifier.name" equals "#{notifier_name}"
-    And the payload field "notifier.url" is not null
-    And the payload field "notifier.version" is not null
-    And the payload field "events" is a non-empty array
+    And the error payload field "notifier.name" equals "#{notifier_name}"
+    And the error payload field "notifier.url" is not null
+    And the error payload field "notifier.version" is not null
+    And the error payload field "events" is a non-empty array
 
-    And each element in payload field "events" has "severity"
-    And each element in payload field "events" has "severityReason.type"
-    And each element in payload field "events" has "unhandled"
-    And each element in payload field "events" has "exceptions"
+    And each element in error payload field "events" has "severity"
+    And each element in error payload field "events" has "severityReason.type"
+    And each element in error payload field "events" has "unhandled"
+    And each element in error payload field "events" has "exceptions"
   )
 end
 
@@ -194,6 +194,7 @@ Then('the event {string} is greater than {int}') do |keypath, int|
   assert_false(value.nil?, "The event #{keypath} is nil")
   assert_true(value > int)
 end
+
 # Tests whether a value in the first exception of the first event entry starts with a string.
 #
 # @step_input field [String] The relative location of the value to test

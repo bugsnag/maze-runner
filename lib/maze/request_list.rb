@@ -48,7 +48,7 @@ module Maze
       @count -= 1
     end
 
-    # A frozen clone of all requests held, including those already orocessed
+    # A frozen clone of all requests held, including those already processed
     def all
       @requests.clone.freeze
     end

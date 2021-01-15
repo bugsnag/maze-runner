@@ -182,6 +182,18 @@ Then('the event {string} matches the JSON fixture in {string}') do |field, fixtu
   step "the error payload field \"events.0.#{field}\" matches the JSON fixture in \"#{fixture_path}\""
 end
 
+Then('the event {string} string is empty') do |keypath|
+  value = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], keypath)
+  assert_block("The #{keypath} is not empty: '#{value}'") do
+    value.nil? || value.empty?
+  end
+end
+
+Then('the event {string} is greater than {int}') do |keypath, int|
+  value = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], "events.0.#{keypath}")
+  assert_false(value.nil?, "The event #{keypath} is nil")
+  assert_true(value > int)
+end
 # Tests whether a value in the first exception of the first event entry starts with a string.
 #
 # @step_input field [String] The relative location of the value to test

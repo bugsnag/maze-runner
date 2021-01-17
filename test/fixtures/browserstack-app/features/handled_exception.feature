@@ -4,8 +4,7 @@ Scenario: Test Handled Android Exception
   Given the element "trigger_error" is present
   When I click the element "trigger_error"
   Then I wait to receive an error
-  # TODO Uncomment this once Android is released with the Integrity header
-  # And the Bugsnag-Integrity header is valid
+  And the error Bugsnag-Integrity header is valid
   And the error is valid for the error reporting API version "4.0" for the "Android Bugsnag Notifier" notifier
   And the exception "errorClass" equals "java.lang.Exception"
   And the exception "message" equals "HandledException!"
@@ -27,8 +26,7 @@ Scenario: Verify "equals the correct platform value" step
   Given the element "trigger_error" is present within 30 seconds
   When I click the element "trigger_error"
   Then I wait to receive an error
-  # TODO Uncomment this once Android is released with the Integrity header
-  # And the Bugsnag-Integrity header is valid
+  And the error Bugsnag-Integrity header is valid
   And the error is valid for the error reporting API version "4.0" for the "Android Bugsnag Notifier" notifier
   # Verify string comparisons
   And the event "exceptions.0.errorClass" equals the platform-dependent string:

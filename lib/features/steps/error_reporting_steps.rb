@@ -26,7 +26,7 @@ Then('the error is valid for the error reporting API version {string}' \
     And the error payload contains the payloadVersion "#{payload_version}"
     And the error "Content-Type" header equals "application/json"
     And the error "Bugsnag-Sent-At" header is a timestamp
-    And the Bugsnag-Integrity header is valid
+    And the error Bugsnag-Integrity header is valid
 
     And the error payload field "notifier.name" equals "#{notifier_name}"
     And the error payload field "notifier.url" is not null

@@ -53,8 +53,9 @@ end
 
 # Checks that the Bugsnag-Integrity header is a SHA1 or simple digest
 #
-When('the Bugsnag-Integrity header is valid') do
-  assert_true(Maze::Helper.valid_bugsnag_integrity_header(Maze::Server.errors.current),
+# @step_input request_type [String] The type of request (error, session, etc)
+When('the {word} Bugsnag-Integrity header is valid') do |request_type|
+  assert_true(Maze::Helper.valid_bugsnag_integrity_header(Maze::Server.list_for(request_type).current),
               'Invalid Bugsnag-Integrity header detected')
 end
 

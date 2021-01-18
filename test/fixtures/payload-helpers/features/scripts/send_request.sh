@@ -5,7 +5,12 @@ require 'json'
 require 'time'
 
 http = Net::HTTP.new('localhost', ENV['MOCK_API_PORT'])
-request = Net::HTTP::Post.new('/')
+endpoint = if ENV['request_type'] == 'session'
+             '/sessions'
+           else
+             '/notify'
+           end
+request = Net::HTTP::Post.new(endpoint)
 request['Content-Type'] = 'application/json'
 
 templates = {

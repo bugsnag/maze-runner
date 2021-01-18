@@ -12,5 +12,5 @@ def output_logs
 end
 
 AfterConfiguration do |_config|
-  MazeRunner.config.enforce_bugsnag_integrity = false
+  Maze.config.enforce_bugsnag_integrity = false
 end

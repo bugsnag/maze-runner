@@ -20,25 +20,25 @@ end
 
 # Verifies that the request contains multipart form-data
 Then('the request is valid multipart form-data') do
-  valid_multipart_form_data?(Server.current_request)
+  valid_multipart_form_data?(Maze::Server.errors.current)
 end
 
 # Verifies all received requests contain multipart form-data
 Then('all requests are valid multipart form-data') do
-  Server.stored_requests.all? { |request| valid_multipart_form_data?(request) }
+  Maze::Server.errors.all.all? { |request| valid_multipart_form_data?(request) }
 end
 
 # Tests the number of fields a multipart request contains.
 #
 # @step_input part_count [Integer] The number of expected fields
 Then('the multipart request has {int} fields') do |part_count|
-  parts = Server.current_request[:body]
+  parts = Maze::Server.errors.current[:body]
   assert_equal(part_count, parts.size)
 end
 
 # Tests the multipart request has at least one field.
 Then('the multipart request has a non-empty body') do
-  parts = Server.current_request[:body]
+  parts = Maze::Server.errors.current[:body]
   assert(parts.size.positive?, "Multipart request payload contained #{parts.size} fields")
 end
 
@@ -49,7 +49,7 @@ end
 #
 # @step_input part_key [String] The key to the multipart element
 Then('the field {string} for multipart request is not null') do |part_key|
-  parts = Server.current_request[:body]
+  parts = Maze::Server.errors.current[:body]
   assert_not_nil(parts[part_key], "The field '#{part_key}' should not be null")
 end
 
@@ -61,7 +61,7 @@ end
 # @step_input part_key [String] The key to the multipart element
 # @step_input expected_value [String] The string to match against
 Then('the field {string} for multipart request equals {string}') do |part_key, expected_value|
-  parts = Server.current_request[:body]
+  parts = Maze::Server.errors.current[:body]
   assert_equal(parts[part_key], expected_value)
 end
 
@@ -72,7 +72,7 @@ end
 #
 # @step_input part_key [String] The key to the multipart element
 Then('the field {string} for multipart request is null') do |part_key|
-  parts = Server.current_request[:body]	
+  parts = Maze::Server.errors.current[:body]
   assert_nil(parts[part_key], "The field '#{part_key}' should be null")
 end
 
@@ -96,10 +96,10 @@ end
 # @step_input json_path [String] Path to a JSON file relative to maze-runner root
 Then('the multipart body does not match the JSON file in {string}') do |json_path|
   assert_true(File.exist?(json_path), "'#{json_path}' does not exist")
-  raw_payload_value = Server.current_request[:body]
+  raw_payload_value = Maze::Server.errors.current[:body]
   payload_value = parse_multipart_body(raw_payload_value)
   expected_value = JSON.parse(open(json_path, &:read))
-  result = value_compare(expected_value, payload_value)
+  result = Maze::Compare.value(expected_value, payload_value)
   assert_false(result.equal?, "Payload:\n#{payload_value}\nExpected:#{expected_value}")
 end
 
@@ -109,10 +109,10 @@ end
 # @step_input json_path [String] Path to a JSON file relative to maze-runner root
 Then('the multipart body matches the JSON file in {string}') do |json_path|
   assert_true(File.exist?(json_path), "'#{json_path}' does not exist")
-  raw_payload_value = Server.current_request[:body]
+  raw_payload_value = Maze::Server.errors.current[:body]
   payload_value = parse_multipart_body(raw_payload_value)
   expected_value = JSON.parse(open(json_path, &:read))
-  result = value_compare(expected_value, payload_value)
+  result = Maze::Compare.value(expected_value, payload_value)
   assert_true(result.equal?, "The payload field '#{result.keypath}' does not match the fixture:\n #{result.reasons.join('\n')}")
 end
 
@@ -123,8 +123,8 @@ end
 # @step_input json_path [String] Path to a JSON file relative to maze-runner root
 Then('the multipart field {string} matches the JSON file in {string}') do |field_path, json_path|
   assert_true(File.exist?(json_path), "'#{json_path}' does not exist")
-  payload_value = JSON.parse(Server.current_request[:body][field_path].to_s)
+  payload_value = JSON.parse(Maze::Server.errors.current[:body][field_path].to_s)
   expected_value = JSON.parse(open(json_path, &:read))
-  result = value_compare(expected_value, payload_value)
+  result = Maze::Compare.value(expected_value, payload_value)
   assert_true(result.equal?, "The multipart field '#{result.keypath}' does not match the fixture:\n #{result.reasons.join('\n')}")
 end

@@ -7,26 +7,39 @@
 #
 # @step_input version [String] The payload version expected
 # @step_input name [String] The expected name of the notifier
-Then('the request is valid for the error reporting API version {string} for the {string} notifier') do |version, name|
+Then('the error is valid for the error reporting API version {string} for the {string} notifier') do |version, name|
+  step "the error is valid for the error reporting API version \"#{version}\"" \
+       " for the \"#{name}\" notifier with the apiKey \"#{$api_key}\""
+end
+
+# Verifies that generic elements of an error payload are present.
+#
+# @step_input version [String] The payload version expected
+# @step_input name [String] The expected name of the notifier
+# @step_input api_key [String] The API key expected
+Then('the error is valid for the error reporting API version {string}' \
+     ' for the {string} notifier with the apiKey {string}') do |payload_version, notifier_name, api_key|
   steps %(
-    Then the "Bugsnag-Api-Key" header equals "#{$api_key}"
-    And the payload field "apiKey" equals "#{$api_key}"
-    And the "Bugsnag-Payload-Version" header equals "#{version}"
-    And the payload contains the payloadVersion "#{version}"
-    And the "Content-Type" header equals "application/json"
-    And the "Bugsnag-Sent-At" header is a timestamp
+    Then the error "Bugsnag-Api-Key" header equals "#{api_key}"
+    And the error payload field "apiKey" equals "#{api_key}"
+    And the error "Bugsnag-Payload-Version" header equals "#{payload_version}"
+    And the error payload contains the payloadVersion "#{payload_version}"
+    And the error "Content-Type" header equals "application/json"
+    And the error "Bugsnag-Sent-At" header is a timestamp
+    And the error Bugsnag-Integrity header is valid
 
-    And the payload field "notifier.name" equals "#{name}"
-    And the payload field "notifier.url" is not null
-    And the payload field "notifier.version" is not null
-    And the payload field "events" is a non-empty array
+    And the error payload field "notifier.name" equals "#{notifier_name}"
+    And the error payload field "notifier.url" is not null
+    And the error payload field "notifier.version" is not null
+    And the error payload field "events" is a non-empty array
 
-    And each element in payload field "events" has "severity"
-    And each element in payload field "events" has "severityReason.type"
-    And each element in payload field "events" has "unhandled"
-    And each element in payload field "events" has "exceptions"
+    And each element in error payload field "events" has "severity"
+    And each element in error payload field "events" has "severityReason.type"
+    And each element in error payload field "events" has "unhandled"
+    And each element in error payload field "events" has "exceptions"
   )
 end
+
 
 # Verifies that an event is correct for an unhandled error
 # This checks various elements of the payload matching an unhandled error including:
@@ -79,10 +92,10 @@ end
 #   For all other notifiers this should be a top-level key.
 #
 # @step_input payload_version [String] The payload version expected
-Then('the payload contains the payloadVersion {string}') do |payload_version|
-  body_version = read_key_path(Server.current_request[:body], 'payloadVersion')
+Then('the error payload contains the payloadVersion {string}') do |payload_version|
+  body_version = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], 'payloadVersion')
   body_set = payload_version == body_version
-  event_version = read_key_path(Server.current_request[:body], 'events.0.payloadVersion')
+  event_version = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], 'events.0.payloadVersion')
   event_set = payload_version == event_version
   assert_true(
     body_set || event_set,
@@ -96,7 +109,7 @@ end
 # @step_input field [String] The relative location of the value to test
 # @step_input literal [Enum] The literal to test against, one of: true, false, null, not null
 Then(/^the event "(.+)" is (true|false|null|not null)$/) do |field, literal|
-  step "the payload field \"events.0.#{field}\" is #{literal}"
+  step "the error payload field \"events.0.#{field}\" is #{literal}"
 end
 
 # Tests whether a value in the first event entry matches a string.
@@ -104,7 +117,7 @@ end
 # @step_input field [String] The relative location of the value to test
 # @step_input string_value [String] The string to match against
 Then('the event {string} equals {string}') do |field, string_value|
-  step "the payload field \"events.0.#{field}\" equals \"#{string_value}\""
+  step "the error payload field \"events.0.#{field}\" equals \"#{string_value}\""
 end
 
 # Tests whether a value in the first event entry equals an integer.
@@ -112,7 +125,7 @@ end
 # @step_input field [String] The relative location of the value to test
 # @step_input value [Integer] The integer to test against
 Then('the event {string} equals {int}') do |field, value|
-  step "the payload field \"events.0.#{field}\" equals #{value}"
+  step "the error payload field \"events.0.#{field}\" equals #{value}"
 end
 
 # Tests whether a value in the first event entry starts with a string.
@@ -120,7 +133,7 @@ end
 # @step_input field [String] The relative location of the value to test
 # @step_input string_value [String] The string to match against
 Then('the event {string} starts with {string}') do |field, string_value|
-  step "the payload field \"events.0.#{field}\" starts with \"#{string_value}\""
+  step "the error payload field \"events.0.#{field}\" starts with \"#{string_value}\""
 end
 
 # Tests whether a value in the first event entry ends with a string.
@@ -128,7 +141,7 @@ end
 # @step_input field [String] The relative location of the value to test
 # @step_input string_value [String] The string to match against
 Then('the event {string} ends with {string}') do |field, string_value|
-  step "the payload field \"events.0.#{field}\" ends with \"#{string_value}\""
+  step "the error payload field \"events.0.#{field}\" ends with \"#{string_value}\""
 end
 
 # Tests whether a value in the first event entry matches a regex.
@@ -136,21 +149,21 @@ end
 # @step_input field [String] The relative location of the value to test
 # @step_input pattern [String] The regex to match against
 Then('the event {string} matches {string}') do |field, pattern|
-  step "the payload field \"events.0.#{field}\" matches the regex \"#{pattern}\""
+  step "the error payload field \"events.0.#{field}\" matches the regex \"#{pattern}\""
 end
 
 # Tests whether a value in the first event entry is a timestamp.
 #
 # @step_input field [String] The relative location of the value to test
 Then('the event {string} is a timestamp') do |field|
-  step "the payload field \"events.0.#{field}\" matches the regex \"#{TIMESTAMP_REGEX}\""
+  step "the error payload field \"events.0.#{field}\" matches the regex \"#{TIMESTAMP_REGEX}\""
 end
 
 # Tests whether a value in the first event entry is a numeric and parsable timestamp.
 #
 # @step_input field [String] The relative location of the value to test
 Then('the event {string} is a parsable timestamp in seconds') do |field|
-  step "the payload field \"events.0.#{field}\" is a parsable timestamp in seconds"
+  step "the error payload field \"events.0.#{field}\" is a parsable timestamp in seconds"
 end
 
 # Tests the Event field value against an environment variable.
@@ -158,7 +171,7 @@ end
 # @step_input field [String] The payload element to check
 # @step_input env_var [String] The environment variable to test against
 Then('the event {string} equals the environment variable {string}') do |field, env_var|
-  step "the payload field \"events.0.#{field}\" equals the environment variable \"#{env_var}\""
+  step "the error payload field \"events.0.#{field}\" equals the environment variable \"#{env_var}\""
 end
 
 # Tests whether a value in the first event entry matches a JSON fixture.
@@ -166,7 +179,20 @@ end
 # @step_input field [String] The relative location of the value to test
 # @step_input fixture_path [String] The fixture to match against
 Then('the event {string} matches the JSON fixture in {string}') do |field, fixture_path|
-  step "the payload field \"events.0.#{field}\" matches the JSON fixture in \"#{fixture_path}\""
+  step "the error payload field \"events.0.#{field}\" matches the JSON fixture in \"#{fixture_path}\""
+end
+
+Then('the event {string} string is empty') do |keypath|
+  value = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], keypath)
+  assert_block("The #{keypath} is not empty: '#{value}'") do
+    value.nil? || value.empty?
+  end
+end
+
+Then('the event {string} is greater than {int}') do |keypath, int|
+  value = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], "events.0.#{keypath}")
+  assert_false(value.nil?, "The event #{keypath} is nil")
+  assert_true(value > int)
 end
 
 # Tests whether a value in the first exception of the first event entry starts with a string.
@@ -174,7 +200,7 @@ end
 # @step_input field [String] The relative location of the value to test
 # @step_input string_value [String] The string to match against
 Then('the exception {string} starts with {string}') do |field, string_value|
-  step "the payload field \"events.0.exceptions.0.#{field}\" starts with \"#{string_value}\""
+  step "the error payload field \"events.0.exceptions.0.#{field}\" starts with \"#{string_value}\""
 end
 
 # Tests whether a value in the first exception of the first event entry ends with a string.
@@ -182,7 +208,7 @@ end
 # @step_input field [String] The relative location of the value to test
 # @step_input string_value [String] The string to match against
 Then('the exception {string} ends with {string}') do |field, string_value|
-  step "the payload field \"events.0.exceptions.0.#{field}\" ends with \"#{string_value}\""
+  step "the error payload field \"events.0.exceptions.0.#{field}\" ends with \"#{string_value}\""
 end
 
 # Tests whether a value in the first exception of the first event entry equals a string.
@@ -190,7 +216,7 @@ end
 # @step_input field [String] The relative location of the value to test
 # @step_input string_value [String] The string to match against
 Then('the exception {string} equals {string}') do |field, string_value|
-  step "the payload field \"events.0.exceptions.0.#{field}\" equals \"#{string_value}\""
+  step "the error payload field \"events.0.exceptions.0.#{field}\" equals \"#{string_value}\""
 end
 
 # Tests whether a value in the first exception of the first event entry matches a regex.
@@ -198,7 +224,7 @@ end
 # @step_input field [String] The relative location of the value to test
 # @step_input pattern [String] The regex to match against
 Then('the exception {string} matches {string}') do |field, pattern|
-  step "the payload field \"events.0.exceptions.0.#{field}\" matches the regex \"#{pattern}\""
+  step "the error payload field \"events.0.exceptions.0.#{field}\" matches the regex \"#{pattern}\""
 end
 
 # Tests whether a element of a stack frame in the first exception of the first event equals an integer.
@@ -208,7 +234,7 @@ end
 # @step_input value [Integer] The value to test against
 Then('the {string} of stack frame {int} equals {int}') do |key, num, value|
   field = "events.0.exceptions.0.stacktrace.#{num}.#{key}"
-  step "the payload field \"#{field}\" equals #{value}"
+  step "the error payload field \"#{field}\" equals #{value}"
 end
 
 # Tests whether an element of a stack frame in the first exception of the first event matches a regex pattern.
@@ -218,7 +244,7 @@ end
 # @step_input pattern [String] The regex to match against
 Then('the {string} of stack frame {int} matches {string}') do |key, num, pattern|
   field = "events.0.exceptions.0.stacktrace.#{num}.#{key}"
-  step "the payload field \"#{field}\" matches the regex \"#{pattern}\""
+  step "the error payload field \"#{field}\" matches the regex \"#{pattern}\""
 end
 
 # Tests whether an element of a stack frame in the first exception of the first event equals a string.
@@ -228,7 +254,7 @@ end
 # @step_input value [String] The value to test against
 Then('the {string} of stack frame {int} equals {string}') do |key, num, value|
   field = "events.0.exceptions.0.stacktrace.#{num}.#{key}"
-  step "the payload field \"#{field}\" equals \"#{value}\""
+  step "the error payload field \"#{field}\" equals \"#{value}\""
 end
 
 # Tests whether an element of a stack frame in the first exception of the first event starts with a string.
@@ -238,7 +264,7 @@ end
 # @step_input value [String] The value to test against
 Then('the {string} of stack frame {int} starts with {string}') do |key, num, value|
   field = "events.0.exceptions.0.stacktrace.#{num}.#{key}"
-  step "the payload field \"#{field}\" starts with \"#{value}\""
+  step "the error payload field \"#{field}\" starts with \"#{value}\""
 end
 
 # Tests whether an element of a stack frame in the first exception of the first event ends with a string.
@@ -248,7 +274,7 @@ end
 # @step_input value [String] The value to test against
 Then('the {string} of stack frame {int} ends with {string}') do |key, num, value|
   field = "events.0.exceptions.0.stacktrace.#{num}.#{key}"
-  step "the payload field \"#{field}\" ends with \"#{value}\""
+  step "the error payload field \"#{field}\" ends with \"#{value}\""
 end
 
 # Tests whether an element of a stack frame in the first exception of the first event matches a literal.
@@ -258,7 +284,7 @@ end
 # @step_input literal [Enum] The literal to test against, one of: true, false, null, not null
 Then(/^the "(.*)" of stack frame (\d*) is (true|false|null|not null)$/) do |key, num, literal|
   field = "events.0.exceptions.0.stacktrace.#{num}.#{key}"
-  step "the payload field \"#{field}\" is #{literal}"
+  step "the error payload field \"#{field}\" is #{literal}"
 end
 
 # Tests whether a thread from the first event, identified by name, is the error reporting thread.
@@ -280,7 +306,7 @@ end
 # @param payload_key [String] The thread identifier key
 # @param payload_value [Any] The thread identifier value
 def validate_error_reporting_thread(payload_key, payload_value)
-  threads = Server.current_request[:body]['events'].first['threads']
+  threads = Maze::Server.errors.current[:body]['events'].first['threads']
   assert_kind_of Array, threads
   count = 0
 
@@ -304,16 +330,15 @@ def test_unhandled_state(event, unhandled, severity = nil)
                       else
                         'warning'
                       end
-
   steps %(
-    Then the payload field "events.#{event}.unhandled" is #{expected_unhandled_state}
-    And the payload field "events.#{event}.severity" equals "#{expected_severity}"
+    Then the error payload field "events.#{event}.unhandled" is #{expected_unhandled_state}
+    And the error payload field "events.#{event}.severity" equals "#{expected_severity}"
   )
 
-  return if read_key_path(Server.current_request[:body], "events.#{event}.session").nil?
+  return if Maze::Helper.read_key_path(Maze::Server.errors.current[:body], "events.#{event}.session").nil?
 
   session_field = unhandled ? 'unhandled' : 'handled'
   steps %(
-    And the payload field "events.#{event}.session.events.#{session_field}" is greater than 0
+    And the error payload field "events.#{event}.session.events.#{session_field}" is greater than 0
   )
 end

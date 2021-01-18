@@ -23,12 +23,12 @@ the hood to draft semantic tests.
 
    ```ruby
    source "https://rubygems.org"
-   gem "bugsnag-maze-runner", git: "https://github.com/bugsnag/maze-runner"
+   gem "maze-runner", git: "https://github.com/bugsnag/maze-runner"
    ```
 
 3. Run `bundle install` to fetch and install Maze Runner
 
-4. Run `bundle exec bugsnag-maze-runner init` from the root of your project to build the
+4. Run `bundle exec maze-runner init` from the root of your project to build the
    basic structure to run test scenarios.
    * `features/fixtures`: Test fixture files, such as sample JSON payloads
    * `features/scripts`: Scripts to be run in scenarios. Any environment
@@ -46,7 +46,7 @@ the hood to draft semantic tests.
    A sample feature is included after running `init`. Try it out with
 
    ```shell
-   bundle exec bugsnag-maze-runner
+   bundle exec maze-runner
    ```
 
 ## Writing features
@@ -108,12 +108,12 @@ configuration should go.
  `echo Peanut Butter Jelly Time`
 
  # Run before every scenarios
- MazeRunner.hooks.before do
+ Maze.hooks.before do
    clean_build_artifacts
  end
 
 # Run after every scenario
-MazeRunner.hooks.after do |scenario|
+Maze.hooks.after do |scenario|
   # Teardown scenario configuration here
 
   if scenario.failed?
@@ -153,7 +153,7 @@ For example, to match the name of the second objects in the the key `fruits` bel
 #### Using BrowserStack
 
 BrowserStack is used to drive many of the mobile device tests written using maze-runner.  For these tests we can use a 
-driver class and accompanying set of steps to interface with the BrowserStack AppAutomate server.  `MazeRunner.driver` 
+driver class and accompanying set of steps to interface with the BrowserStack AppAutomate server.  `Maze.driver` 
 can be used to write custom steps using the API provided by the `Appium::Driver` class.
 
 The options needed to create a connection to the Appium server should be passed in via the command line when invoking
@@ -204,10 +204,10 @@ This request will match:
 
 ## Running features
 
-Run the entire suite using `bundle exec bugsnag-maze-runner`. Alternately, you can specify specific files to run:
+Run the entire suite using `bundle exec maze-runner`. Alternately, you can specify specific files to run:
 
 ```shell
-bundle exec bugsnag-maze-runner features/something.feature
+bundle exec maze-runner features/something.feature
 ```
 
 Add the `--verbose` option to print script output and a trace of what Ruby file is being run.
@@ -244,5 +244,5 @@ useful helper functions, add them to `lib/features/support/*.rb`.
 
 ### Running the tests
 
-bugsnag-maze-runner uses test-unit and minunit to bootstrap itself and run the sample app suites in the test fixtures. 
+maze-runner uses test-unit and minunit to bootstrap itself and run the sample app suites in the test fixtures. 
 Run `bundle exec rake` to run the suite.

@@ -1,4 +1,45 @@
-## Upgrading Guide
+# Upgrading Guide
+
+## v3 to v4
+
+In v3, a single "request" endpoint received HTTP requests for both errors (notify) and sessions.  In v4 these have 
+been separated, meaning:
+
+### Client Configuration
+
+Bugsnag clients must now be configured with different endpoints:
+v3
+```
+config.setEndpoints("http://localhost:9339", "http://localhost:9339")
+```
+v4:
+```
+config.setEndpoints("http://localhost:9339/notify", "http://localhost:9339/sessions")
+```
+
+### Namespace and class changes
+
+The `MazeRunner` class is renamed to just `Maze` and all other classes have been moved into the `Maze` namespace.
+
+### Cucumber step changes
+ 
+Several Cucumber steps have changed their wording or been split into separate steps.  Where `{word}` is used in these
+steps it corresponds to either `error` or `session` (or their plurals).
+
+Old step | New step(s)
+----| -------- | 
+I wait to receive a request | I wait to receive an error <br> I wait to receive a session
+I wait to receive {int} request(s) | I wait to receive {int} error(s) <br> I wait to receive {int} session(s)
+I discard the oldest request | I discard the oldest error <br> I discard the oldest session
+the {string} header is not null | the {word} {string} header is not null
+the {string} header equals {string} | the {word} {string} header equals {string}
+the {string} header matches the regex {string} | the {word} {string} header matches the regex {string}
+the {string} header equals one of: | the {word} {string} header equals one of:
+the {string} header is a timestamp | the {word} {string} header is a timestamp
+the {string} query parameter equals {string} | the {word} {string} query parameter equals {string}
+the {string} query parameter is not null | the {word} {string} query parameter is not null
+the {string} query parameter is a timestamp | the {word} {string} query parameter is a timestamp
+the payload field {string} ... <various> | the {word} payload field {string} ...
 
 ### Upgrading from v2 to v3
 
@@ -53,8 +94,6 @@ bundle exec bugsnag-maze-runner \
 --username=$BROWSER_STACK_USERNAME \
 --access-key=$BROWSER_STACK_ACCESS_KEY
 ```
-
-
 
 ### Upgrading from 2.6.0 to 2.7.0
 

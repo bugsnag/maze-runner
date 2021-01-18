@@ -1,6 +1,6 @@
 lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'version'
+require_relative 'lib/maze'
 
 Gem::Specification.new do |spec|
   spec.name    = 'bugsnag-maze-runner'

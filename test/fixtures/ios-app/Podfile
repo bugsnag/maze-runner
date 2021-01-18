@@ -1,9 +1,0 @@
-target 'MazeRunner' do
-    pod 'Bugsnag'
-
-  #target 'MazeRunnerUITests' do
-    #inherit! :search_paths
-    ## Pods for testing
-  #end
-
-end

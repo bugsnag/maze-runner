@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'test_helper'
-require_relative '../lib/features/support/appium_driver'
+require_relative '../lib/maze/driver/appium'
 
 class AppiumDriverTest < Test::Unit::TestCase
 
@@ -30,13 +30,13 @@ class AppiumDriverTest < Test::Unit::TestCase
 
   def test_capabilities
     start_logger_mock
-    driver = AppiumDriver.new SERVER_URL, @capabilities
+    driver = Maze::Driver::Appium.new SERVER_URL, @capabilities
     assert_equal('value', driver.caps[:key])
   end
 
   def test_click_element_defaults
     start_logger_mock
-    driver = AppiumDriver.new SERVER_URL, @capabilities
+    driver = Maze::Driver::Appium.new SERVER_URL, @capabilities
 
     mocked_element = mock('element')
     mocked_element.expects(:click)
@@ -48,7 +48,7 @@ class AppiumDriverTest < Test::Unit::TestCase
 
   def test_click_element_locator
     start_logger_mock
-    driver = AppiumDriver.new SERVER_URL, @capabilities, :accessibility_id
+    driver = Maze::Driver::Appium.new SERVER_URL, @capabilities, :accessibility_id
 
     mocked_element = mock('element')
     mocked_element.expects(:click)
@@ -60,7 +60,7 @@ class AppiumDriverTest < Test::Unit::TestCase
 
   def test_wait_for_element_defaults
     start_logger_mock
-    driver = AppiumDriver.new SERVER_URL, @capabilities
+    driver = Maze::Driver::Appium.new SERVER_URL, @capabilities
 
     mocked_element = mock('element')
     mocked_element.expects(:displayed?).returns(true)
@@ -73,7 +73,7 @@ class AppiumDriverTest < Test::Unit::TestCase
 
   def test_wait_for_element_locator
     start_logger_mock
-    driver = AppiumDriver.new SERVER_URL, @capabilities, :accessibility_id
+    driver = Maze::Driver::Appium.new SERVER_URL, @capabilities, :accessibility_id
 
     mocked_element = mock('element')
     mocked_element.expects(:displayed?).returns(true)
@@ -86,7 +86,7 @@ class AppiumDriverTest < Test::Unit::TestCase
 
   def test_wait_for_element_failure
     start_logger_mock
-    driver = AppiumDriver.new SERVER_URL, @capabilities, :accessibility_id
+    driver = Maze::Driver::Appium.new SERVER_URL, @capabilities, :accessibility_id
 
     mocked_element = mock('element')
     mocked_element.expects(:displayed?).returns(false).at_least_once
@@ -99,7 +99,7 @@ class AppiumDriverTest < Test::Unit::TestCase
 
   def test_wait_for_element_stale_error_retry
     start_logger_mock
-    driver = AppiumDriver.new SERVER_URL, @capabilities, :accessibility_id
+    driver = Maze::Driver::Appium.new SERVER_URL, @capabilities, :accessibility_id
 
     mocked_element = mock('element')
     mocked_element.expects(:displayed?).times(2).raises(Selenium::WebDriver::Error::StaleElementReferenceError, 'Element is stale').then.returns(true)
@@ -112,7 +112,7 @@ class AppiumDriverTest < Test::Unit::TestCase
 
   def test_wait_for_element_stale_error_retry_disabled
     logger = start_logger_mock
-    driver = AppiumDriver.new SERVER_URL, @capabilities, :accessibility_id
+    driver = Maze::Driver::Appium.new SERVER_URL, @capabilities, :accessibility_id
 
     stale_error = Selenium::WebDriver::Error::StaleElementReferenceError.new('Element is stale')
     mocked_element = mock('element')
@@ -128,7 +128,7 @@ class AppiumDriverTest < Test::Unit::TestCase
 
   def test_wait_for_element_stale_error_retry_only_once
     logger = start_logger_mock
-    driver = AppiumDriver.new SERVER_URL, @capabilities, :accessibility_id
+    driver = Maze::Driver::Appium.new SERVER_URL, @capabilities, :accessibility_id
 
     stale_error = Selenium::WebDriver::Error::StaleElementReferenceError.new('Element is stale')
     mocked_element = mock('element')
@@ -146,7 +146,7 @@ class AppiumDriverTest < Test::Unit::TestCase
 
   def test_clear_element_defaults
     start_logger_mock
-    driver = AppiumDriver.new SERVER_URL, @capabilities
+    driver = Maze::Driver::Appium.new SERVER_URL, @capabilities
 
     mocked_element = mock('element')
     mocked_element.expects(:clear)
@@ -158,7 +158,7 @@ class AppiumDriverTest < Test::Unit::TestCase
 
   def test_send_keys_to_element_defaults
     start_logger_mock
-    driver = AppiumDriver.new SERVER_URL, @capabilities
+    driver = Maze::Driver::Appium.new SERVER_URL, @capabilities
 
     mocked_element = mock('element')
     mocked_element.expects(:send_keys).with('Test_text')
@@ -170,7 +170,7 @@ class AppiumDriverTest < Test::Unit::TestCase
 
   def test_clear_and_send_keys_to_element_defaults
     start_logger_mock
-    driver = AppiumDriver.new SERVER_URL, @capabilities
+    driver = Maze::Driver::Appium.new SERVER_URL, @capabilities
 
     mocked_element = mock('element')
     mocked_element.expects(:clear)
@@ -183,7 +183,7 @@ class AppiumDriverTest < Test::Unit::TestCase
 
   def test_clear_element_locator
     start_logger_mock
-    driver = AppiumDriver.new SERVER_URL, @capabilities, :accessibility_id
+    driver = Maze::Driver::Appium.new SERVER_URL, @capabilities, :accessibility_id
 
     mocked_element = mock('element')
     mocked_element.expects(:clear)
@@ -195,7 +195,7 @@ class AppiumDriverTest < Test::Unit::TestCase
 
   def test_send_keys_to_element_locator
     start_logger_mock
-    driver = AppiumDriver.new SERVER_URL, @capabilities, :accessibility_id
+    driver = Maze::Driver::Appium.new SERVER_URL, @capabilities, :accessibility_id
 
     mocked_element = mock('element')
     mocked_element.expects(:send_keys).with('Test_text')
@@ -207,7 +207,7 @@ class AppiumDriverTest < Test::Unit::TestCase
 
   def test_clear_and_send_keys_to_element_locator
     start_logger_mock
-    driver = AppiumDriver.new SERVER_URL, @capabilities, :accessibility_id
+    driver = Maze::Driver::Appium.new SERVER_URL, @capabilities, :accessibility_id
 
     mocked_element = mock('element')
     mocked_element.expects(:clear)
@@ -221,7 +221,7 @@ class AppiumDriverTest < Test::Unit::TestCase
   def test_project_name_capabilities_local
     # BUILDKITE environment variable is cleared in setup
     start_logger_mock
-    driver = AppiumDriver.new SERVER_URL, @capabilities, :accessibility_id
+    driver = Maze::Driver::Appium.new SERVER_URL, @capabilities, :accessibility_id
     hash = driver.project_name_capabilities
 
     assert_equal 'local', hash[:project]
@@ -232,7 +232,7 @@ class AppiumDriverTest < Test::Unit::TestCase
     start_logger_mock
 
     pipeline = 'Android Bugsnag Notifier'
-    driver = AppiumDriver.new SERVER_URL, @capabilities, :accessibility_id
+    driver = Maze::Driver::Appium.new SERVER_URL, @capabilities, :accessibility_id
 
     ENV['BUILDKITE'] = 'true'
     ENV['BUILDKITE_PIPELINE_NAME'] = pipeline

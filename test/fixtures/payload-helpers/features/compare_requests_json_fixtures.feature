@@ -3,7 +3,7 @@ Feature: Testing helper methods respond correctly
     Scenario: The request body matches an expected error payload
         When I send a "payload"-type request
         Then I wait to receive an error
-        And the request is valid for the error reporting API version "4.0" for the "Maze-runner" notifier
+        And the error is valid for the error reporting API version "4.0" for the "Maze-runner" notifier
 
     Scenario: The request body matches an expected session payload
         When I send a "session"-type request

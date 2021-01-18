@@ -7,16 +7,28 @@
 #
 # @step_input version [String] The payload version expected
 # @step_input name [String] The expected name of the notifier
-Then('the request is valid for the error reporting API version {string} for the {string} notifier') do |version, name|
+Then('the error is valid for the error reporting API version {string} for the {string} notifier') do |version, name|
+  step "the error is valid for the error reporting API version \"#{version}\"" \
+       " for the \"#{name}\" notifier with the apiKey \"#{$api_key}\""
+end
+
+# Verifies that generic elements of an error payload are present.
+#
+# @step_input version [String] The payload version expected
+# @step_input name [String] The expected name of the notifier
+# @step_input api_key [String] The API key expected
+Then('the error is valid for the error reporting API version {string}' \
+     ' for the {string} notifier with the apiKey {string}') do |payload_version, notifier_name, api_key|
   steps %(
-    Then the error "Bugsnag-Api-Key" header equals "#{$api_key}"
-    And the error payload field "apiKey" equals "#{$api_key}"
-    And the error "Bugsnag-Payload-Version" header equals "#{version}"
-    And the error payload contains the payloadVersion "#{version}"
+    Then the error "Bugsnag-Api-Key" header equals "#{api_key}"
+    And the error payload field "apiKey" equals "#{api_key}"
+    And the error "Bugsnag-Payload-Version" header equals "#{payload_version}"
+    And the error payload contains the payloadVersion "#{payload_version}"
     And the error "Content-Type" header equals "application/json"
     And the error "Bugsnag-Sent-At" header is a timestamp
+    And the error Bugsnag-Integrity header is valid
 
-    And the error payload field "notifier.name" equals "#{name}"
+    And the error payload field "notifier.name" equals "#{notifier_name}"
     And the error payload field "notifier.url" is not null
     And the error payload field "notifier.version" is not null
     And the error payload field "events" is a non-empty array
@@ -27,6 +39,7 @@ Then('the request is valid for the error reporting API version {string} for the 
     And each element in error payload field "events" has "exceptions"
   )
 end
+
 
 # Verifies that an event is correct for an unhandled error
 # This checks various elements of the payload matching an unhandled error including:
@@ -167,6 +180,19 @@ end
 # @step_input fixture_path [String] The fixture to match against
 Then('the event {string} matches the JSON fixture in {string}') do |field, fixture_path|
   step "the error payload field \"events.0.#{field}\" matches the JSON fixture in \"#{fixture_path}\""
+end
+
+Then('the event {string} string is empty') do |keypath|
+  value = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], keypath)
+  assert_block("The #{keypath} is not empty: '#{value}'") do
+    value.nil? || value.empty?
+  end
+end
+
+Then('the event {string} is greater than {int}') do |keypath, int|
+  value = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], "events.0.#{keypath}")
+  assert_false(value.nil?, "The event #{keypath} is nil")
+  assert_true(value > int)
 end
 
 # Tests whether a value in the first exception of the first event entry starts with a string.

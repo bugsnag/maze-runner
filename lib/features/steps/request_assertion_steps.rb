@@ -32,13 +32,6 @@ def assert_received_requests(request_count, list, list_name)
   assert_equal(request_count, list.size, "#{list.size} #{list_name} received")
 end
 
-# Assert that the test Server hasn't received any requests at all.
-Then('I should receive no requests') do
-  sleep Maze.config.receive_no_requests_wait
-  assert_equal(0, Maze::Server.errors.size, "#{Maze::Server.errors.size} errors received")
-  assert_equal(0, Maze::Server.sessions.size, "#{Maze::Server.sessions.size} sessions received")
-end
-
 #
 # Error request assertions
 #
@@ -58,13 +51,20 @@ Then('I wait to receive {int} {word}') do |request_count, request_type|
   assert_received_requests request_count, Maze::Server.list_for(request_type), request_type
 end
 
-# Assert that the test Server hasn't received any requests of a given type.
+# Assert that the test Server hasn't received any requests - of a specific, or any, type.
 #
-# @step_input request_type [String] The type of request (error, session, etc)
+# @step_input request_type [String] The type of request ('error', 'session', etc), or 'requests' to assert on all
+#   request types.
 Then('I should receive no {word}') do |request_type|
   sleep Maze.config.receive_no_requests_wait
-  list = Maze::Server.list_for(request_type).size
-  assert_equal(0, list, "#{list.size} #{request_type} received")
+  if request_type == 'requests'
+    # Assert that the test Server hasn't received any requests at all.
+    assert_equal(0, Maze::Server.errors.size, "#{Maze::Server.errors.size} errors received")
+    assert_equal(0, Maze::Server.sessions.size, "#{Maze::Server.sessions.size} sessions received")
+  else
+    list = Maze::Server.list_for(request_type).size
+    assert_equal(0, list, "#{list.size} #{request_type} received")
+  end
 end
 
 # Moves to the next request

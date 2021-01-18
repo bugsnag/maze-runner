@@ -41,13 +41,6 @@ the {string} query parameter is not null | the {word} {string} query parameter i
 the {string} query parameter is a timestamp | the {word} {string} query parameter is a timestamp
 the payload field {string} ... <various> | the {word} payload field {string} ...
 
-### Cucumber steps removed
-
-The following Cucumber steps are no longer required at the scenario level, as they are included
-in the newly worded steps above.
-
-TODO
-
 ### Upgrading from v2 to v3
 
 #### Published Docker image

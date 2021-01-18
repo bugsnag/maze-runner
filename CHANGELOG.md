@@ -1,3 +1,9 @@
+# 4.0.0 - 2021/01/18
+
+## Enhancements
+
+- Mock server and steps updated to receive different request types on separate endpoints [#186](https://github.com/bugsnag/maze-runner/pull/186)
+
 # 3.7.4 - 2021/01/12
 
 ## Fixes

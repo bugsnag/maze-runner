@@ -51,9 +51,10 @@ Then('I wait to receive {int} {word}') do |request_count, request_type|
   assert_received_requests request_count, Maze::Server.list_for(request_type), request_type
 end
 
-# Assert that the test Server hasn't received any requests of a given type.
+# Assert that the test Server hasn't received any requests - of a specific, or any, type.
 #
-# @step_input request_type [String] The type of request (error, session, etc)
+# @step_input request_type [String] The type of request ('error', 'session', etc), or 'requests' to assert on all
+#   request types.
 Then('I should receive no {word}') do |request_type|
   sleep Maze.config.receive_no_requests_wait
   if request_type == 'requests'

@@ -23,6 +23,9 @@ class LocalAppiumServer
       at_exit do
         stop
       end
+
+      # DIRTY SLEEP - REMOVE
+      sleep 5
     end
 
     def running

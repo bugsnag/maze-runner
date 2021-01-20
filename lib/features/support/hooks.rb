@@ -118,15 +118,15 @@ After do |scenario|
   Maze::Proxy.instance.stop
 
   # Log unprocessed requests if the scenario fails
-  # TODO Revamp and log sessions
   if scenario.failed?
     STDOUT.puts '^^^ +++'
     if Maze::Server.sessions.empty?
       $logger.info 'No valid sessions received'
     else
-      $logger.info "#{Maze::Server.sessions.size} sessions were received:"
+      count = Maze::Server.sessions.size_all
+      $logger.info "#{count} sessions were received:"
       Maze::Server.sessions.all.each.with_index(1) do |request, number|
-        $logger.info "Session #{number}:"
+        STDOUT.puts "--- Session #{number} of #{count}"
         Maze::LogUtil.log_hash(Logger::Severity::INFO, request)
       end
     end
@@ -134,9 +134,10 @@ After do |scenario|
     if Maze::Server.errors.empty?
       $logger.info 'No valid errors received'
     else
-      $logger.info "#{Maze::Server.errors.size} errors were received:"
+      count = Maze::Server.errors.size_all
+      $logger.info "#{count} errors were received:"
       Maze::Server.errors.all.each.with_index(1) do |request, number|
-        $logger.info "Request #{number}:"
+        STDOUT.puts "--- Request #{number} of #{count}"
         Maze::LogUtil.log_hash(Logger::Severity::INFO, request)
       end
     end

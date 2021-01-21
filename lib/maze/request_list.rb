@@ -14,9 +14,14 @@ module Maze
       @requests.empty?
     end
 
-    # The number of unprocessed/remaining reqests in the list (not the total number actually held)
+    # The number of unprocessed/remaining requests in the list (not the total number actually held)
     def size
       @count
+    end
+
+    # The total number of requests received, including those already processed
+    def size_all
+      @requests.size
     end
 
     # Add a request to the list

@@ -1,3 +1,9 @@
+# 4.0.1 - 2021/01/21
+
+## Fixes
+
+- Logging corrections and improvements [#203](https://github.com/bugsnag/maze-runner/pull/203)
+
 # 4.0.0 - 2021/01/18
 
 ## Enhancements

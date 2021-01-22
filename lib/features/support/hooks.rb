@@ -50,7 +50,7 @@ AfterConfiguration do |_cucumber_config|
   # Create and start the relevant driver
   if config.bs_browser
     selenium_url = "http://#{config.username}:#{config.access_key}@hub.browserstack.com/wd/hub"
-    Maze.driver = Maze::Driver::Selenium.new selenium_url, config.capabilities
+    Maze.driver = Maze::Driver::Browser.new selenium_url, config.capabilities
   else
     Maze.driver = if Maze.config.resilient
                     $logger.info 'Creating ResilientAppium driver instance'

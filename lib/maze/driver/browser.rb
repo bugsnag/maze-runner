@@ -3,7 +3,7 @@ require 'selenium-webdriver'
 module Maze
   module Driver
     # Handles browser automation fundamentals
-    class Selenium
+    class Browser
       def initialize(selenium_url, capabilities)
         @driver = ::Selenium::WebDriver.for :remote,
                                             url: selenium_url,

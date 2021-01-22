@@ -1,3 +1,9 @@
+# 4.2.1 - 2021/01/25
+
+## Fixes
+
+- Corrections for Browser automation [#207](https://github.com/bugsnag/maze-runner/pull/207)
+
 # 4.2.0 - 2021/01/22
 
 ## Enhancements

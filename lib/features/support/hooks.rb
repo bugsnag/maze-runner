@@ -31,9 +31,9 @@ AfterConfiguration do |_cucumber_config|
       config.capabilities['app'] = config.app
     else
       # BrowserStack browser
-      config.capabilities = Maze.for_browser_stack_browser config.bs_browser,
-                                                           tunnel_id,
-                                                           config.capabilities_option
+      config.capabilities = Maze::Capabilities.for_browser_stack_browser config.bs_browser,
+                                                                         tunnel_id,
+                                                                         config.capabilities_option
     end
     Maze::BrowserStackUtils.start_local_tunnel config.bs_local,
                                                tunnel_id,
@@ -41,16 +41,16 @@ AfterConfiguration do |_cucumber_config|
   elsif config.farm == :local
     # Local device
     config.capabilities = Maze.for_local config.os,
-                                                       config.capabilities_option,
-                                                       config.apple_team_id,
-                                                       config.device_id
+                                         config.capabilities_option,
+                                         config.apple_team_id,
+                                         config.device_id
     config.capabilities['app'] = config.app
   end
 
   # Create and start the relevant driver
   if config.bs_browser
     selenium_url = "http://#{config.username}:#{config.access_key}@hub.browserstack.com/wd/hub"
-    Maze.driver = Maze::SeleniumDriver.new selenium_url, config.capabilities
+    Maze.driver = Maze::Driver::Selenium.new selenium_url, config.capabilities
   else
     Maze.driver = if Maze.config.resilient
                     $logger.info 'Creating ResilientAppium driver instance'

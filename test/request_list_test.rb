@@ -13,6 +13,15 @@ class RequestListTest < Test::Unit::TestCase
     }
   end
 
+  def build_item_with_header(id, time)
+    header = 'Bugsnag-Sent-At'
+    {
+      id: id,
+      body: "{id: '#{id}'}",
+      header => time
+    }
+  end
+
   def test_fresh_state
     list = Maze::RequestList.new
     assert_nil list.current
@@ -125,5 +134,22 @@ class RequestListTest < Test::Unit::TestCase
     # Check that remaining does not change when inspected
     remaining = list.remaining
     assert_equal [item2, item3], remaining
+  end
+
+  def test_sort_by_sent_at_all_requests
+    time1 = '2021-01-21T14:36:00.000Z'
+    time2 = '2021-01-21T16:37:00.000Z'
+    time3 = '2021-01-21T15:37:00.000Z'
+
+    request1 = build_item_with_header 1, time1
+    request2 = build_item_with_header 2, time2
+    request3 = build_item_with_header 3, time3
+
+    list = Maze::RequestList.new
+    list.add request1
+    list.add request2
+    list.add request3
+
+    list.sort_by_sent_at 3
   end
 end

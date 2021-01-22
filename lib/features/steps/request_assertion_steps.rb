@@ -30,6 +30,7 @@ def assert_received_requests(request_count, list, list_name)
   end
 
   assert_equal(request_count, list.size, "#{list.size} #{list_name} received")
+  list.sort_by_sent_at request_count
 end
 
 #

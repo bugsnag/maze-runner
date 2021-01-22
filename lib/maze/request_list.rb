@@ -64,5 +64,11 @@ module Maze
       @current = 0
       @count = 0
     end
+
+    # Sorts the first `count` elements of the list by the Bugsnag-Sent-At header, if present
+    def sort_by_sent_at(count)
+      header =
+      return unless @requests.all? {|r| r.has? '' }
+    end
   end
 end

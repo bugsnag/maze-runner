@@ -1,3 +1,9 @@
+# 4.2.0 - 2021/01/22
+
+## Enhancements
+
+- Further Android 4.4 and 5.0 devices added [#206](https://github.com/bugsnag/maze-runner/pull/206)
+
 # 4.1.0 - 2021/01/21
 
 ## Enhancements

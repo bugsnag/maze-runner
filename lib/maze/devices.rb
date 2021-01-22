@@ -92,8 +92,10 @@ module Maze
         add_android 'Motorola Moto X 2nd Gen', '6.0', APPIUM_1_6_5, hash  # ANDROID_6_0_MOTOROLA_MOTO_X_2ND_GEN
         add_android 'Google Nexus 6', '6.0', APPIUM_1_6_5, hash           # ANDROID_6_0_GOOGLE_NEXUS_6
         add_android 'Samsung Galaxy S7', '6.0', APPIUM_1_6_5, hash        # ANDROID_6_0_SAMSUNG_GALAXY_S7
+        add_android 'Google Nexus 6', '5.0', APPIUM_1_6_5, hash           # ANDROID_5_0_GOOGLE_NEXUS_6
         add_android 'Samsung Galaxy S6', '5.0', APPIUM_1_6_5, hash        # ANDROID_5_0_SAMSUNG_GALAXY_S6
         add_android 'Samsung Galaxy Note 4', '4.4', APPIUM_1_6_5, hash    # ANDROID_4_4_SAMSUNG_GALAXY_NOTE_4
+        add_android 'Samsung Galaxy Tab 4', '4.4', APPIUM_1_6_5, hash     # ANDROID_4_4_SAMSUNG_GALAXY_TAB_4
 
         # Specific iOS devices
         add_ios 'iPhone 8 Plus', '11.0', hash                             # IOS_11_0_IPHONE_8_PLUS

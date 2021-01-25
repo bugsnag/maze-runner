@@ -71,13 +71,12 @@ module Maze
 
       header = 'Bugsnag-Sent-At'
       sub_list = @requests[@current...@current + count]
-      return unless sub_list.all? { |r| r.key? header }
+
+      return unless sub_list.all? { |r| !r[:request][header].nil? }
 
       # Sort sublist by Bugsnag-Sent-At and overwrite in the main list
-      sub_list.sort_by! { |r| DateTime.parse(r[header]) }
+      sub_list.sort_by! { |r| DateTime.parse(r[:request][header]) }
       sub_list.each_with_index { |r, i| @requests[@current + i] = r }
-
-      puts sub_list
     end
   end
 end

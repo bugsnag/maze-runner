@@ -1,3 +1,9 @@
+# 4.3.1 - 2021/01/26
+
+## Fixes
+
+- Ensure received requests are in order by sent time [#209](https://github.com/bugsnag/maze-runner/pull/209)
+
 # 4.3.0 - 2021/01/25
 
 ## Enhancements

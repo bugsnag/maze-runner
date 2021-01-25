@@ -9,16 +9,20 @@ class RequestListTest < Test::Unit::TestCase
   def build_item(id)
     {
       id: id,
-      body: "{id: '#{id}'}"
+      request: {
+        body: "{id: '#{id}'}"
+      }
     }
   end
 
   def build_item_with_header(id, time)
     header = 'Bugsnag-Sent-At'
     {
-      header => time,
       id: id,
-      body: "{id: '#{id}'}"
+      request: {
+        header => time,
+        body: "{id: '#{id}'}"
+      }
     }
   end
 

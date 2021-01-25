@@ -24,13 +24,15 @@ end
 #
 # @step_input element_id [String] The locator id
 When('I click the element {string}') do |element_id|
-  Maze.driver.click_element(element_id)
-rescue StandardError
-  # AppiumForMac raises an to run a scenario that crashes the app
-  raise unless Maze.config.os == 'macos'
+  begin
+    Maze.driver.click_element(element_id)
+  rescue StandardError
+    # AppiumForMac raises an to run a scenario that crashes the app
+    raise unless Maze.config.os == 'macos'
 
-  $logger.warn 'Ignoring exception raised on click_element - this is normal for AppiumForMac if the button click ' \
-    'causes the app to crash.'
+    $logger.warn 'Ignoring exception raised on click_element - this is normal for AppiumForMac if the button click ' \
+      'causes the app to crash.'
+  end
 end
 
 # Sends the app to the background for a number of seconds
@@ -68,10 +70,11 @@ end
 #
 # If the expected value is set to "@skip", the check should be skipped.
 #
+# @step_input request_type [String] The type of request (error, session, etc)
 # @step_input field_path [String] The field to test
 # @step_input platform_values [DataTable] A table of acceptable values for each platform
-Then('the error payload field {string} equals the platform-dependent string:') do |field_path, platform_values|
-  test_string_platform_values(field_path, platform_values)
+Then('the {word} payload field {string} equals the platform-dependent string:') do |request_type, field_path, platform_values|
+  test_string_platform_values(request_type, field_path, platform_values)
 end
 
 # See `the error payload field {string} equals the platform-dependent string:`
@@ -79,7 +82,7 @@ end
 # @step_input field_path [String] The field to test, prepended with "events.0"
 # @step_input platform_values [DataTable] A table of acceptable values for each platform
 Then('the event {string} equals the platform-dependent string:') do |field_path, platform_values|
-  test_string_platform_values("events.0.#{field_path}", platform_values)
+  test_string_platform_values('error', "events.0.#{field_path}", platform_values)
 end
 
 # Tests that the given payload value is correct for the target BrowserStack platform.
@@ -92,10 +95,11 @@ end
 #
 # If the expected value is set to "@skip", the check should be skipped.
 #
+# @step_input request_type [String] The type of request (error, session, etc)
 # @step_input field_path [String] The field to test
 # @step_input platform_values [DataTable] A table of acceptable values for each platform
-Then('the error payload field {string} equals the platform-dependent numeric:') do |field_path, platform_values|
-  test_numeric_platform_values(field_path, platform_values)
+Then('the {word} payload field {string} equals the platform-dependent numeric:') do |request_type, field_path, platform_values|
+  test_numeric_platform_values(request_type, field_path, platform_values)
 end
 
 # See `the payload field {string} equals the platform-dependent numeric:`
@@ -103,7 +107,7 @@ end
 # @step_input field_path [String] The field to test, prepended with "events.0"
 # @step_input platform_values [DataTable] A table of acceptable values for each platform
 Then('the event {string} equals the platform-dependent numeric:') do |field_path, platform_values|
-  test_numeric_platform_values("events.0.#{field_path}", platform_values)
+  test_numeric_platform_values('error', "events.0.#{field_path}", platform_values)
 end
 
 # Tests that the given payload value is correct for the target BrowserStack platform.
@@ -116,10 +120,11 @@ end
 #
 # If the expected value is set to "@skip", the check should be skipped.
 #
+# @step_input request_type [String] The type of request (error, session, etc)
 # @step_input field_path [String] The field to test
 # @step_input platform_values [DataTable] A table of acceptable values for each platform
-Then('the error payload field {string} equals the platform-dependent boolean:') do |field_path, platform_values|
-  test_boolean_platform_values(field_path, platform_values)
+Then('the {word} payload field {string} equals the platform-dependent boolean:') do |request_type, field_path, platform_values|
+  test_boolean_platform_values(request_type, field_path, platform_values)
 end
 
 # See `the payload field {string} equals the platform-dependent boolean:`
@@ -127,7 +132,7 @@ end
 # @step_input field_path [String] The field to test, prepended with "events.0"
 # @step_input platform_values [DataTable] A table of acceptable values for each platform
 Then('the event {string} equals the platform-dependent boolean:') do |field_path, platform_values|
-  test_boolean_platform_values("events.0.#{field_path}", platform_values)
+  test_boolean_platform_values('error', "events.0.#{field_path}", platform_values)
 end
 
 # See `the payload field {string} equals the platform-dependent string:`
@@ -135,7 +140,7 @@ end
 # @step_input field_path [String] The field to test, prepended with "events.0.exceptions.0."
 # @step_input platform_values [DataTable] A table of acceptable values for each platform
 Then('the exception {string} equals the platform-dependent string:') do |field_path, platform_values|
-  test_string_platform_values("events.0.exceptions.0.#{field_path}", platform_values)
+  test_string_platform_values('error', "events.0.exceptions.0.#{field_path}", platform_values)
 end
 
 # See `the payload field {string} equals the platform-dependent string:`
@@ -144,7 +149,7 @@ end
 # @step_input field_path [String] The index of the stack frame to test
 # @step_input platform_values [DataTable] A table of acceptable values for each platform
 Then('the {string} of stack frame {int} equals the platform-dependent string:') do |field_path, num, platform_values|
-  test_string_platform_values("events.0.exceptions.0.stacktrace.#{num}.#{field_path}", platform_values)
+  test_string_platform_values('error', "events.0.exceptions.0.stacktrace.#{num}.#{field_path}", platform_values)
 end
 
 # Sends keys to a given element, clearing it first
@@ -170,15 +175,16 @@ def should_skip_platform_check(expected_value)
   expected_value.eql?('@skip')
 end
 
-def test_string_platform_values(field_path, platform_values)
+def test_string_platform_values(request_type, field_path, platform_values)
   expected_value = get_expected_platform_value(platform_values)
   return if should_skip_platform_check(expected_value)
 
-  payload_value = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], field_path)
+  list = Maze::Server.list_for(request_type)
+  payload_value = Maze::Helper.read_key_path(list.current[:body], field_path)
   assert_equal(expected_value, payload_value)
 end
 
-def test_boolean_platform_values(field_path, platform_values)
+def test_boolean_platform_values(request_type, field_path, platform_values)
   expected_value = get_expected_platform_value(platform_values)
   return if should_skip_platform_check(expected_value)
 
@@ -189,14 +195,16 @@ def test_boolean_platform_values(field_path, platform_values)
                   else
                     expected_value
                   end
-  payload_value = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], field_path)
+  list = Maze::Server.list_for(request_type)
+  payload_value = Maze::Helper.read_key_path(list.current[:body], field_path)
   assert_equal(expected_bool, payload_value)
 end
 
-def test_numeric_platform_values(field_path, platform_values)
+def test_numeric_platform_values(request_type, field_path, platform_values)
   expected_value = get_expected_platform_value(platform_values)
   return if should_skip_platform_check(expected_value)
 
-  payload_value = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], field_path)
+  list = Maze::Server.list_for(request_type)
+  payload_value = Maze::Helper.read_key_path(list.current[:body], field_path)
   assert_equal(expected_value.to_f, payload_value)
 end

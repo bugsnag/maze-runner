@@ -1,3 +1,9 @@
+# 4.3.0 - 2021/01/25
+
+## Enhancements
+
+- Platform-dependent steps made payload independent [#208](https://github.com/bugsnag/maze-runner/pull/208)
+
 # 4.2.1 - 2021/01/25
 
 ## Fixes

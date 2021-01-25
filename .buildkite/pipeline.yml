@@ -78,8 +78,6 @@ steps:
       --app=app/build/outputs/apk/release/app-release.apk
       --farm=bs
       --device=ANDROID_6_0
-      --username=$BROWSER_STACK_USERNAME
-      --access-key=$BROWSER_STACK_ACCESS_KEY
     concurrency: 10
     concurrency_group: 'browserstack-app'
 
@@ -93,8 +91,6 @@ steps:
       --app=app/build/outputs/apk/release/app-release.apk
       --farm=bs
       --device=ANDROID_7_1
-      --username=$BROWSER_STACK_USERNAME
-      --access-key=$BROWSER_STACK_ACCESS_KEY
     concurrency: 10
     concurrency_group: 'browserstack-app'
 
@@ -109,8 +105,6 @@ steps:
       --app=app/build/outputs/apk/release/app-release.apk
       --farm=bs
       --device=ANDROID_8_1
-      --username=$BROWSER_STACK_USERNAME
-      --access-key=$BROWSER_STACK_ACCESS_KEY
     concurrency: 10
     concurrency_group: 'browserstack-app'
 
@@ -124,8 +118,6 @@ steps:
       --app=app/build/outputs/apk/release/app-release.apk
       --farm=bs
       --device=ANDROID_9_0
-      --username=$BROWSER_STACK_USERNAME
-      --access-key=$BROWSER_STACK_ACCESS_KEY
     concurrency: 10
     concurrency_group: 'browserstack-app'
 
@@ -139,8 +131,6 @@ steps:
       --app=app/build/outputs/apk/release/app-release.apk
       --farm=bs
       --device=ANDROID_10_0
-      --username=$BROWSER_STACK_USERNAME
-      --access-key=$BROWSER_STACK_ACCESS_KEY
       --appium-version=1.17.0
     concurrency: 10
     concurrency_group: 'browserstack-app'
@@ -155,8 +145,6 @@ steps:
       --app=app/build/outputs/apk/release/app-release.apk
       --farm=bs
       --device=ANDROID_11_0
-      --username=$BROWSER_STACK_USERNAME
-      --access-key=$BROWSER_STACK_ACCESS_KEY
       --appium-version=1.17.0
     concurrency: 10
     concurrency_group: 'browserstack-app'

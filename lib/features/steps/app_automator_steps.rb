@@ -24,13 +24,15 @@ end
 #
 # @step_input element_id [String] The locator id
 When('I click the element {string}') do |element_id|
-  Maze.driver.click_element(element_id)
-rescue StandardError
-  # AppiumForMac raises an to run a scenario that crashes the app
-  raise unless Maze.config.os == 'macos'
+  begin
+    Maze.driver.click_element(element_id)
+  rescue StandardError
+    # AppiumForMac raises an to run a scenario that crashes the app
+    raise unless Maze.config.os == 'macos'
 
-  $logger.warn 'Ignoring exception raised on click_element - this is normal for AppiumForMac if the button click ' \
-    'causes the app to crash.'
+    $logger.warn 'Ignoring exception raised on click_element - this is normal for AppiumForMac if the button click ' \
+      'causes the app to crash.'
+  end
 end
 
 # Sends the app to the background for a number of seconds

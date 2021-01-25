@@ -40,10 +40,10 @@ AfterConfiguration do |_cucumber_config|
                                                config.access_key
   elsif config.farm == :local
     # Local device
-    config.capabilities = Maze.for_local config.os,
-                                         config.capabilities_option,
-                                         config.apple_team_id,
-                                         config.device_id
+    config.capabilities = Maze::Capabilities.for_local config.os,
+                                                       config.capabilities_option,
+                                                       config.apple_team_id,
+                                                       config.device_id
     config.capabilities['app'] = config.app
   end
 

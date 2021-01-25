@@ -16,9 +16,9 @@ class RequestListTest < Test::Unit::TestCase
   def build_item_with_header(id, time)
     header = 'Bugsnag-Sent-At'
     {
+      header => time,
       id: id,
-      body: "{id: '#{id}'}",
-      header => time
+      body: "{id: '#{id}'}"
     }
   end
 
@@ -136,10 +136,10 @@ class RequestListTest < Test::Unit::TestCase
     assert_equal [item2, item3], remaining
   end
 
-  def test_sort_by_sent_at_all_requests
-    time1 = '2021-01-21T14:36:00.000Z'
-    time2 = '2021-01-21T16:37:00.000Z'
-    time3 = '2021-01-21T15:37:00.000Z'
+  def test_sort_by_all_requests
+    time1 = '2021-02-21T15:00:00.001Z'
+    time2 = '2021-01-21T14:00:00.000Z'
+    time3 = '2021-02-21T15:00:00.000Z'
 
     request1 = build_item_with_header 1, time1
     request2 = build_item_with_header 2, time2
@@ -150,6 +150,72 @@ class RequestListTest < Test::Unit::TestCase
     list.add request2
     list.add request3
 
-    list.sort_by_sent_at 3
+    list.sort_by_sent_at! 3
+
+    assert_equal [request2, request3, request1], list.remaining
+  end
+
+  def test_sort_by_missing header
+    time1 = '2021-02-21T15:00:00.001Z'
+    time2 = '2021-02-21T15:00:00.000Z'
+
+    request1 = build_item_with_header 1, time1
+    request2 = build_item 2
+    request3 = build_item_with_header 3, time2
+
+    list = Maze::RequestList.new
+    list.add request1
+    list.add request2
+    list.add request3
+
+    list.sort_by_sent_at! 3
+
+    assert_equal [request1, request2, request3], list.remaining
+  end
+
+  def test_sort_by_remaining_requests
+    time1 = '2021-02-21T15:00:00.001Z'
+    time2 = '2021-01-21T14:00:00.000Z'
+    time3 = '2021-02-21T15:00:00.000Z'
+
+    request1 = build_item 1
+    request2 = build_item_with_header 2, time1
+    request3 = build_item_with_header 3, time2
+    request4 = build_item_with_header 4, time3
+
+    list = Maze::RequestList.new
+    list.add request1
+    list.add request2
+    list.add request3
+    list.next
+    list.add request4
+
+    list.sort_by_sent_at! 3
+
+    assert_equal [request3, request4, request2], list.remaining
+  end
+
+  def test_sort_by_with_subsequent_request
+    time1 = '2021-02-21T15:00:00.001Z'
+    time2 = '2021-01-21T14:00:00.000Z'
+    time3 = '2021-02-21T15:00:00.000Z'
+
+    request1 = build_item 1
+    request2 = build_item_with_header 2, time1 # Sort
+    request3 = build_item_with_header 3, time2 # Sort
+    request4 = build_item_with_header 4, time3 # Do not sort
+    request5 = build_item 5 # No header, but out of scope
+
+    list = Maze::RequestList.new
+    list.add request1
+    list.add request2
+    list.add request3
+    list.next
+    list.add request4
+    list.add request5
+
+    list.sort_by_sent_at! 2
+
+    assert_equal [request3, request2, request4, request5], list.remaining
   end
 end

@@ -24,14 +24,14 @@ module Maze
         return if @pid
 
         # Check if the appium server appears to be running already, warning and carrying on if so
-        unless appium_port_available?
+        unless appium_port_available?(port)
           $logger.warn "Requested appium port:#{port} is in use. Aborting built-in appium server launch"
           return
         end
 
         # Check if appium is installed, warning if not
         unless appium_available?
-          $logger.warn 'Appium is available to be started from the command line. Install using `npm i -g appium`'
+          $logger.warn 'Appium is unavailable to be started from the command line. Install using `npm i -g appium`'
           return
         end
 
@@ -49,8 +49,8 @@ module Maze
           stop
         end
 
-        # DIRTY SLEEP - REMOVE
-        sleep 5
+        # Temporary sleep to allow appium to start
+        sleep 2
       end
 
       # Checks whether the server is running, as indicated by the @pid presence

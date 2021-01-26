@@ -6,7 +6,7 @@
 <title>
   File: DOCS
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -88,12 +88,12 @@ the hood to draft semantic tests.</p>
 </ol>
 
 <pre class="code ruby"><code class="ruby">   <span class='id identifier rubyid_source'>source</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://rubygems.org</span><span class='tstring_end'>&quot;</span></span>
-   <span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bugsnag-maze-runner</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>git:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://github.com/bugsnag/maze-runner</span><span class='tstring_end'>&quot;</span></span>
+   <span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>maze-runner</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>git:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://github.com/bugsnag/maze-runner</span><span class='tstring_end'>&quot;</span></span>
 </code></pre>
 
 <ol>
 <li><p>Run <code>bundle install</code> to fetch and install Maze Runner</p></li>
-<li><p>Run <code>bundle exec bugsnag-maze-runner init</code> from the root of your project to build the
+<li><p>Run <code>bundle exec maze-runner init</code> from the root of your project to build the
 basic structure to run test scenarios.</p>
 
 <ul>
@@ -114,7 +114,7 @@ which should be run before or after each scenario can go into special
 
 <p>A sample feature is included after running <code>init</code>. Try it out with</p>
 
-<pre class="code shell"><code class="shell">   bundle exec bugsnag-maze-runner
+<pre class="code shell"><code class="shell">   bundle exec maze-runner
 </code></pre>
 
 <h2 id="writing-features">Writing features</h2>
@@ -142,7 +142,7 @@ provided by default while <code>When I start a Sinatra app</code> is defined in 
 steps file in <code>features/steps/</code>, wrapping other included steps:</p>
 
 <pre class="code ruby"><code class="ruby"><span class='const'>When</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>I start a Sinatra app</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
-  <span class='const'><span class='object_link'><a href="Runner.html" title="Runner (class)">Runner</a></span></span><span class='period'>.</span><span class='id identifier rubyid_environment'><span class='object_link'><a href="Runner.html#environment-class_method" title="Runner.environment (method)">environment</a></span></span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DEMO_APP_PORT</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>DEMO_APP_PORT</span>
+  <span class='const'>Runner</span><span class='period'>.</span><span class='id identifier rubyid_environment'>environment</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DEMO_APP_PORT</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>DEMO_APP_PORT</span>
   <span class='id identifier rubyid_steps'>steps</span> <span class='tstring'><span class='tstring_beg'>%Q{</span><span class='tstring_content'>
     When I run the script &quot;features/fixtures/run_sinatra_app.sh&quot;
     And I wait for 8 seconds
@@ -173,12 +173,12 @@ configuration should go.</p>
 </span> <span class='backtick'>`</span><span class='tstring_content'>echo Peanut Butter Jelly Time</span><span class='tstring_end'>`</span></span>
 
  <span class='comment'># Run before every scenarios
-</span> <span class='const'><span class='object_link'><a href="MazeRunner.html" title="MazeRunner (class)">MazeRunner</a></span></span><span class='period'>.</span><span class='id identifier rubyid_hooks'><span class='object_link'><a href="MazeRunner.html#hooks-class_method" title="MazeRunner.hooks (method)">hooks</a></span></span><span class='period'>.</span><span class='id identifier rubyid_before'>before</span> <span class='kw'>do</span>
+</span> <span class='const'>Maze</span><span class='period'>.</span><span class='id identifier rubyid_hooks'>hooks</span><span class='period'>.</span><span class='id identifier rubyid_before'>before</span> <span class='kw'>do</span>
    <span class='id identifier rubyid_clean_build_artifacts'>clean_build_artifacts</span>
  <span class='kw'>end</span>
 
 <span class='comment'># Run after every scenario
-</span><span class='const'><span class='object_link'><a href="MazeRunner.html" title="MazeRunner (class)">MazeRunner</a></span></span><span class='period'>.</span><span class='id identifier rubyid_hooks'><span class='object_link'><a href="MazeRunner.html#hooks-class_method" title="MazeRunner.hooks (method)">hooks</a></span></span><span class='period'>.</span><span class='id identifier rubyid_after'>after</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_scenario'>scenario</span><span class='op'>|</span>
+</span><span class='const'>Maze</span><span class='period'>.</span><span class='id identifier rubyid_hooks'>hooks</span><span class='period'>.</span><span class='id identifier rubyid_after'>after</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_scenario'>scenario</span><span class='op'>|</span>
   <span class='comment'># Teardown scenario configuration here
 </span>
   <span class='kw'>if</span> <span class='id identifier rubyid_scenario'>scenario</span><span class='period'>.</span><span class='id identifier rubyid_failed?'>failed?</span>
@@ -219,7 +219,7 @@ the path from the root of an object to the intended target.</p>
 <h4 id="using-browserstack">Using BrowserStack</h4>
 
 <p>BrowserStack is used to drive many of the mobile device tests written using maze-runner.  For these tests we can use a 
-driver class and accompanying set of steps to interface with the BrowserStack AppAutomate server.  <code>MazeRunner.driver</code> 
+driver class and accompanying set of steps to interface with the BrowserStack AppAutomate server.  <code>Maze.driver</code> 
 can be used to write custom steps using the API provided by the <code>Appium::Driver</code> class.</p>
 
 <p>The options needed to create a connection to the Appium server should be passed in via the command line when invoking
@@ -272,9 +272,9 @@ template:</p>
 
 <h2 id="running-features">Running features</h2>
 
-<p>Run the entire suite using <code>bundle exec bugsnag-maze-runner</code>. Alternately, you can specify specific files to run:</p>
+<p>Run the entire suite using <code>bundle exec maze-runner</code>. Alternately, you can specify specific files to run:</p>
 
-<pre class="code shell"><code class="shell">bundle exec bugsnag-maze-runner features/something.feature
+<pre class="code shell"><code class="shell">bundle exec maze-runner features/something.feature
 </code></pre>
 
 <p>Add the <code>--verbose</code> option to print script output and a trace of what Ruby file is being run.</p>
@@ -351,14 +351,14 @@ useful helper functions, add them to <code>lib/features/support/*.rb</code>.</p>
 
 <h3 id="running-the-tests">Running the tests</h3>
 
-<p>bugsnag-maze-runner uses test-unit and minunit to bootstrap itself and run the sample app suites in the test fixtures. 
+<p>maze-runner uses test-unit and minunit to bootstrap itself and run the sample app suites in the test fixtures. 
 Run <code>bundle exec rake</code> to run the suite.</p>
 </div></div>
 
       <div id="footer">
-  Generated on Tue Nov 17 18:08:47 2020 by
+  Generated on Tue Jan 26 00:15:26 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.7.2).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

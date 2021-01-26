@@ -88,7 +88,7 @@ module Maze
       #
       # @return [Boolean] Whether something is running on the given port
       def appium_port_available?(port)
-        `lsof -f -n -P | grep ':#{port}'`.empty?
+        `netstat -vanp tcp | grep #{port}`.empty?
       end
     end
   end

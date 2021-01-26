@@ -49,7 +49,7 @@ AfterConfiguration do |_cucumber_config|
 
     # Attempt to start the local appium server
     appium_uri = URI(config.appium_server_url)
-    LocalAppiumServer.start(address: appium_uri.host, port: appium_uri.port)
+    Maze::LocalAppiumServer.start(address: appium_uri.host, port: appium_uri.port)
   end
 
   # Create and start the relevant driver

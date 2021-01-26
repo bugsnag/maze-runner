@@ -1,3 +1,9 @@
+# 4.3.1 - 2021/01/26
+
+## Fixes
+
+- Ensure received requests are in order by sent time [#209](https://github.com/bugsnag/maze-runner/pull/209)
+
 # 4.3.0 - 2021/01/25
 
 ## Enhancements
@@ -15,6 +21,7 @@
 ## Enhancements
 
 - Further Android 4.4 and 5.0 devices added [#206](https://github.com/bugsnag/maze-runner/pull/206)
+- Sort received requests by Bugsnag-Sent-At header [#207](https://github.com/bugsnag/maze-runner/pull/207)
 
 # 4.1.0 - 2021/01/21
 

@@ -64,5 +64,19 @@ module Maze
       @current = 0
       @count = 0
     end
+
+    # Sorts the first `count` elements of the list by the Bugsnag-Sent-At header, if present in all of those elements
+    def sort_by_sent_at!(count)
+      return unless count > 1
+
+      header = 'Bugsnag-Sent-At'
+      sub_list = @requests[@current...@current + count]
+
+      return if sub_list.any? { |r| r[:request][header].nil? }
+
+      # Sort sublist by Bugsnag-Sent-At and overwrite in the main list
+      sub_list.sort_by! { |r| DateTime.parse(r[:request][header]) }
+      sub_list.each_with_index { |r, i| @requests[@current + i] = r }
+    end
   end
 end

@@ -42,13 +42,17 @@ Then('I wait to receive a(n) {word}') do |request_type|
   step "I wait to receive 1 #{request_type}"
 end
 
-# Continually checks to see if the required amount of requests have been received.
-# Times out according to @see Maze.config.receive_requests_wait.
+# Continually checks to see if the required amount of requests have been received,
+# timing out according to @see Maze.config.receive_requests_wait.
+# If all expected requests are received and have the Bugsnag-Sent-At header, they
+# will be sorted by the header.
 #
 # @step_input request_type [String] The type of request (error, session, etc)
 # @step_input request_count [Integer] The amount of requests expected
 Then('I wait to receive {int} {word}') do |request_count, request_type|
-  assert_received_requests request_count, Maze::Server.list_for(request_type), request_type
+  list = Maze::Server.list_for(request_type)
+  assert_received_requests request_count, list, request_type
+  list.sort_by_sent_at! request_count
 end
 
 # Assert that the test Server hasn't received any requests - of a specific, or any, type.

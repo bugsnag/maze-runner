@@ -31,6 +31,8 @@ services:
       BUILDKITE:
       BUILDKITE_BUILD_NUMBER:
       BUILDKITE_STEP_KEY:
+      MAZE_DEVICE_FARM_USERNAME:
+      MAZE_DEVICE_FARM_ACCESS_KEY:
 
   cli-tests:
     build:

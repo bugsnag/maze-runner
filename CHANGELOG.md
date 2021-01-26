@@ -1,3 +1,9 @@
+# 4.4.0 - TBD
+
+## Enhancements
+
+- Adds in-built appium server control for local testing [#202](https://github.com/bugsnag/maze-runner/pull/202)
+
 # 4.3.1 - 2021/01/26
 
 ## Fixes

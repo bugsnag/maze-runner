@@ -49,7 +49,7 @@ AfterConfiguration do |_cucumber_config|
 
     # Attempt to start the local appium server
     appium_uri = URI(config.appium_server_url)
-    Maze::LocalAppiumServer.start(address: appium_uri.host, port: appium_uri.port)
+    Maze::AppiumServer.start(address: appium_uri.host, port: appium_uri.port)
   end
 
   # Create and start the relevant driver
@@ -195,8 +195,9 @@ at_exit do
 
   next if Maze.config.farm == :none
 
-  # Stop the Appium session
+  # Stop the Appium session and server
   Maze.driver.driver_quit unless Maze.config.appium_session_isolation
+  Maze::AppiumServer.stop if Maze::AppiumServer.running
 end
 
 

@@ -5,7 +5,7 @@ require 'logger'
 
 module Maze
   # Basic shell that runs an Appium server on a separate thread
-  class LocalAppiumServer
+  class AppiumServer
     class << self
       # @return [string|nil] The PID of the appium process (if available)
       attr_reader :pid
@@ -21,7 +21,7 @@ module Maze
       # @param address [String] The IP address on which to start the appium server
       # @param port [String] The port on which to start the appium server
       def start(address: '0.0.0.0', port: '4723')
-        return if @pid
+        return if running
 
         # Check if the appium server appears to be running already, warning and carrying on if so
         unless appium_port_available?(port)
@@ -45,24 +45,22 @@ module Maze
             end
           end
         end
-        at_exit do
-          stop
-        end
 
         # Temporary sleep to allow appium to start
         sleep 2
       end
 
-      # Checks whether the server is running, as indicated by the @pid presence
+      # Checks whether the server is running, as indicated by the @pid and the appium thread being alive
       #
       # @return [Boolean] Whether the local appium server is running
       def running
-        @pid ? true : false
+        @appium_thread&.alive? ? true : false
       end
 
       # Stops the appium server, if running, using SIGINT for correct shutdown
       def stop
         return unless running
+
         $logger.debug("Appium:#{@pid}") { 'Stopping appium server' }
         Process.kill('INT', @pid)
         @pid = nil
@@ -88,7 +86,7 @@ module Maze
       #
       # @return [Boolean] Whether something is running on the given port
       def appium_port_available?(port)
-        `netstat -vanp tcp | grep #{port}`.empty?
+        `netstat -vanp tcp | awk '{ print $4 }' | grep #{port}`.empty?
       end
     end
   end

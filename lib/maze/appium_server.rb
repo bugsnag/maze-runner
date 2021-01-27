@@ -86,7 +86,7 @@ module Maze
       #
       # @return [Boolean] Whether something is running on the given port
       def appium_port_available?(port)
-        `netstat -vanp tcp | awk '{ print $4 }' | grep #{port}`.empty?
+        `netstat -vanp tcp | awk '{ print $4 }' | grep "\.#{port}$"`.empty?
       end
     end
   end

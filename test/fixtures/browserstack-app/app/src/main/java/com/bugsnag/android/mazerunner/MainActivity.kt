@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
             event.addMetadata("test", "boolean_true", true)
             event.addMetadata("test", "float", 1.55)
             event.addMetadata("test", "integer", 2)
+            event.addMetadata("test", "null", null)
 
             true
         })

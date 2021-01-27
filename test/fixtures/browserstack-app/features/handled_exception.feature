@@ -66,3 +66,16 @@ Scenario: Verify "equals the correct platform value" step
     | android | @skip |
   # Verifies the environment variable change works
   And the error payload field "apiKey" equals the environment variable "BUGSNAG_API_KEY"
+  # Verifies the null and non-null capabilities
+  And the error payload field "events.0.metaData.test.null" equals the platform-dependent string:
+    | android | @null |
+  And the error payload field "events.0.metaData.test.null" equals the platform-dependent boolean:
+    | android | @null |
+  And the error payload field "events.0.metaData.test.null" equals the platform-dependent numeric:
+    | android | @null |
+  And the error payload field "exceptions.0.errorClass" equals the platform-dependent string:
+    | android | @non-null |
+  And the error payload field "events.0.metaData.test.boolean_true" equals the platform-dependent boolean:
+    | android | @non-null |
+  And the error payload field "events.0.metaData.test.integer" equals the platform-dependent numeric:
+    | android | @non-null |

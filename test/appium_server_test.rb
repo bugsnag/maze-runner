@@ -32,14 +32,14 @@ class AppiumServerTest < Test::Unit::TestCase
   def test_appium_port_available?
     expected_port = '12345'
     response_string = ""
-    Maze::AppiumServer.expects(:`).with("netstat -vanp tcp | awk '{ print $4 }' | grep #{expected_port}").returns(response_string)
+    Maze::AppiumServer.expects(:`).with(%(netstat -vanp tcp | awk '{ print $4 }' | grep "\.#{expected_port}$")).returns(response_string)
     assert(Maze::AppiumServer.send(:appium_port_available?, expected_port))
   end
 
   def test_appium_port_not_available?
     expected_port = '12345'
     response_string = "something is using the port"
-    Maze::AppiumServer.expects(:`).with("netstat -vanp tcp | awk '{ print $4 }' | grep #{expected_port}").returns(response_string)
+    Maze::AppiumServer.expects(:`).with(%(netstat -vanp tcp | awk '{ print $4 }' | grep "\.#{expected_port}$")).returns(response_string)
     assert_false(Maze::AppiumServer.send(:appium_port_available?, expected_port))
   end
 

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    bugsnag-maze-runner (4.3.1)
+    bugsnag-maze-runner (4.4.0)
       appium_lib (~> 10.2)
       boring (~> 0.1.0)
       cucumber (~> 3.1.2)
@@ -31,7 +31,7 @@ GEM
     appium_lib_core (3.11.1)
       faye-websocket (~> 0.11.0)
       selenium-webdriver (~> 3.14, >= 3.14.1)
-    backports (3.20.1)
+    backports (3.20.2)
     boring (0.1.0)
     builder (3.2.4)
     childprocess (3.0.0)

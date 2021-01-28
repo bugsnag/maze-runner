@@ -1,8 +1,9 @@
-# 4.4.0 - TBD
+# 4.4.0 - 2021/01/28
 
 ## Enhancements
 
 - Adds in-built appium server control for local testing [#202](https://github.com/bugsnag/maze-runner/pull/202)
+- Allow the use of @null and @non-null in platform-dependent assertion tables[#210](https://github.com/bugsnag/maze-runner/pull/210)
 
 # 4.3.1 - 2021/01/26
 

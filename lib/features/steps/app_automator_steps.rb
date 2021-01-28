@@ -68,7 +68,9 @@ end
 #   | android | Java.lang.RuntimeException |
 #   | ios     | NSException                |
 #
-# If the expected value is set to "@skip", the check should be skipped.
+# If the expected value is set to "@skip", the check should be skipped
+# If the expected value is set to "@null", the check will be for null
+# If the expected value is set to "@not_null", the check will be for a non-null value
 #
 # @step_input request_type [String] The type of request (error, session, etc)
 # @step_input field_path [String] The field to test
@@ -93,7 +95,9 @@ end
 #   | android | 1  |
 #   | ios     | 5.5 |
 #
-# If the expected value is set to "@skip", the check should be skipped.
+# If the expected value is set to "@skip", the check should be skipped
+# If the expected value is set to "@null", the check will be for null
+# If the expected value is set to "@not_null", the check will be for a non-null value
 #
 # @step_input request_type [String] The type of request (error, session, etc)
 # @step_input field_path [String] The field to test
@@ -118,7 +122,9 @@ end
 #   | android | 1 |
 #   | ios     | 5 |
 #
-# If the expected value is set to "@skip", the check should be skipped.
+# If the expected value is set to "@skip", the check should be skipped
+# If the expected value is set to "@null", the check will be for null
+# If the expected value is set to "@not_null", the check will be for a non-null value
 #
 # @step_input request_type [String] The type of request (error, session, etc)
 # @step_input field_path [String] The field to test
@@ -181,7 +187,7 @@ def test_string_platform_values(request_type, field_path, platform_values)
 
   list = Maze::Server.list_for(request_type)
   payload_value = Maze::Helper.read_key_path(list.current[:body], field_path)
-  assert_equal(expected_value, payload_value)
+  assert_equal_with_nullability(expected_value, payload_value)
 end
 
 def test_boolean_platform_values(request_type, field_path, platform_values)
@@ -197,7 +203,7 @@ def test_boolean_platform_values(request_type, field_path, platform_values)
                   end
   list = Maze::Server.list_for(request_type)
   payload_value = Maze::Helper.read_key_path(list.current[:body], field_path)
-  assert_equal(expected_bool, payload_value)
+  assert_equal_with_nullability(expected_bool, payload_value)
 end
 
 def test_numeric_platform_values(request_type, field_path, platform_values)
@@ -206,5 +212,19 @@ def test_numeric_platform_values(request_type, field_path, platform_values)
 
   list = Maze::Server.list_for(request_type)
   payload_value = Maze::Helper.read_key_path(list.current[:body], field_path)
-  assert_equal(expected_value.to_f, payload_value)
+
+  # Need to do a little more processing here to allow floats
+  special_value = expected_value.eql?('@null') || expected_value.eql?('@not_null')
+  expectation = special_value ? expected_value : expected_value.to_f
+  assert_equal_with_nullability(expectation, payload_value)
+end
+
+def assert_equal_with_nullability(expected_value, payload_value)
+  if expected_value.eql?('@null')
+    assert_nil(payload_value)
+  elsif expected_value.eql?('@not_null')
+    assert_not_nil(payload_value)
+  else
+    assert_equal(expected_value, payload_value)
+  end
 end

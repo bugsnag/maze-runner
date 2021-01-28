@@ -168,7 +168,7 @@ When('I clear and send the keys {string} to the element {string}') do |keys, ele
 end
 
 def get_expected_platform_value(platform_values)
-  # raise('This step should only be used when running tests with Appium') if Maze.driver.nil?
+  raise('This step should only be used when running tests with Appium') if Maze.driver.nil?
 
   os = 'android'
   expected_value = Hash[platform_values.raw][os]

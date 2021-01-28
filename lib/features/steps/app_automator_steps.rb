@@ -214,14 +214,14 @@ def test_numeric_platform_values(request_type, field_path, platform_values)
   payload_value = Maze::Helper.read_key_path(list.current[:body], field_path)
 
   # Need to do a little more processing here to allow floats
-  expectation = expected_value.to_f unless expected_value.eql?('@null') || expected_value.eql?('@non-null')
+  expectation = expected_value.to_f unless expected_value.eql?('@null') || expected_value.eql?('@not_null')
   assert_equal_with_nullability(expectation, payload_value)
 end
 
 def assert_equal_with_nullability(expected_value, payload_value)
   if expected_value.eql?('@null')
     assert_nil(payload_value)
-  elsif expected_value.eql?('@non-null')
+  elsif expected_value.eql?('@not_null')
     assert_not_nil(payload_value)
   else
     assert_equal(expected_value, payload_value)

@@ -74,8 +74,8 @@ Scenario: Verify "equals the correct platform value" step
   And the error payload field "events.0.metaData.test.null" equals the platform-dependent numeric:
     | android | @null |
   And the error payload field "events.0.exceptions.0.errorClass" equals the platform-dependent string:
-    | android | @non-null |
+    | android | @not_null |
   And the error payload field "events.0.metaData.test.boolean_true" equals the platform-dependent boolean:
-    | android | @non-null |
+    | android | @not_null |
   And the error payload field "events.0.metaData.test.integer" equals the platform-dependent numeric:
-    | android | @non-null |
+    | android | @not_null |

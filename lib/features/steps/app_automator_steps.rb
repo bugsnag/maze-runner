@@ -168,9 +168,9 @@ When('I clear and send the keys {string} to the element {string}') do |keys, ele
 end
 
 def get_expected_platform_value(platform_values)
-  raise('This step should only be used when running tests with Appium') if Maze.driver.nil?
+  # raise('This step should only be used when running tests with Appium') if Maze.driver.nil?
 
-  os = Maze.config.capabilities['os']
+  os = 'android'
   expected_value = Hash[platform_values.raw][os]
   raise("There is no expected value for the current platform \"#{os}\"") if expected_value.nil?
 
@@ -214,11 +214,14 @@ def test_numeric_platform_values(request_type, field_path, platform_values)
   payload_value = Maze::Helper.read_key_path(list.current[:body], field_path)
 
   # Need to do a little more processing here to allow floats
-  expectation = expected_value.to_f unless expected_value.eql?('@null') || expected_value.eql?('@not_null')
+  special_value = expected_value.eql?('@null') || expected_value.eql?('@not_null')
+  expectation = special_value ? expected_value : expected_value.to_f
   assert_equal_with_nullability(expectation, payload_value)
 end
 
 def assert_equal_with_nullability(expected_value, payload_value)
+  pp "EXPECTED_VALUE: #{expected_value}"
+  pp "PAYLOAD_VALUE: #{payload_value}"
   if expected_value.eql?('@null')
     assert_nil(payload_value)
   elsif expected_value.eql?('@not_null')

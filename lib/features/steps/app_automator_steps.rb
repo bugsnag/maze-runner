@@ -170,7 +170,7 @@ end
 def get_expected_platform_value(platform_values)
   raise('This step should only be used when running tests with Appium') if Maze.driver.nil?
 
-  os = 'android'
+  os = Maze.config.capabilities['os']
   expected_value = Hash[platform_values.raw][os]
   raise("There is no expected value for the current platform \"#{os}\"") if expected_value.nil?
 
@@ -220,8 +220,6 @@ def test_numeric_platform_values(request_type, field_path, platform_values)
 end
 
 def assert_equal_with_nullability(expected_value, payload_value)
-  pp "EXPECTED_VALUE: #{expected_value}"
-  pp "PAYLOAD_VALUE: #{payload_value}"
   if expected_value.eql?('@null')
     assert_nil(payload_value)
   elsif expected_value.eql?('@not_null')

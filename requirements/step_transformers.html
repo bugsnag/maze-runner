@@ -8928,7 +8928,7 @@ Requires a running Appium driver</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/app_automator_steps.rb:76</div>
+      <div class="file">lib/features/steps/app_automator_steps.rb:78</div>
     </div>
     
     <!-- Comments -->
@@ -8943,7 +8943,9 @@ If the step is invoked when a remote BrowserStack device is not in use this step
   | android | Java.lang.RuntimeException |
   | ios     | NSException                |</p>
 
-<p>If the expected value is set to &quot;@skip&quot;, the check should be skipped.</p>
+<p>If the expected value is set to &quot;@skip&quot;, the check should be skipped
+If the expected value is set to &quot;@null&quot;, the check will be for null
+If the expected value is set to &quot;@not_null&quot;, the check will be for a non-null value</p>
 
 
   </div>
@@ -8997,9 +8999,9 @@ If the step is invoked when a remote BrowserStack device is not in use this step
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">76
-77
-78</pre>
+            <pre class="lines">78
+79
+80</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {word} payload field {string} equals the platform-dependent string:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='op'>|</span>
@@ -9045,7 +9047,7 @@ If the step is invoked when a remote BrowserStack device is not in use this step
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/app_automator_steps.rb:84</div>
+      <div class="file">lib/features/steps/app_automator_steps.rb:86</div>
     </div>
     
     <!-- Comments -->
@@ -9095,9 +9097,9 @@ If the step is invoked when a remote BrowserStack device is not in use this step
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">84
-85
-86</pre>
+            <pre class="lines">86
+87
+88</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the event {string} equals the platform-dependent string:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='op'>|</span>
@@ -9143,7 +9145,7 @@ If the step is invoked when a remote BrowserStack device is not in use this step
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/app_automator_steps.rb:101</div>
+      <div class="file">lib/features/steps/app_automator_steps.rb:105</div>
     </div>
     
     <!-- Comments -->
@@ -9158,7 +9160,9 @@ If the step is invoked when a remote BrowserStack device is not in use this step
   | android | 1  |
   | ios     | 5.5 |</p>
 
-<p>If the expected value is set to &quot;@skip&quot;, the check should be skipped.</p>
+<p>If the expected value is set to &quot;@skip&quot;, the check should be skipped
+If the expected value is set to &quot;@null&quot;, the check will be for null
+If the expected value is set to &quot;@not_null&quot;, the check will be for a non-null value</p>
 
 
   </div>
@@ -9212,9 +9216,9 @@ If the step is invoked when a remote BrowserStack device is not in use this step
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">101
-102
-103</pre>
+            <pre class="lines">105
+106
+107</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {word} payload field {string} equals the platform-dependent numeric:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='op'>|</span>
@@ -9260,7 +9264,7 @@ If the step is invoked when a remote BrowserStack device is not in use this step
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/app_automator_steps.rb:109</div>
+      <div class="file">lib/features/steps/app_automator_steps.rb:113</div>
     </div>
     
     <!-- Comments -->
@@ -9310,9 +9314,9 @@ If the step is invoked when a remote BrowserStack device is not in use this step
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">109
-110
-111</pre>
+            <pre class="lines">113
+114
+115</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the event {string} equals the platform-dependent numeric:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='op'>|</span>
@@ -9358,7 +9362,7 @@ If the step is invoked when a remote BrowserStack device is not in use this step
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/app_automator_steps.rb:126</div>
+      <div class="file">lib/features/steps/app_automator_steps.rb:132</div>
     </div>
     
     <!-- Comments -->
@@ -9373,7 +9377,9 @@ If the step is invoked when a remote BrowserStack device is not in use this step
   | android | 1 |
   | ios     | 5 |</p>
 
-<p>If the expected value is set to &quot;@skip&quot;, the check should be skipped.</p>
+<p>If the expected value is set to &quot;@skip&quot;, the check should be skipped
+If the expected value is set to &quot;@null&quot;, the check will be for null
+If the expected value is set to &quot;@not_null&quot;, the check will be for a non-null value</p>
 
 
   </div>
@@ -9427,9 +9433,9 @@ If the step is invoked when a remote BrowserStack device is not in use this step
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">126
-127
-128</pre>
+            <pre class="lines">132
+133
+134</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {word} payload field {string} equals the platform-dependent boolean:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='op'>|</span>
@@ -9475,7 +9481,7 @@ If the step is invoked when a remote BrowserStack device is not in use this step
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/app_automator_steps.rb:134</div>
+      <div class="file">lib/features/steps/app_automator_steps.rb:140</div>
     </div>
     
     <!-- Comments -->
@@ -9525,9 +9531,9 @@ If the step is invoked when a remote BrowserStack device is not in use this step
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">134
-135
-136</pre>
+            <pre class="lines">140
+141
+142</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the event {string} equals the platform-dependent boolean:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='op'>|</span>
@@ -9573,7 +9579,7 @@ If the step is invoked when a remote BrowserStack device is not in use this step
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/app_automator_steps.rb:142</div>
+      <div class="file">lib/features/steps/app_automator_steps.rb:148</div>
     </div>
     
     <!-- Comments -->
@@ -9623,9 +9629,9 @@ If the step is invoked when a remote BrowserStack device is not in use this step
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">142
-143
-144</pre>
+            <pre class="lines">148
+149
+150</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the exception {string} equals the platform-dependent string:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='op'>|</span>
@@ -9671,7 +9677,7 @@ If the step is invoked when a remote BrowserStack device is not in use this step
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/app_automator_steps.rb:151</div>
+      <div class="file">lib/features/steps/app_automator_steps.rb:157</div>
     </div>
     
     <!-- Comments -->
@@ -9732,9 +9738,9 @@ If the step is invoked when a remote BrowserStack device is not in use this step
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">151
-152
-153</pre>
+            <pre class="lines">157
+158
+159</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {string} of stack frame {int} equals the platform-dependent string:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_num'>num</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='op'>|</span>
@@ -9780,7 +9786,7 @@ If the step is invoked when a remote BrowserStack device is not in use this step
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/app_automator_steps.rb:160</div>
+      <div class="file">lib/features/steps/app_automator_steps.rb:166</div>
     </div>
     
     <!-- Comments -->
@@ -9831,9 +9837,9 @@ Requires a running Appium driver</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">160
-161
-162</pre>
+            <pre class="lines">166
+167
+168</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>When</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I clear and send the keys {string} to the element {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_keys'>keys</span><span class='comma'>,</span> <span class='id identifier rubyid_element_id'>element_id</span><span class='op'>|</span>
@@ -15568,7 +15574,7 @@ request types.</p>
 </div>
 
       <div id="footer">
-  Generated on Tue Jan 26 22:27:44 2021 by
+  Generated on Thu Jan 28 17:11:24 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-2.7.2).
 </div>

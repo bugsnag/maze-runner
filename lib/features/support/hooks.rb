@@ -4,6 +4,7 @@ require 'cucumber'
 require 'json'
 require 'securerandom'
 require 'selenium-webdriver'
+require 'uri'
 
 AfterConfiguration do |_cucumber_config|
 
@@ -45,6 +46,10 @@ AfterConfiguration do |_cucumber_config|
                                                        config.apple_team_id,
                                                        config.device_id
     config.capabilities['app'] = config.app
+
+    # Attempt to start the local appium server
+    appium_uri = URI(config.appium_server_url)
+    Maze::AppiumServer.start(address: appium_uri.host, port: appium_uri.port)
   end
 
   # Create and start the relevant driver
@@ -190,8 +195,9 @@ at_exit do
 
   next if Maze.config.farm == :none
 
-  # Stop the Appium session
+  # Stop the Appium session and server
   Maze.driver.driver_quit unless Maze.config.appium_session_isolation
+  Maze::AppiumServer.stop if Maze::AppiumServer.running
 end
 
 

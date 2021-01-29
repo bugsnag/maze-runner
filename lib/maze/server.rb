@@ -93,6 +93,14 @@ module Maze
               Logger: $logger,
               AccessLog: []
             )
+
+            # Mount a block to respond to all requests with status:200
+            server.mount_proc '/' do |_request, response|
+              $logger.info 'Received request on server root, responding with 200'
+              response.header['Access-Control-Allow-Origin'] = '*'
+              response.status = 200
+            end
+
             # When adding more endpoints, be sure to update the 'I should receive no requests' step
             server.mount '/notify', Servlet, errors
             server.mount '/sessions', Servlet, sessions

@@ -81,61 +81,7 @@ steps:
     concurrency: 10
     concurrency_group: 'browserstack-app'
 
-  - label: 'Browserstack app-automate test - Android 7.1 (separate Appium sessions)'
-    depends_on: "test-images"
-    plugins:
-      docker-compose#v3.7.0:
-        run: browserstack-app-automate
-    command: >-
-      bundle exec maze-runner
-      --app=app/build/outputs/apk/release/app-release.apk
-      --farm=bs
-      --device=ANDROID_7_1
-    concurrency: 10
-    concurrency_group: 'browserstack-app'
-
-  - label: 'Browserstack app-automate test - Android 8.1'
-    depends_on: "test-images"
-    plugins:
-      docker-compose#v3.7.0:
-        run: browserstack-app-automate
-    command: >-
-      bundle exec maze-runner
-      --resilient
-      --app=app/build/outputs/apk/release/app-release.apk
-      --farm=bs
-      --device=ANDROID_8_1
-    concurrency: 10
-    concurrency_group: 'browserstack-app'
-
-  - label: 'Browserstack app-automate test - Android 9'
-    depends_on: "test-images"
-    plugins:
-      docker-compose#v3.7.0:
-        run: browserstack-app-automate
-    command: >-
-      bundle exec maze-runner
-      --app=app/build/outputs/apk/release/app-release.apk
-      --farm=bs
-      --device=ANDROID_9_0
-    concurrency: 10
-    concurrency_group: 'browserstack-app'
-
-  - label: 'Browserstack app-automate test - Android 10 (separate Appium sessions)'
-    depends_on: "test-images"
-    plugins:
-      docker-compose#v3.7.0:
-        run: browserstack-app-automate
-    command: >-
-      bundle exec maze-runner
-      --app=app/build/outputs/apk/release/app-release.apk
-      --farm=bs
-      --device=ANDROID_10_0
-      --appium-version=1.17.0
-    concurrency: 10
-    concurrency_group: 'browserstack-app'
-
-  - label: 'Browserstack app-automate test - Android 11 (separate Appium sessions)'
+  - label: 'Browserstack app-automate test - Android 11'
     depends_on: "test-images"
     plugins:
       docker-compose#v3.7.0:

@@ -20,8 +20,6 @@ module Maze
             text 'Overridden Cucumber options:'
             opt :help,
                 'Print this help.'
-            opt :init,
-                'Initialises a new Maze Runner project'
             opt :version,
                 'Display Maze Runner and Cucumber versions'
 

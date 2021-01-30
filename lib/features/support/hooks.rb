@@ -154,7 +154,7 @@ After do |scenario|
     # Close the app - without the sleep, launching the app for the next scenario intermittently fails
     system("killall #{Maze.config.app} && sleep 1")
   elsif Maze.config.bs_device
-    Maze.driver.reset_with_timeout 2
+    Maze.driver.reset
   end
 ensure
   # Request arrays in particular are cleared here, rather than in the Before hook, to allow requests to be registered

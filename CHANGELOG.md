@@ -1,3 +1,9 @@
+# TBD
+
+## Fixes
+
+- Remove unnecessary delay between scenarios [#212](https://github.com/bugsnag/maze-runner/pull/212)
+
 # 4.4.0 - 2021/01/28
 
 ## Enhancements

@@ -28,11 +28,6 @@ require_relative '../lib/maze/store'
 # Encapsulates the MazeRunner entry point
 class MazeRunnerEntry
 
-  def init
-    require_relative 'commands/init'
-    exit 0
-  end
-
   # Removes Maze Runner specific args from the array, as these will cause Cucumber to error.
   def remove_maze_runner_args
     remove = [
@@ -95,8 +90,6 @@ class MazeRunnerEntry
       exit 1
     end
 
-    #
-    init if options[:init]
     Maze::Option::Processor.populate Maze.config, options
 
     # Adjust CL options before calling down to Cucumber

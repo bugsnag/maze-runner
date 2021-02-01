@@ -1,4 +1,8 @@
-# TBD
+# 4.5.0 - 2021/02/01
+
+## Enhancements
+
+- Adds root `/` endpoint for use in connectivity checks [#211](https://github.com/bugsnag/maze-runner/pull/211)
 
 ## Fixes
 

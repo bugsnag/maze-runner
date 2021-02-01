@@ -98,6 +98,7 @@ module Maze
             server.mount_proc '/' do |_request, response|
               $logger.info 'Received request on server root, responding with 200'
               response.header['Access-Control-Allow-Origin'] = '*'
+              response.body = 'Maze runner received request'
               response.status = 200
             end
 

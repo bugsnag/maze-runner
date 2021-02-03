@@ -72,7 +72,7 @@ end
 # If the expected value is set to "@null", the check will be for null
 # If the expected value is set to "@not_null", the check will be for a non-null value
 #
-# @step_input request_type [String] The type of request (error, session, etc)
+# @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input field_path [String] The field to test
 # @step_input platform_values [DataTable] A table of acceptable values for each platform
 Then('the {word} payload field {string} equals the platform-dependent string:') do |request_type, field_path, platform_values|
@@ -99,7 +99,7 @@ end
 # If the expected value is set to "@null", the check will be for null
 # If the expected value is set to "@not_null", the check will be for a non-null value
 #
-# @step_input request_type [String] The type of request (error, session, etc)
+# @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input field_path [String] The field to test
 # @step_input platform_values [DataTable] A table of acceptable values for each platform
 Then('the {word} payload field {string} equals the platform-dependent numeric:') do |request_type, field_path, platform_values|
@@ -126,7 +126,7 @@ end
 # If the expected value is set to "@null", the check will be for null
 # If the expected value is set to "@not_null", the check will be for a non-null value
 #
-# @step_input request_type [String] The type of request (error, session, etc)
+# @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input field_path [String] The field to test
 # @step_input platform_values [DataTable] A table of acceptable values for each platform
 Then('the {word} payload field {string} equals the platform-dependent boolean:') do |request_type, field_path, platform_values|

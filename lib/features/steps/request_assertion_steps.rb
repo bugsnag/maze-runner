@@ -37,7 +37,7 @@ end
 #
 # Shortcut to waiting to receive a single request of the given type
 #
-# @step_input request_type [String] The type of request (error, session, etc)
+# @step_input request_type [String] The type of request (error, session, build, etc)
 Then('I wait to receive a(n) {word}') do |request_type|
   step "I wait to receive 1 #{request_type}"
 end
@@ -47,7 +47,7 @@ end
 # If all expected requests are received and have the Bugsnag-Sent-At header, they
 # will be sorted by the header.
 #
-# @step_input request_type [String] The type of request (error, session, etc)
+# @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input request_count [Integer] The amount of requests expected
 Then('I wait to receive {int} {word}') do |request_count, request_type|
   list = Maze::Server.list_for(request_type)
@@ -57,7 +57,7 @@ end
 
 # Assert that the test Server hasn't received any requests - of a specific, or any, type.
 #
-# @step_input request_type [String] The type of request ('error', 'session', etc), or 'requests' to assert on all
+# @step_input request_type [String] The type of request ('error', 'session', build, etc), or 'requests' to assert on all
 #   request types.
 Then('I should receive no {word}') do |request_type|
   sleep Maze.config.receive_no_requests_wait
@@ -73,7 +73,7 @@ end
 
 # Moves to the next request
 #
-# @step_input request_type [String] The type of request (error, session, etc)
+# @step_input request_type [String] The type of request (error, session, build, etc)
 Then('I discard the oldest {word}') do |request_type|
   raise "No #{request_type} to discard" if Maze::Server.list_for(request_type).current.nil?
 

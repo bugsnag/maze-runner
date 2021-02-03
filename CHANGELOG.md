@@ -1,8 +1,9 @@
-# TBD
+# 4.6.0 - TBD
 
 ## Enhancements
 
-- Add `builds` endpoint for receiving build requests [#213](https://github.com/bugsnag/maze-runner/pull/213)
+- Adds `/logs` endpoint for receiving log messages [#212](https://github.com/bugsnag/maze-runner/pull/212)
+- Add `/builds` endpoint for receiving build requests [#213](https://github.com/bugsnag/maze-runner/pull/213)
 
 # 4.5.0 - 2021/02/01
 

@@ -3,7 +3,13 @@
 require 'net/http'
 
 http = Net::HTTP.new('localhost', ENV['MOCK_API_PORT'])
-request = Net::HTTP::Post.new('/notify')
+endpoint = if ENV['request_type'].end_with? '-log'
+             '/logs'
+           else
+             '/notify'
+           end
+STDOUT.puts "sending to endpoint #{endpoint}"
+request = Net::HTTP::Post.new(endpoint)
 request['Content-Type'] = 'application/json'
 
 request.body = case ENV['request_type']
@@ -37,6 +43,10 @@ when 'ordered 2'
  '{"foo":"b", "bar":"a"}'
 when 'values'
  '{"values":{"uuid":"123e4567-e89b-12d3-a456-426614174000","number":1.23,"integer":123,"date":"2001-02-03"}}'
+when 'info-log'
+ '{"level":"INFO","message":"Today is 2021-02-03"}'
+when 'error-log'
+ '{"level":"ERROR","message":"The world is still on pause"}'
 else
   exit(1)
 end

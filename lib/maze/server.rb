@@ -47,6 +47,8 @@ module Maze
           sessions
         when 'build', 'builds'
           builds
+        when 'log', 'logs'
+          logs
         else
           raise "Invalid request type '#{type}'"
         end
@@ -71,6 +73,13 @@ module Maze
       # @return [RequestList] Received build requests
       def builds
         @builds ||= RequestList.new
+      end
+
+      # A list of log requests received
+      #
+      # @return [RequestList] Received log requests
+      def logs
+        @logs ||= RequestList.new
       end
 
       # Whether the server thread is running
@@ -115,6 +124,7 @@ module Maze
             server.mount '/notify', Servlet, errors
             server.mount '/sessions', Servlet, sessions
             server.mount '/builds', Servlet, builds
+            server.mount '/logs', Servlet, logs
             server.start
           rescue StandardError => e
             $logger.warn "Failed to start mock server: #{e.message}"

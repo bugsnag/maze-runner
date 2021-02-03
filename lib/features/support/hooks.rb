@@ -125,38 +125,9 @@ After do |scenario|
   # Log unprocessed requests if the scenario fails
   if scenario.failed?
     STDOUT.puts '^^^ +++'
-    if Maze::Server.sessions.empty?
-      $logger.info 'No valid sessions received'
-    else
-      count = Maze::Server.sessions.size_all
-      $logger.info "#{count} sessions were received:"
-      Maze::Server.sessions.all.each.with_index(1) do |request, number|
-        STDOUT.puts "--- Session #{number} of #{count}"
-        Maze::LogUtil.log_hash(Logger::Severity::INFO, request)
-      end
-    end
-
-    if Maze::Server.errors.empty?
-      $logger.info 'No valid errors received'
-    else
-      count = Maze::Server.errors.size_all
-      $logger.info "#{count} errors were received:"
-      Maze::Server.errors.all.each.with_index(1) do |request, number|
-        STDOUT.puts "--- Request #{number} of #{count}"
-        Maze::LogUtil.log_hash(Logger::Severity::INFO, request)
-      end
-    end
-
-    if Maze::Server.builds.empty?
-      $logger.info 'No valid builds received'
-    else
-      count = Maze::Server.builds.size_all
-      $logger.info "#{count} builds were received:"
-      Maze::Server.builds.all.each.with_index(1) do |request, number|
-        STDOUT.puts "--- Request #{number} of #{count}"
-        Maze::LogUtil.log_hash(Logger::Severity::INFO, request)
-      end
-    end
+    output_failed_requests('errors')
+    output_failed_requests('sessions')
+    output_failed_requests('builds')
   end
 
   if Maze.config.appium_session_isolation
@@ -176,6 +147,20 @@ ensure
   Maze::Server.invalid_requests.clear
   Maze::Runner.environment.clear
   Maze::Store.values.clear
+end
+
+def output_failed_requests(request_type)
+  request_queue = Maze::Server.list_for(request_type)
+  if request_queue.empty?
+    $logger.info "No valid #{request_type} received"
+  else
+    count = request_queue.size_all
+    $logger.info "#{count} #{request_type} were received:"
+    request_queue.all.each.with_index(1) do |request, number|
+      STDOUT.puts "--- #{request_type} #{number} of #{count}"
+      Maze::LogUtil.log_hash(Logger::Severity::INFO, request)
+    end
+  end
 end
 
 # Check for invalid requests after each scenario.  This is its own hook as failing a scenario raises an exception

@@ -45,6 +45,8 @@ module Maze
           errors
         when 'session', 'sessions'
           sessions
+        when 'build', 'builds'
+          builds
         else
           raise "Invalid request type '#{type}'"
         end
@@ -62,6 +64,13 @@ module Maze
       # @return [RequestList] Received error requests
       def sessions
         @sessions ||= RequestList.new
+      end
+
+      # A list of build requests received
+      #
+      # @return [RequestList] Received build requests
+      def builds
+        @builds ||= RequestList.new
       end
 
       # Whether the server thread is running
@@ -105,6 +114,7 @@ module Maze
             # When adding more endpoints, be sure to update the 'I should receive no requests' step
             server.mount '/notify', Servlet, errors
             server.mount '/sessions', Servlet, sessions
+            server.mount '/builds', Servlet, builds
             server.start
           rescue StandardError => e
             $logger.warn "Failed to start mock server: #{e.message}"

@@ -45,7 +45,7 @@ module Maze
     # Time in seconds to wait in the `I should receive no requests` step
     attr_accessor :receive_no_requests_wait
 
-    # Maximum time in seconds to wait in the `I wait to receive {int} error(s)/session(s)` steps
+    # Maximum time in seconds to wait in the `I wait to receive {int} error(s)/session(s)/build(s)` steps
     attr_accessor :receive_requests_wait
 
     # Whether presence of the Bugsnag-Integrity header should be enforced

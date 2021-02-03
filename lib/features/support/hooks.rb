@@ -146,6 +146,17 @@ After do |scenario|
         Maze::LogUtil.log_hash(Logger::Severity::INFO, request)
       end
     end
+
+    if Maze::Server.builds.empty?
+      $logger.info 'No valid builds received'
+    else
+      count = Maze::Server.builds.size_all
+      $logger.info "#{count} builds were received:"
+      Maze::Server.builds.all.each.with_index(1) do |request, number|
+        STDOUT.puts "--- Request #{number} of #{count}"
+        Maze::LogUtil.log_hash(Logger::Severity::INFO, request)
+      end
+    end
   end
 
   if Maze.config.appium_session_isolation
@@ -161,6 +172,7 @@ ensure
   # when a test fixture starts (which can be before the first Before scenario hook fires).
   Maze::Server.errors.clear
   Maze::Server.sessions.clear
+  Maze::Server.builds.clear
   Maze::Server.invalid_requests.clear
   Maze::Runner.environment.clear
   Maze::Store.values.clear

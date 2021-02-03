@@ -4,7 +4,7 @@
 
 # Tests the payload body does not match a JSON fixture.
 #
-# @step_input request_type [String] The type of request (error, session, etc)
+# @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input fixture_path [String] Path to a JSON fixture
 Then('the {word} payload body does not match the JSON fixture in {string}') do |request_type, fixture_path|
   payload_value = Maze::Server.list_for(request_type).current[:body]
@@ -15,7 +15,7 @@ end
 
 # Test the payload body matches a JSON fixture.
 #
-# @step_input request_type [String] The type of request (error, session, etc)
+# @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input fixture_path [String] Path to a JSON fixture
 Then('the {word} payload body matches the JSON fixture in {string}') do |request_type, fixture_path|
   payload_value = Maze::Server.list_for(request_type).current[:body]
@@ -27,7 +27,7 @@ end
 
 # Test that a payload element matches a JSON fixture.
 #
-# @step_input request_type [String] The type of request (error, session, etc)
+# @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input field_path [String] Path to the tested element
 # @step_input fixture_path [String] Path to a JSON fixture
 Then('the {word} payload field {string} matches the JSON fixture in {string}') \
@@ -42,7 +42,7 @@ end
 
 # Tests that a request element is true.
 #
-# @step_input request_type [String] The type of request (error, session, etc)
+# @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input field_path [String] Path to the tested element
 Then('the {word} payload field {string} is true') do |request_type, field_path|
   list = Maze::Server.list_for(request_type)
@@ -51,7 +51,7 @@ end
 
 # Tests that a request element is false.
 #
-# @step_input request_type [String] The type of request (error, session, etc)
+# @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input field_path [String] Path to the tested element
 Then('the {word} payload field {string} is false') do |request_type, field_path|
   list = Maze::Server.list_for(request_type)
@@ -60,7 +60,7 @@ end
 
 # Tests that a request element is null.
 #
-# @step_input request_type [String] The type of request (error, session, etc)
+# @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input field_path [String] Path to the tested element
 Then('the {word} payload field {string} is null') do |request_type, field_path|
   list = Maze::Server.list_for(request_type)
@@ -69,7 +69,7 @@ end
 
 # Tests that a request element is not null.
 #
-# @step_input request_type [String] The type of request (error, session, etc)
+# @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input field_path [String] Path to the tested element
 Then('the {word} payload field {string} is not null') do |request_type, field_path|
   list = Maze::Server.list_for(request_type)
@@ -78,7 +78,7 @@ end
 
 # Tests that a payload element equals an integer.
 #
-# @step_input request_type [String] The type of request (error, session, etc)
+# @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input field_path [String] Path to the tested element
 # @step_input int_value [Integer] The value to test against
 Then('the {word} payload field {string} equals {int}') do |request_type, field_path, int_value|
@@ -87,7 +87,7 @@ end
 
 # Tests the payload field value against an environment variable.
 #
-# @step_input request_type [String] The type of request (error, session, etc)
+# @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input field_path [String] The payload element to test
 # @step_input env_var [String] The environment variable to test against
 Then('the {word} payload field {string} equals the environment variable {string}') \
@@ -102,7 +102,7 @@ end
 
 # Tests a payload field contains a number larger than a value.
 #
-# @step_input request_type [String] The type of request (error, session, etc)
+# @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input field_path [String] The payload element to test
 # @step_input int_value [Integer] The value to compare against
 Then('the {word} payload field {string} is greater than {int}') do |request_type, field_path, int_value|
@@ -114,7 +114,7 @@ end
 
 # Tests a payload field contains a number smaller than a value.
 #
-# @step_input request_type [String] The type of request (error, session, etc)
+# @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input field_path [String] The payload element to test
 # @step_input int_value [Integer] The value to compare against
 Then('the {word} payload field {string} is less than {int}') do |request_type, field_path, int_value|
@@ -126,7 +126,7 @@ end
 
 # Tests a payload field equals a string.
 #
-# @step_input request_type [String] The type of request (error, session, etc)
+# @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input field_path [String] The payload element to test
 # @step_input string_value [String] The string to test against
 Then('the {word} payload field {string} equals {string}') do |request_type, field_path, string_value|
@@ -136,7 +136,7 @@ end
 
 # Tests a payload field starts with a string.
 #
-# @step_input request_type [String] The type of request (error, session, etc)
+# @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input field_path [String] The payload element to test
 # @step_input string_value [String] The string to test against
 Then('the {word} payload field {string} starts with {string}') do |request_type, field_path, string_value|
@@ -149,7 +149,7 @@ end
 
 # Tests a payload field ends with a string.
 #
-# @step_input request_type [String] The type of request (error, session, etc)
+# @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input field_path [String] The payload element to test
 # @step_input string_value [String] The string to test against
 Then('the {word} payload field {string} ends with {string}') do |request_type, field_path, string_value|
@@ -162,7 +162,7 @@ end
 
 # Tests a payload field is an array with a specific element count.
 #
-# @step_input request_type [String] The type of request (error, session, etc)
+# @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input field [String] The payload element to test
 # @step_input count [Integer] The value expected
 Then('the {word} payload field {string} is an array with {int} elements') do |request_type, field, count|
@@ -174,7 +174,7 @@ end
 
 # Tests a payload field is an array with at least one element.
 #
-# @step_input request_type [String] The type of request (error, session, etc)
+# @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input field [String] The payload element to test
 Then('the {word} payload field {string} is a non-empty array') do |request_type, field|
   list = Maze::Server.list_for(request_type)
@@ -186,7 +186,7 @@ end
 
 # Tests a payload field matches a regex.
 #
-# @step_input request_type [String] The type of request (error, session, etc)
+# @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input field [String] The payload element to test
 # @step_input regex [String] The regex to test against
 Then('the {word} payload field {string} matches the regex {string}') do |request_type, field, regex_string|
@@ -198,7 +198,7 @@ end
 
 # Tests a payload field is a numeric timestamp.
 #
-# @step_input request_type [String] The type of request (error, session, etc)
+# @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input field [String] The payload element to test
 Then('the {word} payload field {string} is a parsable timestamp in seconds') do |request_type, field|
   list = Maze::Server.list_for(request_type)
@@ -214,7 +214,7 @@ end
 
 # Tests that every element in an array contains a specified key-value pair.
 #
-# @step_input request_type [String] The type of request (error, session, etc)
+# @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input key_path [String] The path to the tested array
 # @step_input element_key_path [String] The key for the expected element inside the array
 Then('each element in {word} payload field {string} has {string}') do |request_type, key_path, element_key_path|

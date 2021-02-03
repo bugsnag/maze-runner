@@ -7,6 +7,8 @@ require 'time'
 http = Net::HTTP.new('localhost', ENV['MOCK_API_PORT'])
 endpoint = if ENV['request_type'] == 'session'
              '/sessions'
+           elsif ENV['request_type'] == 'build'
+             '/builds'
            else
              '/notify'
            end
@@ -212,6 +214,23 @@ templates = {
       ]
     }
   },
+  'build' => {
+    'headers' => {},
+    'body' => {
+      'apiKey' => ENV['BUGSNAG_API_KEY'],
+      'appVersion' => 'SEBT£',
+      'proguard' => 'rutherford',
+      'appId' => 'banks',
+      'versionCode' => 'ABACAB',
+      'buildUUID' => 'gabriel',
+      'versionName' => 'collins',
+      'genesis' => true,
+      'yes' => false,
+      'wakeman' => nil,
+      'albums' => 15,
+      'live_albums' => 6
+    }
+  }
 }
 
 exit(1) if ENV['request_type'].nil?

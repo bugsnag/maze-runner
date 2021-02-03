@@ -125,9 +125,9 @@ After do |scenario|
   # Log unprocessed requests if the scenario fails
   if scenario.failed?
     STDOUT.puts '^^^ +++'
-    output_failed_requests('errors')
-    output_failed_requests('sessions')
-    output_failed_requests('builds')
+    output_received_requests('errors')
+    output_received_requests('sessions')
+    output_received_requests('builds')
   end
 
   if Maze.config.appium_session_isolation
@@ -149,7 +149,7 @@ ensure
   Maze::Store.values.clear
 end
 
-def output_failed_requests(request_type)
+def output_received_requests(request_type)
   request_queue = Maze::Server.list_for(request_type)
   if request_queue.empty?
     $logger.info "No valid #{request_type} received"

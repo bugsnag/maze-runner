@@ -1,3 +1,9 @@
+# TBD
+
+## Enhancements
+
+- Add `builds` endpoint for receiving build requests [#213](https://github.com/bugsnag/maze-runner/pull/213)
+
 # 4.5.0 - 2021/02/01
 
 ## Enhancements

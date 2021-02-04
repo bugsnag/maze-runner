@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'rest-client'
-
 module Maze
   # Utils supporting the BrowserStack device farm integration
   class BrowserStackUtils
@@ -16,15 +14,23 @@ module Maze
           $logger.info "Using pre-uploaded app from #{app}"
         else
           $logger.info "Uploading app: #{app}"
-          res = RestClient.post "https://#{username}:#{access_key}@api-cloud.browserstack.com/app-automate/upload",
-                                file: File.new(app, 'rb')
+
+          uri = URI('https://api-cloud.browserstack.com/app-automate/upload')
+          request = Net::HTTP::Post.new(uri)
+          request.basic_auth(username, access_key)
+          request.set_form({ 'file' => File.new(app, 'rb') }, 'multipart/form-data')
+
+          res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+            http.request(request)
+          end
 
           begin
-            response = JSON.parse res.body
+            body = res.body
+            response = JSON.parse body
             raise "Upload failed due to error: #{response['error']}" if response.include?('error')
             raise "Upload failed, response did not include and app_url: #{res}" unless response.include?('app_url')
           rescue JSON::ParserError
-            raise "Upload failed: #{res}"
+            raise "Error: expected JSON response, received: #{body}"
           end
 
           app_url = response['app_url']

@@ -27,12 +27,16 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
   end
 
   def test_upload_app_success
+    $logger.expects(:info).with("Uploading app: #{APP}").once
     $logger.expects(:info).with("app uploaded to: #{TEST_APP_URL}").once
     $logger.expects(:info).with('You can use this url to avoid uploading the same app more than once.').once
 
     json_response = JSON.dump(app_url: TEST_APP_URL)
-    expected_command = %(curl -u "#{USERNAME}:#{ACCESS_KEY}" -X POST "https://api-cloud.browserstack.com/app-automate/upload" -F "file=@#{APP}")
-    Maze::BrowserStackUtils.stubs(:`).with(expected_command).returns(json_response)
+    File.expects(:new).with(APP, 'rb')
+    RestClient.expects(:post).with do |url|
+      url == "https://#{USERNAME}:#{ACCESS_KEY}@api-cloud.browserstack.com/app-automate/upload"
+    end.returns(RestClient::Response.new(json_response))
+
     url = Maze::BrowserStackUtils.upload_app USERNAME, ACCESS_KEY, APP
     assert_equal(TEST_APP_URL, url)
   end
@@ -41,9 +45,14 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
     json_response = JSON.dump(
       error: 'Error'
     )
-    expected_command = %(curl -u "#{USERNAME}:#{ACCESS_KEY}" -X POST "https://api-cloud.browserstack.com/app-automate/upload" -F "file=@#{APP}")
-    Maze::BrowserStackUtils.stubs(:`).with(expected_command).returns(json_response)
-    assert_raise(RuntimeError, 'BrowserStack upload failed due to error: Error') do
+
+    $logger.expects(:info).with("Uploading app: #{APP}").once
+    File.expects(:new).with(APP, 'rb')
+    RestClient.expects(:post).with do |url|
+      url == "https://#{USERNAME}:#{ACCESS_KEY}@api-cloud.browserstack.com/app-automate/upload"
+    end.returns(RestClient::Response.new(json_response))
+
+    assert_raise(RuntimeError, 'Upload failed due to error: Error') do
       Maze::BrowserStackUtils.upload_app USERNAME, ACCESS_KEY, APP
     end
   end

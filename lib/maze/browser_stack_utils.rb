@@ -11,16 +11,21 @@ module Maze
       # @param username [String] the BrowserStack username
       # @param access_key [String] the BrowserStack access key
       def upload_app(username, access_key, app)
-        # TODO: Improve error handling:
-        #   - res may not be JSON at all
         if app.start_with? 'bs://'
           app_url = app
           $logger.info "Using pre-uploaded app from #{app}"
         else
-          $logger.info "Uploading file from #{app}"
-          res = RestClient.post "https://#{username}:#{access_key}@api-cloud.browserstack.com/app-automate/upload", :file => File.new(app, 'rb')
-          response = JSON.parse res.body
-          raise "BrowserStack upload failed due to error: #{response['error']}" if response.include?('error')
+          $logger.info "Uploading app: #{app}"
+          res = RestClient.post "https://#{username}:#{access_key}@api-cloud.browserstack.com/app-automate/upload",
+                                file: File.new(app, 'rb')
+
+          begin
+            response = JSON.parse res.body
+            raise "Upload failed due to error: #{response['error']}" if response.include?('error')
+            raise "Upload failed, response did not include and app_url: #{res}" unless response.include?('app_url')
+          rescue JSON::ParserError
+            raise "Upload failed: #{res}"
+          end
 
           app_url = response['app_url']
           $logger.info "app uploaded to: #{app_url}"

@@ -144,6 +144,7 @@ ensure
   Maze::Server.errors.clear
   Maze::Server.sessions.clear
   Maze::Server.builds.clear
+  Maze::Server.logs.clear
   Maze::Server.invalid_requests.clear
   Maze::Runner.environment.clear
   Maze::Store.values.clear

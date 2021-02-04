@@ -1,4 +1,4 @@
-# 4.6.0 - 2021/02/04
+# 4.6.0 - 2021/02/05
 
 ## Enhancements
 
@@ -7,7 +7,7 @@
 
 ## Fixes
 
-- Handle error responses to app uploads [#215](https://github.com/bugsnag/maze-runner/pull/215)
+- Use the standard library rather than `curl` for app uploads and handle error responses [#215](https://github.com/bugsnag/maze-runner/pull/215)
 
 # 4.5.0 - 2021/02/01
 

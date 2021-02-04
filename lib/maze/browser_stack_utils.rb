@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'rest-client'
+
 module Maze
   # Utils supporting the BrowserStack device farm integration
   class BrowserStackUtils
@@ -15,9 +17,9 @@ module Maze
           app_url = app
           $logger.info "Using pre-uploaded app from #{app}"
         else
-          url = 'https://api-cloud.browserstack.com/app-automate/upload'
-          res = `curl -u "#{username}:#{access_key}" -X POST "#{url}" -F "file=@#{app}"`
-          response = JSON.parse(res)
+          $logger.info "Uploading file from #{app}"
+          res = RestClient.post "https://#{username}:#{access_key}@api-cloud.browserstack.com/app-automate/upload", :file => File.new(app, 'rb')
+          response = JSON.parse res.body
           raise "BrowserStack upload failed due to error: #{response['error']}" if response.include?('error')
 
           app_url = response['app_url']

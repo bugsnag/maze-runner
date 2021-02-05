@@ -1,15 +1,19 @@
-# 4.6.0 - TBD
+# 4.6.0 - 2021/02/05
 
 ## Enhancements
 
-- Adds `/logs` endpoint for receiving log messages [#214](https://github.com/bugsnag/maze-runner/pull/214)
-- Adds `/builds` endpoint for receiving build requests [#213](https://github.com/bugsnag/maze-runner/pull/213)
+- Add `/logs` endpoint for receiving log messages [#214](https://github.com/bugsnag/maze-runner/pull/214)
+- Add `/builds` endpoint for receiving build requests [#213](https://github.com/bugsnag/maze-runner/pull/213)
+
+## Fixes
+
+- Use the standard library rather than `curl` for app uploads and handle error responses [#215](https://github.com/bugsnag/maze-runner/pull/215)
 
 # 4.5.0 - 2021/02/01
 
 ## Enhancements
 
-- Adds root `/` endpoint for use in connectivity checks [#211](https://github.com/bugsnag/maze-runner/pull/211)
+- Add root `/` endpoint for use in connectivity checks [#211](https://github.com/bugsnag/maze-runner/pull/211)
 
 ## Fixes
 
@@ -19,7 +23,7 @@
 
 ## Enhancements
 
-- Adds in-built appium server control for local testing [#202](https://github.com/bugsnag/maze-runner/pull/202)
+- Add in-built appium server control for local testing [#202](https://github.com/bugsnag/maze-runner/pull/202)
 - Allow the use of @null and @non-null in platform-dependent assertion tables[#210](https://github.com/bugsnag/maze-runner/pull/210)
 
 # 4.3.1 - 2021/01/26

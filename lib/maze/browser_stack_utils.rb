@@ -9,16 +9,29 @@ module Maze
       # @param username [String] the BrowserStack username
       # @param access_key [String] the BrowserStack access key
       def upload_app(username, access_key, app)
-        # TODO: Improve error handling:
-        #   - res may not be JSON at all
         if app.start_with? 'bs://'
           app_url = app
           $logger.info "Using pre-uploaded app from #{app}"
         else
-          url = 'https://api-cloud.browserstack.com/app-automate/upload'
-          res = `curl -u "#{username}:#{access_key}" -X POST "#{url}" -F "file=@#{app}"`
-          response = JSON.parse(res)
-          raise "BrowserStack upload failed due to error: #{response['error']}" if response.include?('error')
+          $logger.info "Uploading app: #{app}"
+
+          uri = URI('https://api-cloud.browserstack.com/app-automate/upload')
+          request = Net::HTTP::Post.new(uri)
+          request.basic_auth(username, access_key)
+          request.set_form({ 'file' => File.new(app, 'rb') }, 'multipart/form-data')
+
+          res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+            http.request(request)
+          end
+
+          begin
+            body = res.body
+            response = JSON.parse body
+            raise "Upload failed due to error: #{response['error']}" if response.include?('error')
+            raise "Upload failed, response did not include and app_url: #{res}" unless response.include?('app_url')
+          rescue JSON::ParserError
+            raise "Error: expected JSON response, received: #{body}"
+          end
 
           app_url = response['app_url']
           $logger.info "app uploaded to: #{app_url}"

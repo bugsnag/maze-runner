@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'net/http'
 require 'json'
 require 'open3'
 require 'test_helper'
@@ -27,23 +28,74 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
   end
 
   def test_upload_app_success
+    $logger.expects(:info).with("Uploading app: #{APP}").once
     $logger.expects(:info).with("app uploaded to: #{TEST_APP_URL}").once
     $logger.expects(:info).with('You can use this url to avoid uploading the same app more than once.').once
 
+    File.expects(:new)&.with(APP, 'rb')&.returns('file')
+
+    post_mock = mock('request')
+    post_mock.expects(:basic_auth).with(USERNAME, ACCESS_KEY)
+    post_mock.expects(:set_form).with({ 'file' => 'file' }, 'multipart/form-data')
+
     json_response = JSON.dump(app_url: TEST_APP_URL)
-    expected_command = %(curl -u "#{USERNAME}:#{ACCESS_KEY}" -X POST "https://api-cloud.browserstack.com/app-automate/upload" -F "file=@#{APP}")
-    Maze::BrowserStackUtils.stubs(:`).with(expected_command).returns(json_response)
+    response_mock = mock('response')
+    response_mock.expects(:body).returns(json_response)
+
+    uri = URI('https://api-cloud.browserstack.com/app-automate/upload')
+    Net::HTTP::Post.expects(:new)&.with(uri)&.returns post_mock
+    Net::HTTP.expects(:start)&.with('api-cloud.browserstack.com',
+                                    443,
+                                    use_ssl: true)&.returns(response_mock)
+
     url = Maze::BrowserStackUtils.upload_app USERNAME, ACCESS_KEY, APP
     assert_equal(TEST_APP_URL, url)
   end
 
   def test_upload_app_error
-    json_response = JSON.dump(
-      error: 'Error'
-    )
-    expected_command = %(curl -u "#{USERNAME}:#{ACCESS_KEY}" -X POST "https://api-cloud.browserstack.com/app-automate/upload" -F "file=@#{APP}")
-    Maze::BrowserStackUtils.stubs(:`).with(expected_command).returns(json_response)
-    assert_raise(RuntimeError, 'BrowserStack upload failed due to error: Error') do
+    $logger.expects(:info).with("Uploading app: #{APP}").once
+
+    File.expects(:new)&.with(APP, 'rb')&.returns('file')
+
+    post_mock = mock('request')
+    post_mock.expects(:basic_auth).with(USERNAME, ACCESS_KEY)
+    post_mock.expects(:set_form).with({ 'file' => 'file' }, 'multipart/form-data')
+
+    json_response = JSON.dump(error: 'Useless error')
+    response_mock = mock('response')
+    response_mock.expects(:body).returns(json_response)
+
+    uri = URI('https://api-cloud.browserstack.com/app-automate/upload')
+    Net::HTTP::Post.expects(:new)&.with(uri)&.returns post_mock
+    Net::HTTP.expects(:start)&.with('api-cloud.browserstack.com',
+                                    443,
+                                    use_ssl: true)&.returns(response_mock)
+
+    assert_raise(RuntimeError, 'Upload failed due to error: Error') do
+      Maze::BrowserStackUtils.upload_app USERNAME, ACCESS_KEY, APP
+    end
+  end
+
+  def test_upload_app_invalid_response
+    $logger.expects(:info).with("Uploading app: #{APP}").once
+
+    File.expects(:new)&.with(APP, 'rb')&.returns('file')
+
+    post_mock = mock('request')
+    post_mock.expects(:basic_auth).with(USERNAME, ACCESS_KEY)
+    post_mock.expects(:set_form).with({ 'file' => 'file' }, 'multipart/form-data')
+
+    json_response = 'gobbledygook'
+    response_mock = mock('response')
+    response_mock.expects(:body).returns(json_response)
+
+    uri = URI('https://api-cloud.browserstack.com/app-automate/upload')
+    Net::HTTP::Post.expects(:new)&.with(uri)&.returns post_mock
+    Net::HTTP.expects(:start)&.with('api-cloud.browserstack.com',
+                                    443,
+                                    use_ssl: true)&.returns(response_mock)
+
+    assert_raise(RuntimeError, 'Upload failed due to error: Error') do
       Maze::BrowserStackUtils.upload_app USERNAME, ACCESS_KEY, APP
     end
   end
@@ -53,7 +105,7 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
 
     command_options = "-d start --key #{ACCESS_KEY} --local-identifier #{LOCAL_ID} --force-local --only-automate --force"
     waiter = mock('Process::Waiter', value: mock('Process::Status'))
-    Open3.expects(:popen2).with("#{BS_LOCAL} #{command_options}").yields(mock('stdin'), mock('stdout'), waiter)
+    Open3.expects(:popen2)&.with("#{BS_LOCAL} #{command_options}")&.yields(mock('stdin'), mock('stdout'), waiter)
 
     Maze::BrowserStackUtils.start_local_tunnel BS_LOCAL, LOCAL_ID, ACCESS_KEY
   end

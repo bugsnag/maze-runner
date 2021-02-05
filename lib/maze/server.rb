@@ -124,7 +124,7 @@ module Maze
             server.mount '/notify', Servlet, errors
             server.mount '/sessions', Servlet, sessions
             server.mount '/builds', Servlet, builds
-            server.mount '/logs', Servlet, logs
+            server.mount '/logs', Servlet, logs, true
             server.start
           rescue StandardError => e
             $logger.warn "Failed to start mock server: #{e.message}"

@@ -1,3 +1,9 @@
+# 4.6.1 - 2021/02/08
+
+## Fixes
+
+- Correct processing of `/logs` endpoint requests [#216](https://github.com/bugsnag/maze-runner/pull/216)
+
 # 4.6.0 - 2021/02/05
 
 ## Enhancements

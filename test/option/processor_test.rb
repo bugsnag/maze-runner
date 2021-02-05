@@ -7,10 +7,21 @@ require_relative '../../lib/maze/configuration'
 
 # Tests the options parser and processor together (using only valid options and with no validator).
 class ProcessorTest < Test::Unit::TestCase
+  def setup
+    ENV.delete('MAZE_BS_LOCAL')
+    ENV.delete('MAZE_DEVICE_FARM_USERNAME')
+    ENV.delete('MAZE_DEVICE_FARM_ACCESS_KEY')
+
+    Maze::Option::Processor.stubs(:expand).with('/BrowserStackLocal').returns('/BrowserStackLocal')
+    Maze::Option::Processor.stubs(:expand).with('my_app.apk').returns('my_app.apk')
+    Maze::Option::Processor.stubs(:expand).with(nil).returns(nil)
+  end
+
   def test_populate_bs_config_separate
     args = %w[--farm=bs --app=my_app.apk --username=user --access-key=key --device=ANDROID_6_0 --separate-sessions]
     options = Maze::Option::Parser.parse args
     config = Maze::Configuration.new
+
     Maze::Option::Processor.populate config, options
 
     assert_true config.appium_session_isolation
@@ -26,7 +37,7 @@ class ProcessorTest < Test::Unit::TestCase
   end
 
   def test_populate_bs_config_resilient
-    args = %w[--farm=bs --app=a --username=b --access-key=c --device=ANDROID_6_0 --resilient --a11y-locator]
+    args = %w[--farm=bs --app=my_app.apk --username=b --access-key=c --device=ANDROID_6_0 --resilient --a11y-locator]
     options = Maze::Option::Parser.parse args
     config = Maze::Configuration.new
     Maze::Option::Processor.populate config, options
@@ -37,13 +48,13 @@ class ProcessorTest < Test::Unit::TestCase
   end
 
   def test_populate_local_config
-    args = %w[--farm=local --app=my_app.ipa --os=ios --os-version=7.1 --apple-team-id=ABC --udid=123]
+    args = %w[--farm=local --app=my_app.apk --os=ios --os-version=7.1 --apple-team-id=ABC --udid=123]
     options = Maze::Option::Parser.parse args
     config = Maze::Configuration.new
     Maze::Option::Processor.populate config, options
 
     assert_equal :local, config.farm
-    assert_equal 'my_app.ipa', config.app
+    assert_equal 'my_app.apk', config.app
     assert_equal 'ios', config.os
     assert_equal 7.1, config.os_version
     assert_equal 'ABC', config.apple_team_id

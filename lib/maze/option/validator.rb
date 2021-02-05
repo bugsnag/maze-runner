@@ -33,7 +33,7 @@ module Maze
       # Validates BrowserStack options
       def validate_bs(options, errors)
         # BS local binary
-        bs_local = options[Option::BS_LOCAL]
+        bs_local = File.expand_path options[Option::BS_LOCAL]
         errors << "BrowserStack local binary '#{bs_local}' not found" unless File.exist? bs_local
 
         # Device
@@ -54,7 +54,7 @@ module Maze
             errors << "Device type '#{bs_device}' unknown on BrowserStack.  Must be one of #{Maze::Devices::DEVICE_HASH.keys}"
           end
           # App
-          app = options[Option::APP]
+          app = File.expand_path options[Option::APP]
           if app.nil?
             errors << "--#{Option::APP} must be provided when running on a device"
           else

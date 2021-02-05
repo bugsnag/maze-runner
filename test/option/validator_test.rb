@@ -14,6 +14,10 @@ class ValidatorTest < Test::Unit::TestCase
     ENV.delete('MAZE_DEVICE_FARM_USERNAME')
     ENV.delete('MAZE_DEVICE_FARM_ACCESS_KEY')
     ENV.delete('MAZE_APPLE_TEAM_ID')
+
+    File.stubs(:expand_path).with('/BrowserStackLocal').returns('/BrowserStackLocal')
+    File.stubs(:expand_path).with('my_app.apk').returns('my_app.apk')
+    File.stubs(:expand_path).with(nil).returns(nil)
   end
 
   def test_invalid_farm
@@ -77,7 +81,6 @@ class ValidatorTest < Test::Unit::TestCase
   def test_browser_stack_missing_app
     args = %w[--farm=bs --username=user --access-key=key --device=ANDROID_6_0]
     File.stubs(:exist?).with('/BrowserStackLocal').returns(true)
-    File.stubs(:exist?).with('my_app.apk').returns(true)
 
     options = Maze::Option::Parser.parse args
     errors = @validator.validate options

@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'os', '~> 1.0.0'
   spec.add_dependency 'test-unit', '~> 3.3.0'
 
-  spec.add_dependency 'appium_lib', '~> 10.2'
+  spec.add_dependency 'appium_lib', '~> 11.2.0'
   spec.add_dependency 'cucumber-expressions', '~> 6.0.0'
   spec.add_dependency 'curb', '~> 0.9.6'
   spec.add_dependency 'optimist', '~> 3.0.1'

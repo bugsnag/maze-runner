@@ -128,6 +128,7 @@ After do |scenario|
     output_received_requests('errors')
     output_received_requests('sessions')
     output_received_requests('builds')
+    output_received_requests('logs')
   end
 
   if Maze.config.appium_session_isolation

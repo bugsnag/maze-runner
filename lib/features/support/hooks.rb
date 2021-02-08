@@ -153,6 +153,7 @@ ensure
   Maze::Server.invalid_requests.clear
   Maze::Runner.environment.clear
   Maze::Store.values.clear
+  Maze::Aws::Sam.reset!
 end
 
 def output_received_requests(request_type)

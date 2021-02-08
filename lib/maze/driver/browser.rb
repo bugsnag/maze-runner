@@ -1,17 +1,27 @@
+# frozen_string_literal: true
+
 require 'selenium-webdriver'
 
 module Maze
   module Driver
     # Handles browser automation fundamentals
     class Browser
+      # @!attribute [r] capabilities
+      #   @return [Hash] The capabilities used to launch the BrowserStack instance
+      attr_reader :capabilities
+
       def initialize(selenium_url, capabilities)
+        # Sets up identifiers for ease of connecting jobs
+        @capabilities = capabilities
+        @capabilities.merge! project_name_capabilities
+
         @driver = ::Selenium::WebDriver.for :remote,
                                             url: selenium_url,
-                                            desired_capabilities: capabilities
+                                            desired_capabilities: @capabilities
       end
 
       def find_element(*args)
-        @driver.find_element *args
+        @driver.find_element(*args)
       end
 
       def navigate
@@ -46,6 +56,24 @@ module Maze
         return false
       }
         JAVASCRIPT
+      end
+
+      # Determines and returns sensible project and build capabilities
+      #
+      # @return [Hash] A hash containing the 'project' and 'build' capabilities
+      def project_name_capabilities
+        # Default to values for running locally
+        project = 'local'
+        build = SecureRandom.uuid
+
+        if ENV['BUILDKITE']
+          # Project
+          project = ENV['BUILDKITE_PIPELINE_NAME']
+        end
+        {
+          project: project,
+          build: build
+        }
       end
     end
   end

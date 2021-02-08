@@ -11,7 +11,8 @@ module Maze
         capabilities = {
           'browserstack.console' => 'errors',
           'browserstack.localIdentifier' => local_id,
-          'browserstack.local' => 'true'
+          'browserstack.local' => 'true',
+          'disabledAnimations' => 'true'
         }
         capabilities.merge! Devices::DEVICE_HASH[device_type]
         capabilities.merge! JSON.parse(capabilities_option)

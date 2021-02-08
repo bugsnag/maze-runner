@@ -3,6 +3,7 @@
 ## Fixes
 
 - Correct processing of `/logs` endpoint requests [#216](https://github.com/bugsnag/maze-runner/pull/216)
+- Set `disableAnimations` capability on BrowserStack devices [#217](https://github.com/bugsnag/maze-runner/pull/217)
 
 # 4.6.0 - 2021/02/05
 

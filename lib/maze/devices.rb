@@ -46,6 +46,7 @@ module Maze
         # - dots in versions and all spaces replaced with underscores
         # - device made upper case
         name = device.upcase.gsub ' ', '_'
+        name = name.gsub '.', '_'
         new_version = version.gsub '.', '_'
         key = "IOS_#{new_version}_#{name}"
         hash[key] = make_ios_hash device, version
@@ -104,6 +105,11 @@ module Maze
         add_ios 'iPhone 6', '11.0', hash                                  # IOS_11_0_IPHONE_6
         add_ios 'iPhone 6S', '11.0', hash                                 # IOS_11_0_IPHONE_6S
         add_ios 'iPhone 6S Plus', '11.0', hash                            # IOS_11_0_IPHONE_6S_PLUS
+        add_ios 'iPad 5th', '11.0', hash                                  # IOS_11_0_IPAD_5TH
+        add_ios 'iPad Mini 4', '11.0', hash                               # IOS_11_0_IPAD_MINI_4
+        add_ios 'iPad Pro 9.7 2016', '11.0', hash                         # IOS_11_0_IPAD_PRO_9_7_2016
+        add_ios 'iPad 6th', '11.0', hash                                  # IOS_11_0_IPAD_6TH
+        add_ios 'iPad Pro 12.9', '11.0', hash                             # IOS_11_0_IPAD_PRO_12_9
 
         hash
       end

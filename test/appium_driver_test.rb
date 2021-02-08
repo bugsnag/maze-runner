@@ -31,7 +31,7 @@ class AppiumDriverTest < Test::Unit::TestCase
   def test_capabilities
     start_logger_mock
     driver = Maze::Driver::Appium.new SERVER_URL, @capabilities
-    assert_equal('value', driver.caps[:key])
+    assert_equal('value', driver.capabilities[:key])
   end
 
   def test_click_element_defaults

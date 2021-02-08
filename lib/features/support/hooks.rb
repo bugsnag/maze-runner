@@ -71,10 +71,14 @@ AfterConfiguration do |_cucumber_config|
     Maze.driver.start_driver unless config.appium_session_isolation
   end
 
-  if config.farm == :bs && config.bs_device
+  if config.farm == :bs && (config.bs_device || config.bs_browser)
     # Log a link to the BrowserStack session search dashboard
-    build = Maze.driver.caps[:build]
-    url = "https://app-automate.browserstack.com/dashboard/v2/search?query=#{build}&type=builds"
+    build = Maze.driver.capabilities[:build]
+    url = if config.bs_device
+            "https://app-automate.browserstack.com/dashboard/v2/search?query=#{build}&type=builds"
+          else
+            "https://automate.browserstack.com/dashboard/v2/search?query=#{build}&type=builds"
+          end
     if ENV['BUILDKITE']
       $logger.info Maze::LogUtil.linkify url, 'BrowserStack session(s)'
     else

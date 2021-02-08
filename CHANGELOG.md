@@ -1,4 +1,8 @@
-# 4.6.1 - 2021/02/08
+# 4.7.0 - 2021/02/08
+
+## Enhancements
+
+- Log BrowserStack link for browser builds [#218](https://github.com/bugsnag/maze-runner/pull/218)
 
 ## Fixes
 

@@ -4,6 +4,7 @@ require_relative '../test_helper'
 require_relative '../../lib/maze/option/parser'
 require_relative '../../lib/maze/option/processor'
 require_relative '../../lib/maze/configuration'
+require_relative '../../lib/maze/helper'
 
 # Tests the options parser and processor together (using only valid options and with no validator).
 class ProcessorTest < Test::Unit::TestCase
@@ -12,9 +13,9 @@ class ProcessorTest < Test::Unit::TestCase
     ENV.delete('MAZE_DEVICE_FARM_USERNAME')
     ENV.delete('MAZE_DEVICE_FARM_ACCESS_KEY')
 
-    Maze::Option::Processor.stubs(:expand).with('/BrowserStackLocal').returns('/BrowserStackLocal')
-    Maze::Option::Processor.stubs(:expand).with('my_app.apk').returns('my_app.apk')
-    Maze::Option::Processor.stubs(:expand).with(nil).returns(nil)
+    Maze::Helper.stubs(:expand_path).with('/BrowserStackLocal').returns('/BrowserStackLocal')
+    Maze::Helper.stubs(:expand_path).with('my_app.apk').returns('my_app.apk')
+    Maze::Helper.stubs(:expand_path).with(nil).returns(nil)
   end
 
   def test_populate_bs_config_separate

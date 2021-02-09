@@ -13,7 +13,7 @@ module Maze
         # @param options [Hash] Parsed command line options
         def populate(config, options)
           config.appium_session_isolation = options[Maze::Option::SEPARATE_SESSIONS]
-          config.app = expand(options[Maze::Option::APP])
+          config.app = Maze::Helper.expand_path(options[Maze::Option::APP])
           config.resilient = options[Maze::Option::RESILIENT]
           farm = options[Maze::Option::FARM]
           config.farm = case farm
@@ -35,7 +35,7 @@ module Maze
             else
               config.bs_browser = options[Maze::Option::BS_BROWSER]
             end
-            config.bs_local = expand(options[Maze::Option::BS_LOCAL])
+            config.bs_local = Maze::Helper.expand_path(options[Maze::Option::BS_LOCAL])
             config.appium_version = options[Maze::Option::BS_APPIUM_VERSION]
             username = config.username = options[Maze::Option::USERNAME]
             access_key = config.access_key = options[Maze::Option::ACCESS_KEY]
@@ -53,13 +53,6 @@ module Maze
           else
             raise "Unexpected farm option #{config.farm}"
           end
-        end
-
-        private
-
-        # In separate method due to infinite loop when trying to mock File.expand_path.
-        def expand(path)
-          File.expand_path(path)
         end
       end
     end

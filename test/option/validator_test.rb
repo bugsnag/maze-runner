@@ -3,6 +3,7 @@
 require_relative '../test_helper'
 require_relative '../../lib/maze/option/parser'
 require_relative '../../lib/maze/option/validator'
+require_relative '../../lib/maze/helper'
 
 # Tests the options parser and validator together.
 class ValidatorTest < Test::Unit::TestCase
@@ -15,9 +16,9 @@ class ValidatorTest < Test::Unit::TestCase
     ENV.delete('MAZE_DEVICE_FARM_ACCESS_KEY')
     ENV.delete('MAZE_APPLE_TEAM_ID')
 
-    File.stubs(:expand_path).with('/BrowserStackLocal').returns('/BrowserStackLocal')
-    File.stubs(:expand_path).with('my_app.apk').returns('my_app.apk')
-    File.stubs(:expand_path).with(nil).returns(nil)
+    Maze::Helper.stubs(:expand_path).with('/BrowserStackLocal').returns('/BrowserStackLocal')
+    Maze::Helper.stubs(:expand_path).with('my_app.apk').returns('my_app.apk')
+    Maze::Helper.stubs(:expand_path).with(nil).returns(nil)
   end
 
   def test_invalid_farm

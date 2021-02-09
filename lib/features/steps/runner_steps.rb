@@ -170,6 +170,11 @@ When('I input {string} interactively') do |command|
   assert(success, 'The terminal had already closed')
 end
 
+# Send a return or enter to the interactive session
+When('I input a return interactively') do
+  step('I input "" interactively')
+end
+
 # Assert the current stdout line in the shell exactly matches the given string
 #
 # @step_input expected [String] The expected string
@@ -239,6 +244,22 @@ Then('I wait for the shell to output a match for the regex {string} to stdout') 
   end
 
   assert(success, "No output lines from #{current_shell.stdout_lines} matched #{regex_matcher}")
+end
+
+# Wait for the shell to output a number of strings in STDOUT, as defined by a table.
+# This step will time out after Maze.config.receive_requests_wait seconds.
+#
+# @step_input expected_lines [Array] An array of strings expected in STDOUT
+Then('I wait for the interactive shell to output the following lines in stdout') do |expected_lines|
+  wait = Maze::Wait.new(timeout: Maze.config.receive_requests_wait)
+  current_shell = Maze::Runner.interactive_session
+
+  success = wait.until do
+    current_stdout = current_shell.stdout_lines.join("\n")
+    current_stdout.include?(expected_lines)
+  end
+
+  assert(success, "Lines present in stdout: #{current_shell.stdout_lines} did not include all of: #{expected_lines}")
 end
 
 # Verify a string appears in the stderr logs

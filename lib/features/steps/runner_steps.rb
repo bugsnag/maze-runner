@@ -218,6 +218,29 @@ Then('I wait for the shell to output {string} to stdout') do |expected_line|
   assert(success, "No output lines from #{current_shell.stdout_lines} matched #{expected_line}")
 end
 
+# Verify a string using a regex in the stdout logs
+#
+# @step_input regex_matcher [String] The regex expected to match a line in stdout logs
+Then('the shell has output a match for the regex {string} to stdout') do |regex_matcher|
+  current_shell = Maze::Runner.interactive_session
+  match = current_shell.stdout_lines.any? { |line| line.match?(regex_matcher) }
+  assert(match, "No output lines from #{current_shell.stdout_lines} matched #{regex_matcher}")
+end
+
+# Wait for a string matching a regex in the stdout logs, timing out after Maze.config.receive_requests_wait seconds.
+#
+# @step_input regex_matcher [String] The regex expected to match a line in stdout logs
+Then('I wait for the shell to output a match for the regex {string} to stdout') do |regex_matcher|
+  wait = Maze::Wait.new(timeout: Maze.config.receive_requests_wait)
+  current_shell = Maze::Runner.interactive_session
+
+  success = wait.until do
+    current_shell.stdout_lines.any? { |line| line.match?(regex_matcher) }
+  end
+
+  assert(success, "No output lines from #{current_shell.stdout_lines} matched #{regex_matcher}")
+end
+
 # Verify a string appears in the stderr logs
 #
 # @step_input expected_err [String] The string present in stderr logs
@@ -249,7 +272,7 @@ Then('the last interactive command exited successfully') do
 
   steps %Q{
     When I input "[ $? = 0 ] && echo '#{uuid} exited with 0' || echo '#{uuid} exited with error'" interactively
-    Then I wait for the shell to output "#{uuid} exited with 0" to stdout
+    Then I wait for the shell to output a match for the regex "#{uuid} exited with 0" to stdout
   }
 end
 
@@ -263,7 +286,7 @@ Then('the last interactive command exit code is {int}') do |exit_code|
 
   steps %Q{
     When I input "echo #{uuid} $?" interactively
-    Then I wait for the shell to output "#{uuid} #{exit_code}" to stdout
+    Then I wait for the shell to output a match for the regex "#{uuid} #{exit_code}" to stdout
   }
 end
 
@@ -275,6 +298,6 @@ Then('the last interactive command exited with an error code') do
 
   steps %Q{
     When I input "[ $? = 0 ] && echo '#{uuid} exited with 0' || echo '#{uuid} exited with error'" interactively
-    Then I wait for the shell to output "#{uuid} exited with error" to stdout
+    Then I wait for the shell to output a match for the regex "#{uuid} exited with error" to stdout
   }
 end

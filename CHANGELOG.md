@@ -4,6 +4,10 @@
 
 - Add steps to check interactive CLI STDOUT logs using a regex [#220](https://github.com/bugsnag/maze-runner/pull/220)
 
+## Fixes
+
+- Expand file paths for `--app` and `--bs-local` options [#219](https://github.com/bugsnag/maze-runner/pull/219)
+
 # 4.7.0 - 2021/02/08
 
 ## Enhancements
@@ -25,7 +29,6 @@
 ## Fixes
 
 - Use the standard library rather than `curl` for app uploads and handle error responses [#215](https://github.com/bugsnag/maze-runner/pull/215)
-- Expand file paths for `--app` and `--bs-local` options [#216](https://github.com/bugsnag/maze-runner/pull/216)
 
 # 4.5.0 - 2021/02/01
 

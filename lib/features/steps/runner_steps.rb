@@ -201,7 +201,7 @@ Then('I wait for the current stdout line to match the regex {string}') do |regex
 
   success = wait.until { shell.current_buffer.match?(regex) }
 
-  assert(success, "The current output line #{shell.current_buffer} did not match #{regex}")
+  assert(success, "The current output line \"#{shell.current_buffer}\" did not match \"#{regex}\"")
 end
 
 # Waits for a specific shell prompt to be present in the buffered stdout line, timing out after Maze.config.receive_requests_wait seconds.
@@ -213,7 +213,7 @@ Then('I wait for the shell prompt {string}') do |expected_prompt|
 
   success = wait.until { shell.current_buffer == expected_prompt }
 
-  assert(success, "The current output line #{shell.current_buffer} did not match #{expected_prompt}")
+  assert(success, "The current output line \"#{shell.current_buffer}\" did not match \"#{expected_prompt}\"")
 end
 
 # Verify a string appears in the stdout logs
@@ -346,7 +346,7 @@ end
 Then('the interactive file {string} contains {string}') do |filename, expected_line|
   steps %(
     When I input "fgrep '#{expected_line.gsub(/"/, '\"')}' #{filename}" interactively
-    And I wait for the shell prompt "#"
+    And I wait for the current stdout line to match the regex "[#>$]\\s?"
     Then the last interactive command exited successfully
   )
 end
@@ -358,7 +358,7 @@ end
 Then('the interactive file {string} does not contain {string}') do |filename, excluded_line|
   steps %(
     When I input "fgrep '#{excluded_line.gsub(/"/, '\"')}' #{filename}" interactively
-    And I wait for the shell prompt "#"
+    And I wait for the current stdout line to match the regex "[#>$]\\s?"
     Then the last interactive command exited with an error code
   )
 end

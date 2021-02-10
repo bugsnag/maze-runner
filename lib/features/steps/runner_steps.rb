@@ -322,3 +322,47 @@ Then('the last interactive command exited with an error code') do
     Then I wait for the shell to output a match for the regex "#{uuid} exited with error" to stdout
   }
 end
+
+# Assert that an expected_line is present in a file located relative to the interactive terminal's CWD
+#
+# @step_input filename [String] The file tested, relative to the CWD of the interactive terminal
+# @step_input expected_line [String] The line expected in the file
+Then('the interactive file {string} contains {string}') do |filename, expected_line|
+  steps %(
+    When I input "fgrep '#{expected_line.gsub(/"/, '\"')}' #{filename}" interactively
+    And I wait for the shell prompt "#"
+    Then the last interactive command exited successfully
+  )
+end
+
+# Assert that a line is not present in a file located relative to the interactive terminal's CWD
+#
+# @step_input filename [String] The file tested, relative to the CWD of the interactive terminal
+# @step_input excluded_line [String] The line that should not be present be in the file
+Then('the interactive file {string} does not contain {string}') do |filename, excluded_line|
+  steps %(
+    When I input "fgrep '#{excluded_line.gsub(/"/, '\"')}' #{filename}" interactively
+    And I wait for the shell prompt "#"
+    Then the last interactive command exited with an error code
+  )
+end
+
+# Assert that a file located relative to the CWD of the interactive terminal contains all of the expected lines
+#
+# @step_input filename [String] The file tested, relative to the CWD of the interactive terminal
+# @step_input expected_lines [String] The lines expected in the file as a multi-line string
+Then('the interactive file {string} contains:') do |filename, expected_lines|
+  expected_lines.each_line do |line|
+    step("the interactive file '#{filename}' contains '#{line.chomp}'")
+  end
+end
+
+# Assert that a file located relative to the CWD of the interactive terminal does not contain any of the excluded lines
+#
+# @step_input filename [String] The file tested, relative to the CWD of the interactive terminal
+# @step_input excluded_lines [String] The lines that should not be present in the file, as a multi-line string
+Then('the interactive file {string} contains:') do |filename, excluded_lines|
+  excluded_lines.each_line do |line|
+    step("the interactive file '#{filename}' contains '#{line.chomp}'")
+  end
+end

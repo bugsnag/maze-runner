@@ -191,13 +191,29 @@ Then('the current stdout line contains {string}') do |expected|
   assert_includes(current_shell.current_buffer, expected)
 end
 
-Then('I wait for the shell prompt {string}') do |expected|
+# Waits for a line matching a regex to be present in the current stdout
+# Times out after Maze.config.receive_requests_wait seconds.
+#
+# @step_input regex [String] The regex to match against
+Then('I wait for the current stdout line to match the regex {string}') do |regex|
   wait = Maze::Wait.new(timeout: Maze.config.receive_requests_wait)
   shell = Maze::Runner.interactive_session
 
-  success = wait.until { shell.current_buffer == expected }
+  success = wait.until { shell.current_buffer.match?(regex) }
 
-  assert(success, "The current output line #{shell.current_buffer} did not match #{expected}")
+  assert(success, "The current output line #{shell.current_buffer} did not match #{regex}")
+end
+
+# Waits for a specific shell prompt to be present in the buffered stdout line, timing out after Maze.config.receive_requests_wait seconds.
+#
+# @step_input expected_prompt [String] The prompt expected in the current buffer
+Then('I wait for the shell prompt {string}') do |expected_prompt|
+  wait = Maze::Wait.new(timeout: Maze.config.receive_requests_wait)
+  shell = Maze::Runner.interactive_session
+
+  success = wait.until { shell.current_buffer == expected_prompt }
+
+  assert(success, "The current output line #{shell.current_buffer} did not match #{expected_prompt}")
 end
 
 # Verify a string appears in the stdout logs

@@ -64,6 +64,17 @@ module Maze
         end
         header == computed_digest
       end
+
+      # Nil-safe version of File.expand_path
+      #
+      # @param path [String] Path to expand
+      #
+      # @return [String] Expanded path, or nil if path is nil.
+      def expand_path(path)
+        return nil unless path
+
+        File.expand_path path
+      end
     end
   end
 end

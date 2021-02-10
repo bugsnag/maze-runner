@@ -1,8 +1,12 @@
-# 4.8.0 - TBD
+# 4.8.0 - 2021/02/10
 
 ## Enhancements
 
 - Add steps to check interactive CLI STDOUT logs using a regex [#220](https://github.com/bugsnag/maze-runner/pull/220)
+
+## Fixes
+
+- Expand file paths for `--app` and `--bs-local` options [#219](https://github.com/bugsnag/maze-runner/pull/219)
 
 # 4.7.0 - 2021/02/08
 

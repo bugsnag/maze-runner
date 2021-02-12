@@ -6,7 +6,6 @@ steps:
             - ci
           image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
           cache-from:
-            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:latest-ci
             - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
 
   - wait
@@ -15,7 +14,6 @@ steps:
     plugins:
       - docker-compose#v3.3.0:
           push:
-            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:latest-ci
             - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
 
   - wait
@@ -57,28 +55,18 @@ steps:
       docker-compose#v3.3.0:
         run: browserstack-app-automate
     command: 'bundle exec bugsnag-maze-runner'
-    concurrency: 10
+    concurrency: 9
     concurrency_group: 'browserstack-app'
-    #
-    # TODO: Remove as soon as possible - working around BrowserStack network problem
-    #
-    soft_fail:
-      - exit_status: "*"
 
-  - label: 'Browserstack app-automate test - Android 7.1 (separate Appium sessions)'
+  - label: 'Browserstack app-automate test - Android 7.1'
     env:
       DEVICE_TYPE: ANDROID_7_1
     plugins:
       docker-compose#v3.3.0:
         run: browserstack-app-automate
-    command: 'bundle exec bugsnag-maze-runner --separate-sessions'
-    concurrency: 10
+    command: 'bundle exec bugsnag-maze-runner'
+    concurrency: 9
     concurrency_group: 'browserstack-app'
-    #
-    # TODO: Remove as soon as possible - working around BrowserStack network problem
-    #
-    soft_fail:
-      - exit_status: "*"
 
   - label: 'Browserstack app-automate test - Android 8.1'
     env:
@@ -87,7 +75,7 @@ steps:
       docker-compose#v3.3.0:
         run: browserstack-app-automate
     command: 'bundle exec bugsnag-maze-runner'
-    concurrency: 10
+    concurrency: 9
     concurrency_group: 'browserstack-app'
 
   - label: 'Browserstack app-automate test - Android 9'
@@ -97,27 +85,27 @@ steps:
       docker-compose#v3.3.0:
         run: browserstack-app-automate
     command: 'bundle exec bugsnag-maze-runner'
-    concurrency: 10
+    concurrency: 9
     concurrency_group: 'browserstack-app'
 
-  - label: 'Browserstack app-automate test - Android 10 (separate Appium sessions)'
+  - label: 'Browserstack app-automate test - Android 10'
     env:
       DEVICE_TYPE: ANDROID_10_0
     plugins:
       docker-compose#v3.3.0:
         run: browserstack-app-automate
-    command: 'bundle exec bugsnag-maze-runner --separate-sessions'
-    concurrency: 10
+    command: 'bundle exec bugsnag-maze-runner'
+    concurrency: 9
     concurrency_group: 'browserstack-app'
 
-  - label: 'Browserstack app-automate test - Android 11 (separate Appium sessions)'
+  - label: 'Browserstack app-automate test - Android 11'
     env:
       DEVICE_TYPE: ANDROID_11_0
     plugins:
       docker-compose#v3.3.0:
         run: browserstack-app-automate
-    command: 'bundle exec bugsnag-maze-runner --separate-sessions'
-    concurrency: 10
+    command: 'bundle exec bugsnag-maze-runner'
+    concurrency: 9
     concurrency_group: 'browserstack-app'
 
   - label: 'Payload helper tests'

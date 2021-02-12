@@ -2,7 +2,7 @@
 
 ## Fixes
 
-- Disable network logs on Android 6 and 7 to avoid BrowserStack networking issue
+- Disable network logs to avoid BrowserStack networking issue on Android 6 and 7
   [#222](https://github.com/bugsnag/maze-runner/pull/222)
 
 # 2.8.0 - 2020/11/13

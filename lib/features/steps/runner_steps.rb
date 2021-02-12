@@ -36,6 +36,14 @@ When('I run the script {string} synchronously') do |script_path|
   Maze::Runner.run_script(script_path, blocking: true)
 end
 
+# Runs a script with a given interpreter, blocking until it returns.
+#
+# @step_input interpreter [String] The interpreter to use, e.g. 'ruby'
+# @step_input script_path [String] Path to the script to be run
+When('I run the {word} script {string} synchronously') do |interpreter, script_path|
+  Maze::Runner.run_interpreter(interpreter, script_path, blocking: true)
+end
+
 # Runs a script.
 #
 # @step_input script_path [String] Path to the script to be run

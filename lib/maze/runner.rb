@@ -61,16 +61,33 @@ module Maze
       # @return [Array] If blocking, the output and exit_status are returned
       def run_script(script_name, blocking: false, success_codes: [0])
         script_path = File.join(SCRIPT_PATH, script_name)
-        script_path = File.join(Dir.pwd, script_name) unless File.exists? script_path
+        script_path = File.join(Dir.pwd, script_name) unless File.exist? script_path
         if Gem.win_platform?
-          # windows does not support the shebang that we use in the scripts so it
+          # Windows does not support the shebang that we use in the scripts so it
           # needs to know how to execute the script. Passing `cmd /c` tells windows
-          # to use it's known file associations to execute this path. If ruby is
-          # installed on windows then it will know that `rb` files should be exceuted
-          # using ruby etc.
+          # to use its known file associations to execute this path. If Ruby is
+          # installed on Windows then it will know that `rb` files should be executed
+          # using Ruby etc.
           script_path = "cmd /c #{script_path}"
         end
         run_command(script_path, blocking: blocking, success_codes: success_codes)
+      end
+
+      # Runs a script with a given interpreter in the script directory indicated by the SCRIPT_PATH environment
+      # variable.
+      #
+      # @param script_name [String] The name of the script to run
+      # @param interpreter [String] The interpreter to use
+      # @param blocking [Boolean] Optional. Whether to wait for a return code before proceeding
+      # @param success_codes [Array] Optional. An array of integer codes which indicate the run was successful
+      #
+      # @return [Array] If blocking, the output and exit_status are returned
+      def run_interpreter(interpreter, script_name, blocking: false, success_codes: [0])
+        script_path = File.join(SCRIPT_PATH, script_name)
+        script_path = File.join(Dir.pwd, script_name) unless File.exists? script_path
+        command = "#{interpreter} #{script_path}"
+
+        run_command(command, blocking: blocking, success_codes: success_codes)
       end
 
       # Creates a new interactive session. Can only be called if no session already

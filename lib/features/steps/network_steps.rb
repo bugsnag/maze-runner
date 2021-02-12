@@ -23,6 +23,13 @@ When('I set the HTTP status code for the next request to {int}') do |status_code
   Maze::Server.status_code = status_code
 end
 
+# Sets the response delay to be used for the next request
+#
+# @step_input status_code [Integer] The status code to return
+When('I set the response delay for the next request to {int} milliseconds') do |delay|
+  Maze::Server.response_delay = delay
+end
+
 # Attempts to open a URL.
 #
 # @step_input url [String] The URL to open.

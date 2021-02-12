@@ -112,6 +112,7 @@ After do |scenario|
   # Make sure we reset to HTTP 200 return status after each scenario
   Maze::Server.status_code = 200
   Maze::Server.reset_status_code = false
+  Maze::Server.response_delay = 0
 
   # This is here to stop sessions from one test hitting another.
   # However this does mean that tests take longer.

@@ -50,6 +50,13 @@ module Maze
         }
       end
       @requests.add(hash)
+
+      # For the response, delaying if configured to do so
+      if Server.response_delay.positive?
+        $logger.info "Waiting #{Server.response_delay} milliseconds before responding"
+        sleep Server.response_delay / 1000.0
+        Server.response_delay = 0
+      end
       response.header['Access-Control-Allow-Origin'] = '*'
       response.status = Server.status_code
     rescue JSON::ParserError => e

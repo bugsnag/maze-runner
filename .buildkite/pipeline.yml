@@ -68,6 +68,14 @@ steps:
           run: docker-tests
     command: 'bundle exec maze-runner'
 
+  - label: 'AWS - SAM tests'
+    agents:
+      queue: 'opensource-mac-aws-sam'
+    command: >-
+      cd test/fixtures/aws-sam &&
+      bundle install &&
+      bundle exec maze-runner
+
   - label: 'Browserstack app-automate test - Android 6'
     depends_on: "test-images"
     plugins:

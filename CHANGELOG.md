@@ -1,3 +1,9 @@
+# TBD
+
+## Enhancements
+
+- Add additional CLI and file verification steps [#221](https://github.com/bugsnag/maze-runner/pull/221)
+
 # 4.8.0 - 2021/02/10
 
 ## Enhancements

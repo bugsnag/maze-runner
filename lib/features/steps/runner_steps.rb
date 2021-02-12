@@ -170,6 +170,11 @@ When('I input {string} interactively') do |command|
   assert(success, 'The terminal had already closed')
 end
 
+# Send a return or enter to the interactive session
+When('I input a return interactively') do
+  step('I input "" interactively')
+end
+
 # Assert the current stdout line in the shell exactly matches the given string
 #
 # @step_input expected [String] The expected string
@@ -186,13 +191,29 @@ Then('the current stdout line contains {string}') do |expected|
   assert_includes(current_shell.current_buffer, expected)
 end
 
-Then('I wait for the shell prompt {string}') do |expected|
+# Waits for a line matching a regex to be present in the current stdout
+# Times out after Maze.config.receive_requests_wait seconds.
+#
+# @step_input regex [String] The regex to match against
+Then('I wait for the current stdout line to match the regex {string}') do |regex|
   wait = Maze::Wait.new(timeout: Maze.config.receive_requests_wait)
   shell = Maze::Runner.interactive_session
 
-  success = wait.until { shell.current_buffer == expected }
+  success = wait.until { shell.current_buffer.match?(regex) }
 
-  assert(success, "The current output line #{shell.current_buffer} did not match #{expected}")
+  assert(success, "The current output line \"#{shell.current_buffer}\" did not match \"#{regex}\"")
+end
+
+# Waits for a specific shell prompt to be present in the buffered stdout line, timing out after Maze.config.receive_requests_wait seconds.
+#
+# @step_input expected_prompt [String] The prompt expected in the current buffer
+Then('I wait for the shell prompt {string}') do |expected_prompt|
+  wait = Maze::Wait.new(timeout: Maze.config.receive_requests_wait)
+  shell = Maze::Runner.interactive_session
+
+  success = wait.until { shell.current_buffer == expected_prompt }
+
+  assert(success, "The current output line \"#{shell.current_buffer}\" did not match \"#{expected_prompt}\"")
 end
 
 # Verify a string appears in the stdout logs
@@ -239,6 +260,22 @@ Then('I wait for the shell to output a match for the regex {string} to stdout') 
   end
 
   assert(success, "No output lines from #{current_shell.stdout_lines} matched #{regex_matcher}")
+end
+
+# Wait for the shell to output a number of strings in STDOUT, as defined by a table.
+# This step will time out after Maze.config.receive_requests_wait seconds.
+#
+# @step_input expected_lines [Array] An array of strings expected in STDOUT
+Then('I wait for the interactive shell to output the following lines in stdout') do |expected_lines|
+  wait = Maze::Wait.new(timeout: Maze.config.receive_requests_wait)
+  current_shell = Maze::Runner.interactive_session
+
+  success = wait.until do
+    current_stdout = current_shell.stdout_lines.join("\n")
+    current_stdout.include?(expected_lines)
+  end
+
+  assert(success, "Lines present in stdout: #{current_shell.stdout_lines} did not include all of: #{expected_lines}")
 end
 
 # Verify a string appears in the stderr logs
@@ -300,4 +337,48 @@ Then('the last interactive command exited with an error code') do
     When I input "[ $? = 0 ] && echo '#{uuid} exited with 0' || echo '#{uuid} exited with error'" interactively
     Then I wait for the shell to output a match for the regex "#{uuid} exited with error" to stdout
   }
+end
+
+# Assert that an expected_line is present in a file located relative to the interactive terminal's CWD
+#
+# @step_input filename [String] The file tested, relative to the CWD of the interactive terminal
+# @step_input expected_line [String] The line expected in the file
+Then('the interactive file {string} contains {string}') do |filename, expected_line|
+  steps %(
+    When I input "fgrep '#{expected_line.gsub(/"/, '\"')}' #{filename}" interactively
+    And I wait for the current stdout line to match the regex "[#>$]\\s?"
+    Then the last interactive command exited successfully
+  )
+end
+
+# Assert that a line is not present in a file located relative to the interactive terminal's CWD
+#
+# @step_input filename [String] The file tested, relative to the CWD of the interactive terminal
+# @step_input excluded_line [String] The line that should not be present be in the file
+Then('the interactive file {string} does not contain {string}') do |filename, excluded_line|
+  steps %(
+    When I input "fgrep '#{excluded_line.gsub(/"/, '\"')}' #{filename}" interactively
+    And I wait for the current stdout line to match the regex "[#>$]\\s?"
+    Then the last interactive command exited with an error code
+  )
+end
+
+# Assert that a file located relative to the CWD of the interactive terminal contains all of the expected lines
+#
+# @step_input filename [String] The file tested, relative to the CWD of the interactive terminal
+# @step_input expected_lines [String] The lines expected in the file as a multi-line string
+Then('the interactive file {string} contains:') do |filename, expected_lines|
+  expected_lines.each_line do |line|
+    step("the interactive file '#{filename}' contains '#{line.chomp}'")
+  end
+end
+
+# Assert that a file located relative to the CWD of the interactive terminal does not contain any of the excluded lines
+#
+# @step_input filename [String] The file tested, relative to the CWD of the interactive terminal
+# @step_input excluded_lines [String] The lines that should not be present in the file, as a multi-line string
+Then('the interactive file {string} does not contain:') do |filename, excluded_lines|
+  excluded_lines.each_line do |line|
+    step("the interactive file '#{filename}' does not contain '#{line.chomp}'")
+  end
 end

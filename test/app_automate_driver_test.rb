@@ -43,7 +43,6 @@ class AppAutomateDriverTest < Test::Unit::TestCase
     assert_equal('errors', driver.caps[:'browserstack.console'])
     assert_equal(LOCAL_ID, driver.caps[:'browserstack.localIdentifier'])
     assert_equal('true', driver.caps[:'browserstack.local'])
-    assert_equal('true', driver.caps[:'browserstack.networkLogs'])
     assert_equal(TEST_APP_URL, driver.caps[:app])
 
     Devices::DEVICE_HASH[TARGET_DEVICE].each do |key, value|
@@ -59,7 +58,6 @@ class AppAutomateDriverTest < Test::Unit::TestCase
     assert_equal('errors', driver.caps[:'browserstack.console'])
     assert_equal(LOCAL_ID, driver.caps[:'browserstack.localIdentifier'])
     assert_equal('true', driver.caps[:'browserstack.local'])
-    assert_equal('true', driver.caps[:'browserstack.networkLogs'])
     assert_equal(TEST_APP_URL, driver.caps[:app])
 
     Devices::DEVICE_HASH[TARGET_DEVICE].each do |key, value|
@@ -78,7 +76,6 @@ class AppAutomateDriverTest < Test::Unit::TestCase
     assert_equal('errors', driver.caps[:'browserstack.console'])
     assert_equal(LOCAL_ID, driver.caps[:'browserstack.localIdentifier'])
     assert_equal('true', driver.caps[:'browserstack.local'])
-    assert_equal('true', driver.caps[:'browserstack.networkLogs'])
     assert_equal(TEST_APP_URL, driver.caps[:app])
 
     Devices::DEVICE_HASH[TARGET_DEVICE].each do |key, value|

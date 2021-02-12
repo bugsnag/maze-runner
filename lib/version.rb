@@ -1,3 +1,3 @@
 module BugsnagMazeRunner
-  VERSION = '2.7.2'.freeze
+  VERSION = '2.8.1'.freeze
 end

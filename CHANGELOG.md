@@ -1,3 +1,10 @@
+# 2.8.1 - 2021/02/12
+
+## Fixes
+
+- Disable network logs to avoid BrowserStack networking issue on Android 6 and 7
+  [#222](https://github.com/bugsnag/maze-runner/pull/222)
+
 # 2.8.0 - 2020/11/13
 
 ## Enhancements

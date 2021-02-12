@@ -377,8 +377,8 @@ end
 #
 # @step_input filename [String] The file tested, relative to the CWD of the interactive terminal
 # @step_input excluded_lines [String] The lines that should not be present in the file, as a multi-line string
-Then('the interactive file {string} contains:') do |filename, excluded_lines|
+Then('the interactive file {string} does not contain:') do |filename, excluded_lines|
   excluded_lines.each_line do |line|
-    step("the interactive file '#{filename}' contains '#{line.chomp}'")
+    step("the interactive file '#{filename}' does not contain '#{line.chomp}'")
   end
 end

@@ -1,8 +1,9 @@
-# TBD
+# 4.9.0 - 2021/02/12
 
 ## Enhancements
 
 - Add additional CLI and file verification steps [#221](https://github.com/bugsnag/maze-runner/pull/221)
+- Add integration with AWS SAM CLI to test Lambda functions [#223](https://github.com/bugsnag/maze-runner/pull/223)
 
 # 4.8.0 - 2021/02/10
 

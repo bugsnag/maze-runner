@@ -57,12 +57,15 @@ module Maze
       # @param script_name [String] The name of the script to run
       # @param blocking [Boolean] Optional. Whether to wait for a return code before proceeding
       # @param success_codes [Array] Optional. An array of integer codes which indicate the run was successful
+      # @param command [String] Optional.  Command to run the script with, e.g. 'ruby'.
       #
       # @return [Array] If blocking, the output and exit_status are returned
-      def run_script(script_name, blocking: false, success_codes: [0])
+      def run_script(script_name, blocking: false, success_codes: [0], command: nil)
         script_path = File.join(SCRIPT_PATH, script_name)
         script_path = File.join(Dir.pwd, script_name) unless File.exist? script_path
-        if Gem.win_platform?
+        if command
+          script_path = "#{command} #{script_path}"
+        elsif Gem.win_platform?
           # Windows does not support the shebang that we use in the scripts so it
           # needs to know how to execute the script. Passing `cmd /c` tells windows
           # to use its known file associations to execute this path. If Ruby is
@@ -71,24 +74,6 @@ module Maze
           script_path = "cmd /c #{script_path}"
         end
         run_command(script_path, blocking: blocking, success_codes: success_codes)
-      end
-
-      # Runs a script with a given interpreter in the script directory indicated by the SCRIPT_PATH environment
-      # variable.
-      #
-      # @param script_name [String] The name of the script to run
-      # @param interpreter [String] The interpreter to use
-      # @param blocking [Boolean] Optional. Whether to wait for a return code before proceeding
-      # @param success_codes [Array] Optional. An array of integer codes which indicate the run was successful
-      #
-      # @return [Array] If blocking, the output and exit_status are returned
-      # TODO: Merge this into run_script above
-      def run_interpreter(interpreter, script_name, blocking: false, success_codes: [0])
-        script_path = File.join(SCRIPT_PATH, script_name)
-        script_path = File.join(Dir.pwd, script_name) unless File.exists? script_path
-        command = "#{interpreter} #{script_path}"
-
-        run_command(command, blocking: blocking, success_codes: success_codes)
       end
 
       # Creates a new interactive session. Can only be called if no session already

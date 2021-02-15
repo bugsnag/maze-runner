@@ -7,11 +7,9 @@ module Maze
     #
     # @param server [HTTPServer] WEBrick HTTPServer
     # @param requests [RequestList] Request list to add to
-    # @param no_check_digest [Boolean] Whether all digest checks should be disabled for the endpoint.
-    def initialize(server, requests, no_check_digest = false)
+    def initialize(server, requests)
       super server
       @requests = requests
-      @no_check_digest = no_check_digest
     end
 
     # Logs an incoming GET WEBrick request.
@@ -116,9 +114,6 @@ module Maze
     # If the header is present, if the digest must be correct.  However, the header need only be present
     # if configuration says so.
     def check_digest(request)
-      # Some endpoints, e.g. /logs, should never have digest checks applied.
-      return if @no_check_digest
-
       header = request['Bugsnag-Integrity']
       if header.nil? && Maze.config.enforce_bugsnag_integrity
         raise 'Bugsnag-Integrity header must be present according to Maze.config.enforce_bugsnag_integrity'

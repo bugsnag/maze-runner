@@ -3,6 +3,7 @@
 require 'json'
 require 'webrick'
 require_relative './servlet'
+require_relative './log_servlet'
 require_relative './logger'
 require_relative './request_list'
 
@@ -131,7 +132,7 @@ module Maze
             server.mount '/notify', Servlet, errors
             server.mount '/sessions', Servlet, sessions
             server.mount '/builds', Servlet, builds
-            server.mount '/logs', Servlet, logs, true
+            server.mount '/logs', LogServlet
             server.start
           rescue StandardError => e
             $logger.warn "Failed to start mock server: #{e.message}"

@@ -19,8 +19,8 @@ module Maze
       # Allows overwriting of the server status code
       attr_writer :status_code
 
-      # Allows a delay before responding to HTTP requests to be set
-      attr_writer :response_delay
+      # Allows a delay in milliseconds before responding to HTTP requests to be set
+      attr_writer :response_delay_ms
 
       # Dictates if the status code should be reset after used
       attr_writer :reset_status_code
@@ -38,8 +38,8 @@ module Maze
         @reset_status_code ||= false
       end
 
-      def response_delay
-        @response_delay ||= 0
+      def response_delay_ms
+        @response_delay_ms ||= 0
       end
 
       # Provides dynamic access to request lists by name

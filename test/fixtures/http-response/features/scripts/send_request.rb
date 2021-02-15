@@ -20,11 +20,15 @@ second_request.body = %({
   "first_time" : #{duration.to_i}
 })
 
+before = Time.now.to_f
 second_response = http.request(second_request)
+duration = (Time.now.to_f - before) * 1000
 
 third_request = Net::HTTP::Post.new('/notify')
 third_request['Content-Type'] = 'application/json'
-
-third_request.body = "{\"second_code\": \"#{second_response.code}\"}"
+third_request.body = %({
+  "second_code": "#{second_response.code}",
+  "second_time" : #{duration.to_i}
+})
 
 http.request(third_request)

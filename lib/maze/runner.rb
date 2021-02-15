@@ -82,6 +82,7 @@ module Maze
       # @param success_codes [Array] Optional. An array of integer codes which indicate the run was successful
       #
       # @return [Array] If blocking, the output and exit_status are returned
+      # TODO: Merge this into run_script above
       def run_interpreter(interpreter, script_name, blocking: false, success_codes: [0])
         script_path = File.join(SCRIPT_PATH, script_name)
         script_path = File.join(Dir.pwd, script_name) unless File.exists? script_path

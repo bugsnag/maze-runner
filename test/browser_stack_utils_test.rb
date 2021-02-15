@@ -5,6 +5,7 @@ require 'json'
 require 'open3'
 require 'test_helper'
 require_relative '../lib/maze/browser_stack_utils'
+require_relative '../lib/maze/helper'
 
 class BrowserStackUtilsTest < Test::Unit::TestCase
 
@@ -56,6 +57,7 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
     $logger.expects(:info).with("Uploading app: #{APP}").once
 
     File.expects(:new)&.with(APP, 'rb')&.returns('file')
+    Maze::Helper.expects(:expand_path).with(APP).returns(APP)
 
     post_mock = mock('request')
     post_mock.expects(:basic_auth).with(USERNAME, ACCESS_KEY)

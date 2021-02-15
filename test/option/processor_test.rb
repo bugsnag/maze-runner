@@ -14,8 +14,6 @@ class ProcessorTest < Test::Unit::TestCase
     ENV.delete('MAZE_DEVICE_FARM_ACCESS_KEY')
 
     Maze::Helper.stubs(:expand_path).with('/BrowserStackLocal').returns('/BrowserStackLocal')
-    Maze::Helper.stubs(:expand_path).with('my_app.apk').returns('my_app.apk')
-    Maze::Helper.stubs(:expand_path).with(nil).returns(nil)
   end
 
   def test_populate_bs_config_separate

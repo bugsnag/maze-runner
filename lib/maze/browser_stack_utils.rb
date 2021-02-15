@@ -13,12 +13,13 @@ module Maze
           app_url = app
           $logger.info "Using pre-uploaded app from #{app}"
         else
-          $logger.info "Uploading app: #{app}"
+          expanded_app = Maze::Helper.expand_path(app)
+          $logger.info "Uploading app: #{expanded_app}"
 
           uri = URI('https://api-cloud.browserstack.com/app-automate/upload')
           request = Net::HTTP::Post.new(uri)
           request.basic_auth(username, access_key)
-          request.set_form({ 'file' => File.new(app, 'rb') }, 'multipart/form-data')
+          request.set_form({ 'file' => File.new(expanded_app, 'rb') }, 'multipart/form-data')
 
           res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
             http.request(request)

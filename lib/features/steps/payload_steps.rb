@@ -109,7 +109,7 @@ Then('the {word} payload field {string} is greater than {int}') do |request_type
   list = Maze::Server.list_for(request_type)
   value = Maze::Helper.read_key_path(list.current[:body], field_path)
   assert_kind_of Integer, value
-  assert(value > int_value, "The payload field '#{field_path}' is not greater than '#{int_value}'")
+  assert(value > int_value, "The payload field '#{field_path}' (#{value}) is not greater than '#{int_value}'")
 end
 
 # Tests a payload field contains a number smaller than a value.

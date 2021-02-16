@@ -1,3 +1,9 @@
+# 4.10.0 - 2021/02/16
+
+## Enhancements
+
+- Add steps to delay the response to the next received HTTP request [#224](https://github.com/bugsnag/maze-runner/pull/224)
+
 # 4.9.1 - 2021/02/15
 
 ## Fixes

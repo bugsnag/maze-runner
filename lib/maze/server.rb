@@ -3,6 +3,7 @@
 require 'json'
 require 'webrick'
 require_relative './servlet'
+require_relative './log_servlet'
 require_relative './logger'
 require_relative './request_list'
 
@@ -19,8 +20,14 @@ module Maze
       # Allows overwriting of the server status code
       attr_writer :status_code
 
-      # Dictates if the status code should be reset after used
+      # Dictates if the status code should be reset after use
       attr_writer :reset_status_code
+
+      # Allows a delay in milliseconds before responding to HTTP requests to be set
+      attr_writer :response_delay_ms
+
+      # Dictates if the response delay should be reset after use
+      attr_writer :reset_response_delay
 
       # The intended HTTP status code on a successful request
       #
@@ -33,6 +40,16 @@ module Maze
 
       def reset_status_code
         @reset_status_code ||= false
+      end
+
+      def response_delay_ms
+        delay = @response_delay_ms ||= 0
+        @response_delay_ms = 0 if reset_response_delay
+        delay
+      end
+
+      def reset_response_delay
+        @reset_response_delay ||= false
       end
 
       # Provides dynamic access to request lists by name
@@ -124,7 +141,7 @@ module Maze
             server.mount '/notify', Servlet, errors
             server.mount '/sessions', Servlet, sessions
             server.mount '/builds', Servlet, builds
-            server.mount '/logs', Servlet, logs, true
+            server.mount '/logs', LogServlet
             server.start
           rescue StandardError => e
             $logger.warn "Failed to start mock server: #{e.message}"

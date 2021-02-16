@@ -57,17 +57,20 @@ module Maze
       # @param script_name [String] The name of the script to run
       # @param blocking [Boolean] Optional. Whether to wait for a return code before proceeding
       # @param success_codes [Array] Optional. An array of integer codes which indicate the run was successful
+      # @param command [String] Optional.  Command to run the script with, e.g. 'ruby'.
       #
       # @return [Array] If blocking, the output and exit_status are returned
-      def run_script(script_name, blocking: false, success_codes: [0])
+      def run_script(script_name, blocking: false, success_codes: [0], command: nil)
         script_path = File.join(SCRIPT_PATH, script_name)
-        script_path = File.join(Dir.pwd, script_name) unless File.exists? script_path
-        if Gem.win_platform?
-          # windows does not support the shebang that we use in the scripts so it
+        script_path = File.join(Dir.pwd, script_name) unless File.exist? script_path
+        if command
+          script_path = "#{command} #{script_path}"
+        elsif Gem.win_platform?
+          # Windows does not support the shebang that we use in the scripts so it
           # needs to know how to execute the script. Passing `cmd /c` tells windows
-          # to use it's known file associations to execute this path. If ruby is
-          # installed on windows then it will know that `rb` files should be exceuted
-          # using ruby etc.
+          # to use its known file associations to execute this path. If Ruby is
+          # installed on Windows then it will know that `rb` files should be executed
+          # using Ruby etc.
           script_path = "cmd /c #{script_path}"
         end
         run_command(script_path, blocking: blocking, success_codes: success_codes)

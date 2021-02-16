@@ -1,3 +1,9 @@
+# 4.10.1 - 2021/02/16
+
+## Fixes
+
+- Only expand `--app` option when uploading to BrowserStack (complete fix) [#226](https://github.com/bugsnag/maze-runner/pull/226)
+
 # 4.10.0 - 2021/02/16
 
 ## Enhancements
@@ -8,7 +14,7 @@
 
 ## Fixes
 
-- Only expand `--app` option when uploading to BrowserStack [#225](https://github.com/bugsnag/maze-runner/pull/225)
+- Only expand `--app` option when uploading to BrowserStack (incomplete fix) [#225](https://github.com/bugsnag/maze-runner/pull/225)
 
 # 4.9.0 - 2021/02/12
 

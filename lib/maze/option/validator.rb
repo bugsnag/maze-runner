@@ -54,11 +54,14 @@ module Maze
             errors << "Device type '#{bs_device}' unknown on BrowserStack.  Must be one of #{Maze::Devices::DEVICE_HASH.keys}"
           end
           # App
-          app = Maze::Helper.expand_path options[Option::APP]
+          app = options[Option::APP]
           if app.nil?
             errors << "--#{Option::APP} must be provided when running on a device"
           else
-            errors << "app file '#{app}' not found" unless app.start_with?('bs://') || File.exist?(app)
+            unless app.start_with?('bs://')
+              app = Maze::Helper.expand_path app
+              errors << "app file '#{app}' not found" unless File.exist?(app)
+            end
           end
         end
 

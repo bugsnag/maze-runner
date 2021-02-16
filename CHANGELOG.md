@@ -4,6 +4,12 @@
 
 - Add steps to delay the response to the next received HTTP request [#224](https://github.com/bugsnag/maze-runner/pull/224)
 
+# 4.9.1 - 2021/02/15
+
+## Fixes
+
+- Only expand `--app` option when uploading to BrowserStack [#225](https://github.com/bugsnag/maze-runner/pull/225)
+
 # 4.9.0 - 2021/02/12
 
 ## Enhancements

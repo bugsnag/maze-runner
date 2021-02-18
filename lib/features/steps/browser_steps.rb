@@ -6,7 +6,7 @@ When('I navigate to the URL {string}') do |path|
 end
 
 Then(/^the error is a valid browser payload for the error reporting API$/) do
-  if !/^ie_(8|9|10)$/.match(Maze.config.bs_browser)
+  if !/^ie_(8|9|10)$/.match(Maze.config.test_browser)
     steps %(
       Then the error "Bugsnag-API-Key" header is not null
       And the error "Content-Type" header equals one of:
@@ -38,7 +38,7 @@ Then(/^the error is a valid browser payload for the error reporting API$/) do
 end
 
 Then('the session is a valid browser payload for the session tracking API') do
-  if !/^ie_(8|9|10)$/.match(Maze.config.bs_browser)
+  if !/^ie_(8|9|10)$/.match(Maze.config.test_browser)
     steps %(
       Then the session "Bugsnag-API-Key" header is not null
       And the session "Content-Type" header equals one of:

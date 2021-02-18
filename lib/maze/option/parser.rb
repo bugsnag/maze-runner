@@ -72,12 +72,19 @@ module Maze
                 '(BS only) Path to the BrowserStackLocal binary. MAZE_BS_LOCAL env var or "/BrowserStackLocal" by default',
                 short: :none,
                 type: :string
-            opt Option::BS_DEVICE,
+            # TODO: Descriptions
+            opt Option::TEST_DEVICE,
                 'BrowserStack device to use (a key of Devices.DEVICE_HASH)',
                 short: :none,
                 type: :string
-            opt Option::BS_BROWSER,
+            opt Option::TEST_BROWSER,
                 'BrowserStack browser to use (an entry in browsers.yml)',
+                short: :none,
+                type: :string
+
+            # BrowserStack-only options
+            opt Option::BS_LOCAL,
+                '(BS only) Path to the BrowserStackLocal binary. MAZE_BS_LOCAL env var or "/BrowserStackLocal" by default',
                 short: :none,
                 type: :string
             opt Option::USERNAME,

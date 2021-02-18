@@ -12,11 +12,11 @@ module Maze
     CAPABILITIES = 'capabilities'
     BIND_ADDRESS = 'bind-address'
     PORT = 'port'
+    TEST_DEVICE = 'device'
+    TEST_BROWSER = 'browser'
 
     # BrowserStack-only options
     BS_LOCAL = 'bs-local'
-    BS_DEVICE = 'device'
-    BS_BROWSER = 'browser'
     USERNAME = 'username'
     ACCESS_KEY = 'access-key'
     BS_APPIUM_VERSION = 'appium-version'

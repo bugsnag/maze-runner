@@ -31,11 +31,11 @@ module Maze
           # Farm specific options
           case config.farm
           when :bs then
-            if options[Maze::Option::BS_DEVICE]
-              config.bs_device = options[Maze::Option::BS_DEVICE]
-              config.os_version = Maze::Devices::DEVICE_HASH[config.bs_device]['os_version'].to_f
+            if options[Maze::Option::TEST_DEVICE]
+              config.test_device = options[Maze::Option::TEST_DEVICE]
+              config.os_version = Maze::Devices::DEVICE_HASH[config.test_device]['os_version'].to_f
             else
-              config.bs_browser = options[Maze::Option::BS_BROWSER]
+              config.test_browser = options[Maze::Option::TEST_BROWSER]
             end
             config.bs_local = Maze::Helper.expand_path(options[Maze::Option::BS_LOCAL])
             config.appium_version = options[Maze::Option::BS_APPIUM_VERSION]

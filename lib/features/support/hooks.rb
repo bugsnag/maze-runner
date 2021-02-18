@@ -14,6 +14,10 @@ AfterConfiguration do |_cucumber_config|
   # Start mock server
   Maze::Server.start
   config = Maze.config
+
+
+  puts "Farm is #{config.farm}"
+
   next if config.farm == :none
 
   # Setup Appium capabilities.  Note that the 'app' capability is
@@ -42,6 +46,28 @@ AfterConfiguration do |_cucumber_config|
     Maze::BrowserStackUtils.start_local_tunnel config.bs_local,
                                                tunnel_id,
                                                config.access_key
+  elsif config.farm == :sl
+    # tunnel_id = SecureRandom.uuid
+    if config.test_device
+
+      config.app = Maze::SauceLabsUtils.upload_app config.username,
+                                                   config.access_key,
+                                                   config.app
+      # Capabilities
+      # config.capabilities = Maze::Capabilities.for_browser_stack_device config.test_device,
+      #                                                                   tunnel_id,
+      #                                                                   config.appium_version,
+      #                                                                   config.capabilities_option
+      # config.capabilities['app'] = config.app
+    else
+      # # BrowserStack browser
+      # config.capabilities = Maze::Capabilities.for_browser_stack_browser config.test_browser,
+      #                                                                    tunnel_id,
+      #                                                                    config.capabilities_option
+    end
+    # Maze::BrowserStackUtils.start_local_tunnel config.bs_local,
+    #                                            tunnel_id,
+    #                                            config.access_key
   elsif config.farm == :local
     # Local device
     config.capabilities = Maze::Capabilities.for_local config.os,

@@ -15,7 +15,9 @@ module Maze
 
         # Common options
         farm = options[Option::FARM]
-        errors << "--#{Option::FARM} must be either 'bs' or 'local' if provided" if farm && !%w[bs local].include?(farm)
+        if farm && !%w[bs sl local].include?(farm)
+          errors << "--#{Option::FARM} must be 'bs', 'sl' or 'local' if provided"
+        end
 
         begin
           JSON.parse(options[Option::CAPABILITIES])
@@ -25,6 +27,7 @@ module Maze
 
         # Farm specific options
         validate_bs options, errors if farm == 'bs'
+        # TODO validate_sl options, errors if farm == 'sl'
         validate_local options, errors if farm == 'local'
 
         errors
@@ -58,6 +61,7 @@ module Maze
           if app.nil?
             errors << "--#{Option::APP} must be provided when running on a device"
           else
+            # TODO: What about Sauce Labs URLs?
             unless app.start_with?('bs://')
               app = Maze::Helper.expand_path app
               errors << "app file '#{app}' not found" unless File.exist?(app)

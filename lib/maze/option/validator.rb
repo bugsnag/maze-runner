@@ -37,19 +37,19 @@ module Maze
         errors << "BrowserStack local binary '#{bs_local}' not found" unless File.exist? bs_local
 
         # Device
-        bs_browser = options[Option::BS_BROWSER]
-        bs_device = options[Option::BS_DEVICE]
-        if bs_browser.nil? && bs_device.nil?
-          errors << "Either --#{Option::BS_BROWSER} or --#{Option::BS_DEVICE} must be specified"
-        elsif bs_browser
+        test_browser = options[Option::TEST_BROWSER]
+        test_device = options[Option::TEST_DEVICE]
+        if test_browser.nil? && test_device.nil?
+          errors << "Either --#{Option::TEST_BROWSER} or --#{Option::TEST_DEVICE} must be specified"
+        elsif test_browser
 
           browsers = YAML.safe_load(File.read("#{__dir__}/../browsers.yml"))
 
-          unless browsers.include? bs_browser
+          unless browsers.include? test_browser
             browser_list = browsers.keys.join ', '
-            errors << "Browser type '#{bs_browser}' unknown on BrowserStack.  Must be one of: #{browser_list}."
+            errors << "Browser type '#{test_browser}' unknown on BrowserStack.  Must be one of: #{browser_list}."
           end
-        elsif bs_device
+        elsif test_device
           unless Maze::Devices::DEVICE_HASH.key? bs_device
             errors << "Device type '#{bs_device}' unknown on BrowserStack.  Must be one of #{Maze::Devices::DEVICE_HASH.keys}"
           end

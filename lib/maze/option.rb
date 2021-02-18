@@ -14,11 +14,11 @@ module Maze
     A11Y_LOCATOR = 'a11y-locator'
     RESILIENT = 'resilient'
     CAPABILITIES = 'capabilities'
+    TEST_DEVICE = 'device'
+    TEST_BROWSER = 'browser'
 
     # BrowserStack-only options
     BS_LOCAL = 'bs-local'
-    BS_DEVICE = 'device'
-    BS_BROWSER = 'browser'
     USERNAME = 'username'
     ACCESS_KEY = 'access-key'
     BS_APPIUM_VERSION = 'appium-version'

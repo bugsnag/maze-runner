@@ -62,7 +62,7 @@ module Maze
     attr_accessor :enforce_bugsnag_integrity
 
     #
-    # BrowserStack specific configuration
+    # Device farm specific configuration
     #
 
     # Location of the BrowserStackLocal binary (if used)
@@ -74,13 +74,13 @@ module Maze
     # Farm access key
     attr_accessor :access_key
 
-    # BrowserStack device type
-    attr_accessor :bs_device
+    # Test device type
+    attr_accessor :test_device
 
-    # BrowserStack browser type
-    attr_accessor :bs_browser
+    # Test browser type
+    attr_accessor :test_browser
 
-    # Appium version to use on BrowserStack
+    # Appium version to use
     attr_accessor :appium_version
 
     #

@@ -1,3 +1,10 @@
+# 2.9.0 - 2021/02/19
+
+## Enhancements
+
+- Back-port of `receive_requests_wait` configuration setting
+  [#227](https://github.com/bugsnag/maze-runner/pull/227)
+ 
 # 2.8.1 - 2021/02/12
 
 ## Fixes

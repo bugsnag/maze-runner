@@ -54,13 +54,13 @@ AfterConfiguration do |_cucumber_config|
                                                    config.access_key,
                                                    config.app
       # Capabilities
-      # config.capabilities = Maze::Capabilities.for_browser_stack_device config.test_device,
-      #                                                                   tunnel_id,
-      #                                                                   config.appium_version,
-      #                                                                   config.capabilities_option
-      # config.capabilities['app'] = config.app
+      config.capabilities = Maze::Capabilities.for_sauce_labs_device config.test_device,
+                                                                     tunnel_id,
+                                                                     config.appium_version,
+                                                                     config.capabilities_option
+      config.capabilities['app'] = config.app
     else
-      # # BrowserStack browser
+      # TODO: Sauce Labs browser
       # config.capabilities = Maze::Capabilities.for_browser_stack_browser config.test_browser,
       #                                                                    tunnel_id,
       #                                                                    config.capabilities_option

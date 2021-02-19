@@ -17,7 +17,7 @@ end
 #
 # @step_input request_count [Integer] The amount of requests expected
 Then('I wait to receive {int} request(s)') do |request_count|
-  max_attempts = 300
+  max_attempts = MazeRunner.configuration.receive_requests_wait * 10
   attempts = 0
   received = false
   until (attempts >= max_attempts) || received
@@ -25,7 +25,7 @@ Then('I wait to receive {int} request(s)') do |request_count|
     received = (Server.stored_requests.size >= request_count)
     sleep 0.1
   end
-  raise "Requests not received in 30s (received #{Server.stored_requests.size})" unless received
+  raise "Requests not received in #{Configuration.receive_requests_wait}s (received #{Server.stored_requests.size})" unless received
   assert_equal(request_count, Server.stored_requests.size, "#{Server.stored_requests.size} requests received")
 end
 

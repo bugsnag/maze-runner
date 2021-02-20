@@ -45,14 +45,15 @@ class AppAutomateDriver < Appium::Driver
     # Sets up identifiers for ease of connecting jobs
     name_capabilities = project_name_capabilities(target_device)
 
+    build = name_capabilities[:build]
     $logger.info 'Appium driver initialised for:'
     $logger.info "    project : #{name_capabilities[:project]}"
-    $logger.info "    build   : #{name_capabilities[:build]}"
+    $logger.info "    build   : #{build}"
     $logger.info "    name    : #{name_capabilities[:name]}"
 
     url = "https://app-automate.browserstack.com/dashboard/v2/search?query=#{build}&type=builds"
     if ENV['BUILDKITE']
-      $logger.info Maze::LogUtil.linkify url, 'BrowserStack session(s)'
+      $logger.info linkify(url, 'BrowserStack session(s)')
     else
       $logger.info "BrowserStack session(s): #{url}"
     end

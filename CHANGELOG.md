@@ -1,3 +1,10 @@
+# 2.9.1 - 2021/02/22
+
+## Fixes
+
+- Correction of variable name in error message
+  [#228](https://github.com/bugsnag/maze-runner/pull/228)
+
 # 2.9.0 - 2021/02/19
 
 ## Enhancements

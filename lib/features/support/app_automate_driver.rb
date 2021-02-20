@@ -50,6 +50,13 @@ class AppAutomateDriver < Appium::Driver
     $logger.info "    build   : #{name_capabilities[:build]}"
     $logger.info "    name    : #{name_capabilities[:name]}"
 
+    url = "https://app-automate.browserstack.com/dashboard/v2/search?query=#{build}&type=builds"
+    if ENV['BUILDKITE']
+      $logger.info Maze::LogUtil.linkify url, 'BrowserStack session(s)'
+    else
+      $logger.info "BrowserStack session(s): #{url}"
+    end
+
     @capabilities = {
       'browserstack.console': 'errors',
       'browserstack.localIdentifier': local_id,
@@ -170,6 +177,10 @@ class AppAutomateDriver < Appium::Driver
   end
 
   private
+
+  def linkify(url, text)
+    "\033]1339;url='#{url}';content='#{text}'\a"
+  end
 
   def upload_app(username, access_key, app_location)
     res = `curl -u "#{username}:#{access_key}" -X POST "#{BROWSER_STACK_APP_UPLOAD_URI}" -F "file=@#{app_location}"`

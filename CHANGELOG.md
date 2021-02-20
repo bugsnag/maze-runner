@@ -2,7 +2,7 @@
 
 ## Enhancements
 
-- Logging improvements
+- Logging improvements and port Docker image to Ubuntu
   [#228](https://github.com/bugsnag/maze-runner/pull/228)
 
 # 2.9.0 - 2021/02/19

@@ -42,7 +42,7 @@ steps:
   - label: 'Unit tests'
     plugins:
       docker-compose#v3.3.0:
-        run: ci
+        run: unit-test
     command: 'bundle exec rake'
 
   - label: 'Comparison tests'

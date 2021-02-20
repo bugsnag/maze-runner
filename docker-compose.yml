@@ -53,3 +53,9 @@ services:
       context: test/fixtures/payload-helpers
       args:
         BRANCH_NAME:
+
+  unit-test:
+    build:
+      dockerfile: dockerfiles/Dockerfile.ci
+      context: .
+      target: unit-test

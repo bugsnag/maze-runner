@@ -30,6 +30,7 @@ class AppAutomateDriverTest < Test::Unit::TestCase
     logger_mock.expects(:info).with('You can use this url to avoid uploading the same app more than once.').once
     logger_mock.expects(:info).with('Appium driver initialised for:').once
     logger_mock.expects(:info).with('    project : local').once
+    logger_mock.expects(:info).with(regexp_matches(/BrowserStack session/))
     logger_mock.expects(:info).with(regexp_matches(/^\s{4}build\s{3}:\s\S{36}$/))
     logger_mock.expects(:info).with(regexp_matches(/^\s{4}name\s{4}:\s.+$/))
     logger_mock
@@ -348,6 +349,7 @@ class AppAutomateDriverTest < Test::Unit::TestCase
     logger_mock.expects(:info).with('    project : TEST').once
     logger_mock.expects(:info).with('    build   : 156 TEST BRANCH')
     logger_mock.expects(:info).with("    name    : #{TARGET_DEVICE} tests-05 5")
+    logger_mock.expects(:info).with(regexp_matches(/BrowserStack session/))
 
     AppAutomateDriver.any_instance.stubs(:upload_app).returns(TEST_APP_URL)
     driver = AppAutomateDriver.new(USERNAME, ACCESS_KEY, LOCAL_ID, TARGET_DEVICE, APP_LOCATION)

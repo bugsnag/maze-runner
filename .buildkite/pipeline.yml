@@ -30,6 +30,15 @@ steps:
 
   - wait
 
+  - label: 'Push Docker image for branch'
+    plugins:
+      - docker-compose#v3.3.0:
+          build: cli
+          cache-from: cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
+      - docker-compose#v3.3.0:
+          push:
+            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
+
   - label: 'Unit tests'
     plugins:
       docker-compose#v3.3.0:
@@ -58,46 +67,6 @@ steps:
     concurrency: 9
     concurrency_group: 'browserstack-app'
 
-  - label: 'Browserstack app-automate test - Android 7.1'
-    env:
-      DEVICE_TYPE: ANDROID_7_1
-    plugins:
-      docker-compose#v3.3.0:
-        run: browserstack-app-automate
-    command: 'bundle exec bugsnag-maze-runner'
-    concurrency: 9
-    concurrency_group: 'browserstack-app'
-
-  - label: 'Browserstack app-automate test - Android 8.1'
-    env:
-      DEVICE_TYPE: ANDROID_8_1
-    plugins:
-      docker-compose#v3.3.0:
-        run: browserstack-app-automate
-    command: 'bundle exec bugsnag-maze-runner'
-    concurrency: 9
-    concurrency_group: 'browserstack-app'
-
-  - label: 'Browserstack app-automate test - Android 9'
-    env:
-      DEVICE_TYPE: ANDROID_9_0
-    plugins:
-      docker-compose#v3.3.0:
-        run: browserstack-app-automate
-    command: 'bundle exec bugsnag-maze-runner'
-    concurrency: 9
-    concurrency_group: 'browserstack-app'
-
-  - label: 'Browserstack app-automate test - Android 10'
-    env:
-      DEVICE_TYPE: ANDROID_10_0
-    plugins:
-      docker-compose#v3.3.0:
-        run: browserstack-app-automate
-    command: 'bundle exec bugsnag-maze-runner'
-    concurrency: 9
-    concurrency_group: 'browserstack-app'
-
   - label: 'Browserstack app-automate test - Android 11'
     env:
       DEVICE_TYPE: ANDROID_11_0
@@ -113,17 +82,6 @@ steps:
       docker-compose#v3.3.0:
         run: payload-helper-tests
     command: 'bundle exec bugsnag-maze-runner'
-
-  - wait
-
-  - label: 'Push Docker image for branch'
-    plugins:
-      - docker-compose#v3.3.0:
-          build: cli
-          cache-from: cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
-      - docker-compose#v3.3.0:
-          push:
-            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
 
   - wait
 

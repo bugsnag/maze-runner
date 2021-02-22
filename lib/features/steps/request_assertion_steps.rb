@@ -25,7 +25,7 @@ Then('I wait to receive {int} request(s)') do |request_count|
     received = (Server.stored_requests.size >= request_count)
     sleep 0.1
   end
-  raise "Requests not received in #{Configuration.receive_requests_wait}s (received #{Server.stored_requests.size})" unless received
+  raise "Requests not received in #{MazeRunner.configuration.receive_requests_wait}s (received #{Server.stored_requests.size})" unless received
   assert_equal(request_count, Server.stored_requests.size, "#{Server.stored_requests.size} requests received")
 end
 

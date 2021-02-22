@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    bugsnag-maze-runner (2.9.0)
+    bugsnag-maze-runner (2.10.0)
       appium_lib (~> 10.2)
       cucumber (~> 3.1.2)
       cucumber-expressions (~> 6.0.0)

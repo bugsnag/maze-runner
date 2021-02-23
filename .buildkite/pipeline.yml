@@ -72,7 +72,7 @@ steps:
     agents:
       queue: 'opensource-mac-aws-sam'
     command: >-
-      cd test/fixtures/aws-sam &&
+      DEBUG=1 cd test/fixtures/aws-sam &&
       bundle install &&
       bundle exec maze-runner
 

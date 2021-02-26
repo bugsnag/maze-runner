@@ -23,7 +23,21 @@ module Maze
             opt :version,
                 'Display Maze Runner and Cucumber versions'
 
-            # Common options
+            text ''
+            text 'Server options:'
+
+            opt Option::BIND_ADDRESS,
+                'Mock server bind address',
+                short: :none,
+                default: '127.0.0.1'
+            opt Option::PORT,
+                'Mock server port',
+                short: :none,
+                default: 9339
+
+            text ''
+            text 'Appium options:'
+
             opt Option::SEPARATE_SESSIONS,
                 'Start a new Appium session for each scenario',
                 short: :none,
@@ -51,7 +65,9 @@ module Maze
                 short: '-c',
                 default: '{}'
 
-            # BrowserStack-only options
+            text ''
+            text 'Device farm options:'
+
             opt Option::BS_LOCAL,
                 '(BS only) Path to the BrowserStackLocal binary. MAZE_BS_LOCAL env var or "/BrowserStackLocal" by default',
                 short: :none,
@@ -77,7 +93,9 @@ module Maze
                 short: :none,
                 type: :string
 
-            # Local-only options
+            text ''
+            text 'Local device options:'
+
             opt Option::OS,
                 'OS type to use ("ios", "android")',
                 short: :none,

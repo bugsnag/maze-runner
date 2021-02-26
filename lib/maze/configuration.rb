@@ -12,6 +12,16 @@ module Maze
     end
 
     #
+    # Server configuration
+    #
+
+    # Mock server bind address
+    attr_accessor :bind_address
+
+    # Mock server port
+    attr_accessor :port
+
+    #
     # Common configuration
     #
 

@@ -201,9 +201,14 @@ at_exit do
   # future test runs are from a clean slate.
   Maze::Docker.down_all_services
 
-  next if Maze.config.farm == :none
-
-  # Stop the Appium session and server
-  Maze.driver.driver_quit unless Maze.config.appium_session_isolation
-  Maze::AppiumServer.stop if Maze::AppiumServer.running
+  # Specific shutdown when a device farm is configured
+  case Maze.config.farm
+  when :none
+    # Stop the Appium session and server
+    Maze.driver.driver_quit unless Maze.config.appium_session_isolation
+    Maze::AppiumServer.stop if Maze::AppiumServer.running
+  when :local
+    # Acquire and output the logs for the current session
+    Maze::Runner.run_command("log show --predicate '(process == \"#{Maze.config.app}\")' --style syslog --start '#{Maze::Logger.start_time}' > #{Maze.config.app}Output.log")
+  end
 end

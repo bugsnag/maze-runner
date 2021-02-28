@@ -209,6 +209,7 @@ at_exit do
     Maze::AppiumServer.stop if Maze::AppiumServer.running
   when :local
     # Acquire and output the logs for the current session
-    Maze::Runner.run_command("log show --predicate '(process == \"#{Maze.config.app}\")' --style syslog --start '#{Maze::Logger.instance.start_time}' > #{Maze.config.app}Output.log")
+    pp "Running an exit command"
+    Maze::Runner.run_command("log show --predicate '(process == \"#{Maze.config.app}\")' --style syslog --start '#{Maze::Logger.instance.start_time}' > #{Maze.config.app}.log")
   end
 end

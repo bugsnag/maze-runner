@@ -2,7 +2,6 @@
 
 require 'logger'
 require 'singleton'
-require 'time'
 
 # Logger classes
 module Maze

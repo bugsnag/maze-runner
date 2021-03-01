@@ -10,6 +10,7 @@ module Maze
 
   class << self
     attr_accessor :driver
+    attr_accessor :start_time
     def config
       @config ||= Maze::Configuration.new
     end

@@ -1,3 +1,9 @@
+# TBD
+
+## Enhancements
+
+- Produce app log for `local` farm test runs [#230](https://github.com/bugsnag/maze-runner/pull/230)
+
 # 4.10.1 - 2021/02/16
 
 ## Fixes

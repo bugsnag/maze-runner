@@ -7,6 +7,7 @@ require 'singleton'
 module Maze
   # A logger, with level configured according to the environment
   class Logger < Logger
+
     include Singleton
     def initialize
       if ENV['VERBOSE'] || ENV['DEBUG']

@@ -1,3 +1,9 @@
+# TBD
+
+## Enhancements
+
+- Produce app log for `local` farm test runs
+
 # 4.10.1 - 2021/02/16
 
 ## Fixes

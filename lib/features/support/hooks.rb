@@ -8,6 +8,9 @@ require 'uri'
 
 AfterConfiguration do |_cucumber_config|
 
+  # Record the local server starting time
+  Maze.start_time = Time.now.strftime('%Y-%m-%d %H:%M:%S')
+
   # Start mock server
   Maze::Server.start
   config = Maze.config
@@ -202,13 +205,14 @@ at_exit do
   Maze::Docker.down_all_services
 
   # Specific shutdown when a device farm is configured
-  case Maze.config.farm
-  when :none
-    # Stop the Appium session and server
-    Maze.driver.driver_quit unless Maze.config.appium_session_isolation
-    Maze::AppiumServer.stop if Maze::AppiumServer.running
-  when :local
+  next if Maze.config.farm == :none
+
+  # Stop the Appium session and server
+  Maze.driver.driver_quit unless Maze.config.appium_session_isolation
+  Maze::AppiumServer.stop if Maze::AppiumServer.running
+
+  if Maze.config.farm == :local && Maze.config.os == 'macos'
     # Acquire and output the logs for the current session
-    Maze::Runner.run_command("log show --predicate '(process == \"#{Maze.config.app}\")' --style syslog --start '#{Maze::Logger.instance.start_time}' > #{Maze.config.app}.log")
+    Maze::Runner.run_command("log show --predicate '(process == \"#{Maze.config.app}\")' --style syslog --start '#{Maze.start_time}' > #{Maze.config.app}.log")
   end
 end

@@ -8,8 +8,6 @@ require 'time'
 module Maze
   # A logger, with level configured according to the environment
   class Logger < Logger
-    # @return [String] A timestamp of when the test run started, using the Logger initialization as a basis
-    attr_reader :start_time
 
     include Singleton
     def initialize
@@ -21,7 +19,6 @@ module Maze
         super(STDOUT, level: Logger::INFO)
       end
       self.datetime_format = '%Y-%m-%d %H:%M:%S'
-      @start_time = Time.now.strftime(datetime_format)
     end
   end
 

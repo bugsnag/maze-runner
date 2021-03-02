@@ -52,7 +52,6 @@ module Maze
 
         # Extract the pid from the output so it gets killed at the end of the run
         output = Runner.run_command(command)[0][0]
-        puts output
         begin
           @pid = JSON.parse(output)['pid']
           $logger.info "BrowserStackLocal daemon running under pid #{@pid}"

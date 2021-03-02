@@ -56,14 +56,17 @@ module Maze
           @pid = JSON.parse(output)['pid']
           $logger.info "BrowserStackLocal daemon running under pid #{@pid}"
         rescue JSON::ParserError
-          $logger.warn 'Unable to parse pid from output, BrowserStackLocal will not be killed'
+          $logger.warn 'Unable to parse pid from output, BrowserStackLocal will be left to die its own death'
         end
       end
 
       # Stops the local tunnel
       def stop_local_tunnel
-        $logger.info "Stopping BrowserStack local tunnel"
-        Process.kill('TERM', @pid) if @pid
+        if @pid
+          $logger.info "Stopping BrowserStack local tunnel"
+          Process.kill('TERM', @pid)
+          @pid = nil
+        end
       rescue Errno::ESRCH
         # ignored
       end

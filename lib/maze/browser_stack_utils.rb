@@ -47,20 +47,26 @@ module Maze
       # @param access_key [String] BrowserStack access key
       def start_local_tunnel(bs_local, local_id, access_key)
         $logger.info 'Starting BrowserStack local tunnel'
-        status = nil
         command = "#{bs_local} -d start --key #{access_key} --local-identifier #{local_id} " \
                     '--force-local --only-automate --force'
-        Open3.popen2(command) do |_stdin, _stdout, wait|
-          status = wait.value
+
+        # Extract the pid from the output so it gets killed at the end of the run
+        output = Runner.run_command(command)[0][0]
+        puts output
+        begin
+          @pid = JSON.parse(output)['pid']
+          $logger.info "BrowserStackLocal daemon running under pid #{@pid}"
+        rescue JSON::ParserError
+          $logger.warn 'Unable to parse pid from output, BrowserStackLocal will not be killed'
         end
-        status
       end
 
       # Stops the local tunnel
-      # @param bs_local [String] path to the BrowserStackLocal binary
-      def stop_local_tunnel(bs_local)
-        $logger.info 'Stopping BrowserStack local tunnel'
-        Maze::Runner.run_command "#{bs_local} -d stop"
+      def stop_local_tunnel
+        $logger.info "Stopping BrowserStack local tunnel"
+        Process.kill('TERM', @pid) if @pid
+      rescue Errno::ESRCH
+        # ignored
       end
     end
   end

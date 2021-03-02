@@ -215,6 +215,6 @@ at_exit do
     # Acquire and output the logs for the current session
     Maze::Runner.run_command("log show --predicate '(process == \"#{Maze.config.app}\")' --style syslog --start '#{Maze.start_time}' > #{Maze.config.app}.log")
   elsif Maze.config.farm == :bs
-    Maze::BrowserStackUtils.stop_local_tunnel Maze.config.bs_local
+    Maze::BrowserStackUtils.stop_local_tunnel
   end
 end

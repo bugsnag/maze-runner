@@ -1,8 +1,9 @@
-# TBD
+# 4.11.0 - 2021/03/02
 
 ## Enhancements
 
 - Produce app log for `local` farm test runs [#230](https://github.com/bugsnag/maze-runner/pull/230)
+- Add `--bind-address` and `--port` options [#231](https://github.com/bugsnag/maze-runner/pull/231)
 
 # 4.10.1 - 2021/02/16
 
@@ -432,7 +433,7 @@ Addition of HTTP version steps.
 # 1.1.0
 
 Various changes have been made since the 1.0.0 release, but no specific versioning strategy
-was employed.  This minor release encapsulates those changes and no further significant 
+was employed.  This minor release encapsulates those changes and no further significant
 changes to the v1 series is expected (v2 already exists and should be used in preference).
 
 # 1.0.0

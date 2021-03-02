@@ -47,7 +47,7 @@ class ProcessorTest < Test::Unit::TestCase
   end
 
   def test_populate_local_config
-    args = %w[--farm=local --app=my_app.apk --os=ios --os-version=7.1 --apple-team-id=ABC --udid=123]
+    args = %w[--farm=local --app=my_app.apk --os=ios --os-version=7.1 --apple-team-id=ABC --udid=123 --bind-address=1.2.3.4 --port=1234]
     options = Maze::Option::Parser.parse args
     config = Maze::Configuration.new
     Maze::Option::Processor.populate config, options
@@ -58,5 +58,7 @@ class ProcessorTest < Test::Unit::TestCase
     assert_equal 7.1, config.os_version
     assert_equal 'ABC', config.apple_team_id
     assert_equal '123', config.device_id
+    assert_equal '1.2.3.4', config.bind_address
+    assert_equal 1234, config.port
   end
 end

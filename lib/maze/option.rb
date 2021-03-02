@@ -10,6 +10,8 @@ module Maze
     A11Y_LOCATOR = 'a11y-locator'
     RESILIENT = 'resilient'
     CAPABILITIES = 'capabilities'
+    BIND_ADDRESS = 'bind-address'
+    PORT = 'port'
 
     # BrowserStack-only options
     BS_LOCAL = 'bs-local'

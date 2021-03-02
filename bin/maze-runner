@@ -31,23 +31,25 @@ class MazeRunnerEntry
   # Removes Maze Runner specific args from the array, as these will cause Cucumber to error.
   def remove_maze_runner_args
     remove = [
-      Maze::Option::SEPARATE_SESSIONS,
-      Maze::Option::APP,
-      Maze::Option::BS_LOCAL,
-      Maze::Option::BS_DEVICE,
-      Maze::Option::BS_BROWSER,
-      Maze::Option::OS,
-      Maze::Option::OS_VERSION,
-      Maze::Option::FARM,
-      Maze::Option::USERNAME,
       Maze::Option::ACCESS_KEY,
+      Maze::Option::APPLE_TEAM_ID,
       Maze::Option::APPIUM_SERVER,
       Maze::Option::A11Y_LOCATOR,
-      Maze::Option::UDID,
-      Maze::Option::APPLE_TEAM_ID,
+      Maze::Option::APP,
+      Maze::Option::BIND_ADDRESS,
       Maze::Option::BS_APPIUM_VERSION,
+      Maze::Option::BS_BROWSER,
+      Maze::Option::BS_DEVICE,
+      Maze::Option::BS_LOCAL,
+      Maze::Option::CAPABILITIES,
+      Maze::Option::FARM,
+      Maze::Option::OS,
+      Maze::Option::OS_VERSION,
+      Maze::Option::PORT,
       Maze::Option::RESILIENT,
-      Maze::Option::CAPABILITIES
+      Maze::Option::SEPARATE_SESSIONS,
+      Maze::Option::UDID,
+      Maze::Option::USERNAME
     ]
     remove.each do |opt|
       @args.reject! { |arg| arg == "--#{opt}" || (arg.start_with? "--#{opt}=") }

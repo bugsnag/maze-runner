@@ -11,11 +11,6 @@ module Maze
   # Receives and stores requests through a WEBrick HTTPServer
   class Server
 
-    # There are some constraints on the port from driving remote browsers on BrowserStack.
-    # E.g. the ports/ranges that Safari will access on "localhost" urls are restricted to the following:
-    #   80, 3000, 4000, 5000, 8000, 8080 or 9000-9999 [ from https://stackoverflow.com/a/28678652 ]
-    PORT = 9339
-
     class << self
       # Allows overwriting of the server status code
       attr_writer :status_code
@@ -124,7 +119,8 @@ module Maze
         loop do
           @thread = Thread.new do
             server = WEBrick::HTTPServer.new(
-              Port: PORT,
+              BindAddress: Maze.config.bind_address,
+              Port: Maze.config.port,
               Logger: $logger,
               AccessLog: []
             )

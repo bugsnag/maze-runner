@@ -5,6 +5,9 @@
 - Produce app log for `local` farm test runs [#230](https://github.com/bugsnag/maze-runner/pull/230)
 - Add `--bind-address` and `--port` options [#231](https://github.com/bugsnag/maze-runner/pull/231)
 
+## Fixes
+- Stop BrowserStackLocal binary at end of run [#232](https://github.com/bugsnag/maze-runner/pull/232)
+
 # 4.10.1 - 2021/02/16
 
 ## Fixes

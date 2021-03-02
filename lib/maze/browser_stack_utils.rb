@@ -55,6 +55,13 @@ module Maze
         end
         status
       end
+
+      # Stops the local tunnel
+      # @param bs_local [String] path to the BrowserStackLocal binary
+      def stop_local_tunnel(bs_local)
+        $logger.info 'Stopping BrowserStack local tunnel'
+        Maze::Runner.run_command "#{bs_local} -d stop"
+      end
     end
   end
 end

@@ -214,5 +214,7 @@ at_exit do
   if Maze.config.farm == :local && Maze.config.os == 'macos'
     # Acquire and output the logs for the current session
     Maze::Runner.run_command("log show --predicate '(process == \"#{Maze.config.app}\")' --style syslog --start '#{Maze.start_time}' > #{Maze.config.app}.log")
+  elsif Maze.config.farm == :bs
+    Maze::BrowserStackUtils.stop_local_tunnel Maze.config.bs_local
   end
 end

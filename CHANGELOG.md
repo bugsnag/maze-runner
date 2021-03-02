@@ -1,3 +1,8 @@
+# 4.11.1 - 2021/03/02
+
+## Fixes
+- Stop BrowserStackLocal binary at end of run [#232](https://github.com/bugsnag/maze-runner/pull/232)
+
 # 4.11.0 - 2021/03/02
 
 ## Enhancements

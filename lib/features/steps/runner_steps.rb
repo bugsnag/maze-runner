@@ -16,7 +16,7 @@ end
 # @step_input name [String] The environment variable
 When('I store the endpoint in the environment variable {string}') do |name|
   steps %Q{
-    When I set environment variable "#{name}" to "http://maze-runner:#{MOCK_API_PORT}"
+    When I set environment variable "#{name}" to "http://maze-runner:#{Maze.config.port}"
   }
 end
 

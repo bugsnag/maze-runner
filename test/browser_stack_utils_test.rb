@@ -6,6 +6,7 @@ require 'open3'
 require 'test_helper'
 require_relative '../lib/maze/browser_stack_utils'
 require_relative '../lib/maze/helper'
+require_relative '../lib/maze/runner'
 
 class BrowserStackUtilsTest < Test::Unit::TestCase
 
@@ -106,8 +107,8 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
     $logger.expects(:info).with('Starting BrowserStack local tunnel').once
 
     command_options = "-d start --key #{ACCESS_KEY} --local-identifier #{LOCAL_ID} --force-local --only-automate --force"
-    waiter = mock('Process::Waiter', value: mock('Process::Status'))
-    Open3.expects(:popen2)&.with("#{BS_LOCAL} #{command_options}")&.yields(mock('stdin'), mock('stdout'), waiter)
+    Maze::Runner.expects(:run_command)&.with("#{BS_LOCAL} #{command_options}")&.returns([['{"pid":123}']])
+    $logger.expects(:info).with('BrowserStackLocal daemon running under pid 123').once
 
     Maze::BrowserStackUtils.start_local_tunnel BS_LOCAL, LOCAL_ID, ACCESS_KEY
   end

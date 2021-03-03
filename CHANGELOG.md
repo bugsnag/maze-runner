@@ -1,6 +1,13 @@
+# 4.11.3 - 2021/03/03
+
+## Fixes
+
+- Update endpoint steps and ensure Maze::Network is available by default [#235](https://github.com/bugsnag/maze-runner/pull/235)
+
 # 4.11.2 - 2021/03/03
 
 ## Fixes
+
 - Stop BrowserStackLocal binary at end of run without hanging [#233](https://github.com/bugsnag/maze-runner/pull/233)
 
 # 4.11.1 - 2021/03/02

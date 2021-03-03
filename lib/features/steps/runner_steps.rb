@@ -11,13 +11,14 @@ When('I set environment variable {string} to {string}') do |key, value|
   Maze::Runner.environment[key] = value
 end
 
-# Sets an environment variable to the server endpoint.
+# Sets an environment variable to a given endpoint.
 #
+# @step_input endpoint [String] The endpoint to set
 # @step_input name [String] The environment variable
-When('I store the endpoint in the environment variable {string}') do |name|
-  steps %Q{
-    When I set environment variable "#{name}" to "http://maze-runner:#{MOCK_API_PORT}"
-  }
+When('I store the {word} endpoint in the environment variable {string}') do |endpoint, name|
+  steps %(
+    When I set environment variable "#{name}" to "http://maze-runner:#{Maze.config.port}/#{endpoint}"
+  )
 end
 
 # Sets an environment variable to the currently set API key.

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    bugsnag-maze-runner (4.11.2)
+    bugsnag-maze-runner (4.11.3)
       appium_lib (~> 11.2.0)
       boring (~> 0.1.0)
       cucumber (~> 3.1.2)
@@ -69,13 +69,11 @@ GEM
       kramdown (>= 1.5.0)
       props (>= 1.1.2)
       textutils (>= 0.10.0)
-    mini_portile2 (2.5.0)
     minitest (5.14.3)
     mocha (1.12.0)
     multi_json (1.15.0)
     multi_test (0.1.2)
-    nokogiri (1.11.1)
-      mini_portile2 (~> 2.5.0)
+    nokogiri (1.11.1-x86_64-darwin)
       racc (~> 1.4)
     optimist (3.0.1)
     os (1.0.1)

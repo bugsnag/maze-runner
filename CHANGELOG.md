@@ -1,4 +1,8 @@
-# TDB
+# 4.12.0 - TDB
+
+## Enhancements
+
+- Add click_element_if_present to Appium driver [#235](https://github.com/bugsnag/maze-runner/pull/235)
 
 ## Fixes
 

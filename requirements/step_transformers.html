@@ -2176,9 +2176,9 @@
   <a name="step_definition22-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
-    <span class="name">'I store the endpoint in the environment variable {string}'</span>
+    <span class="name">'I store the {word} endpoint in the environment variable {string}'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex='I+store+the+endpoint+in+the+environment+variable+%7Bstring%7D'" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='I+store+the+%7Bword%7D+endpoint+in+the+environment+variable+%7Bstring%7D'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -2189,14 +2189,14 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:17</div>
+      <div class="file">lib/features/steps/runner_steps.rb:18</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    <p>Sets an environment variable to the server endpoint.</p>
+    <p>Sets an environment variable to a given endpoint.</p>
 
 
   </div>
@@ -2205,6 +2205,17 @@
   
 <p class="tag_title">Step parameters:</p>
 <ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>endpoint [String] The endpoint to set</p>
+</div>
+      
+    </li>
   
     <li>
       
@@ -2228,17 +2239,17 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">17
-18
+            <pre class="lines">18
 19
 20
-21</pre>
+21
+22</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>When</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I store the endpoint in the environment variable {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_name'>name</span><span class='op'>|</span>
-  <span class='id identifier rubyid_steps'>steps</span> <span class='tstring'><span class='tstring_beg'>%Q{</span><span class='tstring_content'>
-    When I set environment variable &quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>&quot; to &quot;http://maze-runner:</span><span class='embexpr_beg'>#{</span><span class='const'>MOCK_API_PORT</span><span class='embexpr_end'>}</span><span class='tstring_content'>&quot;
-  </span><span class='tstring_end'>}</span></span>
+            <pre class="code"><span class='const'>When</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I store the {word} endpoint in the environment variable {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_endpoint'>endpoint</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='op'>|</span>
+  <span class='id identifier rubyid_steps'>steps</span> <span class='tstring'><span class='tstring_beg'>%(</span><span class='tstring_content'>
+    When I set environment variable &quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>&quot; to &quot;http://maze-runner:</span><span class='embexpr_beg'>#{</span><span class='const'>Maze</span><span class='period'>.</span><span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_port'>port</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_endpoint'>endpoint</span><span class='embexpr_end'>}</span><span class='tstring_content'>&quot;
+  </span><span class='tstring_end'>)</span></span>
 <span class='kw'>end</span></pre>
           </td>
         </tr>
@@ -2280,7 +2291,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:26</div>
+      <div class="file">lib/features/steps/runner_steps.rb:27</div>
     </div>
     
     <!-- Comments -->
@@ -2319,11 +2330,11 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">26
-27
+            <pre class="lines">27
 28
 29
-30</pre>
+30
+31</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>When</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I store the api key in the environment variable {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_name'>name</span><span class='op'>|</span>
@@ -2371,7 +2382,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:35</div>
+      <div class="file">lib/features/steps/runner_steps.rb:36</div>
     </div>
     
     <!-- Comments -->
@@ -2410,9 +2421,9 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">35
-36
-37</pre>
+            <pre class="lines">36
+37
+38</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>When</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I run the script {string} synchronously</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_script_path'>script_path</span><span class='op'>|</span>
@@ -2458,7 +2469,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:43</div>
+      <div class="file">lib/features/steps/runner_steps.rb:44</div>
     </div>
     
     <!-- Comments -->
@@ -2508,9 +2519,9 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">43
-44
-45</pre>
+            <pre class="lines">44
+45
+46</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>When</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I run the script {string} using {word} synchronously</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_script_path'>script_path</span><span class='comma'>,</span> <span class='id identifier rubyid_command'>command</span><span class='op'>|</span>
@@ -2556,7 +2567,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:50</div>
+      <div class="file">lib/features/steps/runner_steps.rb:51</div>
     </div>
     
     <!-- Comments -->
@@ -2595,9 +2606,9 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">50
-51
-52</pre>
+            <pre class="lines">51
+52
+53</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>When</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I run the script {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_script_path'>script_path</span><span class='op'>|</span>
@@ -2643,7 +2654,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:57</div>
+      <div class="file">lib/features/steps/runner_steps.rb:58</div>
     </div>
     
     <!-- Comments -->
@@ -2682,9 +2693,9 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">57
-58
-59</pre>
+            <pre class="lines">58
+59
+60</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>When</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I start the service {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_service'>service</span><span class='op'>|</span>
@@ -2730,7 +2741,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:65</div>
+      <div class="file">lib/features/steps/runner_steps.rb:66</div>
     </div>
     
     <!-- Comments -->
@@ -2780,9 +2791,9 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">65
-66
-67</pre>
+            <pre class="lines">66
+67
+68</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>When</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I run the service {string} with the command {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_service'>service</span><span class='comma'>,</span> <span class='id identifier rubyid_command'>command</span><span class='op'>|</span>
@@ -2828,7 +2839,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:72</div>
+      <div class="file">lib/features/steps/runner_steps.rb:73</div>
     </div>
     
     <!-- Comments -->
@@ -2867,12 +2878,12 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">72
-73
+            <pre class="lines">73
 74
 75
 76
-77</pre>
+77
+78</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>When</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I run the service {string} interactively</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_service'>service</span><span class='op'>|</span>
@@ -2921,7 +2932,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:83</div>
+      <div class="file">lib/features/steps/runner_steps.rb:84</div>
     </div>
     
     <!-- Comments -->
@@ -2971,12 +2982,12 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">83
-84
+            <pre class="lines">84
 85
 86
 87
-88</pre>
+88
+89</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>When</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I run the service {string} with the command {string} interactively</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_service'>service</span><span class='comma'>,</span> <span class='id identifier rubyid_command'>command</span><span class='op'>|</span>
@@ -3025,7 +3036,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:94</div>
+      <div class="file">lib/features/steps/runner_steps.rb:95</div>
     </div>
     
     <!-- Comments -->
@@ -3075,10 +3086,10 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">94
-95
+            <pre class="lines">95
 96
-97</pre>
+97
+98</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>When</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I run the service {string} with the command</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_service'>service</span><span class='comma'>,</span> <span class='id identifier rubyid_command'>command</span><span class='op'>|</span>
@@ -3125,7 +3136,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:103</div>
+      <div class="file">lib/features/steps/runner_steps.rb:104</div>
     </div>
     
     <!-- Comments -->
@@ -3165,13 +3176,13 @@ Will fail if no commands have been run.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">103
-104
+            <pre class="lines">104
 105
 106
 107
 108
-109</pre>
+109
+110</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the exit code of the last docker command was {int}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_expected_code'>expected_code</span><span class='op'>|</span>
@@ -3221,7 +3232,7 @@ Will fail if no commands have been run.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:113</div>
+      <div class="file">lib/features/steps/runner_steps.rb:114</div>
     </div>
     
     <!-- Comments -->
@@ -3246,9 +3257,9 @@ Will fail if no commands have been run</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">113
-114
-115</pre>
+            <pre class="lines">114
+115
+116</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the last run docker command exited successfully</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
@@ -3294,7 +3305,7 @@ Will fail if no commands have been run</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:119</div>
+      <div class="file">lib/features/steps/runner_steps.rb:120</div>
     </div>
     
     <!-- Comments -->
@@ -3319,13 +3330,13 @@ Will fail if no commands have been run</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">119
-120
+            <pre class="lines">120
 121
 122
 123
 124
-125</pre>
+125
+126</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the last run docker command did not exit successfully</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
@@ -3375,7 +3386,7 @@ Will fail if no commands have been run</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:131</div>
+      <div class="file">lib/features/steps/runner_steps.rb:132</div>
     </div>
     
     <!-- Comments -->
@@ -3415,8 +3426,7 @@ Will fail if no commands have been run</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">131
-132
+            <pre class="lines">132
 133
 134
 135
@@ -3429,7 +3439,8 @@ Will fail if no commands have been run</p>
 142
 143
 144
-145</pre>
+145
+146</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the last run docker command output {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_expected_string'>expected_string</span><span class='op'>|</span>
@@ -3487,7 +3498,7 @@ Will fail if no commands have been run</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:150</div>
+      <div class="file">lib/features/steps/runner_steps.rb:151</div>
     </div>
     
     <!-- Comments -->
@@ -3526,10 +3537,10 @@ Will fail if no commands have been run</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">150
-151
+            <pre class="lines">151
 152
-153</pre>
+153
+154</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>When</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I wait for {int} second(s)</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_seconds'>seconds</span><span class='op'>|</span>
@@ -3576,7 +3587,7 @@ Will fail if no commands have been run</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:156</div>
+      <div class="file">lib/features/steps/runner_steps.rb:157</div>
     </div>
     
     <!-- Comments -->
@@ -3600,12 +3611,12 @@ Will fail if no commands have been run</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">156
-157
+            <pre class="lines">157
 158
 159
 160
-161</pre>
+161
+162</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>When</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I start a new shell</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
@@ -3654,7 +3665,7 @@ Will fail if no commands have been run</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:164</div>
+      <div class="file">lib/features/steps/runner_steps.rb:165</div>
     </div>
     
     <!-- Comments -->
@@ -3678,13 +3689,13 @@ Will fail if no commands have been run</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">164
-165
+            <pre class="lines">165
 166
 167
 168
 169
-170</pre>
+170
+171</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>When</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I stop the current shell</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
@@ -3734,7 +3745,7 @@ Will fail if no commands have been run</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:175</div>
+      <div class="file">lib/features/steps/runner_steps.rb:176</div>
     </div>
     
     <!-- Comments -->
@@ -3773,11 +3784,11 @@ Will fail if no commands have been run</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">175
-176
+            <pre class="lines">176
 177
 178
-179</pre>
+179
+180</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>When</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I input {string} interactively</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_command'>command</span><span class='op'>|</span>
@@ -3825,7 +3836,7 @@ Will fail if no commands have been run</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:182</div>
+      <div class="file">lib/features/steps/runner_steps.rb:183</div>
     </div>
     
     <!-- Comments -->
@@ -3849,9 +3860,9 @@ Will fail if no commands have been run</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">182
-183
-184</pre>
+            <pre class="lines">183
+184
+185</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>When</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I input a return interactively</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
@@ -3897,7 +3908,7 @@ Will fail if no commands have been run</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:189</div>
+      <div class="file">lib/features/steps/runner_steps.rb:190</div>
     </div>
     
     <!-- Comments -->
@@ -3936,10 +3947,10 @@ Will fail if no commands have been run</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">189
-190
+            <pre class="lines">190
 191
-192</pre>
+192
+193</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the current stdout line is {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_expected'>expected</span><span class='op'>|</span>
@@ -3986,7 +3997,7 @@ Will fail if no commands have been run</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:197</div>
+      <div class="file">lib/features/steps/runner_steps.rb:198</div>
     </div>
     
     <!-- Comments -->
@@ -4025,10 +4036,10 @@ Will fail if no commands have been run</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">197
-198
+            <pre class="lines">198
 199
-200</pre>
+200
+201</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the current stdout line contains {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_expected'>expected</span><span class='op'>|</span>
@@ -4075,7 +4086,7 @@ Will fail if no commands have been run</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:206</div>
+      <div class="file">lib/features/steps/runner_steps.rb:207</div>
     </div>
     
     <!-- Comments -->
@@ -4115,14 +4126,14 @@ Times out after Maze.config.receive_requests_wait seconds.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">206
-207
+            <pre class="lines">207
 208
 209
 210
 211
 212
-213</pre>
+213
+214</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I wait for the current stdout line to match the regex {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_regex'>regex</span><span class='op'>|</span>
@@ -4173,7 +4184,7 @@ Times out after Maze.config.receive_requests_wait seconds.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:218</div>
+      <div class="file">lib/features/steps/runner_steps.rb:219</div>
     </div>
     
     <!-- Comments -->
@@ -4212,14 +4223,14 @@ Times out after Maze.config.receive_requests_wait seconds.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">218
-219
+            <pre class="lines">219
 220
 221
 222
 223
 224
-225</pre>
+225
+226</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I wait for the shell prompt {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_expected_prompt'>expected_prompt</span><span class='op'>|</span>
@@ -4270,7 +4281,7 @@ Times out after Maze.config.receive_requests_wait seconds.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:230</div>
+      <div class="file">lib/features/steps/runner_steps.rb:231</div>
     </div>
     
     <!-- Comments -->
@@ -4309,11 +4320,11 @@ Times out after Maze.config.receive_requests_wait seconds.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">230
-231
+            <pre class="lines">231
 232
 233
-234</pre>
+234
+235</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the shell has output {string} to stdout</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_expected_line'>expected_line</span><span class='op'>|</span>
@@ -4361,7 +4372,7 @@ Times out after Maze.config.receive_requests_wait seconds.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:239</div>
+      <div class="file">lib/features/steps/runner_steps.rb:240</div>
     </div>
     
     <!-- Comments -->
@@ -4400,8 +4411,7 @@ Times out after Maze.config.receive_requests_wait seconds.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">239
-240
+            <pre class="lines">240
 241
 242
 243
@@ -4409,7 +4419,8 @@ Times out after Maze.config.receive_requests_wait seconds.</p>
 245
 246
 247
-248</pre>
+248
+249</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I wait for the shell to output {string} to stdout</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_expected_line'>expected_line</span><span class='op'>|</span>
@@ -4462,7 +4473,7 @@ Times out after Maze.config.receive_requests_wait seconds.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:253</div>
+      <div class="file">lib/features/steps/runner_steps.rb:254</div>
     </div>
     
     <!-- Comments -->
@@ -4501,11 +4512,11 @@ Times out after Maze.config.receive_requests_wait seconds.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">253
-254
+            <pre class="lines">254
 255
 256
-257</pre>
+257
+258</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the shell has output a match for the regex {string} to stdout</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_regex_matcher'>regex_matcher</span><span class='op'>|</span>
@@ -4553,7 +4564,7 @@ Times out after Maze.config.receive_requests_wait seconds.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:262</div>
+      <div class="file">lib/features/steps/runner_steps.rb:263</div>
     </div>
     
     <!-- Comments -->
@@ -4592,8 +4603,7 @@ Times out after Maze.config.receive_requests_wait seconds.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">262
-263
+            <pre class="lines">263
 264
 265
 266
@@ -4601,7 +4611,8 @@ Times out after Maze.config.receive_requests_wait seconds.</p>
 268
 269
 270
-271</pre>
+271
+272</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I wait for the shell to output a match for the regex {string} to stdout</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_regex_matcher'>regex_matcher</span><span class='op'>|</span>
@@ -4654,7 +4665,7 @@ Times out after Maze.config.receive_requests_wait seconds.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:277</div>
+      <div class="file">lib/features/steps/runner_steps.rb:278</div>
     </div>
     
     <!-- Comments -->
@@ -4694,8 +4705,7 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">277
-278
+            <pre class="lines">278
 279
 280
 281
@@ -4704,7 +4714,8 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
 284
 285
 286
-287</pre>
+287
+288</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I wait for the interactive shell to output the following lines in stdout</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_expected_lines'>expected_lines</span><span class='op'>|</span>
@@ -4758,7 +4769,7 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:292</div>
+      <div class="file">lib/features/steps/runner_steps.rb:293</div>
     </div>
     
     <!-- Comments -->
@@ -4797,11 +4808,11 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">292
-293
+            <pre class="lines">293
 294
 295
-296</pre>
+296
+297</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the shell has output {string} to stderr</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_expected_err'>expected_err</span><span class='op'>|</span>
@@ -4849,7 +4860,7 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:301</div>
+      <div class="file">lib/features/steps/runner_steps.rb:302</div>
     </div>
     
     <!-- Comments -->
@@ -4888,8 +4899,7 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">301
-302
+            <pre class="lines">302
 303
 304
 305
@@ -4897,7 +4907,8 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
 307
 308
 309
-310</pre>
+310
+311</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I wait for the shell to output {string} to stderr</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_expected_line'>expected_line</span><span class='op'>|</span>
@@ -4950,7 +4961,7 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:313</div>
+      <div class="file">lib/features/steps/runner_steps.rb:314</div>
     </div>
     
     <!-- Comments -->
@@ -4974,8 +4985,7 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">313
-314
+            <pre class="lines">314
 315
 316
 317
@@ -4983,7 +4993,8 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
 319
 320
 321
-322</pre>
+322
+323</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the last interactive command exited successfully</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
@@ -5036,7 +5047,7 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:327</div>
+      <div class="file">lib/features/steps/runner_steps.rb:328</div>
     </div>
     
     <!-- Comments -->
@@ -5075,8 +5086,7 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">327
-328
+            <pre class="lines">328
 329
 330
 331
@@ -5084,7 +5094,8 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
 333
 334
 335
-336</pre>
+336
+337</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the last interactive command exit code is {int}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_exit_code'>exit_code</span><span class='op'>|</span>
@@ -5137,7 +5148,7 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:339</div>
+      <div class="file">lib/features/steps/runner_steps.rb:340</div>
     </div>
     
     <!-- Comments -->
@@ -5161,8 +5172,7 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">339
-340
+            <pre class="lines">340
 341
 342
 343
@@ -5170,7 +5180,8 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
 345
 346
 347
-348</pre>
+348
+349</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the last interactive command exited with an error code</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
@@ -5223,7 +5234,7 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:354</div>
+      <div class="file">lib/features/steps/runner_steps.rb:355</div>
     </div>
     
     <!-- Comments -->
@@ -5273,13 +5284,13 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">354
-355
+            <pre class="lines">355
 356
 357
 358
 359
-360</pre>
+360
+361</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the interactive file {string} contains {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_filename'>filename</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_line'>expected_line</span><span class='op'>|</span>
@@ -5329,7 +5340,7 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:366</div>
+      <div class="file">lib/features/steps/runner_steps.rb:367</div>
     </div>
     
     <!-- Comments -->
@@ -5379,13 +5390,13 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">366
-367
+            <pre class="lines">367
 368
 369
 370
 371
-372</pre>
+372
+373</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the interactive file {string} does not contain {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_filename'>filename</span><span class='comma'>,</span> <span class='id identifier rubyid_excluded_line'>excluded_line</span><span class='op'>|</span>
@@ -5435,7 +5446,7 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:378</div>
+      <div class="file">lib/features/steps/runner_steps.rb:379</div>
     </div>
     
     <!-- Comments -->
@@ -5485,11 +5496,11 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">378
-379
+            <pre class="lines">379
 380
 381
-382</pre>
+382
+383</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the interactive file {string} contains:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_filename'>filename</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_lines'>expected_lines</span><span class='op'>|</span>
@@ -5537,7 +5548,7 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:388</div>
+      <div class="file">lib/features/steps/runner_steps.rb:389</div>
     </div>
     
     <!-- Comments -->
@@ -5587,11 +5598,11 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">388
-389
+            <pre class="lines">389
 390
 391
-392</pre>
+392
+393</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the interactive file {string} does not contain:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_filename'>filename</span><span class='comma'>,</span> <span class='id identifier rubyid_excluded_lines'>excluded_lines</span><span class='op'>|</span>
@@ -18610,7 +18621,7 @@ request types.</p>
 </div>
 
       <div id="footer">
-  Generated on Wed Mar  3 08:51:01 2021 by
+  Generated on Wed Mar  3 19:28:03 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-2.7.2).
 </div>

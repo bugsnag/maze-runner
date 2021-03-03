@@ -117,13 +117,15 @@ module Maze
         $logger.info "Maze Runner v#{Maze::VERSION}"
         $logger.info 'Starting mock server'
         loop do
+
           @thread = Thread.new do
-            server = WEBrick::HTTPServer.new(
-              BindAddress: Maze.config.bind_address,
-              Port: Maze.config.port,
-              Logger: $logger,
-              AccessLog: []
-            )
+            options = {
+                Port: Maze.config.port,
+                Logger: $logger,
+                AccessLog: []
+            }
+            options[:BindAddress] = Maze.config.bind_address unless Maze.config.bind_address.nil?
+            server = WEBrick::HTTPServer.new(options)
 
             # Mount a block to respond to all requests with status:200
             server.mount_proc '/' do |_request, response|

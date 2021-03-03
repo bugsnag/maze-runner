@@ -29,7 +29,7 @@ module Maze
             opt Option::BIND_ADDRESS,
                 'Mock server bind address',
                 short: :none,
-                default: '127.0.0.1'
+                type: :string
             opt Option::PORT,
                 'Mock server port',
                 short: :none,

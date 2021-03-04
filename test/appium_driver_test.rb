@@ -58,6 +58,29 @@ class AppiumDriverTest < Test::Unit::TestCase
     driver.click_element('test_button')
   end
 
+  def test_click_element_if_present_success
+    start_logger_mock
+    driver = Maze::Driver::Appium.new SERVER_URL, @capabilities
+
+    mocked_element = mock('element')
+    mocked_element.expects(:click)
+
+    driver.expects(:find_element).with(:id, 'test_button').returns(mocked_element)
+
+    clicked = driver.click_element_if_present('test_button')
+    assert_true clicked
+  end
+
+  def test_click_element_if_present_no_such_element
+    start_logger_mock
+    driver = Maze::Driver::Appium.new SERVER_URL, @capabilities
+
+    driver.expects(:find_element).with(:id, 'test_button').raises(Selenium::WebDriver::Error::NoSuchElementError)
+
+    clicked = driver.click_element_if_present('test_button')
+    assert_false clicked
+  end
+
   def test_wait_for_element_defaults
     start_logger_mock
     driver = Maze::Driver::Appium.new SERVER_URL, @capabilities

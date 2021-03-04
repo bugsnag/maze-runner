@@ -72,3 +72,9 @@ Scenario: Executing a lambda function that returns a HTML body
   And the lambda response "body" contains "<p>stuff and things</p>"
   And the lambda response "statusCode" equals 200
   And the SAM exit code equals 0
+
+Scenario: Executing a lambda function that does not respond
+  Given I invoke the "ProcessExitFunction" lambda in "features/fixtures/node-app"
+  Then the lambda response is empty
+  And the lambda response "body" is null
+  And the SAM exit code equals 0

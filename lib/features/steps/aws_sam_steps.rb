@@ -29,6 +29,14 @@ Then('the SAM exit code equals {int}') do |expected|
   assert_equal(expected, Maze::Aws::Sam.last_exit_code)
 end
 
+# Test the Lambda response is empty but not-null. This indicates the Lambda did
+# not respond but did run successfully
+Then('the lambda response is empty') do
+  assert_not_nil(Maze::Aws::Sam.last_response, 'No lambda response!')
+
+  assert_equal({}, Maze::Aws::Sam.last_response)
+end
+
 # Test a Lambda response field equals the given string.
 #
 # @step_input key_path [String] The response element to test

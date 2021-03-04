@@ -62,9 +62,7 @@ module Maze
         #
         # @return [Hash]
         def parse(output)
-          begin
-            parsed_output = JSON.parse(output.last)
-          rescue JSON::ParserError
+          unless valid?(output)
             raise <<~ERROR
               Unable to parse Lambda output!
               The likely cause is:
@@ -73,6 +71,15 @@ module Maze
               Full output:
                 > #{output.map(&:chomp).join("\n  > ")}
             ERROR
+          end
+
+          # Attempt to parse the last line of output as this is where a JSON
+          # response would be. It's possible for a Lambda to output nothing,
+          # e.g. if it forcefully exited, so we allow JSON parse failures here
+          begin
+            parsed_output = JSON.parse(output.last)
+          rescue JSON::ParserError
+            return {}
           end
 
           # Error output has no "body" of additional JSON so we can stop here
@@ -87,6 +94,16 @@ module Maze
           end
 
           parsed_output
+        end
+
+        # Check if the output looks valid. There should be a "END" marker with a
+        # request ID if the lambda invocation completed successfully
+        #
+        # @param output [Array<String>] The command's output as an array of lines
+        #
+        # @return [Boolean]
+        def valid?(output)
+          output.any? { |line| line =~ /^END RequestId:/ }
         end
       end
     end

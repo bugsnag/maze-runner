@@ -15,11 +15,11 @@ module Maze
     def setup
       @logger_mock = mock('logger')
       $logger = @logger_mock
-      Maze.config.bind_address = BIND_ADDRESS
+      Maze.config.bind_address = nil
       Maze.config.port = PORT
     end
 
-    def test_start_cleanily
+    def test_start_cleanily_configured_bind_address
       # Expected logging calls
       @logger_mock.expects(:info).with("Maze Runner v#{Maze::VERSION}")
       @logger_mock.expects(:info).with('Starting mock server')
@@ -35,6 +35,7 @@ module Maze
       mock_http_server.expects(:shutdown)
 
       # Expected WEBrick instantiation
+      Maze.config.bind_address = BIND_ADDRESS
       WEBrick::HTTPServer.expects(:new).with(BindAddress: BIND_ADDRESS,
                                              Port: PORT,
                                              Logger: @logger_mock,
@@ -59,8 +60,7 @@ module Maze
       Thread.expects(:new).yields.twice
 
       # Fails to start first time
-      WEBrick::HTTPServer.expects(:new).with(BindAddress: BIND_ADDRESS,
-                                             Port: PORT,
+      WEBrick::HTTPServer.expects(:new).with(Port: PORT,
                                              Logger: @logger_mock,
                                              AccessLog: []).throws('Failed to start')
 
@@ -70,8 +70,7 @@ module Maze
       mock_http_server.expects(:mount).times(4)
       mock_http_server.expects(:start)
       mock_http_server.expects(:shutdown)
-      WEBrick::HTTPServer.expects(:new).with(BindAddress: BIND_ADDRESS,
-                                             Port: PORT,
+      WEBrick::HTTPServer.expects(:new).with(Port: PORT,
                                              Logger: @logger_mock,
                                              AccessLog: []).returns(mock_http_server)
 
@@ -98,16 +97,13 @@ module Maze
       Thread.expects(:new).yields.times(3)
 
       # Fails to start every time
-      WEBrick::HTTPServer.expects(:new).with(BindAddress: BIND_ADDRESS,
-                                             Port: PORT,
+      WEBrick::HTTPServer.expects(:new).with(Port: PORT,
                                              Logger: @logger_mock,
                                              AccessLog: []).throws('Failed to start')
-      WEBrick::HTTPServer.expects(:new).with(BindAddress: BIND_ADDRESS,
-                                             Port: PORT,
+      WEBrick::HTTPServer.expects(:new).with(Port: PORT,
                                              Logger: @logger_mock,
                                              AccessLog: []).throws('Failed to start')
-      WEBrick::HTTPServer.expects(:new).with(BindAddress: BIND_ADDRESS,
-                                             Port: PORT,
+      WEBrick::HTTPServer.expects(:new).with(Port: PORT,
                                              Logger: @logger_mock,
                                              AccessLog: []).throws('Failed to start')
 

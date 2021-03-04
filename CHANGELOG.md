@@ -2,7 +2,7 @@
 
 ## Enhancements
 
-- Add click_element_if_present to Appium driver [#235](https://github.com/bugsnag/maze-runner/pull/235)
+- Add click_element_if_present to Appium driver [#236](https://github.com/bugsnag/maze-runner/pull/236)
 
 ## Fixes
 

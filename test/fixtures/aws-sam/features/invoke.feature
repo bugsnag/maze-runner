@@ -64,3 +64,11 @@ Scenario: Executing two lambda functions with 'sam invoke'
   And the lambda response "body.context.callbackWaitsForEmptyEventLoop" is true
   And the lambda response "statusCode" equals 201
   And the SAM exit code equals 0
+
+Scenario: Executing a lambda function that returns a HTML body
+  Given I invoke the "HelloWorldFunction" lambda in "features/fixtures/python-app"
+  Then the lambda response "body" contains "<title>my cool page</title>"
+  And the lambda response "body" contains "<h1>my cool page</h1>"
+  And the lambda response "body" contains "<p>stuff and things</p>"
+  And the lambda response "statusCode" equals 200
+  And the SAM exit code equals 0

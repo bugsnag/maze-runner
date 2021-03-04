@@ -62,23 +62,31 @@ module Maze
         #
         # @return [Hash]
         def parse(output)
-          parsed_output = JSON.parse(output.last)
+          begin
+            parsed_output = JSON.parse(output.last)
+          rescue JSON::ParserError
+            raise <<~ERROR
+              Unable to parse Lambda output!
+              The likely cause is:
+                > #{output.last.chomp}
+
+              Full output:
+                > #{output.map(&:chomp).join("\n  > ")}
+            ERROR
+          end
 
           # Error output has no "body" of additional JSON so we can stop here
           return parsed_output unless parsed_output.key?('body')
 
-          parsed_output['body'] = JSON.parse(parsed_output['body'])
+          # The body is _usually_ JSON but doesn't have to be. We attempt to
+          # parse it anyway because it allows us to assert against it easily,
+          # but if this fails then it may just be in another format, e.g. HTML
+          begin
+            parsed_output['body'] = JSON.parse(parsed_output['body'])
+          rescue JSON::ParserError
+          end
 
           parsed_output
-        rescue JSON::ParserError
-          raise <<~ERROR
-            Unable to parse Lambda output!
-            The likely cause is:
-              > #{output.last.chomp}
-
-            Full output:
-              > #{output.map(&:chomp).join("\n  > ")}
-          ERROR
         end
       end
     end

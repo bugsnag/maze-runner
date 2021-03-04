@@ -1,6 +1,6 @@
 # 4.12.1 - 2021/03/04
 
-- Allow non-JSON bodies in Lambda responses [#237](https://github.com/bugsnag/maze-runner/pull/237)
+- Loosen requirements on Lambda responses [#237](https://github.com/bugsnag/maze-runner/pull/237)
 
 # 4.12.0 - 2021/03/04
 

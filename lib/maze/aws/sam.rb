@@ -91,6 +91,7 @@ module Maze
           begin
             parsed_output['body'] = JSON.parse(parsed_output['body'])
           rescue JSON::ParserError
+            # Ignore
           end
 
           parsed_output

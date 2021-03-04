@@ -79,6 +79,17 @@ module Maze
         find_element(@element_locator, element_id).click
       end
 
+      # Clicks a given element, ignoring any NoSuchElementError
+      #
+      # @param element_id [String] the element to click
+      # @return [Boolean] True is the element was clicked
+      def click_element_if_present(element_id)
+        find_element(@element_locator, element_id).click
+        true
+      rescue Selenium::WebDriver::Error::NoSuchElementError
+        false
+      end
+
       # Clears a given element
       #
       # @param element_id [String] the element to clear

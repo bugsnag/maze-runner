@@ -62,23 +62,49 @@ module Maze
         #
         # @return [Hash]
         def parse(output)
-          parsed_output = JSON.parse(output.last)
+          unless valid?(output)
+            raise <<~ERROR
+              Unable to parse Lambda output!
+              The likely cause is:
+                > #{output.last.chomp}
+
+              Full output:
+                > #{output.map(&:chomp).join("\n  > ")}
+            ERROR
+          end
+
+          # Attempt to parse the last line of output as this is where a JSON
+          # response would be. It's possible for a Lambda to output nothing,
+          # e.g. if it forcefully exited, so we allow JSON parse failures here
+          begin
+            parsed_output = JSON.parse(output.last)
+          rescue JSON::ParserError
+            return {}
+          end
 
           # Error output has no "body" of additional JSON so we can stop here
           return parsed_output unless parsed_output.key?('body')
 
-          parsed_output['body'] = JSON.parse(parsed_output['body'])
+          # The body is _usually_ JSON but doesn't have to be. We attempt to
+          # parse it anyway because it allows us to assert against it easily,
+          # but if this fails then it may just be in another format, e.g. HTML
+          begin
+            parsed_output['body'] = JSON.parse(parsed_output['body'])
+          rescue JSON::ParserError
+            # Ignore
+          end
 
           parsed_output
-        rescue JSON::ParserError
-          raise <<~ERROR
-            Unable to parse Lambda output!
-            The likely cause is:
-              > #{output.last.chomp}
+        end
 
-            Full output:
-              > #{output.map(&:chomp).join("\n  > ")}
-          ERROR
+        # Check if the output looks valid. There should be a "END" marker with a
+        # request ID if the lambda invocation completed successfully
+        #
+        # @param output [Array<String>] The command's output as an array of lines
+        #
+        # @return [Boolean]
+        def valid?(output)
+          output.any? { |line| line =~ /^END RequestId:/ }
         end
       end
     end

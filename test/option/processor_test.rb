@@ -61,4 +61,19 @@ class ProcessorTest < Test::Unit::TestCase
     assert_equal '1.2.3.4', config.bind_address
     assert_equal 1234, config.port
   end
+
+  def test_default_options
+    args = []
+    options = Maze::Option::Parser.parse args
+    config = Maze::Configuration.new
+    Maze::Option::Processor.populate config, options
+
+    assert_equal nil, config.bind_address
+    assert_equal 9339, config.port
+
+    assert_false config.appium_session_isolation
+    assert_equal :id, config.locator
+    assert_false config.resilient
+    assert_nil config.capabilities
+  end
 end

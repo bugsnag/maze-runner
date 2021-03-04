@@ -1,3 +1,9 @@
+# TDB
+
+## Fixes
+
+- Do not set explicit default for mock server bind address [#234](https://github.com/bugsnag/maze-runner/pull/234)
+
 # 4.11.3 - 2021/03/03
 
 ## Fixes

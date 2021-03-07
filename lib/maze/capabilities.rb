@@ -20,25 +20,6 @@ module Maze
         capabilities
       end
 
-
-
-
-  caps = {
-      caps: {
-          platformVersion: "#{ENV['platformVersion']}",
-          deviceName: "#{ENV['deviceName']}",
-          platformName: "#{ENV['platformName']}",
-          app: "#{ENV['app']}",
-          deviceOrientation: 'portrait',
-          name: "#{scenario.feature.name} - #{scenario.name}",
-          appiumVersion: '1.9.1',
-          browserName: '',
-          build: 'Appium-Ruby-Cucumber EmuSim Examples'
-      }
-  }
-
-
-
       # @param browser_type [String] A key from @see browsers.yml
       # @param local_id [String] unique key for the tunnel instance
       # @param capabilities_option [String] extra capabilities provided on the command line
@@ -86,6 +67,20 @@ module Maze
         }
         capabilities.merge! common
         capabilities.merge! JSON.parse(capabilities_option)
+      end
+
+      def for_sauce_labs(username, access_key)
+        {
+          'username' => username,
+          'accessKey' => access_key,
+          'platformVersion' => '8.1',
+          'deviceName' => "Samsung Galaxy S7 Edge FHD GoogleAPI Emulator",
+          'platformName' => "Android",
+          'deviceOrientation' => 'portrait',
+          # name: "#{scenario.feature.name} - #{scenario.name}",
+          'appiumVersion' => '1.8.1',
+          'browserName' => ""
+        }
       end
     end
   end

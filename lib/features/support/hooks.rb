@@ -54,11 +54,18 @@ AfterConfiguration do |_cucumber_config|
                                                    config.access_key,
                                                    config.app
       # Capabilities
-      config.capabilities = Maze::Capabilities.for_sauce_labs_device config.test_device,
-                                                                     tunnel_id,
-                                                                     config.appium_version,
-                                                                     config.capabilities_option
-      config.capabilities['app'] = config.app
+      config.capabilities = Maze::Capabilities.for_sauce_labs config.username,
+                                                              config.access_key
+      # config.capabilities['app'] = "https://api.us-west-1.saucelabs.com/v1/storage/download/#{config.app}"
+      config.capabilities['app'] = "storage:filename=app-release.apk"
+
+
+      puts config.capabilities.inspect
+
+      # config.capabilities = Maze::Capabilities.for_sauce_labs_device config.test_device,
+      #                                                                tunnel_id,
+      #                                                                config.appium_version,
+      #                                                                config.capabilities_option
     else
       # TODO: Sauce Labs browser
       # config.capabilities = Maze::Capabilities.for_browser_stack_browser config.test_browser,

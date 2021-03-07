@@ -48,7 +48,7 @@ module Maze
         app_uuid
       end
 
-      # Starts the BrowserStack local tunnel
+      # TODO Sauce Connect?
       # @param bs_local [String] path to the BrowserStackLocal binary
       # @param local_id [String] unique key for the tunnel instance
       # @param access_key [String] BrowserStack access key

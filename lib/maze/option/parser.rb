@@ -68,10 +68,6 @@ module Maze
             text ''
             text 'Device farm options:'
 
-            opt Option::BS_LOCAL,
-                '(BS only) Path to the BrowserStackLocal binary. MAZE_BS_LOCAL env var or "/BrowserStackLocal" by default',
-                short: :none,
-                type: :string
             # TODO: Descriptions
             opt Option::TEST_DEVICE,
                 'BrowserStack device to use (a key of Devices.DEVICE_HASH)',

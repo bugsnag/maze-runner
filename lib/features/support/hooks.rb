@@ -54,8 +54,8 @@ AfterConfiguration do |_cucumber_config|
                                                    config.access_key,
                                                    config.app
       # Capabilities
-      config.capabilities = Maze::Capabilities.for_sauce_labs config.username,
-                                                              config.access_key
+      config.capabilities = Maze::Capabilities.for_sauce_labs_device config.username,
+                                                                     config.access_key
       # config.capabilities['app'] = "https://api.us-west-1.saucelabs.com/v1/storage/download/#{config.app}"
       config.capabilities['app'] = "storage:filename=app-release.apk"
 

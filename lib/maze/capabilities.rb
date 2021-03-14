@@ -69,12 +69,12 @@ module Maze
         capabilities.merge! JSON.parse(capabilities_option)
       end
 
-      def for_sauce_labs(username, access_key)
+      def for_sauce_labs_device(username, access_key)
         {
           'username' => username,
           'accessKey' => access_key,
-          'platformVersion' => '8.1',
-          'deviceName' => "Samsung Galaxy S7 Edge FHD GoogleAPI Emulator",
+          'platformVersion' => '10',
+          'deviceName' => "Samsung_Galaxy_S9_free",
           'platformName' => "Android",
           'deviceOrientation' => 'portrait',
           # name: "#{scenario.feature.name} - #{scenario.name}",

@@ -48,15 +48,17 @@ module Maze
         app_uuid
       end
 
-      # TODO Sauce Connect?
-      # @param bs_local [String] path to the BrowserStackLocal binary
-      # @param local_id [String] unique key for the tunnel instance
-      # @param access_key [String] BrowserStack access key
-      def start_local_tunnel(bs_local, local_id, access_key)
-        $logger.info 'Starting BrowserStack local tunnel'
+      # Sauce Connect
+      # @param sc_local [String] path to the Sauce Connect binary
+      # @param tunnel_id [String] unique key for the tunnel instance
+      # @param username [String] Sauce Labs username
+      # @param access_key [String] Sauce Labs access key
+      def start_sauce_connect(sc_local, tunnel_id, username, access_key)
+        $logger.info 'Starting Sauce Connect tunnel'
+        endpoint = 'https://saucelabs.com/rest/v1/'
+        command = "#{sc_local} -u #{username} -k #{access_key} -x #{endpoint} -i #{tunnel_id}"
+
         status = nil
-        command = "#{bs_local} -d start --key #{access_key} --local-identifier #{local_id} " \
-                    '--force-local --only-automate --force'
         Open3.popen2(command) do |_stdin, _stdout, wait|
           status = wait.value
         end

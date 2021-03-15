@@ -55,9 +55,9 @@ module Maze
       # @param access_key [String] Sauce Labs access key
       def start_sauce_connect(sc_local, tunnel_id, username, access_key)
         $logger.info 'Starting Sauce Connect tunnel'
-        endpoint = 'https://saucelabs.com/rest/v1/'
-        command = "#{sc_local} -u #{username} -k #{access_key} -x #{endpoint} -i #{tunnel_id}"
-
+        endpoint = 'https://saucelabs.com/rest/v1'
+        command = "#{sc_local} -u #{username} -k #{access_key} -x #{endpoint} -i #{tunnel_id} -d sc.pid"
+        puts command
         status = nil
         Open3.popen2(command) do |_stdin, _stdout, wait|
           status = wait.value

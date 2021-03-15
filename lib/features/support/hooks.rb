@@ -47,25 +47,24 @@ AfterConfiguration do |_cucumber_config|
                                                tunnel_id,
                                                config.access_key
   elsif config.farm == :sl
-    # tunnel_id = SecureRandom.uuid
+    tunnel_id = SecureRandom.uuid
     if config.test_device
 
       config.app = Maze::SauceLabsUtils.upload_app config.username,
                                                    config.access_key,
                                                    config.app
       # Capabilities
+      Maze::SauceLabsUtils.start_sauce_connect '/Users/steve/sc',
+                                               tunnel_id,
+                                               config.username,
+                                               config.access_key
       config.capabilities = Maze::Capabilities.for_sauce_labs_device config.username,
-                                                                     config.access_key
+                                                                     config.access_key,
+                                                                     tunnel_id
       # config.capabilities['app'] = "https://api.us-west-1.saucelabs.com/v1/storage/download/#{config.app}"
       config.capabilities['app'] = "storage:filename=app-release.apk"
 
-
       puts config.capabilities.inspect
-
-      # config.capabilities = Maze::Capabilities.for_sauce_labs_device config.test_device,
-      #                                                                tunnel_id,
-      #                                                                config.appium_version,
-      #                                                                config.capabilities_option
     else
       # TODO: Sauce Labs browser
       # config.capabilities = Maze::Capabilities.for_browser_stack_browser config.test_browser,

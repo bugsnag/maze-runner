@@ -69,7 +69,7 @@ module Maze
         capabilities.merge! JSON.parse(capabilities_option)
       end
 
-      def for_sauce_labs_device(username, access_key)
+      def for_sauce_labs_device(username, access_key, tunnel_id)
         {
           'username' => username,
           'accessKey' => access_key,
@@ -77,6 +77,7 @@ module Maze
           'deviceName' => "Samsung_Galaxy_S9_free",
           'platformName' => "Android",
           'deviceOrientation' => 'portrait',
+          'tunnelIdentifier' => tunnel_id,
           # name: "#{scenario.feature.name} - #{scenario.name}",
           'appiumVersion' => '1.8.1',
           'browserName' => ""

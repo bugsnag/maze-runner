@@ -117,6 +117,15 @@ module Maze
                 short: :none,
                 type: :string
 
+            text ''
+            text 'Logging options:'
+
+            opt Option::NO_REQUEST_OUTPUT,
+                "Don't log a list of received requests in the event of test failure",
+                short: :none,
+                type: :boolean,
+                default: false
+
             version "Maze Runner v#{Maze::VERSION} " \
                     "(Cucumber v#{Cucumber::VERSION.strip})"
             text ''

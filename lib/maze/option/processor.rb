@@ -12,8 +12,14 @@ module Maze
         # @param config [Configuration] MazeRunner configuration to populate
         # @param options [Hash] Parsed command line options
         def populate(config, options)
+          # Server options
           config.bind_address = options[Maze::Option::BIND_ADDRESS]
           config.port = options[Maze::Option::PORT]
+
+          # Logger options
+          config.suppress_request_output = options[Maze::Option::NO_REQUEST_OUTPUT]
+
+          # General appium options
           config.appium_session_isolation = options[Maze::Option::SEPARATE_SESSIONS]
           config.app = options[Maze::Option::APP]
           config.resilient = options[Maze::Option::RESILIENT]

@@ -75,5 +75,7 @@ class ProcessorTest < Test::Unit::TestCase
     assert_equal :id, config.locator
     assert_false config.resilient
     assert_nil config.capabilities
+
+    assert_false config.suppress_request_output
   end
 end

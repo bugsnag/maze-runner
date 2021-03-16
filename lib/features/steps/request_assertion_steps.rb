@@ -60,9 +60,9 @@ end
 #
 # @step_input min_received [Integer] The minimum amount of requests required to pass
 # @step_input request_type [String] The type of request (error, session, build, etc)
-Then('I have received at least {int} {word} requests') do |min_received, request_type|
+Then('I have received at least {int} {word}') do |min_received, request_type|
   list = Maze::Server.list_for(request_type)
-  assert(list.size >= min_received, "Actually received #{list.size} #{request_type} requests")
+  assert_operator(list.size, :>=, min_received, "Actually received #{list.size} #{request_type} requests")
 end
 
 # Assert that the test Server hasn't received any requests - of a specific, or any, type.

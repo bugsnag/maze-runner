@@ -17,7 +17,7 @@ module Maze
           config.port = options[Maze::Option::PORT]
 
           # Logger options
-          config.suppress_request_output = options[Maze::Option::NO_REQUEST_OUTPUT]
+          config.log_requests = options[Maze::Option::LOG_REQUESTS]
 
           # General appium options
           config.appium_session_isolation = options[Maze::Option::SEPARATE_SESSIONS]

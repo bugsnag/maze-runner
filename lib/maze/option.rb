@@ -31,6 +31,6 @@ module Maze
     UDID = 'udid'
 
     # Logging options
-    NO_REQUEST_OUTPUT = 'no-request-output'
+    LOG_REQUESTS = 'log-requests'
   end
 end

@@ -75,7 +75,7 @@ steps:
       cd test/fixtures/aws-sam &&
       bundle install &&
       bundle exec maze-runner
-      --no-request-output
+      --no-log-requests
 
   - label: 'Browserstack app-automate test - Android 6'
     depends_on: "test-images"

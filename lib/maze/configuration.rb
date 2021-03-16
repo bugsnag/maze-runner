@@ -111,6 +111,6 @@ module Maze
     #
 
     # Suppress logging received requests during a test failure
-    attr_accessor :suppress_request_output
+    attr_accessor :log_requests
   end
 end

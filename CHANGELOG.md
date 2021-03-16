@@ -1,3 +1,7 @@
+# 4.13.0 - 2021/03/16
+
+- Add stress-test step asserting a minimum amount of requests received [#239](https://github.com/bugsnag/maze-runner/pull/239)
+
 # 4.12.1 - 2021/03/04
 
 - Loosen requirements on Lambda responses [#237](https://github.com/bugsnag/maze-runner/pull/237)

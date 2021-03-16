@@ -67,7 +67,7 @@
   <div class="title">Step Definitions &amp; Transforms</div>
 
   <div class="summary">
-    <div>191<a href="#step_definitions">Step Definitions</a></div>
+    <div>192<a href="#step_definitions">Step Definitions</a></div>
     <div>0<a href="#step_transforms">Step Transforms</a></div>
     <div>0<a href="#undefined_steps">Undefined Steps</a></div>
   </div>
@@ -18492,6 +18492,107 @@ will be sorted by the header.</p>
   <a name="step_definition189-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
+    <span class="name">'I have received at least {int} {word}'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='I+have+received+at+least+%7Bint%7D+%7Bword%7D'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/request_assertion_steps.rb:63</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Verify that at least a certain amount of requests have been received
+This step is only intended for use in stress tests</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>min_received [Integer] The minimum amount of requests required to pass</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>request_type [String] The type of request (error, session, build, etc)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">63
+64
+65
+66</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I have received at least {int} {word}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_min_received'>min_received</span><span class='comma'>,</span> <span class='id identifier rubyid_request_type'>request_type</span><span class='op'>|</span>
+  <span class='id identifier rubyid_list'>list</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_list_for'>list_for</span><span class='lparen'>(</span><span class='id identifier rubyid_request_type'>request_type</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_assert_operator'>assert_operator</span><span class='lparen'>(</span><span class='id identifier rubyid_list'>list</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='comma'>,</span> <span class='symbol'>:&gt;=</span><span class='comma'>,</span> <span class='id identifier rubyid_min_received'>min_received</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Actually received </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_list'>list</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='embexpr_end'>}</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_request_type'>request_type</span><span class='embexpr_end'>}</span><span class='tstring_content'> requests</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition190-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
     <span class="name">'I should receive no {word}'</span>
     <div style="float: right;">
       <a href="http://rubular.com/?regex='I+should+receive+no+%7Bword%7D'" target="_blank">Rubular</a>
@@ -18505,7 +18606,7 @@ will be sorted by the header.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:62</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:72</div>
     </div>
     
     <!-- Comments -->
@@ -18545,17 +18646,17 @@ request types.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">62
-63
-64
-65
-66
-67
-68
-69
-70
-71
-72</pre>
+            <pre class="lines">72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I should receive no {word}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='op'>|</span>
@@ -18593,7 +18694,7 @@ request types.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition190-stepdefinition"></a>
+  <a name="step_definition191-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I discard the oldest {word}'</span>
@@ -18609,7 +18710,7 @@ request types.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:77</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:87</div>
     </div>
     
     <!-- Comments -->
@@ -18648,11 +18749,11 @@ request types.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">77
-78
-79
-80
-81</pre>
+            <pre class="lines">87
+88
+89
+90
+91</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I discard the oldest {word}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='op'>|</span>
@@ -18684,7 +18785,7 @@ request types.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition191-stepdefinition"></a>
+  <a name="step_definition192-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the received errors match:'</span>
@@ -18700,7 +18801,7 @@ request types.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:83</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:93</div>
     </div>
     
     <!-- Comments -->
@@ -18714,24 +18815,24 @@ request types.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">83
-84
-85
-86
-87
-88
-89
-90
-91
-92
-93
+            <pre class="lines">93
 94
 95
 96
 97
 98
 99
-100</pre>
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the received errors match:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_table'>table</span><span class='op'>|</span>
@@ -18804,7 +18905,7 @@ request types.</p>
 </div>
 
       <div id="footer">
-  Generated on Thu Mar  4 19:03:29 2021 by
+  Generated on Tue Mar 16 16:46:03 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-2.7.2).
 </div>

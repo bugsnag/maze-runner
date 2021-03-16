@@ -41,6 +41,9 @@ class ParserTest < Test::Unit::TestCase
     assert_equal('http://localhost:4723/wd/hub', options[Maze::Option::APPIUM_SERVER])
     assert_nil(options[Maze::Option::APPLE_TEAM_ID])
     assert_nil(options[Maze::Option::UDID])
+
+    # Logging options
+    assert_true(options[Maze::Option::LOG_REQUESTS])
   end
 
   def test_overwritten_values
@@ -62,6 +65,7 @@ class ParserTest < Test::Unit::TestCase
       --appium-server=ARG_APPIUM_SERVER
       --apple-team-id=ARG_APPLE_TEAM_ID
       --udid=ARG_UDID
+      --no-log-requests
     ]
     options = Maze::Option::Parser.parse args
 
@@ -87,6 +91,9 @@ class ParserTest < Test::Unit::TestCase
     assert_equal('ARG_APPIUM_SERVER', options[Maze::Option::APPIUM_SERVER])
     assert_equal('ARG_APPLE_TEAM_ID', options[Maze::Option::APPLE_TEAM_ID])
     assert_equal('ARG_UDID', options[Maze::Option::UDID])
+
+    # Logger options
+    assert_false(options[Maze::Option::LOG_REQUESTS])
   end
 
   def test_short_flags

@@ -3,15 +3,17 @@
 # Provides the set of Maze Runner command line options
 module Maze
   module Option
-    # Common options
+    # Server options
+    BIND_ADDRESS = 'bind-address'
+    PORT = 'port'
+
+    # Appium options
     SEPARATE_SESSIONS = 'separate-sessions'
     FARM = 'farm'
     APP = 'app'
     A11Y_LOCATOR = 'a11y-locator'
     RESILIENT = 'resilient'
     CAPABILITIES = 'capabilities'
-    BIND_ADDRESS = 'bind-address'
-    PORT = 'port'
 
     # BrowserStack-only options
     BS_LOCAL = 'bs-local'
@@ -27,5 +29,8 @@ module Maze
     APPIUM_SERVER = 'appium-server'
     APPLE_TEAM_ID = 'apple-team-id'
     UDID = 'udid'
+
+    # Logging options
+    LOG_REQUESTS = 'log-requests'
   end
 end

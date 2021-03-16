@@ -33,7 +33,7 @@ class MazeRunnerEntry
   def remove_maze_runner_args
     Maze::Option.constants.each do |opt|
       name = Maze::Option.const_get(opt)
-      @args.reject! { |arg| arg == "--#{name}" || (arg.start_with? "--#{name}=") }
+      @args.reject! { |arg| arg == "--#{name}" || (arg.start_with? "--#{name}=") || arg == "--no-#{name}" }
     end
   end
 

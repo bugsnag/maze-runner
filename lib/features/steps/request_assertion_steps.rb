@@ -55,6 +55,16 @@ Then('I wait to receive {int} {word}') do |request_count, request_type|
   list.sort_by_sent_at! request_count
 end
 
+# Verify that at least a certain amount of requests have been received
+# This step is only intended for use in stress tests
+#
+# @step_input min_received [Integer] The minimum amount of requests required to pass
+# @step_input request_type [String] The type of request (error, session, build, etc)
+Then('I have received at least {int} {word}') do |min_received, request_type|
+  list = Maze::Server.list_for(request_type)
+  assert_operator(list.size, :>=, min_received, "Actually received #{list.size} #{request_type} requests")
+end
+
 # Assert that the test Server hasn't received any requests - of a specific, or any, type.
 #
 # @step_input request_type [String] The type of request ('error', 'session', build, etc), or 'requests' to assert on all

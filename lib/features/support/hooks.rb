@@ -58,9 +58,11 @@ AfterConfiguration do |_cucumber_config|
                                                tunnel_id,
                                                config.username,
                                                config.access_key
-      config.capabilities = Maze::Capabilities.for_sauce_labs_device config.username,
-                                                                     config.access_key,
-                                                                     tunnel_id
+      config.capabilities = Maze::Capabilities.for_sauce_labs_device config.test_device,
+                                                                     tunnel_id,
+                                                                     config.appium_version,
+                                                                     config.capabilities_option
+
       # config.capabilities['app'] = "https://api.us-west-1.saucelabs.com/v1/storage/download/#{config.app}"
       config.capabilities['app'] = "storage:filename=iOSTestApp.ipa"
 

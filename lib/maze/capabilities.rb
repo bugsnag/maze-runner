@@ -69,19 +69,16 @@ module Maze
         capabilities.merge! JSON.parse(capabilities_option)
       end
 
-      def for_sauce_labs_device(username, access_key, tunnel_id)
-        {
-          'username' => username,
-          'accessKey' => access_key,
-          # 'platformVersion' => '10',
-          # 'deviceName' => "Samsung_Galaxy_S9_free",
-          'platformName' => 'iOS',
+      def for_sauce_labs_device(device_type, tunnel_id, appium_version, capabilities_option)
+        capabilities = {
           'deviceOrientation' => 'portrait',
           'tunnelIdentifier' => tunnel_id,
-          # name: "#{scenario.feature.name} - #{scenario.name}",
-          # 'appiumVersion' => '1.8.1',
           'browserName' => ""
         }
+        capabilities.merge! Devices::DEVICE_HASH[device_type]
+        capabilities.merge! JSON.parse(capabilities_option)
+        capabilities['appiumVersion'] = appium_version unless appium_version.nil?
+        capabilities
       end
     end
   end

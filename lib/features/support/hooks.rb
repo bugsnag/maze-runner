@@ -54,7 +54,7 @@ AfterConfiguration do |_cucumber_config|
                                                    config.access_key,
                                                    config.app
       # Capabilities
-      Maze::SauceLabsUtils.start_sauce_connect '/Users/steve/sc',
+      Maze::SauceLabsUtils.start_sauce_connect 'sc',
                                                tunnel_id,
                                                config.username,
                                                config.access_key
@@ -62,7 +62,7 @@ AfterConfiguration do |_cucumber_config|
                                                                      config.access_key,
                                                                      tunnel_id
       # config.capabilities['app'] = "https://api.us-west-1.saucelabs.com/v1/storage/download/#{config.app}"
-      config.capabilities['app'] = "storage:filename=app-release.apk"
+      config.capabilities['app'] = "storage:filename=iOSTestApp.ipa"
 
       puts config.capabilities.inspect
     else
@@ -248,5 +248,8 @@ at_exit do
     Maze::Runner.run_command("log show --predicate '(process == \"#{Maze.config.app}\")' --style syslog --start '#{Maze.start_time}' > #{Maze.config.app}.log")
   elsif Maze.config.farm == :bs
     Maze::BrowserStackUtils.stop_local_tunnel
+  elsif Maze.config.farm == :sl
+    pp "Stopping sauce labs"
+    Maze::SauceLabsUtils.stop_sauce_connect
   end
 end

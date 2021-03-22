@@ -73,13 +73,13 @@ module Maze
         {
           'username' => username,
           'accessKey' => access_key,
-          'platformVersion' => '10',
-          'deviceName' => "Samsung_Galaxy_S9_free",
-          'platformName' => "Android",
+          # 'platformVersion' => '10',
+          # 'deviceName' => "Samsung_Galaxy_S9_free",
+          'platformName' => 'iOS',
           'deviceOrientation' => 'portrait',
           'tunnelIdentifier' => tunnel_id,
           # name: "#{scenario.feature.name} - #{scenario.name}",
-          'appiumVersion' => '1.8.1',
+          # 'appiumVersion' => '1.8.1',
           'browserName' => ""
         }
       end

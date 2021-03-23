@@ -64,7 +64,6 @@ AfterConfiguration do |_cucumber_config|
                                                                      config.capabilities_option
 
       config.capabilities['app'] = "storage:#{config.app}"
-      # config.capabilities['app'] = "storage:filename=#{config.app}"
     else
       # TODO: Sauce Labs browser
       # config.capabilities = Maze::Capabilities.for_browser_stack_browser config.test_browser,

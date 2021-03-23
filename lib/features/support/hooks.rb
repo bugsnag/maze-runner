@@ -63,7 +63,7 @@ AfterConfiguration do |_cucumber_config|
                                                                      config.appium_version,
                                                                      config.capabilities_option
 
-      config.capabilities['app'] = "https://api.us-west-1.saucelabs.com/v1/storage/download/#{config.app}"
+      config.capabilities['app'] = "storage:#{config.app}"
       # config.capabilities['app'] = "storage:filename=#{config.app}"
     else
       # TODO: Sauce Labs browser

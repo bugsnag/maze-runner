@@ -27,6 +27,7 @@ module Maze
           config.farm = case farm
                         when nil then :none
                         when 'bs' then :bs
+                        when 'sl' then :sl
                         when 'local' then :local
                         else
                           raise "Unknown farm '#{farm}'"
@@ -37,17 +38,30 @@ module Maze
           # Farm specific options
           case config.farm
           when :bs then
-            if options[Maze::Option::BS_DEVICE]
-              config.bs_device = options[Maze::Option::BS_DEVICE]
-              config.os_version = Maze::Devices::DEVICE_HASH[config.bs_device]['os_version'].to_f
+            if options[Maze::Option::TEST_DEVICE]
+              config.test_device = options[Maze::Option::TEST_DEVICE]
+              config.os_version = Maze::Devices::DEVICE_HASH[config.test_device]['os_version'].to_f
             else
-              config.bs_browser = options[Maze::Option::BS_BROWSER]
+              config.test_browser = options[Maze::Option::TEST_BROWSER]
             end
             config.bs_local = Maze::Helper.expand_path(options[Maze::Option::BS_LOCAL])
             config.appium_version = options[Maze::Option::BS_APPIUM_VERSION]
             username = config.username = options[Maze::Option::USERNAME]
             access_key = config.access_key = options[Maze::Option::ACCESS_KEY]
             config.appium_server_url = "http://#{username}:#{access_key}@hub-cloud.browserstack.com/wd/hub"
+          when :sl then
+            if options[Maze::Option::TEST_DEVICE]
+              config.test_device = options[Maze::Option::TEST_DEVICE]
+              # TODO: OS version
+              # config.os_version = Maze::Devices::DEVICE_HASH[config.test_device]['os_version'].to_f
+            else
+              config.test_browser = options[Maze::Option::TEST_BROWSER]
+            end
+            # config.bs_local = Maze::Helper.expand_path(options[Maze::Option::BS_LOCAL])
+            # config.appium_version = options[Maze::Option::BS_APPIUM_VERSION]
+            username = config.username = options[Maze::Option::USERNAME]
+            access_key = config.access_key = options[Maze::Option::ACCESS_KEY]
+            config.appium_server_url = "http://#{username}:#{access_key}@ondemand.us-west-1.saucelabs.com/wd/hub"
           when :local then
             os = config.os = options[Maze::Option::OS].downcase
             config.os_version = options[Maze::Option::OS_VERSION].to_f

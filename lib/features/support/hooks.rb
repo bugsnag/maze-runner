@@ -64,9 +64,7 @@ AfterConfiguration do |_cucumber_config|
                                                                      config.capabilities_option
 
       # config.capabilities['app'] = "https://api.us-west-1.saucelabs.com/v1/storage/download/#{config.app}"
-      config.capabilities['app'] = "storage:filename=iOSTestApp.ipa"
-
-      puts config.capabilities.inspect
+      config.capabilities['app'] = "storage:filename=#{config.app}"
     else
       # TODO: Sauce Labs browser
       # config.capabilities = Maze::Capabilities.for_browser_stack_browser config.test_browser,

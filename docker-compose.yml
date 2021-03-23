@@ -35,6 +35,8 @@ services:
       BUILDKITE_STEP_KEY:
       MAZE_DEVICE_FARM_USERNAME:
       MAZE_DEVICE_FARM_ACCESS_KEY:
+      SAUCE_LABS_USERNAME:
+      SAUCE_LABS_ACCESS_KEY:
 
   cli-tests:
     build:

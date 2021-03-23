@@ -53,13 +53,13 @@ module Maze
       end
 
       def add_sc_android_test(hash)
-        hash['sc_android'] = {
+        hash['sl_android'] = {
           'platformName' => 'android'
         }
       end
 
       def add_sc_ios_test(hash)
-        hash['sc_ios'] = {
+        hash['sl_ios'] = {
           'platformName' => 'iOS'
         }
       end

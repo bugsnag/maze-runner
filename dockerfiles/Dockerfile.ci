@@ -11,6 +11,11 @@ RUN wget -q https://storage.googleapis.com/bugsnag-public-test-dependencies/Brow
   && unzip BrowserStackLocal-linux-x64.zip \
   && rm BrowserStackLocal-linux-x64.zip
 
+RUN wget -q https://saucelabs.com/downloads/sc-4.6.4-linux.tar.gz \
+  && tar --extract --file sc-4.6.4-linux.tar.gz \
+  && rm sc-4.6.4-linux.tar.gz \
+  && mv sc-4.6.4-linux sauce-connect
+
 WORKDIR /app/
 
 COPY bin/ bin/

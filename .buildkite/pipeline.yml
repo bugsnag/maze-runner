@@ -104,6 +104,19 @@ steps:
     concurrency: 10
     concurrency_group: 'browserstack-app'
 
+  - label: 'SauceLabs app-automate test'
+    depends_on: "test-images"
+    plugins:
+      docker-compose#v3.7.0:
+        run: browserstack-app-automate
+    command: >-
+      bundle exec maze-runner
+      --app=app/build/outputs/apk/release/app-release.apk
+      --farm=sl
+      --device=sl_android
+    concurrency: 1
+    concurrency_group: 'sl-app'
+
   - wait
 
   - label: 'Update docs'

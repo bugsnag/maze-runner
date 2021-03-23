@@ -54,7 +54,7 @@ AfterConfiguration do |_cucumber_config|
                                                    config.access_key,
                                                    config.app
       # Capabilities
-      Maze::SauceLabsUtils.start_sauce_connect 'sc',
+      Maze::SauceLabsUtils.start_sauce_connect '/sauce-connect/bin/sc',
                                                tunnel_id,
                                                config.username,
                                                config.access_key

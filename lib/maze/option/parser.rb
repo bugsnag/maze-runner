@@ -77,19 +77,19 @@ module Maze
                 'BrowserStack browser to use (an entry in browsers.yml)',
                 short: :none,
                 type: :string
+            opt Option::USERNAME,
+                'Device farm username. Consumes env var from environment based on farm set',
+                short: '-u',
+                type: :string
+            opt Option::ACCESS_KEY,
+                'Device farm access key. Consumes env var from environment based on farm set',
+                short: '-p',
+                type: :string
 
             # BrowserStack-only options
             opt Option::BS_LOCAL,
                 '(BS only) Path to the BrowserStackLocal binary. MAZE_BS_LOCAL env var or "/BrowserStackLocal" by default',
                 short: :none,
-                type: :string
-            opt Option::USERNAME,
-                'Device farm username. MAZE_DEVICE_FARM_USERNAME env var by default',
-                short: '-u',
-                type: :string
-            opt Option::ACCESS_KEY,
-                'Device farm access key. MAZE_DEVICE_FARM_ACCESS_KEY env var by default',
-                short: '-p',
                 type: :string
             opt Option::BS_APPIUM_VERSION,
                 'The Appium version to use with BrowserStack',
@@ -156,6 +156,18 @@ module Maze
         #
         # @returns [Hash] The options hash with environment vars added
         def populate_environmental_defaults(options)
+          case options.farm
+          when 'bs'
+            # Deprecated and will be removed as an option
+            options[Option::USERNAME] ||= ENV['MAZE_DEVICE_FARM_USERNAME']
+            options[Option::ACCESS_KEY] ||= ENV['MAZE_DEVICE_FARM_ACCESS_KEY']
+
+            options[Option::USERNAME] ||= ENV['BROWSER_STACK_USERNAME']
+            options[Option::ACCESS_KEY] ||= ENV['BROWSER_STACK_ACCESS_KEY']
+          when 'sl'
+            options[Option::USERNAME] ||= ENV['SAUCE_LABS_USERNAME']
+            options[Option::ACCESS_KEY] ||= ENV['SAUCE_LABS_ACCESS_KEY']
+          end
           options[Option::BS_LOCAL] ||= ENV['MAZE_BS_LOCAL'] || '/BrowserStackLocal'
           options[Option::USERNAME] ||= ENV['MAZE_DEVICE_FARM_USERNAME']
           options[Option::ACCESS_KEY] ||= ENV['MAZE_DEVICE_FARM_ACCESS_KEY']

@@ -39,7 +39,8 @@ steps:
       - docker-compose#v3.7.0:
           build:
             - comparison-tests
-            - browserstack-app-automate
+            - android-appium-test
+            - ios-appium-test
             - payload-helper-tests
             - http-response-tests
             - unit-test
@@ -81,7 +82,7 @@ steps:
     depends_on: "test-images"
     plugins:
       docker-compose#v3.7.0:
-        run: browserstack-app-automate
+        run: android-appium-test
     command: >-
       bundle exec maze-runner
       --app=app/build/outputs/apk/release/app-release.apk
@@ -94,7 +95,7 @@ steps:
     depends_on: "test-images"
     plugins:
       docker-compose#v3.7.0:
-        run: browserstack-app-automate
+        run: android-appium-test
     command: >-
       bundle exec maze-runner
       --app=app/build/outputs/apk/release/app-release.apk
@@ -104,16 +105,31 @@ steps:
     concurrency: 10
     concurrency_group: 'browserstack-app'
 
-  - label: 'SauceLabs app-automate test'
+  - label: 'SauceLabs Android app test'
     depends_on: "test-images"
     plugins:
       docker-compose#v3.7.0:
-        run: browserstack-app-automate
+        run: android-appium-test
     command: >-
       bundle exec maze-runner
       --app=app/build/outputs/apk/release/app-release.apk
       --farm=sl
       --device=sl_android
+      --username=$SAUCE_LABS_USERNAME
+      --access-key=$SAUCE_LABS_ACCESS_KEY
+    concurrency: 1
+    concurrency_group: 'sl-app'
+
+  - label: 'SauceLabs iOS app test'
+    depends_on: "test-images"
+    plugins:
+      docker-compose#v3.7.0:
+        run: ios-appium-test
+    command: >-
+      bundle exec maze-runner
+      --app=iOSTestApp.ipa
+      --farm=sl
+      --device=sl_ios
       --username=$SAUCE_LABS_USERNAME
       --access-key=$SAUCE_LABS_ACCESS_KEY
     concurrency: 1

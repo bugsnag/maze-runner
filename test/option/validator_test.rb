@@ -49,7 +49,6 @@ class ValidatorTest < Test::Unit::TestCase
     options = Maze::Option::Parser.parse args
     errors = @validator.validate options
 
-    puts errors
     assert_equal 1, errors.length
     assert_match 'Device type \'MADE_UP\' unknown on BrowserStack.  Must be one of', errors[0]
   end
@@ -62,7 +61,6 @@ class ValidatorTest < Test::Unit::TestCase
     options = Maze::Option::Parser.parse args
     errors = @validator.validate options
 
-    puts errors
     assert_equal 1, errors.length
     assert_match 'Browser type \'MADE_UP\' unknown on BrowserStack.  Must be one of', errors[0]
   end

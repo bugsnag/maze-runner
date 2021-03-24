@@ -15,9 +15,6 @@ AfterConfiguration do |_cucumber_config|
   Maze::Server.start
   config = Maze.config
 
-
-  puts "Farm is #{config.farm}"
-
   next if config.farm == :none
 
   # Setup Appium capabilities.  Note that the 'app' capability is

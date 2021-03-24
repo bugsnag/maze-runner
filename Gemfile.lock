@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    bugsnag-maze-runner (4.13.0)
+    bugsnag-maze-runner (5.0.0)
       appium_lib (~> 11.2.0)
       boring (~> 0.1.0)
       cucumber (~> 3.1.2)
@@ -28,7 +28,7 @@ GEM
       appium_lib_core (~> 4.1)
       nokogiri (~> 1.8, >= 1.8.1)
       tomlrb (~> 1.1)
-    appium_lib_core (4.4.1)
+    appium_lib_core (4.5.0)
       faye-websocket (~> 0.11.0)
       selenium-webdriver (~> 3.14, >= 3.14.1)
     backports (3.20.2)
@@ -69,11 +69,13 @@ GEM
       kramdown (>= 1.5.0)
       props (>= 1.1.2)
       textutils (>= 0.10.0)
+    mini_portile2 (2.5.0)
     minitest (5.14.3)
     mocha (1.12.0)
     multi_json (1.15.0)
     multi_test (0.1.2)
-    nokogiri (1.11.1-x86_64-darwin)
+    nokogiri (1.11.2)
+      mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
     optimist (3.0.1)
     os (1.0.1)
@@ -120,4 +122,4 @@ DEPENDENCIES
   yard-cucumber (~> 4.0.0)
 
 BUNDLED WITH
-   2.1.4
+   2.2.13

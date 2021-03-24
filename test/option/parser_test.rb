@@ -10,6 +10,7 @@ class ParserTest < Test::Unit::TestCase
     ENV.delete('MAZE_DEVICE_FARM_USERNAME')
     ENV.delete('MAZE_DEVICE_FARM_ACCESS_KEY')
     ENV.delete('MAZE_BS_LOCAL')
+    ENV.delete('MAZE_SL_LOCAL')
     ENV.delete('MAZE_APPIUM_SERVER')
     ENV.delete('MAZE_APPLE_TEAM_ID')
     ENV.delete('MAZE_UDID')
@@ -122,6 +123,7 @@ class ParserTest < Test::Unit::TestCase
     ENV['MAZE_DEVICE_FARM_USERNAME'] = 'ENV_USERNAME'
     ENV['MAZE_DEVICE_FARM_ACCESS_KEY'] = 'ENV_ACCESS_KEY'
     ENV['MAZE_BS_LOCAL'] = 'ENV_BS_LOCAL'
+    ENV['MAZE_SL_LOCAL'] = 'ENV_SL_LOCAL'
     ENV['MAZE_APPIUM_SERVER'] = 'ENV_APPIUM_SERVER'
     ENV['MAZE_APPLE_TEAM_ID'] = 'ENV_TEAM_ID'
     ENV['MAZE_UDID'] = 'ENV_UDID'

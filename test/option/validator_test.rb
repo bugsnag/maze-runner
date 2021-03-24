@@ -12,6 +12,7 @@ class ValidatorTest < Test::Unit::TestCase
     @validator = Maze::Option::Validator.new
     # Prevent environment confusing tests
     ENV.delete('MAZE_BS_LOCAL')
+    ENV.delete('MAZE_SL_LOCAL')
     ENV.delete('MAZE_DEVICE_FARM_USERNAME')
     ENV.delete('MAZE_DEVICE_FARM_ACCESS_KEY')
     ENV.delete('MAZE_APPLE_TEAM_ID')

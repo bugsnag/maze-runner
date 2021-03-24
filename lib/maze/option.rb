@@ -21,7 +21,11 @@ module Maze
     BS_LOCAL = 'bs-local'
     USERNAME = 'username'
     ACCESS_KEY = 'access-key'
+    # TODO: Rename to be farm agnostic
     BS_APPIUM_VERSION = 'appium-version'
+
+    # Sauce Labs-only options
+    SL_LOCAL = 'sl-local'
 
     # Local-only options
     OS = 'os'

@@ -51,7 +51,7 @@ AfterConfiguration do |_cucumber_config|
                                                    config.access_key,
                                                    config.app
       # Capabilities
-      Maze::SauceLabsUtils.start_sauce_connect '/sauce-connect/bin/sc',
+      Maze::SauceLabsUtils.start_sauce_connect config.sl_local,
                                                tunnel_id,
                                                config.username,
                                                config.access_key
@@ -67,9 +67,6 @@ AfterConfiguration do |_cucumber_config|
       #                                                                    tunnel_id,
       #                                                                    config.capabilities_option
     end
-    # Maze::BrowserStackUtils.start_local_tunnel config.bs_local,
-    #                                            tunnel_id,
-    #                                            config.access_key
   elsif config.farm == :local
     # Local device
     config.capabilities = Maze::Capabilities.for_local config.os,

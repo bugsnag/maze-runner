@@ -96,6 +96,12 @@ module Maze
                 short: :none,
                 type: :string
 
+            # Sauce Labs-only options
+            opt Option::SL_LOCAL,
+                '(SL only) Path to the Sauce Connect binary. MAZE_SL_LOCAL env var or "/sauce-connect/bin/sc" by default',
+                short: :none,
+                type: :string
+
             text ''
             text 'Local device options:'
 
@@ -169,6 +175,7 @@ module Maze
             options[Option::ACCESS_KEY] ||= ENV['SAUCE_LABS_ACCESS_KEY']
           end
           options[Option::BS_LOCAL] ||= ENV['MAZE_BS_LOCAL'] || '/BrowserStackLocal'
+          options[Option::SL_LOCAL] ||= ENV['MAZE_SL_LOCAL'] || '/sauce-connect/bin/sc'
           options[Option::USERNAME] ||= ENV['MAZE_DEVICE_FARM_USERNAME']
           options[Option::ACCESS_KEY] ||= ENV['MAZE_DEVICE_FARM_ACCESS_KEY']
           options[Option::APPIUM_SERVER] ||= ENV['MAZE_APPIUM_SERVER'] || 'http://localhost:4723/wd/hub'

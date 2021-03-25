@@ -117,6 +117,10 @@ module Maze
                 'Appium server URL, only used for --farm=local. MAZE_APPIUM_SERVER env var or "http://localhost:4723/wd/hub" by default',
                 short: :none,
                 type: :string
+            opt Option::START_APPIUM,
+                'Whether a local Appium server should be start.  Only used for --farm=local.',
+                short: :none,
+                default: true
             opt Option::APPLE_TEAM_ID,
                 'Apple Team Id, required for local iOS testing. MAZE_APPLE_TEAM_ID env var by default',
                 short: :none,

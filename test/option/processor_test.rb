@@ -48,7 +48,7 @@ class ProcessorTest < Test::Unit::TestCase
   end
 
   def test_populate_local_config
-    args = %w[--farm=local --app=my_app.apk --os=ios --os-version=7.1 --apple-team-id=ABC --udid=123 --bind-address=1.2.3.4 --port=1234]
+    args = %w[--farm=local --app=my_app.apk --os=ios --os-version=7.1 --apple-team-id=ABC --udid=123 --bind-address=1.2.3.4 --port=1234 --no-start-appium]
     options = Maze::Option::Parser.parse args
     config = Maze::Configuration.new
     Maze::Option::Processor.populate config, options
@@ -61,6 +61,7 @@ class ProcessorTest < Test::Unit::TestCase
     assert_equal '123', config.device_id
     assert_equal '1.2.3.4', config.bind_address
     assert_equal 1234, config.port
+    assert_false config.start_appium
   end
 
   def test_logger_options

@@ -64,6 +64,7 @@ class ParserTest < Test::Unit::TestCase
       --os=ARG_OS
       --os-version=ARG_OS_VERSION
       --appium-server=ARG_APPIUM_SERVER
+      --no-start-appium
       --apple-team-id=ARG_APPLE_TEAM_ID
       --udid=ARG_UDID
       --no-log-requests
@@ -90,6 +91,7 @@ class ParserTest < Test::Unit::TestCase
     assert_equal('ARG_OS', options[Maze::Option::OS])
     assert_equal('ARG_OS_VERSION', options[Maze::Option::OS_VERSION])
     assert_equal('ARG_APPIUM_SERVER', options[Maze::Option::APPIUM_SERVER])
+    assert_false(options[Maze::Option::START_APPIUM])
     assert_equal('ARG_APPLE_TEAM_ID', options[Maze::Option::APPLE_TEAM_ID])
     assert_equal('ARG_UDID', options[Maze::Option::UDID])
 

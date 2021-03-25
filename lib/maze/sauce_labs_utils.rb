@@ -64,10 +64,15 @@ module Maze
         success = wait.until { connect_shell.running? }
         raise 'Shell session did not start in time!' unless success
         command = "#{sc_local} -u #{username} -k #{access_key} -x #{endpoint} -i #{tunnel_id} -d #{SC_PID_FILE}"
+
+        # TODO Handle the case where the command fails, providing suitable diagnostics
         connect_shell.run_command command
         ready_regex = /Sauce Connect is up, you may start your tests\.$/
-        Maze::Wait.new(timeout: 30).until do
+        success = Maze::Wait.new(timeout: 30).until do
           connect_shell.stdout_lines.any? { |line| line.match?(ready_regex) }
+        end
+        unless success
+          $logger.info "Failed: #{connect_shell.stdout_lines}"
         end
       end
 

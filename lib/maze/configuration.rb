@@ -72,6 +72,9 @@ module Maze
     # Location of the BrowserStackLocal binary (if used)
     attr_accessor :bs_local
 
+    # Location of the Sauce Connect binary (if used)
+    attr_accessor :sl_local
+
     # Farm username
     attr_accessor :username
 

@@ -57,7 +57,7 @@ module Maze
             else
               config.test_browser = options[Maze::Option::TEST_BROWSER]
             end
-            # config.bs_local = Maze::Helper.expand_path(options[Maze::Option::BS_LOCAL])
+            config.sl_local = Maze::Helper.expand_path(options[Maze::Option::SL_LOCAL])
             # config.appium_version = options[Maze::Option::BS_APPIUM_VERSION]
             username = config.username = options[Maze::Option::USERNAME]
             access_key = config.access_key = options[Maze::Option::ACCESS_KEY]

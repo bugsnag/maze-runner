@@ -10,6 +10,7 @@ require_relative '../../lib/maze/helper'
 class ProcessorTest < Test::Unit::TestCase
   def setup
     ENV.delete('MAZE_BS_LOCAL')
+    ENV.delete('MAZE_SL_LOCAL')
     ENV.delete('MAZE_DEVICE_FARM_USERNAME')
     ENV.delete('MAZE_DEVICE_FARM_ACCESS_KEY')
 

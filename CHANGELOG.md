@@ -1,3 +1,7 @@
+# 5.0.0 - TDB
+
+- Integration with Sauce Labs device farm [#TDB](https://github.com/bugsnag/maze-runner/pull/TDB)
+
 # 4.13.0 - 2021/03/16
 
 - Add stress-test step asserting a minimum amount of requests received [#239](https://github.com/bugsnag/maze-runner/pull/239)

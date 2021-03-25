@@ -54,7 +54,8 @@ module Maze
 
       def add_sc_android_test(hash)
         hash['sl_android'] = {
-          'platformName' => 'android'
+          'platformName' => 'android',
+          'platformVersion' => '10'
         }
       end
 

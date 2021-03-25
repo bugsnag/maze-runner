@@ -12,6 +12,7 @@ class ValidatorTest < Test::Unit::TestCase
     @validator = Maze::Option::Validator.new
     # Prevent environment confusing tests
     ENV.delete('MAZE_BS_LOCAL')
+    ENV.delete('MAZE_SL_LOCAL')
     ENV.delete('MAZE_DEVICE_FARM_USERNAME')
     ENV.delete('MAZE_DEVICE_FARM_ACCESS_KEY')
     ENV.delete('MAZE_APPLE_TEAM_ID')
@@ -49,7 +50,6 @@ class ValidatorTest < Test::Unit::TestCase
     options = Maze::Option::Parser.parse args
     errors = @validator.validate options
 
-    puts errors
     assert_equal 1, errors.length
     assert_match 'Device type \'MADE_UP\' unknown on BrowserStack.  Must be one of', errors[0]
   end
@@ -62,7 +62,6 @@ class ValidatorTest < Test::Unit::TestCase
     options = Maze::Option::Parser.parse args
     errors = @validator.validate options
 
-    puts errors
     assert_equal 1, errors.length
     assert_match 'Browser type \'MADE_UP\' unknown on BrowserStack.  Must be one of', errors[0]
   end

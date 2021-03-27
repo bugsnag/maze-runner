@@ -45,7 +45,9 @@ module Maze
                          {
                            'platformName' => 'Android',
                            'automationName' => 'UiAutomator2',
-                           'autoGrantPermissions' => 'true'
+                           'autoGrantPermissions' => 'true',
+                           # 'skipDeviceInitialization' => 'true',
+                           'noReset' => 'true'
                          }
                        elsif platform.downcase == 'ios'
                          {

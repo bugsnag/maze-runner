@@ -77,7 +77,7 @@ AfterConfiguration do |_cucumber_config|
 
     # Attempt to start the local appium server
     appium_uri = URI(config.appium_server_url)
-    Maze::AppiumServer.start(address: appium_uri.host, port: appium_uri.port)
+    Maze::AppiumServer.start(address: appium_uri.host, port: appium_uri.port) if config.start_appium
   end
 
   # Create and start the relevant driver
@@ -172,7 +172,7 @@ After do |scenario|
   elsif Maze.config.os == 'macos'
     # Close the app - without the sleep, launching the app for the next scenario intermittently fails
     system("killall #{Maze.config.app} && sleep 1")
-  elsif Maze.config.test_device
+  elsif [:bs, :sl, :local].include? Maze.config.farm
     Maze.driver.reset
   end
 ensure

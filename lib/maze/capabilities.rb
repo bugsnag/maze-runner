@@ -12,7 +12,8 @@ module Maze
           'browserstack.console' => 'errors',
           'browserstack.localIdentifier' => local_id,
           'browserstack.local' => 'true',
-          'disabledAnimations' => 'true'
+          'disabledAnimations' => 'true',
+          'noReset' => 'true'
         }
         capabilities.merge! Devices::DEVICE_HASH[device_type]
         capabilities.merge! JSON.parse(capabilities_option)
@@ -45,7 +46,8 @@ module Maze
                          {
                            'platformName' => 'Android',
                            'automationName' => 'UiAutomator2',
-                           'autoGrantPermissions' => 'true'
+                           'autoGrantPermissions' => 'true',
+                           'noReset' => 'true'
                          }
                        elsif platform.downcase == 'ios'
                          {

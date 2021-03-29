@@ -31,6 +31,7 @@ module Maze
     OS = 'os'
     OS_VERSION = 'os-version'
     APPIUM_SERVER = 'appium-server'
+    START_APPIUM = 'start-appium'
     APPLE_TEAM_ID = 'apple-team-id'
     UDID = 'udid'
 

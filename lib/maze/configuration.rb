@@ -109,6 +109,9 @@ module Maze
     # URL of the Appium server
     attr_accessor :appium_server_url
 
+    # Whether an appium server should be started
+    attr_accessor :start_appium
+
     #
     # Logging configuration
     #

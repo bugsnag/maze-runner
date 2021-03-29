@@ -105,6 +105,13 @@ module Maze
         find_element(@element_locator, element_id).send_keys(text)
       end
 
+      # Sets the rotation of the device
+      #
+      # @param orientation [Symbol] :portrait or :landscape
+      def set_rotation(orientation)
+        @driver.rotation = orientation
+      end
+
       # Sends keys to a given element, clearing it first
       #
       # @param element_id [String] the element to clear and send text to

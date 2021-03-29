@@ -11,8 +11,10 @@ class ProcessorTest < Test::Unit::TestCase
   def setup
     ENV.delete('MAZE_BS_LOCAL')
     ENV.delete('MAZE_SL_LOCAL')
-    ENV.delete('MAZE_DEVICE_FARM_USERNAME')
-    ENV.delete('MAZE_DEVICE_FARM_ACCESS_KEY')
+    ENV.delete('BROWSER_STACK_USERNAME')
+    ENV.delete('BROWSER_STACK_ACCESS_KEY')
+    ENV.delete('SAUCE_LABS_USERNAME')
+    ENV.delete('SAUCE_LABS_ACCESS_KEY')
 
     Maze::Helper.stubs(:expand_path).with('/BrowserStackLocal').returns('/BrowserStackLocal')
   end

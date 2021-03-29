@@ -11,11 +11,13 @@ class ValidatorTest < Test::Unit::TestCase
   def setup
     @validator = Maze::Option::Validator.new
     # Prevent environment confusing tests
+    ENV.delete('MAZE_APPLE_TEAM_ID')
     ENV.delete('MAZE_BS_LOCAL')
     ENV.delete('MAZE_SL_LOCAL')
-    ENV.delete('MAZE_DEVICE_FARM_USERNAME')
-    ENV.delete('MAZE_DEVICE_FARM_ACCESS_KEY')
-    ENV.delete('MAZE_APPLE_TEAM_ID')
+    ENV.delete('BROWSER_STACK_USERNAME')
+    ENV.delete('BROWSER_STACK_ACCESS_KEY')
+    ENV.delete('SAUCE_LABS_USERNAME')
+    ENV.delete('SAUCE_LABS_ACCESS_KEY')
 
     Maze::Helper.stubs(:expand_path).with('/BrowserStackLocal').returns('/BrowserStackLocal')
     Maze::Helper.stubs(:expand_path).with('my_app.apk').returns('my_app.apk')

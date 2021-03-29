@@ -7,8 +7,10 @@ require_relative '../../lib/maze/option/parser'
 # Tests the options parser and processor together (using only valid options and with no validator).
 class ParserTest < Test::Unit::TestCase
   def setup
-    ENV.delete('MAZE_DEVICE_FARM_USERNAME')
-    ENV.delete('MAZE_DEVICE_FARM_ACCESS_KEY')
+    ENV.delete('BROWSER_STACK_USERNAME')
+    ENV.delete('BROWSER_STACK_ACCESS_KEY')
+    ENV.delete('SAUCE_LABS_USERNAME')
+    ENV.delete('SAUCE_LABS_ACCESS_KEY')
     ENV.delete('MAZE_BS_LOCAL')
     ENV.delete('MAZE_SL_LOCAL')
     ENV.delete('MAZE_APPIUM_SERVER')
@@ -122,15 +124,15 @@ class ParserTest < Test::Unit::TestCase
   end
 
   def test_environment_values
-    ENV['MAZE_DEVICE_FARM_USERNAME'] = 'ENV_USERNAME'
-    ENV['MAZE_DEVICE_FARM_ACCESS_KEY'] = 'ENV_ACCESS_KEY'
+    ENV['BROWSER_STACK_USERNAME'] = 'ENV_USERNAME'
+    ENV['BROWSER_STACK_ACCESS_KEY'] = 'ENV_ACCESS_KEY'
     ENV['MAZE_BS_LOCAL'] = 'ENV_BS_LOCAL'
     ENV['MAZE_SL_LOCAL'] = 'ENV_SL_LOCAL'
     ENV['MAZE_APPIUM_SERVER'] = 'ENV_APPIUM_SERVER'
     ENV['MAZE_APPLE_TEAM_ID'] = 'ENV_TEAM_ID'
     ENV['MAZE_UDID'] = 'ENV_UDID'
 
-    args = %w[]
+    args = %w[--farm=bs]
     options = Maze::Option::Parser.parse args
 
     # BrowserStack-only options
@@ -145,17 +147,18 @@ class ParserTest < Test::Unit::TestCase
   end
 
   def test_override_priority
-    ENV['MAZE_DEVICE_FARM_USERNAME'] = 'ENV_USERNAME'
-    ENV['MAZE_DEVICE_FARM_ACCESS_KEY'] = 'ENV_ACCESS_KEY'
-    ENV['MAZE_BS_LOCAL'] = 'ENV_BS_LOCAL'
+    ENV['SAUCE_LABS_USERNAME'] = 'ENV_USERNAME'
+    ENV['SAUCE_LABS_ACCESS_KEY'] = 'ENV_ACCESS_KEY'
+    ENV['MAZE_SL_LOCAL'] = 'ENV_BS_LOCAL'
     ENV['MAZE_APPIUM_SERVER'] = 'ENV_APPIUM_SERVER'
     ENV['MAZE_APPLE_TEAM_ID'] = 'ENV_TEAM_ID'
     ENV['MAZE_UDID'] = 'ENV_UDID'
 
     args = %w[
+      --farm=sl
       --username=ARG_USERNAME
       --access-key=ARG_ACCESS_KEY
-      --bs-local=ARG_BS_LOCAL
+      --sl-local=ARG_SL_LOCAL
       --appium-server=ARG_APPIUM_SERVER
       --apple-team-id=ARG_TEAM_ID
       --udid=ARG_UDID
@@ -165,7 +168,7 @@ class ParserTest < Test::Unit::TestCase
     # BrowserStack-only options
     assert_equal('ARG_USERNAME', options[Maze::Option::USERNAME])
     assert_equal('ARG_ACCESS_KEY', options[Maze::Option::ACCESS_KEY])
-    assert_equal('ARG_BS_LOCAL', options[Maze::Option::BS_LOCAL])
+    assert_equal('ARG_SL_LOCAL', options[Maze::Option::SL_LOCAL])
 
     # Local-only options
     assert_equal('ARG_APPIUM_SERVER', options[Maze::Option::APPIUM_SERVER])

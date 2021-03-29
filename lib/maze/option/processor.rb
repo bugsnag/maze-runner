@@ -52,8 +52,8 @@ module Maze
           when :sl then
             if options[Maze::Option::TEST_DEVICE]
               config.test_device = options[Maze::Option::TEST_DEVICE]
-              # TODO: OS version
-              # config.os_version = Maze::Devices::DEVICE_HASH[config.test_device]['os_version'].to_f
+              config.os = options[Maze::Option::OS]
+              config.os_version = options[Maze::Option::OS_VERSION]
             else
               config.test_browser = options[Maze::Option::TEST_BROWSER]
             end

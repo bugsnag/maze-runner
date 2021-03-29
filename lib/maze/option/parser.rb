@@ -85,14 +85,14 @@ module Maze
                 'Device farm access key. Consumes env var from environment based on farm set',
                 short: '-p',
                 type: :string
+            opt Option::APPIUM_VERSION,
+                'The Appium version to use with BrowserStack',
+                short: :none,
+                type: :string
 
             # BrowserStack-only options
             opt Option::BS_LOCAL,
                 '(BS only) Path to the BrowserStackLocal binary. MAZE_BS_LOCAL env var or "/BrowserStackLocal" by default',
-                short: :none,
-                type: :string
-            opt Option::BS_APPIUM_VERSION,
-                'The Appium version to use with BrowserStack',
                 short: :none,
                 type: :string
 

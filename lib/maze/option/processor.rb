@@ -45,7 +45,7 @@ module Maze
               config.test_browser = options[Maze::Option::TEST_BROWSER]
             end
             config.bs_local = Maze::Helper.expand_path(options[Maze::Option::BS_LOCAL])
-            config.appium_version = options[Maze::Option::BS_APPIUM_VERSION]
+            config.appium_version = options[Maze::Option::APPIUM_VERSION]
             username = config.username = options[Maze::Option::USERNAME]
             access_key = config.access_key = options[Maze::Option::ACCESS_KEY]
             config.appium_server_url = "http://#{username}:#{access_key}@hub-cloud.browserstack.com/wd/hub"
@@ -58,7 +58,7 @@ module Maze
               config.test_browser = options[Maze::Option::TEST_BROWSER]
             end
             config.sl_local = Maze::Helper.expand_path(options[Maze::Option::SL_LOCAL])
-            # config.appium_version = options[Maze::Option::BS_APPIUM_VERSION]
+            config.appium_version = options[Maze::Option::APPIUM_VERSION]
             username = config.username = options[Maze::Option::USERNAME]
             access_key = config.access_key = options[Maze::Option::ACCESS_KEY]
             config.appium_server_url = "http://#{username}:#{access_key}@ondemand.us-west-1.saucelabs.com/wd/hub"

@@ -73,6 +73,7 @@ module Maze
 
       def for_sauce_labs_device(device_name, os, os_version, tunnel_id, appium_version, capabilities_option)
         capabilities = {
+          'noReset' => 'true',
           'deviceOrientation' => 'portrait',
           'tunnelIdentifier' => tunnel_id,
           'browserName' => ""

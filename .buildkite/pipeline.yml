@@ -115,7 +115,7 @@ steps:
       --farm=sl
       --os=android
       --device="Pixel 3.*"
-    concurrency: 1
+    concurrency: 2
     concurrency_group: 'sl-app'
 
   - label: 'SauceLabs iOS app test'
@@ -129,7 +129,7 @@ steps:
       --farm=sl
       --os=ios
       --device="iPhone 6S.*"
-    concurrency: 1
+    concurrency: 2
     concurrency_group: 'sl-app'
 
   - wait

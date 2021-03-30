@@ -1,3 +1,11 @@
+# 5.0.0 - 2021/03/30
+
+- Integration with Sauce Labs device farm [#246](https://github.com/bugsnag/maze-runner/pull/246)
+- Enhances for running Android tests with Appium 1.20.2 [#244](https://github.com/bugsnag/maze-runner/pull/244)
+  - Use Appium 1.20.2 for BrowserStack devices where possible 
+  - Add `--start-appium` option for running with local devices, defaulting to true
+  - Add `Maze::Driver::Appium.set_rotation`
+
 # 4.13.0 - 2021/03/16
 
 - Add stress-test step asserting a minimum amount of requests received [#239](https://github.com/bugsnag/maze-runner/pull/239)

@@ -4,7 +4,7 @@ module Maze
   # Appium capabilities for each target farm
   class Capabilities
     class << self
-      # @param device_type [String] A key from @see Devices::DEVICE_HASH
+      # @param device_type [String] A key from @see BrowserStackDevices::DEVICE_HASH
       # @param local_id [String] unique key for the tunnel instance
       # @param capabilities_option [String] extra capabilities provided on the command line
       def for_browser_stack_device(device_type, local_id, appium_version, capabilities_option)
@@ -12,9 +12,10 @@ module Maze
           'browserstack.console' => 'errors',
           'browserstack.localIdentifier' => local_id,
           'browserstack.local' => 'true',
-          'disabledAnimations' => 'true'
+          'disabledAnimations' => 'true',
+          'noReset' => 'true'
         }
-        capabilities.merge! Devices::DEVICE_HASH[device_type]
+        capabilities.merge! BrowserStackDevices::DEVICE_HASH[device_type]
         capabilities.merge! JSON.parse(capabilities_option)
         capabilities['browserstack.appium_version'] = appium_version unless appium_version.nil?
         capabilities
@@ -45,7 +46,8 @@ module Maze
                          {
                            'platformName' => 'Android',
                            'automationName' => 'UiAutomator2',
-                           'autoGrantPermissions' => 'true'
+                           'autoGrantPermissions' => 'true',
+                           'noReset' => 'true'
                          }
                        elsif platform.downcase == 'ios'
                          {
@@ -67,6 +69,20 @@ module Maze
         }
         capabilities.merge! common
         capabilities.merge! JSON.parse(capabilities_option)
+      end
+
+      def for_sauce_labs_device(device_name, os, os_version, tunnel_id, appium_version, capabilities_option)
+        capabilities = {
+          'deviceOrientation' => 'portrait',
+          'tunnelIdentifier' => tunnel_id,
+          'browserName' => ""
+        }
+        capabilities['deviceName'] = device_name unless device_name.nil?
+        capabilities['platformName'] = os unless os.nil?
+        capabilities['platformVersion'] = os_version unless os_version.nil?
+        capabilities.merge! JSON.parse(capabilities_option)
+        capabilities['appiumVersion'] = appium_version unless appium_version.nil?
+        capabilities
       end
     end
   end

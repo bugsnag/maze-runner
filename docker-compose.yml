@@ -19,11 +19,13 @@ services:
       args:
         DOCS_PUSH_TOKEN:
 
-  browserstack-app-automate:
+  android-appium-test:
     build:
-      context: test/fixtures/browserstack-app
+      context: test/fixtures/android-appium-test
       args:
         BRANCH_NAME:
+    extra_hosts:
+      - "maze-local:127.0.0.1"
     environment:
       BRANCH_NAME:
       BUILDKITE_PIPELINE_NAME:
@@ -31,8 +33,29 @@ services:
       BUILDKITE:
       BUILDKITE_BUILD_NUMBER:
       BUILDKITE_STEP_KEY:
-      MAZE_DEVICE_FARM_USERNAME:
-      MAZE_DEVICE_FARM_ACCESS_KEY:
+      BROWSER_STACK_USERNAME:
+      BROWSER_STACK_ACCESS_KEY:
+      SAUCE_LABS_USERNAME:
+      SAUCE_LABS_ACCESS_KEY:
+
+  ios-appium-test:
+    build:
+      context: test/fixtures/ios-app
+      args:
+        BRANCH_NAME:
+    extra_hosts:
+      - "maze-local:127.0.0.1"
+    environment:
+      BRANCH_NAME:
+      BUILDKITE_PIPELINE_NAME:
+      BUILDKITE_RETRY_COUNT:
+      BUILDKITE:
+      BUILDKITE_BUILD_NUMBER:
+      BUILDKITE_STEP_KEY:
+      BROWSER_STACK_USERNAME:
+      BROWSER_STACK_ACCESS_KEY:
+      SAUCE_LABS_USERNAME:
+      SAUCE_LABS_ACCESS_KEY:
 
   cli-tests:
     build:

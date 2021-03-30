@@ -39,7 +39,8 @@ steps:
       - docker-compose#v3.7.0:
           build:
             - comparison-tests
-            - browserstack-app-automate
+            - android-appium-test
+            - ios-appium-test
             - payload-helper-tests
             - http-response-tests
             - unit-test
@@ -81,7 +82,7 @@ steps:
     depends_on: "test-images"
     plugins:
       docker-compose#v3.7.0:
-        run: browserstack-app-automate
+        run: android-appium-test
     command: >-
       bundle exec maze-runner
       --app=app/build/outputs/apk/release/app-release.apk
@@ -94,15 +95,42 @@ steps:
     depends_on: "test-images"
     plugins:
       docker-compose#v3.7.0:
-        run: browserstack-app-automate
+        run: android-appium-test
     command: >-
       bundle exec maze-runner
       --app=app/build/outputs/apk/release/app-release.apk
       --farm=bs
       --device=ANDROID_11_0
-      --appium-version=1.17.0
     concurrency: 10
     concurrency_group: 'browserstack-app'
+
+  - label: 'SauceLabs Android app test'
+    depends_on: "test-images"
+    plugins:
+      docker-compose#v3.7.0:
+        run: android-appium-test
+    command: >-
+      bundle exec maze-runner
+      --app=app/build/outputs/apk/release/app-release.apk
+      --farm=sl
+      --os=Android
+      --device=".*Pixel 3.*"
+    concurrency: 2
+    concurrency_group: 'sl-app'
+
+  - label: 'SauceLabs iOS app test'
+    depends_on: "test-images"
+    plugins:
+      docker-compose#v3.7.0:
+        run: ios-appium-test
+    command: >-
+      bundle exec maze-runner
+      --app=iOSTestApp.ipa
+      --farm=sl
+      --os=iOS
+      --device="iPhone 6S.*"
+    concurrency: 2
+    concurrency_group: 'sl-app'
 
   - wait
 

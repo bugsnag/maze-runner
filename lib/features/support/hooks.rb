@@ -14,6 +14,7 @@ AfterConfiguration do |_cucumber_config|
   # Start mock server
   Maze::Server.start
   config = Maze.config
+
   next if config.farm == :none
 
   # Setup Appium capabilities.  Note that the 'app' capability is
@@ -22,9 +23,9 @@ AfterConfiguration do |_cucumber_config|
   # BrowserStack specific setup
   if config.farm == :bs
     tunnel_id = SecureRandom.uuid
-    if config.bs_device
+    if config.test_device
       # BrowserStack device
-      config.capabilities = Maze::Capabilities.for_browser_stack_device config.bs_device,
+      config.capabilities = Maze::Capabilities.for_browser_stack_device config.test_device,
                                                                         tunnel_id,
                                                                         config.appium_version,
                                                                         config.capabilities_option
@@ -35,13 +36,39 @@ AfterConfiguration do |_cucumber_config|
       config.capabilities['app'] = config.app
     else
       # BrowserStack browser
-      config.capabilities = Maze::Capabilities.for_browser_stack_browser config.bs_browser,
+      config.capabilities = Maze::Capabilities.for_browser_stack_browser config.test_browser,
                                                                          tunnel_id,
                                                                          config.capabilities_option
     end
     Maze::BrowserStackUtils.start_local_tunnel config.bs_local,
                                                tunnel_id,
                                                config.access_key
+  elsif config.farm == :sl
+    tunnel_id = SecureRandom.uuid
+    if config.test_device
+
+      config.app = Maze::SauceLabsUtils.upload_app config.username,
+                                                   config.access_key,
+                                                   config.app
+      # Capabilities
+      Maze::SauceLabsUtils.start_sauce_connect config.sl_local,
+                                               tunnel_id,
+                                               config.username,
+                                               config.access_key
+      config.capabilities = Maze::Capabilities.for_sauce_labs_device config.test_device,
+                                                                     config.os,
+                                                                     config.os_version,
+                                                                     tunnel_id,
+                                                                     config.appium_version,
+                                                                     config.capabilities_option
+
+      config.capabilities['app'] = "storage:#{config.app}"
+    else
+      # TODO: Sauce Labs browser
+      # config.capabilities = Maze::Capabilities.for_browser_stack_browser config.test_browser,
+      #                                                                    tunnel_id,
+      #                                                                    config.capabilities_option
+    end
   elsif config.farm == :local
     # Local device
     config.capabilities = Maze::Capabilities.for_local config.os,
@@ -52,11 +79,11 @@ AfterConfiguration do |_cucumber_config|
 
     # Attempt to start the local appium server
     appium_uri = URI(config.appium_server_url)
-    Maze::AppiumServer.start(address: appium_uri.host, port: appium_uri.port)
+    Maze::AppiumServer.start(address: appium_uri.host, port: appium_uri.port) if config.start_appium
   end
 
   # Create and start the relevant driver
-  if config.bs_browser
+  if config.test_browser
     selenium_url = "http://#{config.username}:#{config.access_key}@hub.browserstack.com/wd/hub"
     Maze.driver = Maze::Driver::Browser.new selenium_url, config.capabilities
   else
@@ -74,10 +101,10 @@ AfterConfiguration do |_cucumber_config|
     Maze.driver.start_driver unless config.appium_session_isolation
   end
 
-  if config.farm == :bs && (config.bs_device || config.bs_browser)
+  if config.farm == :bs && (config.test_device || config.test_browser)
     # Log a link to the BrowserStack session search dashboard
     build = Maze.driver.capabilities[:build]
-    url = if config.bs_device
+    url = if config.test_device
             "https://app-automate.browserstack.com/dashboard/v2/search?query=#{build}&type=builds"
           else
             "https://automate.browserstack.com/dashboard/v2/search?query=#{build}&type=builds"
@@ -147,7 +174,7 @@ After do |scenario|
   elsif Maze.config.os == 'macos'
     # Close the app - without the sleep, launching the app for the next scenario intermittently fails
     system("killall #{Maze.config.app} && sleep 1")
-  elsif Maze.config.bs_device
+  elsif [:bs, :sl, :local].include? Maze.config.farm
     Maze.driver.reset
   end
 ensure
@@ -216,5 +243,8 @@ at_exit do
     Maze::Runner.run_command("log show --predicate '(process == \"#{Maze.config.app}\")' --style syslog --start '#{Maze.start_time}' > #{Maze.config.app}.log")
   elsif Maze.config.farm == :bs
     Maze::BrowserStackUtils.stop_local_tunnel
+  elsif Maze.config.farm == :sl
+    pp "Stopping sauce labs"
+    Maze::SauceLabsUtils.stop_sauce_connect
   end
 end

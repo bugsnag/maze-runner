@@ -66,11 +66,14 @@ module Maze
     attr_accessor :farm
 
     #
-    # BrowserStack specific configuration
+    # Device farm specific configuration
     #
 
     # Location of the BrowserStackLocal binary (if used)
     attr_accessor :bs_local
+
+    # Location of the Sauce Connect binary (if used)
+    attr_accessor :sl_local
 
     # Farm username
     attr_accessor :username
@@ -78,13 +81,13 @@ module Maze
     # Farm access key
     attr_accessor :access_key
 
-    # BrowserStack device type
-    attr_accessor :bs_device
+    # Test device type
+    attr_accessor :test_device
 
-    # BrowserStack browser type
-    attr_accessor :bs_browser
+    # Test browser type
+    attr_accessor :test_browser
 
-    # Appium version to use on BrowserStack
+    # Appium version to use
     attr_accessor :appium_version
 
     #
@@ -105,6 +108,9 @@ module Maze
 
     # URL of the Appium server
     attr_accessor :appium_server_url
+
+    # Whether an appium server should be started
+    attr_accessor :start_appium
 
     #
     # Logging configuration

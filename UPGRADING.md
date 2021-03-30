@@ -1,5 +1,15 @@
 # Upgrading Guide
 
+## v4 to v5
+
+Maze Runner has beeb integrated with the Sauce Labs device farm, resulting in some environment variables and command
+line options being renamed or removed:
+
+Old variable/option | New variable(s)/option(s)
+---|---|
+`MAZE_DEVICE_FARM_USERNAME` | `SAUCE_LABS_USERNAME` and `BROWSER_STACK_USERNAME` 
+`MAZE_DEVICE_FARM_ACCESS_KEY` | `SAUCE_LABS_ACCESS_KEY` and `BROWSER_STACK_ACCESS_KEY` 
+
 ## v3 to v4
 
 In v3, a single "request" endpoint received HTTP requests for both errors (notify) and sessions.  In v4 these have 

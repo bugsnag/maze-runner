@@ -68,28 +68,37 @@ module Maze
             text ''
             text 'Device farm options:'
 
-            opt Option::BS_LOCAL,
-                '(BS only) Path to the BrowserStackLocal binary. MAZE_BS_LOCAL env var or "/BrowserStackLocal" by default',
+            # TODO: Descriptions
+            opt Option::DEVICE,
+                'BrowserStack device to use (a key of BrowserStackDevices.DEVICE_HASH)',
                 short: :none,
                 type: :string
-            opt Option::BS_DEVICE,
-                'BrowserStack device to use (a key of Devices.DEVICE_HASH)',
-                short: :none,
-                type: :string
-            opt Option::BS_BROWSER,
+            opt Option::BROWSER,
                 'BrowserStack browser to use (an entry in browsers.yml)',
                 short: :none,
                 type: :string
             opt Option::USERNAME,
-                'Device farm username. MAZE_DEVICE_FARM_USERNAME env var by default',
+                'Device farm username. Consumes env var from environment based on farm set',
                 short: '-u',
                 type: :string
             opt Option::ACCESS_KEY,
-                'Device farm access key. MAZE_DEVICE_FARM_ACCESS_KEY env var by default',
+                'Device farm access key. Consumes env var from environment based on farm set',
                 short: '-p',
                 type: :string
-            opt Option::BS_APPIUM_VERSION,
+            opt Option::APPIUM_VERSION,
                 'The Appium version to use with BrowserStack',
+                short: :none,
+                type: :string
+
+            # BrowserStack-only options
+            opt Option::BS_LOCAL,
+                '(BS only) Path to the BrowserStackLocal binary. MAZE_BS_LOCAL env var or "/BrowserStackLocal" by default',
+                short: :none,
+                type: :string
+
+            # Sauce Labs-only options
+            opt Option::SL_LOCAL,
+                '(SL only) Path to the Sauce Connect binary. MAZE_SL_LOCAL env var or "/sauce-connect/bin/sc" by default',
                 short: :none,
                 type: :string
 
@@ -108,6 +117,10 @@ module Maze
                 'Appium server URL, only used for --farm=local. MAZE_APPIUM_SERVER env var or "http://localhost:4723/wd/hub" by default',
                 short: :none,
                 type: :string
+            opt Option::START_APPIUM,
+                'Whether a local Appium server should be start.  Only used for --farm=local.',
+                short: :none,
+                default: true
             opt Option::APPLE_TEAM_ID,
                 'Apple Team Id, required for local iOS testing. MAZE_APPLE_TEAM_ID env var by default',
                 short: :none,
@@ -153,9 +166,16 @@ module Maze
         #
         # @returns [Hash] The options hash with environment vars added
         def populate_environmental_defaults(options)
+          case options.farm
+          when 'bs'
+            options[Option::USERNAME] ||= ENV['BROWSER_STACK_USERNAME']
+            options[Option::ACCESS_KEY] ||= ENV['BROWSER_STACK_ACCESS_KEY']
+          when 'sl'
+            options[Option::USERNAME] ||= ENV['SAUCE_LABS_USERNAME']
+            options[Option::ACCESS_KEY] ||= ENV['SAUCE_LABS_ACCESS_KEY']
+          end
           options[Option::BS_LOCAL] ||= ENV['MAZE_BS_LOCAL'] || '/BrowserStackLocal'
-          options[Option::USERNAME] ||= ENV['MAZE_DEVICE_FARM_USERNAME']
-          options[Option::ACCESS_KEY] ||= ENV['MAZE_DEVICE_FARM_ACCESS_KEY']
+          options[Option::SL_LOCAL] ||= ENV['MAZE_SL_LOCAL'] || '/sauce-connect/bin/sc'
           options[Option::APPIUM_SERVER] ||= ENV['MAZE_APPIUM_SERVER'] || 'http://localhost:4723/wd/hub'
           options[Option::APPLE_TEAM_ID] ||= ENV['MAZE_APPLE_TEAM_ID']
           options[Option::UDID] ||= ENV['MAZE_UDID']

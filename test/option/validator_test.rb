@@ -11,10 +11,13 @@ class ValidatorTest < Test::Unit::TestCase
   def setup
     @validator = Maze::Option::Validator.new
     # Prevent environment confusing tests
-    ENV.delete('MAZE_BS_LOCAL')
-    ENV.delete('MAZE_DEVICE_FARM_USERNAME')
-    ENV.delete('MAZE_DEVICE_FARM_ACCESS_KEY')
     ENV.delete('MAZE_APPLE_TEAM_ID')
+    ENV.delete('MAZE_BS_LOCAL')
+    ENV.delete('MAZE_SL_LOCAL')
+    ENV.delete('BROWSER_STACK_USERNAME')
+    ENV.delete('BROWSER_STACK_ACCESS_KEY')
+    ENV.delete('SAUCE_LABS_USERNAME')
+    ENV.delete('SAUCE_LABS_ACCESS_KEY')
 
     Maze::Helper.stubs(:expand_path).with('/BrowserStackLocal').returns('/BrowserStackLocal')
     Maze::Helper.stubs(:expand_path).with('my_app.apk').returns('my_app.apk')
@@ -27,7 +30,7 @@ class ValidatorTest < Test::Unit::TestCase
     errors = @validator.validate options
 
     assert_equal 1, errors.length
-    assert_equal "--farm must be either 'bs' or 'local' if provided", errors[0]
+    assert_equal "--farm must be 'bs', 'sl' or 'local' if provided", errors[0]
   end
 
   def test_valid_browser_stack_options
@@ -49,7 +52,6 @@ class ValidatorTest < Test::Unit::TestCase
     options = Maze::Option::Parser.parse args
     errors = @validator.validate options
 
-    puts errors
     assert_equal 1, errors.length
     assert_match 'Device type \'MADE_UP\' unknown on BrowserStack.  Must be one of', errors[0]
   end
@@ -62,7 +64,6 @@ class ValidatorTest < Test::Unit::TestCase
     options = Maze::Option::Parser.parse args
     errors = @validator.validate options
 
-    puts errors
     assert_equal 1, errors.length
     assert_match 'Browser type \'MADE_UP\' unknown on BrowserStack.  Must be one of', errors[0]
   end

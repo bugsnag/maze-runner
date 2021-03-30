@@ -10,8 +10,11 @@ require_relative '../../lib/maze/helper'
 class ProcessorTest < Test::Unit::TestCase
   def setup
     ENV.delete('MAZE_BS_LOCAL')
-    ENV.delete('MAZE_DEVICE_FARM_USERNAME')
-    ENV.delete('MAZE_DEVICE_FARM_ACCESS_KEY')
+    ENV.delete('MAZE_SL_LOCAL')
+    ENV.delete('BROWSER_STACK_USERNAME')
+    ENV.delete('BROWSER_STACK_ACCESS_KEY')
+    ENV.delete('SAUCE_LABS_USERNAME')
+    ENV.delete('SAUCE_LABS_ACCESS_KEY')
 
     Maze::Helper.stubs(:expand_path).with('/BrowserStackLocal').returns('/BrowserStackLocal')
   end
@@ -29,7 +32,7 @@ class ProcessorTest < Test::Unit::TestCase
     assert_equal 'my_app.apk', config.app
     assert_equal 'user', config.username
     assert_equal 'key', config.access_key
-    assert_equal 'ANDROID_6_0', config.bs_device
+    assert_equal 'ANDROID_6_0', config.test_device
     assert_equal 6, config.os_version
     assert_equal :id, config.locator
     assert_equal 'http://user:key@hub-cloud.browserstack.com/wd/hub', config.appium_server_url
@@ -47,7 +50,7 @@ class ProcessorTest < Test::Unit::TestCase
   end
 
   def test_populate_local_config
-    args = %w[--farm=local --app=my_app.apk --os=ios --os-version=7.1 --apple-team-id=ABC --udid=123 --bind-address=1.2.3.4 --port=1234]
+    args = %w[--farm=local --app=my_app.apk --os=ios --os-version=7.1 --apple-team-id=ABC --udid=123 --bind-address=1.2.3.4 --port=1234 --no-start-appium]
     options = Maze::Option::Parser.parse args
     config = Maze::Configuration.new
     Maze::Option::Processor.populate config, options
@@ -60,6 +63,7 @@ class ProcessorTest < Test::Unit::TestCase
     assert_equal '123', config.device_id
     assert_equal '1.2.3.4', config.bind_address
     assert_equal 1234, config.port
+    assert_false config.start_appium
   end
 
   def test_logger_options

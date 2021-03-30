@@ -15,18 +15,24 @@ module Maze
     RESILIENT = 'resilient'
     CAPABILITIES = 'capabilities'
 
-    # BrowserStack-only options
-    BS_LOCAL = 'bs-local'
-    BS_DEVICE = 'device'
-    BS_BROWSER = 'browser'
+    # Generic device farm options
     USERNAME = 'username'
     ACCESS_KEY = 'access-key'
-    BS_APPIUM_VERSION = 'appium-version'
-
-    # Local-only options
+    APPIUM_VERSION = 'appium-version'
+    DEVICE = 'device'
+    BROWSER = 'browser'
     OS = 'os'
     OS_VERSION = 'os-version'
+
+    # BrowserStack-only options
+    BS_LOCAL = 'bs-local'
+
+    # Sauce Labs-only options
+    SL_LOCAL = 'sl-local'
+
+    # Local-only options
     APPIUM_SERVER = 'appium-server'
+    START_APPIUM = 'start-appium'
     APPLE_TEAM_ID = 'apple-team-id'
     UDID = 'udid'
 

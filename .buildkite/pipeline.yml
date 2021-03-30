@@ -114,7 +114,7 @@ steps:
       --app=app/build/outputs/apk/release/app-release.apk
       --farm=sl
       --os=Android
-      --device="Pixel 3.*"
+      --device=".*Pixel 3.*"
     concurrency: 2
     concurrency_group: 'sl-app'
 
@@ -127,7 +127,7 @@ steps:
       bundle exec maze-runner
       --app=iOSTestApp.ipa
       --farm=sl
-      --os=ios
+      --os=iOS
       --device="iPhone 6S.*"
     concurrency: 2
     concurrency_group: 'sl-app'

@@ -113,7 +113,7 @@ steps:
       bundle exec maze-runner
       --app=app/build/outputs/apk/release/app-release.apk
       --farm=sl
-      --os=android
+      --os=Android
       --device="Pixel 3.*"
     concurrency: 2
     concurrency_group: 'sl-app'

@@ -101,7 +101,6 @@ steps:
       --app=app/build/outputs/apk/release/app-release.apk
       --farm=bs
       --device=ANDROID_11_0
-      --appium-version=1.17.0
     concurrency: 10
     concurrency_group: 'browserstack-app'
 
@@ -114,8 +113,9 @@ steps:
       bundle exec maze-runner
       --app=app/build/outputs/apk/release/app-release.apk
       --farm=sl
-      --device=sl_android
-    concurrency: 1
+      --os=Android
+      --device=".*Pixel 3.*"
+    concurrency: 2
     concurrency_group: 'sl-app'
 
   - label: 'SauceLabs iOS app test'
@@ -127,8 +127,9 @@ steps:
       bundle exec maze-runner
       --app=iOSTestApp.ipa
       --farm=sl
-      --device=sl_ios
-    concurrency: 1
+      --os=iOS
+      --device="iPhone 6S.*"
+    concurrency: 2
     concurrency_group: 'sl-app'
 
   - wait

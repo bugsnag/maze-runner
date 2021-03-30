@@ -2,7 +2,7 @@
 
 require 'yaml'
 require_relative '../option'
-require_relative '../devices'
+require_relative '../browser_stack_devices'
 
 module Maze
   module Option
@@ -40,10 +40,10 @@ module Maze
         errors << "BrowserStack local binary '#{bs_local}' not found" unless File.exist? bs_local
 
         # Device
-        test_browser = options[Option::TEST_BROWSER]
-        test_device = options[Option::TEST_DEVICE]
+        test_browser = options[Option::BROWSER]
+        test_device = options[Option::DEVICE]
         if test_browser.nil? && test_device.nil?
-          errors << "Either --#{Option::TEST_BROWSER} or --#{Option::TEST_DEVICE} must be specified"
+          errors << "Either --#{Option::BROWSER} or --#{Option::DEVICE} must be specified"
         elsif test_browser
 
           browsers = YAML.safe_load(File.read("#{__dir__}/../browsers.yml"))
@@ -53,8 +53,8 @@ module Maze
             errors << "Browser type '#{test_browser}' unknown on BrowserStack.  Must be one of: #{browser_list}."
           end
         elsif test_device
-          unless Maze::Devices::DEVICE_HASH.key? test_device
-            errors << "Device type '#{test_device}' unknown on BrowserStack.  Must be one of #{Maze::Devices::DEVICE_HASH.keys}"
+          unless Maze::BrowserStackDevices::DEVICE_HASH.key? test_device
+            errors << "Device type '#{test_device}' unknown on BrowserStack.  Must be one of #{Maze::BrowserStackDevices::DEVICE_HASH.keys}"
           end
           # App
           app = options[Option::APP]

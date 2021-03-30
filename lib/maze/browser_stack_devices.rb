@@ -3,7 +3,7 @@
 module Maze
   # Provides a source of capabilities used to run tests against specific BrowserStack devices
   # noinspection RubyStringKeysInHashInspection
-  class Devices
+  class BrowserStackDevices
     APPIUM_1_9_1 = '1.9.1'
     APPIUM_1_15_0 = '1.15.0'
     APPIUM_1_20_2 = '1.20.2'
@@ -49,19 +49,6 @@ module Maze
         new_version = version.gsub '.', '_'
         key = "IOS_#{new_version}_#{name}"
         hash[key] = make_ios_hash device, version
-      end
-
-      def add_sc_android_test(hash)
-        hash['sl_android'] = {
-          'platformName' => 'android',
-          'platformVersion' => '10'
-        }
-      end
-
-      def add_sc_ios_test(hash)
-        hash['sl_ios'] = {
-          'platformName' => 'iOS'
-        }
       end
 
       def create_hash
@@ -122,9 +109,6 @@ module Maze
         add_ios 'iPad Pro 9.7 2016', '11.0', hash                         # IOS_11_0_IPAD_PRO_9_7_2016
         add_ios 'iPad 6th', '11.0', hash                                  # IOS_11_0_IPAD_6TH
         add_ios 'iPad Pro 12.9', '11.0', hash                             # IOS_11_0_IPAD_PRO_12_9
-
-        add_sc_android_test hash
-        add_sc_ios_test hash
 
         hash
       end

@@ -56,6 +56,8 @@ AfterConfiguration do |_cucumber_config|
                                                config.username,
                                                config.access_key
       config.capabilities = Maze::Capabilities.for_sauce_labs_device config.test_device,
+                                                                     config.os,
+                                                                     config.os_version,
                                                                      tunnel_id,
                                                                      config.appium_version,
                                                                      config.capabilities_option

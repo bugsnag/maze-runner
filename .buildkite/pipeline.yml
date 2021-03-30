@@ -101,7 +101,6 @@ steps:
       --app=app/build/outputs/apk/release/app-release.apk
       --farm=bs
       --device=ANDROID_11_0
-      --appium-version=1.17.0
     concurrency: 10
     concurrency_group: 'browserstack-app'
 
@@ -114,7 +113,8 @@ steps:
       bundle exec maze-runner
       --app=app/build/outputs/apk/release/app-release.apk
       --farm=sl
-      --device=sl_android
+      --os=android
+      --device="Pixel 3.*"
     concurrency: 1
     concurrency_group: 'sl-app'
 
@@ -127,7 +127,8 @@ steps:
       bundle exec maze-runner
       --app=iOSTestApp.ipa
       --farm=sl
-      --device=sl_ios
+      --os=ios
+      --device="iPhone 6S.*"
     concurrency: 1
     concurrency_group: 'sl-app'
 

@@ -70,7 +70,7 @@ module Maze
 
             # TODO: Descriptions
             opt Option::TEST_DEVICE,
-                'BrowserStack device to use (a key of Devices.DEVICE_HASH)',
+                'BrowserStack device to use (a key of BrowserStackDevices.DEVICE_HASH)',
                 short: :none,
                 type: :string
             opt Option::TEST_BROWSER,

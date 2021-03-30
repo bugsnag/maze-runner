@@ -50,13 +50,10 @@ module Maze
             access_key = config.access_key = options[Maze::Option::ACCESS_KEY]
             config.appium_server_url = "http://#{username}:#{access_key}@hub-cloud.browserstack.com/wd/hub"
           when :sl then
-            if options[Maze::Option::DEVICE]
-              config.device = options[Maze::Option::DEVICE]
-              config.os = options[Maze::Option::OS]
-              config.os_version = options[Maze::Option::OS_VERSION]
-            else
-              config.browser = options[Maze::Option::BROWSER]
-            end
+            config.device = options[Maze::Option::DEVICE]
+            config.browser = options[Maze::Option::BROWSER]
+            config.os = options[Maze::Option::OS]
+            config.os_version = options[Maze::Option::OS_VERSION]
             config.sl_local = Maze::Helper.expand_path(options[Maze::Option::SL_LOCAL])
             config.appium_version = options[Maze::Option::APPIUM_VERSION]
             username = config.username = options[Maze::Option::USERNAME]

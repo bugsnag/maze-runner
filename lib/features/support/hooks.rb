@@ -45,7 +45,8 @@ AfterConfiguration do |_cucumber_config|
                                                config.access_key
   elsif config.farm == :sl
     tunnel_id = SecureRandom.uuid
-    if config.device
+
+    if config.device || config.os || config.os_version
 
       config.app = Maze::SauceLabsUtils.upload_app config.username,
                                                    config.access_key,
@@ -64,6 +65,8 @@ AfterConfiguration do |_cucumber_config|
 
       config.capabilities['app'] = "storage:#{config.app}"
     else
+      $logger.error 'Browser support with Sauce Labs not yet implemented'
+      exit(1)
       # TODO: Sauce Labs browser
       # config.capabilities = Maze::Capabilities.for_browser_stack_browser config.browser,
       #                                                                    tunnel_id,

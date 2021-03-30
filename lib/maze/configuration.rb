@@ -82,10 +82,10 @@ module Maze
     attr_accessor :access_key
 
     # Test device type
-    attr_accessor :test_device
+    attr_accessor :device
 
     # Test browser type
-    attr_accessor :test_browser
+    attr_accessor :browser
 
     # Appium version to use
     attr_accessor :appium_version

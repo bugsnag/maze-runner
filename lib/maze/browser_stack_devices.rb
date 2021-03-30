@@ -51,19 +51,6 @@ module Maze
         hash[key] = make_ios_hash device, version
       end
 
-      def add_sc_android_test(hash)
-        hash['sl_android'] = {
-          'platformName' => 'android',
-          'platformVersion' => '10'
-        }
-      end
-
-      def add_sc_ios_test(hash)
-        hash['sl_ios'] = {
-          'platformName' => 'iOS'
-        }
-      end
-
       def create_hash
         hash = {
           # Classic, non-specific devices for each Android version
@@ -122,9 +109,6 @@ module Maze
         add_ios 'iPad Pro 9.7 2016', '11.0', hash                         # IOS_11_0_IPAD_PRO_9_7_2016
         add_ios 'iPad 6th', '11.0', hash                                  # IOS_11_0_IPAD_6TH
         add_ios 'iPad Pro 12.9', '11.0', hash                             # IOS_11_0_IPAD_PRO_12_9
-
-        add_sc_android_test hash
-        add_sc_ios_test hash
 
         hash
       end

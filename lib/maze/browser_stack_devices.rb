@@ -3,7 +3,7 @@
 module Maze
   # Provides a source of capabilities used to run tests against specific BrowserStack devices
   # noinspection RubyStringKeysInHashInspection
-  class Devices
+  class BrowserStackDevices
     APPIUM_1_9_1 = '1.9.1'
     APPIUM_1_15_0 = '1.15.0'
     APPIUM_1_20_2 = '1.20.2'

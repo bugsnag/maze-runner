@@ -2,7 +2,7 @@
 
 require 'yaml'
 require_relative '../option'
-require_relative '../devices'
+require_relative '../browser_stack_devices'
 
 module Maze
   module Option
@@ -53,8 +53,8 @@ module Maze
             errors << "Browser type '#{test_browser}' unknown on BrowserStack.  Must be one of: #{browser_list}."
           end
         elsif test_device
-          unless Maze::Devices::DEVICE_HASH.key? test_device
-            errors << "Device type '#{test_device}' unknown on BrowserStack.  Must be one of #{Maze::Devices::DEVICE_HASH.keys}"
+          unless Maze::BrowserStackDevices::DEVICE_HASH.key? test_device
+            errors << "Device type '#{test_device}' unknown on BrowserStack.  Must be one of #{Maze::BrowserStackDevices::DEVICE_HASH.keys}"
           end
           # App
           app = options[Option::APP]

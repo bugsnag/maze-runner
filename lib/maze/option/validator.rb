@@ -40,10 +40,10 @@ module Maze
         errors << "BrowserStack local binary '#{bs_local}' not found" unless File.exist? bs_local
 
         # Device
-        test_browser = options[Option::TEST_BROWSER]
-        test_device = options[Option::TEST_DEVICE]
+        test_browser = options[Option::BROWSER]
+        test_device = options[Option::DEVICE]
         if test_browser.nil? && test_device.nil?
-          errors << "Either --#{Option::TEST_BROWSER} or --#{Option::TEST_DEVICE} must be specified"
+          errors << "Either --#{Option::BROWSER} or --#{Option::DEVICE} must be specified"
         elsif test_browser
 
           browsers = YAML.safe_load(File.read("#{__dir__}/../browsers.yml"))

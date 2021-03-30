@@ -19,8 +19,8 @@ module Maze
     USERNAME = 'username'
     ACCESS_KEY = 'access-key'
     APPIUM_VERSION = 'appium-version'
-    TEST_DEVICE = 'device'
-    TEST_BROWSER = 'browser'
+    DEVICE = 'device'
+    BROWSER = 'browser'
     OS = 'os'
     OS_VERSION = 'os-version'
 

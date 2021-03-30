@@ -32,8 +32,8 @@ class ParserTest < Test::Unit::TestCase
 
     # BrowserStack-only options
     assert_equal('/BrowserStackLocal', options[Maze::Option::BS_LOCAL])
-    assert_nil(options[Maze::Option::TEST_DEVICE])
-    assert_nil(options[Maze::Option::TEST_BROWSER])
+    assert_nil(options[Maze::Option::DEVICE])
+    assert_nil(options[Maze::Option::BROWSER])
     assert_nil(options[Maze::Option::USERNAME])
     assert_nil(options[Maze::Option::ACCESS_KEY])
     assert_nil(options[Maze::Option::APPIUM_VERSION])
@@ -83,8 +83,8 @@ class ParserTest < Test::Unit::TestCase
 
     # BrowserStack-only options
     assert_equal('ARG_BS_LOCAL', options[Maze::Option::BS_LOCAL])
-    assert_equal('ARG_DEVICE', options[Maze::Option::TEST_DEVICE])
-    assert_equal('ARG_BROWSER', options[Maze::Option::TEST_BROWSER])
+    assert_equal('ARG_DEVICE', options[Maze::Option::DEVICE])
+    assert_equal('ARG_BROWSER', options[Maze::Option::BROWSER])
     assert_equal('ARG_USERNAME', options[Maze::Option::USERNAME])
     assert_equal('ARG_ACCESS_KEY', options[Maze::Option::ACCESS_KEY])
     assert_equal('ARG_APPIUM_VERSION', options[Maze::Option::APPIUM_VERSION])

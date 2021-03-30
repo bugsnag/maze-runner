@@ -69,11 +69,11 @@ module Maze
             text 'Device farm options:'
 
             # TODO: Descriptions
-            opt Option::TEST_DEVICE,
+            opt Option::DEVICE,
                 'BrowserStack device to use (a key of BrowserStackDevices.DEVICE_HASH)',
                 short: :none,
                 type: :string
-            opt Option::TEST_BROWSER,
+            opt Option::BROWSER,
                 'BrowserStack browser to use (an entry in browsers.yml)',
                 short: :none,
                 type: :string

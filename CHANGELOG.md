@@ -1,3 +1,7 @@
+# 4.13.1 - 2021/03/31
+
+- Always log version number [#247](https://github.com/bugsnag/maze-runner/pull/247)
+
 # 4.13.0 - 2021/03/16
 
 - Add stress-test step asserting a minimum amount of requests received [#239](https://github.com/bugsnag/maze-runner/pull/239)

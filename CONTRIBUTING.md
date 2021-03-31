@@ -12,17 +12,12 @@ Ensure that:
 If the release will create a new major version, also ensure that:
 1. The `Push Docker image for tag` step in `.buildkite/pipeline.yml`
    1. Will recognise the new tag in the `if` condition.
-   1. Pushes the built release image with the correct tag for the major release stream (e.g. `latest-v4-cli`)
-
-As branches are merged to `master` we automatically trigger builds in out major notifiers against the new `master` 
-version, which is useful for assessing the possible impact of a release on our notifiers.  Some judgement should be 
-applied here on whther the triggered builds need to run to completion (typically they don't) and whether the 
-`maze-runner-master` branches that are built for each notifier pipeline are sufficiently up-to-date.
+   1. Pushes the built release image with the correct tag for the major release stream (e.g. `latest-v6-cli`)
 
 #### Performing the release
 
 1. On Github, 'Draft a new release':
-   1. Tag version - of the form v3.6.0
+   1. Tag version - of the form v5.0.1
    1. Target - generally `master` unless the release is a minor/patch for a previous major version for which we have a branch.
    1. Release title - as the Tag version
    1. Description - copy directly from `CHANGLEOG.md`, ensuring that the formatting looks correct in the preview.

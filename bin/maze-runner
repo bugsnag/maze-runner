@@ -62,6 +62,8 @@ class MazeRunnerEntry
   end
 
   def start(args)
+    $logger.info "Maze Runner v#{Maze::VERSION}"
+
     # Parse args, processing any Maze Runner specific options
     @args = args.dup
     options = Maze::Option::Parser.parse args

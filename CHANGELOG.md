@@ -1,3 +1,9 @@
+# TBD
+
+## Fixes
+
+- User interface refinements and improved validation [#249](https://github.com/bugsnag/maze-runner/pull/249)
+
 # 5.0.0 - 2021/03/30
 
 ## Enhancements

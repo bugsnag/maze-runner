@@ -27,7 +27,7 @@ module Maze
 
         # Farm specific options
         validate_bs options, errors if farm == 'bs'
-        # TODO validate_sl options, errors if farm == 'sl'
+        validate_sl options, errors if farm == 'sl'
         validate_local options, errors if farm == 'local'
 
         errors
@@ -40,21 +40,21 @@ module Maze
         errors << "BrowserStack local binary '#{bs_local}' not found" unless File.exist? bs_local
 
         # Device
-        test_browser = options[Option::BROWSER]
-        test_device = options[Option::DEVICE]
-        if test_browser.nil? && test_device.nil?
+        browser = options[Option::BROWSER]
+        device = options[Option::DEVICE]
+        if browser.nil? && device.nil?
           errors << "Either --#{Option::BROWSER} or --#{Option::DEVICE} must be specified"
-        elsif test_browser
+        elsif browser
 
           browsers = YAML.safe_load(File.read("#{__dir__}/../browsers.yml"))
 
-          unless browsers.include? test_browser
+          unless browsers.include? browser
             browser_list = browsers.keys.join ', '
-            errors << "Browser type '#{test_browser}' unknown on BrowserStack.  Must be one of: #{browser_list}."
+            errors << "Browser type '#{browser}' unknown on BrowserStack.  Must be one of: #{browser_list}."
           end
-        elsif test_device
-          unless Maze::BrowserStackDevices::DEVICE_HASH.key? test_device
-            errors << "Device type '#{test_device}' unknown on BrowserStack.  Must be one of #{Maze::BrowserStackDevices::DEVICE_HASH.keys}"
+        elsif device
+          unless Maze::BrowserStackDevices::DEVICE_HASH.key? device
+            errors << "Device type '#{device}' unknown on BrowserStack.  Must be one of #{Maze::BrowserStackDevices::DEVICE_HASH.keys}"
           end
           # App
           app = options[Option::APP]
@@ -63,6 +63,40 @@ module Maze
           else
             # TODO: What about Sauce Labs URLs?
             unless app.start_with?('bs://')
+              app = Maze::Helper.expand_path app
+              errors << "app file '#{app}' not found" unless File.exist?(app)
+            end
+          end
+        end
+
+        # Credentials
+        errors << "--#{Option::USERNAME} must be specified" if options[Option::USERNAME].nil?
+        errors << "--#{Option::ACCESS_KEY} must be specified" if options[Option::ACCESS_KEY].nil?
+      end
+
+      # Validates Sauce Labs options
+      def validate_sl(options, errors)
+        # SL local binary
+        sl_local = Maze::Helper.expand_path options[Option::SL_LOCAL]
+        errors << "Sauce Connect binary '#{sl_local}' not found" unless File.exist? sl_local
+
+        # Device
+        browser = options[Option::BROWSER]
+        device = options[Option::DEVICE]
+        os = options[Option::OS]
+        os_version = options[Option::OS_VERSION]
+        if browser.nil? && device.nil? && os.nil? && os_version.nil?
+          errors << "A device or browser option must be specified"
+        elsif browser
+          errors << 'Browsers not yet implemented on Sauce Labs'
+        else
+          # App
+          app = options[Option::APP]
+          if app.nil?
+            errors << "--#{Option::APP} must be provided when running on a device"
+          else
+            uuid_regex = /\A[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}\z/
+            unless uuid_regex.match? app
               app = Maze::Helper.expand_path app
               errors << "app file '#{app}' not found" unless File.exist?(app)
             end

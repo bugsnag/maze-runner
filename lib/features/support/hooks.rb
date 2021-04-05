@@ -23,9 +23,9 @@ AfterConfiguration do |_cucumber_config|
   # BrowserStack specific setup
   if config.farm == :bs
     tunnel_id = SecureRandom.uuid
-    if config.test_device
+    if config.device
       # BrowserStack device
-      config.capabilities = Maze::Capabilities.for_browser_stack_device config.test_device,
+      config.capabilities = Maze::Capabilities.for_browser_stack_device config.device,
                                                                         tunnel_id,
                                                                         config.appium_version,
                                                                         config.capabilities_option
@@ -36,7 +36,7 @@ AfterConfiguration do |_cucumber_config|
       config.capabilities['app'] = config.app
     else
       # BrowserStack browser
-      config.capabilities = Maze::Capabilities.for_browser_stack_browser config.test_browser,
+      config.capabilities = Maze::Capabilities.for_browser_stack_browser config.browser,
                                                                          tunnel_id,
                                                                          config.capabilities_option
     end
@@ -45,7 +45,8 @@ AfterConfiguration do |_cucumber_config|
                                                config.access_key
   elsif config.farm == :sl
     tunnel_id = SecureRandom.uuid
-    if config.test_device
+
+    if config.device || config.os || config.os_version
 
       config.app = Maze::SauceLabsUtils.upload_app config.username,
                                                    config.access_key,
@@ -55,7 +56,7 @@ AfterConfiguration do |_cucumber_config|
                                                tunnel_id,
                                                config.username,
                                                config.access_key
-      config.capabilities = Maze::Capabilities.for_sauce_labs_device config.test_device,
+      config.capabilities = Maze::Capabilities.for_sauce_labs_device config.device,
                                                                      config.os,
                                                                      config.os_version,
                                                                      tunnel_id,
@@ -64,8 +65,10 @@ AfterConfiguration do |_cucumber_config|
 
       config.capabilities['app'] = "storage:#{config.app}"
     else
+      raise 'Browser support with Sauce Labs not yet implemented'
+
       # TODO: Sauce Labs browser
-      # config.capabilities = Maze::Capabilities.for_browser_stack_browser config.test_browser,
+      # config.capabilities = Maze::Capabilities.for_browser_stack_browser config.browser,
       #                                                                    tunnel_id,
       #                                                                    config.capabilities_option
     end
@@ -83,7 +86,7 @@ AfterConfiguration do |_cucumber_config|
   end
 
   # Create and start the relevant driver
-  if config.test_browser
+  if config.browser
     selenium_url = "http://#{config.username}:#{config.access_key}@hub.browserstack.com/wd/hub"
     Maze.driver = Maze::Driver::Browser.new selenium_url, config.capabilities
   else
@@ -101,10 +104,10 @@ AfterConfiguration do |_cucumber_config|
     Maze.driver.start_driver unless config.appium_session_isolation
   end
 
-  if config.farm == :bs && (config.test_device || config.test_browser)
+  if config.farm == :bs && (config.device || config.browser)
     # Log a link to the BrowserStack session search dashboard
     build = Maze.driver.capabilities[:build]
-    url = if config.test_device
+    url = if config.device
             "https://app-automate.browserstack.com/dashboard/v2/search?query=#{build}&type=builds"
           else
             "https://automate.browserstack.com/dashboard/v2/search?query=#{build}&type=builds"

@@ -95,7 +95,7 @@ module Maze
           if app.nil?
             errors << "--#{Option::APP} must be provided when running on a device"
           else
-            uuid_regex = Regexp.new '^[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}$'
+            uuid_regex = /\A[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}\z/
             unless uuid_regex.match? app
               app = Maze::Helper.expand_path app
               errors << "app file '#{app}' not found" unless File.exist?(app)

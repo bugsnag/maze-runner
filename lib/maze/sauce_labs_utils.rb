@@ -12,7 +12,7 @@ module Maze
       # @param username [String] the Sauce Labs username
       # @param access_key [String] the Sauce Labs access key
       def upload_app(username, access_key, app)
-        uuid_regex = Regexp.new '^[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}$'
+        uuid_regex = /\A[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}\z/
 
         if uuid_regex.match? app
           $logger.info "Using pre-uploaded app with UUID #{app}"

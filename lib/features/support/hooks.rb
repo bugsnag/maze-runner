@@ -65,8 +65,8 @@ AfterConfiguration do |_cucumber_config|
 
       config.capabilities['app'] = "storage:#{config.app}"
     else
-      $logger.error 'Browser support with Sauce Labs not yet implemented'
-      exit(1)
+      raise 'Browser support with Sauce Labs not yet implemented'
+
       # TODO: Sauce Labs browser
       # config.capabilities = Maze::Capabilities.for_browser_stack_browser config.browser,
       #                                                                    tunnel_id,

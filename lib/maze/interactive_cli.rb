@@ -1,5 +1,5 @@
 require 'pty'
-# Removed pending PLAT-6322
+# TODO: Removed pending PLAT-6322
 # require 'boring'
 
 module Maze
@@ -32,7 +32,7 @@ module Maze
       @stderr_lines = []
       @on_exit_blocks = []
       @current_buffer = ''
-      # Removed pending PLAT-6322
+      # TODO: Removed pending PLAT-6322
       # @boring = Boring.new
 
       start_threaded_shell(shell)
@@ -165,7 +165,7 @@ module Maze
     end
 
     def format_line(line)
-      # Removed pending PLAT-6322
+      # TODO: Removed pending PLAT-6322
       # @boring.scrub(line.strip)
       line.strip
     end

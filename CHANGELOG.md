@@ -1,3 +1,9 @@
+# 5.0.2 - TBD
+
+## Fixes
+
+- Remove use of unlicensed Boring gem [#251](https://github.com/bugsnag/maze-runner/pull/251)
+
 # 5.0.1 - 2021/04/06
 
 ## Fixes

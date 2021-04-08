@@ -29,7 +29,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'optimist', '~> 3.0.1'
   spec.add_dependency 'rake', '~> 12.3.3'
   spec.add_dependency 'selenium-webdriver', '~> 3.11'
-  spec.add_dependency 'boring', '~> 0.1.0'
+  # TODO: Removed pending PLAT-6322
+  # spec.add_dependency 'boring', '~> 0.1.0'
 
   spec.add_development_dependency 'markdown', '~> 1.2'
   spec.add_development_dependency 'mocha', '~> 1.12.0'

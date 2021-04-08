@@ -12,9 +12,13 @@ loop do
   guess.chomp!
 
   if guess.to_i == number
-    puts "\e[0;32;1mYeah\e[0m, it's \e[0;1m#{number}\e[0m!"
+    # TODO: Pending PLAT-6322
+    # puts "\e[0;32;1mYeah\e[0m, it's \e[0;1m#{number}\e[0m!"
+    puts "Yeah, it's #{number}!"
     break
   end
 
-  puts "\e[0;31;1mNope\e[0m, it's not \e[0;1m#{guess}\e[0m. Try again!"
+  # TODO: Pending PLAT-6322
+  # puts "\e[0;31;1mNope\e[0m, it's not \e[0;1m#{guess}\e[0m. Try again!"
+  puts "Nope, it's not #{guess}. Try again!"
 end

@@ -1,4 +1,12 @@
 steps:
+
+  - name: ':copyright: License Audit'
+    plugins:
+      - docker-compose#v3.7.0:
+          build: license-audit
+      - docker-compose#v3.7.0:
+          run: license-audit
+
   - label: 'Unit tests'
     plugins:
       docker-compose#v3.7.0:

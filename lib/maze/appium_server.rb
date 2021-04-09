@@ -13,6 +13,9 @@ module Maze
       # @return [thread|nil] The thread running the appium process (if available)
       attr_reader :appium_thread
 
+      # @return [Logger|nil] The logger used for creating the log file
+      attr_reader :appium_logger
+
       # Starts a separate thread running the appium server so long as:
       #   - An instance of the appium server isn't already running
       #   - The port configured is available
@@ -41,7 +44,7 @@ module Maze
             @pid = pid
             $logger.debug("Appium:#{@pid}") { 'Appium server started' }
             stdout.each do |line|
-              $logger.debug("Appium:#{@pid}") { line }
+              log_line(line)
             end
           end
         end
@@ -78,6 +81,20 @@ module Maze
         true
       rescue Errno::ENOENT
         false
+      end
+
+      # Starts the logger targeting a file defined by the APPIUM_LOGFILE config option
+      def start_logger
+        @appium_logger = ::Logger.new(Maze.config.appium_logfile)
+        @appium_logger.datetime_format = '%Y-%m-%d %H:%M:%S'
+      end
+
+      # Logs to a known file, creating the outstream if it isn't already present
+      #
+      # @param line [String] The line to log
+      def log_line(line)
+        start_logger if @appium_logger.nil?
+        @appium_logger.info("Appium:#{@pid}") { line }
       end
 
       # Checks if the given port is already in use

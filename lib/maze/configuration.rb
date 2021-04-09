@@ -112,6 +112,9 @@ module Maze
     # Whether an appium server should be started
     attr_accessor :start_appium
 
+    # The location of the appium server logfile
+    attr_accessor :appium_logfile
+
     #
     # Logging configuration
     #

@@ -1,4 +1,10 @@
-# 5.0.2 - TBD
+# 5.1.0 - TBD
+
+## Enhnancements
+
+- Enable locally running appium server to log to a file [#252](https://github.com/bugsnag/maze-runner/pull/252)
+  - Log file defaults to `appium_server.log`
+  - Can be overwritten using `--appium-logfile` option
 
 ## Fixes
 

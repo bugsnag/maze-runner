@@ -38,6 +38,8 @@ module Maze
           return
         end
 
+        start_logger
+
         command = "appium -a #{address} -p #{port}"
         @appium_thread = Thread.new do
           PTY.spawn(command) do |stdout, _stdin, pid|
@@ -93,7 +95,7 @@ module Maze
       #
       # @param line [String] The line to log
       def log_line(line)
-        start_logger if @appium_logger.nil?
+        return if @appium_logger.nil?
         @appium_logger.info("Appium:#{@pid}") { line }
       end
 

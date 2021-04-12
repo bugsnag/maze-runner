@@ -13,6 +13,7 @@ class AppiumServerTest < Test::Unit::TestCase
     # Reset everything to default
     Maze::AppiumServer.instance_variable_set(:@pid, nil)
     Maze::AppiumServer.instance_variable_set(:@appium_thread, nil)
+    Maze::AppiumServer.instance_variable_set(:@appium_logger, nil)
   end
 
   def test_running_default
@@ -43,6 +44,39 @@ class AppiumServerTest < Test::Unit::TestCase
     assert_false(Maze::AppiumServer.send(:appium_port_available?, expected_port))
   end
 
+  def test_start_logger
+    # Set configured logfile
+    test_logfile = 'TEST_LOGFILE.log'
+    Maze.config.expects(:appium_logfile).returns(test_logfile)
+
+    # Set mock expectations for the logger
+    appium_logger_mock = mock('logger')
+    ::Logger.expects(:new).with(test_logfile).returns(appium_logger_mock)
+    appium_logger_mock.expects(:datetime_format=).with('%Y-%m-%d %H:%M:%S')
+
+    # Assert logger is correctly set
+    Maze::AppiumServer.send(:start_logger)
+    assert_equal(Maze::AppiumServer.appium_logger, appium_logger_mock)
+  end
+
+  def test_log_line_no_logger
+    # This will pass if it doesn't throw
+    test_line = 'foo bar'
+    Maze::AppiumServer.send(:log_line,  test_line)
+  end
+
+  def test_log_line
+    # Set a mock logger and PID
+    appium_logger_mock = mock('logger')
+    Maze::AppiumServer.instance_variable_set(:@appium_logger, appium_logger_mock)
+    pid = '12345'
+    Maze::AppiumServer.instance_variable_set(:@pid, pid)
+
+    appium_logger_mock.expects(:info).with("Appium:#{pid}")
+    test_line = 'foo bar'
+    Maze::AppiumServer.send(:log_line,  test_line)
+  end
+
   def test_start_default
     # Setup mocks and expectations
     default_appium_command = "appium -a 0.0.0.0 -p 4723"
@@ -51,8 +85,8 @@ class AppiumServerTest < Test::Unit::TestCase
     stdout_mock = mock('stdout')
     pid = 12345
 
-    # Corresponds to the two debug calls
-    $logger.expects(:debug).with("Appium:#{pid}").twice
+    # Corresponds to the debug call
+    $logger.expects(:debug).with("Appium:#{pid}").once
 
     # Expect Thread.new to be called, and allow block to process expect the mock alive? to be called
     Thread.expects(:new).returns(thread_mock).yields
@@ -70,6 +104,9 @@ class AppiumServerTest < Test::Unit::TestCase
     # Expect appium_port_available? and appium_available? calls
     Maze::AppiumServer.expects(:appium_port_available?).with('4723').returns(true)
     Maze::AppiumServer.expects(:appium_available?).returns(true)
+
+    # Expect the logger to be started
+    Maze::AppiumServer.expects(:start_logger)
 
     Maze::AppiumServer.start
     assert(Maze::AppiumServer.running)

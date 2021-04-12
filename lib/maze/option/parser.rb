@@ -121,6 +121,10 @@ module Maze
                 'Whether a local Appium server should be start.  Only used for --farm=local.',
                 short: :none,
                 default: true
+            opt Option::APPIUM_LOGFILE,
+                'The file local appium server output is logged to, defaulting to "appium_server.log"',
+                short: :none,
+                default: 'appium_server.log'
             opt Option::APPLE_TEAM_ID,
                 'Apple Team Id, required for local iOS testing. MAZE_APPLE_TEAM_ID env var by default',
                 short: :none,

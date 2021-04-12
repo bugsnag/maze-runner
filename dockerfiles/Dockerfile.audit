@@ -1,11 +1,9 @@
-FROM ubuntu:20.04 as ci
+FROM licensefinder/license_finder
 
-RUN apt-get update && apt-get install -y ruby-full apt-utils docker-compose wget unzip bash bundler \
-                                        # Needed by nokogiri (a dependency of appium_lib)
-                                        zlib1g libpng-dev zlibc zlib1g zlib1g-dev curl \
-                                        # Needed by curb (a dependency of Cucumber)
-                                        libcurl4 libcurl4-openssl-dev
+RUN apt-get update && apt-get install \
+                      # Needed by curb (a dependency of Cucumber)
+                      libcurl3 libcurl4-openssl-dev
 
-WORKDIR /app
+WORKDIR /scan
 
-CMD /app/scripts/license_finder.sh
+CMD /scan/scripts/license_finder.sh

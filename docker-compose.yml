@@ -1,12 +1,12 @@
 version: '3.6'
 services:
 
-  license-audit:
+  license_finder:
     build:
       dockerfile: dockerfiles/Dockerfile.audit
       context: .
     volumes:
-      - ./:/app
+      - ./:/scan
 
   ci:
     build:

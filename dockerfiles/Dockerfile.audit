@@ -1,0 +1,9 @@
+FROM licensefinder/license_finder
+
+RUN apt-get update && apt-get install \
+                      # Needed by curb (a dependency of Cucumber)
+                      libcurl3 libcurl4-openssl-dev
+
+WORKDIR /scan
+
+CMD /scan/scripts/license_finder.sh

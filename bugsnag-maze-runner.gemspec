@@ -37,4 +37,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'redcarpet', '~> 3.5'
   spec.add_development_dependency 'yard', '~> 0.9.1'
   spec.add_development_dependency 'yard-cucumber', '~> 4.0.0'
+  spec.add_development_dependency 'license_finder', '~> 6.12.0'
 end

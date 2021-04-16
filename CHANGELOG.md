@@ -9,6 +9,7 @@
 ## Fixes
 
 - Remove use of unlicensed Boring gem [#251](https://github.com/bugsnag/maze-runner/pull/251)
+- Correct wording of failure message for Cucumber step `I should receive no {word}` [#254](https://github.com/bugsnag/maze-runner/pull/254)
 
 # 5.0.1 - 2021/04/06
 

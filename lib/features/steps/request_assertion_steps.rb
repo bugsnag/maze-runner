@@ -76,8 +76,8 @@ Then('I should receive no {word}') do |request_type|
     assert_equal(0, Maze::Server.errors.size, "#{Maze::Server.errors.size} errors received")
     assert_equal(0, Maze::Server.sessions.size, "#{Maze::Server.sessions.size} sessions received")
   else
-    list = Maze::Server.list_for(request_type).size
-    assert_equal(0, list, "#{list.size} #{request_type} received")
+    list = Maze::Server.list_for(request_type)
+    assert_equal(0, list.size, "#{list.size} #{request_type} received")
   end
 end
 

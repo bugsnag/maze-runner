@@ -174,6 +174,8 @@ def get_expected_platform_value(platform_values)
     os = Maze.config.capabilities['os']
   elsif Maze.config.farm == :sl
     os = Maze.driver.capabilities['platformName']
+  else
+    os = Maze.config.os
   end
   expected_value = Hash[platform_values.raw][os.downcase]
   raise("There is no expected value for the current platform \"#{os}\"") if expected_value.nil?

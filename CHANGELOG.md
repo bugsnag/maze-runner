@@ -1,3 +1,9 @@
+# 5.2.0 - 2021/05/19
+
+## Enhancements
+
+- Add Android 9.0 Pixel 2 variant for unity testing [#256](https://github.com/bugsnag/maze-runner/pull/256)
+
 # 5.1.0 - 2021/05/10
 
 ## Enhnancements

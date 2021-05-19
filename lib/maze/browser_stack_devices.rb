@@ -81,6 +81,7 @@ module Maze
 
         # Specific Android devices
         add_android 'Google Pixel 4', '11.0', hash                        # ANDROID_11_0_GOOGLE_PIXEL_4
+        add_android 'Google Pixel 2', '9.0', hash                         # ANDROID_9_0_GOOGLE_PIXEL_2
         add_android 'Samsung Galaxy Note 9', '8.1', hash                  # ANDROID_8_1_SAMSUNG_GALAXY_NOTE_9
         add_android 'Samsung Galaxy J7 Prime', '8.1', hash                # ANDROID_8_1_SAMSUNG_GALAXY_J7_PRIME
         add_android 'Samsung Galaxy Tab S4', '8.1', hash                  # ANDROID_8_1_SAMSUNG_GALAXY_TAB_S4

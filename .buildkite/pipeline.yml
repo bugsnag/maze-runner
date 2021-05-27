@@ -111,34 +111,6 @@ steps:
     concurrency: 9
     concurrency_group: 'browserstack-app'
 
-  - label: 'SauceLabs Android app test'
-    depends_on: "test-images"
-    plugins:
-      docker-compose#v3.7.0:
-        run: android-appium-test
-    command: >-
-      bundle exec maze-runner
-      --app=app/build/outputs/apk/release/app-release.apk
-      --farm=sl
-      --os=Android
-      --device=".*Pixel 3.*"
-    concurrency: 2
-    concurrency_group: 'sl-app'
-
-  - label: 'SauceLabs iOS app test'
-    depends_on: "test-images"
-    plugins:
-      docker-compose#v3.7.0:
-        run: ios-appium-test
-    command: >-
-      bundle exec maze-runner
-      --app=iOSTestApp.ipa
-      --farm=sl
-      --os=iOS
-      --device="iPhone 6S.*"
-    concurrency: 2
-    concurrency_group: 'sl-app'
-
   - wait
 
   - label: 'Update docs'

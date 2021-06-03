@@ -39,5 +39,6 @@ module Maze
 
     # Logging options
     LOG_REQUESTS = 'log-requests'
+    ALWAYS_LOG = 'always-log'
   end
 end

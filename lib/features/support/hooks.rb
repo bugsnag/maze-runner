@@ -164,7 +164,7 @@ After do |scenario|
   Maze::Proxy.instance.stop
 
   # Log unprocessed requests if the scenario fails
-  if scenario.failed? && Maze.config.log_requests
+  if (scenario.failed? && Maze.config.log_requests) || Maze.config.always_log
     STDOUT.puts '^^^ +++'
     output_received_requests('errors')
     output_received_requests('sessions')

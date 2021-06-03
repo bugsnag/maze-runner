@@ -18,6 +18,7 @@ module Maze
 
           # Logger options
           config.log_requests = options[Maze::Option::LOG_REQUESTS]
+          config.always_log = options[Maze::Option::ALWAYS_LOG]
 
           # General appium options
           config.appium_session_isolation = options[Maze::Option::SEPARATE_SESSIONS]

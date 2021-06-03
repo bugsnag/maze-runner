@@ -67,12 +67,13 @@ class ProcessorTest < Test::Unit::TestCase
   end
 
   def test_logger_options
-    args = %w[--no-log-requests]
+    args = %w[--no-log-requests --always-log]
     options = Maze::Option::Parser.parse args
     config = Maze::Configuration.new
     Maze::Option::Processor.populate config, options
 
     assert_false config.log_requests
+    assert_true config.always_log
   end
 
   def test_default_options
@@ -90,5 +91,6 @@ class ProcessorTest < Test::Unit::TestCase
     assert_nil config.capabilities
 
     assert_true config.log_requests
+    assert_false config.always_log
   end
 end

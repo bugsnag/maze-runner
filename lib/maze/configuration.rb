@@ -121,5 +121,8 @@ module Maze
 
     # Suppress logging received requests during a test failure
     attr_accessor :log_requests
+
+    # Always log all received requests at the end of a scenario
+    attr_accessor :always_log
   end
 end

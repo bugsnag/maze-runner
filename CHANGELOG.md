@@ -1,3 +1,9 @@
+# 5.3.0 - TBD
+
+## Enhancements
+
+- Add `--always-log` option [#257](https://github.com/bugsnag/maze-runner/pull/257)
+
 # 5.2.0 - 2021/05/19
 
 ## Enhancements

@@ -143,6 +143,11 @@ module Maze
                 type: :boolean,
                 default: true
 
+            opt Option::ALWAYS_LOG,
+                "Always log all received requests at the end of a scenario, whether is passes or fails",
+                short: :none,
+                default: false
+
             version "Maze Runner v#{Maze::VERSION} " \
                     "(Cucumber v#{Cucumber::VERSION.strip})"
             text ''

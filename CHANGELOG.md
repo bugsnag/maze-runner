@@ -2,7 +2,11 @@
 
 ## Enhancements
 
-- Add `--always-log` option [#257](https://github.com/bugsnag/maze-runner/pull/257)
+- Add `--always-log` option [#258](https://github.com/bugsnag/maze-runner/pull/258)
+
+## Fixes
+
+- Add support for macOS running on ARM [#259](https://github.com/bugsnag/maze-runner/pull/259)
 
 # 5.2.0 - 2021/05/19
 

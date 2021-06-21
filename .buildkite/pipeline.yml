@@ -90,6 +90,8 @@ steps:
     plugins:
       docker-compose#v3.7.0:
         run: android-appium-test
+      artifacts#v1.3.0:
+        upload: test/fixtures/android-appium-test/maze_output/**/*
     command: >-
       bundle exec maze-runner
       --app=app/build/outputs/apk/release/app-release.apk
@@ -103,6 +105,8 @@ steps:
     plugins:
       docker-compose#v3.7.0:
         run: android-appium-test
+      artifacts#v1.3.0:
+        upload: test/fixtures/android-appium-test/maze_output/**/*
     command: >-
       bundle exec maze-runner
       --app=app/build/outputs/apk/release/app-release.apk

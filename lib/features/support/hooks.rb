@@ -168,6 +168,11 @@ After do |scenario|
 
   Maze::Proxy.instance.stop
 
+  # Log unprocessed requests if the scenario fails
+  if (scenario.failed? && Maze.config.log_requests)
+    STDOUT.puts '^^^ +++'
+  end
+
   write_requests(scenario)
 
   if Maze.config.appium_session_isolation

@@ -1,3 +1,9 @@
+# TBA
+
+## Enhancements
+
+- Add multipart parsing steps usable for any payload types [#261](https://github.com/bugsnag/maze-runner/pull/261)
+
 # 5.4.0 - 2021/06/24
 
 ## Enhancements

@@ -168,6 +168,15 @@ After do |scenario|
 
   Maze::Proxy.instance.stop
 
+  # Log unprocessed requests on Buildkite if the scenario fails
+  if (scenario.failed? && Maze.config.log_requests) || Maze.config.always_log
+    STDOUT.puts '^^^ +++'
+    output_received_requests('errors')
+    output_received_requests('sessions')
+    output_received_requests('builds')
+    output_received_requests('logs')
+  end
+
   # Log unprocessed requests if the scenario fails
   if (scenario.failed? && Maze.config.log_requests)
     STDOUT.puts '^^^ +++'
@@ -194,6 +203,20 @@ ensure
   Maze::Runner.environment.clear
   Maze::Store.values.clear
   Maze::Aws::Sam.reset!
+end
+
+def output_received_requests(request_type)
+  request_queue = Maze::Server.list_for(request_type)
+  if request_queue.empty?
+    $logger.info "No valid #{request_type} received"
+  else
+    count = request_queue.size_all
+    $logger.info "#{count} #{request_type} were received:"
+    request_queue.all.each.with_index(1) do |request, number|
+      STDOUT.puts "--- #{request_type} #{number} of #{count}"
+      Maze::LogUtil.log_hash(Logger::Severity::INFO, request)
+    end
+  end
 end
 
 # Writes each list of requests to a separate file under, e.g:

@@ -177,11 +177,7 @@ After do |scenario|
     output_received_requests('logs')
   end
 
-  # Log unprocessed requests if the scenario fails
-  if (scenario.failed? && Maze.config.log_requests)
-    STDOUT.puts '^^^ +++'
-  end
-
+  # Log all received requests to file
   write_requests(scenario)
 
   if Maze.config.appium_session_isolation

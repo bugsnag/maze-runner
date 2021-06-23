@@ -50,34 +50,10 @@ class ParserTest < Test::Unit::TestCase
   end
 
   def test_buildkite_default_values
-
     ENV['BUILDKITE'] = "true"
 
     args = %w[]
     options = Maze::Option::Parser.parse args
-
-    # Common options
-    assert_false(options[Maze::Option::SEPARATE_SESSIONS])
-    assert_nil(options[Maze::Option::FARM])
-    assert_nil(options[Maze::Option::APP])
-    assert_false(options[Maze::Option::A11Y_LOCATOR])
-    assert_false(options[Maze::Option::RESILIENT])
-    assert_equal('{}', options[Maze::Option::CAPABILITIES])
-
-    # BrowserStack-only options
-    assert_equal('/BrowserStackLocal', options[Maze::Option::BS_LOCAL])
-    assert_nil(options[Maze::Option::DEVICE])
-    assert_nil(options[Maze::Option::BROWSER])
-    assert_nil(options[Maze::Option::USERNAME])
-    assert_nil(options[Maze::Option::ACCESS_KEY])
-    assert_nil(options[Maze::Option::APPIUM_VERSION])
-
-    # Local-only options
-    assert_nil(options[Maze::Option::OS])
-    assert_nil(options[Maze::Option::OS_VERSION])
-    assert_equal('http://localhost:4723/wd/hub', options[Maze::Option::APPIUM_SERVER])
-    assert_nil(options[Maze::Option::APPLE_TEAM_ID])
-    assert_nil(options[Maze::Option::UDID])
 
     # Logging options
     assert_false(options[Maze::Option::LOG_REQUESTS])

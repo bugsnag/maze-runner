@@ -80,9 +80,6 @@ class ProcessorTest < Test::Unit::TestCase
   def test_default_options
     args = []
     options = Maze::Option::Parser.parse args
-
-    puts options.inspect
-
     config = Maze::Configuration.new
     Maze::Option::Processor.populate config, options
 

@@ -119,7 +119,10 @@ module Maze
     # Logging configuration
     #
 
-    # Suppress logging received requests during a test failure
+    # Write received requests to disk for all scenarios
+    attr_accessor :file_log
+
+    # Console logging of received requests for a test failure
     attr_accessor :log_requests
 
     # Always log all received requests at the end of a scenario

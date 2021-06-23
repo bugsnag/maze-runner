@@ -181,7 +181,7 @@ After do |scenario|
   end
 
   # Log all received requests to file
-  write_requests(scenario)
+  write_requests(scenario) if Maze.config.file_log
 
   if Maze.config.appium_session_isolation
     Maze.driver.driver_quit
@@ -226,8 +226,6 @@ def write_requests(scenario)
   folder3 = scenario.name.gsub(' ', '_')
 
   path = File.join(folder1, folder2, folder3)
-
-  STDOUT.puts "Going to write to #{path}"
 
   FileUtils.makedirs(path)
 

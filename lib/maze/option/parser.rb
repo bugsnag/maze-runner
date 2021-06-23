@@ -68,7 +68,6 @@ module Maze
             text ''
             text 'Device farm options:'
 
-            # TODO: Descriptions
             opt Option::DEVICE,
                 'BrowserStack device to use (a key of BrowserStackDevices.DEVICE_HASH)',
                 short: :none,
@@ -137,8 +136,14 @@ module Maze
             text ''
             text 'Logging options:'
 
+            opt Option::FILE_LOG,
+                "Writes lists of received requests to the maze_output folder for all scenarios",
+                short: :none,
+                type: :boolean,
+                default: true
+
             opt Option::LOG_REQUESTS,
-                "Log a list of received requests in the event of test failure.  Defaults to true if the BUILDKITE environment variable is set",
+                "Log lists of received requests to the console in the event of scenario failure.  Defaults to true if the BUILDKITE environment variable is set",
                 short: :none,
                 type: :boolean,
                 default: false

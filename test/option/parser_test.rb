@@ -46,6 +46,7 @@ class ParserTest < Test::Unit::TestCase
     assert_nil(options[Maze::Option::UDID])
 
     # Logging options
+    assert_true(options[Maze::Option::FILE_LOG])
     assert_false(options[Maze::Option::LOG_REQUESTS])
   end
 
@@ -79,6 +80,8 @@ class ParserTest < Test::Unit::TestCase
       --no-start-appium
       --apple-team-id=ARG_APPLE_TEAM_ID
       --udid=ARG_UDID
+      --log-requests
+      --no-file-log
     ]
     options = Maze::Option::Parser.parse args
 
@@ -105,6 +108,10 @@ class ParserTest < Test::Unit::TestCase
     assert_false(options[Maze::Option::START_APPIUM])
     assert_equal('ARG_APPLE_TEAM_ID', options[Maze::Option::APPLE_TEAM_ID])
     assert_equal('ARG_UDID', options[Maze::Option::UDID])
+
+    # Logging options
+    assert_false(options[Maze::Option::FILE_LOG])
+    assert_true(options[Maze::Option::LOG_REQUESTS])
   end
 
   def test_short_flags

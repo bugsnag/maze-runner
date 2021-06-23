@@ -10,7 +10,10 @@ require 'uri'
 AfterConfiguration do |_cucumber_config|
 
   # Clear out maze_output folder
-  maze_output = File.join(Dir.pwd, 'maze_output')
+  maze_output = Dir.glob(File.join(Dir.pwd, 'maze_output', '*'))
+  unless maze_output.empty?
+    maze_output.each { |path| $logger.info "Clearing contents of #{path}" }
+  end
   FileUtils.rm_rf(maze_output)
 
   # Record the local server starting time

@@ -23,9 +23,25 @@ Then('the request is valid multipart form-data') do
   valid_multipart_form_data?(Maze::Server.errors.current)
 end
 
+# Verifies that any type of request contains multipart form-data
+#
+# @step_input request_type [String] The type of request (error, session, build, etc)
+Then('the {word} request is valid multipart form-data') do |request_type|
+  list = Maze::Server.list_for request_type
+  valid_multipart_form_data?(list.current)
+end
+
 # Verifies all received requests contain multipart form-data
 Then('all requests are valid multipart form-data') do
   Maze::Server.errors.all.all? { |request| valid_multipart_form_data?(request) }
+end
+
+# Verifies all requests of a given type contain multipart form-data
+#
+# @step_input request_type [String] The type of request (error, session, build, etc)
+Then('all {word} requests are valid multipart form-data') do |request_type|
+  list = Maze::Server.list_for request_type
+  list.all.all? { |request| valid_multipart_form_data?(request) }
 end
 
 # Tests the number of fields a multipart request contains.
@@ -36,9 +52,28 @@ Then('the multipart request has {int} fields') do |part_count|
   assert_equal(part_count, parts.size)
 end
 
+# Tests the number of fields a given type of multipart request contains.
+#
+# @step_input request_type [String] The type of request (error, session, build, etc)
+# @step_input part_count [Integer] The number of expected fields
+Then('the {word} multipart request has {int} fields') do |request_type, part_count|
+  list = Maze::Server.list_for request_type
+  parts = list.current[:body]
+  assert_equal(part_count, parts.size)
+end
+
 # Tests the multipart request has at least one field.
 Then('the multipart request has a non-empty body') do
   parts = Maze::Server.errors.current[:body]
+  assert(parts.size.positive?, "Multipart request payload contained #{parts.size} fields")
+end
+
+# Tests a given type of multipart request has at least one field.
+#
+# @step_input request_type [String] The type of request (error, session, build, etc)
+Then('the {word} multipart request has a non-empty body') do |request_type|
+  list = Maze::Server.list_for request_type
+  parts = list.current[:body]
   assert(parts.size.positive?, "Multipart request payload contained #{parts.size} fields")
 end
 
@@ -103,6 +138,21 @@ Then('the multipart body does not match the JSON file in {string}') do |json_pat
   assert_false(result.equal?, "Payload:\n#{payload_value}\nExpected:#{expected_value}")
 end
 
+# Tests that a given type of multipart payload body does not match a JSON file.
+# JSON formatted multipart fields will be parsed into hashes.
+#
+# @step_input request_type [String] The type of request (error, session, build, etc)
+# @step_input json_path [String] Path to a JSON file relative to maze-runner root
+Then('the {word} multipart body does not match the JSON file in {string}') do |request_type, json_path|
+  assert_true(File.exist?(json_path), "'#{json_path}' does not exist")
+  payload_list = Maze::Server.list_for request_type
+  raw_payload_value = payload_list.current[:body]
+  payload_value = parse_multipart_body(raw_payload_value)
+  expected_value = JSON.parse(open(json_path, &:read))
+  result = Maze::Compare.value(expected_value, payload_value)
+  assert_false(result.equal?, "Payload:\n#{payload_value}\nExpected:#{expected_value}")
+end
+
 # Tests that the multipart payload body matches a JSON fixture.
 # JSON formatted multipart fields will be parsed into hashes.
 #
@@ -110,6 +160,21 @@ end
 Then('the multipart body matches the JSON file in {string}') do |json_path|
   assert_true(File.exist?(json_path), "'#{json_path}' does not exist")
   raw_payload_value = Maze::Server.errors.current[:body]
+  payload_value = parse_multipart_body(raw_payload_value)
+  expected_value = JSON.parse(open(json_path, &:read))
+  result = Maze::Compare.value(expected_value, payload_value)
+  assert_true(result.equal?, "The payload field '#{result.keypath}' does not match the fixture:\n #{result.reasons.join('\n')}")
+end
+
+# Tests that a given type of multipart payload body matches a JSON fixture.
+# JSON formatted multipart fields will be parsed into hashes.
+#
+# @step_input request_type [String] The type of request (error, session, build, etc)
+# @step_input json_path [String] Path to a JSON file relative to maze-runner root
+Then('the {word} multipart body matches the JSON file in {string}') do |request_type, json_path|
+  assert_true(File.exist?(json_path), "'#{json_path}' does not exist")
+  payload_list = Maze::Server.list_for request_type
+  raw_payload_value = payload_list.current[:body]
   payload_value = parse_multipart_body(raw_payload_value)
   expected_value = JSON.parse(open(json_path, &:read))
   result = Maze::Compare.value(expected_value, payload_value)
@@ -124,6 +189,21 @@ end
 Then('the multipart field {string} matches the JSON file in {string}') do |field_path, json_path|
   assert_true(File.exist?(json_path), "'#{json_path}' does not exist")
   payload_value = JSON.parse(Maze::Server.errors.current[:body][field_path].to_s)
+  expected_value = JSON.parse(open(json_path, &:read))
+  result = Maze::Compare.value(expected_value, payload_value)
+  assert_true(result.equal?, "The multipart field '#{result.keypath}' does not match the fixture:\n #{result.reasons.join('\n')}")
+end
+
+# Tests that a given type of multipart field matches a JSON fixture.
+# The field will be parsed into a hash.
+#
+# @step_input request_type [String] The type of request (error, session, build, etc)
+# @step_input field_path [String] Path to the tested element
+# @step_input json_path [String] Path to a JSON file relative to maze-runner root
+Then('the {word} multipart field {string} matches the JSON file in {string}') do |request_type, field_path, json_path|
+  assert_true(File.exist?(json_path), "'#{json_path}' does not exist")
+  payload_list = Maze::Server.list_for request_type
+  payload_value = JSON.parse(payload_list.current[:body][field_path].to_s)
   expected_value = JSON.parse(open(json_path, &:read))
   result = Maze::Compare.value(expected_value, payload_value)
   assert_true(result.equal?, "The multipart field '#{result.keypath}' does not match the fixture:\n #{result.reasons.join('\n')}")

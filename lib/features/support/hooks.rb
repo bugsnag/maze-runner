@@ -234,11 +234,13 @@ def write_requests(scenario)
     list = Maze::Server.list_for(request_type).all
     next if list.empty?
 
-    list.each do |request|
-      filename = "#{request_type}.log"
-      filepath = File.join(path, filename)
+    filename = "#{request_type}.log"
+    filepath = File.join(path, filename)
 
-      File.open(filepath, 'w+') do |file|
+    counter = 1
+    File.open(filepath, 'w+') do |file|
+      file.puts "=== Request #{counter} of #{list.size} ==="
+      list.each do |request|
         file.puts "URI: #{request[:request].request_uri}"
         file.puts "HEADERS:"
         request[:request].header.each do |key, values|
@@ -251,6 +253,8 @@ def write_requests(scenario)
         else
           file.puts request[:body]
         end
+        file.puts
+        counter += 1
       end
     end
   end

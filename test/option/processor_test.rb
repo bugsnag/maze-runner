@@ -9,6 +9,7 @@ require_relative '../../lib/maze/helper'
 # Tests the options parser and processor together (using only valid options and with no validator).
 class ProcessorTest < Test::Unit::TestCase
   def setup
+    ENV.delete('BUILDKITE')
     ENV.delete('MAZE_BS_LOCAL')
     ENV.delete('MAZE_SL_LOCAL')
     ENV.delete('BROWSER_STACK_USERNAME')
@@ -79,6 +80,9 @@ class ProcessorTest < Test::Unit::TestCase
   def test_default_options
     args = []
     options = Maze::Option::Parser.parse args
+
+    puts options.inspect
+
     config = Maze::Configuration.new
     Maze::Option::Processor.populate config, options
 
@@ -90,7 +94,7 @@ class ProcessorTest < Test::Unit::TestCase
     assert_false config.resilient
     assert_nil config.capabilities
 
-    assert_true config.log_requests
+    assert_false config.log_requests
     assert_false config.always_log
   end
 end

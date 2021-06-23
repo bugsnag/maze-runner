@@ -138,10 +138,10 @@ module Maze
             text 'Logging options:'
 
             opt Option::LOG_REQUESTS,
-                "Log a list of received requests in the event of test failure",
+                "Log a list of received requests in the event of test failure.  Defaults to true if the BUILDKITE environment variable is set",
                 short: :none,
                 type: :boolean,
-                default: true
+                default: false
 
             opt Option::ALWAYS_LOG,
                 "Always log all received requests at the end of a scenario, whether is passes or fails",

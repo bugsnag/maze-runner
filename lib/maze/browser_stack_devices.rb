@@ -81,6 +81,12 @@ module Maze
 
         # Specific Android devices
         add_android 'Google Pixel 4', '11.0', hash                        # ANDROID_11_0_GOOGLE_PIXEL_4
+
+        add_android 'Xiaomi Redmi Note 9', '10.0', hash                   # ANDROID_10_0_XIAOMI_REDMI_NOTE_9
+        add_android 'Samsung Galaxy Note 20', '10.0', hash                # ANDROID_10_0_SAMSUNG_GALAXY_NOTE_20
+        add_android 'Motorola Moto G9 Play', '10.0', hash                 # ANDROID_10_0_MOTOROLA_MOTO_G9_PLAY
+        add_android 'OnePlus 8', '10.0', hash                             # ANDROID_10_0_ONEPLUS_8
+
         add_android 'Google Pixel 2', '9.0', hash                         # ANDROID_9_0_GOOGLE_PIXEL_2
         add_android 'Samsung Galaxy Note 9', '8.1', hash                  # ANDROID_8_1_SAMSUNG_GALAXY_NOTE_9
         add_android 'Samsung Galaxy J7 Prime', '8.1', hash                # ANDROID_8_1_SAMSUNG_GALAXY_J7_PRIME

@@ -1,8 +1,9 @@
-# TBA
+# 5.4.0 - 2021/06/24
 
 ## Enhancements
 
 - Add `--file-log` option to write received requests to files [#262](https://github.com/bugsnag/maze-runner/pull/262)
+- Add additional BrowserStack Android 10 devices [#264](https://github.com/bugsnag/maze-runner/pull/264)
 
 ## Fixes
 

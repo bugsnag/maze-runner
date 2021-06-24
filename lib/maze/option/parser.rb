@@ -28,11 +28,9 @@ module Maze
 
             opt Option::BIND_ADDRESS,
                 'Mock server bind address',
-                short: :none,
                 type: :string
             opt Option::PORT,
                 'Mock server port',
-                short: :none,
                 default: 9339
 
             text ''
@@ -40,29 +38,23 @@ module Maze
 
             opt Option::SEPARATE_SESSIONS,
                 'Start a new Appium session for each scenario',
-                short: :none,
                 type: :boolean,
                 default: false
             opt Option::FARM,
                 'Device farm to use: "bs" (BrowserStack) or "local"',
-                short: '-f',
                 type: :string
             opt Option::APP,
                 'The app to be installed and run against',
-                short: '-a',
                 type: :string
             opt Option::A11Y_LOCATOR,
                 'Locate elements by accessibility id rather than id',
-                short: :none,
                 type: :boolean,
                 default: false
             opt Option::RESILIENT,
                 'Use the resilient Appium driver',
-                short: '-r',
                 default: false
             opt Option::CAPABILITIES,
                 'Additional desired Appium capabilities as a JSON string',
-                short: '-c',
                 default: '{}'
 
             text ''
@@ -78,27 +70,22 @@ module Maze
                 type: :string
             opt Option::USERNAME,
                 'Device farm username. Consumes env var from environment based on farm set',
-                short: '-u',
                 type: :string
             opt Option::ACCESS_KEY,
                 'Device farm access key. Consumes env var from environment based on farm set',
-                short: '-p',
                 type: :string
             opt Option::APPIUM_VERSION,
                 'The Appium version to use with BrowserStack',
-                short: :none,
                 type: :string
 
             # BrowserStack-only options
             opt Option::BS_LOCAL,
                 '(BS only) Path to the BrowserStackLocal binary. MAZE_BS_LOCAL env var or "/BrowserStackLocal" by default',
-                short: :none,
                 type: :string
 
             # Sauce Labs-only options
             opt Option::SL_LOCAL,
                 '(SL only) Path to the Sauce Connect binary. MAZE_SL_LOCAL env var or "/sauce-connect/bin/sc" by default',
-                short: :none,
                 type: :string
 
             text ''
@@ -106,31 +93,24 @@ module Maze
 
             opt Option::OS,
                 'OS type to use ("ios", "android")',
-                short: :none,
                 type: :string
             opt Option::OS_VERSION,
                 'The intended OS version when running on a local device',
-                short: :none,
                 type: :string
             opt Option::APPIUM_SERVER,
                 'Appium server URL, only used for --farm=local. MAZE_APPIUM_SERVER env var or "http://localhost:4723/wd/hub" by default',
-                short: :none,
                 type: :string
             opt Option::START_APPIUM,
                 'Whether a local Appium server should be start.  Only used for --farm=local.',
-                short: :none,
                 default: true
             opt Option::APPIUM_LOGFILE,
                 'The file local appium server output is logged to, defaulting to "appium_server.log"',
-                short: :none,
                 default: 'appium_server.log'
             opt Option::APPLE_TEAM_ID,
                 'Apple Team Id, required for local iOS testing. MAZE_APPLE_TEAM_ID env var by default',
-                short: :none,
                 type: :string
             opt Option::UDID,
                 'Apple UDID, required for local iOS testing. MAZE_UDID env var by default',
-                short: :none,
                 type: :string
 
             text ''
@@ -138,19 +118,17 @@ module Maze
 
             opt Option::FILE_LOG,
                 "Writes lists of received requests to the maze_output folder for all scenarios",
-                short: :none,
                 type: :boolean,
                 default: true
 
             opt Option::LOG_REQUESTS,
                 "Log lists of received requests to the console in the event of scenario failure.  Defaults to true if the BUILDKITE environment variable is set",
-                short: :none,
                 type: :boolean,
                 default: false
 
             opt Option::ALWAYS_LOG,
-                "Always log all received requests to the console at the end of a scenario, whether is passes or fails",
-                short: :none,
+                "Always log all received requests at the end of a scenario, whether is passes or fails",
+                type: :boolean,
                 default: false
 
             version "Maze Runner v#{Maze::VERSION} " \

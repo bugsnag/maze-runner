@@ -114,28 +114,6 @@ class ParserTest < Test::Unit::TestCase
     assert_true(options[Maze::Option::LOG_REQUESTS])
   end
 
-  def test_short_flags
-    args = %w[
-      -f SHORT_FARM
-      -a SHORT_APP
-      -r
-      -c SHORT_CAPABILITIES
-      -u SHORT_USERNAME
-      -p SHORT_ACCESS_KEY
-    ]
-    options = Maze::Option::Parser.parse args
-
-    # Common options
-    assert_equal('SHORT_FARM', options[Maze::Option::FARM])
-    assert_equal('SHORT_APP', options[Maze::Option::APP])
-    assert_true(options[Maze::Option::RESILIENT])
-    assert_equal('SHORT_CAPABILITIES', options[Maze::Option::CAPABILITIES])
-
-    # BrowserStack-only options
-    assert_equal('SHORT_USERNAME', options[Maze::Option::USERNAME])
-    assert_equal('SHORT_ACCESS_KEY', options[Maze::Option::ACCESS_KEY])
-  end
-
   def test_environment_values
     ENV['BROWSER_STACK_USERNAME'] = 'ENV_USERNAME'
     ENV['BROWSER_STACK_ACCESS_KEY'] = 'ENV_ACCESS_KEY'

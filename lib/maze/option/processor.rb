@@ -17,7 +17,8 @@ module Maze
           config.port = options[Maze::Option::PORT]
 
           # Logger options
-          config.log_requests = options[Maze::Option::LOG_REQUESTS]
+          config.file_log = options[Maze::Option::FILE_LOG]
+          config.log_requests = options[Maze::Option::LOG_REQUESTS] || !ENV['BUILDKITE'].nil?
           config.always_log = options[Maze::Option::ALWAYS_LOG]
 
           # General appium options

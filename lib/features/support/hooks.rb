@@ -1,12 +1,20 @@
 # frozen_string_literal: true
 
 require 'cucumber'
+require 'fileutils'
 require 'json'
 require 'securerandom'
 require 'selenium-webdriver'
 require 'uri'
 
 AfterConfiguration do |_cucumber_config|
+
+  # Clear out maze_output folder
+  maze_output = Dir.glob(File.join(Dir.pwd, 'maze_output', '*'))
+  if Maze.config.file_log && !maze_output.empty?
+    maze_output.each { |path| $logger.info "Clearing contents of #{path}" }
+    FileUtils.rm_rf(maze_output)
+  end
 
   # Record the local server starting time
   Maze.start_time = Time.now.strftime('%Y-%m-%d %H:%M:%S')
@@ -163,7 +171,7 @@ After do |scenario|
 
   Maze::Proxy.instance.stop
 
-  # Log unprocessed requests if the scenario fails
+  # Log unprocessed requests on Buildkite if the scenario fails
   if (scenario.failed? && Maze.config.log_requests) || Maze.config.always_log
     STDOUT.puts '^^^ +++'
     output_received_requests('errors')
@@ -171,6 +179,9 @@ After do |scenario|
     output_received_requests('builds')
     output_received_requests('logs')
   end
+
+  # Log all received requests to file
+  write_requests(scenario) if Maze.config.file_log
 
   if Maze.config.appium_session_isolation
     Maze.driver.driver_quit
@@ -203,6 +214,49 @@ def output_received_requests(request_type)
     request_queue.all.each.with_index(1) do |request, number|
       STDOUT.puts "--- #{request_type} #{number} of #{count}"
       Maze::LogUtil.log_hash(Logger::Severity::INFO, request)
+    end
+  end
+end
+
+# Writes each list of requests to a separate file under, e.g:
+# maze_output/failed/scenario_name/errors.log
+def write_requests(scenario)
+  folder1 = File.join(Dir.pwd, 'maze_output')
+  folder2 = scenario.failed? ? 'failed' : 'passed'
+  folder3 = scenario.name.gsub(/[:"& ]/, "_").gsub(/_+/, "_")
+
+  path = File.join(folder1, folder2, folder3)
+
+  FileUtils.makedirs(path)
+
+  request_types = %w[errors sessions builds logs]
+
+  request_types.each do |request_type|
+    list = Maze::Server.list_for(request_type).all
+    next if list.empty?
+
+    filename = "#{request_type}.log"
+    filepath = File.join(path, filename)
+
+    counter = 1
+    File.open(filepath, 'w+') do |file|
+      file.puts "=== Request #{counter} of #{list.size} ==="
+      list.each do |request|
+        file.puts "URI: #{request[:request].request_uri}"
+        file.puts "HEADERS:"
+        request[:request].header.each do |key, values|
+          file.puts "  #{key}: #{values.map {|v| "'#{v}'"}.join(' ')}"
+        end
+        file.puts
+        file.puts "BODY:"
+        if request[:request].header["content-type"].first == 'application/json'
+          file.puts JSON.pretty_generate(request[:body])
+        else
+          file.puts request[:body]
+        end
+        file.puts
+        counter += 1
+      end
     end
   end
 end

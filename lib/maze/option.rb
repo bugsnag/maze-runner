@@ -38,6 +38,7 @@ module Maze
     UDID = 'udid'
 
     # Logging options
+    FILE_LOG = 'file-log'
     LOG_REQUESTS = 'log-requests'
     ALWAYS_LOG = 'always-log'
   end

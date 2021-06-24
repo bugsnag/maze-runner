@@ -1,3 +1,9 @@
+# TBA
+
+## Enhancements
+
+- Add `--file-log` option to write received requests to files [#262](https://github.com/bugsnag/maze-runner/pull/262)
+
 # 5.3.0 - 2021/06/21
 
 ## Enhancements

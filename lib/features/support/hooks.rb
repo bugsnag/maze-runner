@@ -11,10 +11,10 @@ AfterConfiguration do |_cucumber_config|
 
   # Clear out maze_output folder
   maze_output = Dir.glob(File.join(Dir.pwd, 'maze_output', '*'))
-  unless maze_output.empty?
+  if Maze.config.file_log && !maze_output.empty?
     maze_output.each { |path| $logger.info "Clearing contents of #{path}" }
+    FileUtils.rm_rf(maze_output)
   end
-  FileUtils.rm_rf(maze_output)
 
   # Record the local server starting time
   Maze.start_time = Time.now.strftime('%Y-%m-%d %H:%M:%S')

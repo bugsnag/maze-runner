@@ -149,7 +149,7 @@ module Maze
                 default: false
 
             opt Option::ALWAYS_LOG,
-                "Always log all received requests at the end of a scenario, whether is passes or fails",
+                "Always log all received requests to the console at the end of a scenario, whether is passes or fails",
                 short: :none,
                 default: false
 

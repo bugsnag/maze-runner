@@ -125,7 +125,7 @@ module Maze
     # Console logging of received requests for a test failure
     attr_accessor :log_requests
 
-    # Always log all received requests at the end of a scenario
+    # Always log all received requests to the console at the end of a scenario
     attr_accessor :always_log
   end
 end

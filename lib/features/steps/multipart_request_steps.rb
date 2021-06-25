@@ -32,7 +32,7 @@ end
 # Verifies that the request contains multipart form-data
 Then('the request is valid multipart form-data') do
   $logger.warn 'This step is deprecated and may be removed in a future release'
-  step 'Then the error request is valid multipart form-data'
+  step 'the error request is valid multipart form-data'
 end
 
 # Verifies all requests of a given type contain multipart form-data
@@ -49,7 +49,7 @@ end
 # Verifies all received requests contain multipart form-data
 Then('all requests are valid multipart form-data') do
   $logger.warn 'This step is deprecated and may be removed in a future release'
-  step 'Then all error requests are valid multipart form-data'
+  step 'all error requests are valid multipart form-data'
 end
 
 # Tests the number of fields a given type of multipart request contains.
@@ -70,7 +70,7 @@ end
 # @step_input part_count [Integer] The number of expected fields
 Then('the multipart request has {int} fields') do |part_count|
   $logger.warn 'This step is deprecated and may be removed in a future release'
-  step "Then the error multipart request has #{part_count} fields"
+  step "the error multipart request has #{part_count} fields"
 end
 
 # Tests a given type of multipart request has at least one field.
@@ -88,7 +88,7 @@ end
 # Tests the multipart request has at least one field.
 Then('the multipart request has a non-empty body') do
   $logger.warn 'This step is deprecated and may be removed in a future release'
-  step 'Then the error multipart request has a non-empty body'
+  step 'the error multipart request has a non-empty body'
 end
 
 # (Deprecated) Retained for backwards compatibility.
@@ -166,7 +166,7 @@ end
 # @step_input json_path [String] Path to a JSON file relative to maze-runner root
 Then('the multipart body does not match the JSON file in {string}') do |json_path|
   $logger.warn 'This step is deprecated and may be removed in a future release'
-  step "Then the error multipart body does not match the JSON file in \"#{json_path}\""
+  step "the error multipart body does not match the JSON file in \"#{json_path}\""
 end
 
 # Tests that a given type of multipart payload body matches a JSON fixture.
@@ -193,7 +193,7 @@ end
 # @step_input json_path [String] Path to a JSON file relative to maze-runner root
 Then('the multipart body matches the JSON file in {string}') do |json_path|
   $logger.warn 'This step is deprecated and may be removed in a future release'
-  step "Then the error multipart body matches the JSON file in \"#{json_path}\""
+  step "the error multipart body matches the JSON file in \"#{json_path}\""
 end
 
 # Tests that a given type of multipart field matches a JSON fixture.
@@ -221,5 +221,5 @@ end
 # @step_input json_path [String] Path to a JSON file relative to maze-runner root
 Then('the multipart field {string} matches the JSON file in {string}') do |field_path, json_path|
   $logger.warn 'This step is deprecated and may be removed in a future release'
-  step "Then the error multipart field \"#{field_path}\" matches the JSON file in \"#{json_path}\""
+  step "the error multipart field \"#{field_path}\" matches the JSON file in \"#{json_path}\""
 end

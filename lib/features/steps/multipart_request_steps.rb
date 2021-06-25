@@ -18,15 +18,6 @@ def valid_multipart_form_data?(request)
   assert(request[:body].size.positive?, "Multipart request payload contained #{request[:body].size} fields")
 end
 
-# (Deprecated) Retained for backwards compatibility
-# Use "the {word} request is valid multipart form-data"
-#
-# Verifies that the request contains multipart form-data
-Then('the request is valid multipart form-data') do
-  $logger.warn 'This step is deprecated and may be removed in a future release'
-  step 'Then the error request is valid multipart form-data'
-end
-
 # Verifies that any type of request contains multipart form-data
 #
 # @step_input request_type [String] The type of request (error, session, build, etc)
@@ -36,12 +27,12 @@ Then('the {word} request is valid multipart form-data') do |request_type|
 end
 
 # (Deprecated) Retained for backwards compatibility
-# Use "all {word} requests are valid multipart form-data"
+# Use "the {word} request is valid multipart form-data"
 #
-# Verifies all received requests contain multipart form-data
-Then('all requests are valid multipart form-data') do
+# Verifies that the request contains multipart form-data
+Then('the request is valid multipart form-data') do
   $logger.warn 'This step is deprecated and may be removed in a future release'
-  step 'Then all error requests are valid multipart form-data'
+  step 'Then the error request is valid multipart form-data'
 end
 
 # Verifies all requests of a given type contain multipart form-data
@@ -53,14 +44,12 @@ Then('all {word} requests are valid multipart form-data') do |request_type|
 end
 
 # (Deprecated) Retained for backwards compatibility
-# Use "the {word} multipart request has {int} fields"
+# Use "all {word} requests are valid multipart form-data"
 #
-# Tests the number of fields a multipart request contains.
-#
-# @step_input part_count [Integer] The number of expected fields
-Then('the multipart request has {int} fields') do |part_count|
+# Verifies all received requests contain multipart form-data
+Then('all requests are valid multipart form-data') do
   $logger.warn 'This step is deprecated and may be removed in a future release'
-  step "Then the error multipart request has #{part_count} fields"
+  step 'Then all error requests are valid multipart form-data'
 end
 
 # Tests the number of fields a given type of multipart request contains.
@@ -74,12 +63,14 @@ Then('the {word} multipart request has {int} fields') do |request_type, part_cou
 end
 
 # (Deprecated) Retained for backwards compatibility
-# Use "the {word} multipart request has a non-empty body"
+# Use "the {word} multipart request has {int} fields"
 #
-# Tests the multipart request has at least one field.
-Then('the multipart request has a non-empty body') do
+# Tests the number of fields a multipart request contains.
+#
+# @step_input part_count [Integer] The number of expected fields
+Then('the multipart request has {int} fields') do |part_count|
   $logger.warn 'This step is deprecated and may be removed in a future release'
-  step 'Then the error multipart request has a non-empty body'
+  step "Then the error multipart request has #{part_count} fields"
 end
 
 # Tests a given type of multipart request has at least one field.
@@ -89,6 +80,15 @@ Then('the {word} multipart request has a non-empty body') do |request_type|
   list = Maze::Server.list_for request_type
   parts = list.current[:body]
   assert(parts.size.positive?, "Multipart request payload contained #{parts.size} fields")
+end
+
+# (Deprecated) Retained for backwards compatibility
+# Use "the {word} multipart request has a non-empty body"
+#
+# Tests the multipart request has at least one field.
+Then('the multipart request has a non-empty body') do
+  $logger.warn 'This step is deprecated and may be removed in a future release'
+  step 'Then the error multipart request has a non-empty body'
 end
 
 # (Deprecated) Retained for backwards compatibility.
@@ -142,18 +142,6 @@ def parse_multipart_body(body)
   end
 end
 
-# (Deprecated) Retained for backwards compatibility
-# Use "the {word} multipart body does not match the JSON file in {string}"
-#
-# Tests that the multipart payload body does not match a JSON file.
-# JSON formatted multipart fields will be parsed into hashes.
-#
-# @step_input json_path [String] Path to a JSON file relative to maze-runner root
-Then('the multipart body does not match the JSON file in {string}') do |json_path|
-  $logger.warn 'This step is deprecated and may be removed in a future release'
-  step "Then the error multipart body does not match the JSON file in \"#{json_path}\""
-end
-
 # Tests that a given type of multipart payload body does not match a JSON file.
 # JSON formatted multipart fields will be parsed into hashes.
 #
@@ -170,15 +158,15 @@ Then('the {word} multipart body does not match the JSON file in {string}') do |r
 end
 
 # (Deprecated) Retained for backwards compatibility
-# Use "the {word} multipart body matches the JSON file in {string}"
+# Use "the {word} multipart body does not match the JSON file in {string}"
 #
-# Tests that the multipart payload body matches a JSON fixture.
+# Tests that the multipart payload body does not match a JSON file.
 # JSON formatted multipart fields will be parsed into hashes.
 #
 # @step_input json_path [String] Path to a JSON file relative to maze-runner root
-Then('the multipart body matches the JSON file in {string}') do |json_path|
+Then('the multipart body does not match the JSON file in {string}') do |json_path|
   $logger.warn 'This step is deprecated and may be removed in a future release'
-  step "Then the error multipart body matches the JSON file in \"#{json_path}\""
+  step "Then the error multipart body does not match the JSON file in \"#{json_path}\""
 end
 
 # Tests that a given type of multipart payload body matches a JSON fixture.
@@ -197,16 +185,15 @@ Then('the {word} multipart body matches the JSON file in {string}') do |request_
 end
 
 # (Deprecated) Retained for backwards compatibility
-# Use "the {word} multipart field {string} matches the JSON file in {string}"
+# Use "the {word} multipart body matches the JSON file in {string}"
 #
-# Tests that a multipart field matches a JSON fixture.
-# The field will be parsed into a hash.
+# Tests that the multipart payload body matches a JSON fixture.
+# JSON formatted multipart fields will be parsed into hashes.
 #
-# @step_input field_path [String] Path to the tested element
 # @step_input json_path [String] Path to a JSON file relative to maze-runner root
-Then('the multipart field {string} matches the JSON file in {string}') do |field_path, json_path|
+Then('the multipart body matches the JSON file in {string}') do |json_path|
   $logger.warn 'This step is deprecated and may be removed in a future release'
-  step "Then the error multipart field \"#{field_path}\" matches the JSON file in \"#{json_path}\""
+  step "Then the error multipart body matches the JSON file in \"#{json_path}\""
 end
 
 # Tests that a given type of multipart field matches a JSON fixture.
@@ -222,4 +209,17 @@ Then('the {word} multipart field {string} matches the JSON file in {string}') do
   expected_value = JSON.parse(open(json_path, &:read))
   result = Maze::Compare.value(expected_value, payload_value)
   assert_true(result.equal?, "The multipart field '#{result.keypath}' does not match the fixture:\n #{result.reasons.join('\n')}")
+end
+
+# (Deprecated) Retained for backwards compatibility
+# Use "the {word} multipart field {string} matches the JSON file in {string}"
+#
+# Tests that a multipart field matches a JSON fixture.
+# The field will be parsed into a hash.
+#
+# @step_input field_path [String] Path to the tested element
+# @step_input json_path [String] Path to a JSON file relative to maze-runner root
+Then('the multipart field {string} matches the JSON file in {string}') do |field_path, json_path|
+  $logger.warn 'This step is deprecated and may be removed in a future release'
+  step "Then the error multipart field \"#{field_path}\" matches the JSON file in \"#{json_path}\""
 end

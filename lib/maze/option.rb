@@ -39,6 +39,9 @@ module Maze
     # Sauce Labs-only options
     SL_LOCAL = 'sl-local'
 
+    # BitBar-only options
+    BITBAR_API_KEY = 'bitbar-api-key'
+
     # Local-only options
     APPIUM_SERVER = 'appium-server'
     START_APPIUM = 'start-appium'

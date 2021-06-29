@@ -127,6 +127,11 @@ module Maze
                 '(BS only) Path to the BrowserStackLocal binary. MAZE_BS_LOCAL env var or "/BrowserStackLocal" by default',
                 type: :string
 
+            # BitBar-only options
+            opt Option::BITBAR_API_KEY,
+                '(BB only) BitBar API key',
+                type: :string
+
             # TMS options
             opt Option::TMS_URI,
                 'URI of the test management server root.  MAZE_TMS_URI env var',
@@ -222,6 +227,8 @@ module Maze
           when 'sl'
             options[Option::USERNAME] ||= ENV['SAUCE_LABS_USERNAME']
             options[Option::ACCESS_KEY] ||= ENV['SAUCE_LABS_ACCESS_KEY']
+          when 'bb'
+            options[Option::BITBAR_API_KEY] ||= ENV['BITBAR_API_KEY']
           end
           options[Option::SB_LOCAL] ||= ENV['MAZE_SB_LOCAL'] || '/SBSecureTunnel'
           options[Option::TMS_URI] ||= ENV['MAZE_TMS_URI']

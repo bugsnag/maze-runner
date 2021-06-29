@@ -40,6 +40,9 @@ module Maze
     # Sauce Labs-only options
     SL_LOCAL = 'sl-local'
 
+    # BitBar-only options
+    BITBAR_API_KEY = 'bitbar-api-key'
+
     TMS_URI = 'tms-uri'
     TMS_TOKEN = 'tms-token'
 

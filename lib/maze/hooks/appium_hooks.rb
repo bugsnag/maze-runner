@@ -26,6 +26,11 @@ module Maze
                                                    tunnel_id,
                                                    config.username,
                                                    config.access_key
+        when :bb
+          config.app = Maze::BitBarUtils.upload_app config.access_key,
+                                                    config.app
+          pp "Exiting early due to a lack of bitbar support currently"
+          exit
         when :local
           # Attempt to start the local appium server
           appium_uri = URI(config.appium_server_url)

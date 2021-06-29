@@ -30,6 +30,7 @@ module Maze
                         when nil then :none
                         when 'bs' then :bs
                         when 'sl' then :sl
+                        when 'bb' then :bb
                         when 'local' then :local
                         else
                           raise "Unknown farm '#{farm}'"
@@ -61,6 +62,8 @@ module Maze
             username = config.username = options[Maze::Option::USERNAME]
             access_key = config.access_key = options[Maze::Option::ACCESS_KEY]
             config.appium_server_url = "http://#{username}:#{access_key}@ondemand.us-west-1.saucelabs.com/wd/hub"
+          when :bb then
+            config.access_key = options[Maze::Option::BITBAR_API_KEY]
           when :local then
             os = config.os = options[Maze::Option::OS].downcase
             config.os_version = options[Maze::Option::OS_VERSION].to_f

@@ -15,6 +15,11 @@ module Maze
           Maze::BrowserStackUtils.start_local_tunnel config.bs_local,
                                                      tunnel_id,
                                                      config.access_key
+        elsif config.farm == :bb
+          config.app = Maze::BitBarUtils.upload_app config.access_key,
+                                                    config.app
+          pp "Exiting early due to a lack of bitbar support currently"
+          exit
         elsif config.farm == :local
           # Attempt to start the local appium server
           appium_uri = URI(config.appium_server_url)

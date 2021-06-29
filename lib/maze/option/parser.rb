@@ -115,6 +115,11 @@ module Maze
                 '(SL only) Path to the Sauce Connect binary. MAZE_SL_LOCAL env var or "/sauce-connect/bin/sc" by default',
                 type: :string
 
+            # BitBar-only options
+            opt Option::BITBAR_API_KEY,
+                '(BB only) BitBar API key',
+                type: :string
+
             text ''
             text 'Local device options:'
 
@@ -192,6 +197,8 @@ module Maze
           when 'sl'
             options[Option::USERNAME] ||= ENV['SAUCE_LABS_USERNAME']
             options[Option::ACCESS_KEY] ||= ENV['SAUCE_LABS_ACCESS_KEY']
+          when 'bb'
+            options[Option::BITBAR_API_KEY] ||= ENV['BITBAR_API_KEY']
           end
           options[Option::BS_LOCAL] ||= ENV['MAZE_BS_LOCAL'] || '/BrowserStackLocal'
           options[Option::SL_LOCAL] ||= ENV['MAZE_SL_LOCAL'] || '/sauce-connect/bin/sc'

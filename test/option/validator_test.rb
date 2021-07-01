@@ -20,6 +20,7 @@ class ValidatorTest < Test::Unit::TestCase
     ENV.delete('SAUCE_LABS_ACCESS_KEY')
     ENV.delete('CBT_USERNAME')
     ENV.delete('CBT_ACCESS_KEY')
+    ENV.delete('BITBAR_API_KEY')
 
     Maze::Helper.stubs(:expand_path).with('/BrowserStackLocal').returns('/BrowserStackLocal')
     Maze::Helper.stubs(:expand_path).with('/sauce-connect/bin/sc').returns('/sauce-connect/bin/sc')

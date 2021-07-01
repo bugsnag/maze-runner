@@ -18,6 +18,7 @@ class ParserTest < Test::Unit::TestCase
     ENV.delete('MAZE_APPIUM_SERVER')
     ENV.delete('MAZE_APPLE_TEAM_ID')
     ENV.delete('MAZE_UDID')
+    ENV.delete('BITBAR_API_KEY')
   end
 
   def test_default_values
@@ -32,13 +33,14 @@ class ParserTest < Test::Unit::TestCase
     assert_false(options[Maze::Option::RESILIENT])
     assert_equal('{}', options[Maze::Option::CAPABILITIES])
 
-    # BrowserStack-only options
+    # Device-farm-only options
     assert_equal('/BrowserStackLocal', options[Maze::Option::BS_LOCAL])
     assert_equal([], options[Maze::Option::DEVICE])
     assert_nil(options[Maze::Option::BROWSER])
     assert_nil(options[Maze::Option::USERNAME])
     assert_nil(options[Maze::Option::ACCESS_KEY])
     assert_nil(options[Maze::Option::APPIUM_VERSION])
+    assert_nil(options[Maze::Option::BITBAR_API_KEY])
 
     # Local-only options
     assert_nil(options[Maze::Option::OS])
@@ -76,6 +78,7 @@ class ParserTest < Test::Unit::TestCase
       --username=ARG_USERNAME
       --access-key=ARG_ACCESS_KEY
       --appium-version=ARG_APPIUM_VERSION
+      --bitbar-api-key=ARG_BITBAR_API_KEY
       --os=ARG_OS
       --os-version=ARG_OS_VERSION
       --appium-server=ARG_APPIUM_SERVER
@@ -95,13 +98,14 @@ class ParserTest < Test::Unit::TestCase
     assert_true(options[Maze::Option::RESILIENT])
     assert_equal('ARG_CAPABILITIES', options[Maze::Option::CAPABILITIES])
 
-    # BrowserStack-only options
+    # Device-farm-only options
     assert_equal('ARG_BS_LOCAL', options[Maze::Option::BS_LOCAL])
     assert_equal(['ARG_DEVICE'], options[Maze::Option::DEVICE])
     assert_equal('ARG_BROWSER', options[Maze::Option::BROWSER])
     assert_equal('ARG_USERNAME', options[Maze::Option::USERNAME])
     assert_equal('ARG_ACCESS_KEY', options[Maze::Option::ACCESS_KEY])
     assert_equal('ARG_APPIUM_VERSION', options[Maze::Option::APPIUM_VERSION])
+    assert_equal('ARG_BITBAR_API_KEY', options[Maze::Option::BITBAR_API_KEY])
 
     # Local-only options
     assert_equal('ARG_OS', options[Maze::Option::OS])
@@ -158,7 +162,7 @@ class ParserTest < Test::Unit::TestCase
     ]
     options = Maze::Option::Parser.parse args
 
-    # BrowserStack-only options
+    # SauceLabs-only options
     assert_equal('ARG_USERNAME', options[Maze::Option::USERNAME])
     assert_equal('ARG_ACCESS_KEY', options[Maze::Option::ACCESS_KEY])
     assert_equal('ARG_SL_LOCAL', options[Maze::Option::SL_LOCAL])

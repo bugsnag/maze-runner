@@ -10,7 +10,7 @@ module Maze
       # @param api_key [String] The BitBar API key
       # @param app [String] A path to the application file
       def upload_app(api_key, app)
-        uuid_regex = /\A[0-9]{8,12}\z/
+        uuid_regex = /\A[0-9]+\z/
 
         if uuid_regex.match? app
           $logger.info "Using pre-uploaded app with ID #{app}"

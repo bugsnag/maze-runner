@@ -117,7 +117,7 @@ module Maze
           errors << "--#{Option::OS} must be specified"
         else
           os = options[Option::OS].downcase
-          errors << 'os must be android, ios or macos' unless %w[android ios macos].include? os
+          errors << 'os must be android, ios, macos or windows' unless %w[android ios macos windows].include? os
           if os == 'ios'
             errors << "--#{Option::APPLE_TEAM_ID} must be specified for iOS" if options[Option::APPLE_TEAM_ID].nil?
             errors << "--#{Option::UDID} must be specified for iOS" if options[Option::UDID].nil?

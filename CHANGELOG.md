@@ -1,4 +1,4 @@
-# TBA
+# 5.5.0 - 2021/07/06
 
 ## Enhancements
 
@@ -7,6 +7,7 @@
 ## Fixes
 
 - Correct logging of received requests [#267](https://github.com/bugsnag/maze-runner/pull/267)
+- Allow Windows to be specified as `--os` option [#268](https://github.com/bugsnag/maze-runner/pull/268)
 
 # 5.4.0 - 2021/06/24
 

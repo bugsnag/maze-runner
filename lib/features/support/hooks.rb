@@ -137,8 +137,8 @@ Before do |scenario|
 
   Maze.driver.start_driver if Maze.config.farm != :none && Maze.config.appium_session_isolation
 
-  # Launch the app on macOS
-  Maze.driver.get(Maze.config.app) if Maze.config.os == 'macos'
+  # Launch the app on macOS, if Appium is being used
+  Maze.driver.get(Maze.config.app) if Maze.driver && Maze.config.os == 'macos'
 
   # Call any blocks registered by the client
   Maze.hooks.call_before scenario

@@ -240,8 +240,8 @@ def write_requests(scenario)
 
     counter = 1
     File.open(filepath, 'w+') do |file|
-      file.puts "=== Request #{counter} of #{list.size} ==="
       list.each do |request|
+        file.puts "=== Request #{counter} of #{list.size} ==="
         file.puts "URI: #{request[:request].request_uri}"
         file.puts "HEADERS:"
         request[:request].header.each do |key, values|

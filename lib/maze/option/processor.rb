@@ -72,7 +72,8 @@ module Maze
               config.device_id = options[Maze::Option::UDID]
             end
           when :none
-            nil
+            config.os = options[Maze::Option::OS].downcase
+            config.os_version = options[Maze::Option::OS_VERSION].to_f
           else
             raise "Unexpected farm option #{config.farm}"
           end

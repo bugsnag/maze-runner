@@ -1,3 +1,9 @@
+# 5.5.1 - 2021/07/06
+
+## Fixes
+
+- Only start macOS apps when using Appium [#269](https://github.com/bugsnag/maze-runner/pull/269)
+
 # 5.5.0 - 2021/07/06
 
 ## Enhancements

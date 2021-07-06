@@ -6,7 +6,7 @@ require_relative 'maze/hooks/hooks'
 # Glues the various parts of MazeRunner together that need to be accessed globally,
 # providing an alternative to the proliferation of global variables or singletons.
 module Maze
-  VERSION = '5.5.0'
+  VERSION = '5.5.1'
 
   class << self
     attr_accessor :driver

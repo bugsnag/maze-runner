@@ -67,7 +67,7 @@
   <div class="title">Step Definitions &amp; Transforms</div>
 
   <div class="summary">
-    <div>192<a href="#step_definitions">Step Definitions</a></div>
+    <div>199<a href="#step_definitions">Step Definitions</a></div>
     <div>0<a href="#step_transforms">Step Transforms</a></div>
     <div>0<a href="#undefined_steps">Undefined Steps</a></div>
   </div>
@@ -17401,9 +17401,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <a name="step_definition177-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">'the request is valid multipart form-data'</span>
+    <span class="name">'the {word} request is valid multipart form-data'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex='the+request+is+valid+multipart+form-data'" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='the+%7Bword%7D+request+is+valid+multipart+form-data'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -17414,20 +17414,35 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/multipart_request_steps.rb:22</div>
+      <div class="file">lib/features/steps/multipart_request_steps.rb:24</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    <p>Verifies that the request contains multipart form-data</p>
+    <p>Verifies that any type of request contains multipart form-data</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>request_type [String] The type of request (error, session, build, etc)</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div>
     </div>
@@ -17438,13 +17453,15 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">22
-23
-24</pre>
+            <pre class="lines">24
+25
+26
+27</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the request is valid multipart form-data</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_valid_multipart_form_data?'><span class='object_link'><a href="../top-level-namespace.html#valid_multipart_form_data%3F-instance_method" title="#valid_multipart_form_data? (method)">valid_multipart_form_data?</a></span></span><span class='lparen'>(</span><span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_current'>current</span><span class='rparen'>)</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {word} request is valid multipart form-data</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='op'>|</span>
+  <span class='id identifier rubyid_list'>list</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_list_for'>list_for</span> <span class='id identifier rubyid_request_type'>request_type</span>
+  <span class='id identifier rubyid_valid_multipart_form_data?'><span class='object_link'><a href="../top-level-namespace.html#valid_multipart_form_data%3F-instance_method" title="#valid_multipart_form_data? (method)">valid_multipart_form_data?</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_list'>list</span><span class='period'>.</span><span class='id identifier rubyid_current'>current</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
           </td>
         </tr>
@@ -17473,9 +17490,9 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <a name="step_definition178-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">'all requests are valid multipart form-data'</span>
+    <span class="name">'the request is valid multipart form-data'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex='all+requests+are+valid+multipart+form-data'" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='the+request+is+valid+multipart+form-data'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -17486,14 +17503,17 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/multipart_request_steps.rb:27</div>
+      <div class="file">lib/features/steps/multipart_request_steps.rb:33</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    <p>Verifies all received requests contain multipart form-data</p>
+    <p>(Deprecated) Retained for backwards compatibility
+Use &quot;the word request is valid multipart form-data&quot;</p>
+
+<p>Verifies that the request contains multipart form-data</p>
 
 
   </div>
@@ -17510,13 +17530,15 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">27
-28
-29</pre>
+            <pre class="lines">33
+34
+35
+36</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>all requests are valid multipart form-data</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
-  <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_all'>all</span><span class='period'>.</span><span class='id identifier rubyid_all?'>all?</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_request'>request</span><span class='op'>|</span> <span class='id identifier rubyid_valid_multipart_form_data?'><span class='object_link'><a href="../top-level-namespace.html#valid_multipart_form_data%3F-instance_method" title="#valid_multipart_form_data? (method)">valid_multipart_form_data?</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_request'>request</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the request is valid multipart form-data</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
+  <span class='gvar'>$logger</span><span class='period'>.</span><span class='id identifier rubyid_warn'>warn</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>This step is deprecated and may be removed in a future release</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_step'>step</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the error request is valid multipart form-data</span><span class='tstring_end'>&#39;</span></span>
 <span class='kw'>end</span></pre>
           </td>
         </tr>
@@ -17545,6 +17567,274 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <a name="step_definition179-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
+    <span class="name">'all {word} requests are valid multipart form-data'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='all+%7Bword%7D+requests+are+valid+multipart+form-data'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/multipart_request_steps.rb:41</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Verifies all requests of a given type contain multipart form-data</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>request_type [String] The type of request (error, session, build, etc)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">41
+42
+43
+44</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>all {word} requests are valid multipart form-data</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='op'>|</span>
+  <span class='id identifier rubyid_list'>list</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_list_for'>list_for</span> <span class='id identifier rubyid_request_type'>request_type</span>
+  <span class='id identifier rubyid_list'>list</span><span class='period'>.</span><span class='id identifier rubyid_all'>all</span><span class='period'>.</span><span class='id identifier rubyid_all?'>all?</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_request'>request</span><span class='op'>|</span> <span class='id identifier rubyid_valid_multipart_form_data?'><span class='object_link'><a href="../top-level-namespace.html#valid_multipart_form_data%3F-instance_method" title="#valid_multipart_form_data? (method)">valid_multipart_form_data?</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_request'>request</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition180-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'all requests are valid multipart form-data'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='all+requests+are+valid+multipart+form-data'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/multipart_request_steps.rb:50</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>(Deprecated) Retained for backwards compatibility
+Use &quot;all word requests are valid multipart form-data&quot;</p>
+
+<p>Verifies all received requests contain multipart form-data</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">50
+51
+52
+53</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>all requests are valid multipart form-data</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
+  <span class='gvar'>$logger</span><span class='period'>.</span><span class='id identifier rubyid_warn'>warn</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>This step is deprecated and may be removed in a future release</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_step'>step</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>all error requests are valid multipart form-data</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition181-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the {word} multipart request has {int} fields'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+%7Bword%7D+multipart+request+has+%7Bint%7D+fields'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/multipart_request_steps.rb:59</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Tests the number of fields a given type of multipart request contains.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>request_type [String] The type of request (error, session, build, etc)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>part_count [Integer] The number of expected fields</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">59
+60
+61
+62
+63</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {word} multipart request has {int} fields</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_part_count'>part_count</span><span class='op'>|</span>
+  <span class='id identifier rubyid_list'>list</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_list_for'>list_for</span> <span class='id identifier rubyid_request_type'>request_type</span>
+  <span class='id identifier rubyid_parts'>parts</span> <span class='op'>=</span> <span class='id identifier rubyid_list'>list</span><span class='period'>.</span><span class='id identifier rubyid_current'>current</span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_assert_equal'>assert_equal</span><span class='lparen'>(</span><span class='id identifier rubyid_part_count'>part_count</span><span class='comma'>,</span> <span class='id identifier rubyid_parts'>parts</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition182-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
     <span class="name">'the multipart request has {int} fields'</span>
     <div style="float: right;">
       <a href="http://rubular.com/?regex='the+multipart+request+has+%7Bint%7D+fields'" target="_blank">Rubular</a>
@@ -17558,14 +17848,17 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/multipart_request_steps.rb:34</div>
+      <div class="file">lib/features/steps/multipart_request_steps.rb:71</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    <p>Tests the number of fields a multipart request contains.</p>
+    <p>(Deprecated) Retained for backwards compatibility
+Use &quot;the word multipart request has int fields&quot;</p>
+
+<p>Tests the number of fields a multipart request contains.</p>
 
 
   </div>
@@ -17597,15 +17890,15 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">34
-35
-36
-37</pre>
+            <pre class="lines">71
+72
+73
+74</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the multipart request has {int} fields</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_part_count'>part_count</span><span class='op'>|</span>
-  <span class='id identifier rubyid_parts'>parts</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_current'>current</span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span>
-  <span class='id identifier rubyid_assert_equal'>assert_equal</span><span class='lparen'>(</span><span class='id identifier rubyid_part_count'>part_count</span><span class='comma'>,</span> <span class='id identifier rubyid_parts'>parts</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span>
+  <span class='gvar'>$logger</span><span class='period'>.</span><span class='id identifier rubyid_warn'>warn</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>This step is deprecated and may be removed in a future release</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_step'>step</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the error multipart request has </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_part_count'>part_count</span><span class='embexpr_end'>}</span><span class='tstring_content'> fields</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
           </td>
         </tr>
@@ -17631,12 +17924,12 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition180-stepdefinition"></a>
+  <a name="step_definition183-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">'the multipart request has a non-empty body'</span>
+    <span class="name">'the {word} multipart request has a non-empty body'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex='the+multipart+request+has+a+non-empty+body'" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='the+%7Bword%7D+multipart+request+has+a+non-empty+body'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -17647,20 +17940,35 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/multipart_request_steps.rb:40</div>
+      <div class="file">lib/features/steps/multipart_request_steps.rb:79</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    <p>Tests the multipart request has at least one field.</p>
+    <p>Tests a given type of multipart request has at least one field.</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>request_type [String] The type of request (error, session, build, etc)</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div>
     </div>
@@ -17671,14 +17979,16 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">40
-41
-42
-43</pre>
+            <pre class="lines">79
+80
+81
+82
+83</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the multipart request has a non-empty body</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_parts'>parts</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_current'>current</span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {word} multipart request has a non-empty body</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='op'>|</span>
+  <span class='id identifier rubyid_list'>list</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_list_for'>list_for</span> <span class='id identifier rubyid_request_type'>request_type</span>
+  <span class='id identifier rubyid_parts'>parts</span> <span class='op'>=</span> <span class='id identifier rubyid_list'>list</span><span class='period'>.</span><span class='id identifier rubyid_current'>current</span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span><span class='id identifier rubyid_parts'>parts</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='period'>.</span><span class='id identifier rubyid_positive?'>positive?</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Multipart request payload contained </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_parts'>parts</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='embexpr_end'>}</span><span class='tstring_content'> fields</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
           </td>
@@ -17705,7 +18015,84 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition181-stepdefinition"></a>
+  <a name="step_definition184-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the multipart request has a non-empty body'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+multipart+request+has+a+non-empty+body'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/multipart_request_steps.rb:89</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>(Deprecated) Retained for backwards compatibility
+Use &quot;the word multipart request has a non-empty body&quot;</p>
+
+<p>Tests the multipart request has at least one field.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">89
+90
+91
+92</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the multipart request has a non-empty body</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
+  <span class='gvar'>$logger</span><span class='period'>.</span><span class='id identifier rubyid_warn'>warn</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>This step is deprecated and may be removed in a future release</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_step'>step</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the error multipart request has a non-empty body</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition185-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the field {string} for multipart request is not null'</span>
@@ -17721,7 +18108,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/multipart_request_steps.rb:51</div>
+      <div class="file">lib/features/steps/multipart_request_steps.rb:100</div>
     </div>
     
     <!-- Comments -->
@@ -17763,13 +18150,15 @@ Use &quot;the payload field string is not null&quot;</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">51
-52
-53
-54</pre>
+            <pre class="lines">100
+101
+102
+103
+104</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the field {string} for multipart request is not null</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_part_key'>part_key</span><span class='op'>|</span>
+  <span class='gvar'>$logger</span><span class='period'>.</span><span class='id identifier rubyid_warn'>warn</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>This step is deprecated and may be removed in a future release</span><span class='tstring_end'>&#39;</span></span>
   <span class='id identifier rubyid_parts'>parts</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_current'>current</span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_assert_not_nil'>assert_not_nil</span><span class='lparen'>(</span><span class='id identifier rubyid_parts'>parts</span><span class='lbracket'>[</span><span class='id identifier rubyid_part_key'>part_key</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The field &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_part_key'>part_key</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; should not be null</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -17797,7 +18186,7 @@ Use &quot;the payload field string is not null&quot;</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition182-stepdefinition"></a>
+  <a name="step_definition186-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the field {string} for multipart request equals {string}'</span>
@@ -17813,7 +18202,7 @@ Use &quot;the payload field string is not null&quot;</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/multipart_request_steps.rb:63</div>
+      <div class="file">lib/features/steps/multipart_request_steps.rb:113</div>
     </div>
     
     <!-- Comments -->
@@ -17866,13 +18255,15 @@ Use &quot;the payload field string equals string&quot;</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">63
-64
-65
-66</pre>
+            <pre class="lines">113
+114
+115
+116
+117</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the field {string} for multipart request equals {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_part_key'>part_key</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_value'>expected_value</span><span class='op'>|</span>
+  <span class='gvar'>$logger</span><span class='period'>.</span><span class='id identifier rubyid_warn'>warn</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>This step is deprecated and may be removed in a future release</span><span class='tstring_end'>&#39;</span></span>
   <span class='id identifier rubyid_parts'>parts</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_current'>current</span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_assert_equal'>assert_equal</span><span class='lparen'>(</span><span class='id identifier rubyid_parts'>parts</span><span class='lbracket'>[</span><span class='id identifier rubyid_part_key'>part_key</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_value'>expected_value</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -17900,7 +18291,7 @@ Use &quot;the payload field string equals string&quot;</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition183-stepdefinition"></a>
+  <a name="step_definition187-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the field {string} for multipart request is null'</span>
@@ -17916,7 +18307,7 @@ Use &quot;the payload field string equals string&quot;</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/multipart_request_steps.rb:74</div>
+      <div class="file">lib/features/steps/multipart_request_steps.rb:125</div>
     </div>
     
     <!-- Comments -->
@@ -17958,13 +18349,15 @@ Use &quot;the payload field string is null&quot;</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">74
-75
-76
-77</pre>
+            <pre class="lines">125
+126
+127
+128
+129</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the field {string} for multipart request is null</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_part_key'>part_key</span><span class='op'>|</span>
+  <span class='gvar'>$logger</span><span class='period'>.</span><span class='id identifier rubyid_warn'>warn</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>This step is deprecated and may be removed in a future release</span><span class='tstring_end'>&#39;</span></span>
   <span class='id identifier rubyid_parts'>parts</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_current'>current</span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_assert_nil'>assert_nil</span><span class='lparen'>(</span><span class='id identifier rubyid_parts'>parts</span><span class='lbracket'>[</span><span class='id identifier rubyid_part_key'>part_key</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The field &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_part_key'>part_key</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; should be null</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -17992,12 +18385,12 @@ Use &quot;the payload field string is null&quot;</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition184-stepdefinition"></a>
+  <a name="step_definition188-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">'the multipart body does not match the JSON file in {string}'</span>
+    <span class="name">'the {word} multipart body does not match the JSON file in {string}'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex='the+multipart+body+does+not+match+the+JSON+file+in+%7Bstring%7D'" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='the+%7Bword%7D+multipart+body+does+not+match+the+JSON+file+in+%7Bstring%7D'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -18008,14 +18401,14 @@ Use &quot;the payload field string is null&quot;</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/multipart_request_steps.rb:97</div>
+      <div class="file">lib/features/steps/multipart_request_steps.rb:150</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    <p>Tests that the multipart payload body does not match a JSON file.
+    <p>Tests that a given type of multipart payload body does not match a JSON file.
 JSON formatted multipart fields will be parsed into hashes.</p>
 
 
@@ -18025,6 +18418,17 @@ JSON formatted multipart fields will be parsed into hashes.</p>
   
 <p class="tag_title">Step parameters:</p>
 <ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>request_type [String] The type of request (error, session, build, etc)</p>
+</div>
+      
+    </li>
   
     <li>
       
@@ -18048,19 +18452,21 @@ JSON formatted multipart fields will be parsed into hashes.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">97
-98
-99
-100
-101
-102
-103
-104</pre>
+            <pre class="lines">150
+151
+152
+153
+154
+155
+156
+157
+158</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the multipart body does not match the JSON file in {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_json_path'>json_path</span><span class='op'>|</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {word} multipart body does not match the JSON file in {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_json_path'>json_path</span><span class='op'>|</span>
   <span class='id identifier rubyid_assert_true'>assert_true</span><span class='lparen'>(</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_exist?'>exist?</span><span class='lparen'>(</span><span class='id identifier rubyid_json_path'>json_path</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_json_path'>json_path</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; does not exist</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_raw_payload_value'>raw_payload_value</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_current'>current</span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_payload_list'>payload_list</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_list_for'>list_for</span> <span class='id identifier rubyid_request_type'>request_type</span>
+  <span class='id identifier rubyid_raw_payload_value'>raw_payload_value</span> <span class='op'>=</span> <span class='id identifier rubyid_payload_list'>payload_list</span><span class='period'>.</span><span class='id identifier rubyid_current'>current</span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_payload_value'>payload_value</span> <span class='op'>=</span> <span class='id identifier rubyid_parse_multipart_body'><span class='object_link'><a href="../top-level-namespace.html#parse_multipart_body-instance_method" title="#parse_multipart_body (method)">parse_multipart_body</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_raw_payload_value'>raw_payload_value</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_expected_value'>expected_value</span> <span class='op'>=</span> <span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='id identifier rubyid_json_path'>json_path</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='symbol'>:read</span><span class='rparen'>)</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Compare</span><span class='period'>.</span><span class='id identifier rubyid_value'>value</span><span class='lparen'>(</span><span class='id identifier rubyid_expected_value'>expected_value</span><span class='comma'>,</span> <span class='id identifier rubyid_payload_value'>payload_value</span><span class='rparen'>)</span>
@@ -18090,12 +18496,12 @@ JSON formatted multipart fields will be parsed into hashes.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition185-stepdefinition"></a>
+  <a name="step_definition189-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
-    <span class="name">'the multipart body matches the JSON file in {string}'</span>
+    <span class="name">'the multipart body does not match the JSON file in {string}'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex='the+multipart+body+matches+the+JSON+file+in+%7Bstring%7D'" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='the+multipart+body+does+not+match+the+JSON+file+in+%7Bstring%7D'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -18106,14 +18512,17 @@ JSON formatted multipart fields will be parsed into hashes.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/multipart_request_steps.rb:110</div>
+      <div class="file">lib/features/steps/multipart_request_steps.rb:167</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    <p>Tests that the multipart payload body matches a JSON fixture.
+    <p>(Deprecated) Retained for backwards compatibility
+Use &quot;the word multipart body does not match the JSON file in string&quot;</p>
+
+<p>Tests that the multipart payload body does not match a JSON file.
 JSON formatted multipart fields will be parsed into hashes.</p>
 
 
@@ -18146,19 +18555,122 @@ JSON formatted multipart fields will be parsed into hashes.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">110
-111
-112
-113
-114
-115
-116
-117</pre>
+            <pre class="lines">167
+168
+169
+170</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the multipart body matches the JSON file in {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_json_path'>json_path</span><span class='op'>|</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the multipart body does not match the JSON file in {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_json_path'>json_path</span><span class='op'>|</span>
+  <span class='gvar'>$logger</span><span class='period'>.</span><span class='id identifier rubyid_warn'>warn</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>This step is deprecated and may be removed in a future release</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_step'>step</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the error multipart body does not match the JSON file in \&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_json_path'>json_path</span><span class='embexpr_end'>}</span><span class='tstring_content'>\&quot;</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition190-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the {word} multipart body matches the JSON file in {string}'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+%7Bword%7D+multipart+body+matches+the+JSON+file+in+%7Bstring%7D'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/multipart_request_steps.rb:177</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Tests that a given type of multipart payload body matches a JSON fixture.
+JSON formatted multipart fields will be parsed into hashes.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>request_type [String] The type of request (error, session, build, etc)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>json_path [String] Path to a JSON file relative to maze-runner root</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">177
+178
+179
+180
+181
+182
+183
+184
+185</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {word} multipart body matches the JSON file in {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_json_path'>json_path</span><span class='op'>|</span>
   <span class='id identifier rubyid_assert_true'>assert_true</span><span class='lparen'>(</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_exist?'>exist?</span><span class='lparen'>(</span><span class='id identifier rubyid_json_path'>json_path</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_json_path'>json_path</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; does not exist</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_raw_payload_value'>raw_payload_value</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_current'>current</span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_payload_list'>payload_list</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_list_for'>list_for</span> <span class='id identifier rubyid_request_type'>request_type</span>
+  <span class='id identifier rubyid_raw_payload_value'>raw_payload_value</span> <span class='op'>=</span> <span class='id identifier rubyid_payload_list'>payload_list</span><span class='period'>.</span><span class='id identifier rubyid_current'>current</span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_payload_value'>payload_value</span> <span class='op'>=</span> <span class='id identifier rubyid_parse_multipart_body'><span class='object_link'><a href="../top-level-namespace.html#parse_multipart_body-instance_method" title="#parse_multipart_body (method)">parse_multipart_body</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_raw_payload_value'>raw_payload_value</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_expected_value'>expected_value</span> <span class='op'>=</span> <span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='id identifier rubyid_json_path'>json_path</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='symbol'>:read</span><span class='rparen'>)</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Compare</span><span class='period'>.</span><span class='id identifier rubyid_value'>value</span><span class='lparen'>(</span><span class='id identifier rubyid_expected_value'>expected_value</span><span class='comma'>,</span> <span class='id identifier rubyid_payload_value'>payload_value</span><span class='rparen'>)</span>
@@ -18188,7 +18700,220 @@ JSON formatted multipart fields will be parsed into hashes.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition186-stepdefinition"></a>
+  <a name="step_definition191-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the multipart body matches the JSON file in {string}'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+multipart+body+matches+the+JSON+file+in+%7Bstring%7D'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/multipart_request_steps.rb:194</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>(Deprecated) Retained for backwards compatibility
+Use &quot;the word multipart body matches the JSON file in string&quot;</p>
+
+<p>Tests that the multipart payload body matches a JSON fixture.
+JSON formatted multipart fields will be parsed into hashes.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>json_path [String] Path to a JSON file relative to maze-runner root</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">194
+195
+196
+197</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the multipart body matches the JSON file in {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_json_path'>json_path</span><span class='op'>|</span>
+  <span class='gvar'>$logger</span><span class='period'>.</span><span class='id identifier rubyid_warn'>warn</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>This step is deprecated and may be removed in a future release</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_step'>step</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the error multipart body matches the JSON file in \&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_json_path'>json_path</span><span class='embexpr_end'>}</span><span class='tstring_content'>\&quot;</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition192-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the {word} multipart field {string} matches the JSON file in {string}'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+%7Bword%7D+multipart+field+%7Bstring%7D+matches+the+JSON+file+in+%7Bstring%7D'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/multipart_request_steps.rb:205</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Tests that a given type of multipart field matches a JSON fixture.
+The field will be parsed into a hash.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>request_type [String] The type of request (error, session, build, etc)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>field_path [String] Path to the tested element</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>json_path [String] Path to a JSON file relative to maze-runner root</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">205
+206
+207
+208
+209
+210
+211
+212</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {word} multipart field {string} matches the JSON file in {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_json_path'>json_path</span><span class='op'>|</span>
+  <span class='id identifier rubyid_assert_true'>assert_true</span><span class='lparen'>(</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_exist?'>exist?</span><span class='lparen'>(</span><span class='id identifier rubyid_json_path'>json_path</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_json_path'>json_path</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; does not exist</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_payload_list'>payload_list</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_list_for'>list_for</span> <span class='id identifier rubyid_request_type'>request_type</span>
+  <span class='id identifier rubyid_payload_value'>payload_value</span> <span class='op'>=</span> <span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_payload_list'>payload_list</span><span class='period'>.</span><span class='id identifier rubyid_current'>current</span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_field_path'>field_path</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_expected_value'>expected_value</span> <span class='op'>=</span> <span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='id identifier rubyid_json_path'>json_path</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='symbol'>:read</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Compare</span><span class='period'>.</span><span class='id identifier rubyid_value'>value</span><span class='lparen'>(</span><span class='id identifier rubyid_expected_value'>expected_value</span><span class='comma'>,</span> <span class='id identifier rubyid_payload_value'>payload_value</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_assert_true'>assert_true</span><span class='lparen'>(</span><span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_equal?'>equal?</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The multipart field &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_keypath'>keypath</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; does not match the fixture:\n </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_reasons'>reasons</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition193-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the multipart field {string} matches the JSON file in {string}'</span>
@@ -18204,14 +18929,17 @@ JSON formatted multipart fields will be parsed into hashes.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/multipart_request_steps.rb:124</div>
+      <div class="file">lib/features/steps/multipart_request_steps.rb:222</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    <p>Tests that a multipart field matches a JSON fixture.
+    <p>(Deprecated) Retained for backwards compatibility
+Use &quot;the word multipart field string matches the JSON file in string&quot;</p>
+
+<p>Tests that a multipart field matches a JSON fixture.
 The field will be parsed into a hash.</p>
 
 
@@ -18255,21 +18983,15 @@ The field will be parsed into a hash.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">124
-125
-126
-127
-128
-129
-130</pre>
+            <pre class="lines">222
+223
+224
+225</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the multipart field {string} matches the JSON file in {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_json_path'>json_path</span><span class='op'>|</span>
-  <span class='id identifier rubyid_assert_true'>assert_true</span><span class='lparen'>(</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_exist?'>exist?</span><span class='lparen'>(</span><span class='id identifier rubyid_json_path'>json_path</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_json_path'>json_path</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; does not exist</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_payload_value'>payload_value</span> <span class='op'>=</span> <span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_current'>current</span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_field_path'>field_path</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_expected_value'>expected_value</span> <span class='op'>=</span> <span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='id identifier rubyid_json_path'>json_path</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='symbol'>:read</span><span class='rparen'>)</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Compare</span><span class='period'>.</span><span class='id identifier rubyid_value'>value</span><span class='lparen'>(</span><span class='id identifier rubyid_expected_value'>expected_value</span><span class='comma'>,</span> <span class='id identifier rubyid_payload_value'>payload_value</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_assert_true'>assert_true</span><span class='lparen'>(</span><span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_equal?'>equal?</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The multipart field &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_keypath'>keypath</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; does not match the fixture:\n </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_reasons'>reasons</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='gvar'>$logger</span><span class='period'>.</span><span class='id identifier rubyid_warn'>warn</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>This step is deprecated and may be removed in a future release</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_step'>step</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the error multipart field \&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_field_path'>field_path</span><span class='embexpr_end'>}</span><span class='tstring_content'>\&quot; matches the JSON file in \&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_json_path'>json_path</span><span class='embexpr_end'>}</span><span class='tstring_content'>\&quot;</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
           </td>
         </tr>
@@ -18295,7 +19017,7 @@ The field will be parsed into a hash.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition187-stepdefinition"></a>
+  <a name="step_definition194-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I wait to receive a(n) {word}'</span>
@@ -18384,7 +19106,7 @@ The field will be parsed into a hash.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition188-stepdefinition"></a>
+  <a name="step_definition195-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I wait to receive {int} {word}'</span>
@@ -18489,7 +19211,7 @@ will be sorted by the header.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition189-stepdefinition"></a>
+  <a name="step_definition196-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I have received at least {int} {word}'</span>
@@ -18590,7 +19312,7 @@ This step is only intended for use in stress tests</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition190-stepdefinition"></a>
+  <a name="step_definition197-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I should receive no {word}'</span>
@@ -18694,7 +19416,7 @@ request types.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition191-stepdefinition"></a>
+  <a name="step_definition198-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I discard the oldest {word}'</span>
@@ -18785,7 +19507,7 @@ request types.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition192-stepdefinition"></a>
+  <a name="step_definition199-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the received errors match:'</span>
@@ -18905,7 +19627,7 @@ request types.</p>
 </div>
 
       <div id="footer">
-  Generated on Thu Jun 24 18:43:44 2021 by
+  Generated on Tue Jul  6 10:01:41 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-2.7.3).
 </div>

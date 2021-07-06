@@ -105,7 +105,7 @@ class ValidatorTest < Test::Unit::TestCase
     errors = @validator.validate options
 
     assert_equal 1, errors.length
-    assert_equal 'os must be android, ios or macos', errors[0]
+    assert_equal 'os must be android, ios, macos or windows', errors[0]
   end
 
   def test_local_missing_os

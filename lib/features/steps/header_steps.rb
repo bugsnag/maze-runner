@@ -11,6 +11,19 @@ Then('the {word} {string} header is not null') do |request_type, header_name|
                  "The #{request_type} '#{header_name}' header should not be null")
 end
 
+# Tests that a request header is null
+#
+# @step_input request_type [String] The type of request (error, session, build, etc)
+# @step_input header_name [String] The header to test
+Then('the {word} {string} header is null') do |request_type, header_name|
+  request = Maze::Server.list_for(request_type).current[:request]
+
+  assert_nil(
+      request[header_name],
+      "The #{request_type} '#{header_name}' header should be null"
+  )
+end
+
 # Tests that request header equals a string
 #
 # @step_input request_type [String] The type of request (error, session, build, etc)

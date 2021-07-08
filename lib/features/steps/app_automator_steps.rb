@@ -168,8 +168,6 @@ When('I clear and send the keys {string} to the element {string}') do |keys, ele
 end
 
 def get_expected_platform_value(platform_values)
-  raise('This step should only be used when running tests with Appium') if Maze.driver.nil?
-
   if Maze.config.farm == :bs
     os = Maze.config.capabilities['os']
   elsif Maze.config.farm == :sl
@@ -177,6 +175,9 @@ def get_expected_platform_value(platform_values)
   else
     os = Maze.config.os
   end
+
+  raise('Unable to determine the current platform') if os.nil?
+
   expected_value = Hash[platform_values.raw][os.downcase]
   raise("There is no expected value for the current platform \"#{os}\"") if expected_value.nil?
 

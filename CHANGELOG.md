@@ -1,3 +1,9 @@
+# 5.6.0 - 2021/07/08
+
+## Enhancements
+
+- Add `/uploads` endpoint for receiving upload requests [#271](https://github.com/bugsnag/maze-runner/pull/271)
+
 # 5.5.2 - 2021/07/09
 
 ## Fixes

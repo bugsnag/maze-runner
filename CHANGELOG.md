@@ -1,3 +1,9 @@
+# TBD
+
+## Fixes
+
+- Correct guard for platform-dependent value steps [#270](https://github.com/bugsnag/maze-runner/pull/270)
+
 # 5.5.1 - 2021/07/06
 
 ## Fixes

@@ -29,7 +29,7 @@ module Maze
       # Expected HTTP server calls
       mock_http_server = mock('http')
       mock_http_server.expects(:mount_proc).once
-      mock_http_server.expects(:mount).times(4)
+      mock_http_server.expects(:mount).times(5)
       mock_http_server.expects(:start)
       mock_http_server.expects(:shutdown)
 
@@ -65,7 +65,7 @@ module Maze
       # Successful the second
       mock_http_server = mock('http')
       mock_http_server.expects(:mount_proc).once
-      mock_http_server.expects(:mount).times(4)
+      mock_http_server.expects(:mount).times(5)
       mock_http_server.expects(:start)
       mock_http_server.expects(:shutdown)
       WEBrick::HTTPServer.expects(:new).with(Port: PORT,

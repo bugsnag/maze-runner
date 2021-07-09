@@ -223,3 +223,31 @@ Then('the multipart field {string} matches the JSON file in {string}') do |field
   $logger.warn 'This step is deprecated and may be removed in a future release'
   step "the error multipart field \"#{field_path}\" matches the JSON file in \"#{json_path}\""
 end
+
+# Tests that a multipart request field exists and is not null.
+#
+# @step_input request_type [String] The type of request (error, session, build, etc)
+# @step_input part_key [String] The key to the multipart element
+Then('the field {string} for multipart {word} is not null') do |part_key, request_type|
+  parts = Maze::Server.list_for(request_type).current[:body]
+  assert_not_nil(parts[part_key], "The field '#{part_key}' should not be null")
+end
+
+# Tests that a multipart request field exists and is null.
+#
+# @step_input part_key [String] The key to the multipart element
+# @step_input request_type [String] The type of request (error, session, build, etc)
+Then('the field {string} for multipart {word} is null') do |part_key, request_type|
+  parts = Maze::Server.list_for(request_type).current[:body]
+  assert_nil(parts[part_key], "The field '#{part_key}' should be null")
+end
+
+# Tests that a multipart request field equals a string.
+#
+# @step_input part_key [String] The key to the multipart element
+# @step_input request_type [String] The type of request (error, session, build, etc)
+# @step_input expected_value [String] The string to match against
+Then('the field {string} for multipart {word} equals {string}') do |part_key, request_type, expected_value|
+  parts = Maze::Server.list_for(request_type).current[:body]
+  assert_equal(parts[part_key], expected_value)
+end

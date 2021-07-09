@@ -61,6 +61,8 @@ module Maze
           builds
         when 'log', 'logs'
           logs
+        when 'upload', 'uploads'
+          uploads
         else
           raise "Invalid request type '#{type}'"
         end
@@ -85,6 +87,13 @@ module Maze
       # @return [RequestList] Received build requests
       def builds
         @builds ||= RequestList.new
+      end
+
+      # A list of upload requests received
+      #
+      # @return [RequestList] Received upload requests
+      def uploads
+        @upload ||= RequestList.new
       end
 
       # A list of log requests received
@@ -138,6 +147,7 @@ module Maze
             server.mount '/notify', Servlet, errors
             server.mount '/sessions', Servlet, sessions
             server.mount '/builds', Servlet, builds
+            server.mount '/uploads', Servlet, uploads
             server.mount '/logs', LogServlet
             server.start
           rescue StandardError => e

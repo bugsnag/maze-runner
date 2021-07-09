@@ -1,3 +1,10 @@
+# 5.6.0 - 2021/07/09
+
+## Enhancements
+
+- Add `/uploads` endpoint for receiving upload requests [#271](https://github.com/bugsnag/maze-runner/pull/271)
+- Add 'the {word} {string} header is null' step [#272](https://github.com/bugsnag/maze-runner/pull/272)
+
 # 5.5.2 - 2021/07/09
 
 ## Fixes

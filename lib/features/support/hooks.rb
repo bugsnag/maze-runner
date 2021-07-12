@@ -83,6 +83,10 @@ AfterConfiguration do |_cucumber_config|
   elsif config.farm == :bb
     config.app = Maze::BitBarUtils.upload_app config.access_key,
                                               config.app
+    Maze::BitBarUtils.start_local_tunnel config.bb_local,
+                                         config.username,
+                                         config.access_key
+
     pp "Exiting early due to a lack of bitbar support currently"
     exit
   elsif config.farm == :local
@@ -193,7 +197,7 @@ After do |scenario|
   elsif Maze.config.os == 'macos'
     # Close the app - without the sleep, launching the app for the next scenario intermittently fails
     system("killall #{Maze.config.app} && sleep 1")
-  elsif [:bs, :sl, :local].include? Maze.config.farm
+  elsif [:bs, :sl, :bb, :local].include? Maze.config.farm
     Maze.driver.reset
   end
 ensure
@@ -306,7 +310,8 @@ at_exit do
   elsif Maze.config.farm == :bs
     Maze::BrowserStackUtils.stop_local_tunnel
   elsif Maze.config.farm == :sl
-    pp "Stopping sauce labs"
     Maze::SauceLabsUtils.stop_sauce_connect
+  elsif Maze.config.farm == :bb
+    Maze::BitBarUtils.stop_local_tunnel
   end
 end

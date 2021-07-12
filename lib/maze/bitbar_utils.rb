@@ -1,10 +1,13 @@
 # frozen_string_literal: true
+require 'fileutils'
 
 module Maze
   # Utils supporting the BitBar device farm integration
   class BitBarUtils
+    BB_READY_FILE = 'bb.ready'
+    BB_KILL_FILE = 'bb.kill'
+
     class << self
-      attr_accessor :connect_shell
 
       # Uploads an app to BitBar for later consumption
       # @param api_key [String] The BitBar API key
@@ -46,6 +49,35 @@ module Maze
           end
         end
         app_uuid
+      end
+
+      # Starts the BitBar local tunnel
+      # @param bb_local [String] path to the SBSecureTunnel binary
+      # @param username [String] Username to start the tunnel with
+      # @param access_key [String] BitBar access key
+      def start_local_tunnel(bb_local, username, access_key)
+        $logger.info 'Starting BitBar SBSecureTunnel local tunnel'
+        command = "#{bb_local} --username #{username} --authkey #{access_key}" \
+                    "--ready #{BB_READY_FILE} --kill #{BB_KILL_FILE}"
+
+        @tunnel_shell = Maze::InteractiveCLI.new
+        @tunnel_shell.run_command(command)
+        success = Maze::Wait.new(timeout: 30).until do
+          File.exist?(BB_READY_FILE)
+        end
+        unless success
+          $logger.info "Failed: #{@tunnel_shell.stdout_lines}"
+        end
+      end
+
+      # Stops the local tunnel
+      def stop_local_tunnel
+        FileUtils.touch(BB_KILL_FILE)
+        Maze::Wait.new(timeout: 30).until do
+          !@tunnel_shell.running?
+        end
+        File.delete(BB_READY_FILE) if File.exist?(BB_READY_FILE)
+        File.delete(BB_KILL_FILE) if File.exist?(BB_KILL_FILE)
       end
     end
   end

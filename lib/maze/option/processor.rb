@@ -63,6 +63,7 @@ module Maze
             access_key = config.access_key = options[Maze::Option::ACCESS_KEY]
             config.appium_server_url = "http://#{username}:#{access_key}@ondemand.us-west-1.saucelabs.com/wd/hub"
           when :bb then
+            config.username = options[Maze::Option::USERNAME]
             config.access_key = options[Maze::Option::BITBAR_API_KEY]
           when :local then
             os = config.os = options[Maze::Option::OS].downcase

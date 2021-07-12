@@ -111,7 +111,8 @@ module Maze
 
       # Validates BitBar device options
       def validate_bitbar(options, errors)
-        errors << "--#{Option::BITBAR_API_KEY} must be specified" if options[Option::BITBAR_API_KEY].nil?
+        errors << "--#{Option::USERNAME} must be specified" if options[Option::USERNAME].nil?
+        errors << "--#{Option::ACCESS_KEY} must be specified" if options[Option::ACCESS_KEY].nil?
 
         app = options[Option::APP]
         if app.nil?

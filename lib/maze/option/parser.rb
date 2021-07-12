@@ -102,8 +102,8 @@ module Maze
                 type: :string
 
             # BitBar-only options
-            opt Option::BITBAR_API_KEY,
-                '(BB only) BitBar API key',
+            opt Option::BB_LOCAL,
+                '(BB only) Path to the SBSecureTunnel binary. MAZE_BB_LOCAL env var or "/sauce-connect/bin/sc" by default',
                 type: :string
 
             text ''
@@ -184,10 +184,12 @@ module Maze
             options[Option::USERNAME] ||= ENV['SAUCE_LABS_USERNAME']
             options[Option::ACCESS_KEY] ||= ENV['SAUCE_LABS_ACCESS_KEY']
           when 'bb'
-            options[Option::BITBAR_API_KEY] ||= ENV['BITBAR_API_KEY']
+            options[Option::USERNAME] ||= ENV['BITBAR_USERNAME']
+            options[Option::ACCESS_KEY] ||= ENV['BITBAR_ACCESS_KEY']
           end
           options[Option::BS_LOCAL] ||= ENV['MAZE_BS_LOCAL'] || '/BrowserStackLocal'
           options[Option::SL_LOCAL] ||= ENV['MAZE_SL_LOCAL'] || '/sauce-connect/bin/sc'
+          options[Option::BB_LOCAL] ||= ENV['MAZE_BB_LOCAL'] || '/SBSecureTunnel'
           options[Option::APPIUM_SERVER] ||= ENV['MAZE_APPIUM_SERVER'] || 'http://localhost:4723/wd/hub'
           options[Option::APPLE_TEAM_ID] ||= ENV['MAZE_APPLE_TEAM_ID']
           options[Option::UDID] ||= ENV['MAZE_UDID']

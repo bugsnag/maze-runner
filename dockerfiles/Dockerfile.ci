@@ -18,6 +18,9 @@ RUN wget -q https://saucelabs.com/downloads/sc-4.6.4-linux.tar.gz \
   && rm sc-4.6.4-linux.tar.gz \
   && mv sc-4.6.4-linux sauce-connect
 
+RUN wget -q https://sbsecuretunnel.s3.amazonaws.com/cli/macos/SBSecureTunnel
+  && chmod +x SBSecureTunnel
+
 WORKDIR /app/
 
 COPY bin/ bin/

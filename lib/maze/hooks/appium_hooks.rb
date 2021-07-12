@@ -18,6 +18,10 @@ module Maze
         elsif config.farm == :bb
           config.app = Maze::BitBarUtils.upload_app config.access_key,
                                                     config.app
+          Maze::BitBarUtils.start_local_tunnel config.bb_local,
+                                              config.username,
+                                              config.access_key
+
           pp "Exiting early due to a lack of bitbar support currently"
           exit
         elsif config.farm == :local
@@ -61,6 +65,8 @@ module Maze
           Maze::Runner.run_command("log show --predicate '(process == \"#{Maze.config.app}\")' --style syslog --start '#{Maze.start_time}' > #{Maze.config.app}.log")
         elsif Maze.config.farm == :bs
           Maze::BrowserStackUtils.stop_local_tunnel
+        elsif Maze.config.farm == :bb
+          Maze::BitBarUtils.stop_local_tunnel
         end
       end
 

@@ -41,7 +41,7 @@ module Maze
     SL_LOCAL = 'sl-local'
 
     # BitBar-only options
-    BITBAR_API_KEY = 'bitbar-api-key'
+    BB_LOCAL = 'bb-local'
 
     TMS_URI = 'tms-uri'
     TMS_TOKEN = 'tms-token'

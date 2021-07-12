@@ -29,6 +29,10 @@ module Maze
         when :bb
           config.app = Maze::BitBarUtils.upload_app config.access_key,
                                                     config.app
+          Maze::BitBarUtils.start_local_tunnel config.bb_local,
+                                              config.username,
+                                              config.access_key
+
           pp "Exiting early due to a lack of bitbar support currently"
           exit
         when :local
@@ -74,6 +78,8 @@ module Maze
         elsif Maze.config.farm == :sl
           $logger.info 'Stopping Sauce Connect'
           Maze::SauceLabsUtils.stop_sauce_connect
+        elsif Maze.config.farm == :bb
+          Maze::BitBarUtils.stop_local_tunnel
         end
       end
 

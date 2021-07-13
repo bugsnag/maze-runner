@@ -1,3 +1,9 @@
+# 5.7.0 - 2021/07/13
+
+## Enhancements
+
+- Add document server (`--ds-root` and associated options) [#274](https://github.com/bugsnag/maze-runner/pull/274)
+
 # 5.6.0 - 2021/07/09
 
 ## Enhancements

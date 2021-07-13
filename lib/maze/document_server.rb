@@ -5,9 +5,7 @@ require 'webrick'
 module Maze
   # HTTP server for a given document root
   class DocumentServer
-
     class << self
-
       def start
         @thread = Thread.new do
           options = {
@@ -24,4 +22,3 @@ module Maze
     end
   end
 end
-

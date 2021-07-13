@@ -65,6 +65,11 @@ module Maze
           when :bb then
             config.username = options[Maze::Option::USERNAME]
             config.access_key = options[Maze::Option::BITBAR_API_KEY]
+            config.device = options[Maze::Option::DEVICE]
+            config.os = options[Maze::Option::OS]
+            config.os_version = options[Maze::Option::OS_VERSION]
+            config.bb_local = Maze::Helper.expand_path(options[Maze::Option::BB_LOCAL])
+            config.appium_server_url = 'https://appium.bitbar.com/wd/hub'
           when :local then
             os = config.os = options[Maze::Option::OS].downcase
             config.os_version = options[Maze::Option::OS_VERSION].to_f

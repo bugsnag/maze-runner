@@ -86,9 +86,11 @@ AfterConfiguration do |_cucumber_config|
     Maze::BitBarUtils.start_local_tunnel config.bb_local,
                                          config.username,
                                          config.access_key
+    config.capabilities = Maze::Capabilities.for_bitbar_device config.access_key,
+                                                               config.device,
+                                                               config.capabilities_option
 
-    pp "Exiting early due to a lack of bitbar support currently"
-    exit
+    config.capabilities['bitbar_app'] = config.app
   elsif config.farm == :local
     # Local device
     config.capabilities = Maze::Capabilities.for_local config.os,

@@ -56,6 +56,10 @@ module Maze
       # @param username [String] Username to start the tunnel with
       # @param access_key [String] BitBar access key
       def start_local_tunnel(bb_local, username, access_key)
+        # Make sure the ready/kill files are already deleted
+        File.delete(BB_READY_FILE) if File.exist?(BB_READY_FILE)
+        File.delete(BB_KILL_FILE) if File.exist?(BB_KILL_FILE)
+
         $logger.info 'Starting BitBar SBSecureTunnel local tunnel'
         command = "#{bb_local} --username #{username} --authkey #{access_key}" \
                     "--ready #{BB_READY_FILE} --kill #{BB_KILL_FILE}"
@@ -66,7 +70,7 @@ module Maze
           File.exist?(BB_READY_FILE)
         end
         unless success
-          $logger.info "Failed: #{@tunnel_shell.stdout_lines}"
+          $logger.error "Failed: #{@tunnel_shell.stdout_lines}"
         end
       end
 

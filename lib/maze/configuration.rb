@@ -88,6 +88,9 @@ module Maze
     # Location of the Sauce Connect binary (if used)
     attr_accessor :sl_local
 
+    # Location of the SBSecureTunnel binary (if used)
+    attr_accessor :bb_local
+
     # Farm username
     attr_accessor :username
 

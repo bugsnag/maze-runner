@@ -66,6 +66,8 @@ services:
       BROWSER_STACK_ACCESS_KEY:
       SAUCE_LABS_USERNAME:
       SAUCE_LABS_ACCESS_KEY:
+      BITBAR_USERNAME:
+      BITBAR_ACCESS_KEY:
     volumes:
       - ./test/fixtures/ios-app/maze_output:/app/maze_output
 

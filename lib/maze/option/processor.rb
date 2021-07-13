@@ -64,7 +64,7 @@ module Maze
             config.appium_server_url = "http://#{username}:#{access_key}@ondemand.us-west-1.saucelabs.com/wd/hub"
           when :bb then
             config.username = options[Maze::Option::USERNAME]
-            config.access_key = options[Maze::Option::BITBAR_API_KEY]
+            config.access_key = options[Maze::Option::ACCESS_KEY]
             config.device = options[Maze::Option::DEVICE]
             config.os = options[Maze::Option::OS]
             config.os_version = options[Maze::Option::OS_VERSION]

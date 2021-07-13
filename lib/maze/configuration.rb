@@ -22,6 +22,19 @@ module Maze
     attr_accessor :port
 
     #
+    # Document server configuration
+    #
+
+    # Document server root
+    attr_accessor :ds_root
+
+    # Document server bind address
+    attr_accessor :ds_bind_address
+
+    # Document server port
+    attr_accessor :ds_port
+
+    #
     # Common configuration
     #
 

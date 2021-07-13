@@ -81,6 +81,12 @@ services:
       args:
         BRANCH_NAME:
 
+  doc-server-tests:
+    build:
+      context: test/fixtures/doc-server
+      args:
+        BRANCH_NAME:
+
   framework-tests:
     build:
       context: test/fixtures/framework

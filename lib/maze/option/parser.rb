@@ -103,7 +103,7 @@ module Maze
 
             # BitBar-only options
             opt Option::BB_LOCAL,
-                '(BB only) Path to the SBSecureTunnel binary. MAZE_BB_LOCAL env var or "/sauce-connect/bin/sc" by default',
+                '(BB only) Path to the SBSecureTunnel binary. MAZE_BB_LOCAL env var or "/SBSecureTunnel" by default',
                 type: :string
 
             text ''

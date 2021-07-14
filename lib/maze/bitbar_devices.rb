@@ -13,7 +13,8 @@ module Maze
         hash = {
           'platformName' => 'Android',
           'bitbar_device' => device,
-          'bitbar_target' => 'android'
+          'bitbar_target' => 'android',
+          'deviceName' => 'Android Phone'
         }
         hash['bitbar_appiumVersion'] = appium_version if appium_version
         hash.freeze
@@ -33,7 +34,9 @@ module Maze
         {
           'platformName' => 'iOS',
           'bitbar_device' => device,
-          'bitbar_target' => 'ios'
+          'bitbar_target' => 'ios',
+          'deviceName' => 'iPhone device',
+          'automationName' => 'XCUITest'
         }.freeze
       end
 

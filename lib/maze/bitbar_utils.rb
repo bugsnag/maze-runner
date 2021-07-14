@@ -64,12 +64,12 @@ module Maze
         command = "#{bb_local} --username #{username} --authkey #{access_key} " \
                     "--ready #{BB_READY_FILE} --kill #{BB_KILL_FILE}"
 
-        Runner.run_command(command)
-        Maze::Wait.new(timeout: 30).until do
+        output = Runner.run_command(command, blocking: false)
+        success = Maze::Wait.new(timeout: 30).until do
           File.exist?(BB_READY_FILE)
         end
         unless success
-          $logger.error "Failed: #{@tunnel_shell.stdout_lines}"
+          $logger.error "Failed: #{@output}"
         end
       end
 

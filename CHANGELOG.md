@@ -8,6 +8,10 @@
 
 - Pin RubyZip to avoid possible breakage from RubyZip 3.0 [#275](https://github.com/bugsnag/maze-runner/pull/275)
 
+## Fixes
+
+- Pin RubyZip to avoid possible breakage under Ruby [#275](https://github.com/bugsnag/maze-runner/pull/275)
+
 # 5.6.0 - 2021/07/09
 
 ## Enhancements

@@ -61,7 +61,7 @@ module Maze
         File.delete(BB_KILL_FILE) if File.exist?(BB_KILL_FILE)
 
         $logger.info 'Starting BitBar SBSecureTunnel local tunnel'
-        command = "#{bb_local} --username #{username} --authkey #{access_key}" \
+        command = "#{bb_local} --username #{username} --authkey #{access_key} " \
                     "--ready #{BB_READY_FILE} --kill #{BB_KILL_FILE}"
 
         $logger.info command

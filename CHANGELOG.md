@@ -7,6 +7,7 @@
 ## Fixes
 
 - Pin RubyZip to avoid possible breakage from RubyZip 3.0 [#275](https://github.com/bugsnag/maze-runner/pull/275)
+- Call after_configuration hooks even if farm is `:none` [#276](https://github.com/bugsnag/maze-runner/pull/276)
 
 ## Fixes
 

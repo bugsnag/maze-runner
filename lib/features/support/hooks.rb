@@ -60,7 +60,7 @@ AfterConfiguration do |_cucumber_config|
       config.app = Maze::SauceLabsUtils.upload_app config.username,
                                                    config.access_key,
                                                    config.app
-      # Capabilities``
+      # Capabilities
       Maze::SauceLabsUtils.start_sauce_connect config.sl_local,
                                                tunnel_id,
                                                config.username,

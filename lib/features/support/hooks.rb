@@ -26,8 +26,6 @@ AfterConfiguration do |_cucumber_config|
   Maze::Server.start
   config = Maze.config
 
-  next if config.farm == :none
-
   # Setup Appium capabilities.  Note that the 'app' capability is
   # set in a hook as it will change if uploaded to BrowserStack.
 
@@ -75,13 +73,6 @@ AfterConfiguration do |_cucumber_config|
                                                                      config.capabilities_option
 
       config.capabilities['app'] = "storage:#{config.app}"
-    else
-      raise 'Browser support with Sauce Labs not yet implemented'
-
-      # TODO: Sauce Labs browser
-      # config.capabilities = Maze::Capabilities.for_browser_stack_browser config.browser,
-      #                                                                    tunnel_id,
-      #                                                                    config.capabilities_option
     end
   elsif config.farm == :local
     # Local device
@@ -100,7 +91,7 @@ AfterConfiguration do |_cucumber_config|
   if config.browser
     selenium_url = "http://#{config.username}:#{config.access_key}@hub.browserstack.com/wd/hub"
     Maze.driver = Maze::Driver::Browser.new selenium_url, config.capabilities
-  else
+  elsif config.farm != :none
     Maze.driver = if Maze.config.resilient
                     $logger.info 'Creating ResilientAppium driver instance'
                     Maze::Driver::ResilientAppium.new config.appium_server_url,
@@ -115,20 +106,8 @@ AfterConfiguration do |_cucumber_config|
     Maze.driver.start_driver unless config.appium_session_isolation
   end
 
-  if config.farm == :bs && (config.device || config.browser)
-    # Log a link to the BrowserStack session search dashboard
-    build = Maze.driver.capabilities[:build]
-    url = if config.device
-            "https://app-automate.browserstack.com/dashboard/v2/search?query=#{build}&type=builds"
-          else
-            "https://automate.browserstack.com/dashboard/v2/search?query=#{build}&type=builds"
-          end
-    if ENV['BUILDKITE']
-      $logger.info Maze::LogUtil.linkify url, 'BrowserStack session(s)'
-    else
-      $logger.info "BrowserStack session(s): #{url}"
-    end
-  end
+  # Write links to device farm sessions, where applicable
+  write_session_links
 
   # Call any blocks registered by the client
   Maze.hooks.call_after_configuration config
@@ -206,6 +185,24 @@ ensure
   Maze::Runner.environment.clear
   Maze::Store.values.clear
   Maze::Aws::Sam.reset!
+end
+
+def write_session_links
+  config = Maze.config
+  if config.farm == :bs && (config.device || config.browser)
+    # Log a link to the BrowserStack session search dashboard
+    build = Maze.driver.capabilities[:build]
+    url = if config.device
+            "https://app-automate.browserstack.com/dashboard/v2/search?query=#{build}&type=builds"
+          else
+            "https://automate.browserstack.com/dashboard/v2/search?query=#{build}&type=builds"
+          end
+    if ENV['BUILDKITE']
+      $logger.info Maze::LogUtil.linkify url, 'BrowserStack session(s)'
+    else
+      $logger.info "BrowserStack session(s): #{url}"
+    end
+  end
 end
 
 def output_received_requests(request_type)

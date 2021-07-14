@@ -1,4 +1,4 @@
-# 5.7.0 - 2021/07/13
+# 5.7.0 - 2021/07/14
 
 ## Enhancements
 
@@ -7,6 +7,11 @@
 ## Fixes
 
 - Pin RubyZip to avoid possible breakage from RubyZip 3.0 [#275](https://github.com/bugsnag/maze-runner/pull/275)
+- Call after_configuration hooks even if farm is `:none` [#276](https://github.com/bugsnag/maze-runner/pull/276)
+
+## Fixes
+
+- Pin RubyZip to avoid possible breakage under Ruby [#275](https://github.com/bugsnag/maze-runner/pull/275)
 
 # 5.6.0 - 2021/07/09
 

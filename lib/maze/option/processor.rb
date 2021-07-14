@@ -16,6 +16,11 @@ module Maze
           config.bind_address = options[Maze::Option::BIND_ADDRESS]
           config.port = options[Maze::Option::PORT]
 
+          # Document server options
+          config.document_server_root = options[Maze::Option::DS_ROOT]
+          config.document_server_bind_address = options[Maze::Option::DS_BIND_ADDRESS]
+          config.document_server_port = options[Maze::Option::DS_PORT]
+
           # Logger options
           config.file_log = options[Maze::Option::FILE_LOG]
           config.log_requests = options[Maze::Option::LOG_REQUESTS] || !ENV['BUILDKITE'].nil?

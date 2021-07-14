@@ -34,6 +34,19 @@ module Maze
                 default: 9339
 
             text ''
+            text 'Document server options:'
+
+            opt Option::DS_ROOT,
+                'Document server root',
+                type: :string
+            opt Option::DS_BIND_ADDRESS,
+                'Document server bind address',
+                type: :string
+            opt Option::DS_PORT,
+                'Document server port',
+                default: 9340
+
+            text ''
             text 'Appium options:'
 
             opt Option::SEPARATE_SESSIONS,

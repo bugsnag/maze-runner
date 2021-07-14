@@ -64,6 +64,8 @@ module Maze
         command = "#{bb_local} --username #{username} --authkey #{access_key}" \
                     "--ready #{BB_READY_FILE} --kill #{BB_KILL_FILE}"
 
+        $logger.info command
+
         @tunnel_shell = Maze::InteractiveCLI.new
         @tunnel_shell.run_command(command)
         success = Maze::Wait.new(timeout: 30).until do

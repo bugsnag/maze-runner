@@ -4,6 +4,10 @@
 
 - Add document server (`--document-server-root` and associated options) [#274](https://github.com/bugsnag/maze-runner/pull/274)
 
+## Fixes
+
+- Pin RubyZip to avoid possible breakage under Ruby [#275](https://github.com/bugsnag/maze-runner/pull/275)
+
 # 5.6.0 - 2021/07/09
 
 ## Enhancements

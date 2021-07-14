@@ -20,7 +20,7 @@ AfterConfiguration do |_cucumber_config|
   Maze.start_time = Time.now.strftime('%Y-%m-%d %H:%M:%S')
 
   # Start document server, if asked for
-  Maze::DocumentServer.start unless Maze.config.ds_root.nil?
+  Maze::DocumentServer.start unless Maze.config.document_server_root.nil?
 
   # Start mock server
   Maze::Server.start

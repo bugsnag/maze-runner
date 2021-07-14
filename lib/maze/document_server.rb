@@ -9,15 +9,15 @@ module Maze
       def start
         @thread = Thread.new do
           options = {
-              DocumentRoot: Maze.config.ds_root,
-              Port: Maze.config.ds_port,
+              DocumentRoot: Maze.config.document_server_root,
+              Port: Maze.config.document_server_port,
               Logger: $logger,
               AccessLog: []
           }
-          options[:BindAddress] = Maze.config.ds_bind_address unless Maze.config.ds_bind_address.nil?
+          options[:BindAddress] = Maze.config.document_server_bind_address unless Maze.config.document_server_bind_address.nil?
           server = WEBrick::HTTPServer.new(options)
 
-          $logger.info "Starting document server for root: #{Maze.config.ds_root}"
+          $logger.info "Starting document server for root: #{Maze.config.document_server_root}"
           server.start
         end
       end

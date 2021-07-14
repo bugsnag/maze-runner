@@ -17,9 +17,9 @@ module Maze
           config.port = options[Maze::Option::PORT]
 
           # Document server options
-          config.ds_root = options[Maze::Option::DS_ROOT]
-          config.ds_bind_address = options[Maze::Option::DS_BIND_ADDRESS]
-          config.ds_port = options[Maze::Option::DS_PORT]
+          config.document_server_root = options[Maze::Option::DS_ROOT]
+          config.document_server_bind_address = options[Maze::Option::DS_BIND_ADDRESS]
+          config.document_server_port = options[Maze::Option::DS_PORT]
 
           # Logger options
           config.file_log = options[Maze::Option::FILE_LOG]

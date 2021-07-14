@@ -66,9 +66,9 @@ class ProcessorTest < Test::Unit::TestCase
     assert_equal '123', config.device_id
     assert_equal '1.2.3.4', config.bind_address
     assert_equal 1234, config.port
-    assert_equal 'root', config.ds_root
-    assert_equal '5.6.7.8', config.ds_bind_address
-    assert_equal 5678, config.ds_port
+    assert_equal 'root', config.document_server_root
+    assert_equal '5.6.7.8', config.document_server_bind_address
+    assert_equal 5678, config.document_server_port
     assert_false config.start_appium
   end
 
@@ -91,9 +91,9 @@ class ProcessorTest < Test::Unit::TestCase
 
     assert_equal nil, config.bind_address
     assert_equal 9339, config.port
-    assert_equal nil, config.ds_root
-    assert_equal nil, config.ds_bind_address
-    assert_equal 9340, config.ds_port
+    assert_equal nil, config.document_server_root
+    assert_equal nil, config.document_server_bind_address
+    assert_equal 9340, config.document_server_port
 
     assert_false config.appium_session_isolation
     assert_equal :id, config.locator

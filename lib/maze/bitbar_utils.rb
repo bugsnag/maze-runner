@@ -64,11 +64,8 @@ module Maze
         command = "#{bb_local} --username #{username} --authkey #{access_key} " \
                     "--ready #{BB_READY_FILE} --kill #{BB_KILL_FILE}"
 
-        $logger.info command
-
-        @tunnel_shell = Maze::InteractiveCLI.new
-        @tunnel_shell.run_command(command)
-        success = Maze::Wait.new(timeout: 30).until do
+        Runner.run_command(command)
+        Maze::Wait.new(timeout: 30).until do
           File.exist?(BB_READY_FILE)
         end
         unless success
@@ -80,7 +77,7 @@ module Maze
       def stop_local_tunnel
         FileUtils.touch(BB_KILL_FILE)
         Maze::Wait.new(timeout: 30).until do
-          !@tunnel_shell.running?
+          !File.exist?(BB_READY_FILE)
         end
         File.delete(BB_READY_FILE) if File.exist?(BB_READY_FILE)
         File.delete(BB_KILL_FILE) if File.exist?(BB_KILL_FILE)

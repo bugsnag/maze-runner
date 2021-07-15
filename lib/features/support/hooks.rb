@@ -74,7 +74,7 @@ AfterConfiguration do |_cucumber_config|
 
       config.capabilities['app'] = "storage:#{config.app}"
     end
-  elsif config.farm == :local
+  elsif config.farm == :local && config.device != nil
     # Local device
     config.capabilities = Maze::Capabilities.for_local config.os,
                                                        config.capabilities_option,
@@ -89,8 +89,12 @@ AfterConfiguration do |_cucumber_config|
 
   # Create and start the relevant driver
   if config.browser
-    selenium_url = "http://#{config.username}:#{config.access_key}@hub.browserstack.com/wd/hub"
-    Maze.driver = Maze::Driver::Browser.new selenium_url, config.capabilities
+    if config.farm == :bs
+      selenium_url = "http://#{config.username}:#{config.access_key}@hub.browserstack.com/wd/hub"
+      Maze.driver = Maze::Driver::Browser.new :remote, selenium_url, config.capabilities
+    elsif config.farm == :local
+      Maze.driver = Maze::Driver::Browser.new :chrome
+    end
   elsif config.farm != :none
     Maze.driver = if Maze.config.resilient
                     $logger.info 'Creating ResilientAppium driver instance'
@@ -171,7 +175,7 @@ After do |scenario|
     # Close the app - without the sleep, launching the app for the next scenario intermittently fails
     system("killall #{Maze.config.app} && sleep 1")
   elsif [:bs, :sl, :local].include? Maze.config.farm
-    Maze.driver.reset
+    # Maze.driver.reset
   end
 ensure
   # Request arrays in particular are cleared here, rather than in the Before hook, to allow requests to be registered
@@ -293,7 +297,7 @@ at_exit do
   next if Maze.config.farm == :none
 
   # Stop the Appium session and server
-  Maze.driver.driver_quit unless Maze.config.appium_session_isolation
+  Maze.driver.driver_quit unless Maze.config.appium_session_isolation || Maze.config.browser
   Maze::AppiumServer.stop if Maze::AppiumServer.running
 
   if Maze.config.farm == :local && Maze.config.os == 'macos'

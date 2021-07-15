@@ -67,14 +67,18 @@ module Maze
             access_key = config.access_key = options[Maze::Option::ACCESS_KEY]
             config.appium_server_url = "http://#{username}:#{access_key}@ondemand.us-west-1.saucelabs.com/wd/hub"
           when :local then
-            os = config.os = options[Maze::Option::OS].downcase
-            config.os_version = options[Maze::Option::OS_VERSION].to_f
-            config.appium_server_url = options[Maze::Option::APPIUM_SERVER]
-            config.start_appium = options[Maze::Option::START_APPIUM]
-            config.appium_logfile = options[Maze::Option::APPIUM_LOGFILE]
-            if os == 'ios'
-              config.apple_team_id = options[Maze::Option::APPLE_TEAM_ID]
-              config.device_id = options[Maze::Option::UDID]
+            if options[Maze::Option::BROWSER]
+              config.browser = options[Maze::Option::BROWSER]
+            else
+              os = config.os = options[Maze::Option::OS].downcase
+              config.os_version = options[Maze::Option::OS_VERSION].to_f
+              config.appium_server_url = options[Maze::Option::APPIUM_SERVER]
+              config.start_appium = options[Maze::Option::START_APPIUM]
+              config.appium_logfile = options[Maze::Option::APPIUM_LOGFILE]
+              if os == 'ios'
+                config.apple_team_id = options[Maze::Option::APPLE_TEAM_ID]
+                config.device_id = options[Maze::Option::UDID]
+              end
             end
           when :none
             if options[Maze::Option::OS]

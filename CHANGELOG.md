@@ -1,3 +1,9 @@
+# TBD
+
+## Enhancements
+
+- Add a generic send keys method so you can send keys without finding an element [#278](https://github.com/bugsnag/maze-runner/pull/278)
+
 # 5.7.0 - 2021/07/14
 
 ## Enhancements

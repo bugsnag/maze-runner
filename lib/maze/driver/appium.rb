@@ -119,10 +119,6 @@ module Maze
         @driver.send_keys(text)
       end
 
-      def hide_keyboard
-        @driver.hide_keyboard
-      end
-
       # Sends keys to a given element, clearing it first
       #
       # @param element_id [String] the element to clear and send text to

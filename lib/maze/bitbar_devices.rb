@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Maze
-  # Provides a source of capabilities used to run tests against specific BrowserStack devices
+  # Provides a source of capabilities used to run tests against specific BitBar devices
   # noinspection RubyStringKeysInHashInspection
   class BitBarDevices
     APPIUM_1_9_1 = '1.9.1'

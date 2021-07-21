@@ -119,10 +119,6 @@ module Maze
         @driver.send_keys(text)       
       end
 
-      def press_android_enter()
-        @driver.press_keycode(66)
-      end
-
       # Sends keys to a given element, clearing it first
       #
       # @param element_id [String] the element to clear and send text to

@@ -174,8 +174,8 @@ After do |scenario|
   elsif Maze.config.os == 'macos'
     # Close the app - without the sleep, launching the app for the next scenario intermittently fails
     system("killall #{Maze.config.app} && sleep 1")
-  elsif [:bs, :sl, :local].include? Maze.config.farm
-    # Maze.driver.reset
+  elsif [:bs, :sl, :local].include? Maze.config.farm and !Maze.config.device.nil?
+    Maze.driver.reset
   end
 ensure
   # Request arrays in particular are cleared here, rather than in the Before hook, to allow requests to be registered

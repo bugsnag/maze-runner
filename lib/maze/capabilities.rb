@@ -13,7 +13,9 @@ module Maze
           'browserstack.localIdentifier' => local_id,
           'browserstack.local' => 'true',
           'disabledAnimations' => 'true',
-          'noReset' => 'true'
+          'noReset' => 'true',
+          'unicodeKeyboard' => 'true',
+          'resetKeyboard' => 'true'
         }
         capabilities.merge! BrowserStackDevices::DEVICE_HASH[device_type]
         capabilities.merge! JSON.parse(capabilities_option)
@@ -47,7 +49,9 @@ module Maze
                            'platformName' => 'Android',
                            'automationName' => 'UiAutomator2',
                            'autoGrantPermissions' => 'true',
-                           'noReset' => 'true'
+                           'noReset' => 'true',
+                           'unicodeKeyboard' => 'true',
+                           'resetKeyboard' => 'true'
                          }
                        elsif platform.downcase == 'ios'
                          {

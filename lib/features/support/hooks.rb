@@ -74,7 +74,7 @@ AfterConfiguration do |_cucumber_config|
 
       config.capabilities['app'] = "storage:#{config.app}"
     end
-  elsif config.farm == :local && config.device != nil
+  elsif config.farm == :local && config.browser.nil?
     # Local device
     config.capabilities = Maze::Capabilities.for_local config.os,
                                                        config.capabilities_option,

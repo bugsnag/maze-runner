@@ -9,6 +9,25 @@ require 'uri'
 
 AfterConfiguration do |_cucumber_config|
 
+  # Infer mode of operation from config, one of:
+  # - Appium (using either remote or local devices)
+  # - Browser (Selenium with local or remote browsers)
+  # - Command (the software under test is invoked with a system call)
+  # TODO Consider making this a specific command line option defaulting to Appium
+  is_appium = [:bs, :sl, :bb, :local].include?(Maze.config.farm) && !Maze.config.app.nil?
+  is_browser = !Maze.config.browser.nil?
+  if is_appium
+    Maze.mode = :appium
+    Maze.internal_hooks = Maze::AppiumHooks.new
+  elsif is_browser
+    Maze.mode = :browser
+    Maze.internal_hooks = Maze::BrowserHooks.new
+  else
+    Maze.mode = :command
+    Maze.internal_hooks = Maze::CommandHooks.new
+  end
+  $logger.info "Running in #{Maze.mode.to_s} mode"
+
   # Clear out maze_output folder
   maze_output = Dir.glob(File.join(Dir.pwd, 'maze_output', '*'))
   if Maze.config.file_log && !maze_output.empty?

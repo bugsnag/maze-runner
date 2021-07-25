@@ -48,7 +48,7 @@ AfterConfiguration do |_cucumber_config|
   Maze.internal_hooks.after_configuration
 
   # Call any blocks registered by the client
-  Maze.hooks.call_after_configuration config
+  Maze.hooks.call_after_configuration Maze.config
 end
 
 # Before each scenario

@@ -2,6 +2,7 @@
 module Maze
   class BrowserHooks
     def after_configuration
+      config = Maze.config
       if config.farm == :bs
         # BrowserStack browser
         tunnel_id = SecureRandom.uuid
@@ -11,27 +12,27 @@ module Maze
         Maze::BrowserStackUtils.start_local_tunnel config.bs_local,
                                                    tunnel_id,
                                                    config.access_key
+      end
 
-        # Create and start the relevant driver
-        if config.farm == :bs
-          selenium_url = "http://#{config.username}:#{config.access_key}@hub.browserstack.com/wd/hub"
-          Maze.driver = Maze::Driver::Browser.new :remote, selenium_url, config.capabilities
-        elsif config.farm == :local
-          Maze.driver = Maze::Driver::Browser.new :chrome
-        end
+      # Create and start the relevant driver
+      if config.farm == :bs
+        selenium_url = "http://#{config.username}:#{config.access_key}@hub.browserstack.com/wd/hub"
+        Maze.driver = Maze::Driver::Browser.new :remote, selenium_url, config.capabilities
+      elsif config.farm == :local
+        Maze.driver = Maze::Driver::Browser.new Maze.config.browser.to_sym
       end
     end
 
     def before
-
+      # Nothing required
     end
 
     def after
-
+      # Nothing required
     end
 
     def at_exit
-
+      # Nothing required
     end
   end
 end

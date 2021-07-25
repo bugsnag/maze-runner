@@ -43,7 +43,6 @@ AfterConfiguration do |_cucumber_config|
 
   # Start mock server
   Maze::Server.start
-  config = Maze.config
 
   # Invoke the internal hook for the mode of operation
   Maze.internal_hooks.after_configuration

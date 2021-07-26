@@ -91,6 +91,7 @@ AfterConfiguration do |_cucumber_config|
                                                                config.capabilities_option
 
     config.capabilities['bitbar_app'] = config.app
+    config.capabilities['bundleId'] = config.app_bundle_id
   elsif config.farm == :local
     # Local device
     config.capabilities = Maze::Capabilities.for_local config.os,
@@ -199,8 +200,10 @@ After do |scenario|
   elsif Maze.config.os == 'macos'
     # Close the app - without the sleep, launching the app for the next scenario intermittently fails
     system("killall #{Maze.config.app} && sleep 1")
-  elsif [:bs, :sl, :bb, :local].include? Maze.config.farm
+  elsif [:bs, :sl, :local].include? Maze.config.farm
     Maze.driver.reset
+  elsif [:bb].include? Maze.config.farm
+    Maze.driver.launch_app
   end
 ensure
   # Request arrays in particular are cleared here, rather than in the Before hook, to allow requests to be registered

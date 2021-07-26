@@ -70,6 +70,7 @@ module Maze
             config.os_version = options[Maze::Option::OS_VERSION]
             config.bb_local = Maze::Helper.expand_path(options[Maze::Option::BB_LOCAL])
             config.appium_server_url = 'https://appium.bitbar.com/wd/hub'
+            config.app_bundle_id = options[Maze::Option::APP_BUNDLE_ID]
           when :local then
             os = config.os = options[Maze::Option::OS].downcase
             config.os_version = options[Maze::Option::OS_VERSION].to_f

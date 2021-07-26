@@ -23,6 +23,7 @@ module Maze
     BROWSER = 'browser'
     OS = 'os'
     OS_VERSION = 'os-version'
+    APP_BUNDLE_ID = 'app-bundle-id'
 
     # BrowserStack-only options
     BS_LOCAL = 'bs-local'

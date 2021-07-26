@@ -91,6 +91,9 @@ module Maze
     # Location of the SBSecureTunnel binary (if used)
     attr_accessor :bb_local
 
+    # Bundle ID of the test application
+    attr_accessor :app_bundle_id
+
     # Farm username
     attr_accessor :username
 

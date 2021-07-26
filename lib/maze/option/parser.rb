@@ -90,6 +90,9 @@ module Maze
             opt Option::APPIUM_VERSION,
                 'The Appium version to use with BrowserStack',
                 type: :string
+            opt Option::APP_BUNDLE_ID,
+                'The bundle identifier of the test application',
+                type: :string
 
             # BrowserStack-only options
             opt Option::BS_LOCAL,

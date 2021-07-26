@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'open3'
 require 'fileutils'
 
 module Maze
@@ -64,12 +65,13 @@ module Maze
         command = "#{bb_local} --username #{username} --authkey #{access_key} " \
                     "--ready #{BB_READY_FILE} --kill #{BB_KILL_FILE}"
 
-        output = Runner.run_command(command, blocking: false)
+        output = start_tunnel_thread(command)
+
         success = Maze::Wait.new(timeout: 30).until do
           File.exist?(BB_READY_FILE)
         end
         unless success
-          $logger.error "Failed: #{@output}"
+          $logger.error "Failed: #{output}"
         end
       end
 
@@ -81,6 +83,30 @@ module Maze
         end
         File.delete(BB_READY_FILE) if File.exist?(BB_READY_FILE)
         File.delete(BB_KILL_FILE) if File.exist?(BB_KILL_FILE)
+      end
+
+      private
+
+      def start_tunnel_thread(cmd)
+        executor = lambda do
+          Open3.popen2e(Maze::Runner.environment, cmd) do |_stdin, stdout_and_stderr, wait_thr|
+
+            output = []
+            stdout_and_stderr.each do |line|
+              output << line
+              $logger.debug('SBSecureTunnel') {line.chomp}
+            end
+
+            exit_status = wait_thr.value.to_i
+            $logger.debug "Exit status: #{exit_status}"
+
+            output.each { |line| $logger.warn('SBSecureTunnel') {line.chomp} } unless exit_status == 0
+
+            return [output, exit_status]
+          end
+        end
+
+        Thread.new(&executor)
       end
     end
   end

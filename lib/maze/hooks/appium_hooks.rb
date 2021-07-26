@@ -26,6 +26,7 @@ module Maze
                                                                      config.capabilities_option
 
           config.capabilities['bitbar_app'] = config.app
+          config.capabilities['bundleId'] = config.app_bundle_id
         elsif config.farm == :local
           # Attempt to start the local appium server
           appium_uri = URI(config.appium_server_url)
@@ -52,6 +53,8 @@ module Maze
         elsif Maze.config.os == 'macos'
           # Close the app - without the sleep, launching the app for the next scenario intermittently fails
           system("killall #{Maze.config.app} && sleep 1")
+        elsif [:bb].include? Maze.config.farm
+          Maze.driver.launch_app
         else
           Maze.driver.reset
         end

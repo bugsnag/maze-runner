@@ -110,29 +110,33 @@ module Maze
 
       # Validates Local device options
       def validate_local(options, errors)
-        errors << "--#{Option::APP} must be specified" if options[Option::APP].nil?
+        if options[Option::BROWSER].nil?
+          errors << "--#{Option::APP} must be specified" if options[Option::APP].nil?
 
-        # OS
-        if options[Option::OS].nil?
-          errors << "--#{Option::OS} must be specified"
-        else
-          os = options[Option::OS].downcase
-          errors << 'os must be android, ios, macos or windows' unless %w[android ios macos windows].include? os
-          if os == 'ios'
-            errors << "--#{Option::APPLE_TEAM_ID} must be specified for iOS" if options[Option::APPLE_TEAM_ID].nil?
-            errors << "--#{Option::UDID} must be specified for iOS" if options[Option::UDID].nil?
+          # OS
+          if options[Option::OS].nil?
+            errors << "--#{Option::OS} must be specified"
+          else
+            os = options[Option::OS].downcase
+            errors << 'os must be android, ios, macos or windows' unless %w[android ios macos windows].include? os
+            if os == 'ios'
+              errors << "--#{Option::APPLE_TEAM_ID} must be specified for iOS" if options[Option::APPLE_TEAM_ID].nil?
+              errors << "--#{Option::UDID} must be specified for iOS" if options[Option::UDID].nil?
+            end
           end
-        end
 
-        # OS Version
-        if options[Option::OS_VERSION].nil?
-          errors << "--#{Option::OS_VERSION} must be specified"
-        else
-          # Ensure OS version is a valid float so that notifier tests can perform numeric checks
-          # e.g 'Maze.config.os_version > 7'
-          unless /^[1-9][0-9]*(\.[0-9])?/.match? options[Option::OS_VERSION]
-            errors << "--#{Option::OS_VERSION} must be a valid version matching '/^[1-9][0-9]*(\\.[0-9])?/'"
+          # OS Version
+          if options[Option::OS_VERSION].nil?
+            errors << "--#{Option::OS_VERSION} must be specified"
+          else
+            # Ensure OS version is a valid float so that notifier tests can perform numeric checks
+            # e.g 'Maze.config.os_version > 7'
+            unless /^[1-9][0-9]*(\.[0-9])?/.match? options[Option::OS_VERSION]
+              errors << "--#{Option::OS_VERSION} must be a valid version matching '/^[1-9][0-9]*(\\.[0-9])?/'"
+            end
           end
+        else
+          # TODO Validate browser options
         end
       end
     end

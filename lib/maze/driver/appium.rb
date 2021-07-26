@@ -116,7 +116,7 @@ module Maze
       #
       # @param text [String] the text to send
       def send_keys(text)
-        @driver.send_keys(text)
+        @driver.send_keys(text)       
       end
 
       # Sends keys to a given element, clearing it first

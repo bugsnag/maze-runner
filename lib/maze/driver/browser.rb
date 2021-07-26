@@ -10,14 +10,18 @@ module Maze
       #   @return [Hash] The capabilities used to launch the BrowserStack instance
       attr_reader :capabilities
 
-      def initialize(selenium_url, capabilities)
-        # Sets up identifiers for ease of connecting jobs
-        @capabilities = capabilities
-        @capabilities.merge! project_name_capabilities
+      def initialize(driver_for, selenium_url=nil, capabilities=nil)
+        if driver_for == :remote
+          # Sets up identifiers for ease of connecting jobs
+          @capabilities = capabilities
+          @capabilities.merge! project_name_capabilities
 
-        @driver = ::Selenium::WebDriver.for :remote,
-                                            url: selenium_url,
-                                            desired_capabilities: @capabilities
+          @driver = ::Selenium::WebDriver.for :remote,
+                                              url: selenium_url,
+                                              desired_capabilities: @capabilities
+        else
+          @driver = ::Selenium::WebDriver.for driver_for
+        end
       end
 
       def find_element(*args)

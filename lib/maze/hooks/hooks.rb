@@ -45,5 +45,20 @@ module Maze
         @after.each { |block| block.call(scenario) }
       end
     end
+
+    # Base class for hooks internal to Maze Runner
+    class InternalHooks
+      def after_configuration
+      end
+
+      def before
+      end
+
+      def after
+      end
+
+      def at_exit
+      end
+    end
   end
 end

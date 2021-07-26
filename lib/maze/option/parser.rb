@@ -107,6 +107,9 @@ module Maze
             opt Option::APPIUM_VERSION,
                 'The Appium version to use',
                 type: :string
+            opt Option::APP_BUNDLE_ID,
+                'The bundle identifier of the test application',
+                type: :string
 
             # SmartBear-only options
             opt Option::SB_LOCAL,

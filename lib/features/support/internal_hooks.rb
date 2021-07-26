@@ -18,13 +18,13 @@ AfterConfiguration do |_cucumber_config|
   is_browser = !Maze.config.browser.nil?
   if is_appium
     Maze.mode = :appium
-    Maze.internal_hooks = Maze::AppiumHooks.new
+    Maze.internal_hooks = Maze::Hooks::AppiumHooks.new
   elsif is_browser
     Maze.mode = :browser
-    Maze.internal_hooks = Maze::BrowserHooks.new
+    Maze.internal_hooks = Maze::Hooks::BrowserHooks.new
   else
     Maze.mode = :command
-    Maze.internal_hooks = Maze::CommandHooks.new
+    Maze.internal_hooks = Maze::Hooks::CommandHooks.new
   end
   $logger.info "Running in #{Maze.mode.to_s} mode"
 

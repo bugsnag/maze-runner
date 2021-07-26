@@ -455,28 +455,6 @@
 </li>
 
       
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="top-level-namespace.html#write_session_links-instance_method" title="#write_session_links (instance method)">#<strong>write_session_links</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
     </ul>
   
 
@@ -664,22 +642,22 @@
       <pre class="lines">
 
 
-208
-209
-210
-211
-212
-213
-214
-215
-216
-217
-218
-219
-220</pre>
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/hooks.rb', line 208</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/internal_hooks.rb', line 121</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_output_received_requests'>output_received_requests</span><span class='lparen'>(</span><span class='id identifier rubyid_request_type'>request_type</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_request_queue'>request_queue</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_list_for'>list_for</span><span class='lparen'>(</span><span class='id identifier rubyid_request_type'>request_type</span><span class='rparen'>)</span>
@@ -1276,49 +1254,49 @@ maze_output/failed/scenario_name/errors.log</p>
       <pre class="lines">
 
 
-224
-225
-226
-227
-228
-229
-230
-231
-232
-233
-234
-235
-236
-237
-238
-239
-240
-241
-242
-243
-244
-245
-246
-247
-248
-249
-250
-251
-252
-253
-254
-255
-256
-257
-258
-259
-260
-261
-262
-263</pre>
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/hooks.rb', line 224</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/internal_hooks.rb', line 137</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_write_requests'>write_requests</span><span class='lparen'>(</span><span class='id identifier rubyid_scenario'>scenario</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_folder1'>folder1</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_pwd'>pwd</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>maze_output</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
@@ -1365,70 +1343,12 @@ maze_output/failed/scenario_name/errors.log</p>
 </table>
 </div>
     
-      <div class="method_details ">
-  <h3 class="signature " id="write_session_links-instance_method">
-  
-    #<strong>write_session_links</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-190
-191
-192
-193
-194
-195
-196
-197
-198
-199
-200
-201
-202
-203
-204
-205
-206</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/hooks.rb', line 190</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_write_session_links'>write_session_links</span>
-  <span class='id identifier rubyid_config'>config</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='period'>.</span><span class='id identifier rubyid_config'>config</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_farm'>farm</span> <span class='op'>==</span> <span class='symbol'>:bs</span> <span class='op'>&amp;&amp;</span> <span class='lparen'>(</span><span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_device'>device</span> <span class='op'>||</span> <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_browser'>browser</span><span class='rparen'>)</span>
-    <span class='comment'># Log a link to the BrowserStack session search dashboard
-</span>    <span class='id identifier rubyid_build'>build</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='period'>.</span><span class='id identifier rubyid_driver'>driver</span><span class='period'>.</span><span class='id identifier rubyid_capabilities'>capabilities</span><span class='lbracket'>[</span><span class='symbol'>:build</span><span class='rbracket'>]</span>
-    <span class='id identifier rubyid_url'>url</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_device'>device</span>
-            <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://app-automate.browserstack.com/dashboard/v2/search?query=</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_build'>build</span><span class='embexpr_end'>}</span><span class='tstring_content'>&amp;type=builds</span><span class='tstring_end'>&quot;</span></span>
-          <span class='kw'>else</span>
-            <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://automate.browserstack.com/dashboard/v2/search?query=</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_build'>build</span><span class='embexpr_end'>}</span><span class='tstring_content'>&amp;type=builds</span><span class='tstring_end'>&quot;</span></span>
-          <span class='kw'>end</span>
-    <span class='kw'>if</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>BUILDKITE</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
-      <span class='gvar'>$logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>LogUtil</span><span class='period'>.</span><span class='id identifier rubyid_linkify'>linkify</span> <span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>BrowserStack session(s)</span><span class='tstring_end'>&#39;</span></span>
-    <span class='kw'>else</span>
-      <span class='gvar'>$logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>BrowserStack session(s): </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_url'>url</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
-    <span class='kw'>end</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
   </div>
 
 </div>
 
       <div id="footer">
-  Generated on Wed Jul 14 14:14:32 2021 by
+  Generated on Mon Jul 26 10:22:40 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-2.7.4).
 </div>

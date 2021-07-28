@@ -63,6 +63,8 @@ module Maze
           logs
         when 'upload', 'uploads'
           uploads
+        when 'sourcemap', 'sourcemaps'
+          sourcemaps
         else
           raise "Invalid request type '#{type}'"
         end
@@ -94,6 +96,13 @@ module Maze
       # @return [RequestList] Received upload requests
       def uploads
         @upload ||= RequestList.new
+      end
+
+      # A list of sourcemap requests received
+      #
+      # @return [RequestList] Received sourcemap requests
+      def sourcemaps
+        @sourcemaps ||= RequestList.new
       end
 
       # A list of log requests received
@@ -148,6 +157,8 @@ module Maze
             server.mount '/sessions', Servlet, sessions
             server.mount '/builds', Servlet, builds
             server.mount '/uploads', Servlet, uploads
+            server.mount '/sourcemap', Servlet, sourcemaps
+            server.mount '/react-native-source-map', Servlet, sourcemaps
             server.mount '/logs', LogServlet
             server.start
           rescue StandardError => e

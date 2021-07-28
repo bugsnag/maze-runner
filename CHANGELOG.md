@@ -1,3 +1,9 @@
+# 5.9.0 - 2021/07/28
+
+## Enhancements
+
+- Add `/sourcemap` and `/react-native-sourcemap` endpoints to `Maze::Server` [#281](https://github.com/bugsnag/maze-runner/pull/281)
+
 # 5.8.0 - 2021/07/26
 
 ## Enhancements

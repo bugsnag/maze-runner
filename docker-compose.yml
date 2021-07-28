@@ -57,6 +57,8 @@ services:
       MAZE_BUGSNAG_API_KEY:
       SAUCE_LABS_USERNAME:
       SAUCE_LABS_ACCESS_KEY:
+      BITBAR_USERNAME:
+      BITBAR_ACCESS_KEY:
     volumes:
       - ./test/fixtures/android-appium-test/maze_output:/app/maze_output
 

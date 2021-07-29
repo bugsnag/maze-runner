@@ -1,16 +1,13 @@
-FROM ubuntu:20.04 as ci
+# Ruby image are based on Debian
+ARG RUBY_VERSION
+FROM ruby:$RUBY_VERSION as ci
 
-RUN DEBIAN_FRONTEND=noninteractive \
-        apt-get update && apt-get install -y rbenv apt-utils docker-compose wget unzip bash bundler \
-                                             # Needed by nokogiri (a dependency of appium_lib)
-                                             zlib1g libpng-dev zlibc zlib1g zlib1g-dev curl \
-                                             # Needed by curb (a dependency of Cucumber)
-                                             libcurl4 libcurl4-openssl-dev
-
-RUN rbenv install 2.7.0
-RUN rbenv install 3.0.1
-
-RUN rbenv local 2.7.0
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
+    apt-get install -y apt-utils docker-compose wget unzip bash bundler \
+                       # Needed by nokogiri (a dependency of appium_lib)
+                       zlib1g libpng-dev zlibc zlib1g zlib1g-dev curl \
+                       # Needed by curb (a dependency of Cucumber)
+                       libcurl4 libcurl4-openssl-dev
 
 RUN ruby -v
 

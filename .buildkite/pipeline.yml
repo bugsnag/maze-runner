@@ -6,12 +6,6 @@ steps:
         run: license_finder
     command: /bin/bash -lc '/scan/scripts/license_finder.sh'
 
-  - label: 'Unit tests'
-    plugins:
-      docker-compose#v3.7.0:
-        run: unit-test
-    command: 'bundle exec rake'
-
   - label: ':docker: Build CI image'
     key: "ci-image"
     plugins:
@@ -24,6 +18,16 @@ steps:
       - docker-compose#v3.7.0:
           push:
             - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
+
+  - label: 'Unit tests'
+    depends_on: 'ci-image'
+    plugins:
+      docker-compose#v3.7.0:
+        run: unit-test
+        image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
+        cache-from:
+          - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
+    command: 'bundle exec rake'
 
   - label: ':docker: Push Docker image for branch'
     key: "cli-image"

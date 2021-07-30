@@ -79,6 +79,7 @@ services:
       context: test/fixtures/cli
       args:
         BRANCH_NAME:
+        RUBY_VERSION:
 
   comparison-tests:
     build:

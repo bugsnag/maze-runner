@@ -21,6 +21,8 @@ services:
       dockerfile: dockerfiles/Dockerfile.ci
       context: .
       target: cli
+      args:
+        - RUBY_VERSION=2.7
 
   docs:
     build:

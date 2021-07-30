@@ -6,21 +6,6 @@ steps:
         run: license_finder
     command: /bin/bash -lc '/scan/scripts/license_finder.sh'
 
-  - label: ':docker: Build CI image for Ruby 2.5'
-    key: "ci-image-ruby-2-5"
-    plugins:
-      - docker-compose#v3.7.0:
-          build:
-            - ci-ruby-2.5
-          image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
-          cache-from:
-            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-2.5
-      - docker-compose#v3.7.0:
-          push:
-            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-2.5
-    env:
-      RUBY_VERSION: "2.5"
-
   - label: ':docker: Build CI image for Ruby 2.7'
     key: "ci-image-ruby-2-7"
     plugins:
@@ -51,16 +36,16 @@ steps:
     env:
       RUBY_VERSION: "3"
 
-  - label: 'Unit tests with Ruby 2.5'
-    depends_on: 'ci-image-ruby-2-5'
+  - label: 'Unit tests with Ruby 2.7'
+    depends_on: 'ci-image-ruby-2-7'
     plugins:
       docker-compose#v3.7.0:
         run: unit-test
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
         cache-from:
-          - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-2.5
+          - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-2.7
     env:
-      RUBY_VERSION: "2.5"
+      RUBY_VERSION: "2.7"
     command: 'bundle exec rake'
 
   - label: 'Unit tests with Ruby 3'
@@ -89,8 +74,8 @@ steps:
           push:
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
 
-  - label: 'No-device tests with Ruby 2.5'
-    depends_on: "ci-image-ruby-2-5"
+  - label: 'No-device tests with Ruby 2.7'
+    depends_on: "ci-image-ruby-2-7"
     plugins:
       - docker-compose#v3.7.0:
           run: framework-tests
@@ -107,7 +92,7 @@ steps:
       - docker-compose#v3.7.0:
           run: docker-tests
     env:
-      RUBY_VERSION: "2.5"
+      RUBY_VERSION: "2.7"
     command: 'bundle exec maze-runner'
 
   - label: 'No-device tests with Ruby 3'

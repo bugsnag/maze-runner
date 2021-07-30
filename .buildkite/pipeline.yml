@@ -125,8 +125,8 @@ steps:
       bundle exec maze-runner
       --no-log-requests
 
-  - label: 'Browserstack app-automate test - Android 6'
-    depends_on: "test-images"
+  - label: 'Browserstack app-automate test - Android 6 using Ruby 2.7'
+    depends_on: "ci-image-ruby-2-7"
     plugins:
       docker-compose#v3.7.0:
         run: android-appium-test
@@ -140,8 +140,8 @@ steps:
     concurrency: 9
     concurrency_group: 'browserstack-app'
 
-  - label: 'Browserstack app-automate test - Android 11'
-    depends_on: "test-images"
+  - label: 'Browserstack app-automate test - Android 11 using Ruby 3'
+    depends_on: "ci-image-ruby-3"
     plugins:
       docker-compose#v3.7.0:
         run: android-appium-test

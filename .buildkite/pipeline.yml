@@ -161,7 +161,7 @@ steps:
       artifacts#v1.3.0:
         upload: test/fixtures/android-appium-test/maze_output/**/*
     env:
-      RUBY_VERSION: "2.7"
+      RUBY_VERSION: "3"
     command: >-
       bundle exec maze-runner
       --app=app/build/outputs/apk/release/app-release.apk

@@ -13,12 +13,16 @@ services:
       dockerfile: dockerfiles/Dockerfile.ci
       context: .
       target: ci
+      args:
+        - RUBY_VERSION
 
   cli:
     build:
       dockerfile: dockerfiles/Dockerfile.ci
       context: .
       target: cli
+      args:
+        - RUBY_VERSION=2.7
 
   docs:
     build:
@@ -32,6 +36,7 @@ services:
       context: test/fixtures/android-appium-test
       args:
         BRANCH_NAME:
+        RUBY_VERSION:
     extra_hosts:
       - "maze-local:127.0.0.1"
     environment:
@@ -74,30 +79,35 @@ services:
       context: test/fixtures/cli
       args:
         BRANCH_NAME:
+        RUBY_VERSION:
 
   comparison-tests:
     build:
       context: test/fixtures/comparison
       args:
         BRANCH_NAME:
+        RUBY_VERSION:
 
   doc-server-tests:
     build:
       context: test/fixtures/doc-server
       args:
         BRANCH_NAME:
+        RUBY_VERSION:
 
   framework-tests:
     build:
       context: test/fixtures/framework
       args:
         BRANCH_NAME:
+        RUBY_VERSION:
 
   docker-tests:
     build:
       context: test/fixtures/docker-app
       args:
         BRANCH_NAME:
+        RUBY_VERSION:
     environment:
       NETWORK_NAME: "${BUILDKITE_JOB_ID:-core-maze-runner}"
     volumes:
@@ -108,24 +118,29 @@ services:
       context: test/fixtures/proxy
       args:
         BRANCH_NAME:
+        RUBY_VERSION:
 
   payload-helper-tests:
     build:
       context: test/fixtures/payload-helpers
       args:
         BRANCH_NAME:
+        RUBY_VERSION:
 
   http-response-tests:
     build:
       context: test/fixtures/http-response
       args:
         BRANCH_NAME:
+        RUBY_VERSION:
 
   unit-test:
     build:
       dockerfile: dockerfiles/Dockerfile.ci
       context: .
       target: unit-test
+      args:
+        RUBY_VERSION:
 
 networks:
   default:

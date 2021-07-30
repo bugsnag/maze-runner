@@ -1,10 +1,14 @@
-FROM ubuntu:20.04 as ci
+# Ruby image are based on Debian
+ARG RUBY_VERSION
+FROM ruby:$RUBY_VERSION as ci
 
-RUN apt-get update && apt-get install -y ruby-full apt-utils docker-compose wget unzip bash bundler \
-                                        # Needed by nokogiri (a dependency of appium_lib)
-                                        zlib1g libpng-dev zlibc zlib1g zlib1g-dev curl \
-                                        # Needed by curb (a dependency of Cucumber)
-                                        libcurl4 libcurl4-openssl-dev
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
+    apt-get install -y apt-utils docker-compose wget unzip bash bundler \
+                       # Needed by nokogiri (a dependency of appium_lib)
+                       zlib1g libpng-dev zlibc zlib1g zlib1g-dev curl \
+                       # Needed by curb (a dependency of Cucumber)
+                       libcurl4 libcurl4-openssl-dev
+
 RUN ruby -v
 
 RUN wget -q https://storage.googleapis.com/bugsnag-public-test-dependencies/BrowserStackLocal-linux-x64.zip \

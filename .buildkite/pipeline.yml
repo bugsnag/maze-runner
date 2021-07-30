@@ -6,59 +6,76 @@ steps:
         run: license_finder
     command: /bin/bash -lc '/scan/scripts/license_finder.sh'
 
-  - label: 'Unit tests'
-    plugins:
-      docker-compose#v3.7.0:
-        run: unit-test
-    command: 'bundle exec rake'
-
-  - label: ':docker: Build CI image'
-    key: "ci-image"
+  - label: ':docker: Build CI image for Ruby 2.7'
+    key: "ci-image-ruby-2-7"
     plugins:
       - docker-compose#v3.7.0:
           build:
-            - ci
+            - ci-ruby-2.7
           image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
           cache-from:
-            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
+            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-2.7
       - docker-compose#v3.7.0:
           push:
-            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
+            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-2.7
+    env:
+      RUBY_VERSION: "2.7"
+
+  - label: ':docker: Build CI image for Ruby 3'
+    key: "ci-image-ruby-3"
+    plugins:
+      - docker-compose#v3.7.0:
+          build:
+            - ci-ruby-3
+          image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
+          cache-from:
+            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-3
+      - docker-compose#v3.7.0:
+          push:
+            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-3
+    env:
+      RUBY_VERSION: "3"
+
+  - label: 'Unit tests with Ruby 2.7'
+    depends_on: 'ci-image-ruby-2-7'
+    plugins:
+      docker-compose#v3.7.0:
+        run: unit-test
+        image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
+        cache-from:
+          - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-2.7
+    env:
+      RUBY_VERSION: "2.7"
+    command: 'bundle exec rake'
+
+  - label: 'Unit tests with Ruby 3'
+    depends_on: 'ci-image-ruby-3'
+    plugins:
+      docker-compose#v3.7.0:
+        run: unit-test
+        image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
+        cache-from:
+          - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-3
+    env:
+      RUBY_VERSION: "3"
+    command: 'bundle exec rake'
 
   - label: ':docker: Push Docker image for branch'
     key: "cli-image"
-    depends_on: "ci-image"
+    depends_on: "ci-image-ruby-2-7"
     plugins:
       - docker-compose#v3.7.0:
           build: cli
           image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
           cache-from:
-            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
+            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-2.7
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
       - docker-compose#v3.7.0:
           push:
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
 
-  - label: ':docker: Build test images'
-    key: "test-images"
-    depends_on: "ci-image"
-    plugins:
-      - docker-compose#v3.7.0:
-          build:
-            - comparison-tests
-            - android-appium-test
-            - ios-appium-test
-            - payload-helper-tests
-            - http-response-tests
-            - unit-test
-            - docker-tests
-          image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
-          cache-from:
-            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
-          build-parallel: true
-
-  - label: 'No-device tests'
-    depends_on: "test-images"
+  - label: 'No-device tests with Ruby 2.7'
+    depends_on: "ci-image-ruby-2-7"
     plugins:
       - docker-compose#v3.7.0:
           run: framework-tests
@@ -74,6 +91,29 @@ steps:
           run: payload-helper-tests
       - docker-compose#v3.7.0:
           run: docker-tests
+    env:
+      RUBY_VERSION: "2.7"
+    command: 'bundle exec maze-runner'
+
+  - label: 'No-device tests with Ruby 3'
+    depends_on: "ci-image-ruby-3"
+    plugins:
+      - docker-compose#v3.7.0:
+          run: framework-tests
+      - docker-compose#v3.7.0:
+          run: comparison-tests
+      - docker-compose#v3.7.0:
+          run: proxy-tests
+      - docker-compose#v3.7.0:
+          run: cli-tests
+      - docker-compose#v3.7.0:
+          run: http-response-tests
+      - docker-compose#v3.7.0:
+          run: payload-helper-tests
+      - docker-compose#v3.7.0:
+          run: docker-tests
+    env:
+      RUBY_VERSION: "3"
     command: 'bundle exec maze-runner'
 
   - label: 'AWS - SAM tests'
@@ -85,13 +125,18 @@ steps:
       bundle exec maze-runner
       --no-log-requests
 
-  - label: 'Browserstack app-automate test - Android 6'
-    depends_on: "test-images"
+  - label: 'Browserstack app-automate test - Android 6 using Ruby 2.7'
+    depends_on: "ci-image-ruby-2-7"
     plugins:
       docker-compose#v3.7.0:
         run: android-appium-test
+        image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
+        cache-from:
+          - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-2.7
       artifacts#v1.3.0:
         upload: test/fixtures/android-appium-test/maze_output/**/*
+    env:
+      RUBY_VERSION: "2.7"
     command: >-
       bundle exec maze-runner
       --app=app/build/outputs/apk/release/app-release.apk
@@ -100,13 +145,18 @@ steps:
     concurrency: 9
     concurrency_group: 'browserstack-app'
 
-  - label: 'Browserstack app-automate test - Android 11'
-    depends_on: "test-images"
+  - label: 'Browserstack app-automate test - Android 11 using Ruby 3'
+    depends_on: "ci-image-ruby-3"
     plugins:
       docker-compose#v3.7.0:
         run: android-appium-test
+        image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
+        cache-from:
+          - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-3
       artifacts#v1.3.0:
         upload: test/fixtures/android-appium-test/maze_output/**/*
+    env:
+      RUBY_VERSION: "3"
     command: >-
       bundle exec maze-runner
       --app=app/build/outputs/apk/release/app-release.apk

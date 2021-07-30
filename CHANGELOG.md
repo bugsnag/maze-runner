@@ -1,3 +1,9 @@
+# 5.9.1 - 2021/07/30
+
+## Fixes
+
+- Support running with Ruby 3 [#284](https://github.com/bugsnag/maze-runner/pull/284)
+
 # 5.9.0 - 2021/07/28
 
 ## Enhancements

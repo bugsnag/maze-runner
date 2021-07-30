@@ -143,7 +143,7 @@ steps:
     concurrency_group: 'browserstack-app'
 
   - label: 'Browserstack app-automate test - Android 11'
-    depends_on: "ci-image-ruby-3"
+    depends_on: "ci-image-ruby-2-7"
     plugins:
       docker-compose#v3.7.0:
         run: android-appium-test

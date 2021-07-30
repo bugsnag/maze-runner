@@ -62,7 +62,7 @@ steps:
 
   - label: ':docker: Push Docker image for branch'
     key: "cli-image"
-    depends_on: "ci-image-2-7"
+    depends_on: "ci-image-ruby-2-7"
     plugins:
       - docker-compose#v3.7.0:
           build: cli

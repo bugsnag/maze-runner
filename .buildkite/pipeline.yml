@@ -152,7 +152,7 @@ steps:
     concurrency_group: 'browserstack-app'
     concurrency_method: eager
 
-  - label: 'Browserstack app-automate test - Android 11 using Ruby 3'
+  - label: 'Browserstack app-automate test - Android 11'
     depends_on: "ci-image-ruby-3"
     plugins:
       docker-compose#v3.7.0:
@@ -163,7 +163,7 @@ steps:
       artifacts#v1.3.0:
         upload: test/fixtures/android-appium-test/maze_output/**/*
     env:
-      RUBY_VERSION: "3"
+      RUBY_VERSION: "2.7"
     command: >-
       bundle exec maze-runner
       --app=app/build/outputs/apk/release/app-release.apk

@@ -1,4 +1,6 @@
-# 5.9.2 - 2021/07/23
+# 5.9.2 - 2021/08/23
+
+## Fixes
 
 - Pin Docker images on Debian 10 (Buster) [#286](https://github.com/bugsnag/maze-runner/pull/286)
 - Remove blanket rescue for macOS in step `I click the element {string}` [#285](https://github.com/bugsnag/maze-runner/pull/285)

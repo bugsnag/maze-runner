@@ -1,3 +1,9 @@
+# 5.9.2 - 2021/07/23
+
+## Fixes
+
+- Pin Docker images on Debian 10 (Buster) [#286](https://github.com/bugsnag/maze-runner/pull/286)
+
 # 5.9.1 - 2021/07/30
 
 ## Fixes

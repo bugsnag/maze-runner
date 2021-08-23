@@ -11925,27 +11925,11 @@ Requires a running Appium driver</p>
           <td>
             <pre class="lines">26
 27
-28
-29
-30
-31
-32
-33
-34
-35
-36</pre>
+28</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>When</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I click the element {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_element_id'>element_id</span><span class='op'>|</span>
-  <span class='kw'>begin</span>
-    <span class='const'>Maze</span><span class='period'>.</span><span class='id identifier rubyid_driver'>driver</span><span class='period'>.</span><span class='id identifier rubyid_click_element'>click_element</span><span class='lparen'>(</span><span class='id identifier rubyid_element_id'>element_id</span><span class='rparen'>)</span>
-  <span class='kw'>rescue</span> <span class='const'>StandardError</span>
-    <span class='comment'># AppiumForMac raises an to run a scenario that crashes the app
-</span>    <span class='id identifier rubyid_raise'>raise</span> <span class='kw'>unless</span> <span class='const'>Maze</span><span class='period'>.</span><span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_os'>os</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>macos</span><span class='tstring_end'>&#39;</span></span>
-
-    <span class='gvar'>$logger</span><span class='period'>.</span><span class='id identifier rubyid_warn'>warn</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Ignoring exception raised on click_element - this is normal for AppiumForMac if the button click </span><span class='tstring_end'>&#39;</span></span> \
-      <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>causes the app to crash.</span><span class='tstring_end'>&#39;</span></span>
-  <span class='kw'>end</span>
+  <span class='const'>Maze</span><span class='period'>.</span><span class='id identifier rubyid_driver'>driver</span><span class='period'>.</span><span class='id identifier rubyid_click_element'>click_element</span><span class='lparen'>(</span><span class='id identifier rubyid_element_id'>element_id</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
           </td>
         </tr>
@@ -11987,7 +11971,7 @@ Requires a running Appium driver</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/app_automator_steps.rb:42</div>
+      <div class="file">lib/features/steps/app_automator_steps.rb:34</div>
     </div>
     
     <!-- Comments -->
@@ -12027,9 +12011,9 @@ Requires a running Appium driver</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">42
-43
-44</pre>
+            <pre class="lines">34
+35
+36</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>When</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I send the app to the background for {int} seconds</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_timeout'>timeout</span><span class='op'>|</span>
@@ -12075,7 +12059,7 @@ Requires a running Appium driver</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/app_automator_steps.rb:50</div>
+      <div class="file">lib/features/steps/app_automator_steps.rb:42</div>
     </div>
     
     <!-- Comments -->
@@ -12115,9 +12099,9 @@ Requires a running Appium driver</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">50
-51
-52</pre>
+            <pre class="lines">42
+43
+44</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>When</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I clear the element {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_element_id'>element_id</span><span class='op'>|</span>
@@ -12163,7 +12147,7 @@ Requires a running Appium driver</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/app_automator_steps.rb:59</div>
+      <div class="file">lib/features/steps/app_automator_steps.rb:51</div>
     </div>
     
     <!-- Comments -->
@@ -12214,9 +12198,9 @@ Requires a running Appium driver</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">59
-60
-61</pre>
+            <pre class="lines">51
+52
+53</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>When</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I send the keys {string} to the element {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_keys'>keys</span><span class='comma'>,</span> <span class='id identifier rubyid_element_id'>element_id</span><span class='op'>|</span>
@@ -12262,7 +12246,7 @@ Requires a running Appium driver</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/app_automator_steps.rb:78</div>
+      <div class="file">lib/features/steps/app_automator_steps.rb:70</div>
     </div>
     
     <!-- Comments -->
@@ -12333,9 +12317,9 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">78
-79
-80</pre>
+            <pre class="lines">70
+71
+72</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {word} payload field {string} equals the platform-dependent string:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='op'>|</span>
@@ -12381,7 +12365,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/app_automator_steps.rb:86</div>
+      <div class="file">lib/features/steps/app_automator_steps.rb:78</div>
     </div>
     
     <!-- Comments -->
@@ -12431,9 +12415,9 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">86
-87
-88</pre>
+            <pre class="lines">78
+79
+80</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the event {string} equals the platform-dependent string:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='op'>|</span>
@@ -12479,7 +12463,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/app_automator_steps.rb:105</div>
+      <div class="file">lib/features/steps/app_automator_steps.rb:97</div>
     </div>
     
     <!-- Comments -->
@@ -12550,9 +12534,9 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">105
-106
-107</pre>
+            <pre class="lines">97
+98
+99</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {word} payload field {string} equals the platform-dependent numeric:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='op'>|</span>
@@ -12598,7 +12582,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/app_automator_steps.rb:113</div>
+      <div class="file">lib/features/steps/app_automator_steps.rb:105</div>
     </div>
     
     <!-- Comments -->
@@ -12648,9 +12632,9 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">113
-114
-115</pre>
+            <pre class="lines">105
+106
+107</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the event {string} equals the platform-dependent numeric:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='op'>|</span>
@@ -12696,7 +12680,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/app_automator_steps.rb:132</div>
+      <div class="file">lib/features/steps/app_automator_steps.rb:124</div>
     </div>
     
     <!-- Comments -->
@@ -12767,9 +12751,9 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">132
-133
-134</pre>
+            <pre class="lines">124
+125
+126</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {word} payload field {string} equals the platform-dependent boolean:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='op'>|</span>
@@ -12815,7 +12799,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/app_automator_steps.rb:140</div>
+      <div class="file">lib/features/steps/app_automator_steps.rb:132</div>
     </div>
     
     <!-- Comments -->
@@ -12865,9 +12849,9 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">140
-141
-142</pre>
+            <pre class="lines">132
+133
+134</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the event {string} equals the platform-dependent boolean:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='op'>|</span>
@@ -12913,7 +12897,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/app_automator_steps.rb:148</div>
+      <div class="file">lib/features/steps/app_automator_steps.rb:140</div>
     </div>
     
     <!-- Comments -->
@@ -12963,9 +12947,9 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">148
-149
-150</pre>
+            <pre class="lines">140
+141
+142</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the exception {string} equals the platform-dependent string:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='op'>|</span>
@@ -13011,7 +12995,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/app_automator_steps.rb:157</div>
+      <div class="file">lib/features/steps/app_automator_steps.rb:149</div>
     </div>
     
     <!-- Comments -->
@@ -13072,9 +13056,9 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">157
-158
-159</pre>
+            <pre class="lines">149
+150
+151</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {string} of stack frame {int} equals the platform-dependent string:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_num'>num</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='op'>|</span>
@@ -13120,7 +13104,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/app_automator_steps.rb:166</div>
+      <div class="file">lib/features/steps/app_automator_steps.rb:158</div>
     </div>
     
     <!-- Comments -->
@@ -13171,9 +13155,9 @@ Requires a running Appium driver</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">166
-167
-168</pre>
+            <pre class="lines">158
+159
+160</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>When</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I clear and send the keys {string} to the element {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_keys'>keys</span><span class='comma'>,</span> <span class='id identifier rubyid_element_id'>element_id</span><span class='op'>|</span>
@@ -20042,7 +20026,7 @@ request types.</p>
 </div>
 
       <div id="footer">
-  Generated on Fri Jul 30 22:03:56 2021 by
+  Generated on Mon Aug 23 12:22:27 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-2.7.4).
 </div>

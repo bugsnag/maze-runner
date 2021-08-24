@@ -39,6 +39,17 @@ steps:
           push:
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
 
+  - label: ':docker: Build test-management-service image'
+    plugins:
+      - docker-compose#v3.7.0:
+          build: test-management
+          image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
+          cache-from:
+            - tms:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-tms
+      - docker-compose#v3.7.0:
+          push:
+            - tms:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-tms
+
   - label: ':docker: Build test images'
     key: "test-images"
     depends_on: "ci-image"

@@ -45,10 +45,10 @@ steps:
           build: test-management
           image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
           cache-from:
-            - tms:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-tms
+            - test-management:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-test-management
       - docker-compose#v3.7.0:
           push:
-            - tms:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-tms
+            - test-management:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-test-management
 
   - label: ':docker: Build test images'
     key: "test-images"

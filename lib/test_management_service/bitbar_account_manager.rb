@@ -1,14 +1,26 @@
 # frozen_string_literal: true
 
+require 'json'
+
 module TestManagementService
   class BitbarAccountManager
+
+    DEFAULT_FILE_LOCATION = 'cached_accounts'
+
     def initialize(max_accounts, timeout = 3600)
+      @lock = Mutex.new
+      previous_accounts = read_cached_state
       @accounts = (1..max_accounts).map do |index|
-        {
-          id: index,
-          claimed: false,
-          expiry: nil
-        }
+        previous_account = previous_accounts.find { |account| account['id'] == index }
+        if previous_account
+          previous_account
+        else
+          {
+            'id': index,
+            'claimed': false,
+            'expiry': nil
+          }
+        end
       end
       @timeout = timeout
     end
@@ -16,30 +28,49 @@ module TestManagementService
     def refresh_accounts
       current_time = Time.now
       @accounts.each do |account|
-        next unless account[:claimed]
+        next unless account['claimed']
 
-        if current_time >= account[:expiry]
-          account[:claimed] = false
-          account[:expiry] = nil
+        if current_time >= account['expiry']
+          account['claimed'] = false
+          account['expiry'] = nil
         end
       end
     end
 
     def claim_account
-      refresh_accounts
-      open_account = @accounts.find { |account| !account[:claimed] }
-      return nil if open_account.nil?
-      expiry_time = Time.new + @timeout
-      open_account[:claimed] = true
-      open_account[:expiry] = expiry_time
-      open_account
+      @lock.synchronize do
+        refresh_accounts
+        open_account = @accounts.find { |account| !account['claimed'] }
+        return nil if open_account.nil?
+        expiry_time = Time.new + @timeout
+        open_account['claimed'] = true
+        open_account['expiry'] = expiry_time
+        cache_state
+        open_account
+      end
     end
 
     def release_account(id)
-      refresh_accounts
-      claimed_account = @accounts.find { |account| account[:id] == id }
-      claimed_account[:claimed] = false
-      claimed_account[:expiry] = nil
+      @lock.synchronize do
+        refresh_accounts
+        claimed_account = @accounts.find { |account| account['id'] == id }
+        claimed_account['claimed'] = false
+        claimed_account['expiry'] = nil
+        cache_state
+      end
+    end
+
+    def cache_state(state)
+      File.open(DEFAULT_FILE_LOCATION, 'w') do |f|
+        f.write JSON.dump(state)
+      end
+    end
+
+    def read_cached_state
+      return nil unless File.exist DEFAULT_FILE_LOCATION
+      File.open(DEFAULT_FILE_LOCATION, 'r') do |f|
+        JSON.parse f.read
+      end
     end
   end
 end

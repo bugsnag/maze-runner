@@ -25,6 +25,7 @@ module TestManagementService
         end
       when "/release"
         query_string = CGI.parse(request.query_string)
+        pp query_string
         @account_manager.release_account(query_string['account_id'].first.to_i)
         response.status = 202
       else

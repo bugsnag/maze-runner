@@ -102,6 +102,7 @@ module Maze
           Maze::BrowserStackUtils.stop_local_tunnel
         elsif Maze.config.farm == :bb
           Maze::BitBarUtils.stop_local_tunnel
+          Maze::BitBarUtils.release_account(Maze.config.tms_uri)
         end
       end
 

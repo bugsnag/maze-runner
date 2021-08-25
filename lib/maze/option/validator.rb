@@ -131,8 +131,12 @@ module Maze
 
       # Validates BitBar device options
       def validate_bitbar(options, errors)
-        errors << "--#{Option::USERNAME} must be specified" if options[Option::USERNAME].nil?
-        errors << "--#{Option::ACCESS_KEY} must be specified" if options[Option::ACCESS_KEY].nil?
+        if ENV['BUILDKITE']
+          errors << "--#{Option::TMS_URI} must be specified when running on Buildkite" if options[Option::TMS_URI].nil?
+        else
+          errors << "--#{Option::USERNAME} must be specified" if options[Option::USERNAME].nil?
+          errors << "--#{Option::ACCESS_KEY} must be specified" if options[Option::ACCESS_KEY].nil?
+        end
 
         app = options[Option::APP]
         if app.nil?

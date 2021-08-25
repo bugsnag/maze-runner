@@ -109,6 +109,9 @@ module Maze
     # Appium version to use
     attr_accessor :appium_version
 
+    # URI of the test-management service
+    attr_accessor :tms_uri
+
     #
     # Local testing specific configuration
     #

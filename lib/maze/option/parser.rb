@@ -109,6 +109,11 @@ module Maze
                 '(BB only) Path to the SBSecureTunnel binary. MAZE_BB_LOCAL env var or "/SBSecureTunnel" by default',
                 type: :string
 
+            # TMS options
+            opt Option::TMS_URI,
+                '(BB/Buildkite only) URI of the test management server root.  MAZE_TMS_URI env var',
+                type: :string
+
             text ''
             text 'Local device options:'
 

@@ -38,6 +38,7 @@ module Maze
 
     # BitBar-only options
     BB_LOCAL = 'bb-local'
+    TMS_URI = 'tms-uri'
 
     # Local-only options
     APPIUM_SERVER = 'appium-server'

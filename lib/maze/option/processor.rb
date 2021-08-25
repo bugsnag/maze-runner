@@ -70,6 +70,7 @@ module Maze
           when :bb then
             config.username = options[Maze::Option::USERNAME]
             config.access_key = options[Maze::Option::ACCESS_KEY]
+            config.tms_uri = options[Maze::Option::TMS_URI]
             config.device = options[Maze::Option::DEVICE]
             config.os = options[Maze::Option::OS]
             config.os_version = options[Maze::Option::OS_VERSION]

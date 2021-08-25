@@ -27,11 +27,16 @@ module Maze
                                                    config.username,
                                                    config.access_key
         when :bb
+          if ENV['BUILDKITE']
+            credentials = Maze::BitBarUtils.account_credentials config.tms_uri
+            config.username = credentials[:username]
+            config.access_key = credentials[:access_key]
+          end
           config.app = Maze::BitBarUtils.upload_app config.access_key,
                                                     config.app
           Maze::BitBarUtils.start_local_tunnel config.bb_local,
-                                               config.username,
-                                               config.access_key
+                                              config.username,
+                                              config.access_key
           config.capabilities = Maze::Capabilities.for_bitbar_device config.access_key,
                                                                      config.device,
                                                                      config.capabilities_option

@@ -90,6 +90,7 @@ module Maze
           Maze::SauceLabsUtils.stop_sauce_connect
         elsif Maze.config.farm == :bb
           Maze::BitBarUtils.stop_local_tunnel
+          Maze::BitBarUtils.release_account(Maze.config.tms_uri)
         end
       end
 

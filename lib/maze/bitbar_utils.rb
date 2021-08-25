@@ -61,7 +61,7 @@ module Maze
           case output.code
           when '200'
             body = JSON.parse(output.body, {symbolize_names: true})
-            account_id = body[:id]
+            @account_id = account_id = body[:id]
             $logger.info "Using account #{account_id}, expiring at #{body[:expiry]}"
             creds = {
               username: ENV["#{BB_USER_PREFIX}#{account_id}"],
@@ -79,13 +79,21 @@ module Maze
         end
       end
 
-      def request_account_index(uri)
+      def request_account_index(tms_uri)
         uri = URI("#{tms_uri}/account/request")
         request = Net::HTTP::Get.new(uri)
         res = Net::HTTP.start(uri.hostname, uri.port) do |http|
           http.request(request)
         end
         res
+      end
+
+      def release_account(tms_uri)
+        uri = URI("#{tms_uri}/account/release?account_id=#{@account_id}")
+        request = Net::HTTP::Get.new(uri)
+        res = Net::HTTP.start(uri.hostname, uri.port) do |http|
+          http.request(request)
+        end
       end
 
       # Starts the BitBar local tunnel

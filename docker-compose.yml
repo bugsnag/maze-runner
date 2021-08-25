@@ -69,8 +69,7 @@ services:
       MAZE_TMS_URI:
       SAUCE_LABS_USERNAME:
       SAUCE_LABS_ACCESS_KEY:
-      BITBAR_USERNAME:
-      BITBAR_ACCESS_KEY:
+    env_file: $BUILDKITE_ENV_FILE
     volumes:
       - ./test/fixtures/android-appium-test/maze_output:/app/maze_output
 
@@ -98,6 +97,7 @@ services:
       SAUCE_LABS_ACCESS_KEY:
       BITBAR_USERNAME:
       BITBAR_ACCESS_KEY:
+    env_file: $BUILDKITE_ENV_FILE
     volumes:
       - ./test/fixtures/ios-app/maze_output:/app/maze_output
 

@@ -1,12 +1,15 @@
 # frozen_string_literal: true
 require 'open3'
 require 'fileutils'
+require 'json'
 
 module Maze
   # Utils supporting the BitBar device farm integration
   class BitBarUtils
     BB_READY_FILE = 'bb.ready'
     BB_KILL_FILE = 'bb.kill'
+    BB_USER_PREFIX = 'BB_USER_'
+    BB_KEY_PREFIX = 'BB_KEY_'
 
     class << self
 
@@ -50,6 +53,39 @@ module Maze
           end
         end
         app_uuid
+      end
+
+      def account_credentials(tms_uri)
+        Maze::Wait.new(interval: 30, timeout: 1800).until do
+          output = request_account_index(tms_uri)
+          case output.code
+          when '200'
+            body = JSON.parse(output.body, {symbolize_names: true})
+            account_id = body[:id]
+            $logger.info "Using account #{account_id}, expiring at #{body[:expiry]}"
+            creds = {
+              username: ENV["#{BB_USER_PREFIX}#{account_id}"],
+              access_key: ENV["#{BB_KEY_PREFIX}#{account_id}"]
+            }
+          when '409'
+            # All accounts are in use, wait for one to become available
+            $logger.info 'All accounts are currently in use, retrying in 30s'
+            false
+          else
+            # Something has gone wrong, throw an error
+            $logger.error "Unexpected status code received from test-management server"
+            raise
+          end
+        end
+      end
+
+      def request_account_index(uri)
+        uri = URI("#{tms_uri}/account/request")
+        request = Net::HTTP::Get.new(uri)
+        res = Net::HTTP.start(uri.hostname, uri.port) do |http|
+          http.request(request)
+        end
+        res
       end
 
       # Starts the BitBar local tunnel

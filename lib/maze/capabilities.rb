@@ -56,7 +56,8 @@ module Maze
                            'deviceName' => udid,
                            'xcodeOrgId' => team_id,
                            'xcodeSigningId' => 'iPhone Developer',
-                           'udid' => udid
+                           'udid' => udid,
+                           'noReset' => 'true'
                          }
                        elsif platform.downcase == 'macos'
                          {

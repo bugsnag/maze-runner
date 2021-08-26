@@ -1,3 +1,9 @@
+# 5.9.3 - 2021/08/26
+
+## Fixes
+
+- Ensure 'noReset' capability is present when running iOS appium tests locally [#287](https://github.com/bugsnag/maze-runner/pull/287)
+
 # 5.9.2 - 2021/08/23
 
 ## Fixes

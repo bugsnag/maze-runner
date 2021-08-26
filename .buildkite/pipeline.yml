@@ -96,6 +96,23 @@ steps:
       bundle exec maze-runner
       --no-log-requests
 
+  - label: 'BitBar app-automate test - iOS'
+    depends_on: 'test-images'
+    plugins:
+      docker-compose#v3.7.0:
+        run: ios-appium-test
+      artifacts#v1.3.0:
+        upload: test/fixtures/android-appium-test/maze_output/**/*
+    command: >-
+      bundle exec maze-runner
+      --farm=bb
+      --device=IOS_14
+      --app=app/iOSTestApp.ipa
+      --app-bundle-id=com.bugsnag.iOSTestApp
+      --os=iOS
+    concurrency: 1
+    concurrency_group: 'bitbar-app'
+
   - label: 'Browserstack app-automate test - Android 6'
     depends_on: "test-images"
     plugins:

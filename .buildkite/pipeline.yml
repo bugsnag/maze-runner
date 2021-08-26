@@ -107,7 +107,7 @@ steps:
       bundle exec maze-runner
       --farm=bb
       --device=IOS_14
-      --app=app/iOSTestApp.ipa
+      --app=iOSTestApp.ipa
       --app-bundle-id=com.bugsnag.iOSTestApp
       --os=iOS
     concurrency: 1

@@ -230,7 +230,6 @@ module Maze
             options[Option::USERNAME] ||= ENV['SAUCE_LABS_USERNAME']
             options[Option::ACCESS_KEY] ||= ENV['SAUCE_LABS_ACCESS_KEY']
           when 'bb'
-            pp ENV.keys
             options[Option::USERNAME] ||= ENV['BITBAR_USERNAME']
             options[Option::ACCESS_KEY] ||= ENV['BITBAR_ACCESS_KEY']
             options[Option::TMS_URI] ||= ENV['MAZE_TMS_URI']

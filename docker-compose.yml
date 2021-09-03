@@ -31,15 +31,6 @@ services:
       args:
         DOCS_PUSH_TOKEN:
 
-  test-management:
-    build:
-      dockerfile: dockerfiles/Dockerfile.tms
-      context: .
-    environment:
-      BITBAR_ACCOUNT_MAX:
-    ports:
-      - "9340:9340"
-
   android-appium-test:
     build:
       context: test/fixtures/android-appium-test

@@ -15,6 +15,8 @@ request['Content-Type'] = 'application/json'
 request.body = case ENV['request_type']
 when 'equal'
  '{"animals":["bear","fox","goat","parrot"],"fruits":{"apple":{"color":"red","types":248},"cherry":{"color":"black","types":17}}}'
+when 'caseless equal'
+ '{"animals":["bEAr","fOx","gOAt","pARROt"]}'
 when 'fuzzy match'
  '{"animals":["bear","fox","goat","parrot"],"fruits":{"apple":{"color":"green","types":248},"cherry":{"color":"white","types":17}}}'
 when 'subset'

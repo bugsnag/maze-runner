@@ -113,6 +113,22 @@ steps:
     concurrency: 1
     concurrency_group: 'bitbar-app'
 
+  - label: 'BitBar app-automate test - Android'
+    depends_on: 'test-images'
+    plugins:
+      docker-compose#v3.7.0:
+        run: android-appium-test
+      artifacts#v1.3.0:
+        upload: test/fixtures/android-appium-test/maze_output/**/*
+    command: >-
+      bundle exec maze-runner
+      --farm=bb
+      --device=ANDROID_11_0
+      --app=app/build/outputs/apk/release/app-release.apk
+      --os=android
+    concurrency: 1
+    concurrency_group: 'bitbar-app'
+
   - label: 'Browserstack app-automate test - Android 6'
     depends_on: "test-images"
     plugins:

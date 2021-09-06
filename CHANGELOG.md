@@ -1,3 +1,11 @@
+# 5.10.0 - 2021/09/06
+
+## Enhancements
+
+- Add the follow steps [#289](https://github.com/bugsnag/maze-runner/pull/289)
+    - `the {word} payload field {string} equals the stored value {string} ignoring case`
+    - `the {word} payload field {string} does not equal the stored value {string} ignoring case`
+
 # 5.9.3 - 2021/08/26
 
 ## Fixes

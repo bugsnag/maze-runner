@@ -55,6 +55,10 @@ module Maze
         app_uuid
       end
 
+      # Uploads an app to BitBar for later consumption
+      # @param tms_uri [String] The URI of the test-management-service
+      #
+      # @returns
       def account_credentials(tms_uri)
         Maze::Wait.new(interval: 30, timeout: 1800).until do
           output = request_account_index(tms_uri)
@@ -79,6 +83,10 @@ module Maze
         end
       end
 
+      # Uploads an app to BitBar for later consumption
+      # @param tms_uri [String] The URI of the test-management-service
+      #
+      # @returns
       def request_account_index(tms_uri)
         uri = URI("#{tms_uri}/account/request")
         request = Net::HTTP::Get.new(uri)
@@ -88,6 +96,8 @@ module Maze
         res
       end
 
+      # Uploads an app to BitBar for later consumption
+      # @param tms_uri [String] The URI of the test-management-service
       def release_account(tms_uri)
         uri = URI("#{tms_uri}/account/release?account_id=#{@account_id}")
         request = Net::HTTP::Get.new(uri)

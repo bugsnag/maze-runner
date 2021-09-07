@@ -55,9 +55,24 @@ module Maze
         hash = {
           # Classic, non-specific devices for each Android version
           'ANDROID_11_0' => make_android_hash('Google Pixel 4 -US'),
+          'ANDROID_10_0' => make_android_hash('Google Pixel 2 Android 10'),
+          'ANDROID_9_0' => make_android_hash('Google Pixel Android 9'),
+          'ANDROID_8_1' => make_android_hash('Google Pixel 2 8.1 -US'),
+          'ANDROID_8_0' => make_android_hash('Google Pixel 8.0 -EU'),
+          'ANDROID_7_1' => make_android_hash('Motorola Google Nexus 6 7.1.1'),
+          'ANDROID_7_0' => make_android_hash('Motorola Moto G4'),
+          'ANDROID_6_0' => make_android_hash('Samsung Galaxy S5 SM-G900F'),
+          'ANDROID_5_1' => make_android_hash('Asus Google Nexus 7 2013 5.1.1'),
+          'ANDROID_5_0' => make_android_hash('Samsung Galaxy A7 SM-A700F'),
+          'ANDROID_4_4' => make_android_hash('Motorola Moto X Ghost XT1056'),
 
           # iOS devices
-          'IOS_14' => make_ios_hash('Apple iPad 8 A2270 14.0.1'),
+          'IOS_14' => make_ios_hash('iPhone 12 A2172 14.7 -US'),
+          'IOS_13' => make_ios_hash('Apple iPhone 11 Pro 13.7 -US'),
+          'IOS_12' => make_ios_hash('Apple iPhone 6 A1586 12.4.9'),
+          'IOS_11' => make_ios_hash('Apple iPhone 7 A1660 11.4.1 -US'),
+          'IOS_10' => make_ios_hash('Apple iPhone 6S Plus A1687 10.2'),
+          'IOS_9_3' => make_ios_hash('Apple iPhone 4S A1387 9.3.5'),
         }
 
         hash

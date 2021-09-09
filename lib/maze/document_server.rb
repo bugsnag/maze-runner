@@ -16,6 +16,7 @@ module Maze
           }
           options[:BindAddress] = Maze.config.document_server_bind_address unless Maze.config.document_server_bind_address.nil?
           server = WEBrick::HTTPServer.new(options)
+          server.mount '/reflect', ReflectiveServlet
 
           $logger.info "Starting document server for root: #{Maze.config.document_server_root}"
           server.start

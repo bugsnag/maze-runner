@@ -9,7 +9,7 @@ module Maze
     APPIUM_1_20_2 = '1.20.2'
 
     class << self
-      def make_android_hash(device, appium_version = nil)
+      def make_android_hash(device, appium_version = nil, automationName = nil)
         hash = {
           'platformName' => 'Android',
           'bitbar_device' => device,
@@ -17,6 +17,7 @@ module Maze
           'deviceName' => 'Android Phone'
         }
         hash['bitbar_appiumVersion'] = appium_version if appium_version
+        hash['automationName'] = automationName if automationName
         hash.freeze
       end
 
@@ -64,7 +65,7 @@ module Maze
           'ANDROID_6_0' => make_android_hash('Samsung Galaxy S5 SM-G900F'),
           'ANDROID_5_1' => make_android_hash('Asus Google Nexus 7 2013 5.1.1'),
           'ANDROID_5_0' => make_android_hash('Samsung Galaxy A7 SM-A700F'),
-          'ANDROID_4_4' => make_android_hash('Motorola Moto X Ghost XT1056'),
+          'ANDROID_4_4' => make_android_hash('Motorola Moto X Ghost XT1056', nil, 'UiAutomator1'),
 
           # iOS devices
           'IOS_14' => make_ios_hash('iPhone 12 A2172 14.7 -US'),

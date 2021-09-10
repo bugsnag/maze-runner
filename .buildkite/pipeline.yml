@@ -99,7 +99,7 @@ steps:
       --app=iOSTestApp.ipa
       --app-bundle-id=com.bugsnag.iOSTestApp
       --os=iOS
-    concurrency: 1
+    concurrency: 4
     concurrency_group: 'bitbar-app'
 
   - label: 'BitBar app-automate test - Android'
@@ -115,7 +115,7 @@ steps:
       --device=ANDROID_11_0
       --app=app/build/outputs/apk/release/app-release.apk
       --os=android
-    concurrency: 1
+    concurrency: 4
     concurrency_group: 'bitbar-app'
 
   - label: 'Browserstack app-automate test - Android 6'

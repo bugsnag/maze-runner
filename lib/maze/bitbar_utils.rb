@@ -55,19 +55,19 @@ module Maze
         app_uuid
       end
 
-      # Uploads an app to BitBar for later consumption
+      # Requests an unused account id from the test-management-service
       # @param tms_uri [String] The URI of the test-management-service
       #
       # @returns
       def account_credentials(tms_uri)
-        Maze::Wait.new(interval: 30, timeout: 1800).until do
+        Maze::Wait.new(interval: 10, timeout: 1800).until do
           output = request_account_index(tms_uri)
           case output.code
           when '200'
             body = JSON.parse(output.body, {symbolize_names: true})
             @account_id = account_id = body[:id]
             $logger.info "Using account #{account_id}, expiring at #{body[:expiry]}"
-            creds = {
+            {
               username: ENV["#{BB_USER_PREFIX}#{account_id}"],
               access_key: ENV["#{BB_KEY_PREFIX}#{account_id}"]
             }
@@ -83,7 +83,7 @@ module Maze
         end
       end
 
-      # Uploads an app to BitBar for later consumption
+      # Makes the HTTP call to acquire an account id
       # @param tms_uri [String] The URI of the test-management-service
       #
       # @returns
@@ -96,7 +96,7 @@ module Maze
         res
       end
 
-      # Uploads an app to BitBar for later consumption
+      # Informs the test-management-service that in-use account id is no longer in use
       # @param tms_uri [String] The URI of the test-management-service
       def release_account(tms_uri)
         uri = URI("#{tms_uri}/account/release?account_id=#{@account_id}")

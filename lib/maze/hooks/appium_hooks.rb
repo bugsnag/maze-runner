@@ -35,8 +35,8 @@ module Maze
           config.app = Maze::BitBarUtils.upload_app config.access_key,
                                                     config.app
           Maze::BitBarUtils.start_local_tunnel config.bb_local,
-                                              config.username,
-                                              config.access_key
+                                               config.username,
+                                               config.access_key
           config.capabilities = Maze::Capabilities.for_bitbar_device config.access_key,
                                                                      config.device,
                                                                      config.capabilities_option

@@ -41,6 +41,7 @@ module Maze
       sleep delay_ms.to_i / 1000 unless delay_ms.nil?
       response.status = status || 200
       response.header['Access-Control-Allow-Origin'] = '*'
+      response.body = "Returned status #{status} after waiting #{delay_ms} ms"
     end
 
     # Logs and returns a set of valid headers for this servlet.
@@ -50,7 +51,7 @@ module Maze
     def do_OPTIONS(request, response)
       log_request(request)
       response.header['Access-Control-Allow-Origin'] = '*'
-      response.header['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
+      response.header['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
       response.header['Access-Control-Allow-Headers'] = %w[Accept
                                                            Bugsnag-Api-Key Bugsnag-Integrity
                                                            Bugsnag-Payload-Version

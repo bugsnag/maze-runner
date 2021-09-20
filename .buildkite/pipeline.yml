@@ -91,6 +91,8 @@ steps:
           run: payload-helper-tests
       - docker-compose#v3.7.0:
           run: docker-tests
+      - docker-compose#v3.7.0:
+          run: doc-server-tests
     env:
       RUBY_VERSION: "2.7"
     command: 'bundle exec maze-runner'
@@ -112,6 +114,8 @@ steps:
           run: payload-helper-tests
       - docker-compose#v3.7.0:
           run: docker-tests
+      - docker-compose#v3.7.0:
+          run: doc-server-tests
     env:
       RUBY_VERSION: "3"
     command: 'bundle exec maze-runner'

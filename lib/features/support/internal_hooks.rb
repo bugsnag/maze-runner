@@ -76,6 +76,9 @@ After do |scenario|
   Maze::Server.response_delay_ms = 0
   Maze::Server.reset_response_delay = false
 
+  # Stop document server if started by the Cucumber step
+  Maze::DocumentServer.manual_stop
+
   # This is here to stop sessions from one test hitting another.
   # However this does mean that tests take longer.
   # In addition, reset the last captured exit code

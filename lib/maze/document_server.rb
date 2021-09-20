@@ -6,7 +6,10 @@ module Maze
   # HTTP server for a given document root
   class DocumentServer
     class << self
+      # Start the document server.  This is intended to be called only once per test run.
+      # Use manual_start for finer grained control.
       def start
+        @manual_start = false
         @thread = Thread.new do
           options = {
               DocumentRoot: Maze.config.document_server_root,
@@ -21,6 +24,20 @@ module Maze
           $logger.info "Starting document server for root: #{Maze.config.document_server_root}"
           server.start
         end
+      end
+
+      # Starts the document server "manually" (via a Cucumber step as opposed to command line option)
+      def manual_start
+        if !@thread.nil? && @thread.alive?
+          $logger.warn 'Document Server has already been started on the command line, ignoring manual start'
+          return
+        end
+        @manual_start = true
+        start
+      end
+
+      def manual_stop
+        @thread.kill if @manual_start
       end
     end
   end

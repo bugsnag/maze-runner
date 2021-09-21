@@ -9,13 +9,12 @@ module Maze
       # Start the document server.  This is intended to be called only once per test run.
       # Use manual_start for finer grained control.
       def start
-        @manual_start = false
         @thread = Thread.new do
           options = {
-              DocumentRoot: Maze.config.document_server_root,
-              Port: Maze.config.document_server_port,
-              Logger: $logger,
-              AccessLog: []
+            DocumentRoot: Maze.config.document_server_root,
+            Port: Maze.config.document_server_port,
+            Logger: $logger,
+            AccessLog: []
           }
           options[:BindAddress] = Maze.config.document_server_bind_address unless Maze.config.document_server_bind_address.nil?
           server = WEBrick::HTTPServer.new(options)
@@ -37,7 +36,10 @@ module Maze
       end
 
       def manual_stop
-        @thread.kill if @manual_start
+        return unless  @manual_start
+
+        @thread.kill
+        @manual_start = false
       end
     end
   end

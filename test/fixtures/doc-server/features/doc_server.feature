@@ -8,10 +8,10 @@ Feature: Using the document server
   Scenario: Reflective requests
     When I start a timer
     And I make a reflective GET request with status "202" and delay of "2000"
-    Then at least 2000 ms have passed
-    And the status code for the last reflective request was "202"
+    Then the status code for the last reflective request was "202"
+    And at least 2000 ms have passed
 
     And I start a timer
     And I make a reflective POST request with status "567" and delay of "2000"
-    Then at least 2000 ms have passed
-    And the status code for the last reflective request was "567"
+    Then the status code for the last reflective request was "567"
+    And at least 2000 ms have passed

@@ -23,6 +23,16 @@ module Maze
     # @param request [HTTPRequest] The incoming GET request
     # @param response [HTTPResponse] The response to return
     def do_POST(request, response)
+
+      content_type = request['Content-Type']
+      unless content_type == 'application/json'
+        msg = "Content-Type '#{content_type}' not supported - only application/json is supported at present"
+        $logger.error msg
+        response.status = 415
+        response.body = msg
+        return
+      end
+
       body = JSON.parse(request.body)
       delay_ms = body['delay_ms']
       status = body['status']

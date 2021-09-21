@@ -1,3 +1,9 @@
+# 5.11.0 - 2021/09/21
+
+## Enhancements
+
+- Add reflective servlet to `DocumentServer` [#291](https://github.com/bugsnag/maze-runner/pull/291)
+
 # 5.10.0 - 2021/09/06
 
 ## Enhancements

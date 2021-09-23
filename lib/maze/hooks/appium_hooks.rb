@@ -38,7 +38,8 @@ module Maze
                                                config.username,
                                                config.access_key
           config.capabilities = Maze::Capabilities.for_bitbar_device config.access_key,
-                                                                     config.device,
+                                                                     config.os,
+                                                                     config.os_version,
                                                                      config.capabilities_option
 
           pp "Exiting early due to a lack of bitbar support currently"

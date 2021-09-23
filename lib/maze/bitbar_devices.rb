@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'json'
 
 module Maze
   # Provides a source of capabilities used to run tests against specific BitBar devices
@@ -8,7 +9,63 @@ module Maze
     APPIUM_1_15_0 = '1.15.0'
     APPIUM_1_20_2 = '1.20.2'
 
+    BASE_URI = 'https://cloud.bitbar.com/api/v2'
+    FILTER_PATH = 'devices/filters'
+    DEVICES_PATH = 'devices'
+
     class << self
+      def call_bitbar_api(path, query, api_key)
+        encoded_query = URI.encode_www_form(query)
+        uri = URI("#{BASE_URI}/#{path}?#{encoded_query}")
+        request = Net::HTTP::Get.new(uri)
+        request.basic_auth(api_key, '')
+
+        res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+          http.request(request)
+        end
+
+        JSON.parse(res.body)
+      end
+
+      def get_filter_ids(platform, platform_version, api_key)
+        query = {
+          'filter': "deviceFilterGroup.name_eq_#{platform} version"
+        }
+        all_filters = call_bitbar_api(FILTER_PATH, query, api_key)
+        filter_array = all_filters['deviceFilterGroups'].first
+        target_filters = filter_array['deviceFilters'].filter do |filter|
+          filter['displayName'].start_with?(platform_version)
+        end
+        target_filters.map { |filter| filter['id'] }
+      end
+
+      def get_filtered_device_name(platform, filter_ids, api_key)
+        query = {
+          'filter': "online_eq_true",
+          'labelIds[]': filter_ids,
+          'limit': 100
+        }
+        all_devices = call_bitbar_api(DEVICES_PATH, query, api_key)
+        sorted_devices = all_devices['data'].sort_by do |device|
+          device['softwareVersion']['releaseVersion']
+        end
+        target_device = sorted_devices.last
+        target_device['displayName']
+      end
+
+      def get_device(platform, platform_version, api_key)
+        filter_ids = get_filter_ids(platform, platform_version, api_key)
+        device_name = get_filtered_device_name(platform, filter_ids, api_key)
+        if platform.downcase == 'android'
+          make_android_hash(device_name)
+        elsif platform.downcase == 'ios'
+          make_ios_hash(device_name)
+        else
+          # Throw a wobbly
+          throw "Invalid device platform specified #{platform}"
+        end
+      end
+
       def make_android_hash(device, appium_version = nil, automationName = nil)
         hash = {
           'platformName' => 'Android',

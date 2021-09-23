@@ -47,13 +47,13 @@ module Maze
       end
 
       # @param device_type [String]
-      def for_bitbar_device(bitbar_api_key, device_type, capabilities_option)
+      def for_bitbar_device(bitbar_api_key, platform, platform_version, capabilities_option)
         capabilities = {
           'bitbar_apiKey' => bitbar_api_key,
-          'bitbar_testrun' => device_type,
+          'bitbar_testrun' => "#{platform} #{platform_version}",
           'bitbar_findDevice' => false
         }
-        capabilities.merge! BitBarDevices::DEVICE_HASH[device_type]
+        capabilities.merge! BitBarDevices.get_device(platform, platform_version, bitbar_api_key)
         capabilities.merge! JSON.parse(capabilities_option)
         capabilities
       end

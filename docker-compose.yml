@@ -69,6 +69,7 @@ services:
       context: test/fixtures/ios-app
       args:
         BRANCH_NAME:
+        RUBY_VERSION:
     extra_hosts:
       - "maze-local:127.0.0.1"
     environment:

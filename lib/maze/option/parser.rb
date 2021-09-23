@@ -85,6 +85,12 @@ module Maze
             opt Option::CAPABILITIES,
                 'Additional desired Appium capabilities as a JSON string',
                 default: '{}'
+            opt Option::OS,
+                'OS type to use ("ios", "android")',
+                type: :string
+            opt Option::OS_VERSION,
+                'The intended OS version when running on a local device',
+                type: :string
 
             text ''
             text 'Device farm options:'
@@ -139,12 +145,6 @@ module Maze
             text ''
             text 'Local device options:'
 
-            opt Option::OS,
-                'OS type to use ("ios", "android")',
-                type: :string
-            opt Option::OS_VERSION,
-                'The intended OS version when running on a local device',
-                type: :string
             opt Option::APPIUM_SERVER,
                 'Appium server URL, only used for --farm=local. MAZE_APPIUM_SERVER env var or "http://localhost:4723/wd/hub" by default',
                 type: :string

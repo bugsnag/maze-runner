@@ -51,7 +51,8 @@ module Maze
         capabilities = {
           'bitbar_apiKey' => bitbar_api_key,
           'bitbar_testrun' => "#{platform} #{platform_version}",
-          'bitbar_findDevice' => false
+          'bitbar_findDevice' => false,
+          'bitbar_testTimeout' => 3600
         }
         capabilities.merge! BitBarDevices.get_device(platform, platform_version, bitbar_api_key)
         capabilities.merge! JSON.parse(capabilities_option)

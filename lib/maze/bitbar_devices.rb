@@ -46,7 +46,9 @@ module Maze
           'limit': 100
         }
         all_devices = call_bitbar_api(DEVICES_PATH, query, api_key)
+        pp all_devices
         filtered_devices = all_devices.filter { |device| device['available'] }
+        pp filtered_devices
         sorted_devices = filtered_devices['data'].sort_by do |device|
           device['softwareVersion']['releaseVersion']
         end

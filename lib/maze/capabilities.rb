@@ -52,7 +52,9 @@ module Maze
           'bitbar_apiKey' => bitbar_api_key,
           'bitbar_testrun' => "#{platform} #{platform_version}",
           'bitbar_findDevice' => false,
-          'bitbar_testTimeout' => 3600
+          'bitbar_testTimeout' => 3600,
+          'disabledAnimations' => 'true',
+          'noReset' => 'true'
         }
         capabilities.merge! BitBarDevices.get_device(platform, platform_version, bitbar_api_key)
         capabilities.merge! JSON.parse(capabilities_option)

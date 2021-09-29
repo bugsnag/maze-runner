@@ -58,7 +58,8 @@ module Maze
         filter_ids = get_filter_ids(platform, platform_version, api_key)
         device_name = get_filtered_device_name(platform, filter_ids, api_key)
         if platform.downcase == 'android'
-          make_android_hash(device_name)
+          automationName = 'UiAutomator1' if platform_version.start_with('5')
+          make_android_hash(device_name, nil, automationName)
         elsif platform.downcase == 'ios'
           make_ios_hash(device_name)
         else

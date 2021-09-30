@@ -1,3 +1,9 @@
+# 5.12.0 - 2021/10/01
+
+## Enhancements
+
+- Expose `window_size` on `Maze::Driver::Appium` [#293](https://github.com/bugsnag/maze-runner/pull/293)
+
 # 5.11.0 - 2021/09/21
 
 ## Enhancements

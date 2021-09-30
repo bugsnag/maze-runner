@@ -112,11 +112,15 @@ module Maze
         @driver.rotation = orientation
       end
 
+      def window_size
+        @driver.window_size
+      end
+
       # Send keys to the device without a specific element
       #
       # @param text [String] the text to send
       def send_keys(text)
-        @driver.send_keys(text)       
+        @driver.send_keys(text)
       end
 
       # Sends keys to a given element, clearing it first

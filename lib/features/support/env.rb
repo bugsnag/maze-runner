@@ -128,8 +128,8 @@ def encode_query_params hash
   URI.encode_www_form hash
 end
 
-def run_command(*cmd, must_pass: true)
-  STDOUT.puts cmd if ENV['VERBOSE']
+def run_command(*cmd, must_pass: true, hide_input: false)
+  STDOUT.puts cmd if ENV['VERBOSE'] and not hide_input
   stdout, stderr, status = Open3.capture3(*cmd)
   STDOUT.puts stdout if ENV['VERBOSE']
   STDOUT.puts stderr if ENV['VERBOSE']

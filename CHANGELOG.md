@@ -1,3 +1,7 @@
+# 1.3.0
+
+Added `DOCKER_USER` and `DOCKER_PASSWORD` environment variables to avoid Dockerhub rate
+limits when run on CI.
 # 1.2.0
 
 Addition of HTTP version steps.

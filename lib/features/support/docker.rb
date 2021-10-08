@@ -88,6 +88,12 @@ def run_service_with_command(service, command, compose_file=$docker_compose_file
 end
 
 def run_docker_compose_command(file, command, must_pass=true)
+  if ENV['DOCKER_USER'] or ENV['DOCKER_PASSWORD']
+    run_command(@script_env || {},
+                "echo #{ENV['DOCKER_PASSWORD']} | docker login --username #{ENV['DOCKER_USER']} --password-stdin",
+                must_pass: true,
+                hide_input: true)
+  end
   command = "docker-compose -f #{file} #{command}"
   run_command(@script_env || {}, command, must_pass: must_pass)
 end

@@ -2,35 +2,44 @@
 # frozen_string_literal: true
 
 require 'cucumber/cli/main'
-require_relative '../lib/maze/option'
-require_relative '../lib/maze/option/parser'
-require_relative '../lib/maze/option/processor'
-require_relative '../lib/maze/option/validator'
+
 require_relative '../lib/maze'
-require_relative '../lib/maze/assertions/request_set_assertions'
-require_relative '../lib/maze/capabilities'
+
+require_relative '../lib/maze/appium_server'
 require_relative '../lib/maze/browser_stack_devices'
-require_relative '../lib/maze/hooks/hooks'
-require_relative '../lib/maze/hooks/appium_hooks'
-require_relative '../lib/maze/hooks/browser_hooks'
-require_relative '../lib/maze/hooks/command_hooks'
 require_relative '../lib/maze/browser_stack_utils'
-require_relative '../lib/maze/sauce_labs_utils'
+require_relative '../lib/maze/capabilities'
 require_relative '../lib/maze/compare'
 require_relative '../lib/maze/docker'
-require_relative '../lib/maze/driver/appium'
-require_relative '../lib/maze/driver/resilient_appium'
-require_relative '../lib/maze/driver/browser'
-require_relative '../lib/maze/helper'
-require_relative '../lib/maze/appium_server'
 require_relative '../lib/maze/document_server'
+require_relative '../lib/maze/helper'
 require_relative '../lib/maze/logger'
 require_relative '../lib/maze/network'
 require_relative '../lib/maze/proxy'
 require_relative '../lib/maze/reflective_servlet'
+require_relative '../lib/maze/retry_handler'
 require_relative '../lib/maze/runner'
+require_relative '../lib/maze/sauce_labs_utils'
 require_relative '../lib/maze/server'
 require_relative '../lib/maze/store'
+
+require_relative '../lib/maze/option'
+require_relative '../lib/maze/option/parser'
+require_relative '../lib/maze/option/processor'
+require_relative '../lib/maze/option/validator'
+
+require_relative '../lib/maze/assertions/request_set_assertions'
+
+require_relative '../lib/maze/hooks/hooks'
+require_relative '../lib/maze/hooks/appium_hooks'
+require_relative '../lib/maze/hooks/browser_hooks'
+require_relative '../lib/maze/hooks/command_hooks'
+
+require_relative '../lib/maze/driver/appium'
+require_relative '../lib/maze/driver/browser'
+require_relative '../lib/maze/driver/resilient_appium'
+
+require_relative '../lib/maze/plugins/global_retry_plugin'
 
 # Encapsulates the MazeRunner entry point
 class MazeRunnerEntry

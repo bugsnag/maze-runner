@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'appium_lib'
+
 module Maze
   class RetryHandler
     class << self

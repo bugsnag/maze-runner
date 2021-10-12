@@ -20,7 +20,7 @@ module Maze
       def should_retry?(test_case, event)
         return false unless not_retried_previously?(test_case)
 
-        if retry_on_selenium_error(event)
+        if retry_on_selenium_error?(event)
           $logger.warn "Retrying #{test_case.name} due to selenium error: #{event.result.exception}"
           Maze.driver.restart
           increment_retry_count(test_case)
@@ -40,12 +40,12 @@ module Maze
         global_retried[test_case] += 1
       end
 
-      def retry_on_selenium_error(event)
+      def retry_on_selenium_error?(event)
         Maze.driver && SELENIUM_ERRORS.include?(event.result.exception.class)
       end
 
       def retry_on_tag?(test_case)
-        test_case.tags.any do |tag|
+        test_case.tags.any? do |tag|
           RETRY_TAGS.include?(tag.name)
         end
       end

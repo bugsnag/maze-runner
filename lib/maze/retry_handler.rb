@@ -3,20 +3,28 @@
 require 'appium_lib'
 
 module Maze
+  # Handles the logic of when a test should be retried after a failure.
+  # Note: This class expects a failed test. For repeating a single test see RepeatHandler
   class RetryHandler
     class << self
 
+      # Errors which indicate a selenium/appium driver has crashed and needs to be restarted
       SELENIUM_ERRORS = [
         Selenium::WebDriver::Error::UnknownError,
         Selenium::WebDriver::Error::WebDriverError
       ]
 
+      # Acceptable tags to indicate a test should be restarted
       RETRY_TAGS = [
         '@retry',
         '@retryable',
         '@retriable'
       ]
 
+      # Determines whether a failed test_case should be restarted
+      #
+      # @param test_case [Cucumber::RunningTestCase] The current test_case or scenario
+      # @param event [Cucumber::Core::Event] The triggering event
       def should_retry?(test_case, event)
         return false unless not_retried_previously?(test_case)
 

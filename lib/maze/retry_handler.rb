@@ -26,7 +26,7 @@ module Maze
       # @param test_case [Cucumber::RunningTestCase] The current test_case or scenario
       # @param event [Cucumber::Core::Event] The triggering event
       def should_retry?(test_case, event)
-        return false unless not_retried_previously?(test_case)
+        return false if retried_previously?(test_case)
 
         if retry_on_selenium_error?(event)
           $logger.warn "Retrying #{test_case.name} due to selenium error: #{event.result.exception}"
@@ -58,8 +58,8 @@ module Maze
         end
       end
 
-      def not_retried_previously?(test_case)
-        global_retried[test_case] === 0
+      def retried_previously?(test_case)
+        global_retried[test_case] > 0
       end
 
       def global_retried

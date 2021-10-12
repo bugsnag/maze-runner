@@ -33,12 +33,12 @@ class RetryHandlerTest < Test::Unit::TestCase
     assert_equal(global_retried['bar'], 1)
   end
 
-  def test_not_retried_previously?
+  def test_retried_previously?
     global_retried = Maze::RetryHandler.send(:global_retried)
     Maze::RetryHandler.send(:increment_retry_count, 'foo')
 
-    assert_false(Maze::RetryHandler.send(:not_retried_previously?, 'foo'))
-    assert_true(Maze::RetryHandler.send(:not_retried_previously?, 'bar'))
+    assert_true(Maze::RetryHandler.send(:retried_previously?, 'foo'))
+    assert_false(Maze::RetryHandler.send(:retried_previously?, 'bar'))
   end
 
   def test_retry_on_tag_all_tags

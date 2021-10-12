@@ -11,6 +11,9 @@ class RetryHandlerTest < Test::Unit::TestCase
     @logger_mock = mock('logger')
     $logger = @logger_mock
     Maze::RetryHandler.instance_variable_set(:@global_retried, nil)
+    @config_mock = mock('config')
+    @config_mock.stubs(:enable_retries).returns(true)
+    Maze.stubs(:config).returns(@config_mock)
   end
 
   def test_global_retried_default
@@ -218,6 +221,16 @@ class RetryHandlerTest < Test::Unit::TestCase
     @logger_mock.expects('warn').with("Retrying test_case_mock due to retry tag")
 
     assert_true(Maze::RetryHandler.should_retry?(test_case_mock, event_mock))
+
+    assert_false(Maze::RetryHandler.should_retry?(test_case_mock, event_mock))
+  end
+
+  def test_should_retry_disabled
+    driver_mock = mock('driver')
+    @config_mock.expects(:enable_retries).returns(false)
+
+    test_case_mock = mock('test_case')
+    event_mock = mock('event')
 
     assert_false(Maze::RetryHandler.should_retry?(test_case_mock, event_mock))
   end

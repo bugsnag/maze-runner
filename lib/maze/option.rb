@@ -46,5 +46,8 @@ module Maze
     FILE_LOG = 'file-log'
     LOG_REQUESTS = 'log-requests'
     ALWAYS_LOG = 'always-log'
+
+    # Runtime options
+    ENABLE_RETRIES = 'enable_retries'
   end
 end

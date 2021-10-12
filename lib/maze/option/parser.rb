@@ -24,6 +24,14 @@ module Maze
                 'Display Maze Runner and Cucumber versions'
 
             text ''
+            text 'General options:'
+
+            opt Option::ENABLE_RETRIES,
+                'Enables retrying scenarios failures when tagged',
+                type: :boolean,
+                default: true
+
+            text ''
             text 'Server options:'
 
             opt Option::BIND_ADDRESS,

@@ -47,6 +47,9 @@ module Maze
     # Whether presence of the Bugsnag-Integrity header should be enforced
     attr_accessor :enforce_bugsnag_integrity
 
+    # Whether retries should be allowed
+    attr_accessor :enable_retries
+
     #
     # General appium configuration
     #

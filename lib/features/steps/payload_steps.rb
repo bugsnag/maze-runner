@@ -121,7 +121,8 @@ Then('the {word} payload field {string} is less than {int}') do |request_type, f
   list = Maze::Server.list_for(request_type)
   value = Maze::Helper.read_key_path(list.current[:body], field_path)
   assert_kind_of Integer, value
-  assert(value < int_value, "The #{request_type} payload field '#{field_path}' is not less than '#{int_value}'")
+  fail_message = "The #{request_type} payload field '#{field_path}' (#{value}) is not less than '#{int_value}'"
+  assert(value < int_value, fail_message)
 end
 
 # Tests a payload field equals a string.
@@ -157,7 +158,7 @@ Then('the {word} payload field {string} ends with {string}') do |request_type, f
   value = Maze::Helper.read_key_path(list.current[:body], field_path)
   assert_kind_of String, value
   assert(value.end_with?(string_value),
-         "Field '#{field_path}' does not end with '#{string_value}'")
+         "Field '#{field_path}' value ('#{value}') does not end with '#{string_value}'")
 end
 
 # Tests a payload field is an array with a specific element count.

@@ -16,6 +16,9 @@ module Maze
           config.bind_address = options[Maze::Option::BIND_ADDRESS]
           config.port = options[Maze::Option::PORT]
 
+          # General options
+          config.enable_retries = options[Maze::Option::ENABLE_RETRIES]
+
           # Document server options
           config.document_server_root = options[Maze::Option::DS_ROOT]
           config.document_server_bind_address = options[Maze::Option::DS_BIND_ADDRESS]

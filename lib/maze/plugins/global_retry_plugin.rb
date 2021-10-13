@@ -10,7 +10,7 @@ module Maze
         pp "Test_case starting for #{test_case}"
         configuration.on_event(:test_case_finished) do |event|
           # Guard for the test_case having failed
-          pp "Testing value of #{event.result.failed}"
+          pp "Testing value of #{event.result.failed?}"
           next unless event.test_case == test_case && event.result.failed?
 
           # Guard to check if the case should be retried

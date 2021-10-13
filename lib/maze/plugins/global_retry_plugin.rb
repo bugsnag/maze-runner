@@ -14,8 +14,11 @@ module Maze
           next unless event.test_case == test_case && event.result.failed?
 
           # Guard to check if the case should be retried
-          pp "Testing should_retry?"
-          next unless Maze::RetryHandler.should_retry?(test_case, event)
+          should_retry = Maze::RetryHandler.should_retry?(test_case, event)
+          pp "Testing should_retry? #{should_retry}"
+          next unless should_retry
+
+          pp "Retrying"
 
           # Retry the test_case
           test_case.describe_to(receiver)

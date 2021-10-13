@@ -1,3 +1,9 @@
+# TBD
+
+## Fixes
+
+- Improvements to payload step failure messages [#296](https://github.com/bugsnag/maze-runner/pull/296)
+
 # 5.12.0 - 2021/10/02
 
 ## Enhancements

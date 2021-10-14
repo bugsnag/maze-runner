@@ -13,6 +13,7 @@ module Maze
       end
 
       # Register blocks to be called from a Cucumber AfterConfiguration hook (after MazeRunner does everything it needs to)
+      # TODO Rename to before_all to reflect the change in Cucumber 7.1.0
       def after_configuration(&block)
         @after_configuration << block
       end

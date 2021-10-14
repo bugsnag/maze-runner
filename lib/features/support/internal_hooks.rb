@@ -7,7 +7,7 @@ require 'securerandom'
 require 'selenium-webdriver'
 require 'uri'
 
-AfterConfiguration do |_cucumber_config|
+BeforeAll do
 
   # Infer mode of operation from config, one of:
   # - Appium (using either remote or local devices)

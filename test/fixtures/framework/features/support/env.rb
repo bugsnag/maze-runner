@@ -13,7 +13,7 @@ Then('the Runner.environment entry for {string} is null') do |key|
   assert_nil(Maze::Runner.environment[key])
 end
 
-Maze.hooks.after_configuration do |_scenario|
+Maze.hooks.before_all do
   Maze::Runner.environment['AFTER_CONFIG'] = 'FIRST_SCENARIO_ONLY'
 end
 

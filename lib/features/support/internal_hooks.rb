@@ -45,7 +45,7 @@ BeforeAll do
   Maze::Server.start
 
   # Invoke the internal hook for the mode of operation
-  Maze.internal_hooks.after_configuration
+  Maze.internal_hooks.before_all
 
   # Call any blocks registered by the client
   Maze.hooks.call_before_all
@@ -207,5 +207,5 @@ AfterAll do
   Maze::Docker.down_all_services
 
   # Invoke the internal hook for the mode of operation
-  Maze.internal_hooks.call_after_all
+  Maze.internal_hooks.after_all
 end

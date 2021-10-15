@@ -2,7 +2,7 @@
 module Maze
   module Hooks
     class AppiumHooks < InternalHooks
-      def after_configuration
+      def before_all
         # Setup Appium capabilities.  Note that the 'app' capability is
         # set in a hook as it will change if uploaded to BrowserStack.
 

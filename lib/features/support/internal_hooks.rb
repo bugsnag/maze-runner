@@ -48,7 +48,7 @@ BeforeAll do
   Maze.internal_hooks.after_configuration
 
   # Call any blocks registered by the client
-  Maze.hooks.call_after_configuration Maze.config
+  Maze.hooks.call_before_all
 end
 
 # Before each scenario
@@ -194,7 +194,7 @@ After do |scenario|
 end
 
 # After all tests
-at_exit do
+AfterAll do
 
   STDOUT.puts '+++ All scenarios complete'
 
@@ -207,5 +207,5 @@ at_exit do
   Maze::Docker.down_all_services
 
   # Invoke the internal hook for the mode of operation
-  Maze.internal_hooks.at_exit
+  Maze.internal_hooks.call_after_all
 end

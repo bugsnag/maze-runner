@@ -73,7 +73,7 @@ module Maze
         end
       end
 
-      def at_exit
+      def after_all
         # Stop the Appium session and server
         Maze.driver.driver_quit unless Maze.config.appium_session_isolation
         Maze::AppiumServer.stop if Maze::AppiumServer.running

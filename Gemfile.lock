@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/bugsnag/yard-cucumber
+  revision: 679d8a834152b53df4700b7107a71d0753e5a2ba
+  specs:
+    yard-cucumber (4.0.0)
+      cucumber (>= 2.0, < 8.0)
+      yard (~> 0.8, >= 0.8.1)
+
 PATH
   remote: .
   specs:
@@ -144,6 +152,7 @@ DEPENDENCIES
   mocha (~> 1.12.0)
   redcarpet (~> 3.5)
   yard (~> 0.9.1)
+  yard-cucumber!
 
 BUNDLED WITH
    2.2.20

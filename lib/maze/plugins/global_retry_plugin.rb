@@ -7,24 +7,31 @@ module Maze
     class GlobalRetryPlugin < Cucumber::Core::Filter.new(:configuration)
 
       def test_case(test_case)
-        pp "Test_case starting for #{test_case}"
         configuration.on_event(:test_case_finished) do |event|
-          # Guard for the test_case having failed
-          pp "Testing value of #{event.result.failed?}"
-          next unless event.test_case == test_case && event.result.failed?
+
+          # Ensure we're in the correct test case
+          next unless event.test_case == test_case
+
+          # Set retry to 0
+          set_retry_count(configuration, 0)
 
           # Guard to check if the case should be retried
-          should_retry = Maze::RetryHandler.should_retry?(test_case, event)
-          pp "Testing should_retry? #{should_retry}"
+          should_retry = event.result.failed? && Maze::RetryHandler.should_retry?(test_case, event)
+
           next unless should_retry
 
-          pp "Retrying"
-
-          # Retry the test_case
-          test_case.describe_to(receiver)
+          # Set retry to 1
+          set_retry_count(configuration, 1)
         end
 
         super
+      end
+
+      def set_retry_count(configuration, count)
+        pp "Retry to #{count}"
+        opts = configuration.instance_variable_get(:@options)
+        opts[:retry] = count
+        configuration.instance_variable_set(:@options, opts)
       end
     end
   end

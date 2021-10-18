@@ -51,6 +51,10 @@ BeforeAll do
   Maze.hooks.call_before_all
 end
 
+InstallPlugin do |cucumber_config|
+  cucumber_config.filters << Maze::Plugins::GlobalRetryPlugin.new(cucumber_config)
+end
+
 # Before each scenario
 Before do |scenario|
   STDOUT.puts "--- Scenario: #{scenario.name}"

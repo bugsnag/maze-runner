@@ -3,8 +3,7 @@
 ## Enhancements
 
 - Upgrade to Cucumber 7 [#300](https://github.com/bugsnag/maze-runner/pull/300)
-
-# TBD
+- Adds retry functionality on specific selenium/appium errors or on `@retry` tags [#295](https://github.com/bugsnag/maze-runner/pull/295)
 
 ## Fixes
 

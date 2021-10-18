@@ -26,8 +26,7 @@ Then('the {word} request is valid multipart form-data') do |request_type|
   valid_multipart_form_data?(list.current)
 end
 
-# (Deprecated) Retained for backwards compatibility
-# Use "the {word} request is valid multipart form-data"
+# @deprecated Use `the {word} request is valid multipart form-data`
 #
 # Verifies that the request contains multipart form-data
 Then('the request is valid multipart form-data') do
@@ -43,8 +42,7 @@ Then('all {word} requests are valid multipart form-data') do |request_type|
   list.all.all? { |request| valid_multipart_form_data?(request) }
 end
 
-# (Deprecated) Retained for backwards compatibility
-# Use "all {word} requests are valid multipart form-data"
+# @deprecated Use `all {word} requests are valid multipart form-data`
 #
 # Verifies all received requests contain multipart form-data
 Then('all requests are valid multipart form-data') do
@@ -62,8 +60,7 @@ Then('the {word} multipart request has {int} fields') do |request_type, part_cou
   assert_equal(part_count, parts.size)
 end
 
-# (Deprecated) Retained for backwards compatibility
-# Use "the {word} multipart request has {int} fields"
+# @deprecated Use `the {word} multipart request has {int} fields`
 #
 # Tests the number of fields a multipart request contains.
 #
@@ -82,8 +79,7 @@ Then('the {word} multipart request has a non-empty body') do |request_type|
   assert(parts.size.positive?, "Multipart request payload contained #{parts.size} fields")
 end
 
-# (Deprecated) Retained for backwards compatibility
-# Use "the {word} multipart request has a non-empty body"
+# @deprecated Use `the {word} multipart request has a non-empty body`
 #
 # Tests the multipart request has at least one field.
 Then('the multipart request has a non-empty body') do
@@ -91,8 +87,7 @@ Then('the multipart request has a non-empty body') do
   step 'the error multipart request has a non-empty body'
 end
 
-# (Deprecated) Retained for backwards compatibility.
-# Use "the payload field {string} is not null"
+# @deprecated Use `the payload field {string} is not null`
 #
 # Tests that a multipart request field exists and is not null.
 #
@@ -103,8 +98,7 @@ Then('the field {string} for multipart request is not null') do |part_key|
   assert_not_nil(parts[part_key], "The field '#{part_key}' should not be null")
 end
 
-# (Deprecated) Retained for backwards compatibility
-# Use "the payload field {string} equals {string}"
+# @deprecated Use `the payload field {string} equals {string}`
 #
 # Tests that a multipart request field equals a string.
 #
@@ -116,8 +110,7 @@ Then('the field {string} for multipart request equals {string}') do |part_key, e
   assert_equal(parts[part_key], expected_value)
 end
 
-# (Deprecated) Retained for backwards compatibility
-# Use "the payload field {string} is null"
+# @deprecated Use `the payload field {string} is null`
 #
 # Tests that a multipart request field is null.
 #
@@ -157,8 +150,7 @@ Then('the {word} multipart body does not match the JSON file in {string}') do |r
   assert_false(result.equal?, "Payload:\n#{payload_value}\nExpected:#{expected_value}")
 end
 
-# (Deprecated) Retained for backwards compatibility
-# Use "the {word} multipart body does not match the JSON file in {string}"
+# @deprecated Use `the {word} multipart body does not match the JSON file in {string}`
 #
 # Tests that the multipart payload body does not match a JSON file.
 # JSON formatted multipart fields will be parsed into hashes.
@@ -184,8 +176,7 @@ Then('the {word} multipart body matches the JSON file in {string}') do |request_
   assert_true(result.equal?, "The payload field '#{result.keypath}' does not match the fixture:\n #{result.reasons.join('\n')}")
 end
 
-# (Deprecated) Retained for backwards compatibility
-# Use "the {word} multipart body matches the JSON file in {string}"
+# @deprecated Use `the {word} multipart body matches the JSON file in {string}`
 #
 # Tests that the multipart payload body matches a JSON fixture.
 # JSON formatted multipart fields will be parsed into hashes.
@@ -211,8 +202,7 @@ Then('the {word} multipart field {string} matches the JSON file in {string}') do
   assert_true(result.equal?, "The multipart field '#{result.keypath}' does not match the fixture:\n #{result.reasons.join('\n')}")
 end
 
-# (Deprecated) Retained for backwards compatibility
-# Use "the {word} multipart field {string} matches the JSON file in {string}"
+# @deprecated Use `the {word} multipart field {string} matches the JSON file in {string}`
 #
 # Tests that a multipart field matches a JSON fixture.
 # The field will be parsed into a hash.

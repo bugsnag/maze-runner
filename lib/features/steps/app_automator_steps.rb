@@ -143,8 +143,8 @@ end
 
 # See `the payload field {string} equals the platform-dependent string:`
 #
-# @step_input field_path [String] The field to test, prepended with "events.0.exceptions.0.stacktrace.#{num}"
-# @step_input field_path [String] The index of the stack frame to test
+# @step_input field_path [String] The field to test, prepended with "events.0.exceptions.0.stacktrace.#!{num}"
+# @step_input num [Integer] The index of the stack frame to test
 # @step_input platform_values [DataTable] A table of acceptable values for each platform
 Then('the {string} of stack frame {int} equals the platform-dependent string:') do |field_path, num, platform_values|
   test_string_platform_values('error', "events.0.exceptions.0.stacktrace.#{num}.#{field_path}", platform_values)

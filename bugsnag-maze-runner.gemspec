@@ -37,7 +37,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'mocha', '~> 1.12.0'
   spec.add_development_dependency 'redcarpet', '~> 3.5'
   spec.add_development_dependency 'yard', '~> 0.9.1'
-  # TODO Find an alternative for generating Cucumber step definition docs
-  # spec.add_development_dependency 'yard-cucumber', '~> 4.0.0'
   spec.add_development_dependency 'license_finder', '~> 6.12.0'
 end

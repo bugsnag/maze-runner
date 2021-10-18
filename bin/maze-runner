@@ -46,6 +46,7 @@ class MazeRunnerEntry
   # Adds arguments to Cucumber
   def add_cucumber_args
     @args << 'features' if @args.empty?
+    @args << '--publish-quiet'
 
     # Add strict mode unless any no/strict option is given,
     # but also allow flaky tests if --retry was provided.

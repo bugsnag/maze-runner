@@ -2,7 +2,7 @@
 module Maze
   module Hooks
     class BrowserHooks < InternalHooks
-      def after_configuration
+      def before_all
         config = Maze.config
         if config.farm == :bs
           # BrowserStack browser

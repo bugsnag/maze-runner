@@ -71,13 +71,6 @@ module Maze
           'IOS_11' => make_ios_hash('iPhone 8', '11'),
           'IOS_10' => make_ios_hash('iPhone 7', '10')
         }
-        # Deprecated entries
-        hash['ANDROID_9'] = hash['ANDROID_9_0']
-        hash['ANDROID_8'] = hash['ANDROID_8_0']
-        hash['ANDROID_7'] = hash['ANDROID_7_1']
-        hash['ANDROID_6'] = hash['ANDROID_6_0']
-        hash['ANDROID_5'] = hash['ANDROID_5_0']
-        hash['ANDROID_4'] = hash['ANDROID_4_4']
 
         # Specific Android devices
         add_android 'Google Pixel 4', '11.0', hash                        # ANDROID_11_0_GOOGLE_PIXEL_4

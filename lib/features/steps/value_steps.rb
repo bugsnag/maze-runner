@@ -104,7 +104,7 @@ Then('the {word} payload field {string} is a date') do |request_type, field|
   assert_kind_of Date, date
 end
 
-# Tests whether a payload field (loosely) matches a UUID regex (/[a-fA-F0-9-]{36}/)
+# Tests whether a payload field (loosely) matches a UUID regex (/[a-fA-F0-9-]!{36}/)
 #
 # @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input field [String] The payload field to test

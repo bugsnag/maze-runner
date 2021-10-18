@@ -3,18 +3,18 @@
 module Maze
   module Hooks
     # Provides the ability for callbacks to be provided as part of running Cucumber.
-    # These are akin to Cucumber's AfterConfiguration, Before and After hooks, but are invoked in such a way that
+    # These are akin to Cucumber's BeforeAll, Before, After and AfterAll hooks, but are invoked in such a way that
     # Maze Runner's hooks do not interfere with callbacks registered by clients.
     class Hooks
       def initialize
-        @after_configuration = []
+        @before_all = []
         @before = []
         @after = []
       end
 
-      # Register blocks to be called from a Cucumber AfterConfiguration hook (after MazeRunner does everything it needs to)
-      def after_configuration(&block)
-        @after_configuration << block
+      # Register blocks to be called from a Cucumber BeforeAll hook (after MazeRunner does everything it needs to)
+      def before_all(&block)
+        @before_all << block
       end
 
       # Register blocks to be called from a Cucumber Before hook (after MazeRunner does everything it needs to)
@@ -27,10 +27,9 @@ module Maze
         @after << block
       end
 
-      # For MazeRunner use only, call the registered AfterConfiguration blocks
-      # @param config Cucumber config
-      def call_after_configuration(config)
-        @after_configuration.each { |block| block.call(config) }
+      # For MazeRunner use only, call the registered BeforeAll blocks
+      def call_before_all
+        @before_all.each(&:call)
       end
 
       # For MazeRunner use only, call the registered Before blocks
@@ -48,17 +47,13 @@ module Maze
 
     # Base class for hooks internal to Maze Runner
     class InternalHooks
-      def after_configuration
-      end
+      def before_all; end
 
-      def before
-      end
+      def before; end
 
-      def after
-      end
+      def after; end
 
-      def at_exit
-      end
+      def after_all; end
     end
   end
 end

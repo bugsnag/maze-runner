@@ -11,6 +11,6 @@ def output_logs
   end
 end
 
-AfterConfiguration do |_config|
+BeforeAll do
   Maze.config.enforce_bugsnag_integrity = false
 end

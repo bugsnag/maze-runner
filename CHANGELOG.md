@@ -1,8 +1,8 @@
-# 6.0.0 - TBD
+# 6.0.0 - 2021/10/18
 
 ## Enhancements
 
-- Upgrade to Cucumber 7 [#TDB](https://github.com/bugsnag/maze-runner/pull/TDB)
+- Upgrade to Cucumber 7 [#300](https://github.com/bugsnag/maze-runner/pull/300)
 
 # TBD
 

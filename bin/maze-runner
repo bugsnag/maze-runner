@@ -57,15 +57,12 @@ class MazeRunnerEntry
     @args << 'features' if @args.empty?
     @args << '--publish-quiet'
 
-    # Add strict mode unless any no/strict option is given,
-    # but also allow flaky tests if --retry was provided.
+    # Pass strict mode options through to cucumber if present
+    # If not we default to strict for undefined and pending results,
+    # but no-strict for flaky in order to allow retries
     regex = /--(no-)?strict(-(undefined|pending|flaky))?/
     if @args.all? { |arg| regex.match(arg).nil? }
-      if @args.any? '--retry'
-        @args << '--strict-undefined' << '--strict-pending'
-      else
-        @args << '--strict'
-      end
+      @args << '--strict-undefined' << '--strict-pending' << '--no-strict-flaky'
     end
 
     # Load internal steps and helper functions

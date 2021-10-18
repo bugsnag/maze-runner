@@ -9,6 +9,29 @@ The version of Cucumber used by Maze Runner has been updated from 3.1.2 to 7.1.0
       - move into a suitable hook such as `BeforeAll`
 * The `AfterAll` hook has also been added, which could prove used instead of `at_exit`
 
+The following deprecated BrowserStack device names been removed:
+* ANDROID_4
+* ANDROID_5
+* ANDROID_6
+* ANDROID_7
+* ANDROID_8
+* ANDROID_9
+
+The following deprecated Cucumber steps have been removed:
+
+Removed step | Replacement
+---|---|
+`the request is valid multipart form-data` | `the {word} request is valid multipart form-data`
+`all requests are valid multipart form-data` | `all {word} requests are valid multipart form-data`
+`the multipart request has {int} fields` | `the {word} multipart request has {int} fields`
+`the multipart request has a non-empty body` | `the {word} multipart request has a non-empty body`
+`the field {string} for multipart request is not null` | `the payload field {string} is not null`
+`the field {string} for multipart request equals {string}` | `the payload field {string} equals {string}`
+`the field {string} for multipart request is null` | `the payload field {string} is null`
+`the multipart body does not match the JSON file in {string}` | `the {word} multipart body does not match the JSON file in {string}`
+`the multipart body matches the JSON file in {string}` | `the {word} multipart body matches the JSON file in {string}`
+`the multipart field {string} matches the JSON file in {string}` | `the {word} multipart field {string} matches the JSON file in {string}`
+
 ## v4 to v5
 
 Maze Runner has beeb integrated with the Sauce Labs device farm, resulting in some environment variables and command

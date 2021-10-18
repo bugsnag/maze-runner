@@ -51,7 +51,7 @@ BeforeAll do
   Maze.hooks.call_before_all
 end
 
-InstallPlugins do |cucumber_config|
+InstallPlugin do |cucumber_config|
   cucumber_config.filters << Maze::Plugins::GlobalRetryPlugin.new(cucumber_config)
 end
 

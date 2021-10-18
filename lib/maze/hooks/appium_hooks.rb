@@ -2,7 +2,7 @@
 module Maze
   module Hooks
     class AppiumHooks < InternalHooks
-      def after_configuration
+      def before_all
         # Setup Appium capabilities.  Note that the 'app' capability is
         # set in a hook as it will change if uploaded to BrowserStack.
 
@@ -73,7 +73,7 @@ module Maze
         end
       end
 
-      def at_exit
+      def after_all
         # Stop the Appium session and server
         Maze.driver.driver_quit unless Maze.config.appium_session_isolation
         Maze::AppiumServer.stop if Maze::AppiumServer.running

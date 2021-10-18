@@ -17,8 +17,7 @@ Gem::Specification.new do |spec|
 
   spec.executables = spec.files.grep(%r{^bin/[\w\-]+$}) { |f| File.basename(f) }
 
-  spec.add_dependency 'cucumber', '~> 3.1.2'
-  spec.add_dependency 'gherkin', '~> 5.1.0'
+  spec.add_dependency 'cucumber', '~> 7.1'
   spec.add_dependency 'minitest', '~> 5.0'
   spec.add_dependency 'os', '~> 1.0.0'
   spec.add_dependency 'test-unit', '~> 3.3.0'
@@ -34,13 +33,11 @@ Gem::Specification.new do |spec|
   # Pin indirect dependencies
   spec.add_runtime_dependency 'rubyzip', '~> 2.3.2'
 
-  # TODO: Removed pending PLAT-6322
-  # spec.add_dependency 'boring', '~> 0.1.0'
-
   spec.add_development_dependency 'markdown', '~> 1.2'
   spec.add_development_dependency 'mocha', '~> 1.12.0'
   spec.add_development_dependency 'redcarpet', '~> 3.5'
   spec.add_development_dependency 'yard', '~> 0.9.1'
-  spec.add_development_dependency 'yard-cucumber', '~> 4.0.0'
+  # TODO Find an alternative for generating Cucumber step definition docs
+  # spec.add_development_dependency 'yard-cucumber', '~> 4.0.0'
   spec.add_development_dependency 'license_finder', '~> 6.12.0'
 end

@@ -1,5 +1,14 @@
 # Upgrading Guide
 
+## v5 to v6
+
+The version of Cucumber used by Maze Runner has been updated from 3.1.2 to 7.1.0:
+
+* The `AfterConfiguration` hook has been deprecated -  use `InstallPlugin` or `BeforeAll` instead.
+* Code outside of any block (typcially in an `env.rb` file) is executed too late, or not at all 
+      - move into a suitable hook such as `BeforeAll`
+* The `AfterAll` hook has also been added, which could prove used instead of `at_exit`
+
 ## v4 to v5
 
 Maze Runner has beeb integrated with the Sauce Labs device farm, resulting in some environment variables and command

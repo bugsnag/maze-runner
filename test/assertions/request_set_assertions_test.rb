@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'cucumber/core/ast/data_table'
+require 'cucumber/core/test/data_table'
 require 'cucumber/multiline_argument/data_table'
 require_relative '../test_helper'
 require_relative '../../lib/maze/helper'
@@ -45,7 +45,7 @@ class RequestSetAssertionsTest < Test::Unit::TestCase
     headered_rows = [header]
     rows.each { |row| headered_rows.append(row) }
 
-    data = Cucumber::Core::Ast::DataTable.new headered_rows, nil
+    data = Cucumber::Core::Test::DataTable.new headered_rows
     Cucumber::MultilineArgument::DataTable.new data
   end
 

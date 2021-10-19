@@ -1,3 +1,9 @@
+# 6.0.1 - 2021/10/19
+
+## Fixes
+
+- Add further Selenium errors for which a scenario retry can be allowed [#301](https://github.com/bugsnag/maze-runner/pull/301)
+
 # 6.0.0 - 2021/10/18
 
 ## Enhancements

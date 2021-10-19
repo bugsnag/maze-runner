@@ -10,16 +10,15 @@ module Maze
 
       # Errors which indicate a selenium/appium driver has crashed and needs to be restarted
       SELENIUM_ERRORS = [
+        Selenium::WebDriver::Error::NoSuchElementError,
+        Selenium::WebDriver::Error::StaleElementReferenceError,
+        Selenium::WebDriver::Error::TimeoutError,
         Selenium::WebDriver::Error::UnknownError,
         Selenium::WebDriver::Error::WebDriverError
-      ]
+      ].freeze
 
       # Acceptable tags to indicate a test should be restarted
-      RETRY_TAGS = [
-        '@retry',
-        '@retryable',
-        '@retriable'
-      ]
+      RETRY_TAGS = %w[@retry @retryable @retriable].freeze
 
       # Determines whether a failed test_case should be restarted
       #

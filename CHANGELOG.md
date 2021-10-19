@@ -1,3 +1,9 @@
+# 6.1.0 - 2021/10/20
+
+## Enhancements
+
+- Add LLVM to Docker image (and upgrade to Debian 11) [#302](https://github.com/bugsnag/maze-runner/pull/302)
+
 # 6.0.1 - 2021/10/19
 
 ## Fixes

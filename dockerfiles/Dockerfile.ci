@@ -1,13 +1,11 @@
 # Ruby image are based on Debian
 ARG RUBY_VERSION
-FROM ruby:${RUBY_VERSION}-buster as ci
+FROM ruby:${RUBY_VERSION}-bullseye as ci
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
     apt-get install -y apt-utils docker-compose wget unzip bash bundler \
-                       # Needed by nokogiri (a dependency of appium_lib)
-                       zlib1g libpng-dev zlibc zlib1g zlib1g-dev curl \
-                       # Needed by curb (a dependency of Cucumber)
-                       libcurl4 libcurl4-openssl-dev
+                       # Needed for symbolication
+                       llvm-11
 
 RUN ruby -v
 

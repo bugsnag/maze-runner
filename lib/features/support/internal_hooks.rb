@@ -57,7 +57,7 @@ end
 
 # Before each scenario
 Before do |scenario|
-  STDOUT.puts "--- Scenario: #{scenario.name}"
+  STDOUT.puts "--- Scenario: #{scenario.name}" if ENV['BUILDKITE']
 
   # Invoke the internal hook for the mode of operation
   Maze.internal_hooks.before
@@ -98,7 +98,7 @@ After do |scenario|
 
   # Log unprocessed requests on Buildkite if the scenario fails
   if (scenario.failed? && Maze.config.log_requests) || Maze.config.always_log
-    STDOUT.puts '^^^ +++'
+    STDOUT.puts '^^^ +++' if ENV['BUILDKITE']
     output_received_requests('errors')
     output_received_requests('sessions')
     output_received_requests('builds')
@@ -134,7 +134,7 @@ def output_received_requests(request_type)
     count = request_queue.size_all
     $logger.info "#{count} #{request_type} were received:"
     request_queue.all.each.with_index(1) do |request, number|
-      STDOUT.puts "--- #{request_type} #{number} of #{count}"
+      STDOUT.puts "--- #{request_type} #{number} of #{count}" if ENV['BUILDKITE']
       Maze::LogUtil.log_hash(Logger::Severity::INFO, request)
     end
   end
@@ -200,7 +200,7 @@ end
 # After all tests
 AfterAll do
 
-  STDOUT.puts '+++ All scenarios complete'
+  STDOUT.puts '+++ All scenarios complete' if ENV['BUILDKITE']
 
   # Stop the mock server
   Maze::Server.stop

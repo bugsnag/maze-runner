@@ -1,3 +1,9 @@
+# 6.1.1 - TBD
+
+## Fixes
+
+- Only log collapsable headings when running on Buildkite [#303](https://github.com/bugsnag/maze-runner/pull/303)
+
 # 6.1.0 - 2021/10/20
 
 ## Enhancements

@@ -1,3 +1,9 @@
+# 6.2.0 - 2021/10/22
+
+## Enhancements
+
+- Add entry for iOS 15 device on BrowaserStack [#304](https://github.com/bugsnag/maze-runner/pull/304)
+
 # 6.1.0 - 2021/10/20
 
 ## Enhancements

@@ -1,8 +1,14 @@
+# 6.2.1 - 2021/10/26
+
+## Fixes
+
+- Align Appium versions for iOS devices with latest BrowserStack offering [#305](https://github.com/bugsnag/maze-runner/pull/305)
+
 # 6.2.0 - 2021/10/22
 
 ## Enhancements
 
-- Add entry for iOS 15 device on BrowaserStack [#304](https://github.com/bugsnag/maze-runner/pull/304)
+- Add entry for iOS 15 device on BrowserStack [#304](https://github.com/bugsnag/maze-runner/pull/304)
 
 # 6.1.0 - 2021/10/20
 

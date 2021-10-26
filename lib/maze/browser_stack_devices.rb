@@ -4,8 +4,10 @@ module Maze
   # Provides a source of capabilities used to run tests against specific BrowserStack devices
   # noinspection RubyStringKeysInHashInspection
   class BrowserStackDevices
+    APPIUM_1_7_0 = '1.7.0'
     APPIUM_1_9_1 = '1.9.1'
     APPIUM_1_15_0 = '1.15.0'
+    APPIUM_1_20_0 = '1.20.0'
     APPIUM_1_20_2 = '1.20.2'
 
     class << self
@@ -30,17 +32,17 @@ module Maze
         hash[key] = make_android_hash device, version, appium_version
       end
 
-      def make_ios_hash(device, version)
+      def make_ios_hash(device, version, appium_version = APPIUM_1_20_0)
         {
           'device' => device,
           'os_version' => version,
           'platformName' => 'iOS',
           'os' => 'ios',
-          'browserstack.appium_version' => APPIUM_1_15_0
+          'browserstack.appium_version' => appium_version
         }.freeze
       end
 
-      def add_ios(device, version, hash)
+      def add_ios(device, version, hash, appium_version = APPIUM_1_20_0)
         # Key format is "IOS_<version>_<device>", with:
         # - dots in versions and all spaces replaced with underscores
         # - device made upper case
@@ -48,7 +50,7 @@ module Maze
         name = name.gsub '.', '_'
         new_version = version.gsub '.', '_'
         key = "IOS_#{new_version}_#{name}"
-        hash[key] = make_ios_hash device, version
+        hash[key] = make_ios_hash device, version, appium_version
       end
 
       def create_hash
@@ -69,8 +71,8 @@ module Maze
           'IOS_14' => make_ios_hash('iPhone 11', '14'),
           'IOS_13' => make_ios_hash('iPhone 8', '13'),
           'IOS_12' => make_ios_hash('iPhone 8', '12'),
-          'IOS_11' => make_ios_hash('iPhone 8', '11'),
-          'IOS_10' => make_ios_hash('iPhone 7', '10')
+          'IOS_11' => make_ios_hash('iPhone 8', '11', APPIUM_1_7_0),
+          'IOS_10' => make_ios_hash('iPhone 7', '10', APPIUM_1_7_0)
         }
 
         # Specific Android devices
@@ -99,17 +101,17 @@ module Maze
         add_android 'Samsung Galaxy Tab 4', '4.4', hash, APPIUM_1_9_1     # ANDROID_4_4_SAMSUNG_GALAXY_TAB_4
 
         # Specific iOS devices
-        add_ios 'iPhone 8 Plus', '11.0', hash                             # IOS_11_0_IPHONE_8_PLUS
-        add_ios 'iPhone X', '11.0', hash                                  # IOS_11_0_IPHONE_X
-        add_ios 'iPhone SE', '11.0', hash                                 # IOS_11_0_IPHONE_SE
-        add_ios 'iPhone 6', '11.0', hash                                  # IOS_11_0_IPHONE_6
-        add_ios 'iPhone 6S', '11.0', hash                                 # IOS_11_0_IPHONE_6S
-        add_ios 'iPhone 6S Plus', '11.0', hash                            # IOS_11_0_IPHONE_6S_PLUS
-        add_ios 'iPad 5th', '11.0', hash                                  # IOS_11_0_IPAD_5TH
-        add_ios 'iPad Mini 4', '11.0', hash                               # IOS_11_0_IPAD_MINI_4
-        add_ios 'iPad Pro 9.7 2016', '11.0', hash                         # IOS_11_0_IPAD_PRO_9_7_2016
-        add_ios 'iPad 6th', '11.0', hash                                  # IOS_11_0_IPAD_6TH
-        add_ios 'iPad Pro 12.9', '11.0', hash                             # IOS_11_0_IPAD_PRO_12_9
+        add_ios 'iPhone 8 Plus', '11.0', hash, APPIUM_1_7_0               # IOS_11_0_IPHONE_8_PLUS
+        add_ios 'iPhone X', '11.0', hash, APPIUM_1_7_0                    # IOS_11_0_IPHONE_X
+        add_ios 'iPhone SE', '11.0', hash, APPIUM_1_7_0                   # IOS_11_0_IPHONE_SE
+        add_ios 'iPhone 6', '11.0', hash, APPIUM_1_7_0                    # IOS_11_0_IPHONE_6
+        add_ios 'iPhone 6S', '11.0', hash, APPIUM_1_7_0                   # IOS_11_0_IPHONE_6S
+        add_ios 'iPhone 6S Plus', '11.0', hash, APPIUM_1_7_0              # IOS_11_0_IPHONE_6S_PLUS
+        add_ios 'iPad 5th', '11.0', hash, APPIUM_1_7_0                    # IOS_11_0_IPAD_5TH
+        add_ios 'iPad Mini 4', '11.0', hash, APPIUM_1_7_0                 # IOS_11_0_IPAD_MINI_4
+        add_ios 'iPad Pro 9.7 2016', '11.0', hash, APPIUM_1_7_0           # IOS_11_0_IPAD_PRO_9_7_2016
+        add_ios 'iPad 6th', '11.0', hash, APPIUM_1_7_0                    # IOS_11_0_IPAD_6TH
+        add_ios 'iPad Pro 12.9', '11.0', hash, APPIUM_1_7_0               # IOS_11_0_IPAD_PRO_12_9
 
         hash
       end

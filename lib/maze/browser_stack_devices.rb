@@ -7,8 +7,8 @@ module Maze
     APPIUM_1_7_0 = '1.7.0'
     APPIUM_1_9_1 = '1.9.1'
     APPIUM_1_15_0 = '1.15.0'
-    APPIUM_1_20_0 = '1.20.0'
     APPIUM_1_20_2 = '1.20.2'
+    APPIUM_1_21_0 = '1.21.0'
 
     class << self
       def make_android_hash(device, version, appium_version = APPIUM_1_20_2)
@@ -32,7 +32,7 @@ module Maze
         hash[key] = make_android_hash device, version, appium_version
       end
 
-      def make_ios_hash(device, version, appium_version = APPIUM_1_20_0)
+      def make_ios_hash(device, version, appium_version = APPIUM_1_21_0)
         {
           'device' => device,
           'os_version' => version,
@@ -42,7 +42,7 @@ module Maze
         }.freeze
       end
 
-      def add_ios(device, version, hash, appium_version = APPIUM_1_20_0)
+      def add_ios(device, version, hash, appium_version = APPIUM_1_21_0)
         # Key format is "IOS_<version>_<device>", with:
         # - dots in versions and all spaces replaced with underscores
         # - device made upper case

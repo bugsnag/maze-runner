@@ -48,6 +48,6 @@ module Maze
     ALWAYS_LOG = 'always-log'
 
     # Runtime options
-    ENABLE_RETRIES = 'enable_retries'
+    ENABLE_RETRIES = 'enable-retries'
   end
 end

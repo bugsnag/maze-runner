@@ -1,3 +1,9 @@
+# 6.3.0 - 2021/11/03
+
+## Enhancements
+
+- Add Android 12 and addition Android 7 devices [#304](https://github.com/bugsnag/maze-runner/pull/304)
+
 # 6.2.1 - 2021/10/26
 
 ## Fixes

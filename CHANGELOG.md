@@ -4,6 +4,10 @@
 
 - Add Android 12 and addition Android 7 devices [#304](https://github.com/bugsnag/maze-runner/pull/304)
 
+## Fixes
+
+- Correct command line option for `--enable-retries` [#307](https://github.com/bugsnag/maze-runner/pull/307)
+
 # 6.2.1 - 2021/10/26
 
 ## Fixes

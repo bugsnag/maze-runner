@@ -75,6 +75,9 @@ module Maze
     # - on macOS, the name of an installed or previously executed application
     attr_accessor :app
 
+    # The path to the app file used in macOS (generated)
+    attr_accessor :app_path
+
     # Whether the ResilientAppium driver should be used (only applicable when using Appium in the first place)
     attr_accessor :resilient
 

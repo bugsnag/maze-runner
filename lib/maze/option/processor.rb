@@ -97,6 +97,11 @@ module Maze
               if os == 'ios'
                 config.apple_team_id = options[Maze::Option::APPLE_TEAM_ID]
                 config.device_id = options[Maze::Option::UDID]
+              elsif os == 'macos'
+                # Process the application path into a path for pre-loading the app and a name for use in Appium
+                fullAppPath = File.expand_path(config.app)
+                config.app_path = fullAppPath
+                config.app = File.basename(fullAppPath, '.*')
               end
             end
           when :none

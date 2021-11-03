@@ -28,7 +28,7 @@ module Maze
                                                    config.access_key
         when :local
           # Open the app beforehand to ensure it runs correctly and is accessible
-          Maze::Runner.run_command(`open #{fixture_dir}/#{app_file}`) if config.os == 'macos'
+          Maze::Runner.run_command(`open #{config.app_path}`) if config.os == 'macos'
 
           # Attempt to start the local appium server
           appium_uri = URI(config.appium_server_url)

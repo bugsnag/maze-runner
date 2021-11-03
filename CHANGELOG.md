@@ -2,7 +2,7 @@
 
 ## Enhancements
 
-- Add Android 12 and addition Android 7 devices [#304](https://github.com/bugsnag/maze-runner/pull/304)
+- Add Android 12 and addition Android 7 devices [#308](https://github.com/bugsnag/maze-runner/pull/308)
 
 ## Fixes
 

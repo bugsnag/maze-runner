@@ -1,3 +1,9 @@
+# TBD
+
+## Enhancements
+
+- Add automatic retries when appium element cannot be found [#TBD]()
+
 # 6.3.0 - 2021/11/03
 
 ## Enhancements

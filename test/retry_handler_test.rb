@@ -2,6 +2,7 @@
 
 require 'test_helper'
 require 'appium_lib'
+require_relative '../lib/maze/errors'
 require_relative '../lib/maze/retry_handler'
 
 # noinspection RubyNilAnalysis
@@ -81,16 +82,16 @@ class RetryHandlerTest < Test::Unit::TestCase
     assert_false(Maze::RetryHandler.send(:retry_on_tag?, test_case_invalid_tags))
   end
 
-  def test_retry_on_selenium_no_maze_driver
+  def test_retry_on_driver_no_maze_driver
     Maze.expects(:driver).returns(nil)
 
     event_mock = mock('event')
 
-    assert_nil(Maze::RetryHandler.send(:retry_on_selenium_error?, event_mock))
+    assert_nil(Maze::RetryHandler.send(:retry_on_driver_error?, event_mock))
   end
 
-  def test_retry_on_selenium_error_both_errors
-    Maze.expects(:driver).twice.returns(true)
+  def test_retry_on_driver_errors
+    Maze.expects(:driver).times(3).returns(true)
 
     result_unknown_mock = mock('result')
     result_unknown_mock.expects(:exception).returns(Selenium::WebDriver::Error::UnknownError.new)
@@ -98,7 +99,7 @@ class RetryHandlerTest < Test::Unit::TestCase
     event_unknown_error_mock = mock('event')
     event_unknown_error_mock.expects(:result).returns(result_unknown_mock)
 
-    assert_true(Maze::RetryHandler.send(:retry_on_selenium_error?, event_unknown_error_mock))
+    assert_true(Maze::RetryHandler.send(:retry_on_driver_error?, event_unknown_error_mock))
 
     result_web_driver_mock = mock('result')
     result_web_driver_mock.expects(:exception).returns(Selenium::WebDriver::Error::WebDriverError.new)
@@ -106,10 +107,18 @@ class RetryHandlerTest < Test::Unit::TestCase
     event_web_driver_error_mock = mock('event')
     event_web_driver_error_mock.expects(:result).returns(result_web_driver_mock)
 
-    assert_true(Maze::RetryHandler.send(:retry_on_selenium_error?, event_web_driver_error_mock))
+    assert_true(Maze::RetryHandler.send(:retry_on_driver_error?, event_web_driver_error_mock))
+
+    result_element_not_found_mock = mock('result')
+    result_element_not_found_mock.expects(:exception).returns(Maze::Error::AppiumElementNotFoundError.new)
+
+    event_element_not_found_mock = mock('event')
+    event_element_not_found_mock.expects(:result).returns(result_element_not_found_mock)
+
+    assert_true(Maze::RetryHandler.send(:retry_on_driver_error?, event_element_not_found_mock))
   end
 
-  def test_retry_on_selenium_error_wrong_error
+  def test_retry_on_driver_error_wrong_error
     Maze.expects(:driver).returns(true)
 
     result_incorrect_mock = mock('result')
@@ -118,10 +127,10 @@ class RetryHandlerTest < Test::Unit::TestCase
     event_incorrect_error_mock = mock('event')
     event_incorrect_error_mock.expects(:result).returns(result_incorrect_mock)
 
-    assert_false(Maze::RetryHandler.send(:retry_on_selenium_error?, event_incorrect_error_mock))
+    assert_false(Maze::RetryHandler.send(:retry_on_driver_error?, event_incorrect_error_mock))
   end
 
-  def test_retry_on_selenium_error_no_errors
+  def test_retry_on_driver_error_no_errors
     Maze.expects(:driver).returns(true)
 
     result_no_error_mock = mock('result')
@@ -130,10 +139,10 @@ class RetryHandlerTest < Test::Unit::TestCase
     event_no_error_mock = mock('event')
     event_no_error_mock.expects(:result).returns(result_no_error_mock)
 
-    assert_false(Maze::RetryHandler.send(:retry_on_selenium_error?, event_no_error_mock))
+    assert_false(Maze::RetryHandler.send(:retry_on_driver_error?, event_no_error_mock))
   end
 
-  def test_should_retry_selenium_error
+  def test_should_retry_driver_error
     driver_mock = mock('driver')
     Maze.expects(:driver).twice.returns(driver_mock)
     driver_mock.expects(:restart)
@@ -149,7 +158,7 @@ class RetryHandlerTest < Test::Unit::TestCase
     event_mock = mock('event')
     event_mock.expects(:result).twice.returns(result_mock)
 
-    @logger_mock.expects('warn').with("Retrying test_case_mock due to selenium error: #{error}")
+    @logger_mock.expects('warn').with("Retrying test_case_mock due to driver error: #{error}")
 
     assert_true(Maze::RetryHandler.should_retry?(test_case_mock, event_mock))
 

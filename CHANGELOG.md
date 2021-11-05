@@ -1,8 +1,8 @@
-# TBD
+# 6.4.0 - TBD
 
 ## Enhancements
 
-- Add automatic retries when appium element cannot be found [#TBD]()
+- Add automatic retries when appium element cannot be found [#309](https://github.com/bugsnag/maze-runner/pull/309)
 
 # 6.3.0 - 2021/11/03
 

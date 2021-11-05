@@ -14,7 +14,7 @@ end
 # @step_input variant [String] The variant value expected
 Then('the event contains the feature flag {string} with variant {string}') do |flag_name, variant|
   featureFlags = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], "events.0.featureFlags")
-  assertFalse(featureFlags.nil? || featureFlags.empty?, "Feature flags were nil or empty: #{featureFlags}")
+  assert_false(featureFlags.nil? || featureFlags.empty?, "Feature flags were nil or empty: #{featureFlags}")
   assert(featureFlags.one? { |flag| flag['featureFlag'] == flag_name && flag['variant'] == variant })
 end
 
@@ -23,7 +23,7 @@ end
 # @step_input flag_name [String] The featureFlag value expected
 Then('the event contains the feature flag {string} with no variant') do |flag_name|
   featureFlags = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], "events.0.featureFlags")
-  assertFalse(featureFlags.nil? || featureFlags.empty?, "Feature flags were nil or empty: #{featureFlags}")
+  assert_false(featureFlags.nil? || featureFlags.empty?, "Feature flags were nil or empty: #{featureFlags}")
   assert(featureFlags.one? { |flag| flag['featureFlag'] == flag_name && flag['variant'].nil? })
 end
 
@@ -41,7 +41,7 @@ end
 # @step_input table [Cucumber::MultilineArgument::DataTable] Table of expected values
 Then('the event contains the following feature flags:') do |table|
   featureFlags = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], "events.0.featureFlags")
-  assertFalse(featureFlags.nil? || featureFlags.empty?, "Feature flags were nil or empty: #{featureFlags}")
+  assert_false(featureFlags.nil? || featureFlags.empty?, "Feature flags were nil or empty: #{featureFlags}")
 
   expected_features = table.hashes
   assert(featureFlags.size == expected_features.size, "Expected #{expected_features.size} features, found #{featureFlags.size}")
@@ -59,6 +59,6 @@ end
 # @step_input flag_name [String] The featureFlag value not expected
 Then('the event does not contain the feature flag {string}') do |flag_name|
   featureFlags = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], "events.0.featureFlags")
-  assertFalse(featureFlags.nil? || featureFlags.empty?, "Feature flags were nil or empty: #{featureFlags}")
+  assert_false(featureFlags.nil? || featureFlags.empty?, "Feature flags were nil or empty: #{featureFlags}")
   assert(featureFlags.none? { |flag| flag['featureFlag'] == flag_name})
 end

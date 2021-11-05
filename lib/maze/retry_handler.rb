@@ -9,7 +9,9 @@ module Maze
     class << self
 
       # Errors which indicate a selenium/appium driver has crashed and needs to be restarted
-      SELENIUM_ERRORS = [
+      DRIVER_ERRORS = [
+        Maze::Error::AppiumElementNotFoundError,
+
         Selenium::WebDriver::Error::NoSuchElementError,
         Selenium::WebDriver::Error::StaleElementReferenceError,
         Selenium::WebDriver::Error::TimeoutError,
@@ -27,8 +29,8 @@ module Maze
       def should_retry?(test_case, event)
         return false if !Maze.config.enable_retries || retried_previously?(test_case)
 
-        if retry_on_selenium_error?(event)
-          $logger.warn "Retrying #{test_case.name} due to selenium error: #{event.result.exception}"
+        if retry_on_driver_error?(event)
+          $logger.warn "Retrying #{test_case.name} due to driver error: #{event.result.exception}"
           Maze.driver.restart
           increment_retry_count(test_case)
           true
@@ -47,8 +49,8 @@ module Maze
         global_retried[test_case] += 1
       end
 
-      def retry_on_selenium_error?(event)
-        Maze.driver && SELENIUM_ERRORS.include?(event.result.exception.class)
+      def retry_on_driver_error?(event)
+        Maze.driver && DRIVER_ERRORS.include?(event.result.exception.class)
       end
 
       def retry_on_tag?(test_case)

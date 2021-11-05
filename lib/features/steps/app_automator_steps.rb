@@ -6,7 +6,7 @@
 # @step_input element_id [String] The locator id
 Given('the element {string} is present') do |element_id|
   present = Maze.driver.wait_for_element(element_id)
-  assert(present, "The element #{element_id} could not be found")
+  raise Maze::Error::AppiumElementNotFoundError.new("The element #{element_id} could not be found", element_id) unless present
 end
 
 # Checks a UI element is present within a specified number of seconds
@@ -16,7 +16,7 @@ end
 # @step_input timeout [Int] The number of seconds to wait before timing out
 Given('the element {string} is present within {int} seconds') do |element_id, timeout|
   present = Maze.driver.wait_for_element(element_id, timeout)
-  assert(present, "The element #{element_id} could not be found")
+  raise Maze::Error::AppiumElementNotFoundError.new("The element #{element_id} could not be found", element_id) unless present
 end
 
 # Clicks a given element

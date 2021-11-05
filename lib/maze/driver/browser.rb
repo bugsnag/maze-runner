@@ -32,6 +32,11 @@ module Maze
         @driver.navigate
       end
 
+      # Refreshes the page
+      def refresh
+        @driver.refresh
+      end
+
       # Quits the driver
       def driver_quit
         @driver.quit

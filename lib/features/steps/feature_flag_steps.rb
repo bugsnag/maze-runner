@@ -46,7 +46,7 @@ end
 # @step_input variant [String] The variant value expected
 Then('the event contains the feature flag {string} with variant {string}') do |flag_name, variant|
   steps %(
-    Then event 0 contains the feature flag #{flag_name} with variant #{variant}
+    Then event 0 contains the feature flag "#{flag_name}" with variant "#{variant}"
   )
 end
 
@@ -77,7 +77,7 @@ end
 # @step_input flag_name [String] The featureFlag value expected
 Then('the event contains the feature flag {string} with no variant') do |flag_name|
   steps %(
-    Then event 0 contains the feature flag #{flag_name} with no variant
+    Then event 0 contains the feature flag "#{flag_name}" with no variant
   )
 end
 
@@ -125,7 +125,7 @@ end
 # @step_input flag_name [String] The featureFlag value not expected
 Then('the event does not contain the feature flag {string}') do |flag_name|
   steps %(
-    Then event 0 does not contain the feature flag #{flag_name}
+    Then event 0 does not contain the feature flag "#{flag_name}"
   )
 end
 

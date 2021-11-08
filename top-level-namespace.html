@@ -122,6 +122,59 @@
 
   
     <h2>
+      Feature flag steps
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="top-level-namespace.html#has_feature_flags%3F-instance_method" title="#has_feature_flags? (instance method)">#<strong>has_feature_flags?</strong>(event)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="top-level-namespace.html#verify_feature_flags_with_table-instance_method" title="#verify_feature_flags_with_table (instance method)">#<strong>verify_feature_flags_with_table</strong>(event, table)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>
       App Automator steps
       <small><a href="#" class="summary_toggle">collapse</a></small>
     </h2>
@@ -621,6 +674,80 @@
   <span class='id identifier rubyid_raise'>raise</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>There is no expected value for the current platform \&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_os'>os</span><span class='embexpr_end'>}</span><span class='tstring_content'>\&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_expected_value'>expected_value</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
 
   <span class='id identifier rubyid_expected_value'>expected_value</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="has_feature_flags?-instance_method">
+  
+    #<strong>has_feature_flags?</strong>(event)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/features/steps/feature_flag_steps.rb', line 165</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_has_feature_flags?'>has_feature_flags?</span><span class='lparen'>(</span><span class='id identifier rubyid_event'>event</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_event'>event</span><span class='period'>.</span><span class='id identifier rubyid_has_key?'>has_key?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>featureFlags</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_assert_false'>assert_false</span><span class='lparen'>(</span>
+      <span class='id identifier rubyid_event'>event</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>featureFlags</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>The feature flags key was present, but null</span><span class='tstring_end'>&#39;</span></span>
+    <span class='rparen'>)</span>
+    <span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span><span class='id identifier rubyid_event'>event</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>featureFlags</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The feature flags key was present, but the value: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_event'>event</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>featureFlags</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'> must be an array</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rparen'>)</span>
+    <span class='op'>!</span><span class='id identifier rubyid_event'>event</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>featureFlags</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+  <span class='kw'>else</span>
+    <span class='kw'>false</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1229,6 +1356,88 @@ for a multipart/form-data request</p>
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="verify_feature_flags_with_table-instance_method">
+  
+    #<strong>verify_feature_flags_with_table</strong>(event, table)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/features/steps/feature_flag_steps.rb', line 135</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_verify_feature_flags_with_table'>verify_feature_flags_with_table</span><span class='lparen'>(</span><span class='id identifier rubyid_event'>event</span><span class='comma'>,</span> <span class='id identifier rubyid_table'>table</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span><span class='id identifier rubyid_has_feature_flags?'><span class='object_link'><a href="#has_feature_flags%3F-instance_method" title="#has_feature_flags? (method)">has_feature_flags?</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_event'>event</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Expected feature flags were not present in event: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_event'>event</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_feature_flags'>feature_flags</span> <span class='op'>=</span> <span class='id identifier rubyid_event'>event</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>featureFlags</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+
+  <span class='id identifier rubyid_expected_features'>expected_features</span> <span class='op'>=</span> <span class='id identifier rubyid_table'>table</span><span class='period'>.</span><span class='id identifier rubyid_hashes'>hashes</span>
+  <span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span><span class='id identifier rubyid_feature_flags'>feature_flags</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span> <span class='op'>==</span> <span class='id identifier rubyid_expected_features'>expected_features</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Expected </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_expected_features'>expected_features</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='embexpr_end'>}</span><span class='tstring_content'> features, found </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_feature_flags'>feature_flags</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_expected_features'>expected_features</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_expected'>expected</span><span class='op'>|</span>
+    <span class='id identifier rubyid_flag_name'>flag_name</span> <span class='op'>=</span> <span class='id identifier rubyid_expected'>expected</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>featureFlag</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_variant'>variant</span> <span class='op'>=</span> <span class='id identifier rubyid_expected'>expected</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>variant</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+    <span class='comment'># Test for flag name uniqueness
+</span>    <span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span>
+      <span class='id identifier rubyid_feature_flags'>feature_flags</span><span class='period'>.</span><span class='id identifier rubyid_one?'>one?</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_flag'>flag</span><span class='op'>|</span> <span class='id identifier rubyid_flag'>flag</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>featureFlag</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_eql?'>eql?</span><span class='lparen'>(</span><span class='id identifier rubyid_flag_name'>flag_name</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Expected single flag with &#39;featureFlag&#39; value: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_flag_name'>flag_name</span><span class='embexpr_end'>}</span><span class='tstring_content'>. Present flags: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_feature_flags'>feature_flags</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rparen'>)</span>
+    <span class='id identifier rubyid_flag'>flag</span> <span class='op'>=</span> <span class='id identifier rubyid_feature_flags'>feature_flags</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_flag'>flag</span><span class='op'>|</span> <span class='id identifier rubyid_flag'>flag</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>featureFlag</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_eql?'>eql?</span><span class='lparen'>(</span><span class='id identifier rubyid_flag_name'>flag_name</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+    <span class='comment'># Test the variant value
+</span>    <span class='kw'>if</span> <span class='id identifier rubyid_variant'>variant</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>||</span> <span class='id identifier rubyid_expected'>expected</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>variant</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+      <span class='id identifier rubyid_assert_false'>assert_false</span><span class='lparen'>(</span>
+        <span class='id identifier rubyid_flag'>flag</span><span class='period'>.</span><span class='id identifier rubyid_has_key?'>has_key?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>variant</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='comma'>,</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Feature flag: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_flag'>flag</span><span class='embexpr_end'>}</span><span class='tstring_content'> expected to have no variant. All flags: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_feature_flags'>feature_flags</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+      <span class='rparen'>)</span>
+    <span class='kw'>else</span>
+      <span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span>
+        <span class='id identifier rubyid_flag'>flag</span><span class='period'>.</span><span class='id identifier rubyid_has_key?'>has_key?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>variant</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_flag'>flag</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>variant</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_eql?'>eql?</span><span class='lparen'>(</span><span class='id identifier rubyid_variant'>variant</span><span class='rparen'>)</span><span class='comma'>,</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Feature flag: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_flag'>flag</span><span class='embexpr_end'>}</span><span class='tstring_content'> did not have variant: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_variant'>variant</span><span class='embexpr_end'>}</span><span class='tstring_content'>. All flags: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_feature_flags'>feature_flags</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+      <span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="write_requests-instance_method">
   
     #<strong>write_requests</strong>(scenario)  &#x21d2; <tt>Object</tt> 
@@ -1348,7 +1557,7 @@ maze_output/failed/scenario_name/errors.log</p>
 </div>
 
       <div id="footer">
-  Generated on Wed Nov  3 18:58:36 2021 by
+  Generated on Mon Nov  8 17:52:13 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-2.7.4).
 </div>

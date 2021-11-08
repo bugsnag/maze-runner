@@ -67,7 +67,7 @@
   <div class="title">Step Definitions &amp; Transforms</div>
 
   <div class="summary">
-    <div>196<a href="#step_definitions">Step Definitions</a></div>
+    <div>206<a href="#step_definitions">Step Definitions</a></div>
     <div>0<a href="#step_transforms">Step Transforms</a></div>
     <div>0<a href="#undefined_steps">Undefined Steps</a></div>
   </div>
@@ -11922,6 +11922,1028 @@ Used for confirming filtering of breadcrumbs</p>
                         ">
   <a name="step_definition121-stepdefinition"></a>
   <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'event {int} has no feature flags'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='event+%7Bint%7D+has+no+feature+flags'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/feature_flag_steps.rb:8</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Verifies that there are no feature flags present in a given event</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>event_id [Integer] The id of the event in the payloads array</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">8
+9
+10
+11</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>event {int} has no feature flags</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_event_id'>event_id</span><span class='op'>|</span>
+  <span class='id identifier rubyid_event'>event</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Helper</span><span class='period'>.</span><span class='id identifier rubyid_read_key_path'>read_key_path</span><span class='lparen'>(</span><span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_current'>current</span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>events.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_event_id'>event_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_assert_false'>assert_false</span><span class='lparen'>(</span><span class='id identifier rubyid_has_feature_flags?'><span class='object_link'><a href="../top-level-namespace.html#has_feature_flags%3F-instance_method" title="#has_feature_flags? (method)">has_feature_flags?</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_event'>event</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Feature flags expected to be absent or empty, was </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_event'>event</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>featureFlags</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition122-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the event has no feature flags'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+event+has+no+feature+flags'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/feature_flag_steps.rb:14</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Verifies that the are no feature flags present</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">14
+15
+16
+17
+18</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the event has no feature flags</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_steps'>steps</span> <span class='tstring'><span class='tstring_beg'>%(</span><span class='tstring_content'>
+    Then event 0 has no feature flags
+  </span><span class='tstring_end'>)</span></span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition123-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'event {int} contains the feature flag {string} with variant {string}'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='event+%7Bint%7D+contains+the+feature+flag+%7Bstring%7D+with+variant+%7Bstring%7D'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/feature_flag_steps.rb:25</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Verifies a feature flag with a specific variant is uniquely present in a given event</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>event_id [Integer] The id of the event in the payloads array</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>flag_name [String] The featureFlag value expected</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>variant [String] The variant value expected</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>event {int} contains the feature flag {string} with variant {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_event_id'>event_id</span><span class='comma'>,</span> <span class='id identifier rubyid_flag_name'>flag_name</span><span class='comma'>,</span> <span class='id identifier rubyid_variant'>variant</span><span class='op'>|</span>
+  <span class='id identifier rubyid_event'>event</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Helper</span><span class='period'>.</span><span class='id identifier rubyid_read_key_path'>read_key_path</span><span class='lparen'>(</span><span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_current'>current</span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>events.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_event_id'>event_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span><span class='id identifier rubyid_has_feature_flags?'><span class='object_link'><a href="../top-level-namespace.html#has_feature_flags%3F-instance_method" title="#has_feature_flags? (method)">has_feature_flags?</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_event'>event</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Expected feature flags were not present in event </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_event_id'>event_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_event'>event</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_feature_flags'>feature_flags</span> <span class='op'>=</span> <span class='id identifier rubyid_event'>event</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>featureFlags</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+  <span class='comment'># Test for flag name uniqueness
+</span>  <span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span>
+    <span class='id identifier rubyid_feature_flags'>feature_flags</span><span class='period'>.</span><span class='id identifier rubyid_one?'>one?</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_flag'>flag</span><span class='op'>|</span> <span class='id identifier rubyid_flag'>flag</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>featureFlag</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_eql?'>eql?</span><span class='lparen'>(</span><span class='id identifier rubyid_flag_name'>flag_name</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Expected single flag with &#39;featureFlag&#39; value: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_flag_name'>flag_name</span><span class='embexpr_end'>}</span><span class='tstring_content'>. Present flags: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_feature_flags'>feature_flags</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_flag'>flag</span> <span class='op'>=</span> <span class='id identifier rubyid_feature_flags'>feature_flags</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_flag'>flag</span><span class='op'>|</span> <span class='id identifier rubyid_flag'>flag</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>featureFlag</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_eql?'>eql?</span><span class='lparen'>(</span><span class='id identifier rubyid_flag_name'>flag_name</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='comment'># Test the variant value
+</span>  <span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span>
+    <span class='id identifier rubyid_flag'>flag</span><span class='period'>.</span><span class='id identifier rubyid_has_key?'>has_key?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>variant</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_flag'>flag</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>variant</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_eql?'>eql?</span><span class='lparen'>(</span><span class='id identifier rubyid_variant'>variant</span><span class='rparen'>)</span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Feature flag: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_flag'>flag</span><span class='embexpr_end'>}</span><span class='tstring_content'> did not have variant: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_variant'>variant</span><span class='embexpr_end'>}</span><span class='tstring_content'>. All flags: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_feature_flags'>feature_flags</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition124-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the event contains the feature flag {string} with variant {string}'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+event+contains+the+feature+flag+%7Bstring%7D+with+variant+%7Bstring%7D'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/feature_flag_steps.rb:47</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Verifies a feature flag with a specific variant is uniquely present</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>flag_name [String] The featureFlag value expected</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>variant [String] The variant value expected</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">47
+48
+49
+50
+51</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the event contains the feature flag {string} with variant {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_flag_name'>flag_name</span><span class='comma'>,</span> <span class='id identifier rubyid_variant'>variant</span><span class='op'>|</span>
+  <span class='id identifier rubyid_steps'>steps</span> <span class='tstring'><span class='tstring_beg'>%(</span><span class='tstring_content'>
+    Then event 0 contains the feature flag &quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_flag_name'>flag_name</span><span class='embexpr_end'>}</span><span class='tstring_content'>&quot; with variant &quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_variant'>variant</span><span class='embexpr_end'>}</span><span class='tstring_content'>&quot;
+  </span><span class='tstring_end'>)</span></span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition125-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'event {int} contains the feature flag {string} with no variant'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='event+%7Bint%7D+contains+the+feature+flag+%7Bstring%7D+with+no+variant'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/feature_flag_steps.rb:57</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Verifies a feature flag with no variant (either null or missing) is uniquely present in a given event</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>event_id [Integer] The id of the event in the payloads array</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>flag_name [String] The featureFlag value expected</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>event {int} contains the feature flag {string} with no variant</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_event_id'>event_id</span><span class='comma'>,</span> <span class='id identifier rubyid_flag_name'>flag_name</span><span class='op'>|</span>
+  <span class='id identifier rubyid_event'>event</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Helper</span><span class='period'>.</span><span class='id identifier rubyid_read_key_path'>read_key_path</span><span class='lparen'>(</span><span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_current'>current</span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>events.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_event_id'>event_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span><span class='id identifier rubyid_has_feature_flags?'><span class='object_link'><a href="../top-level-namespace.html#has_feature_flags%3F-instance_method" title="#has_feature_flags? (method)">has_feature_flags?</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_event'>event</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Expected feature flags were not present in event </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_event_id'>event_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_event'>event</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_feature_flags'>feature_flags</span> <span class='op'>=</span> <span class='id identifier rubyid_event'>event</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>featureFlags</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+  <span class='comment'># Test for flag name uniqueness
+</span>  <span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span>
+    <span class='id identifier rubyid_feature_flags'>feature_flags</span><span class='period'>.</span><span class='id identifier rubyid_one?'>one?</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_flag'>flag</span><span class='op'>|</span> <span class='id identifier rubyid_flag'>flag</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>featureFlag</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_eql?'>eql?</span><span class='lparen'>(</span><span class='id identifier rubyid_flag_name'>flag_name</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Expected single flag with &#39;featureFlag&#39; value: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_flag_name'>flag_name</span><span class='embexpr_end'>}</span><span class='tstring_content'>. All flags: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_feature_flags'>feature_flags</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_flag'>flag</span> <span class='op'>=</span> <span class='id identifier rubyid_feature_flags'>feature_flags</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_flag'>flag</span><span class='op'>|</span> <span class='id identifier rubyid_flag'>flag</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>featureFlag</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_eql?'>eql?</span><span class='lparen'>(</span><span class='id identifier rubyid_flag_name'>flag_name</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='comment'># Test the variant value
+</span>  <span class='id identifier rubyid_assert_false'>assert_false</span><span class='lparen'>(</span>
+    <span class='id identifier rubyid_flag'>flag</span><span class='period'>.</span><span class='id identifier rubyid_has_key?'>has_key?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>variant</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Feature flag: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_flag'>flag</span><span class='embexpr_end'>}</span><span class='tstring_content'> expected to have no variant. All flags: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_feature_flags'>feature_flags</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition126-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the event contains the feature flag {string} with no variant'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+event+contains+the+feature+flag+%7Bstring%7D+with+no+variant'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/feature_flag_steps.rb:78</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Verifies a feature flag with no variant (either null or missing) is uniquely present</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>flag_name [String] The featureFlag value expected</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">78
+79
+80
+81
+82</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the event contains the feature flag {string} with no variant</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_flag_name'>flag_name</span><span class='op'>|</span>
+  <span class='id identifier rubyid_steps'>steps</span> <span class='tstring'><span class='tstring_beg'>%(</span><span class='tstring_content'>
+    Then event 0 contains the feature flag &quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_flag_name'>flag_name</span><span class='embexpr_end'>}</span><span class='tstring_content'>&quot; with no variant
+  </span><span class='tstring_end'>)</span></span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition127-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'event {int} contains the following feature flags:'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='event+%7Bint%7D+contains+the+following+feature+flags:'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/feature_flag_steps.rb:97</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Verifies that a number of feature flags outlined in a table are all present and unique in the given event</p>
+
+<p>The DataTable used for this step should have <code>featureFlag</code> and <code>variant</code> columns, containing the appropriate
+values.  For flags with a variant leave the <code>variant</code> column blank.</p>
+
+<p>Example:
+  | featureFlag | variant |
+  | my_flag_1   | var_1   |
+  | my_flag_2   | var_2   |
+  | my_flag_3   |         | # Should not have a variant present</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>event_id [Integer] The id of the event in the payloads array</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>table [Cucumber::MultilineArgument::DataTable] Table of expected values</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">97
+98
+99
+100</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>event {int} contains the following feature flags:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_event_id'>event_id</span><span class='comma'>,</span> <span class='id identifier rubyid_table'>table</span><span class='op'>|</span>
+  <span class='id identifier rubyid_event'>event</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Helper</span><span class='period'>.</span><span class='id identifier rubyid_read_key_path'>read_key_path</span><span class='lparen'>(</span><span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_current'>current</span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>events.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_event_id'>event_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_verify_feature_flags_with_table'><span class='object_link'><a href="../top-level-namespace.html#verify_feature_flags_with_table-instance_method" title="#verify_feature_flags_with_table (method)">verify_feature_flags_with_table</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_event'>event</span><span class='comma'>,</span> <span class='id identifier rubyid_table'>table</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition128-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the event contains the following feature flags:'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+event+contains+the+following+feature+flags:'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/feature_flag_steps.rb:107</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Verifies that a number of feature flags outlined in a table are all present and unique</p>
+
+<p>See above for data table details</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>table [Cucumber::MultilineArgument::DataTable] Table of expected values</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">107
+108
+109
+110</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the event contains the following feature flags:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_table'>table</span><span class='op'>|</span>
+  <span class='id identifier rubyid_event'>event</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Helper</span><span class='period'>.</span><span class='id identifier rubyid_read_key_path'>read_key_path</span><span class='lparen'>(</span><span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_current'>current</span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>events.0</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_verify_feature_flags_with_table'><span class='object_link'><a href="../top-level-namespace.html#verify_feature_flags_with_table-instance_method" title="#verify_feature_flags_with_table (method)">verify_feature_flags_with_table</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_event'>event</span><span class='comma'>,</span> <span class='id identifier rubyid_table'>table</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition129-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'event {int} does not contain the feature flag {string}'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='event+%7Bint%7D+does+not+contain+the+feature+flag+%7Bstring%7D'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/feature_flag_steps.rb:116</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Verifies a feature flag a specific name is not present, regardless of variant, for a given event</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>event_id [Integer] The id of the event in the payloads array</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>flag_name [String] The featureFlag value not expected</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">116
+117
+118
+119
+120
+121
+122
+123
+124</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>event {int} does not contain the feature flag {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_event_id'>event_id</span><span class='comma'>,</span> <span class='id identifier rubyid_flag_name'>flag_name</span><span class='op'>|</span>
+  <span class='id identifier rubyid_event'>event</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Helper</span><span class='period'>.</span><span class='id identifier rubyid_read_key_path'>read_key_path</span><span class='lparen'>(</span><span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_current'>current</span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>events.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_event_id'>event_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span><span class='id identifier rubyid_has_feature_flags?'><span class='object_link'><a href="../top-level-namespace.html#has_feature_flags%3F-instance_method" title="#has_feature_flags? (method)">has_feature_flags?</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_event'>event</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Expected feature flags were not present in event </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_event_id'>event_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_event'>event</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_feature_flags'>feature_flags</span> <span class='op'>=</span> <span class='id identifier rubyid_event'>event</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>featureFlags</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span>
+    <span class='id identifier rubyid_feature_flags'>feature_flags</span><span class='period'>.</span><span class='id identifier rubyid_none?'>none?</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_flag'>flag</span><span class='op'>|</span> <span class='id identifier rubyid_flag'>flag</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>featureFlag</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_eql?'>eql?</span><span class='lparen'>(</span><span class='id identifier rubyid_flag_name'>flag_name</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Expected to not find feature flag </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_flag_name'>flag_name</span><span class='embexpr_end'>}</span><span class='tstring_content'>.  All flags: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_feature_flags'>feature_flags</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition130-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the event does not contain the feature flag {string}'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+event+does+not+contain+the+feature+flag+%7Bstring%7D'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/feature_flag_steps.rb:129</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Verifies a feature flag a specific name is not present, regardless of variant</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>flag_name [String] The featureFlag value not expected</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">129
+130
+131
+132
+133</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the event does not contain the feature flag {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_flag_name'>flag_name</span><span class='op'>|</span>
+  <span class='id identifier rubyid_steps'>steps</span> <span class='tstring'><span class='tstring_beg'>%(</span><span class='tstring_content'>
+    Then event 0 does not contain the feature flag &quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_flag_name'>flag_name</span><span class='embexpr_end'>}</span><span class='tstring_content'>&quot;
+  </span><span class='tstring_end'>)</span></span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition131-stepdefinition"></a>
+  <div class="title">
     <span class="pre">Given</span>
     <span class="name">'the element {string} is present'</span>
     <div style="float: right;">
@@ -11984,7 +13006,7 @@ Requires a running Appium driver</p>
           <td>
             <pre class="code"><span class='const'>Given</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the element {string} is present</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_element_id'>element_id</span><span class='op'>|</span>
   <span class='id identifier rubyid_present'>present</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='period'>.</span><span class='id identifier rubyid_driver'>driver</span><span class='period'>.</span><span class='id identifier rubyid_wait_for_element'>wait_for_element</span><span class='lparen'>(</span><span class='id identifier rubyid_element_id'>element_id</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span><span class='id identifier rubyid_present'>present</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The element </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_element_id'>element_id</span><span class='embexpr_end'>}</span><span class='tstring_content'> could not be found</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Error</span><span class='op'>::</span><span class='const'>AppiumElementNotFoundError</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The element </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_element_id'>element_id</span><span class='embexpr_end'>}</span><span class='tstring_content'> could not be found</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_element_id'>element_id</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_present'>present</span>
 <span class='kw'>end</span></pre>
           </td>
         </tr>
@@ -12010,7 +13032,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition122-stepdefinition"></a>
+  <a name="step_definition132-stepdefinition"></a>
   <div class="title">
     <span class="pre">Given</span>
     <span class="name">'the element {string} is present within {int} seconds'</span>
@@ -12085,7 +13107,7 @@ Requires a running Appium driver</p>
           <td>
             <pre class="code"><span class='const'>Given</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the element {string} is present within {int} seconds</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_element_id'>element_id</span><span class='comma'>,</span> <span class='id identifier rubyid_timeout'>timeout</span><span class='op'>|</span>
   <span class='id identifier rubyid_present'>present</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='period'>.</span><span class='id identifier rubyid_driver'>driver</span><span class='period'>.</span><span class='id identifier rubyid_wait_for_element'>wait_for_element</span><span class='lparen'>(</span><span class='id identifier rubyid_element_id'>element_id</span><span class='comma'>,</span> <span class='id identifier rubyid_timeout'>timeout</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_assert'>assert</span><span class='lparen'>(</span><span class='id identifier rubyid_present'>present</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The element </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_element_id'>element_id</span><span class='embexpr_end'>}</span><span class='tstring_content'> could not be found</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Error</span><span class='op'>::</span><span class='const'>AppiumElementNotFoundError</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The element </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_element_id'>element_id</span><span class='embexpr_end'>}</span><span class='tstring_content'> could not be found</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_element_id'>element_id</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_present'>present</span>
 <span class='kw'>end</span></pre>
           </td>
         </tr>
@@ -12111,7 +13133,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition123-stepdefinition"></a>
+  <a name="step_definition133-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I click the element {string}'</span>
@@ -12199,7 +13221,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition124-stepdefinition"></a>
+  <a name="step_definition134-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I send the app to the background for {int} seconds'</span>
@@ -12287,7 +13309,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition125-stepdefinition"></a>
+  <a name="step_definition135-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I clear the element {string}'</span>
@@ -12375,7 +13397,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition126-stepdefinition"></a>
+  <a name="step_definition136-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I send the keys {string} to the element {string}'</span>
@@ -12474,7 +13496,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition127-stepdefinition"></a>
+  <a name="step_definition137-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {word} payload field {string} equals the platform-dependent string:'</span>
@@ -12593,7 +13615,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition128-stepdefinition"></a>
+  <a name="step_definition138-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} equals the platform-dependent string:'</span>
@@ -12691,7 +13713,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition129-stepdefinition"></a>
+  <a name="step_definition139-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {word} payload field {string} equals the platform-dependent numeric:'</span>
@@ -12810,7 +13832,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition130-stepdefinition"></a>
+  <a name="step_definition140-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} equals the platform-dependent numeric:'</span>
@@ -12908,7 +13930,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition131-stepdefinition"></a>
+  <a name="step_definition141-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {word} payload field {string} equals the platform-dependent boolean:'</span>
@@ -13027,7 +14049,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition132-stepdefinition"></a>
+  <a name="step_definition142-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} equals the platform-dependent boolean:'</span>
@@ -13125,7 +14147,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition133-stepdefinition"></a>
+  <a name="step_definition143-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the exception {string} equals the platform-dependent string:'</span>
@@ -13223,7 +14245,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition134-stepdefinition"></a>
+  <a name="step_definition144-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} of stack frame {int} equals the platform-dependent string:'</span>
@@ -13332,7 +14354,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition135-stepdefinition"></a>
+  <a name="step_definition145-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I clear and send the keys {string} to the element {string}'</span>
@@ -13431,7 +14453,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition136-stepdefinition"></a>
+  <a name="step_definition146-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I start the document server'</span>
@@ -13504,7 +14526,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition137-stepdefinition"></a>
+  <a name="step_definition147-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the error is valid for the error reporting API version {string} for the {string} notifier'</span>
@@ -13605,7 +14627,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition138-stepdefinition"></a>
+  <a name="step_definition148-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the error is valid for the error reporting API version {string}' \
@@ -13754,7 +14776,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition139-stepdefinition"></a>
+  <a name="step_definition149-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'event {int} is unhandled'</span>
@@ -13830,7 +14852,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition140-stepdefinition"></a>
+  <a name="step_definition150-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'event {int} is unhandled with the severity {string}'</span>
@@ -13906,7 +14928,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition141-stepdefinition"></a>
+  <a name="step_definition151-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'event {int} is handled'</span>
@@ -13982,7 +15004,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition142-stepdefinition"></a>
+  <a name="step_definition152-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'event {int} is handled with the severity {string}'</span>
@@ -14058,7 +15080,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition143-stepdefinition"></a>
+  <a name="step_definition153-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the error payload contains the payloadVersion {string}'</span>
@@ -14163,7 +15185,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition144-stepdefinition"></a>
+  <a name="step_definition154-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">/^the event "(.+)" is (true|false|null|not null)$/</span>
@@ -14261,7 +15283,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition145-stepdefinition"></a>
+  <a name="step_definition155-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} equals {string}'</span>
@@ -14359,7 +15381,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition146-stepdefinition"></a>
+  <a name="step_definition156-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} equals {int}'</span>
@@ -14457,7 +15479,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition147-stepdefinition"></a>
+  <a name="step_definition157-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} starts with {string}'</span>
@@ -14555,7 +15577,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition148-stepdefinition"></a>
+  <a name="step_definition158-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} ends with {string}'</span>
@@ -14653,7 +15675,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition149-stepdefinition"></a>
+  <a name="step_definition159-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} matches {string}'</span>
@@ -14751,7 +15773,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition150-stepdefinition"></a>
+  <a name="step_definition160-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} is a timestamp'</span>
@@ -14838,7 +15860,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition151-stepdefinition"></a>
+  <a name="step_definition161-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} is a parsable timestamp in seconds'</span>
@@ -14925,7 +15947,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition152-stepdefinition"></a>
+  <a name="step_definition162-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} equals the environment variable {string}'</span>
@@ -15023,7 +16045,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition153-stepdefinition"></a>
+  <a name="step_definition163-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} matches the JSON fixture in {string}'</span>
@@ -15121,7 +16143,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition154-stepdefinition"></a>
+  <a name="step_definition164-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} string is empty'</span>
@@ -15189,7 +16211,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition155-stepdefinition"></a>
+  <a name="step_definition165-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} is greater than {int}'</span>
@@ -15255,7 +16277,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition156-stepdefinition"></a>
+  <a name="step_definition166-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the exception {string} starts with {string}'</span>
@@ -15353,7 +16375,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition157-stepdefinition"></a>
+  <a name="step_definition167-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the exception {string} ends with {string}'</span>
@@ -15451,7 +16473,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition158-stepdefinition"></a>
+  <a name="step_definition168-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the exception {string} equals {string}'</span>
@@ -15549,7 +16571,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition159-stepdefinition"></a>
+  <a name="step_definition169-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the exception {string} matches {string}'</span>
@@ -15647,7 +16669,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition160-stepdefinition"></a>
+  <a name="step_definition170-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} of stack frame {int} equals {int}'</span>
@@ -15758,7 +16780,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition161-stepdefinition"></a>
+  <a name="step_definition171-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} of stack frame {int} matches {string}'</span>
@@ -15869,7 +16891,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition162-stepdefinition"></a>
+  <a name="step_definition172-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} of stack frame {int} equals {string}'</span>
@@ -15980,7 +17002,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition163-stepdefinition"></a>
+  <a name="step_definition173-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} of stack frame {int} starts with {string}'</span>
@@ -16091,7 +17113,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition164-stepdefinition"></a>
+  <a name="step_definition174-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} of stack frame {int} ends with {string}'</span>
@@ -16202,7 +17224,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition165-stepdefinition"></a>
+  <a name="step_definition175-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">/^the "(.*)" of stack frame (\d*) is (true|false|null|not null)$/</span>
@@ -16313,7 +17335,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition166-stepdefinition"></a>
+  <a name="step_definition176-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the thread with name {string} contains the error reporting flag'</span>
@@ -16400,7 +17422,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition167-stepdefinition"></a>
+  <a name="step_definition177-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the thread with id {string} contains the error reporting flag'</span>
@@ -16487,7 +17509,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition168-stepdefinition"></a>
+  <a name="step_definition178-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {word} {string} query parameter equals {string}'</span>
@@ -16596,7 +17618,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition169-stepdefinition"></a>
+  <a name="step_definition179-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {word} {string} query parameter is not null'</span>
@@ -16696,7 +17718,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition170-stepdefinition"></a>
+  <a name="step_definition180-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {word} {string} query parameter is a timestamp'</span>
@@ -16796,7 +17818,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition171-stepdefinition"></a>
+  <a name="step_definition181-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the session is valid for the session reporting API version {string} for the {string} notifier'</span>
@@ -16921,7 +17943,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition172-stepdefinition"></a>
+  <a name="step_definition182-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the session is valid for the session reporting API version {string} for the React Native notifier'</span>
@@ -17047,7 +18069,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition173-stepdefinition"></a>
+  <a name="step_definition183-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">/^the session "(.+)" is (true|false|null|not null)$/</span>
@@ -17145,7 +18167,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition174-stepdefinition"></a>
+  <a name="step_definition184-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the session {string} equals {string}'</span>
@@ -17243,7 +18265,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition175-stepdefinition"></a>
+  <a name="step_definition185-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the session {string} is a timestamp'</span>
@@ -17330,7 +18352,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition176-stepdefinition"></a>
+  <a name="step_definition186-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">/^the sessionCount "(.+)" is (true|false|null|not null)$/</span>
@@ -17428,7 +18450,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition177-stepdefinition"></a>
+  <a name="step_definition187-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the sessionCount {string} equals {string}'</span>
@@ -17526,7 +18548,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition178-stepdefinition"></a>
+  <a name="step_definition188-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the sessionCount {string} equals {int}'</span>
@@ -17624,7 +18646,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition179-stepdefinition"></a>
+  <a name="step_definition189-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the sessionCount {string} is a timestamp'</span>
@@ -17711,7 +18733,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition180-stepdefinition"></a>
+  <a name="step_definition190-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the session payload has a valid sessions array'</span>
@@ -17803,7 +18825,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition181-stepdefinition"></a>
+  <a name="step_definition191-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {word} request is valid multipart form-data'</span>
@@ -17892,7 +18914,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition182-stepdefinition"></a>
+  <a name="step_definition192-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'all {word} requests are valid multipart form-data'</span>
@@ -17981,7 +19003,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition183-stepdefinition"></a>
+  <a name="step_definition193-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {word} multipart request has {int} fields'</span>
@@ -18083,7 +19105,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition184-stepdefinition"></a>
+  <a name="step_definition194-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {word} multipart request has a non-empty body'</span>
@@ -18174,7 +19196,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition185-stepdefinition"></a>
+  <a name="step_definition195-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {word} multipart body does not match the JSON file in {string}'</span>
@@ -18285,7 +19307,7 @@ JSON formatted multipart fields will be parsed into hashes.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition186-stepdefinition"></a>
+  <a name="step_definition196-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {word} multipart body matches the JSON file in {string}'</span>
@@ -18396,7 +19418,7 @@ JSON formatted multipart fields will be parsed into hashes.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition187-stepdefinition"></a>
+  <a name="step_definition197-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {word} multipart field {string} matches the JSON file in {string}'</span>
@@ -18516,7 +19538,7 @@ The field will be parsed into a hash.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition188-stepdefinition"></a>
+  <a name="step_definition198-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the field {string} for multipart {word} is not null'</span>
@@ -18616,7 +19638,7 @@ The field will be parsed into a hash.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition189-stepdefinition"></a>
+  <a name="step_definition199-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the field {string} for multipart {word} is null'</span>
@@ -18716,7 +19738,7 @@ The field will be parsed into a hash.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition190-stepdefinition"></a>
+  <a name="step_definition200-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the field {string} for multipart {word} equals {string}'</span>
@@ -18827,7 +19849,7 @@ The field will be parsed into a hash.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition191-stepdefinition"></a>
+  <a name="step_definition201-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I wait to receive a(n) {word}'</span>
@@ -18916,7 +19938,7 @@ The field will be parsed into a hash.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition192-stepdefinition"></a>
+  <a name="step_definition202-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I wait to receive {int} {word}'</span>
@@ -19021,7 +20043,7 @@ will be sorted by the header.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition193-stepdefinition"></a>
+  <a name="step_definition203-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I have received at least {int} {word}'</span>
@@ -19122,7 +20144,7 @@ This step is only intended for use in stress tests</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition194-stepdefinition"></a>
+  <a name="step_definition204-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I should receive no {word}'</span>
@@ -19226,7 +20248,7 @@ request types.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition195-stepdefinition"></a>
+  <a name="step_definition205-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I discard the oldest {word}'</span>
@@ -19317,7 +20339,7 @@ request types.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition196-stepdefinition"></a>
+  <a name="step_definition206-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the received errors match:'</span>
@@ -19437,7 +20459,7 @@ request types.</p>
 </div>
 
       <div id="footer">
-  Generated on Wed Nov  3 18:58:36 2021 by
+  Generated on Mon Nov  8 17:52:13 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-2.7.4).
 </div>

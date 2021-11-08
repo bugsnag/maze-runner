@@ -1,8 +1,9 @@
-# 6.4.0 - TBD
+# 6.4.0 - 2021/11/08
 
 ## Enhancements
 
 - Add automatic retries when appium element cannot be found [#309](https://github.com/bugsnag/maze-runner/pull/309)
+- Add feature flag steps [#310](https://github.com/bugsnag/maze-runner/pull/310)
 
 ## Fixes
 

@@ -65,7 +65,7 @@ module Maze
                 'Device farm to use: "bs" (BrowserStack) or "local"',
                 type: :string
             opt Option::APP,
-                'The app to be installed and run against',
+                'The app to be installed and run against.  Assumed to be contained in a file if prefixed with @.',
                 type: :string
             opt Option::A11Y_LOCATOR,
                 'Locate elements by accessibility id rather than id',

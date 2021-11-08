@@ -1,3 +1,9 @@
+# 6.5.0 - TBD
+
+## Enhancements
+
+- All `--app` to be specified in a file using `@` prefix [#312](https://github.com/bugsnag/maze-runner/pull/312)
+
 # 6.4.0 - 2021/11/08
 
 ## Enhancements

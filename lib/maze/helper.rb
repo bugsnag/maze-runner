@@ -75,6 +75,16 @@ module Maze
 
         File.expand_path path
       end
+
+      # Helps interpret "@file" arguments.  I.e. if the argument starts with an "@",
+      # read the contents of the filename given.
+      def read_at_arg_file(argument)
+        return nil if argument.nil?
+        return argument unless argument.start_with? '@'
+
+        file = argument[1..argument.size]
+        File.read file
+      end
     end
   end
 end

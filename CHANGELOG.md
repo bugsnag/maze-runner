@@ -4,6 +4,10 @@
 
 - Add automatic retries when appium element cannot be found [#309](https://github.com/bugsnag/maze-runner/pull/309)
 
+## Fixes
+
+- Use `refresh` when Browser driver can retry scenario [#311](https://github.com/bugsnag/maze-runner/pull/311)
+
 # 6.3.0 - 2021/11/03
 
 ## Enhancements

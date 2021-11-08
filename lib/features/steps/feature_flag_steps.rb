@@ -117,7 +117,10 @@ Then('event {int} does not contain the feature flag {string}') do |event_id, fla
   event = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], "events.#{event_id}")
   assert(has_feature_flags?(event), "Expected feature flags were not present in event #{event_id}: #{event}")
   feature_flags = event['featureFlags']
-  assert(feature_flags.none? { |flag| flag['featureFlag'].eql?(flag_name) })
+  assert(
+    feature_flags.none? { |flag| flag['featureFlag'].eql?(flag_name) },
+    "Expected to not find feature flag #{flag_name}.  All flags: #{feature_flags}"
+  )
 end
 
 # Verifies a feature flag a specific name is not present, regardless of variant
@@ -161,8 +164,14 @@ end
 
 def has_feature_flags?(event)
   if event.has_key?('featureFlags')
-    assert_false(event['featureFlags'].nil?, 'The feature flags key was present, but null')
-    event['featureFlags'].is_a?(Array) && !event['featureFlags'].empty?
+    assert_false(
+      event['featureFlags'].nil?,
+      'The feature flags key was present, but null'
+    )
+    assert(event['featureFlags'].is_a?(Array),
+      "The feature flags key was present, but the value: #{event['featureFlags']} must be an array"
+    )
+    !event['featureFlags'].empty?
   else
     false
   end

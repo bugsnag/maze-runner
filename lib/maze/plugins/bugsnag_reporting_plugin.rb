@@ -25,17 +25,20 @@ module Maze
           next unless event.test_case.eql?(test_case) && event.result.failed?
 
           Bugsnag.notify(event.result.exception) do |bsg_event|
-            bsg_event.context = @last_test_step.location unless @last_test_step.nil?
+            unless @last_test_step.nil?
+              bsg_event.context = @last_test_step.location
+              bsg_event.grouping_hash = test_case.name + @last_test_step.location
+              bsg_event.add_metadata(:'scenario', {
+                'failing step': @last_test_step.to_s,
+                'failing step location': @last_test_step.location
+              })
+            end
             bsg_event.add_metadata(:'scenario', {
               'scenario name': test_case.name,
               'scenario location': test_case.location,
               'scenario tags': test_case.tags,
               'scenario duration (mS)': event.result.duration.nanoseconds/1000000
             })
-            bsg_event.add_metadata(:'scenario', {
-              'failing step': @last_test_step.to_s,
-              'failing step location': @last_test_step.location
-            }) unless @last_test_step.nil?
           end
         end
 

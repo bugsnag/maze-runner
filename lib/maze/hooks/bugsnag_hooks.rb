@@ -9,14 +9,12 @@ module Maze
           # Use MAZE_BUGSNAG_API_KEY explicitly to avoid collisions with test env
           return unless ENV['MAZE_BUGSNAG_API_KEY']
 
-
           Bugsnag.configure do |config|
             config.api_key = ENV['MAZE_BUGSNAG_API_KEY']
             config.add_metadata(:'test driver', {
-              'farm': Maze.config.farm,
-              'driver type': Maze.driver.class,
+              'device farm': Maze.config.farm,
               'capabilities': Maze.config.capabilities
-            }) unless Maze.driver.nil?
+            })
             config.add_metadata(:'buildkite', {
               'pipeline': ENV['BUILDKITE_PIPELINE_NAME'],
               'repo': ENV['BUILDKITE_REPO'],
@@ -46,7 +44,10 @@ module Maze
         private
 
         def has_git?
+          # This is horrible, do something better
+          `git`
           `git status`
+          $?.success?
           true
         rescue Errno::ENOENT
           false

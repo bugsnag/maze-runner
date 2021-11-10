@@ -11,10 +11,6 @@ module Maze
 
 
           Bugsnag.configure do |config|
-            config.endpoints = Bugsnag::EndpointConfiguration.new(
-              'http://localhost:62000', # Your notify, "Event Server", endpoint
-              'http://localhost:62000/sessions', # Your session, "Session Server", endpoint
-            )
             config.api_key = ENV['MAZE_BUGSNAG_API_KEY']
             config.add_metadata(:'test driver', {
               'farm': Maze.config.farm,

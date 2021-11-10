@@ -26,6 +26,7 @@ BeforeAll do
     Maze.mode = :command
     Maze.internal_hooks = Maze::Hooks::CommandHooks.new
   end
+  Maze::Hooks::BugsnagHooks.start_bugsnag
   $logger.info "Running in #{Maze.mode.to_s} mode"
 
   # Clear out maze_output folder
@@ -53,6 +54,7 @@ end
 
 InstallPlugin do |cucumber_config|
   cucumber_config.filters << Maze::Plugins::GlobalRetryPlugin.new(cucumber_config)
+  cucumber_config.filters << Maze::Plugins::BugsnagReportingPlugin.new(cucumber_config)
 end
 
 # Before each scenario

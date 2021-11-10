@@ -34,12 +34,14 @@ require_relative '../lib/maze/assertions/request_set_assertions'
 require_relative '../lib/maze/hooks/hooks'
 require_relative '../lib/maze/hooks/appium_hooks'
 require_relative '../lib/maze/hooks/browser_hooks'
+require_relative '../lib/maze/hooks/bugsnag_hooks'
 require_relative '../lib/maze/hooks/command_hooks'
 
 require_relative '../lib/maze/driver/appium'
 require_relative '../lib/maze/driver/browser'
 require_relative '../lib/maze/driver/resilient_appium'
 
+require_relative '../lib/maze/plugins/bugsnag_reporting_plugin'
 require_relative '../lib/maze/plugins/global_retry_plugin'
 
 # Encapsulates the MazeRunner entry point

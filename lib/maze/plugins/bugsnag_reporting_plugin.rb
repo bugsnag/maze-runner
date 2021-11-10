@@ -25,6 +25,7 @@ module Maze
           next unless event.test_case.eql?(test_case) && event.result.failed?
 
           Bugsnag.notify(event.result.exception) do |bsg_event|
+            bsg_event.context = @last_test_step.location unless @last_test_step.nil?
             bsg_event.add_metadata(:'scenario', {
               'scenario name': test_case.name,
               'scenario location': test_case.location,

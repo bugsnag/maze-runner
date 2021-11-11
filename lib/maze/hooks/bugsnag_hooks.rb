@@ -12,9 +12,10 @@ module Maze
           Bugsnag.configure do |config|
             config.api_key = ENV['MAZE_BUGSNAG_API_KEY']
             config.add_metadata(:'test driver', {
+              'driver type': Maze.driver.class
               'device farm': Maze.config.farm,
               'capabilities': Maze.config.capabilities
-            })
+            }) if Maze.driver
             config.add_metadata(:'buildkite', {
               'pipeline': ENV['BUILDKITE_PIPELINE_NAME'],
               'repo': ENV['BUILDKITE_REPO'],
@@ -29,6 +30,7 @@ module Maze
               'remote': `git config --get remote.origin.url`,
               'commit': `git log -n 1 --no-decorate`
             }) if has_git?
+            config.vendor_paths = ['vendor', '.bundle', 'minitest']
           end
 
           Bugsnag.start_session

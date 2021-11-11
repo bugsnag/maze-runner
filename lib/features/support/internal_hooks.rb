@@ -47,14 +47,14 @@ BeforeAll do
   # Invoke the internal hook for the mode of operation
   Maze.internal_hooks.before_all
 
-  # Start Bugsnag
-  Maze::Hooks::BugsnagHooks.start_bugsnag
-
   # Call any blocks registered by the client
   Maze.hooks.call_before_all
 end
 
 InstallPlugin do |cucumber_config|
+  # Start Bugsnag
+  Maze::Hooks::BugsnagHooks.start_bugsnag(cucumber_config)
+
   cucumber_config.filters << Maze::Plugins::GlobalRetryPlugin.new(cucumber_config)
   cucumber_config.filters << Maze::Plugins::BugsnagReportingPlugin.new(cucumber_config)
 end

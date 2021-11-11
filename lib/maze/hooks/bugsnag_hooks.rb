@@ -5,14 +5,14 @@ module Maze
   module Hooks
     class BugsnagHooks
       class << self
-        def start_bugsnag
+        def start_bugsnag(cucumber_config)
           # Use MAZE_BUGSNAG_API_KEY explicitly to avoid collisions with test env
           return unless ENV['MAZE_BUGSNAG_API_KEY']
 
           Bugsnag.configure do |config|
             config.api_key = ENV['MAZE_BUGSNAG_API_KEY']
             config.add_metadata(:'test driver', {
-              'driver type': Maze.driver.class
+              'driver type': Maze.driver.class,
               'device farm': Maze.config.farm,
               'capabilities': Maze.config.capabilities
             }) if Maze.driver
@@ -30,7 +30,7 @@ module Maze
               'remote': `git config --get remote.origin.url`,
               'commit': `git log -n 1 --no-decorate`
             }) if has_git?
-            config.vendor_paths = ['vendor', '.bundle', 'minitest']
+            config.project_root = Dir.pwd
           end
 
           Bugsnag.start_session

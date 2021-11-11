@@ -26,7 +26,6 @@ BeforeAll do
     Maze.mode = :command
     Maze.internal_hooks = Maze::Hooks::CommandHooks.new
   end
-  Maze::Hooks::BugsnagHooks.start_bugsnag
   $logger.info "Running in #{Maze.mode.to_s} mode"
 
   # Clear out maze_output folder
@@ -47,6 +46,9 @@ BeforeAll do
 
   # Invoke the internal hook for the mode of operation
   Maze.internal_hooks.before_all
+
+  # Start Bugsnag
+  Maze::Hooks::BugsnagHooks.start_bugsnag
 
   # Call any blocks registered by the client
   Maze.hooks.call_before_all

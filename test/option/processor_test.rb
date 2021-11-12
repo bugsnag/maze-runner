@@ -104,4 +104,17 @@ class ProcessorTest < Test::Unit::TestCase
     assert_false config.log_requests
     assert_false config.always_log
   end
+
+  def test_filename_options
+    args = %w[--app=@filename]
+
+    File.stubs(:read).with('filename').returns('file-contents')
+
+    options = Maze::Option::Parser.parse args
+    config = Maze::Configuration.new
+    Maze::Option::Processor.populate config, options
+
+    # Local-only options
+    assert_equal('file-contents', config.app)
+  end
 end

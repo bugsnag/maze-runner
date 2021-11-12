@@ -57,7 +57,7 @@ module Maze
             errors << "Device type '#{device}' unknown on BrowserStack.  Must be one of #{Maze::BrowserStackDevices::DEVICE_HASH.keys}"
           end
           # App
-          app = options[Option::APP]
+          app = Maze::Helper.read_at_arg_file options[Option::APP]
           if app.nil?
             errors << "--#{Option::APP} must be provided when running on a device"
           else

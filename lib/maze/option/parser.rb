@@ -82,9 +82,10 @@ module Maze
             text 'Device farm options:'
 
             opt Option::DEVICE,
-                'BrowserStack device to use (a key of BrowserStackDevices.DEVICE_HASH)',
+                'Device to use. Can be listed multiple times to have a prioritised list of devices',
                 short: :none,
-                type: :string
+                type: :string,
+                multi: true
             opt Option::BROWSER,
                 'BrowserStack browser to use (an entry in browsers.yml)',
                 short: :none,

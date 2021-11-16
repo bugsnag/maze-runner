@@ -96,7 +96,7 @@ module Maze
 
       def device_capabilities(config, tunnel_id=nil)
         config = Maze.config
-        if config.farm == :bs_local
+        if config.farm == :bs
           capabilities = Maze::Capabilities.for_browser_stack_device config.device,
                                                                      tunnel_id,
                                                                      config.appium_version,

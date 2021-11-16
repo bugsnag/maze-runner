@@ -53,7 +53,7 @@ module Maze
             errors << "Browser type '#{browser}' unknown on BrowserStack.  Must be one of: #{browser_list}."
           end
         elsif device
-          unless Maze::BrowserStackDevices::DEVICE_HASH.key? device
+          unless device.all? { |device| Maze::BrowserStackDevices::DEVICE_HASH.key? device }
             errors << "Device type '#{device}' unknown on BrowserStack.  Must be one of #{Maze::BrowserStackDevices::DEVICE_HASH.keys}"
           end
           # App

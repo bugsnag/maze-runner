@@ -42,7 +42,7 @@ module Maze
         # Device
         browser = options[Option::BROWSER]
         device = options[Option::DEVICE]
-        if browser.nil? && device.nil?
+        if browser.nil? && device.empty?
           errors << "Either --#{Option::BROWSER} or --#{Option::DEVICE} must be specified"
         elsif browser
 
@@ -53,8 +53,9 @@ module Maze
             errors << "Browser type '#{browser}' unknown on BrowserStack.  Must be one of: #{browser_list}."
           end
         elsif device
-          unless device.all? { |device| Maze::BrowserStackDevices::DEVICE_HASH.key? device }
-            errors << "Device type '#{device}' unknown on BrowserStack.  Must be one of #{Maze::BrowserStackDevices::DEVICE_HASH.keys}"
+          device.each do |device_key|
+            next if Maze::BrowserStackDevices::DEVICE_HASH.key? device_key
+            errors << "Device type '#{device_key}' unknown on BrowserStack.  Must be one of #{Maze::BrowserStackDevices::DEVICE_HASH.keys}"
           end
           # App
           app = Maze::Helper.read_at_arg_file options[Option::APP]

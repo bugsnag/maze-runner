@@ -50,7 +50,6 @@ module Maze
           case config.farm
           when :bs then
             if device_option = options[Maze::Option::DEVICE]
-              pp device_option
               if device_option.is_a?(Array)
                 config.device = device_option.first
                 config.device_list = device_option

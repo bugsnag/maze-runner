@@ -55,6 +55,7 @@ module Maze
                 config.device_list = device_option
               else
                 config.device = device_option
+                config.device_list = []
               end
               config.os_version = Maze::BrowserStackDevices::DEVICE_HASH[config.device]['os_version'].to_f
             else

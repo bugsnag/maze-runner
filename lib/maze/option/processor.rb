@@ -52,7 +52,7 @@ module Maze
             if device_option = options[Maze::Option::DEVICE]
               if device_option.is_a?(Array)
                 config.device = device_option.first
-                config.device_list = device_option
+                config.device_list = device_option.drop(1)
               else
                 config.device = device_option
                 config.device_list = []

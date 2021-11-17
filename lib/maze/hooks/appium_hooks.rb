@@ -22,24 +22,7 @@ module Maze
                                    port: appium_uri.port) if config.start_appium
         end
 
-        until Maze.driver
-          begin
-            config.capabilities = device_capabilities(config, tunnel_id)
-            driver = create_driver(config)
-            driver.start_driver unless config.appium_session_isolation
-            Maze.driver = driver
-          rescue Selenium::WebDriver::Error::UnknownError => originalException
-            $logger.warn "Attempt to acquire #{config.device} device from farm #{config.farm} failed"
-            if config.device_list.empty?
-              $logger.error 'No further devices to try - throwing original exception'
-              throw originalException
-            else
-              config.device = config.device_list.first
-              config.device_list = config.device_list.drop(1)
-              $logger.warn "Retrying driver initialisation using next device: #{config.device}"
-            end
-          end
-        end
+        start_driver(config, tunnel_id)
 
         # Write links to device farm sessions, where applicable
         write_session_links
@@ -122,6 +105,27 @@ module Maze
           Maze::Driver::Appium.new config.appium_server_url,
                                    config.capabilities,
                                    config.locator
+        end
+      end
+
+      def start_driver(config, tunnel_id=nil)
+        until Maze.driver
+          begin
+            config.capabilities = device_capabilities(config, tunnel_id)
+            driver = create_driver(config)
+            driver.start_driver unless config.appium_session_isolation
+            Maze.driver = driver
+          rescue Selenium::WebDriver::Error::UnknownError => originalException
+            $logger.warn "Attempt to acquire #{config.device} device from farm #{config.farm} failed"
+            if config.device_list.empty?
+              $logger.error 'No further devices to try - raising original exception'
+              raise originalException
+            else
+              config.device = config.device_list.first
+              config.device_list = config.device_list.drop(1)
+              $logger.warn "Retrying driver initialisation using next device: #{config.device}"
+            end
+          end
         end
       end
     end

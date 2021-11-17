@@ -3,6 +3,7 @@
 ## Enhancements
 
 - All `--app` to be specified in a file using `@` prefix [#312](https://github.com/bugsnag/maze-runner/pull/312)
+- Allows multiple `--device` options to be specified [#314](https://github.com/bugsnag/maze-runner/pull/314)
 
 # 6.4.0 - 2021/11/08
 

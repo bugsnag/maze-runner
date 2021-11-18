@@ -12,6 +12,7 @@ module Maze
         # @param config [Configuration] MazeRunner configuration to populate
         # @param options [Hash] Parsed command line options
         def populate(config, options)
+
           # Server options
           config.bind_address = options[Maze::Option::BIND_ADDRESS]
           config.port = options[Maze::Option::PORT]
@@ -48,8 +49,14 @@ module Maze
           # Farm specific options
           case config.farm
           when :bs then
-            if options[Maze::Option::DEVICE]
-              config.device = options[Maze::Option::DEVICE]
+            if device_option = options[Maze::Option::DEVICE]
+              if device_option.is_a?(Array)
+                config.device = device_option.first
+                config.device_list = device_option.drop(1)
+              else
+                config.device = device_option
+                config.device_list = []
+              end
               config.os_version = Maze::BrowserStackDevices::DEVICE_HASH[config.device]['os_version'].to_f
             else
               config.browser = options[Maze::Option::BROWSER]

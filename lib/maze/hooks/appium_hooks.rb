@@ -6,50 +6,23 @@ module Maze
         # Setup Appium capabilities.  Note that the 'app' capability is
         # set in a hook as it will change if uploaded to BrowserStack.
 
-        # BrowserStack specific setup
         config = Maze.config
         if config.farm == :bs
           tunnel_id = SecureRandom.uuid
-          # BrowserStack device
-          config.capabilities = Maze::Capabilities.for_browser_stack_device config.device,
-                                                                            tunnel_id,
-                                                                            config.appium_version,
-                                                                            config.capabilities_option
-
           config.app = Maze::BrowserStackUtils.upload_app config.username,
                                                           config.access_key,
                                                           config.app
-          config.capabilities['app'] = config.app
           Maze::BrowserStackUtils.start_local_tunnel config.bs_local,
                                                      tunnel_id,
                                                      config.access_key
-
         elsif config.farm == :local
-          # Local device
-          config.capabilities = Maze::Capabilities.for_local config.os,
-                                                             config.capabilities_option,
-                                                             config.apple_team_id,
-                                                             config.device_id
-          config.capabilities['app'] = config.app
-
           # Attempt to start the local appium server
           appium_uri = URI(config.appium_server_url)
           Maze::AppiumServer.start(address: appium_uri.host,
                                    port: appium_uri.port) if config.start_appium
         end
 
-        Maze.driver = if Maze.config.resilient
-                        $logger.info 'Creating ResilientAppium driver instance'
-                        Maze::Driver::ResilientAppium.new config.appium_server_url,
-                                                          config.capabilities,
-                                                          config.locator
-                      else
-                        $logger.info 'Creating Appium driver instance'
-                        Maze::Driver::Appium.new config.appium_server_url,
-                                                 config.capabilities,
-                                                 config.locator
-                      end
-        Maze.driver.start_driver unless config.appium_session_isolation
+        start_driver(config, tunnel_id)
 
         # Write links to device farm sessions, where applicable
         write_session_links
@@ -100,6 +73,59 @@ module Maze
             $logger.info Maze::LogUtil.linkify url, 'BrowserStack session(s)'
           else
             $logger.info "BrowserStack session(s): #{url}"
+          end
+        end
+      end
+
+      def device_capabilities(config, tunnel_id=nil)
+        config = Maze.config
+        if config.farm == :bs
+          capabilities = Maze::Capabilities.for_browser_stack_device config.device,
+                                                                     tunnel_id,
+                                                                     config.appium_version,
+                                                                     config.capabilities_option
+        elsif config.farm == :local
+          capabilities = Maze::Capabilities.for_local config.os,
+                                                      config.capabilities_option,
+                                                      config.apple_team_id,
+                                                      config.device_id
+        end
+        capabilities['app'] = config.app
+        capabilities
+      end
+
+      def create_driver(config)
+        if Maze.config.resilient
+          $logger.info 'Creating ResilientAppium driver instance'
+          Maze::Driver::ResilientAppium.new config.appium_server_url,
+                                            config.capabilities,
+                                            config.locator
+        else
+          $logger.info 'Creating Appium driver instance'
+          Maze::Driver::Appium.new config.appium_server_url,
+                                   config.capabilities,
+                                   config.locator
+        end
+      end
+
+      def start_driver(config, tunnel_id=nil)
+        until Maze.driver
+          begin
+            config.capabilities = device_capabilities(config, tunnel_id)
+            driver = create_driver(config)
+            driver.start_driver unless config.appium_session_isolation
+            Maze.driver = driver
+          rescue Selenium::WebDriver::Error::UnknownError => original_exception
+            $logger.warn "Attempt to acquire #{config.device} device from farm #{config.farm} failed"
+            $logger.warn "Exception: #{original_exception.message}"
+            if config.device_list.empty?
+              $logger.error 'No further devices to try - raising original exception'
+              raise original_exception
+            else
+              config.device = config.device_list.first
+              config.device_list = config.device_list.drop(1)
+              $logger.warn "Retrying driver initialisation using next device: #{config.device}"
+            end
           end
         end
       end

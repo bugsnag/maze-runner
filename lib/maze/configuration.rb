@@ -100,6 +100,9 @@ module Maze
     # Test device type
     attr_accessor :device
 
+    # A list of devices to attempt to connect to, in order
+    attr_accessor :device_list
+
     # Test browser type
     attr_accessor :browser
 

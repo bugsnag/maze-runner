@@ -115,11 +115,12 @@ module Maze
             driver = create_driver(config)
             driver.start_driver unless config.appium_session_isolation
             Maze.driver = driver
-          rescue Selenium::WebDriver::Error::UnknownError => originalException
+          rescue Selenium::WebDriver::Error::UnknownError => original_exception
             $logger.warn "Attempt to acquire #{config.device} device from farm #{config.farm} failed"
+            $logger.warn "Exception: #{original_exception.message}"
             if config.device_list.empty?
               $logger.error 'No further devices to try - raising original exception'
-              raise originalException
+              raise original_exception
             else
               config.device = config.device_list.first
               config.device_list = config.device_list.drop(1)

@@ -132,6 +132,7 @@ class AppiumHooksTest < Test::Unit::TestCase
     $config.expects(:device_list).returns([])
 
     $logger.expects(:warn).with("Attempt to acquire #{:device} device from farm #{:farm} failed")
+    $logger.expects(:warn).with("Exception: #{Selenium::WebDriver::Error::UnknownError.new.message}")
     $logger.expects(:error).with('No further devices to try - raising original exception')
 
     assert_raise Selenium::WebDriver::Error::UnknownError do
@@ -162,6 +163,7 @@ class AppiumHooksTest < Test::Unit::TestCase
     device_list.expects(:drop).with(1).returns(device_list)
 
     $logger.expects(:warn).with("Attempt to acquire #{:device} device from farm #{:farm} failed")
+    $logger.expects(:warn).with("Exception: #{Selenium::WebDriver::Error::UnknownError.new.message}")
     $logger.expects(:warn).with("Retrying driver initialisation using next device: #{:device}")
 
     Maze.expects(:driver=).with(driver_mock)
@@ -192,6 +194,7 @@ class AppiumHooksTest < Test::Unit::TestCase
     device_list.expects(:drop).with(1).twice.returns(device_list)
 
     $logger.expects(:warn).times(3).with("Attempt to acquire #{:device} device from farm #{:farm} failed")
+    $logger.expects(:warn).times(3).with("Exception: #{Selenium::WebDriver::Error::UnknownError.new.message}")
     $logger.expects(:warn).twice.with("Retrying driver initialisation using next device: #{:device}")
     $logger.expects(:error).with('No further devices to try - raising original exception')
 

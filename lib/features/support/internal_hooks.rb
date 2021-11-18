@@ -53,7 +53,7 @@ end
 
 InstallPlugin do |cucumber_config|
   # Start Bugsnag
-  Maze::Hooks::BugsnagHooks.start_bugsnag(cucumber_config)
+  Maze::BugsnagConfig.start_bugsnag(cucumber_config)
 
   cucumber_config.filters << Maze::Plugins::GlobalRetryPlugin.new(cucumber_config)
   cucumber_config.filters << Maze::Plugins::BugsnagReportingPlugin.new(cucumber_config)

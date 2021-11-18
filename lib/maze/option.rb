@@ -49,5 +49,6 @@ module Maze
 
     # Runtime options
     ENABLE_RETRIES = 'enable-retries'
+    ENABLE_BUGSNAG = 'enable-bugsnag'
   end
 end

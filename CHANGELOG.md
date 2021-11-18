@@ -1,9 +1,10 @@
-# 6.5.0 - TBD
+# 6.5.0 - 2021/11/18
 
 ## Enhancements
 
 - All `--app` to be specified in a file using `@` prefix [#312](https://github.com/bugsnag/maze-runner/pull/312)
 - Allows multiple `--device` options to be specified [#314](https://github.com/bugsnag/maze-runner/pull/314)
+- Add automatic reporting to Bugsnag on test failure [#313](https://github.com/bugsnag/maze-runner/pull/313)
 
 # 6.4.0 - 2021/11/08
 

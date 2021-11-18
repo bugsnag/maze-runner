@@ -41,13 +41,20 @@ services:
       - "maze-local:127.0.0.1"
     environment:
       BRANCH_NAME:
-      BUILDKITE_PIPELINE_NAME:
-      BUILDKITE_RETRY_COUNT:
       BUILDKITE:
+      BUILDKITE_BRANCH:
+      BUILDKITE_BUILD_CREATOR:
       BUILDKITE_BUILD_NUMBER:
+      BUILDKITE_BUILD_URL:
+      BUILDKITE_LABEL:
+      BUILDKITE_MESSAGE:
+      BUILDKITE_PIPELINE_NAME:
+      BUILDKITE_REPO:
+      BUILDKITE_RETRY_COUNT:
       BUILDKITE_STEP_KEY:
       BROWSER_STACK_USERNAME:
       BROWSER_STACK_ACCESS_KEY:
+      MAZE_BUGSNAG_API_KEY:
       SAUCE_LABS_USERNAME:
       SAUCE_LABS_ACCESS_KEY:
     volumes:
@@ -69,6 +76,7 @@ services:
       BUILDKITE_STEP_KEY:
       BROWSER_STACK_USERNAME:
       BROWSER_STACK_ACCESS_KEY:
+      MAZE_BUGSNAG_API_KEY:
       SAUCE_LABS_USERNAME:
       SAUCE_LABS_ACCESS_KEY:
     volumes:
@@ -80,6 +88,8 @@ services:
       args:
         BRANCH_NAME:
         RUBY_VERSION:
+    environment:
+      MAZE_BUGSNAG_API_KEY:
 
   comparison-tests:
     build:
@@ -87,6 +97,8 @@ services:
       args:
         BRANCH_NAME:
         RUBY_VERSION:
+    environment:
+      MAZE_BUGSNAG_API_KEY:
 
   doc-server-tests:
     build:
@@ -94,6 +106,8 @@ services:
       args:
         BRANCH_NAME:
         RUBY_VERSION:
+    environment:
+      MAZE_BUGSNAG_API_KEY:
 
   framework-tests:
     build:
@@ -101,6 +115,8 @@ services:
       args:
         BRANCH_NAME:
         RUBY_VERSION:
+    environment:
+      MAZE_BUGSNAG_API_KEY:
 
   docker-tests:
     build:
@@ -109,6 +125,7 @@ services:
         BRANCH_NAME:
         RUBY_VERSION:
     environment:
+      MAZE_BUGSNAG_API_KEY:
       NETWORK_NAME: "${BUILDKITE_JOB_ID:-core-maze-runner}"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -119,6 +136,8 @@ services:
       args:
         BRANCH_NAME:
         RUBY_VERSION:
+    environment:
+      MAZE_BUGSNAG_API_KEY:
 
   payload-helper-tests:
     build:
@@ -126,6 +145,8 @@ services:
       args:
         BRANCH_NAME:
         RUBY_VERSION:
+    environment:
+      MAZE_BUGSNAG_API_KEY:
 
   http-response-tests:
     build:
@@ -133,6 +154,8 @@ services:
       args:
         BRANCH_NAME:
         RUBY_VERSION:
+    environment:
+      MAZE_BUGSNAG_API_KEY:
 
   unit-test:
     build:

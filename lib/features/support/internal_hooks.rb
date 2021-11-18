@@ -52,7 +52,11 @@ BeforeAll do
 end
 
 InstallPlugin do |cucumber_config|
+  # Start Bugsnag
+  Maze::BugsnagConfig.start_bugsnag(cucumber_config)
+
   cucumber_config.filters << Maze::Plugins::GlobalRetryPlugin.new(cucumber_config)
+  cucumber_config.filters << Maze::Plugins::BugsnagReportingPlugin.new(cucumber_config)
 end
 
 # Before each scenario

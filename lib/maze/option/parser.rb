@@ -31,6 +31,11 @@ module Maze
                 type: :boolean,
                 default: true
 
+            opt Option::ENABLE_BUGSNAG,
+                'Enables reporting to Bugsnag on scenario failure (Require MAZE_BUGSNAG_API_KEY)',
+                type: :boolean,
+                default: true
+
             text ''
             text 'Server options:'
 

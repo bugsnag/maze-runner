@@ -6,7 +6,7 @@ module Maze
     class << self
       def start_bugsnag(cucumber_config)
         # Use MAZE_BUGSNAG_API_KEY explicitly to avoid collisions with test env
-        return unless ENV['MAZE_BUGSNAG_API_KEY']
+        return unless Maze.config.enable_bugsnag && ENV['MAZE_BUGSNAG_API_KEY']
 
         Bugsnag.configure do |config|
           config.api_key = ENV['MAZE_BUGSNAG_API_KEY']

@@ -50,6 +50,9 @@ module Maze
     # Whether retries should be allowed
     attr_accessor :enable_retries
 
+    # Enables bugsnag reporting
+    attr_accessor :enable_bugsnag
+
     #
     # General appium configuration
     #

@@ -19,6 +19,7 @@ module Maze
 
           # General options
           config.enable_retries = options[Maze::Option::ENABLE_RETRIES]
+          config.enable_bugsnag = options[Maze::Option::ENABLE_BUGSNAG]
 
           # Document server options
           config.document_server_root = options[Maze::Option::DS_ROOT]

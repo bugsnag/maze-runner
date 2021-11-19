@@ -46,7 +46,6 @@ class ParserTest < Test::Unit::TestCase
     assert_nil(options[Maze::Option::USERNAME])
     assert_nil(options[Maze::Option::ACCESS_KEY])
     assert_nil(options[Maze::Option::APPIUM_VERSION])
-    assert_nil(options[Maze::Option::BITBAR_API_KEY])
 
     # Local-only options
     assert_nil(options[Maze::Option::OS])
@@ -84,7 +83,6 @@ class ParserTest < Test::Unit::TestCase
       --username=ARG_USERNAME
       --access-key=ARG_ACCESS_KEY
       --appium-version=ARG_APPIUM_VERSION
-      --bitbar-api-key=ARG_BITBAR_API_KEY
       --os=ARG_OS
       --os-version=ARG_OS_VERSION
       --appium-server=ARG_APPIUM_SERVER
@@ -111,7 +109,6 @@ class ParserTest < Test::Unit::TestCase
     assert_equal('ARG_USERNAME', options[Maze::Option::USERNAME])
     assert_equal('ARG_ACCESS_KEY', options[Maze::Option::ACCESS_KEY])
     assert_equal('ARG_APPIUM_VERSION', options[Maze::Option::APPIUM_VERSION])
-    assert_equal('ARG_BITBAR_API_KEY', options[Maze::Option::BITBAR_API_KEY])
 
     # Local-only options
     assert_equal('ARG_OS', options[Maze::Option::OS])

@@ -1,3 +1,9 @@
+# 6.5.1 - 2021/11/19
+
+## Fixes
+
+- Make sure device logic isn't run in BrowserStack browser mode [#315](https://github.com/bugsnag/maze-runner/pull/315)
+
 # 6.5.0 - 2021/11/18
 
 ## Enhancements

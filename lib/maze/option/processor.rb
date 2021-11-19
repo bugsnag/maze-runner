@@ -50,7 +50,10 @@ module Maze
           # Farm specific options
           case config.farm
           when :bs then
-            if device_option = options[Maze::Option::DEVICE]
+            device_option = options[Maze::Option::DEVICE]
+            if device_option.nil? || device_option.empty?
+              config.browser = options[Maze::Option::BROWSER]
+            else
               if device_option.is_a?(Array)
                 config.device = device_option.first
                 config.device_list = device_option.drop(1)
@@ -59,8 +62,6 @@ module Maze
                 config.device_list = []
               end
               config.os_version = Maze::BrowserStackDevices::DEVICE_HASH[config.device]['os_version'].to_f
-            else
-              config.browser = options[Maze::Option::BROWSER]
             end
             config.bs_local = Maze::Helper.expand_path(options[Maze::Option::BS_LOCAL])
             config.appium_version = options[Maze::Option::APPIUM_VERSION]

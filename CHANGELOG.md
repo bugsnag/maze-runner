@@ -1,3 +1,9 @@
+# 6.6.0 - 2021/11/23
+
+## Enhancements
+
+- Add Safari 14 and 15 [#316](https://github.com/bugsnag/maze-runner/pull/316)
+
 # 6.5.1 - 2021/11/19
 
 ## Fixes

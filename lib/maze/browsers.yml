@@ -54,6 +54,18 @@ safari_13:
   os: "OS X"
   os_version: "Catalina"
 
+safari_14:
+  browser: "Safari"
+  browser_version: "14.0"
+  os: "OS X"
+  os_version: "Big Sur"
+
+safari_15:
+  browser: "Safari"
+  browser_version: "15.0"
+  os: "OS X"
+  os_version: "Monterey"
+
 iphone_7:
   browser: "iphone"
   device: "iPhone 7"

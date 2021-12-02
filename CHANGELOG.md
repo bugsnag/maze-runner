@@ -1,3 +1,9 @@
+# 6.6.1 - 2021/12/02
+
+## Fixes
+
+- Bump BrowserStackLocal from 8.0 to 8.4 [#317](https://github.com/bugsnag/maze-runner/pull/317)
+
 # 6.6.0 - 2021/11/23
 
 ## Enhancements

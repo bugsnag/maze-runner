@@ -48,7 +48,7 @@ module Maze
               raise 'App upload failed'
             end
           rescue JSON::ParserError
-            $logger.error "Expected JSON response, received: #{body}"
+            $logger.error "Expected JSON response, received: #{res}"
             raise
           end
         end

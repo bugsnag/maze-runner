@@ -97,7 +97,14 @@ module Maze
             config.username = options[Maze::Option::USERNAME]
             config.access_key = options[Maze::Option::ACCESS_KEY]
             config.tms_uri = options[Maze::Option::TMS_URI]
-            config.device = options[Maze::Option::DEVICE]
+            device_option = options[Maze::Option::DEVICE]
+            if device_option.is_a?(Array)
+              config.device = device_option.first
+              config.device_list = device_option.drop(1)
+            else
+              config.device = device_option
+              config.device_list = []
+            end
             config.os = options[Maze::Option::OS]
             config.os_version = options[Maze::Option::OS_VERSION]
             config.bb_local = Maze::Helper.expand_path(options[Maze::Option::BB_LOCAL])

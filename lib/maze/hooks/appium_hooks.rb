@@ -37,11 +37,6 @@ module Maze
           Maze::BitBarUtils.start_local_tunnel config.bb_local,
                                                config.username,
                                                config.access_key
-          config.capabilities = Maze::Capabilities.for_bitbar_device config.access_key,
-                                                                     config.os,
-                                                                     config.os_version,
-                                                                     config.capabilities_option
-
           pp "Exiting early due to a lack of bitbar support currently"
           exit
         when :local
@@ -91,7 +86,7 @@ module Maze
           Maze::SauceLabsUtils.stop_sauce_connect
         elsif Maze.config.farm == :bb
           Maze::BitBarUtils.stop_local_tunnel
-          Maze::BitBarUtils.release_account(Maze.config.tms_uri)
+          Maze::BitBarUtils.release_account(Maze.config.tms_uri) if ENV['BUILDKITE']
         end
       end
 
@@ -121,6 +116,7 @@ module Maze
                                                                      config.appium_version,
                                                                      config.capabilities_option
           capabilities['app'] = config.app
+<<<<<<< HEAD
         when :sl
           capabilities = Maze::Capabilities.for_sauce_labs_device config.device,
                                                                   config.os,
@@ -130,11 +126,25 @@ module Maze
                                                                   config.capabilities_option
           capabilities['app'] = "storage:#{config.app}"
         when :local
+=======
+        elsif config.farm == :local
+>>>>>>> 6225822 (BitBar/Devices-api: Switch to using device groups instead of individual device searches)
           capabilities = Maze::Capabilities.for_local config.os,
                                                       config.capabilities_option,
                                                       config.apple_team_id,
                                                       config.device_id
           capabilities['app'] = config.app
+<<<<<<< HEAD
+=======
+        elsif config.farm == :bb
+          capabilities = Maze::Capabilities.for_bitbar_device config.access_key,
+                                                              config.device,
+                                                              config.os,
+                                                              config.os_version,
+                                                              config.capabilities_option
+          capabilities['bitbar_app'] = config.app
+          capabilities['bundleId'] = config.app_bundle_id
+>>>>>>> 6225822 (BitBar/Devices-api: Switch to using device groups instead of individual device searches)
         end
         capabilities
       end

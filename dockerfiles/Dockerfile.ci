@@ -9,9 +9,9 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
 
 RUN ruby -v
 
-RUN wget -q https://storage.googleapis.com/bugsnag-public-test-dependencies/BrowserStackLocal-linux-x64.zip \
-  && unzip BrowserStackLocal-linux-x64.zip \
-  && rm BrowserStackLocal-linux-x64.zip
+RUN wget -q https://storage.googleapis.com/bugsnag-public-test-dependencies/BrowserStackLocal-linux-x64-v8_4.zip \
+  && unzip BrowserStackLocal-linux-x64-v8_4.zip \
+  && rm BrowserStackLocal-linux-x64-v8_4.zip
 
 RUN wget -q https://saucelabs.com/downloads/sc-4.6.4-linux.tar.gz \
   && tar --extract --file sc-4.6.4-linux.tar.gz \

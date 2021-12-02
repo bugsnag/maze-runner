@@ -26,12 +26,6 @@ module Maze
           Maze::BitBarUtils.start_local_tunnel config.bb_local,
                                                config.username,
                                                config.access_key
-          config.capabilities = Maze::Capabilities.for_bitbar_device config.access_key,
-                                                                     config.os,
-                                                                     config.os_version,
-                                                                     config.capabilities_option
-          config.capabilities['bitbar_app'] = config.app
-          config.capabilities['bundleId'] = config.app_bundle_id
         elsif config.farm == :local
           # Attempt to start the local appium server
           appium_uri = URI(config.appium_server_url)
@@ -77,7 +71,7 @@ module Maze
           Maze::BrowserStackUtils.stop_local_tunnel
         elsif Maze.config.farm == :bb
           Maze::BitBarUtils.stop_local_tunnel
-          Maze::BitBarUtils.release_account(Maze.config.tms_uri)
+          Maze::BitBarUtils.release_account(Maze.config.tms_uri) if ENV['BUILDKITE']
         end
       end
 
@@ -106,13 +100,22 @@ module Maze
                                                                      tunnel_id,
                                                                      config.appium_version,
                                                                      config.capabilities_option
+          capabilities['app'] = config.app
         elsif config.farm == :local
           capabilities = Maze::Capabilities.for_local config.os,
                                                       config.capabilities_option,
                                                       config.apple_team_id,
                                                       config.device_id
+          capabilities['app'] = config.app
+        elsif config.farm == :bb
+          capabilities = Maze::Capabilities.for_bitbar_device config.access_key,
+                                                              config.device,
+                                                              config.os,
+                                                              config.os_version,
+                                                              config.capabilities_option
+          capabilities['bitbar_app'] = config.app
+          capabilities['bundleId'] = config.app_bundle_id
         end
-        capabilities['app'] = config.app
         capabilities
       end
 

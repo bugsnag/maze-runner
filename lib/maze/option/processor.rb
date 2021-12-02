@@ -69,8 +69,14 @@ module Maze
             access_key = config.access_key = options[Maze::Option::ACCESS_KEY]
             config.appium_server_url = "http://#{username}:#{access_key}@hub-cloud.browserstack.com/wd/hub"
           when :sl
-            config.device = options[Maze::Option::DEVICE]
-            config.device_list = []
+            device_option = options[Maze::Option::DEVICE]
+            if device_option.is_a?(Array)
+              config.device = device_option.first
+              config.device_list = device_option.drop(1)
+            else
+              config.device = device_option
+              config.device_list = []
+            end
             config.browser = options[Maze::Option::BROWSER]
             config.os = options[Maze::Option::OS]
             config.os_version = options[Maze::Option::OS_VERSION]
@@ -78,7 +84,7 @@ module Maze
             config.appium_version = options[Maze::Option::APPIUM_VERSION]
             username = config.username = options[Maze::Option::USERNAME]
             access_key = config.access_key = options[Maze::Option::ACCESS_KEY]
-            config.appium_server_url = "http://#{username}:#{access_key}@ondemand.us-west-1.saucelabs.com/wd/hub"
+            config.appium_server_url = "https://#{username}:#{access_key}@ondemand.us-west-1.saucelabs.com/wd/hub"
           when :local
             if options[Maze::Option::BROWSER]
               config.browser = options[Maze::Option::BROWSER]

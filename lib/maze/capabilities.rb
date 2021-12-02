@@ -42,14 +42,15 @@ module Maze
       # @param udid [String] device UDID, for iOS only
       # noinspection RubyStringKeysInHashInspection
       def for_local(platform, capabilities_option, team_id = nil, udid = nil)
-        capabilities = if platform.downcase == 'android'
+        capabilities = case platform.downcase
+                       when 'android'
                          {
                            'platformName' => 'Android',
                            'automationName' => 'UiAutomator2',
                            'autoGrantPermissions' => 'true',
                            'noReset' => 'true'
                          }
-                       elsif platform.downcase == 'ios'
+                       when 'ios'
                          {
                            'platformName' => 'iOS',
                            'automationName' => 'XCUITest',
@@ -59,10 +60,12 @@ module Maze
                            'udid' => udid,
                            'noReset' => 'true'
                          }
-                       elsif platform.downcase == 'macos'
+                       when 'macos'
                          {
                            'platformName' => 'Mac'
                          }
+                       else
+                         raise "Unsupported platform: #{platform}"
                        end
         common = {
           'os' => platform,

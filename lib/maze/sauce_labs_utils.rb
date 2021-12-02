@@ -3,7 +3,8 @@
 module Maze
   # Utils supporting the SauceLabs device farm integration
   class SauceLabsUtils
-    SC_PID_FILE = 'sc.pid'
+    PID_FILE = 'sc.pid'
+    READY_FILE = 'sc.ready'
 
     class << self
       attr_accessor :connect_shell
@@ -63,13 +64,16 @@ module Maze
         connect_shell = Maze::InteractiveCLI.new
         success = wait.until { connect_shell.running? }
         raise 'Shell session did not start in time!' unless success
-        command = "#{sc_local} -u #{username} -k #{access_key} -x #{endpoint} -i #{tunnel_id} -d #{SC_PID_FILE}"
+
+        command = "#{sc_local} -u #{username} -k #{access_key} -x #{endpoint} " \
+                  "-i #{tunnel_id} -d #{PID_FILE} -l sc.log -f #{READY_FILE}"
 
         # TODO Handle the case where the command fails, providing suitable diagnostics
+        File.delete(READY_FILE) if File.exist?(READY_FILE)
+        File.delete(PID_FILE) if File.exist?(PID_FILE)
         connect_shell.run_command command
-        ready_regex = /Sauce Connect is up, you may start your tests\.$/
         success = Maze::Wait.new(timeout: 30).until do
-          connect_shell.stdout_lines.any? { |line| line.match?(ready_regex) }
+          File.exist? READY_FILE
         end
         unless success
           $logger.info "Failed: #{connect_shell.stdout_lines}"
@@ -78,14 +82,14 @@ module Maze
 
       def stop_sauce_connect
         pid = nil
-        File.open(SC_PID_FILE, 'r') do |file|
+        File.open(PID_FILE, 'r') do |file|
           pid = file.read.to_i
         end
         Process.kill('INT', pid)
         Maze::Wait.new(timeout: 30).until do
           `ps aux | awk '{print $2 }' | grep #{pid}`.empty?
         end
-        File.delete(SC_PID_FILE) if File.exist?(SC_PID_FILE)
+        File.delete(PID_FILE) if File.exist?(PID_FILE)
       end
     end
   end

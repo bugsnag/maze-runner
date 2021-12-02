@@ -90,7 +90,7 @@ class BitBarUtilsTest < Test::Unit::TestCase
 
     json_response = 'gobbledygook'
     response_mock = mock('response')
-    response_mock.expects(:body).returns(json_response).twice
+    response_mock.expects(:body).returns(json_response)
 
     uri = URI('https://cloud.bitbar.com/api/me/files')
     Net::HTTP::Post.expects(:new)&.with(uri)&.returns post_mock
@@ -98,7 +98,7 @@ class BitBarUtilsTest < Test::Unit::TestCase
                                     443,
                                     use_ssl: true)&.returns(response_mock)
 
-    $logger.expects(:error).with("Expected JSON response, received: #{json_response}").once
+    $logger.expects(:error).with("Expected JSON response, received: #{response_mock}").once
     assert_raise(JSON::ParserError) do
       Maze::BitBarUtils.upload_app API_KEY, APP_PATH
     end

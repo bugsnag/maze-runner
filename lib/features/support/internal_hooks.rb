@@ -217,3 +217,7 @@ AfterAll do
   # Invoke the internal hook for the mode of operation
   Maze.internal_hooks.after_all
 end
+
+at_exit do
+  Maze.internal_hooks.at_exit
+end

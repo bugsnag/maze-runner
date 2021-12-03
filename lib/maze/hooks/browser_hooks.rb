@@ -1,6 +1,7 @@
 # Contains logic for the Cucumber hooks when in Browser mode
 module Maze
   module Hooks
+    # Hooks for Browser mode use
     class BrowserHooks < InternalHooks
       def before_all
         config = Maze.config
@@ -16,10 +17,11 @@ module Maze
         end
 
         # Create and start the relevant driver
-        if config.farm == :bs
+        case config.farm
+        when :bs
           selenium_url = "http://#{config.username}:#{config.access_key}@hub.browserstack.com/wd/hub"
           Maze.driver = Maze::Driver::Browser.new :remote, selenium_url, config.capabilities
-        elsif config.farm == :local
+        when :local
           Maze.driver = Maze::Driver::Browser.new Maze.config.browser.to_sym
         end
       end

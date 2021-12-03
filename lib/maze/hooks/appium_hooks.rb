@@ -1,13 +1,15 @@
 # Contains logic for the Cucumber hooks when in Appium mode
 module Maze
   module Hooks
+    # Hooks for Appium mode use
     class AppiumHooks < InternalHooks
       def before_all
         # Setup Appium capabilities.  Note that the 'app' capability is
         # set in a hook as it will change if uploaded to BrowserStack.
 
         config = Maze.config
-        if config.farm == :bs
+        case config.farm
+        when :bs
           tunnel_id = SecureRandom.uuid
           config.app = Maze::BrowserStackUtils.upload_app config.username,
                                                           config.access_key,
@@ -15,11 +17,19 @@ module Maze
           Maze::BrowserStackUtils.start_local_tunnel config.bs_local,
                                                      tunnel_id,
                                                      config.access_key
-        elsif config.farm == :local
+        when :sl
+          config.app = Maze::SauceLabsUtils.upload_app config.username,
+                                                       config.access_key,
+                                                       config.app
+          tunnel_id = SecureRandom.uuid
+          Maze::SauceLabsUtils.start_sauce_connect config.sl_local,
+                                                   tunnel_id,
+                                                   config.username,
+                                                   config.access_key
+        when :local
           # Attempt to start the local appium server
           appium_uri = URI(config.appium_server_url)
-          Maze::AppiumServer.start(address: appium_uri.host,
-                                   port: appium_uri.port) if config.start_appium
+          Maze::AppiumServer.start(address: appium_uri.host, port: appium_uri.port) if config.start_appium
         end
 
         start_driver(config, tunnel_id)
@@ -46,7 +56,7 @@ module Maze
         end
       end
 
-      def after_all
+      def at_exit
         # Stop the Appium session and server
         Maze.driver.driver_quit unless Maze.config.appium_session_isolation
         Maze::AppiumServer.stop if Maze::AppiumServer.running
@@ -56,6 +66,9 @@ module Maze
           Maze::Runner.run_command("log show --predicate '(process == \"#{Maze.config.app}\")' --style syslog --start '#{Maze.start_time}' > #{Maze.config.app}.log")
         elsif Maze.config.farm == :bs
           Maze::BrowserStackUtils.stop_local_tunnel
+        elsif Maze.config.farm == :sl
+          $logger.info 'Stopping Sauce Connect'
+          Maze::SauceLabsUtils.stop_sauce_connect
         end
       end
 
@@ -77,20 +90,29 @@ module Maze
         end
       end
 
-      def device_capabilities(config, tunnel_id=nil)
-        config = Maze.config
-        if config.farm == :bs
+      def device_capabilities(config, tunnel_id = nil)
+        case config.farm
+        when :bs
           capabilities = Maze::Capabilities.for_browser_stack_device config.device,
                                                                      tunnel_id,
                                                                      config.appium_version,
                                                                      config.capabilities_option
-        elsif config.farm == :local
+          capabilities['app'] = config.app
+        when :sl
+          capabilities = Maze::Capabilities.for_sauce_labs_device config.device,
+                                                                  config.os,
+                                                                  config.os_version,
+                                                                  tunnel_id,
+                                                                  config.appium_version,
+                                                                  config.capabilities_option
+          capabilities['app'] = "storage:#{config.app}"
+        when :local
           capabilities = Maze::Capabilities.for_local config.os,
                                                       config.capabilities_option,
                                                       config.apple_team_id,
                                                       config.device_id
+          capabilities['app'] = config.app
         end
-        capabilities['app'] = config.app
         capabilities
       end
 
@@ -108,7 +130,7 @@ module Maze
         end
       end
 
-      def start_driver(config, tunnel_id=nil)
+      def start_driver(config, tunnel_id = nil)
         until Maze.driver
           begin
             config.capabilities = device_capabilities(config, tunnel_id)

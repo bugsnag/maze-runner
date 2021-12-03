@@ -160,16 +160,7 @@ When('I clear and send the keys {string} to the element {string}') do |keys, ele
 end
 
 def get_expected_platform_value(platform_values)
-  if Maze.config.farm == :bs
-    os = Maze.config.capabilities['os']
-  elsif Maze.config.farm == :sl
-    os = Maze.driver.capabilities['platformName']
-  else
-    os = Maze.config.os
-  end
-
-  raise('Unable to determine the current platform') if os.nil?
-
+  os = Maze::Helper.get_current_platform
   expected_value = Hash[platform_values.raw][os.downcase]
   raise("There is no expected value for the current platform \"#{os}\"") if expected_value.nil?
 

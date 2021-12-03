@@ -38,7 +38,7 @@ class AppiumHooksTest < Test::Unit::TestCase
   end
 
   def test_device_capabilities_local
-    $config.expects(:farm).twice.returns(:local)
+    $config.expects(:farm).returns(:local)
     $config.expects(:os).returns(:os)
     $config.expects(:capabilities_option).returns(:capabilities_option)
     $config.expects(:apple_team_id).returns(:apple_team_id)

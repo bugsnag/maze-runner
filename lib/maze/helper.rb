@@ -85,6 +85,24 @@ module Maze
         file = argument[1..argument.size]
         File.read file
       end
+
+      # Returns the current platform all lower-case.
+      # @@return Typically 'ios', 'android' or 'mac'.
+      def get_current_platform
+        os = case Maze.config.farm
+             when :bs
+               Maze.config.capabilities['os']
+             when :sl
+               Maze.driver.capabilities['platformName']
+             else
+               Maze.config.os
+             end
+        os = os&.downcase
+
+        raise('Unable to determine the current platform') if os.nil?
+
+        os
+      end
     end
   end
 end

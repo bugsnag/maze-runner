@@ -54,6 +54,8 @@ module Maze
       def after; end
 
       def after_all; end
+
+      def at_exit; end
     end
   end
 end

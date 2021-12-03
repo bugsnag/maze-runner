@@ -1,3 +1,9 @@
+# 6.6.2 - TBD
+
+## Fixes
+
+- Fix support for Sauce Labs [#318](https://github.com/bugsnag/maze-runner/pull/318)
+
 # 6.6.1 - 2021/12/02
 
 ## Fixes

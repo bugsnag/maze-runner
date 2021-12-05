@@ -87,7 +87,7 @@ module Maze
         os = options[Option::OS]
         os_version = options[Option::OS_VERSION]
         if browser.nil? && device.nil? && os.nil? && os_version.nil?
-          errors << "A device or browser option must be specified"
+          errors << 'A device or browser option must be specified'
         elsif browser
           errors << 'Browsers not yet implemented on Sauce Labs'
         else
@@ -100,6 +100,25 @@ module Maze
             unless uuid_regex.match? app
               app = Maze::Helper.expand_path app
               errors << "app file '#{app}' not found" unless File.exist?(app)
+            end
+          end
+
+          # OS
+          if options[Option::OS].nil?
+            errors << "--#{Option::OS} must be specified"
+          else
+            os = options[Option::OS].downcase
+            errors << 'os must be android or ios' unless %w[android ios].include? os
+          end
+
+          # OS Version
+          if options[Option::OS_VERSION].nil?
+            errors << "--#{Option::OS_VERSION} must be specified"
+          else
+            # Ensure OS version is a valid float so that notifier tests can perform numeric checks
+            # e.g 'Maze.config.os_version > 7'
+            unless /^[1-9][0-9]*(\.[0-9])?/.match? options[Option::OS_VERSION]
+              errors << "--#{Option::OS_VERSION} must be a valid version matching '/^[1-9][0-9]*(\\.[0-9])?/'"
             end
           end
         end

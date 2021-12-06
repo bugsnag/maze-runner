@@ -50,7 +50,7 @@ module Maze
           Maze.driver.driver_quit
         elsif Maze.config.os == 'macos'
           # Close the app - without the sleep, launching the app for the next scenario intermittently fails
-          system("killall #{Maze.config.app} && sleep 1")
+          system("killall -KILL #{Maze.config.app} && sleep 1")
         else
           Maze.driver.reset
         end

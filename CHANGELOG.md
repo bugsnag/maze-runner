@@ -2,6 +2,7 @@
 
 ## Fixes
 
+- Fix killing deadlocked Mac fixtures [#320](https://github.com/bugsnag/maze-runner/pull/320)
 - Fix support for Sauce Labs [#318](https://github.com/bugsnag/maze-runner/pull/318)
 
 # 6.6.1 - 2021/12/02

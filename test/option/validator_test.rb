@@ -20,6 +20,7 @@ class ValidatorTest < Test::Unit::TestCase
     ENV.delete('SAUCE_LABS_ACCESS_KEY')
 
     Maze::Helper.stubs(:expand_path).with('/BrowserStackLocal').returns('/BrowserStackLocal')
+    Maze::Helper.stubs(:expand_path).with('/sauce-connect/bin/sc').returns('/sauce-connect/bin/sc')
     Maze::Helper.stubs(:expand_path).with('my_app.apk').returns('my_app.apk')
     Maze::Helper.stubs(:expand_path).with(nil).returns(nil)
   end
@@ -176,5 +177,64 @@ class ValidatorTest < Test::Unit::TestCase
 
     assert_equal 1, errors.length
     assert_equal '--capabilities must be valid JSON (given {"cap":ability"})', errors[0]
+  end
+
+  def test_valid_sauce_labs_options
+    args = %w[--farm=local --app=my_app.apk --username=user --access-key=key --os-version=8 --os=android]
+    File.stubs(:exist?).with('/sauce-connect/bin/sc').returns(true)
+    File.stubs(:exist?).with('my_app.apk').returns(true)
+
+    options = Maze::Option::Parser.parse args
+    errors = @validator.validate options
+
+    assert_empty errors
+  end
+
+  def test_sauce_labs_invalid_os
+    args = %w[--farm=sl --app=my_app.apk --username=user --access-key=key --os=invalid --os-version=8]
+    File.stubs(:exist?).with('/sauce-connect/bin/sc').returns(true)
+    File.stubs(:exist?).with('my_app.apk').returns(true)
+
+    options = Maze::Option::Parser.parse args
+    errors = @validator.validate options
+
+    assert_equal 1, errors.length, errors
+    assert_equal 'os must be android or ios', errors[0]
+  end
+
+  def test_sauce_labs_missing_os
+    args = %w[--farm=sl --app=my_app.apk --os-version=8 --username=user --access-key=key]
+    File.stubs(:exist?).with('/sauce-connect/bin/sc').returns(true)
+    File.stubs(:exist?).with('my_app.apk').returns(true)
+
+    options = Maze::Option::Parser.parse args
+    errors = @validator.validate options
+
+    assert_equal 1, errors.length, errors
+    assert_equal '--os must be specified', errors[0]
+  end
+
+  def test_sauce_labs_invalid_os_version
+    args = %w[--farm=sl --app=my_app.apk --os-version=ZZZ --os=android --username=user --access-key=key]
+    File.stubs(:exist?).with('/sauce-connect/bin/sc').returns(true)
+    File.stubs(:exist?).with('my_app.apk').returns(true)
+
+    options = Maze::Option::Parser.parse args
+    errors = @validator.validate options
+
+    assert_equal 1, errors.length, errors
+    assert_match '--os-version must be a valid version matching', errors[0]
+  end
+
+  def test_sauce_labs_missing_os_version
+    args = %w[--farm=sl --app=my_app.apk --os=android --username=user --access-key=key]
+    File.stubs(:exist?).with('/sauce-connect/bin/sc').returns(true)
+    File.stubs(:exist?).with('my_app.apk').returns(true)
+
+    options = Maze::Option::Parser.parse args
+    errors = @validator.validate options
+
+    assert_equal 1, errors.length, errors
+    assert_equal '--os-version must be specified', errors[0]
   end
 end

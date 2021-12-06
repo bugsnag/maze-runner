@@ -79,7 +79,7 @@ module Maze
             end
             config.browser = options[Maze::Option::BROWSER]
             config.os = options[Maze::Option::OS]
-            config.os_version = options[Maze::Option::OS_VERSION]
+            config.os_version = options[Maze::Option::OS_VERSION].to_f
             config.sl_local = Maze::Helper.expand_path(options[Maze::Option::SL_LOCAL])
             config.appium_version = options[Maze::Option::APPIUM_VERSION]
             username = config.username = options[Maze::Option::USERNAME]

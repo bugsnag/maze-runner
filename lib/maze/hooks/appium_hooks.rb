@@ -32,6 +32,7 @@ module Maze
           pp config.app_path
           pp config.app
           Maze::Runner.run_command("open #{config.app_path}") if config.os == 'macos'
+          Maze::Runner.run_command("/System/Library/Frameworks/CoreServices.framework/Versions/Current/Frameworks/LaunchServices.framework/Versions/Current/Support/lsregister -f -R -trusted #{config.app_path}") if config.os == 'macos'
 
           # Attempt to start the local appium server
           appium_uri = URI(config.appium_server_url)

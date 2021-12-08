@@ -77,13 +77,13 @@ module Maze
 
       def for_sauce_labs_device(device_name, os, os_version, tunnel_id, appium_version, capabilities_option)
         capabilities = {
-          'noReset' => 'true',
+          'noReset' => true,
           'deviceOrientation' => 'portrait',
           'tunnelIdentifier' => tunnel_id,
           'browserName' => '',
-          'autoAcceptAlerts' => 'true',
+          'autoAcceptAlerts' => true,
           'sendKeyStrategy' => 'setValue',
-          'waitForQuiescence' => 'false',
+          'waitForQuiescence' => false,
           'newCommandTimeout' => 0
         }
         capabilities['deviceName'] = device_name unless device_name.nil?

@@ -1,3 +1,9 @@
+# TBD
+
+## Fixes
+
+- Set Appium capabilities for improved performance on Sauce Labs [#325](https://github.com/bugsnag/maze-runner/pull/325)
+
 # 6.6.2 - 2021/12/06
 
 ## Fixes

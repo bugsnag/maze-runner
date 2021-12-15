@@ -533,18 +533,18 @@
       <pre class="lines">
 
 
-212
-213
-214
-215
-216
-217
 218
 219
-220</pre>
+220
+221
+222
+223
+224
+225
+226</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/steps/app_automator_steps.rb', line 212</span>
+      <pre class="code"><span class="info file"># File 'lib/features/steps/app_automator_steps.rb', line 218</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_assert_equal_with_nullability'>assert_equal_with_nullability</span><span class='lparen'>(</span><span class='id identifier rubyid_expected_value'>expected_value</span><span class='comma'>,</span> <span class='id identifier rubyid_payload_value'>payload_value</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_expected_value'>expected_value</span><span class='period'>.</span><span class='id identifier rubyid_eql?'>eql?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>@null</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
@@ -639,16 +639,16 @@
       <pre class="lines">
 
 
-162
-163
-164
-165
-166
-167
-168</pre>
+168
+169
+170
+171
+172
+173
+174</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/steps/app_automator_steps.rb', line 162</span>
+      <pre class="code"><span class="info file"># File 'lib/features/steps/app_automator_steps.rb', line 168</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_expected_platform_value'>get_expected_platform_value</span><span class='lparen'>(</span><span class='id identifier rubyid_platform_values'>platform_values</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_os'>os</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Helper</span><span class='period'>.</span><span class='id identifier rubyid_get_current_platform'>get_current_platform</span>
@@ -886,12 +886,12 @@ Used to convert a multipart/form-data request into a JSON comparable hash</p>
       <pre class="lines">
 
 
-170
-171
-172</pre>
+176
+177
+178</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/steps/app_automator_steps.rb', line 170</span>
+      <pre class="code"><span class="info file"># File 'lib/features/steps/app_automator_steps.rb', line 176</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_should_skip_platform_check'>should_skip_platform_check</span><span class='lparen'>(</span><span class='id identifier rubyid_expected_value'>expected_value</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_expected_value'>expected_value</span><span class='period'>.</span><span class='id identifier rubyid_eql?'>eql?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>@skip</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
@@ -916,12 +916,6 @@ Used to convert a multipart/form-data request into a JSON comparable hash</p>
       <pre class="lines">
 
 
-183
-184
-185
-186
-187
-188
 189
 190
 191
@@ -930,10 +924,16 @@ Used to convert a multipart/form-data request into a JSON comparable hash</p>
 194
 195
 196
-197</pre>
+197
+198
+199
+200
+201
+202
+203</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/steps/app_automator_steps.rb', line 183</span>
+      <pre class="code"><span class="info file"># File 'lib/features/steps/app_automator_steps.rb', line 189</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_test_boolean_platform_values'>test_boolean_platform_values</span><span class='lparen'>(</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_expected_value'>expected_value</span> <span class='op'>=</span> <span class='id identifier rubyid_get_expected_platform_value'><span class='object_link'><a href="#get_expected_platform_value-instance_method" title="#get_expected_platform_value (method)">get_expected_platform_value</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_platform_values'>platform_values</span><span class='rparen'>)</span>
@@ -970,21 +970,21 @@ Used to convert a multipart/form-data request into a JSON comparable hash</p>
       <pre class="lines">
 
 
-199
-200
-201
-202
-203
-204
 205
 206
 207
 208
 209
-210</pre>
+210
+211
+212
+213
+214
+215
+216</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/steps/app_automator_steps.rb', line 199</span>
+      <pre class="code"><span class="info file"># File 'lib/features/steps/app_automator_steps.rb', line 205</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_test_numeric_platform_values'>test_numeric_platform_values</span><span class='lparen'>(</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_expected_value'>expected_value</span> <span class='op'>=</span> <span class='id identifier rubyid_get_expected_platform_value'><span class='object_link'><a href="#get_expected_platform_value-instance_method" title="#get_expected_platform_value (method)">get_expected_platform_value</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_platform_values'>platform_values</span><span class='rparen'>)</span>
@@ -1018,17 +1018,17 @@ Used to convert a multipart/form-data request into a JSON comparable hash</p>
       <pre class="lines">
 
 
-174
-175
-176
-177
-178
-179
 180
-181</pre>
+181
+182
+183
+184
+185
+186
+187</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/steps/app_automator_steps.rb', line 174</span>
+      <pre class="code"><span class="info file"># File 'lib/features/steps/app_automator_steps.rb', line 180</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_test_string_platform_values'>test_string_platform_values</span><span class='lparen'>(</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_expected_value'>expected_value</span> <span class='op'>=</span> <span class='id identifier rubyid_get_expected_platform_value'><span class='object_link'><a href="#get_expected_platform_value-instance_method" title="#get_expected_platform_value (method)">get_expected_platform_value</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_platform_values'>platform_values</span><span class='rparen'>)</span>
@@ -1539,7 +1539,7 @@ maze_output/failed/scenario_name/errors.log</p>
 </div>
 
       <div id="footer">
-  Generated on Mon Dec  6 13:27:46 2021 by
+  Generated on Wed Dec 15 11:34:50 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-2.7.5).
 </div>

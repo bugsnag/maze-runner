@@ -27,11 +27,17 @@ When('I click the element {string}') do |element_id|
   Maze.driver.click_element(element_id)
 end
 
+# Sends the app to the background indefinitely
+# Requires a running Appium driver
+When('I send the app to the background') do
+  Maze.driver.background_app(-1)
+end
+
 # Sends the app to the background for a number of seconds
 # Requires a running Appium driver
 #
 # @step_input timeout [Integer] The amount of time the app is in the background in seconds
-When('I send the app to the background for {int} seconds') do |timeout|
+When('I send the app to the background for {int} second(s)') do |timeout|
   Maze.driver.background_app(timeout)
 end
 

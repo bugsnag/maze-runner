@@ -1,4 +1,8 @@
-# TBD
+# 6.7.0 - 2021/12/15
+
+## Enhancements
+
+- Add step `I send the app to the background` [#326](https://github.com/bugsnag/maze-runner/pull/326)
 
 ## Fixes
 

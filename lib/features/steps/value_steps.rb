@@ -23,7 +23,7 @@ Then('the {word} payload field {string} equals the stored value {string}') do |r
   payload_value = Maze::Helper.read_key_path(list.current[:body], field)
   stored_value = Maze::Store.values[key]
   result = Maze::Compare.value(payload_value, stored_value)
-  assert_true(result.equal?, "Payload value: #{payload_value} does not equal stored value: #{stored_value}")
+  Maze.check.true(result.equal?, "Payload value: #{payload_value} does not equal stored value: #{stored_value}")
 end
 
 # Tests whether a payload field is distinct from a previously stored payload value
@@ -36,7 +36,7 @@ Then('the {word} payload field {string} does not equal the stored value {string}
   payload_value = Maze::Helper.read_key_path(list.current[:body], field)
   stored_value = Maze::Store.values[key]
   result = Maze::Compare.value(payload_value, stored_value)
-  assert_false(result.equal?, "Payload value: #{payload_value} equals stored value: #{stored_value}")
+  Maze.check.false(result.equal?, "Payload value: #{payload_value} equals stored value: #{stored_value}")
 end
 
 # Tests whether a payload field matches a previously stored payload value, ignoring case
@@ -51,7 +51,7 @@ Then('the {word} payload field {string} equals the stored value {string} ignorin
   payload_value.downcase!
   stored_value.downcase!
   result = Maze::Compare.value(payload_value, stored_value)
-  assert_true(result.equal?, "Payload value: #{payload_value} does not equal stored value: #{stored_value}")
+  Maze.check.true(result.equal?, "Payload value: #{payload_value} does not equal stored value: #{stored_value}")
 end
 
 # Tests whether a payload field is distinct from a previously stored payload value, ignoring case
@@ -66,7 +66,7 @@ Then('the {word} payload field {string} does not equal the stored value {string}
   payload_value.downcase!
   stored_value.downcase!
   result = Maze::Compare.value(payload_value, stored_value)
-  assert_false(result.equal?, "Payload value: #{payload_value} equals stored value: #{stored_value}")
+  Maze.check.false(result.equal?, "Payload value: #{payload_value} equals stored value: #{stored_value}")
 end
 
 # Tests whether a payload field is a number (Numeric according to Ruby)
@@ -76,7 +76,7 @@ end
 Then('the {word} payload field {string} is a number') do |request_type, field|
   list = Maze::Server.list_for request_type
   value = Maze::Helper.read_key_path(list.current[:body], field)
-  assert_kind_of Numeric, value
+  Maze.check.kind_of Numeric, value
 end
 
 # Tests whether a payload field is an integer (Integer according to Ruby)
@@ -86,7 +86,7 @@ end
 Then('the {word} payload field {string} is an integer') do |request_type, field|
   list = Maze::Server.list_for request_type
   value = Maze::Helper.read_key_path(list.current[:body], field)
-  assert_kind_of Integer, value
+  Maze.check.kind_of Integer, value
 end
 
 # Tests whether a payload field is a date (parseable as a Date, according to Ruby)
@@ -97,11 +97,11 @@ Then('the {word} payload field {string} is a date') do |request_type, field|
   list = Maze::Server.list_for request_type
   value = Maze::Helper.read_key_path(list.current[:body], field)
   date = begin
-           Date.parse(value)
-         rescue StandardError
-           nil
-         end
-  assert_kind_of Date, date
+    Date.parse(value)
+  rescue StandardError
+    nil
+  end
+  Maze.check.kind_of Date, date
 end
 
 # Tests whether a payload field (loosely) matches a UUID regex (/[a-fA-F0-9-]!{36}/)
@@ -111,9 +111,9 @@ end
 Then('the {word} payload field {string} is a UUID') do |request_type, field|
   list = Maze::Server.list_for request_type
   value = Maze::Helper.read_key_path(list.current[:body], field)
-  assert_not_nil(value, "Expected UUID, got nil for #{field}")
+  Maze.check.not_nil(value, "Expected UUID, got nil for #{field}")
   match = /[a-fA-F0-9-]{36}/.match(value).size > 0
-  assert_true(match, "Field #{field} is not a UUID, received #{value}")
+  Maze.check.true(match, "Field #{field} is not a UUID, received #{value}")
 end
 
 # @!endgroup

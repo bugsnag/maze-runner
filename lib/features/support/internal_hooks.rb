@@ -9,6 +9,7 @@ require 'uri'
 
 BeforeAll do
 
+  Maze.check = Maze::Checks::AssertCheck.new
   # Infer mode of operation from config, one of:
   # - Appium (using either remote or local devices)
   # - Browser (Selenium with local or remote browsers)

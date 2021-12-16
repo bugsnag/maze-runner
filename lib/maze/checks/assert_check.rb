@@ -39,6 +39,14 @@ module Maze
       def kind_of(klass, object, message = nil)
         assert_kind_of(klass, object, message = nil)
       end
+
+      def block(message = 'block failed', &block)
+        assert_block(message, &block)
+      end
+
+      def include(collection, object, message = nil)
+        assert_include(collection, object, message)
+      end
     end
   end
 end

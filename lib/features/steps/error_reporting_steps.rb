@@ -97,7 +97,7 @@ Then('the error payload contains the payloadVersion {string}') do |payload_versi
   body_set = payload_version == body_version
   event_version = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], 'events.0.payloadVersion')
   event_set = payload_version == event_version
-  assert_true(
+  Maze.check.true(
     body_set || event_set,
     "The payloadVersion was not the expected value of #{payload_version}. " \
     "#{body_version} found in body, #{event_version} found in event"
@@ -184,15 +184,15 @@ end
 
 Then('the event {string} string is empty') do |keypath|
   value = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], keypath)
-  assert_block("The #{keypath} is not empty: '#{value}'") do
+  Maze.check.block("The #{keypath} is not empty: '#{value}'") do
     value.nil? || value.empty?
   end
 end
 
 Then('the event {string} is greater than {int}') do |keypath, int|
   value = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], "events.0.#{keypath}")
-  assert_false(value.nil?, "The event #{keypath} is nil")
-  assert_true(value > int)
+  Maze.check.false(value.nil?, "The event #{keypath} is nil")
+  Maze.check.true(value > int)
 end
 
 # Tests whether a value in the first exception of the first event entry starts with a string.
@@ -307,13 +307,13 @@ end
 # @param payload_value [Any] The thread identifier value
 def validate_error_reporting_thread(payload_key, payload_value)
   threads = Maze::Server.errors.current[:body]['events'].first['threads']
-  assert_kind_of Array, threads
+  Maze.check.kind_of Array, threads
   count = 0
 
   threads.each do |thread|
     count += 1 if thread[payload_key].to_s == payload_value && thread['errorReportingThread'] == true
   end
-  assert_equal(1, count)
+  Maze.check.equal(1, count)
 end
 
 # Tests whether an event has the correct attributes we'd expect for un/handled events

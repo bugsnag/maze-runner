@@ -26,15 +26,15 @@ end
 #
 # @step_input expected [Integer] The expected exit code
 Then('the SAM exit code equals {int}') do |expected|
-  assert_equal(expected, Maze::Aws::Sam.last_exit_code)
+  Maze.check.equal(expected, Maze::Aws::Sam.last_exit_code)
 end
 
 # Test the Lambda response is empty but not-null. This indicates the Lambda did
 # not respond but did run successfully
 Then('the lambda response is empty') do
-  assert_not_nil(Maze::Aws::Sam.last_response, 'No lambda response!')
+  Maze.check.not_nil(Maze::Aws::Sam.last_response, 'No lambda response!')
 
-  assert_equal({}, Maze::Aws::Sam.last_response)
+  Maze.check.equal({}, Maze::Aws::Sam.last_response)
 end
 
 # Test a Lambda response field equals the given string.
@@ -42,11 +42,11 @@ end
 # @step_input key_path [String] The response element to test
 # @step_input expected [String] The string to test against
 Then('the lambda response {string} equals {string}') do |key_path, expected|
-  assert_not_nil(Maze::Aws::Sam.last_response, 'No lambda response!')
+  Maze.check.not_nil(Maze::Aws::Sam.last_response, 'No lambda response!')
 
   actual = Maze::Helper.read_key_path(Maze::Aws::Sam.last_response, key_path)
 
-  assert_equal(expected, actual)
+  Maze.check.equal(expected, actual)
 end
 
 # Test a Lambda response field contains the given string.
@@ -54,11 +54,11 @@ end
 # @step_input key_path [String] The response element to test
 # @step_input expected [String] The string to test against
 Then('the lambda response {string} contains {string}') do |key_path, expected|
-  assert_not_nil(Maze::Aws::Sam.last_response, 'No lambda response!')
+  Maze.check.not_nil(Maze::Aws::Sam.last_response, 'No lambda response!')
 
   actual = Maze::Helper.read_key_path(Maze::Aws::Sam.last_response, key_path)
 
-  assert_includes(actual, expected)
+  Maze.check.include(actual, expected)
 end
 
 # Test a Lambda response field equals the given integer.
@@ -66,55 +66,55 @@ end
 # @step_input key_path [String] The response element to test
 # @step_input expected [Integer] The integer to test against
 Then('the lambda response {string} equals {int}') do |key_path, expected|
-  assert_not_nil(Maze::Aws::Sam.last_response, 'No lambda response!')
+  Maze.check.not_nil(Maze::Aws::Sam.last_response, 'No lambda response!')
 
   actual = Maze::Helper.read_key_path(Maze::Aws::Sam.last_response, key_path)
 
-  assert_equal(expected, actual)
+  Maze.check.equal(expected, actual)
 end
 
 # Test a Lambda response field is true.
 #
 # @step_input key_path [String] The response element to test
 Then('the lambda response {string} is true') do |key_path|
-  assert_not_nil(Maze::Aws::Sam.last_response, 'No lambda response!')
+  Maze.check.not_nil(Maze::Aws::Sam.last_response, 'No lambda response!')
 
   actual = Maze::Helper.read_key_path(Maze::Aws::Sam.last_response, key_path)
 
-  assert_true(actual)
+  Maze.check.true(actual)
 end
 
 # Test a Lambda response field is false.
 #
 # @step_input key_path [String] The response element to test
 Then('the lambda response {string} is false') do |key_path|
-  assert_not_nil(Maze::Aws::Sam.last_response, 'No lambda response!')
+  Maze.check.not_nil(Maze::Aws::Sam.last_response, 'No lambda response!')
 
   actual = Maze::Helper.read_key_path(Maze::Aws::Sam.last_response, key_path)
 
-  assert_false(actual)
+  Maze.check.false(actual)
 end
 
 # Test a Lambda response field is null.
 #
 # @step_input key_path [String] The response element to test
 Then('the lambda response {string} is null') do |key_path|
-  assert_not_nil(Maze::Aws::Sam.last_response, 'No lambda response!')
+  Maze.check.not_nil(Maze::Aws::Sam.last_response, 'No lambda response!')
 
   actual = Maze::Helper.read_key_path(Maze::Aws::Sam.last_response, key_path)
 
-  assert_nil(actual)
+  Maze.check.nil(actual)
 end
 
 # Test a Lambda response field is not null.
 #
 # @step_input key_path [String] The response element to test
 Then('the lambda response {string} is not null') do |key_path|
-  assert_not_nil(Maze::Aws::Sam.last_response, 'No lambda response!')
+  Maze.check.not_nil(Maze::Aws::Sam.last_response, 'No lambda response!')
 
   actual = Maze::Helper.read_key_path(Maze::Aws::Sam.last_response, key_path)
 
-  assert_not_nil(actual)
+  Maze.check.not_nil(actual)
 end
 
 # Test a Lambda response field is greater than the given integer.
@@ -122,11 +122,11 @@ end
 # @step_input key_path [String] The response element to test
 # @step_input expected [Integer] The integer to test against
 Then('the lambda response {string} is greater than {int}') do |key_path, expected|
-  assert_not_nil(Maze::Aws::Sam.last_response, 'No lambda response!')
+  Maze.check.not_nil(Maze::Aws::Sam.last_response, 'No lambda response!')
 
   actual = Maze::Helper.read_key_path(Maze::Aws::Sam.last_response, key_path)
 
-  assert_operator(actual, :>, expected)
+  Maze.check.operator(actual, :>, expected)
 end
 
 # Test a Lambda response field is less than the given integer.
@@ -134,11 +134,11 @@ end
 # @step_input key_path [String] The response element to test
 # @step_input expected [Integer] The integer to test against
 Then('the lambda response {string} is less than {int}') do |key_path, expected|
-  assert_not_nil(Maze::Aws::Sam.last_response, 'No lambda response!')
+  Maze.check.not_nil(Maze::Aws::Sam.last_response, 'No lambda response!')
 
   actual = Maze::Helper.read_key_path(Maze::Aws::Sam.last_response, key_path)
 
-  assert_operator(actual, :<, expected)
+  Maze.check.operator(actual, :<, expected)
 end
 
 # Test a Lambda response field starts with the given string.
@@ -146,11 +146,11 @@ end
 # @step_input key_path [String] The response element to test
 # @step_input expected [String] The string to test against
 Then('the lambda response {string} starts with {string}') do |key_path, expected|
-  assert_not_nil(Maze::Aws::Sam.last_response, 'No lambda response!')
+  Maze.check.not_nil(Maze::Aws::Sam.last_response, 'No lambda response!')
 
   actual = Maze::Helper.read_key_path(Maze::Aws::Sam.last_response, key_path)
 
-  assert_kind_of(String, actual)
+  Maze.check.kind_of(String, actual)
   assert(
     actual.start_with?(expected),
     "Field '#{key_path}' value ('#{actual}') does not start with '#{expected}'"
@@ -162,11 +162,11 @@ end
 # @step_input key_path [String] The response element to test
 # @step_input expected [String] The string to test against
 Then('the lambda response {string} ends with {string}') do |key_path, expected|
-  assert_not_nil(Maze::Aws::Sam.last_response, 'No lambda response!')
+  Maze.check.not_nil(Maze::Aws::Sam.last_response, 'No lambda response!')
 
   actual = Maze::Helper.read_key_path(Maze::Aws::Sam.last_response, key_path)
 
-  assert_kind_of(String, actual)
+  Maze.check.kind_of(String, actual)
   assert(
     actual.end_with?(expected),
     "Field '#{key_path}' value ('#{actual}') does not start with '#{expected}'"
@@ -178,24 +178,24 @@ end
 # @step_input key_path [String] The response element to test
 # @step_input expected [Integer] The expected number of elements
 Then('the lambda response {string} is an array with {int} element(s)') do |key_path, expected|
-  assert_not_nil(Maze::Aws::Sam.last_response, 'No lambda response!')
+  Maze.check.not_nil(Maze::Aws::Sam.last_response, 'No lambda response!')
 
   actual = Maze::Helper.read_key_path(Maze::Aws::Sam.last_response, key_path)
 
-  assert_kind_of(Array, actual)
-  assert_equal(expected, actual.length)
+  Maze.check.kind_of(Array, actual)
+  Maze.check.equal(expected, actual.length)
 end
 
 # Test a Lambda response field is an array with at least 1 element.
 #
 # @step_input key_path [String] The response element to test
 Then('the lambda response {string} is a non-empty array') do |key_path|
-  assert_not_nil(Maze::Aws::Sam.last_response, 'No lambda response!')
+  Maze.check.not_nil(Maze::Aws::Sam.last_response, 'No lambda response!')
 
   actual = Maze::Helper.read_key_path(Maze::Aws::Sam.last_response, key_path)
 
-  assert_kind_of(Array, actual)
-  assert_false(actual.empty?)
+  Maze.check.kind_of(Array, actual)
+  Maze.check.false(actual.empty?)
 end
 
 # Test a Lambda response field matches the given regex.
@@ -204,9 +204,9 @@ end
 # @step_input expected [String] The regex to match against
 Then('the lambda response {string} matches the regex {string}') do |key_path, regex|
   expected = Regexp.new(regex)
-  assert_not_nil(Maze::Aws::Sam.last_response, 'No lambda response!')
+  Maze.check.not_nil(Maze::Aws::Sam.last_response, 'No lambda response!')
 
   actual = Maze::Helper.read_key_path(Maze::Aws::Sam.last_response, key_path)
 
-  assert_match(expected, actual)
+  Maze.check.match(expected, actual)
 end

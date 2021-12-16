@@ -190,9 +190,10 @@ def test_boolean_platform_values(request_type, field_path, platform_values)
   expected_value = get_expected_platform_value(platform_values)
   return if should_skip_platform_check(expected_value)
 
-  expected_bool = if expected_value.downcase == 'true'
+  expected_bool = case expected_value.downcase
+                  when 'true'
                     true
-                  elsif expected_value.downcase == 'false'
+                  when 'false'
                     false
                   else
                     expected_value
@@ -216,11 +217,12 @@ def test_numeric_platform_values(request_type, field_path, platform_values)
 end
 
 def assert_equal_with_nullability(expected_value, payload_value)
-  if expected_value.eql?('@null')
-    assert_nil(payload_value)
-  elsif expected_value.eql?('@not_null')
-    assert_not_nil(payload_value)
+  case expected_value
+  when '@null'
+    Maze.check.nil(payload_value)
+  when '@not_null'
+    Maze.check.not_nil(payload_value)
   else
-    assert_equal(expected_value, payload_value)
+    Maze.check.equal(expected_value, payload_value)
   end
 end

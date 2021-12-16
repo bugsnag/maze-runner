@@ -17,7 +17,9 @@ module Maze
         #   - headings can be provided as key paths (e.g. events.0.breadcrumbs.0.name)
         #   - table values can be written as "null" for nil
         def assert_requests_match(requests, table)
-          assert_equal(table.hashes.length, requests.length, 'Number of requests do not match number of entries in table.')
+          Maze.check.equal(table.hashes.length,
+                           requests.length,
+                           'Number of requests do not match number of entries in table.')
           matches = matching_rows requests, table
           return if matches.length == table.hashes.length
 
@@ -27,7 +29,7 @@ module Maze
           matches.sort.to_h.each do |row, request|
             $logger.info "#{table.rows[row]} matched by request element #{matches[request]}"
           end
-          assert_equal(requests.length, matches.length, 'Not all requests matched a row in the table.')
+          Maze.check.equal(requests.length, matches.length, 'Not all requests matched a row in the table.')
         end
 
         # Given arrays of requests and table-based criteria, determines which rows of the table

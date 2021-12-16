@@ -7,7 +7,7 @@
 # @step_input event_id [Integer] The id of the event in the payloads array
 Then('event {int} has no feature flags') do |event_id|
   event = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], "events.#{event_id}")
-  assert_false(has_feature_flags?(event), "Feature flags expected to be absent or empty, was #{event['featureFlags']}")
+  Maze.check.false(has_feature_flags?(event), "Feature flags expected to be absent or empty, was #{event['featureFlags']}")
 end
 
 # Verifies that the are no feature flags present
@@ -66,7 +66,7 @@ Then('event {int} contains the feature flag {string} with no variant') do |event
 
   flag = feature_flags.find { |flag| flag['featureFlag'].eql?(flag_name) }
   # Test the variant value
-  assert_false(
+  Maze.check.false(
     flag.has_key?('variant'),
     "Feature flag: #{flag} expected to have no variant. All flags: #{feature_flags}"
   )
@@ -149,7 +149,7 @@ def verify_feature_flags_with_table(event, table)
     flag = feature_flags.find { |flag| flag['featureFlag'].eql?(flag_name) }
     # Test the variant value
     if variant.nil? || expected['variant'].empty?
-      assert_false(
+      Maze.check.false(
         flag.has_key?('variant'),
         "Feature flag: #{flag} expected to have no variant. All flags: #{feature_flags}"
       )
@@ -164,7 +164,7 @@ end
 
 def has_feature_flags?(event)
   if event.has_key?('featureFlags')
-    assert_false(
+    Maze.check.false(
       event['featureFlags'].nil?,
       'The feature flags key was present, but null'
     )

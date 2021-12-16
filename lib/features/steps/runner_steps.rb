@@ -106,7 +106,7 @@ Then('the exit code of the last docker command was {int}') do |expected_code|
   success = wait.until { !Maze::Docker.last_exit_code.nil? }
 
   assert(success, 'No docker exit code available to verify')
-  assert_equal(Maze::Docker.last_exit_code, expected_code)
+  Maze.check.equal(Maze::Docker.last_exit_code, expected_code)
 end
 
 # A shortcut for the above assuming 0 as a successful exit code
@@ -122,7 +122,7 @@ Then('the last run docker command did not exit successfully') do
   success = wait.until { !Maze::Docker.last_exit_code.nil? }
 
   assert(success, 'No docker exit code available to verify')
-  assert_not_equal(Maze::Docker.last_exit_code, 0)
+  Maze.check.not_equal(Maze::Docker.last_exit_code, 0)
 end
 
 # Allows testing a docker command output a specific string
@@ -166,8 +166,8 @@ When('I stop the current shell') do
   shell = Maze::Runner.interactive_session
   result = Maze::Runner.stop_interactive_session
 
-  assert_true(result, 'The shell is still running when it should have exited')
-  assert_false(shell.running?, 'The shell is still running when it should have exited')
+  Maze.check.true(result, 'The shell is still running when it should have exited')
+  Maze.check.false(shell.running?, 'The shell is still running when it should have exited')
 end
 
 # Run a command on the shell
@@ -189,7 +189,7 @@ end
 # @step_input expected [String] The expected string
 Then('the current stdout line is {string}') do |expected|
   current_shell = Maze::Runner.interactive_session
-  assert_equal(expected, current_shell.current_buffer)
+  Maze.check.equal(expected, current_shell.current_buffer)
 end
 
 # Assert the current stdout line in the shell includes the given string

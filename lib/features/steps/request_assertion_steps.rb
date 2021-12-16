@@ -29,7 +29,7 @@ def assert_received_requests(request_count, list, list_name)
     MESSAGE
   end
 
-  assert_equal(request_count, list.size, "#{list.size} #{list_name} received")
+  Maze.check.equal(request_count, list.size, "#{list.size} #{list_name} received")
 end
 
 #
@@ -62,7 +62,7 @@ end
 # @step_input request_type [String] The type of request (error, session, build, etc)
 Then('I have received at least {int} {word}') do |min_received, request_type|
   list = Maze::Server.list_for(request_type)
-  assert_operator(list.size, :>=, min_received, "Actually received #{list.size} #{request_type} requests")
+  Maze.check.operator(list.size, :>=, min_received, "Actually received #{list.size} #{request_type} requests")
 end
 
 # Assert that the test Server hasn't received any requests - of a specific, or any, type.
@@ -73,11 +73,11 @@ Then('I should receive no {word}') do |request_type|
   sleep Maze.config.receive_no_requests_wait
   if request_type == 'requests'
     # Assert that the test Server hasn't received any requests at all.
-    assert_equal(0, Maze::Server.errors.size, "#{Maze::Server.errors.size} errors received")
-    assert_equal(0, Maze::Server.sessions.size, "#{Maze::Server.sessions.size} sessions received")
+    Maze.check.equal(0, Maze::Server.errors.size, "#{Maze::Server.errors.size} errors received")
+    Maze.check.equal(0, Maze::Server.sessions.size, "#{Maze::Server.sessions.size} sessions received")
   else
     list = Maze::Server.list_for(request_type)
-    assert_equal(0, list.size, "#{list.size} #{request_type} received")
+    Maze.check.equal(0, list.size, "#{list.size} #{request_type} received")
   end
 end
 
@@ -102,9 +102,9 @@ Then('the received errors match:') do |table|
       next if (!request.key? :body) || (!request[:body].key? 'events')
 
       events = request[:body]['events']
-      assert_equal(1, events.length, 'Expected exactly one event per request')
+      Maze.check.equal(1, events.length, 'Expected exactly one event per request')
       match_count += 1 if request_matches_row(events[0], row)
     end
   end
-  assert_equal(requests.size, match_count, 'Unexpected number of requests matched the received payloads')
+  Maze.check.equal(requests.size, match_count, 'Unexpected number of requests matched the received payloads')
 end

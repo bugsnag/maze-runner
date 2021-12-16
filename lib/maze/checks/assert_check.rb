@@ -2,41 +2,41 @@
 
 module Maze
   # Assertion-backed data verification checks
-  class AssertCheck < Check
-    def true(test, msg = nil)
-      assert_true(test, msg)
+  class AssertCheck
+    def true(test, message = nil)
+      assert_true(test, message)
     end
 
-    def false(test, msg = nil)
-      assert_false(test, msg)
+    def false(test, message = nil)
+      assert_false(test, message)
     end
 
-    def nil(test, msg = nil)
-      assert_nil(test, msg)
+    def nil(test, message = nil)
+      assert_nil(test, message)
     end
 
-    def not_nil(test, msg = nil)
-      assert_not_nil(test, msg)
+    def not_nil(test, message = nil)
+      assert_not_nil(test, message)
     end
 
-    def match(test, msg = nil)
-      assert_match(test, msg)
+    def match(test, message = nil)
+      assert_match(test, message)
     end
 
-    def equal(exp, act, msg = nil)
-      assert_equal(exp, act, test, msg)
+    def equal(expected, act, message = nil)
+      assert_equal(expected, act, message)
     end
 
-    def not_equal(exp, act, msg = nil)
-      assert_not_equal(exp, act, msg)
+    def not_equal(expected, act, message = nil)
+      assert_not_equal(expected, act, message)
     end
 
-    def operator(operand1, operator, operand2 = UNDEFINED, msg = nil)
-      assert_operator(operand1, operator, operand2, msg)
+    def operator(operand1, operator, operand2, message = nil)
+      assert_operator(operand1, operator, operand2, message)
     end
 
-    def kind_of(cls, obj, msg = nil)
-      assert_kind_of(cls, obj, msg = nil)
+    def kind_of(klass, object, message = nil)
+      assert_kind_of(klass, object, message = nil)
     end
   end
 end

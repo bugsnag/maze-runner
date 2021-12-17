@@ -1,7 +1,5 @@
 # @!group Proxy steps
 
-include Test::Unit::Assertions
-
 # Starts an HTTP proxy server.
 #
 Then('I start an http proxy') do
@@ -30,8 +28,7 @@ end
 #
 # @step_input host [String] Destination host to check
 Then('the proxy handled a request for {string}') do |host|
-  Maze.check.assert(Maze::Proxy.instance.handled_host?(host),
-                    "The proxy did not handle a request for #{host}")
+  Maze.check.true(Maze::Proxy.instance.handled_host?(host), "The proxy did not handle a request for #{host}")
 end
 
 # @!endgroup

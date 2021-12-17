@@ -110,7 +110,7 @@ Then('the {word} payload field {string} is greater than {int}') do |request_type
   list = Maze::Server.list_for(request_type)
   value = Maze::Helper.read_key_path(list.current[:body], field_path)
   Maze.check.kind_of Integer, value
-  assert(value > int_value, "The payload field '#{field_path}' (#{value}) is not greater than '#{int_value}'")
+  Maze.check.operator(value, :>, int, "The payload field '#{field_path}' (#{value}) is not greater than '#{int_value}'")
 end
 
 # Tests a payload field contains a number smaller than a value.
@@ -123,7 +123,7 @@ Then('the {word} payload field {string} is less than {int}') do |request_type, f
   value = Maze::Helper.read_key_path(list.current[:body], field_path)
   Maze.check.kind_of Integer, value
   fail_message = "The #{request_type} payload field '#{field_path}' (#{value}) is not less than '#{int_value}'"
-  assert(value < int_value, fail_message)
+  Maze.check.operator(value, :<, int_value, fail_message)
 end
 
 # Tests a payload field equals a string.
@@ -145,8 +145,10 @@ Then('the {word} payload field {string} starts with {string}') do |request_type,
   list = Maze::Server.list_for(request_type)
   value = Maze::Helper.read_key_path(list.current[:body], field_path)
   Maze.check.kind_of String, value
-  assert(value.start_with?(string_value),
-         "Field '#{field_path}' value ('#{value}') does not start with '#{string_value}'")
+  Maze.check.true(
+    value.start_with?(string_value),
+    "Field '#{field_path}' value ('#{value}') does not start with '#{string_value}'"
+  )
 end
 
 # Tests a payload field ends with a string.
@@ -158,8 +160,10 @@ Then('the {word} payload field {string} ends with {string}') do |request_type, f
   list = Maze::Server.list_for(request_type)
   value = Maze::Helper.read_key_path(list.current[:body], field_path)
   Maze.check.kind_of String, value
-  assert(value.end_with?(string_value),
-         "Field '#{field_path}' value ('#{value}') does not end with '#{string_value}'")
+  Maze.check.true(
+    value.end_with?(string_value),
+    "Field '#{field_path}' value ('#{value}') does not end with '#{string_value}'"
+  )
 end
 
 # Tests a payload field is an array with a specific element count.
@@ -182,8 +186,7 @@ Then('the {word} payload field {string} is a non-empty array') do |request_type,
   list = Maze::Server.list_for(request_type)
   value = Maze::Helper.read_key_path(list.current[:body], field)
   Maze.check.kind_of Array, value
-  assert(value.length.positive?,
-         "the field '#{field}' must be a non-empty array")
+  Maze.check.true(value.length.positive?, "the field '#{field}' must be a non-empty array")
 end
 
 # Tests a payload field matches a regex.

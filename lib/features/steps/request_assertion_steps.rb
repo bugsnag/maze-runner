@@ -1,13 +1,10 @@
 # frozen_string_literal: true
 
 require 'test/unit'
-require 'minitest'
 require 'open-uri'
 require 'json'
 require 'cgi'
 require_relative '../../maze/wait'
-
-include Test::Unit::Assertions
 
 # @!group Request assertion steps
 

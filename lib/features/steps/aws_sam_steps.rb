@@ -151,7 +151,7 @@ Then('the lambda response {string} starts with {string}') do |key_path, expected
   actual = Maze::Helper.read_key_path(Maze::Aws::Sam.last_response, key_path)
 
   Maze.check.kind_of(String, actual)
-  assert(
+  Maze.check.true(
     actual.start_with?(expected),
     "Field '#{key_path}' value ('#{actual}') does not start with '#{expected}'"
   )
@@ -167,7 +167,7 @@ Then('the lambda response {string} ends with {string}') do |key_path, expected|
   actual = Maze::Helper.read_key_path(Maze::Aws::Sam.last_response, key_path)
 
   Maze.check.kind_of(String, actual)
-  assert(
+  Maze.check.true(
     actual.end_with?(expected),
     "Field '#{key_path}' value ('#{actual}') does not start with '#{expected}'"
   )

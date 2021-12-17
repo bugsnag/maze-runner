@@ -3,8 +3,6 @@ require 'open-uri'
 require 'json'
 require 'cgi'
 
-include Test::Unit::Assertions
-
 # @!group Multipart request assertion steps
 
 # Verifies a request contains the correct Content-Type header and some contents
@@ -15,7 +13,10 @@ def valid_multipart_form_data?(request)
   content_regex = Regexp.new('^multipart\\/form-data; boundary=[\\h-]+$')
   content_header = request[:request]['Content-Type']
   Maze.check.match(content_regex, content_header)
-  assert(request[:body].size.positive?, "Multipart request payload contained #{request[:body].size} fields")
+  Maze.check.true(
+    request[:body].size.positive?,
+    "Multipart request payload contained #{request[:body].size} fields"
+  )
 end
 
 # Verifies that any type of request contains multipart form-data
@@ -50,7 +51,7 @@ end
 Then('the {word} multipart request has a non-empty body') do |request_type|
   list = Maze::Server.list_for request_type
   parts = list.current[:body]
-  assert(parts.size.positive?, "Multipart request payload contained #{parts.size} fields")
+  Maze.check.true(parts.size.positive?, "Multipart request payload contained #{parts.size} fields")
 end
 
 # Takes a hashmap and parses all fields into strings or hashes depending on their format

@@ -40,7 +40,7 @@ module Maze
 
       # Provides a standard assertion of equality, with standardised output
       def assert_equal
-        assert(@equal, "The compared fields do not match:\n #{result.reasons.join('\n')}")
+        Maze.check.true(@equal, "The compared fields do not match:\n #{result.reasons.join('\n')}")
       end
     end
 

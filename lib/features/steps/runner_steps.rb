@@ -72,7 +72,7 @@ end
 # @step_input service [String] The name of the service to run
 When('I run the service {string} interactively') do |service|
   # Stop the old session if one exists
-  step("I stop the current shell") if Maze::Runner.interactive_session?
+  step('I stop the current shell') if Maze::Runner.interactive_session?
 
   Maze::Docker.start_service(service, interactive: true)
 end
@@ -83,7 +83,7 @@ end
 # @step_input command [String] The command to run inside the service
 When('I run the service {string} with the command {string} interactively') do |service, command|
   # Stop the old session if one exists
-  step("I stop the current shell") if Maze::Runner.interactive_session?
+  step('I stop the current shell') if Maze::Runner.interactive_session?
 
   Maze::Docker.start_service(service, command: command, interactive: true)
 end
@@ -105,7 +105,7 @@ Then('the exit code of the last docker command was {int}') do |expected_code|
   wait = Maze::Wait.new(timeout: Maze.config.receive_requests_wait)
   success = wait.until { !Maze::Docker.last_exit_code.nil? }
 
-  assert(success, 'No docker exit code available to verify')
+  Maze.check.true(success, 'No docker exit code available to verify')
   Maze.check.equal(Maze::Docker.last_exit_code, expected_code)
 end
 
@@ -121,7 +121,7 @@ Then('the last run docker command did not exit successfully') do
   wait = Maze::Wait.new(timeout: Maze.config.receive_requests_wait)
   success = wait.until { !Maze::Docker.last_exit_code.nil? }
 
-  assert(success, 'No docker exit code available to verify')
+  Maze.check.true(success, 'No docker exit code available to verify')
   Maze.check.not_equal(Maze::Docker.last_exit_code, 0)
 end
 
@@ -133,12 +133,12 @@ Then('the last run docker command output {string}') do |expected_string|
   wait = Maze::Wait.new(timeout: Maze.config.receive_requests_wait)
   success = wait.until { !Maze::Docker.last_command_logs.nil? }
 
-  assert(success, 'No docker logs available to verify')
+  Maze.check.true(success, 'No docker logs available to verify')
 
   docker_output = Maze::Docker.last_command_logs
   output_included = docker_output.any? { |line| line.include?(expected_string) }
 
-  assert(output_included, %(
+  Maze.check.true(output_included, %(
     No line of output included '#{expected_string}'.
     Full output:
     #{docker_output.join('\n')}
@@ -156,7 +156,7 @@ end
 # Starts an interactive shell
 When('I start a new shell') do
   # Stop the old session if one exists
-  step("I stop the current shell") if Maze::Runner.interactive_session?
+  step('I stop the current shell') if Maze::Runner.interactive_session?
 
   Maze::Runner.start_interactive_session
 end
@@ -176,7 +176,7 @@ end
 When('I input {string} interactively') do |command|
   current_shell = Maze::Runner.interactive_session
   success = current_shell.run_command(command)
-  assert(success, 'The terminal had already closed')
+  Maze.check.true(success, 'The terminal had already closed')
 end
 
 # Send a return or enter to the interactive session
@@ -197,7 +197,7 @@ end
 # @step_input expected [String] The expected string
 Then('the current stdout line contains {string}') do |expected|
   current_shell = Maze::Runner.interactive_session
-  assert_includes(current_shell.current_buffer, expected)
+  Maze.check.include(current_shell.current_buffer, expected)
 end
 
 # Waits for a line matching a regex to be present in the current stdout
@@ -210,10 +210,11 @@ Then('I wait for the current stdout line to match the regex {string}') do |regex
 
   success = wait.until { shell.current_buffer.match?(regex) }
 
-  assert(success, "The current output line \"#{shell.current_buffer}\" did not match \"#{regex}\"")
+  Maze.check.true(success, "The current output line \"#{shell.current_buffer}\" did not match \"#{regex}\"")
 end
 
-# Waits for a specific shell prompt to be present in the buffered stdout line, timing out after Maze.config.receive_requests_wait seconds.
+# Waits for a specific shell prompt to be present in the buffered stdout line,
+# timing out after Maze.config.receive_requests_wait seconds.
 #
 # @step_input expected_prompt [String] The prompt expected in the current buffer
 Then('I wait for the shell prompt {string}') do |expected_prompt|
@@ -222,7 +223,7 @@ Then('I wait for the shell prompt {string}') do |expected_prompt|
 
   success = wait.until { shell.current_buffer == expected_prompt }
 
-  assert(success, "The current output line \"#{shell.current_buffer}\" did not match \"#{expected_prompt}\"")
+  Maze.check.true(success, "The current output line \"#{shell.current_buffer}\" did not match \"#{expected_prompt}\"")
 end
 
 # Verify a string appears in the stdout logs
@@ -231,7 +232,7 @@ end
 Then('the shell has output {string} to stdout') do |expected_line|
   current_shell = Maze::Runner.interactive_session
   match = current_shell.stdout_lines.any? { |line| line == expected_line }
-  assert(match, "No output lines from #{current_shell.stdout_lines} matched #{expected_line}")
+  Maze.check.true(match, "No output lines from #{current_shell.stdout_lines} matched #{expected_line}")
 end
 
 # Wait for a string to appear in the stdout logs, timing out after Maze.config.receive_requests_wait seconds.
@@ -245,7 +246,7 @@ Then('I wait for the shell to output {string} to stdout') do |expected_line|
     current_shell.stdout_lines.any? { |line| line == expected_line }
   end
 
-  assert(success, "No output lines from #{current_shell.stdout_lines} matched #{expected_line}")
+  Maze.check.true(success, "No output lines from #{current_shell.stdout_lines} matched #{expected_line}")
 end
 
 # Verify a string using a regex in the stdout logs
@@ -254,7 +255,7 @@ end
 Then('the shell has output a match for the regex {string} to stdout') do |regex_matcher|
   current_shell = Maze::Runner.interactive_session
   match = current_shell.stdout_lines.any? { |line| line.match?(regex_matcher) }
-  assert(match, "No output lines from #{current_shell.stdout_lines} matched #{regex_matcher}")
+  Maze.check.true(match, "No output lines from #{current_shell.stdout_lines} matched #{regex_matcher}")
 end
 
 # Wait for a string matching a regex in the stdout logs, timing out after Maze.config.receive_requests_wait seconds.
@@ -268,7 +269,7 @@ Then('I wait for the shell to output a match for the regex {string} to stdout') 
     current_shell.stdout_lines.any? { |line| line.match?(regex_matcher) }
   end
 
-  assert(success, "No output lines from #{current_shell.stdout_lines} matched #{regex_matcher}")
+  Maze.check.true(success, "No output lines from #{current_shell.stdout_lines} matched #{regex_matcher}")
 end
 
 # Wait for the shell to output a number of strings in STDOUT, as defined by a table.
@@ -284,7 +285,10 @@ Then('I wait for the interactive shell to output the following lines in stdout')
     current_stdout.include?(expected_lines)
   end
 
-  assert(success, "Lines present in stdout: #{current_shell.stdout_lines} did not include all of: #{expected_lines}")
+  Maze.check.true(
+    success,
+    "Lines present in stdout: #{current_shell.stdout_lines} did not include all of: #{expected_lines}"
+  )
 end
 
 # Verify a string appears in the stderr logs
@@ -293,7 +297,7 @@ end
 Then('the shell has output {string} to stderr') do |expected_err|
   current_shell = Maze::Runner.interactive_session
   match = current_shell.stderr_lines.any? { |line| line == expected_err }
-  assert(match, "No output lines from #{current_shell.stderr_lines} matched #{expected_err}")
+  Maze.check.true(match, "No output lines from #{current_shell.stderr_lines} matched #{expected_err}")
 end
 
 # Wait for a string to appear in the stderr logs
@@ -307,12 +311,15 @@ Then('I wait for the shell to output {string} to stderr') do |expected_line|
     current_shell.stderr_lines.any? { |line| line == expected_line }
   end
 
-  assert(success, "No output lines from #{current_shell.stderr_lines} matched #{expected_line}")
+  Maze.check.true(success, "No output lines from #{current_shell.stderr_lines} matched #{expected_line}")
 end
 
 # Verify the last interactive command exited successfully (assuming a 0 is a success)
 Then('the last interactive command exited successfully') do
-  assert(Maze::Runner.interactive_session?, 'No interactive session is running so the exit code cannot be checked')
+  Maze.check.true(
+    Maze::Runner.interactive_session?,
+    'No interactive session is running so the exit code cannot be checked'
+  )
 
   uuid = SecureRandom.uuid
 
@@ -326,7 +333,10 @@ end
 #
 # @step_input exit_code [Integer] The expected exit code
 Then('the last interactive command exit code is {int}') do |exit_code|
-  assert(Maze::Runner.interactive_session?, 'No interactive session is running so the exit code cannot be checked')
+  Maze.check.true(
+    Maze::Runner.interactive_session?,
+    'No interactive session is running so the exit code cannot be checked'
+  )
 
   uuid = SecureRandom.uuid
 
@@ -338,7 +348,10 @@ end
 
 # Assert that the last interactive command exited with an error code (assuming non-0 is an error)
 Then('the last interactive command exited with an error code') do
-  assert(Maze::Runner.interactive_session?, 'No interactive session is running so the exit code cannot be checked')
+  Maze.check.true(
+    Maze::Runner.interactive_session?,
+    'No interactive session is running so the exit code cannot be checked'
+  )
 
   uuid = SecureRandom.uuid
 

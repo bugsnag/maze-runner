@@ -8,7 +8,6 @@ module Maze
     # Provides helper routines for checking sets of requests against values in a table.
     class RequestSetAssertions
       class << self
-        include Test::Unit::Assertions
 
         # Checks that a set of requests satisfy the properties expressed by the table given.
         #

@@ -184,15 +184,13 @@ end
 
 Then('the event {string} string is empty') do |keypath|
   value = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], keypath)
-  Maze.check.block("The #{keypath} is not empty: '#{value}'") do
-    value.nil? || value.empty?
-  end
+  Maze.check.true(value.nil? || value.empty?, "The #{keypath} is not empty: '#{value}'")
 end
 
 Then('the event {string} is greater than {int}') do |keypath, int|
   value = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], "events.0.#{keypath}")
   Maze.check.false(value.nil?, "The event #{keypath} is nil")
-  Maze.check.true(value > int)
+  Maze.check.operator(value, :>, int)
 end
 
 # Tests whether a value in the first exception of the first event entry starts with a string.

@@ -24,17 +24,17 @@ end
 # @step_input variant [String] The variant value expected
 Then('event {int} contains the feature flag {string} with variant {string}') do |event_id, flag_name, variant|
   event = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], "events.#{event_id}")
-  assert(has_feature_flags?(event), "Expected feature flags were not present in event #{event_id}: #{event}")
+  Maze.check.true(has_feature_flags?(event), "Expected feature flags were not present in event #{event_id}: #{event}")
   feature_flags = event['featureFlags']
   # Test for flag name uniqueness
-  assert(
+  Maze.check.true(
     feature_flags.one? { |flag| flag['featureFlag'].eql?(flag_name) },
     "Expected single flag with 'featureFlag' value: #{flag_name}. Present flags: #{feature_flags}"
   )
 
   flag = feature_flags.find { |flag| flag['featureFlag'].eql?(flag_name) }
   # Test the variant value
-  assert(
+  Maze.check.true(
     flag.has_key?('variant') && flag['variant'].eql?(variant),
     "Feature flag: #{flag} did not have variant: #{variant}. All flags: #{feature_flags}"
   )
@@ -56,10 +56,11 @@ end
 # @step_input flag_name [String] The featureFlag value expected
 Then('event {int} contains the feature flag {string} with no variant') do |event_id, flag_name|
   event = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], "events.#{event_id}")
-  assert(has_feature_flags?(event), "Expected feature flags were not present in event #{event_id}: #{event}")
+  Maze.check.true(has_feature_flags?(event),
+                  "Expected feature flags were not present in event #{event_id}: #{event}")
   feature_flags = event['featureFlags']
   # Test for flag name uniqueness
-  assert(
+  Maze.check.true(
     feature_flags.one? { |flag| flag['featureFlag'].eql?(flag_name) },
     "Expected single flag with 'featureFlag' value: #{flag_name}. All flags: #{feature_flags}"
   )
@@ -115,9 +116,12 @@ end
 # @step_input flag_name [String] The featureFlag value not expected
 Then('event {int} does not contain the feature flag {string}') do |event_id, flag_name|
   event = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], "events.#{event_id}")
-  assert(has_feature_flags?(event), "Expected feature flags were not present in event #{event_id}: #{event}")
+  Maze.check.true(
+    has_feature_flags?(event),
+    "Expected feature flags were not present in event #{event_id}: #{event}"
+  )
   feature_flags = event['featureFlags']
-  assert(
+  Maze.check.true(
     feature_flags.none? { |flag| flag['featureFlag'].eql?(flag_name) },
     "Expected to not find feature flag #{flag_name}.  All flags: #{feature_flags}"
   )
@@ -133,16 +137,23 @@ Then('the event does not contain the feature flag {string}') do |flag_name|
 end
 
 def verify_feature_flags_with_table(event, table)
-  assert(has_feature_flags?(event), "Expected feature flags were not present in event: #{event}")
+  Maze.check.true(
+    has_feature_flags?(event),
+    "Expected feature flags were not present in event: #{event}"
+  )
   feature_flags = event['featureFlags']
 
   expected_features = table.hashes
-  assert(feature_flags.size == expected_features.size, "Expected #{expected_features.size} features, found #{feature_flags}")
+  Maze.check.true(
+    feature_flags.size == expected_features.size,
+    "Expected #{expected_features.size} features,
+    found #{feature_flags}"
+  )
   expected_features.each do |expected|
     flag_name = expected['featureFlag']
     variant = expected['variant']
     # Test for flag name uniqueness
-    assert(
+    Maze.check.true(
       feature_flags.one? { |flag| flag['featureFlag'].eql?(flag_name) },
       "Expected single flag with 'featureFlag' value: #{flag_name}. Present flags: #{feature_flags}"
     )
@@ -154,7 +165,7 @@ def verify_feature_flags_with_table(event, table)
         "Feature flag: #{flag} expected to have no variant. All flags: #{feature_flags}"
       )
     else
-      assert(
+      Maze.check.true(
         flag.has_key?('variant') && flag['variant'].eql?(variant),
         "Feature flag: #{flag} did not have variant: #{variant}. All flags: #{feature_flags}"
       )
@@ -168,7 +179,8 @@ def has_feature_flags?(event)
       event['featureFlags'].nil?,
       'The feature flags key was present, but null'
     )
-    assert(event['featureFlags'].is_a?(Array),
+    Maze.check.true(
+      event['featureFlags'].is_a?(Array),
       "The feature flags key was present, but the value: #{event['featureFlags']} must be an array"
     )
     !event['featureFlags'].empty?

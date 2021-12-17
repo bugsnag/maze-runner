@@ -27,8 +27,8 @@ module Maze
       def include(_collection, _object, _message = nil) end
       alias includes include
 
-      def refute_include(_collection, _object, _message = nil) end
-      alias refute_includes refute_include
+      def not_include(_collection, _object, _message = nil) end
+      alias not_includes not_include
     end
   end
 end

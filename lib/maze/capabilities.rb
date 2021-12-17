@@ -52,7 +52,7 @@ module Maze
           'bitbar_apiKey' => bitbar_api_key,
           'bitbar_testrun' => "#{platform} #{platform_version}",
           'bitbar_findDevice' => false,
-          'bitbar_testTimeout' => 3600,
+          'bitbar_testTimeout' => 7200,
           'disabledAnimations' => 'true',
           'noReset' => 'true'
         }

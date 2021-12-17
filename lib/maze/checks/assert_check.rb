@@ -47,6 +47,12 @@ module Maze
       def include(collection, object, message = nil)
         assert_include(collection, object, message)
       end
+      alias includes include
+
+      def refute_include(collection, object, message = nil)
+        Minitest::Assertions.refute_includes(collection, object, message)
+      end
+      alias refute_includes refute_include
     end
   end
 end

@@ -25,6 +25,10 @@ module Maze
       def block(_message = 'block failed', &_block) end
 
       def include(_collection, _object, _message = nil) end
+      alias includes include
+
+      def refute_include(_collection, _object, _message = nil) end
+      alias refute_includes refute_include
     end
   end
 end

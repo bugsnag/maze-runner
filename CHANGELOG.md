@@ -2,7 +2,7 @@
 
 ## Refactor
 
-- Add `Maze.check` to abstract from underlying assertion implementation [#327](https://github.com/bugsnag/maze-runner/pull/327)
+- Add `Maze.check` to abstract from underlying assertion implementation [#327](https://github.com/bugsnag/maze-runner/pull/327) [#328](https://github.com/bugsnag/maze-runner/pull/328)
 
 # 6.7.0 - 2021/12/15
 

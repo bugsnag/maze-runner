@@ -48,6 +48,8 @@ module Maze
     end
 
     def report
+      return if @timers.empty?
+
       $logger.info 'Timer totals:'
       @timers.sort.each do |name, timer|
         $logger.info "#{name}: #{timer.total}"

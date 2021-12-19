@@ -10,6 +10,8 @@ require 'uri'
 BeforeAll do
 
   Maze.check = Maze::Checks::AssertCheck.new
+  Maze.timers = Maze::Timers.new
+
   # Infer mode of operation from config, one of:
   # - Appium (using either remote or local devices)
   # - Browser (Selenium with local or remote browsers)
@@ -217,6 +219,8 @@ AfterAll do
 
   # Invoke the internal hook for the mode of operation
   Maze.internal_hooks.after_all
+
+  Maze.timers.report
 end
 
 at_exit do

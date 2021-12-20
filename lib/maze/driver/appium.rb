@@ -32,7 +32,6 @@ module Maze
         @capabilities.merge! name_capabilities
 
         # Timers
-        @wait_for_element_timer = Maze.timers.add 'Appium - wait for element'
         @find_element_timer = Maze.timers.add 'Appium - find element'
         @click_element_timer = Maze.timers.add 'Appium - click element'
         @clear_element_timer = Maze.timers.add 'Appium - clear element'
@@ -64,7 +63,6 @@ module Maze
       # @param timeout [Integer] the maximum time to wait for an element to be present in seconds
       # @param retry_if_stale [Boolean] enables the method to retry acquiring the element if a StaleObjectException occurs
       def wait_for_element(element_id, timeout = 15, retry_if_stale = true)
-        @wait_for_element_timer.run
         wait = Selenium::WebDriver::Wait.new(timeout: timeout)
         wait.until { find_element(@element_locator, element_id).displayed? }
       rescue Selenium::WebDriver::Error::TimeoutError
@@ -78,8 +76,6 @@ module Maze
         end
       else
         true
-      ensure
-        @wait_for_element_timer.stop
       end
 
       # A wrapper around find_element adding timer functionality
@@ -108,11 +104,10 @@ module Maze
         element = find_element_timed(element_id)
         @click_element_timer.run
         element.click
+        @click_element_timer.stop
         true
       rescue Selenium::WebDriver::Error::NoSuchElementError
         false
-      ensure
-        @click_element_timer.stop
       end
 
       # Clears a given element

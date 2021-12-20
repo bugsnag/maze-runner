@@ -80,10 +80,9 @@ module Maze
 
       # A wrapper around find_element adding timer functionality
       def find_element_timed(element_id)
-        @find_element_timer.run
-        element = find_element(@element_locator, element_id)
-        @find_element_timer.stop
-        element
+        @find_element_timer.time do
+          find_element(@element_locator, element_id)
+        end
       end
 
       # Clicks a given element
@@ -91,9 +90,9 @@ module Maze
       # @param element_id [String] the element to click
       def click_element(element_id)
         element = find_element_timed(element_id)
-        @click_element_timer.run
-        element.click
-        @click_element_timer.stop
+        @click_element_timer.time do
+          element.click
+        end
       end
 
       # Clicks a given element, ignoring any NoSuchElementError
@@ -102,9 +101,9 @@ module Maze
       # @return [Boolean] True is the element was clicked
       def click_element_if_present(element_id)
         element = find_element_timed(element_id)
-        @click_element_timer.run
-        element.click
-        @click_element_timer.stop
+        @click_element_timer.time do
+          element.click
+        end
         true
       rescue Selenium::WebDriver::Error::NoSuchElementError
         false
@@ -115,9 +114,9 @@ module Maze
       # @param element_id [String] the element to clear
       def clear_element(element_id)
         element = find_element_timed(element_id)
-        @clear_element_timer.run
-        element.clear
-        @clear_element_timer.stop
+        @clear_element_timer.time do
+          element.clear
+        end
       end
 
       # Sends keys to a given element
@@ -126,9 +125,9 @@ module Maze
       # @param text [String] the text to send
       def send_keys_to_element(element_id, text)
         element = find_element_timed(element_id)
-        @send_keys_timer.run
-        element.send_keys(text)
-        @send_keys_timer.stop
+        @send_keys_timer.time do
+          element.send_keys(text)
+        end
       end
 
       # Sets the rotation of the device
@@ -155,13 +154,13 @@ module Maze
       # @param text [String] the text to send
       def clear_and_send_keys_to_element(element_id, text)
         element = find_element_timed(element_id)
-        @clear_element_timer.run
-        element.clear
-        @clear_element_timer.stop
+        @clear_element_timer.time do
+          element.clear
+        end
 
-        @send_keys_timer.run
-        element.send_keys(text)
-        @send_keys_timer.stop
+        @send_keys_timer.time do
+          element.send_keys(text)
+        end
       end
 
       # Reset the currently running application after a given timeout

@@ -7,27 +7,18 @@ module Maze
     def initialize
       @started = 0
       @total = 0
-      @running = false
     end
 
-    def run
-      raise 'Timer already running' if @running
+    def time(&block)
+      start = Time.now
 
-      @started = Time.now
-      @running = true
-    end
-
-    def stop
-      raise 'Timer is not running' unless @running
-
-      duration = Time.now - @started
-      @total += duration
-      @running = false
+      block.call
+    ensure
+      @total += Time.now - start
     end
 
     def reset
       @total = 0
-      @running = false
     end
   end
 

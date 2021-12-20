@@ -1,5 +1,9 @@
 # 6.8.0 - TDB
 
+## Enhancements
+
+- Add `Maze.timers` and Appium operation timing summary [#329](https://github.com/bugsnag/maze-runner/pull/329)
+
 ## Refactor
 
 - Add `Maze.check` to abstract from underlying assertion implementation [#327](https://github.com/bugsnag/maze-runner/pull/327) [#328](https://github.com/bugsnag/maze-runner/pull/328)

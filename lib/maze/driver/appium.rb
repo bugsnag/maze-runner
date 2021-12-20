@@ -31,6 +31,12 @@ module Maze
         @capabilities = capabilities
         @capabilities.merge! name_capabilities
 
+        # Timers
+        @find_element_timer = Maze.timers.add 'Appium - find element'
+        @click_element_timer = Maze.timers.add 'Appium - click element'
+        @clear_element_timer = Maze.timers.add 'Appium - clear element'
+        @send_keys_timer = Maze.timers.add 'Appium - send keys to element'
+
         super({
           'caps' => @capabilities,
           'appium_lib' => {
@@ -61,22 +67,32 @@ module Maze
         wait.until { find_element(@element_locator, element_id).displayed? }
       rescue Selenium::WebDriver::Error::TimeoutError
         false
-      rescue Selenium::WebDriver::Error::StaleElementReferenceError => stale_error
+      rescue Selenium::WebDriver::Error::StaleElementReferenceError => e
         if retry_if_stale
           wait_for_element(element_id, timeout, false)
         else
-          $logger.warn "StaleElementReferenceError occurred: #{stale_error}"
+          $logger.warn "StaleElementReferenceError occurred: #{e}"
           false
         end
       else
         true
       end
 
+      # A wrapper around find_element adding timer functionality
+      def find_element_timed(element_id)
+        @find_element_timer.time do
+          find_element(@element_locator, element_id)
+        end
+      end
+
       # Clicks a given element
       #
       # @param element_id [String] the element to click
       def click_element(element_id)
-        find_element(@element_locator, element_id).click
+        element = find_element_timed(element_id)
+        @click_element_timer.time do
+          element.click
+        end
       end
 
       # Clicks a given element, ignoring any NoSuchElementError
@@ -84,7 +100,10 @@ module Maze
       # @param element_id [String] the element to click
       # @return [Boolean] True is the element was clicked
       def click_element_if_present(element_id)
-        find_element(@element_locator, element_id).click
+        element = find_element_timed(element_id)
+        @click_element_timer.time do
+          element.click
+        end
         true
       rescue Selenium::WebDriver::Error::NoSuchElementError
         false
@@ -94,7 +113,10 @@ module Maze
       #
       # @param element_id [String] the element to clear
       def clear_element(element_id)
-        find_element(@element_locator, element_id).clear
+        element = find_element_timed(element_id)
+        @clear_element_timer.time do
+          element.clear
+        end
       end
 
       # Sends keys to a given element
@@ -102,7 +124,10 @@ module Maze
       # @param element_id [String] the element to send text to
       # @param text [String] the text to send
       def send_keys_to_element(element_id, text)
-        find_element(@element_locator, element_id).send_keys(text)
+        element = find_element_timed(element_id)
+        @send_keys_timer.time do
+          element.send_keys(text)
+        end
       end
 
       # Sets the rotation of the device
@@ -128,9 +153,14 @@ module Maze
       # @param element_id [String] the element to clear and send text to
       # @param text [String] the text to send
       def clear_and_send_keys_to_element(element_id, text)
-        element = find_element(@element_locator, element_id)
-        element.clear
-        element.send_keys(text)
+        element = find_element_timed(element_id)
+        @clear_element_timer.time do
+          element.clear
+        end
+
+        @send_keys_timer.time do
+          element.send_keys(text)
+        end
       end
 
       # Reset the currently running application after a given timeout

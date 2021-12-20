@@ -10,6 +10,7 @@ require 'uri'
 BeforeAll do
 
   Maze.check = Maze::Checks::AssertCheck.new
+
   # Infer mode of operation from config, one of:
   # - Appium (using either remote or local devices)
   # - Browser (Selenium with local or remote browsers)
@@ -62,7 +63,7 @@ end
 
 # Before each scenario
 Before do |scenario|
-  STDOUT.puts "--- Scenario: #{scenario.name}"
+  $stdout.puts "--- Scenario: #{scenario.name}"
 
   # Invoke the internal hook for the mode of operation
   Maze.internal_hooks.before
@@ -103,7 +104,7 @@ After do |scenario|
 
   # Log unprocessed requests on Buildkite if the scenario fails
   if (scenario.failed? && Maze.config.log_requests) || Maze.config.always_log
-    STDOUT.puts '^^^ +++'
+    $stdout.puts '^^^ +++'
     output_received_requests('errors')
     output_received_requests('sessions')
     output_received_requests('builds')
@@ -139,7 +140,7 @@ def output_received_requests(request_type)
     count = request_queue.size_all
     $logger.info "#{count} #{request_type} were received:"
     request_queue.all.each.with_index(1) do |request, number|
-      STDOUT.puts "--- #{request_type} #{number} of #{count}"
+      $stdout.puts "--- #{request_type} #{number} of #{count}"
       Maze::LogUtil.log_hash(Logger::Severity::INFO, request)
     end
   end
@@ -205,7 +206,12 @@ end
 # After all tests
 AfterAll do
 
-  STDOUT.puts '+++ All scenarios complete'
+  if Maze.timers.size.positive?
+    $stdout.puts '--- Timer summary'
+    Maze.timers.report
+  end
+
+  $stdout.puts '+++ All scenarios complete'
 
   # Stop the mock server
   Maze::Server.stop

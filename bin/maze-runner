@@ -24,6 +24,7 @@ require_relative '../lib/maze/runner'
 require_relative '../lib/maze/sauce_labs_utils'
 require_relative '../lib/maze/server'
 require_relative '../lib/maze/store'
+require_relative '../lib/maze/timers'
 
 require_relative '../lib/maze/checks/noop_check'
 require_relative '../lib/maze/checks/assert_check'

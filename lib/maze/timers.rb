@@ -47,9 +47,11 @@ module Maze
       @timers[name]
     end
 
-    def report
-      return if @timers.empty?
+    def size
+      @timers.size
+    end
 
+    def report
       $logger.info 'Timer totals:'
       @timers.sort.each do |name, timer|
         $logger.info "  #{name}: #{timer.total}"

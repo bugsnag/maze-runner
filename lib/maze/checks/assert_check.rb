@@ -1,9 +1,12 @@
 # frozen_string_literal: true
+require 'test/unit'
 
 module Maze
   module Checks
     # Assertion-backed data verification checks
     class AssertCheck
+      include Test::Unit::Assertions
+
       def true(test, message = nil)
         assert_true(test, message)
       end
@@ -37,8 +40,23 @@ module Maze
       end
 
       def kind_of(klass, object, message = nil)
-        assert_kind_of(klass, object, message = nil)
+        assert_kind_of(klass, object, message)
       end
+
+      def block(message = 'block failed', &block)
+        assert_block(message, &block)
+      end
+
+      def include(collection, object, message = nil)
+        assert_include(collection, object, message)
+      end
+      alias includes include
+
+      def not_include(collection, object, message = nil)
+        assert_not_include(collection, object, message)
+      end
+      alias not_includes not_include
     end
   end
 end
+

@@ -3,8 +3,6 @@ require 'open-uri'
 require 'json'
 require 'cgi'
 
-include Test::Unit::Assertions
-
 # @!group Multipart request assertion steps
 
 # Verifies a request contains the correct Content-Type header and some contents
@@ -14,8 +12,11 @@ include Test::Unit::Assertions
 def valid_multipart_form_data?(request)
   content_regex = Regexp.new('^multipart\\/form-data; boundary=[\\h-]+$')
   content_header = request[:request]['Content-Type']
-  assert_match(content_regex, content_header)
-  assert(request[:body].size.positive?, "Multipart request payload contained #{request[:body].size} fields")
+  Maze.check.match(content_regex, content_header)
+  Maze.check.true(
+    request[:body].size.positive?,
+    "Multipart request payload contained #{request[:body].size} fields"
+  )
 end
 
 # Verifies that any type of request contains multipart form-data
@@ -41,7 +42,7 @@ end
 Then('the {word} multipart request has {int} fields') do |request_type, part_count|
   list = Maze::Server.list_for request_type
   parts = list.current[:body]
-  assert_equal(part_count, parts.size)
+  Maze.check.equal(part_count, parts.size)
 end
 
 # Tests a given type of multipart request has at least one field.
@@ -50,7 +51,7 @@ end
 Then('the {word} multipart request has a non-empty body') do |request_type|
   list = Maze::Server.list_for request_type
   parts = list.current[:body]
-  assert(parts.size.positive?, "Multipart request payload contained #{parts.size} fields")
+  Maze.check.true(parts.size.positive?, "Multipart request payload contained #{parts.size} fields")
 end
 
 # Takes a hashmap and parses all fields into strings or hashes depending on their format
@@ -73,13 +74,13 @@ end
 # @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input json_path [String] Path to a JSON file relative to maze-runner root
 Then('the {word} multipart body does not match the JSON file in {string}') do |request_type, json_path|
-  assert_true(File.exist?(json_path), "'#{json_path}' does not exist")
+  Maze.check.true(File.exist?(json_path), "'#{json_path}' does not exist")
   payload_list = Maze::Server.list_for request_type
   raw_payload_value = payload_list.current[:body]
   payload_value = parse_multipart_body(raw_payload_value)
   expected_value = JSON.parse(open(json_path, &:read))
   result = Maze::Compare.value(expected_value, payload_value)
-  assert_false(result.equal?, "Payload:\n#{payload_value}\nExpected:#{expected_value}")
+  Maze.check.false(result.equal?, "Payload:\n#{payload_value}\nExpected:#{expected_value}")
 end
 
 # Tests that a given type of multipart payload body matches a JSON fixture.
@@ -88,13 +89,13 @@ end
 # @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input json_path [String] Path to a JSON file relative to maze-runner root
 Then('the {word} multipart body matches the JSON file in {string}') do |request_type, json_path|
-  assert_true(File.exist?(json_path), "'#{json_path}' does not exist")
+  Maze.check.true(File.exist?(json_path), "'#{json_path}' does not exist")
   payload_list = Maze::Server.list_for request_type
   raw_payload_value = payload_list.current[:body]
   payload_value = parse_multipart_body(raw_payload_value)
   expected_value = JSON.parse(open(json_path, &:read))
   result = Maze::Compare.value(expected_value, payload_value)
-  assert_true(result.equal?, "The payload field '#{result.keypath}' does not match the fixture:\n #{result.reasons.join('\n')}")
+  Maze.check.true(result.equal?, "The payload field '#{result.keypath}' does not match the fixture:\n #{result.reasons.join('\n')}")
 end
 
 # Tests that a given type of multipart field matches a JSON fixture.
@@ -104,12 +105,12 @@ end
 # @step_input field_path [String] Path to the tested element
 # @step_input json_path [String] Path to a JSON file relative to maze-runner root
 Then('the {word} multipart field {string} matches the JSON file in {string}') do |request_type, field_path, json_path|
-  assert_true(File.exist?(json_path), "'#{json_path}' does not exist")
+  Maze.check.true(File.exist?(json_path), "'#{json_path}' does not exist")
   payload_list = Maze::Server.list_for request_type
   payload_value = JSON.parse(payload_list.current[:body][field_path].to_s)
   expected_value = JSON.parse(open(json_path, &:read))
   result = Maze::Compare.value(expected_value, payload_value)
-  assert_true(result.equal?, "The multipart field '#{result.keypath}' does not match the fixture:\n #{result.reasons.join('\n')}")
+  Maze.check.true(result.equal?, "The multipart field '#{result.keypath}' does not match the fixture:\n #{result.reasons.join('\n')}")
 end
 
 # Tests that a multipart request field exists and is not null.
@@ -118,7 +119,7 @@ end
 # @step_input part_key [String] The key to the multipart element
 Then('the field {string} for multipart {word} is not null') do |part_key, request_type|
   parts = Maze::Server.list_for(request_type).current[:body]
-  assert_not_nil(parts[part_key], "The field '#{part_key}' should not be null")
+  Maze.check.not_nil(parts[part_key], "The field '#{part_key}' should not be null")
 end
 
 # Tests that a multipart request field exists and is null.
@@ -127,7 +128,7 @@ end
 # @step_input request_type [String] The type of request (error, session, build, etc)
 Then('the field {string} for multipart {word} is null') do |part_key, request_type|
   parts = Maze::Server.list_for(request_type).current[:body]
-  assert_nil(parts[part_key], "The field '#{part_key}' should be null")
+  Maze.check.nil(parts[part_key], "The field '#{part_key}' should be null")
 end
 
 # Tests that a multipart request field equals a string.
@@ -137,5 +138,5 @@ end
 # @step_input expected_value [String] The string to match against
 Then('the field {string} for multipart {word} equals {string}') do |part_key, request_type, expected_value|
   parts = Maze::Server.list_for(request_type).current[:body]
-  assert_equal(parts[part_key], expected_value)
+  Maze.check.equal(parts[part_key], expected_value)
 end

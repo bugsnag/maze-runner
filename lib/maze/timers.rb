@@ -5,7 +5,6 @@ module Maze
     attr_accessor :total
 
     def initialize
-      @started = 0
       @total = 0
     end
 

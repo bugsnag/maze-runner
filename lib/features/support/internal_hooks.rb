@@ -207,6 +207,9 @@ end
 # After all tests
 AfterAll do
 
+  STDOUT.puts '--- Timer summary'
+  Maze.timers.report
+
   STDOUT.puts '+++ All scenarios complete'
 
   # Stop the mock server
@@ -219,8 +222,6 @@ AfterAll do
 
   # Invoke the internal hook for the mode of operation
   Maze.internal_hooks.after_all
-
-  Maze.timers.report
 end
 
 at_exit do

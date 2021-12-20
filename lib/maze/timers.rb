@@ -52,7 +52,7 @@ module Maze
 
       $logger.info 'Timer totals:'
       @timers.sort.each do |name, timer|
-        $logger.info "#{name}: #{timer.total}"
+        $logger.info "  #{name}: #{timer.total}"
       end
     end
   end

@@ -1,4 +1,4 @@
-# 6.8.0 - TDB
+# 6.8.0 - 2021/12/21
 
 ## Enhancements
 
@@ -10,7 +10,10 @@
 
 ## Refactor
 
-- Add `Maze.check` to abstract from underlying assertion implementation [#327](https://github.com/bugsnag/maze-runner/pull/327) [#328](https://github.com/bugsnag/maze-runner/pull/328)
+- Add `Maze.check` to abstract from underlying assertion implementation 
+  [#327](https://github.com/bugsnag/maze-runner/pull/327) 
+  [#328](https://github.com/bugsnag/maze-runner/pull/328)
+  [#331](https://github.com/bugsnag/maze-runner/pull/331)
 
 # 6.7.0 - 2021/12/15
 

@@ -122,7 +122,7 @@ GEM
       rubyzip (>= 1.2.2)
     sys-uname (1.2.2)
       ffi (~> 1.1)
-    test-unit (3.5.2)
+    test-unit (3.5.3)
       power_assert
     textutils (1.4.0)
       activesupport

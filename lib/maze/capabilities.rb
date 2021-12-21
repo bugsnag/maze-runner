@@ -58,7 +58,9 @@ module Maze
                            'xcodeOrgId' => team_id,
                            'xcodeSigningId' => 'iPhone Developer',
                            'udid' => udid,
-                           'noReset' => 'true'
+                           'noReset' => 'true',
+                           'waitForQuiescence' => false,
+                           'newCommandTimeout' => 0
                          }
                        when 'macos'
                          {

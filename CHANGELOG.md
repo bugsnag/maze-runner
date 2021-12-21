@@ -4,6 +4,10 @@
 
 - Add `Maze.timers` and Appium operation timing summary [#329](https://github.com/bugsnag/maze-runner/pull/329)
 
+## Fixes
+
+- Set Appium capabilities to speed up iOS App Hang tests locally [#330](https://github.com/bugsnag/maze-runner/pull/330)
+
 ## Refactor
 
 - Add `Maze.check` to abstract from underlying assertion implementation [#327](https://github.com/bugsnag/maze-runner/pull/327) [#328](https://github.com/bugsnag/maze-runner/pull/328)

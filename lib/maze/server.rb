@@ -2,10 +2,11 @@
 
 require 'json'
 require 'webrick'
-require_relative './servlet'
-require_relative './log_servlet'
 require_relative './logger'
 require_relative './request_list'
+require_relative './servlets/command_servlet'
+require_relative './servlets/log_servlet'
+require_relative './servlets/servlet'
 
 module Maze
   # Receives and stores requests through a WEBrick HTTPServer
@@ -153,13 +154,14 @@ module Maze
             end
 
             # When adding more endpoints, be sure to update the 'I should receive no requests' step
-            server.mount '/notify', Servlet, errors
-            server.mount '/sessions', Servlet, sessions
-            server.mount '/builds', Servlet, builds
-            server.mount '/uploads', Servlet, uploads
-            server.mount '/sourcemap', Servlet, sourcemaps
-            server.mount '/react-native-source-map', Servlet, sourcemaps
-            server.mount '/logs', LogServlet
+            server.mount '/notify', Servlets::Servlet, errors
+            server.mount '/sessions', Servlets::Servlet, sessions
+            server.mount '/builds', Servlets::Servlet, builds
+            server.mount '/uploads', Servlets::Servlet, uploads
+            server.mount '/sourcemap', Servlets::Servlet, sourcemaps
+            server.mount '/react-native-source-map', Servlets::Servlet, sourcemaps
+            server.mount '/commands', Servlets::CommandServlet
+            server.mount '/logs', Servlets::LogServlet
             server.start
           rescue StandardError => e
             $logger.warn "Failed to start mock server: #{e.message}"

@@ -96,7 +96,7 @@ module Maze
       #
       # @return [RequestList] Received upload requests
       def uploads
-        @upload ||= RequestList.new
+        @uploads ||= RequestList.new
       end
 
       # A list of sourcemap requests received
@@ -111,6 +111,14 @@ module Maze
       # @return [RequestList] Received log requests
       def logs
         @logs ||= RequestList.new
+      end
+
+      # A list of commands for a test fixture to perform.  Strictly speaking these are responses to HTTP
+      # requests, but the list behavior is all we need.
+      #
+      # @return [RequestList] Commands to be performed
+      def commands
+        @commands ||= RequestList.new
       end
 
       # Whether the server thread is running

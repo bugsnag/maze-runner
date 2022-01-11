@@ -172,7 +172,7 @@ steps:
     concurrency_method: eager
 
   - label: 'Browserstack web browser test - Latest firefox'
-    depends_on: "ci-image-ruby-3"
+    depends_on: "ci-image-ruby-2-7"
     timeout_in_minutes: 10
     plugins:
       docker-compose#v3.7.0:
@@ -184,7 +184,7 @@ steps:
       --farm=bs
       --browser=firefox_latest
     env:
-      RUBY_VERSION: "3"
+      RUBY_VERSION: "2.7"
     concurrency: 5
     concurrency_group: 'browserstack'
 

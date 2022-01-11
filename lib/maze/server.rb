@@ -4,9 +4,6 @@ require 'json'
 require 'webrick'
 require_relative './logger'
 require_relative './request_list'
-require_relative './servlets/command_servlet'
-require_relative './servlets/log_servlet'
-require_relative './servlets/servlet'
 
 module Maze
   # Receives and stores requests through a WEBrick HTTPServer

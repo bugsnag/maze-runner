@@ -60,14 +60,9 @@ module Maze
       # @param request [HTTPRequest] The incoming GET request
       # @param response [HTTPResponse] The response to return
       def do_OPTIONS(request, response)
-        log_request(request)
-        response.header['Access-Control-Allow-Origin'] = '*'
+        super
+
         response.header['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
-        response.header['Access-Control-Allow-Headers'] = %w[Accept
-                                                             Bugsnag-Api-Key Bugsnag-Integrity
-                                                             Bugsnag-Payload-Version
-                                                             Bugsnag-Sent-At Content-Type
-                                                             Origin].join(',')
       end
     end
   end

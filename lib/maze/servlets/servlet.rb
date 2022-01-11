@@ -4,7 +4,7 @@ module Maze
   module Servlets
 
     # Receives and parses the requests and payloads sent from the test fixture
-    class Servlet < WEBrick::HTTPServlet::AbstractServlet
+    class Servlet < BaseServlet
       # Constructor
       #
       # @param server [HTTPServer] WEBrick HTTPServer
@@ -79,15 +79,9 @@ module Maze
       # @param request [HTTPRequest] The incoming GET request
       # @param response [HTTPResponse] The response to return
       def do_OPTIONS(request, response)
-        log_request(request)
-        response.header['Access-Control-Allow-Origin'] = '*'
-        response.header['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
-        response.header['Access-Control-Allow-Headers'] = %w[Accept
-                                                             Bugsnag-Api-Key Bugsnag-Integrity
-                                                             Bugsnag-Payload-Version
-                                                             Bugsnag-Sent-At Content-Type
-                                                             Origin].join(',')
+        super
 
+        response.header['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
         response.status = Server.status_code
       end
 

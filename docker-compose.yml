@@ -171,6 +171,9 @@ services:
       args:
         BRANCH_NAME:
         RUBY_VERSION:
+    environment:
+      BROWSER_STACK_USERNAME:
+      BROWSER_STACK_ACCESS_KEY:
 
 
 networks:

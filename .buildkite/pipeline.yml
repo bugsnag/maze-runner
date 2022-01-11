@@ -179,9 +179,10 @@ steps:
         run: browser-tests
         use-aliases: true
         verbose: true
-        command:
-          - --farm=bs
-          - --browser=firefox_latest
+        command: >-
+          bundle exec maze-runner
+          --farm=bs
+          --browser=firefox_latest
     env:
       RUBY_VERSION: "3"
     concurrency: 5

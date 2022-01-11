@@ -176,12 +176,14 @@ steps:
     timeout_in_minutes: 10
     plugins:
       docker-compose#v3.7.0:
-        run: ci
+        run: browser-tests
         use-aliases: true
         verbose: true
         command:
           - --farm=bs
           - --browser=firefox_latest
+    env:
+      RUBY_VERSION: "3"
     concurrency: 5
     concurrency_group: 'browserstack'
 

@@ -165,6 +165,14 @@ services:
       args:
         RUBY_VERSION:
 
+  browser-tests:
+    build:
+      context: test/fixtures/browser
+      args:
+        BRANCH_NAME:
+        RUBY_VERSION:
+
+
 networks:
   default:
     name: ${BUILDKITE_JOB_ID:-core-maze-runner}

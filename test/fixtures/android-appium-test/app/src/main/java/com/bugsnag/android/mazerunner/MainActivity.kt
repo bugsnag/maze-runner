@@ -8,17 +8,35 @@ import android.widget.Button
 import android.widget.EditText
 import com.bugsnag.android.*
 import java.lang.Exception
+import java.net.URL
+import kotlin.concurrent.thread
+import org.json.JSONObject
+import org.json.JSONTokener
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val button = findViewById<Button>(R.id.trigger_error)
+
+        // Trigger error button
+        var button = findViewById<Button>(R.id.trigger_error)
         button.setOnClickListener {
             val metadata = findViewById<EditText>(R.id.metadata).text.toString()
             val text = if (metadata == "") "HandledException!" else metadata
             Bugsnag.notify(Exception(text))
+        }
+
+        // Run command button
+        button = findViewById<Button>(R.id.run_command)
+        button.setOnClickListener {
+            thread(start = true) {
+                val command = URL("http://maze-local:9339/commands").readText()
+                val jsonObject = JSONTokener(command).nextValue() as JSONObject
+                val metadata = jsonObject.getString("metadata")
+
+                Bugsnag.notify(Exception(metadata))
+            }
         }
     }
 

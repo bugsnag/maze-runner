@@ -11,6 +11,18 @@ Scenario: Test Handled Android Exception
   # Verifies the environment variable change works
   And the error payload field "apiKey" equals the environment variable "BUGSNAG_API_KEY"
 
+Scenario: Test driving a scenario using commands
+  Given I issue a command to notify a "Big bang" handled error
+  And I issue a command to notify a "Small bang" handled error
+
+  Then I run the next command
+  And I run the next command
+  And I wait to receive 2 errors
+
+  Then the exception "message" equals "Big bang"
+  And I discard the oldest error
+  And the exception "message" equals "Small bang"
+
 Scenario: Verify text entry and clearing steps
   Given the element "trigger_error" is present
   And I send the keys "IGNORE ME" to the element "metadata"

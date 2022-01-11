@@ -21,7 +21,14 @@ require_relative '../lib/maze/proxy'
 require_relative '../lib/maze/retry_handler'
 require_relative '../lib/maze/runner'
 require_relative '../lib/maze/sauce_labs_utils'
+
+require_relative '../lib/maze/servlets/base_servlet'
+require_relative '../lib/maze/servlets/command_servlet'
+require_relative '../lib/maze/servlets/servlet'
+require_relative '../lib/maze/servlets/log_servlet'
+require_relative '../lib/maze/servlets/reflective_servlet'
 require_relative '../lib/maze/server'
+
 require_relative '../lib/maze/store'
 require_relative '../lib/maze/timers'
 
@@ -33,11 +40,6 @@ require_relative '../lib/maze/option/parser'
 require_relative '../lib/maze/option/processor'
 require_relative '../lib/maze/option/validator'
 
-require_relative '../lib/maze/servlets/base_servlet'
-require_relative '../lib/maze/servlets/command_servlet'
-require_relative '../lib/maze/servlets/servlet'
-require_relative '../lib/maze/servlets/log_servlet'
-require_relative '../lib/maze/servlets/reflective_servlet'
 
 require_relative '../lib/maze/assertions/request_set_assertions'
 

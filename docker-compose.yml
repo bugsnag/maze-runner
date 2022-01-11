@@ -175,7 +175,6 @@ services:
       BROWSER_STACK_USERNAME:
       BROWSER_STACK_ACCESS_KEY:
 
-
 networks:
   default:
     name: ${BUILDKITE_JOB_ID:-core-maze-runner}

@@ -1,10 +1,8 @@
 require 'yaml'
 
 def get_test_url path
-  host = ENV['HOST']
-  notify = "http://#{ENV['API_HOST']}:#{Maze.config.port}/notify"
-  sessions = "http://#{ENV['API_HOST']}:#{Maze.config.port}/sessions"
-  "http://#{host}:#{FIXTURES_SERVER_PORT}#{path}?NOTIFY=#{notify}&SESSIONS=#{sessions}&API_KEY=#{$api_key}"
+  host = 'bs-local.com'
+  "http://#{host}:#{FIXTURES_SERVER_PORT}#{path}"
 end
 
 BeforeAll do

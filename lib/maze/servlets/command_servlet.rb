@@ -5,7 +5,8 @@ require 'json'
 module Maze
   module Servlets
 
-    # Receives log requests sent from the test fixture
+    # Allows clients to queue up "commands", in the form of Ruby hashes, using Maze::Server.commands.add.  GET
+    # requests made to the /commands endpoint will then respond with each queued command in turn.
     class CommandServlet < BaseServlet
       # Serves the next command, if these is one.
       #

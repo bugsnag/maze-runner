@@ -13,8 +13,6 @@ module Maze
       # @param _request [HTTPRequest] The incoming GET request
       # @param response [HTTPResponse] The response to return
       def do_GET(_request, response)
-        $logger.info 'Asked for a command'
-
         response.header['Access-Control-Allow-Origin'] = '*'
 
         commands = Maze::Server.commands
@@ -26,8 +24,6 @@ module Maze
           response.status = 200
           commands.next
         end
-
-        $logger.info "Provided command response: #{response.body.inspect}"
       end
 
       # Logs and returns a set of valid headers for this servlet.

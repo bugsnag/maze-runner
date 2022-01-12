@@ -39,7 +39,7 @@ module Maze
       mock_http_server.expects(:mount).with('/uploads', any_parameters).once
       mock_http_server.expects(:mount).with('/sourcemap', any_parameters).once
       mock_http_server.expects(:mount).with('/react-native-source-map', any_parameters).once
-      mock_http_server.expects(:mount).with('/commands', any_parameters).once
+      mock_http_server.expects(:mount).with('/command', any_parameters).once
       mock_http_server.expects(:mount).with('/logs', any_parameters).once
 
       mock_http_server.expects(:start)
@@ -84,7 +84,7 @@ module Maze
       mock_http_server.expects(:mount).with('/sourcemap', any_parameters).once
       mock_http_server.expects(:mount).with('/react-native-source-map', any_parameters).once
       mock_http_server.expects(:mount).with('/logs', any_parameters).once
-      mock_http_server.expects(:mount).with('/commands', any_parameters).once
+      mock_http_server.expects(:mount).with('/command', any_parameters).once
       mock_http_server.expects(:start)
       mock_http_server.expects(:shutdown)
       WEBrick::HTTPServer.expects(:new).with(Port: PORT,

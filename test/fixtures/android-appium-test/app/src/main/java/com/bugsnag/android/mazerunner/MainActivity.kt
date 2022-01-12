@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         button = findViewById<Button>(R.id.run_command)
         button.setOnClickListener {
             thread(start = true) {
-                val command = URL("http://maze-local:9339/commands").readText()
+                val command = URL("http://maze-local:9339/command").readText()
                 val jsonObject = JSONTokener(command).nextValue() as JSONObject
                 val metadata = jsonObject.getString("metadata")
 

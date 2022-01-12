@@ -165,7 +165,7 @@ module Maze
             server.mount '/uploads', Servlets::Servlet, uploads
             server.mount '/sourcemap', Servlets::Servlet, sourcemaps
             server.mount '/react-native-source-map', Servlets::Servlet, sourcemaps
-            server.mount '/commands', Servlets::CommandServlet
+            server.mount '/command', Servlets::CommandServlet
             server.mount '/logs', Servlets::LogServlet
             server.start
           rescue StandardError => e

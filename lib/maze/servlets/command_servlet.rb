@@ -6,7 +6,7 @@ module Maze
   module Servlets
 
     # Allows clients to queue up "commands", in the form of Ruby hashes, using Maze::Server.commands.add.  GET
-    # requests made to the /commands endpoint will then respond with each queued command in turn.
+    # requests made to the /command endpoint will then respond with each queued command in turn.
     class CommandServlet < BaseServlet
       # Serves the next command, if these is one.
       #

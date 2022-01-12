@@ -2,7 +2,7 @@
 
 ## Enhancements
 
-- Add `/commands` endpoint [#332](https://github.com/bugsnag/maze-runner/pull/332)
+- Add `/command` endpoint [#332](https://github.com/bugsnag/maze-runner/pull/332)
 
 # 6.8.0 - 2021/12/21
 

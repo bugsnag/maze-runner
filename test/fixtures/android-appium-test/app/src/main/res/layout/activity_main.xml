@@ -18,10 +18,15 @@
             android:inputType="text" />
 
     <Button
-        android:id="@+id/trigger_error"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/error_button"
-/>
+            android:id="@+id/trigger_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/error_button" />
+
+    <Button
+            android:id="@+id/run_command"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/run_command" />
 
 </LinearLayout>

@@ -2,8 +2,6 @@
 
 require 'json'
 require 'webrick'
-require_relative './servlet'
-require_relative './log_servlet'
 require_relative './logger'
 require_relative './request_list'
 
@@ -95,7 +93,7 @@ module Maze
       #
       # @return [RequestList] Received upload requests
       def uploads
-        @upload ||= RequestList.new
+        @uploads ||= RequestList.new
       end
 
       # A list of sourcemap requests received
@@ -110,6 +108,14 @@ module Maze
       # @return [RequestList] Received log requests
       def logs
         @logs ||= RequestList.new
+      end
+
+      # A list of commands for a test fixture to perform.  Strictly speaking these are responses to HTTP
+      # requests, but the list behavior is all we need.
+      #
+      # @return [RequestList] Commands to be performed
+      def commands
+        @commands ||= RequestList.new
       end
 
       # Whether the server thread is running
@@ -153,13 +159,14 @@ module Maze
             end
 
             # When adding more endpoints, be sure to update the 'I should receive no requests' step
-            server.mount '/notify', Servlet, errors
-            server.mount '/sessions', Servlet, sessions
-            server.mount '/builds', Servlet, builds
-            server.mount '/uploads', Servlet, uploads
-            server.mount '/sourcemap', Servlet, sourcemaps
-            server.mount '/react-native-source-map', Servlet, sourcemaps
-            server.mount '/logs', LogServlet
+            server.mount '/notify', Servlets::Servlet, errors
+            server.mount '/sessions', Servlets::Servlet, sessions
+            server.mount '/builds', Servlets::Servlet, builds
+            server.mount '/uploads', Servlets::Servlet, uploads
+            server.mount '/sourcemap', Servlets::Servlet, sourcemaps
+            server.mount '/react-native-source-map', Servlets::Servlet, sourcemaps
+            server.mount '/command', Servlets::CommandServlet
+            server.mount '/logs', Servlets::LogServlet
             server.start
           rescue StandardError => e
             $logger.warn "Failed to start mock server: #{e.message}"

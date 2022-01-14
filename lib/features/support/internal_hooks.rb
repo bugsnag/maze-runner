@@ -158,7 +158,7 @@ def write_requests(scenario)
 
   FileUtils.makedirs(path)
 
-  request_types = %w[errors sessions builds uploads logs sourcemaps]
+  request_types = %w[errors sessions builds uploads logs sourcemaps invalid]
 
   request_types.each do |request_type|
     list = Maze::Server.list_for(request_type).all

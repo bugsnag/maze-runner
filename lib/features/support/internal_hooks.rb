@@ -184,6 +184,11 @@ def write_requests(scenario)
           file.puts request[:body]
         end
         file.puts
+        if request.include?(:reason)
+          file.puts "REASON:"
+          file.puts request[:reason]
+          file.puts
+        end
         counter += 1
       end
     end

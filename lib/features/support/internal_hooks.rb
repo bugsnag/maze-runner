@@ -136,7 +136,7 @@ end
 def output_received_requests(request_type)
   request_queue = Maze::Server.list_for(request_type)
   if request_queue.empty?
-    $logger.info "No valid #{request_type} received"
+    $logger.info "No #{request_type} received"
   else
     count = request_queue.size_all
     $logger.info "#{count} #{request_type} were received:"

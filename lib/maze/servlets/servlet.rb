@@ -69,7 +69,7 @@ module Maze
         })
       rescue StandardError => e
         $logger.error "Invalid request: #{e.message}"
-        Server.invalid_requests({
+        Server.invalid_requests.add({
           reason: e.message,
           request: request,
           body: request.body

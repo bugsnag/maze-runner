@@ -109,6 +109,7 @@ After do |scenario|
     output_received_requests('sessions')
     output_received_requests('builds')
     output_received_requests('logs')
+    output_received_requests('invalid requests')
   end
 
   # Log all received requests to file
@@ -194,11 +195,7 @@ end
 # Furthermore, this hook should appear after the general hook as they are executed in reverse order by Cucumber.
 After do |scenario|
   unless Maze::Server.invalid_requests.empty?
-    Maze::Server.invalid_requests.each.with_index(1) do |request, number|
-      $logger.error "Invalid request #{number} (#{request[:reason]}):"
-      Maze::LogUtil.log_hash(Logger::Severity::ERROR, request)
-    end
-    msg = "#{Maze::Server.invalid_requests.length} invalid request(s) received during scenario"
+    msg = "#{Maze::Server.invalid_requests.size_all} invalid request(s) received during scenario"
     scenario.fail msg
   end
 end

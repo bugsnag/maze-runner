@@ -109,6 +109,7 @@ After do |scenario|
     output_received_requests('sessions')
     output_received_requests('builds')
     output_received_requests('logs')
+    output_received_requests('invalid requests')
   end
 
   # Log all received requests to file
@@ -135,7 +136,7 @@ end
 def output_received_requests(request_type)
   request_queue = Maze::Server.list_for(request_type)
   if request_queue.empty?
-    $logger.info "No valid #{request_type} received"
+    $logger.info "No #{request_type} received"
   else
     count = request_queue.size_all
     $logger.info "#{count} #{request_type} were received:"
@@ -157,7 +158,7 @@ def write_requests(scenario)
 
   FileUtils.makedirs(path)
 
-  request_types = %w[errors sessions builds uploads logs sourcemaps]
+  request_types = %w[errors sessions builds uploads logs sourcemaps invalid]
 
   request_types.each do |request_type|
     list = Maze::Server.list_for(request_type).all
@@ -170,19 +171,35 @@ def write_requests(scenario)
     File.open(filepath, 'w+') do |file|
       list.each do |request|
         file.puts "=== Request #{counter} of #{list.size} ==="
-        file.puts "URI: #{request[:request].request_uri}"
+        if request.include?(:error)
+          error = true
+          uri = request[:request][:request_uri]
+          headers = request[:request][:header]
+          body = request[:request][:body]
+        else
+          error = false
+          uri = request[:request].request_uri
+          headers = request[:request].header
+          body = request[:body]
+        end
+        file.puts "URI: #{uri}"
         file.puts "HEADERS:"
-        request[:request].header.each do |key, values|
+        headers.each do |key, values|
           file.puts "  #{key}: #{values.map {|v| "'#{v}'"}.join(' ')}"
         end
         file.puts
         file.puts "BODY:"
-        if request[:request].header["content-type"].first == 'application/json'
-          file.puts JSON.pretty_generate(request[:body])
+        if error && headers["content-type"].first == 'application/json'
+          file.puts JSON.pretty_generate(body)
         else
-          file.puts request[:body]
+          file.puts body
         end
         file.puts
+        if request.include?(:reason)
+          file.puts "REASON:"
+          file.puts request[:reason]
+          file.puts
+        end
         counter += 1
       end
     end
@@ -194,11 +211,7 @@ end
 # Furthermore, this hook should appear after the general hook as they are executed in reverse order by Cucumber.
 After do |scenario|
   unless Maze::Server.invalid_requests.empty?
-    Maze::Server.invalid_requests.each.with_index(1) do |request, number|
-      $logger.error "Invalid request #{number} (#{request[:reason]}):"
-      Maze::LogUtil.log_hash(Logger::Severity::ERROR, request)
-    end
-    msg = "#{Maze::Server.invalid_requests.length} invalid request(s) received during scenario"
+    msg = "#{Maze::Server.invalid_requests.size_all} invalid request(s) received during scenario"
     scenario.fail msg
   end
 end

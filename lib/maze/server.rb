@@ -63,6 +63,8 @@ module Maze
           uploads
         when 'sourcemap', 'sourcemaps'
           sourcemaps
+        when 'invalid', 'invalid requests'
+          invalid_requests
         else
           raise "Invalid request type '#{type}'"
         end
@@ -123,9 +125,9 @@ module Maze
       # Each request is hash consisting of:
       #   request: The original HTTPRequest object
       #   reason: Reason for being considered invalid. Examples include invalid JSON and missing/invalid digest.
-      # @return [Array] An array of received requests
+      # @return [RequestList] An array of received requests
       def invalid_requests
-        @invalid_requests ||= []
+        @invalid_requests ||= RequestList.new
       end
 
       # Whether the server thread is running

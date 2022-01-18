@@ -1,3 +1,9 @@
+# 6.9.1 - 2022/01/18
+
+## Fixes
+
+- Ensure invalid request logging works correctly in CI mode [#335](https://github.com/bugsnag/maze-runner/pull/335)
+
 # 6.9.0 - 2022/01/12
 
 ## Enhancements

@@ -1,3 +1,9 @@
+# 6.9.2 - 2022/01/18
+
+## Fixes
+
+- Make sure valid requests are output with correct JSON formatting [#336](https://github.com/bugsnag/maze-runner/pull/336)
+
 # 6.9.1 - 2022/01/18
 
 ## Fixes

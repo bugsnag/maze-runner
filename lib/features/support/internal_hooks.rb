@@ -171,13 +171,13 @@ def write_requests(scenario)
     File.open(filepath, 'w+') do |file|
       list.each do |request|
         file.puts "=== Request #{counter} of #{list.size} ==="
-        if request.include?(:error)
-          error = true
+        if request[:invalid]
+          invalid_request = true
           uri = request[:request][:request_uri]
           headers = request[:request][:header]
           body = request[:request][:body]
         else
-          error = false
+          invalid_request = false
           uri = request[:request].request_uri
           headers = request[:request].header
           body = request[:body]
@@ -189,7 +189,7 @@ def write_requests(scenario)
         end
         file.puts
         file.puts "BODY:"
-        if error && headers["content-type"].first == 'application/json'
+        if !invalid_request && headers["content-type"].first == 'application/json'
           file.puts JSON.pretty_generate(body)
         else
           file.puts body

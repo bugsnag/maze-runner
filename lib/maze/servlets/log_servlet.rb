@@ -39,7 +39,7 @@ module Maze
       rescue StandardError => e
         $logger.error "Invalid request: #{e.message}"
         Server.invalid_requests.add({
-          error: true,
+          invalid: true,
           reason: e.message,
           request: {
             request_uri: request.request_uri,

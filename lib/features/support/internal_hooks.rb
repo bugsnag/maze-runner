@@ -53,12 +53,14 @@ BeforeAll do
   Maze.hooks.call_before_all
 end
 
-InstallPlugin do |cucumber_config|
+# @param config The Cucumber config
+InstallPlugin do |config|
   # Start Bugsnag
-  Maze::BugsnagConfig.start_bugsnag(cucumber_config)
+  Maze::BugsnagConfig.start_bugsnag(config)
 
-  cucumber_config.filters << Maze::Plugins::GlobalRetryPlugin.new(cucumber_config)
-  cucumber_config.filters << Maze::Plugins::BugsnagReportingPlugin.new(cucumber_config)
+  # Only add the retry plugin if --retry is not used on the command line
+  config.filters << Maze::Plugins::GlobalRetryPlugin.new(config) if config.options[:retry].zero?
+  config.filters << Maze::Plugins::BugsnagReportingPlugin.new(config)
 end
 
 # Before each scenario

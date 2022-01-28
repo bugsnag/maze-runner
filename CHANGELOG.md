@@ -1,3 +1,9 @@
+# 6.9.3 - 2022/01/28
+
+## Fixes
+
+- Correct retry pluging to allow `--retry` to have an effect [#337](https://github.com/bugsnag/maze-runner/pull/337)
+
 # 6.9.2 - 2022/01/21
 
 ## Fixes

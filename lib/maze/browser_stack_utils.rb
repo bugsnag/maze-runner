@@ -23,7 +23,7 @@ module Maze
 
           wait = Maze::Wait.new(interval: 3, timeout: 30)
 
-          result = wait.until(&lambda do 
+          wait_result = wait.until(&lambda do 
             res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
               http.request(request)
             end

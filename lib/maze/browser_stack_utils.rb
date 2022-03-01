@@ -21,18 +21,22 @@ module Maze
           request.basic_auth(username, access_key)
           request.set_form({ 'file' => File.new(expanded_app, 'rb') }, 'multipart/form-data')
 
-          res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
-            http.request(request)
-          end
+          wait = Maze::Wait.new(interval: 3, timeout: 30)
 
-          begin
-            body = res.body
-            response = JSON.parse body
-            raise "Upload failed due to error: #{response['error']}" if response.include?('error')
-            raise "Upload failed, response did not include and app_url: #{res}" unless response.include?('app_url')
-          rescue JSON::ParserError
-            raise "Error: expected JSON response, received: #{body}"
-          end
+          result = wait.until(&lambda do 
+            res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+              http.request(request)
+            end
+  
+            begin
+              body = res.body
+              response = JSON.parse body
+              raise "Upload failed due to error: #{response['error']}" if response.include?('error')
+              raise "Upload failed, response did not include and app_url: #{res}" unless response.include?('app_url')
+            rescue JSON::ParserError
+              raise "Error: expected JSON response, received: #{body}"
+            end            
+          end)
 
           app_url = response['app_url']
           $logger.info "app uploaded to: #{app_url}"

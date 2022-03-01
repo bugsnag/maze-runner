@@ -21,13 +21,13 @@ module Maze
           request.basic_auth(username, access_key)
           request.set_form({ 'file' => File.new(expanded_app, 'rb') }, 'multipart/form-data')
 
-          wait = Maze::Wait.new(interval: 3, timeout: 30)
+          upload_tries = 0
 
-          wait_result = wait.until(&lambda do 
+          while upload_tries < 3
             res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
               http.request(request)
             end
-  
+
             begin
               body = res.body
               response = JSON.parse body
@@ -35,9 +35,12 @@ module Maze
               raise "Upload failed, response did not include and app_url: #{res}" unless response.include?('app_url')
             rescue JSON::ParserError
               raise "Error: expected JSON response, received: #{body}"
-            end            
-          end)
+            end
 
+            upload_tries = 3 if response.exclude?('error') 
+            upload_tries = tries.next unless response.exclude?('error')
+          end
+          
           app_url = response['app_url']
           $logger.info "app uploaded to: #{app_url}"
           $logger.info 'You can use this url to avoid uploading the same app more than once.'

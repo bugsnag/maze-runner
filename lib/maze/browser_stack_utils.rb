@@ -37,8 +37,8 @@ module Maze
               raise "Error: expected JSON response, received: #{body}"
             end
 
-            upload_tries = 3 if response.exclude?('error') 
-            upload_tries = tries.next unless response.exclude?('error')
+            upload_tries = 3 if !response.include?('error') 
+            upload_tries = tries.next unless !response.include?('error')
           end
           
           app_url = response['app_url']

@@ -31,14 +31,18 @@ module Maze
             begin
               body = res.body
               response = JSON.parse body
-              raise "Upload failed due to error: #{response['error']}" if response.include?('error')
-              raise "Upload failed, response did not include and app_url: #{res}" unless response.include?('app_url')
+              $logger.error "Upload failed due to error: #{response['error']}" if response.include?('error')
+              $logger.error "Upload failed, response did not include and app_url: #{res}" unless response.include?('app_url')
+              break if body.include?('app_url')
             rescue JSON::ParserError
-              raise "Error: expected JSON response, received: #{body}"
+              $logger.error "Error: expected JSON response, received: #{body}"
             end
 
-            upload_tries = 3 if !response.include?('error') 
-            upload_tries = tries.next unless !response.include?('error')
+            upload_tries += 1
+          end
+
+          if response.include?('error') || !response.include?('app_url')
+            raise "Failed to upload app after #{upload_tries} attempts"
           end
           
           app_url = response['app_url']

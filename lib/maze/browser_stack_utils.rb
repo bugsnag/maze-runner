@@ -39,7 +39,7 @@ module Maze
                 # Successful upload
                 break
               end
-            rescue
+            rescue JSON::ParserError
               $logger.error "Error: expected JSON response, received: #{body}"
             end
 

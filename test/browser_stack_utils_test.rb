@@ -74,7 +74,7 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
                                     443,
                                     use_ssl: true)&.returns(response_mock)
 
-    assert_raise(RuntimeError, 'Upload failed due to error: Error') do
+    assert_raise(RuntimeError, 'Failed to upload app after 3 attempts') do
       Maze::BrowserStackUtils.upload_app USERNAME, ACCESS_KEY, APP
     end
   end

@@ -46,7 +46,7 @@ module Maze
             upload_tries += 1
           end
 
-          if response.include?('error') || !response.include?('app_url')
+          if response.nil? || response.include?('error') || !response.include?('app_url')
             raise "Failed to upload app after #{upload_tries} attempts"
           end
           

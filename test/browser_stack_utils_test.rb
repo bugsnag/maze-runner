@@ -56,7 +56,7 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
 
   def test_upload_app_error
     $logger.expects(:info).with("Uploading app: #{APP}").once
-    $logger.expects(:error).with("Error: expected JSON response, received: gobbledygook").once
+    $logger.expects(:error).with("Upload failed due to error: Useless error").at_most(3)
 
     File.expects(:new)&.with(APP, 'rb')&.returns('file')
     Maze::Helper.expects(:expand_path).with(APP).returns(APP)
@@ -67,13 +67,13 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
 
     json_response = JSON.dump(error: 'Useless error')
     response_mock = mock('response')
-    response_mock.expects(:body).returns(json_response)
+    response_mock.expects(:body).at_most(3).returns(json_response)
 
     uri = URI('https://api-cloud.browserstack.com/app-automate/upload')
     Net::HTTP::Post.expects(:new)&.with(uri)&.returns post_mock
     Net::HTTP.expects(:start)&.with('api-cloud.browserstack.com',
                                     443,
-                                    use_ssl: true)&.returns(response_mock)
+                                    use_ssl: true)&.at_most(3).returns(response_mock)
 
     assert_raise(RuntimeError, 'Upload failed due to error: Error') do
       Maze::BrowserStackUtils.upload_app USERNAME, ACCESS_KEY, APP
@@ -82,6 +82,7 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
 
   def test_upload_app_invalid_response
     $logger.expects(:info).with("Uploading app: #{APP}").once
+    $logger.expects(:error).with("Error: expected JSON response, received: gobbledygook").at_most(3)
 
     File.expects(:new)&.with(APP, 'rb')&.returns('file')
 
@@ -91,15 +92,15 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
 
     json_response = 'gobbledygook'
     response_mock = mock('response')
-    response_mock.expects(:body).returns(json_response)
+    response_mock.expects(:body).at_most(3).returns(json_response)
 
     uri = URI('https://api-cloud.browserstack.com/app-automate/upload')
     Net::HTTP::Post.expects(:new)&.with(uri)&.returns post_mock
     Net::HTTP.expects(:start)&.with('api-cloud.browserstack.com',
                                     443,
-                                    use_ssl: true)&.returns(response_mock)
+                                    use_ssl: true)&.at_most(3).returns(response_mock)
 
-    assert_raise(Mocha::ExpectationError, 'Upload failed due to error: Error') do
+    assert_raise(RuntimeError, 'Upload failed due to error: Error') do
       Maze::BrowserStackUtils.upload_app USERNAME, ACCESS_KEY, APP
     end
   end

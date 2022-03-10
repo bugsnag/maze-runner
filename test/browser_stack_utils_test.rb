@@ -56,6 +56,7 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
 
   def test_upload_app_error
     $logger.expects(:info).with("Uploading app: #{APP}").once
+    $logger.expects(:error).with("Error: expected JSON response, received: gobbledygook").once
 
     File.expects(:new)&.with(APP, 'rb')&.returns('file')
     Maze::Helper.expects(:expand_path).with(APP).returns(APP)
@@ -74,7 +75,7 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
                                     443,
                                     use_ssl: true)&.returns(response_mock)
 
-    assert_raise(Mocha::ExpectationError, 'Upload failed due to error: Useless error') do
+    assert_raise(RuntimeError, 'Upload failed due to error: Error') do
       Maze::BrowserStackUtils.upload_app USERNAME, ACCESS_KEY, APP
     end
   end

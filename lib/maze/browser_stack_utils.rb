@@ -34,7 +34,7 @@ module Maze
               if response.include?('error')
                 $logger.error "Upload failed due to error: #{response['error']}"
               elsif !response.include?('app_url')
-                $logger.error "Upload failed, response did not include and app_url: #{res}"
+                $logger.error "Upload failed, response did not include an app_url: #{res}"
               else
                 # Successful upload
                 break

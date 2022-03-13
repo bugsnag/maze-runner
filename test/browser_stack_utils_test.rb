@@ -93,10 +93,10 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
     post_mock.expects(:basic_auth).with(USERNAME, ACCESS_KEY)
     post_mock.expects(:set_form).with({ 'file' => 'file' }, 'multipart/form-data')
 
-    json_response = JSON.dump(app_url: TEST_APP_URL)
-    error_response = JSON.dump(error: 'Useless error')
+    success_json_response = JSON.dump(app_url: TEST_APP_URL)
+    error_json_response = JSON.dump(error: 'Useless error')
     response_mock = mock('response')
-    response_mock.expects(:body).returns(error_response).then.returns(json_response).at_most(2)
+    response_mock.expects(:body).returns(error_json_response).then.returns(success_json_response).at_most(2)
 
     uri = URI('https://api-cloud.browserstack.com/app-automate/upload')
     Net::HTTP::Post.expects(:new)&.with(uri)&.returns post_mock

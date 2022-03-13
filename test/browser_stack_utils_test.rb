@@ -80,6 +80,34 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
     end
   end
 
+  def test_upload_app_retry_success
+    $logger.expects(:info).with("Uploading app: #{APP}").once
+    $logger.expects(:error).with("Upload failed due to error: Useless error").at_most(3)
+
+    $logger.expects(:info).with("app uploaded to: #{TEST_APP_URL}").once
+    $logger.expects(:info).with('You can use this url to avoid uploading the same app more than once.').once
+
+    File.expects(:new)&.with(APP, 'rb')&.returns('file')
+
+    post_mock = mock('request')
+    post_mock.expects(:basic_auth).with(USERNAME, ACCESS_KEY)
+    post_mock.expects(:set_form).with({ 'file' => 'file' }, 'multipart/form-data')
+
+    json_response = JSON.dump(app_url: TEST_APP_URL)
+    error_response = JSON.dump(error: 'Useless error')
+    response_mock = mock('response')
+    response_mock.expects(:body).returns(error_response).then.returns(json_response).at_most(2)
+
+    uri = URI('https://api-cloud.browserstack.com/app-automate/upload')
+    Net::HTTP::Post.expects(:new)&.with(uri)&.returns post_mock
+    Net::HTTP.expects(:start)&.with('api-cloud.browserstack.com',
+                                    443,
+                                    use_ssl: true)&.returns(response_mock).at_most(2)
+
+    url = Maze::BrowserStackUtils.upload_app USERNAME, ACCESS_KEY, APP
+    assert_equal(TEST_APP_URL, url)
+  end
+
   def test_upload_app_invalid_response
     $logger.expects(:info).with("Uploading app: #{APP}").once
     $logger.expects(:error).with("Error: expected JSON response, received: gobbledygook").at_most(3)

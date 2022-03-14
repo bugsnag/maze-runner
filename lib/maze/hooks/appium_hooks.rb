@@ -78,7 +78,7 @@ module Maze
           # Log a link to the BrowserStack session search dashboard
           build = Maze.driver.capabilities[:build]
           url = if config.device
-                  "https://app-automate.browserstack.com/dashboard/v2/search?query=#{build}&type=builds"
+                  Maze::BrowserStackUtils.device_session_log config.username, config.access_key, build
                 else
                   "https://automate.browserstack.com/dashboard/v2/search?query=#{build}&type=builds"
                 end

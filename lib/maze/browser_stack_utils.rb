@@ -70,6 +70,39 @@ module Maze
       rescue Errno::ESRCH
         # ignored
       end
+
+      # Gets the device session build log url from BrowserStack
+      # @param username [String] the BrowserStack username
+      # @param access_key [String] the BrowserStack access key
+      # @param build_name [String] the name of the BrowserStack build
+      def device_session_log(username, access_key, build_name)
+        begin
+          # Get the hashed ID
+          uri = URI("https://api.browserstack.com/app-automate/builds.json?name=#{build_name}")
+          request = Net::HTTP::Get.new(uri)
+          request.basic_auth(username, access_key)
+
+          res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+            http.request(request)
+          end
+
+          build_json = JSON.parse(res.body)
+
+          # Get the session log url
+          uri = URI("https://api.browserstack.com/app-automate/builds/#{build_json[0]['automation_build']['hashed_id']}/sessions")
+          request = Net::HTTP::Get.new(uri)
+          request.basic_auth(username, access_key)
+
+          res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+            http.request(request)
+          end
+
+          session_json = JSON.parse(res.body)
+          session_json[0]['automation_session']['logs']
+        rescue StandardError => e
+          $logger.warn "Unable to get link to device session logs: #{e}"
+        end
+      end
     end
   end
 end

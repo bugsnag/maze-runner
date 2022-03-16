@@ -1,4 +1,4 @@
-FROM licensefinder/license_finder
+FROM licensefinder/license_finder:6.15.0
 
 # Workaround for expired nodesource certificate: https://github.com/nodesource/distributions/issues/1266
 # TODO  Remove this in due course.

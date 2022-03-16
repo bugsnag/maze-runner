@@ -40,6 +40,8 @@ module Maze
     # Sauce Labs-only options
     SL_LOCAL = 'sl-local'
 
+    TMS_URI = 'tms-uri'
+
     # Local-only options
     APPIUM_SERVER = 'appium-server'
     START_APPIUM = 'start-appium'
@@ -55,5 +57,8 @@ module Maze
     # Runtime options
     ENABLE_RETRIES = 'enable-retries'
     ENABLE_BUGSNAG = 'enable-bugsnag'
+
+    # Reporting options
+    TEST_MANAGEMENT_SERVICE = 'test-management-server'
   end
 end

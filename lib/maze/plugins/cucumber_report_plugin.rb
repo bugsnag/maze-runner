@@ -37,6 +37,10 @@ module Maze
       end
 
       def install_plugin(cuc_config)
+        unless Maze.config.tms_uri
+          $logger.warn 'No test report will be delivered for this run'
+          return
+        end
         # Add installation hook
         cuc_config.formats << ['json', {}, json_report_stream]
 
@@ -59,8 +63,27 @@ module Maze
       def finish_report
         session_hash = JSON.parse(json_report_stream.string)
         report[:session] = session_hash
-        File.open('out.json', 'w') do |f|
-          f.write JSON.pretty_generate(report)
+        output_folder = File.join(Dir.pwd, 'maze_output')
+        filename = 'maze_report.json'
+        filepath = File.join(output_folder, filename)
+        File.open(filepath, 'w') do |file|
+          file.puts JSON.pretty_generate(report)
+        end
+        send_report
+      end
+
+      def send_report
+        uri = URI("#{Maze.config.tms_uri}/report")
+        request = Net::HTTP::Post.new(uri)
+        request['Content-Type'] = 'application/json'
+        request.body = JSON.generate(report)
+
+        begin
+          http = Net::HTTP.new(uri.hostname, uri.port)
+          response = http.request(request)
+        rescue => e
+          $logger.warn 'Report delivery attempt failed'
+          $logger.warn e.message
         end
       end
     end

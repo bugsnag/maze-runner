@@ -1,3 +1,9 @@
+# 6.9.4 - 2022/03/16
+
+## Fixes
+
+- Add the `--color` arg to cucumber a default option [#337](https://github.com/bugsnag/maze-runner/pull/340)
+
 # 6.9.3 - 2022/01/28
 
 ## Fixes

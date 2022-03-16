@@ -70,6 +70,7 @@ class MazeRunnerEntry
   def add_cucumber_args
     @args << 'features' if @args.empty?
     @args << '--publish-quiet'
+    @args << '--color'
 
     # Pass strict mode options through to cucumber if present
     # If not we default to strict for undefined and pending results,

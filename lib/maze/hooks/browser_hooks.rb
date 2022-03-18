@@ -5,7 +5,8 @@ module Maze
     class BrowserHooks < InternalHooks
       def before_all
         config = Maze.config
-        if config.farm == :bs
+        case config.farm
+        when :bs
           # BrowserStack browser
           tunnel_id = SecureRandom.uuid
           config.capabilities = Maze::Capabilities.for_browser_stack_browser config.browser,
@@ -14,10 +15,23 @@ module Maze
           Maze::BrowserStackUtils.start_local_tunnel config.bs_local,
                                                      tunnel_id,
                                                      config.access_key
+        when :cbt
+          # CrossBrowserTesting browser
+          tunnel_id = SecureRandom.uuid
+          config.capabilities = Maze::Capabilities.for_cbt_browser config.browser,
+                                                                   tunnel_id,
+                                                                   config.capabilities_option
+          Maze::SmartBearUtils.start_local_tunnel config.sb_local,
+                                                  tunnel_id,
+                                                  config.username,
+                                                  config.access_key
         end
 
         # Create and start the relevant driver
         case config.farm
+        when :cbt
+          selenium_url = "http://#{config.username}:#{config.access_key}@hub.crossbrowsertesting.com:80/wd/hub"
+          Maze.driver = Maze::Driver::Browser.new :remote, selenium_url, config.capabilities
         when :bs
           selenium_url = "http://#{config.username}:#{config.access_key}@hub.browserstack.com/wd/hub"
           Maze.driver = Maze::Driver::Browser.new :remote, selenium_url, config.capabilities

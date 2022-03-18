@@ -29,6 +29,9 @@ module Maze
     OS = 'os'
     OS_VERSION = 'os-version'
 
+    # CrossBrowserTesting/Bitbar options
+    SB_LOCAL = 'sb-local'
+
     # BrowserStack-only options
     BS_LOCAL = 'bs-local'
 

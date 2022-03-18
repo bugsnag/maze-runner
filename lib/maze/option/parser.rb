@@ -105,14 +105,19 @@ module Maze
                 'The Appium version to use',
                 type: :string
 
-            # BrowserStack-only options
-            opt Option::BS_LOCAL,
-                '(BS only) Path to the BrowserStackLocal binary. MAZE_BS_LOCAL env var or "/BrowserStackLocal" by default',
+            # SmartBear-only options
+            opt Option::SB_LOCAL,
+                '(SB only) Path to the SBSecureTunnel binary. MAZE_SB_LOCAL env var or "/SBSecureTunnel" by default',
                 type: :string
 
             # Sauce Labs-only options
             opt Option::SL_LOCAL,
                 '(SL only) Path to the Sauce Connect binary. MAZE_SL_LOCAL env var or "/sauce-connect/bin/sc" by default',
+                type: :string
+
+            # BrowserStack-only options
+            opt Option::BS_LOCAL,
+                '(BS only) Path to the BrowserStackLocal binary. MAZE_BS_LOCAL env var or "/BrowserStackLocal" by default',
                 type: :string
 
             text ''
@@ -186,6 +191,9 @@ module Maze
         # @returns [Hash] The options hash with environment vars added
         def populate_environmental_defaults(options)
           case options.farm
+          when 'cbt'
+            options[Option::USERNAME] ||= ENV['CBT_USERNAME']
+            options[Option::ACCESS_KEY] ||= ENV['CBT_ACCESS_KEY']
           when 'bs'
             options[Option::USERNAME] ||= ENV['BROWSER_STACK_USERNAME']
             options[Option::ACCESS_KEY] ||= ENV['BROWSER_STACK_ACCESS_KEY']
@@ -193,6 +201,7 @@ module Maze
             options[Option::USERNAME] ||= ENV['SAUCE_LABS_USERNAME']
             options[Option::ACCESS_KEY] ||= ENV['SAUCE_LABS_ACCESS_KEY']
           end
+          options[Option::SB_LOCAL] ||= ENV['MAZE_SB_LOCAL'] || '/SBSecureTunnel'
           options[Option::BS_LOCAL] ||= ENV['MAZE_BS_LOCAL'] || '/BrowserStackLocal'
           options[Option::SL_LOCAL] ||= ENV['MAZE_SL_LOCAL'] || '/sauce-connect/bin/sc'
           options[Option::APPIUM_SERVER] ||= ENV['MAZE_APPIUM_SERVER'] || 'http://localhost:4723/wd/hub'

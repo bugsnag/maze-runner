@@ -79,6 +79,7 @@ module Maze
     attr_accessor :resilient
 
     # Device farm to be used, one of:
+    # :cbt (CrossBrowserTesting)
     # :bs (BrowserStack)
     # :local (Using Appium Server with a local device)
     # :none (Cucumber-driven testing with no devices)
@@ -87,6 +88,9 @@ module Maze
     #
     # Device farm specific configuration
     #
+
+    # Location of the SmartBear binary (if used)
+    attr_accessor :sb_local
 
     # Location of the BrowserStackLocal binary (if used)
     attr_accessor :bs_local

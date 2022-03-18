@@ -21,19 +21,35 @@ module Maze
           request.basic_auth(username, access_key)
           request.set_form({ 'file' => File.new(expanded_app, 'rb') }, 'multipart/form-data')
 
-          res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
-            http.request(request)
+          upload_tries = 0
+
+          while upload_tries < 3
+            res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+              http.request(request)
+            end
+
+            begin
+              body = res.body
+              response = JSON.parse body
+              if response.include?('error')
+                $logger.error "Upload failed due to error: #{response['error']}"
+              elsif !response.include?('app_url')
+                $logger.error "Upload failed, response did not include an app_url: #{res}"
+              else
+                # Successful upload
+                break
+              end
+            rescue JSON::ParserError
+              $logger.error "Error: expected JSON response, received: #{body}"
+            end
+
+            upload_tries += 1
           end
 
-          begin
-            body = res.body
-            response = JSON.parse body
-            raise "Upload failed due to error: #{response['error']}" if response.include?('error')
-            raise "Upload failed, response did not include and app_url: #{res}" unless response.include?('app_url')
-          rescue JSON::ParserError
-            raise "Error: expected JSON response, received: #{body}"
+          if response.nil? || response.include?('error') || !response.include?('app_url')
+            raise "Failed to upload app after #{upload_tries} attempts"
           end
-
+          
           app_url = response['app_url']
           $logger.info "app uploaded to: #{app_url}"
           $logger.info 'You can use this url to avoid uploading the same app more than once.'

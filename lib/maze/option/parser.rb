@@ -92,7 +92,7 @@ module Maze
                 type: :string,
                 multi: true
             opt Option::BROWSER,
-                'BrowserStack browser to use (an entry in browsers.yml)',
+                'Browser to use (an entry in browsers_<farm>.yml)',
                 short: :none,
                 type: :string
             opt Option::USERNAME,
@@ -102,7 +102,7 @@ module Maze
                 'Device farm access key. Consumes env var from environment based on farm set',
                 type: :string
             opt Option::APPIUM_VERSION,
-                'The Appium version to use with BrowserStack',
+                'The Appium version to use',
                 type: :string
 
             # BrowserStack-only options

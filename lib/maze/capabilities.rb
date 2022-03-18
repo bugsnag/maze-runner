@@ -21,7 +21,7 @@ module Maze
         capabilities
       end
 
-      # @param browser_type [String] A key from @see browsers.yml
+      # @param browser_type [String] A key from @see browsers_bs.yml
       # @param local_id [String] unique key for the tunnel instance
       # @param capabilities_option [String] extra capabilities provided on the command line
       def for_browser_stack_browser(browser_type, local_id, capabilities_option)
@@ -29,7 +29,7 @@ module Maze
         capabilities['browserstack.local'] = 'true'
         capabilities['browserstack.localIdentifier'] = local_id
         capabilities['browserstack.console'] = 'errors'
-        browsers = YAML.safe_load(File.read("#{__dir__}/browsers.yml"))
+        browsers = YAML.safe_load(File.read("#{__dir__}/browsers_bs.yml"))
         capabilities.merge! browsers[browser_type]
         capabilities.merge! JSON.parse(capabilities_option)
         capabilities

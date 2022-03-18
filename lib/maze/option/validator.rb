@@ -46,7 +46,7 @@ module Maze
           errors << "Either --#{Option::BROWSER} or --#{Option::DEVICE} must be specified"
         elsif browser
 
-          browsers = YAML.safe_load(File.read("#{__dir__}/../browsers.yml"))
+          browsers = YAML.safe_load(File.read("#{__dir__}/../browsers_bs.yml"))
 
           unless browsers.include? browser
             browser_list = browsers.keys.join ', '

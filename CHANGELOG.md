@@ -1,8 +1,14 @@
+# 6.9.5 - 2022/03/18
+
+## Fixes
+
+- Add retry to BrowserStack app upload [#338](https://github.com/bugsnag/maze-runner/pull/338)
+
 # 6.9.4 - 2022/03/16
 
 ## Fixes
 
-- Add the `--color` arg to cucumber a default option [#337](https://github.com/bugsnag/maze-runner/pull/340)
+- Add the `--color` arg to cucumber a default option [#340](https://github.com/bugsnag/maze-runner/pull/340)
 
 # 6.9.3 - 2022/01/28
 

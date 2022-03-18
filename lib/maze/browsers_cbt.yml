@@ -1,0 +1,100 @@
+# Selenium capabilities for browserNames available on CrossbrowserNameTesting
+---
+ie_8:
+  browserName: "Internet Explorer"
+  version: "8"
+  platform: "Windows 7"
+
+ie_9:
+  browserName: "Internet Explorer"
+  version: "9"
+  platform: "Windows 7"
+
+ie_10:
+  browserName: "Internet Explorer"
+  version: "10"
+  os: "windows"
+  platform: "Windows 7 64-Bit"
+
+ie_11:
+  browserName: "Internet Explorer"
+  version: "11"
+  platform: "Windows 7 64-Bit"
+
+edge_14:
+  browserName: "MicrosoftEdge"
+  version: "14"
+  platform: "Windows 10"
+
+edge_15:
+  browserName: "MicrosoftEdge"
+  version: "15"
+  platform: "Windows 10"
+
+safari_8:
+  browserName: "Safari"
+  version: "8"
+  platform: "Mac OSX 10.10"
+
+safari_10:
+  browserName: "Safari"
+  version: "10.0"
+  platform: "Mac OSX 10.12"
+
+safari_13:
+  browserName: "Safari"
+  version: "13.0"
+  platform: "Mac OSX 10.15"
+
+safari_14:
+  browserName: "Safari"
+  version: "14.0"
+  platform: "MacOS 11"
+
+iphone_7_simulator:
+  browserName: "Safari"
+  deviceName: "iPhone 7 Simulator"
+  platformVersion': "10.0"
+  platformName': "iOS"
+
+iphone_xr:
+  browserName: "Safari"
+  deviceName': "iPhone XR"
+  platformVersion': "12.1"
+  platformName': "iOS"
+
+android_s7:
+  browserName: "Chrome"
+  deviceName: "Galaxy S7"
+  platformVersion: "7.0"
+  platformName: "Android"
+
+firefox_30:
+  browserName: "Firefox"
+  version: "30"
+  platform: "Windows 7"
+
+firefox_56:
+  browserName: "Firefox"
+  version: "56"
+  platform: "Mac OSX 10.13"
+
+firefox_95:
+  browserName: "Firefox"
+  version: "95"
+  platform: "Windows 10"
+
+chrome_43:
+  browserName: "Chrome"
+  version: "43"
+  platform: "Windows 7"
+
+chrome_61:
+  browserName: "Chrome"
+  version: "61"
+  platform: "Windows 10"
+
+chrome_96:
+  browserName: "Chrome"
+  version: "96"
+  platform: "Windows 10"

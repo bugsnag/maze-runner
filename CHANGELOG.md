@@ -1,3 +1,9 @@
+# 6.9.6 - 2022/03/18
+
+## Fixes
+
+- Improve links to BrowserStack device session logs [#339](https://github.com/bugsnag/maze-runner/pull/339)
+
 # 6.9.5 - 2022/03/18
 
 ## Fixes

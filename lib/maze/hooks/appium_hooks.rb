@@ -92,14 +92,14 @@ module Maze
             session_number = 1
 
             build_info.each do |session|
-              $logger.info "Downloading Device Logs for Session #{session_number}"
+              $logger.info "Uploading Device Logs for Session #{session_number}"
 
               Maze::BrowserStackUtils.download_log config.username,
                                                    config.access_key,
                                                    session['automation_session']['device_logs_url'],
                                                    session_number
 
-              $logger.info "Downloading Appium Logs for Session #{session_number}"
+              $logger.info "Uploading Appium Logs for Session #{session_number}"
 
               Maze::BrowserStackUtils.download_log config.username,
                                                    config.access_key,

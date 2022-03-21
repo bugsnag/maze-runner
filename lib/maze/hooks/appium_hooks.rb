@@ -78,12 +78,21 @@ module Maze
           # Log a link to the BrowserStack session search dashboard
           build = Maze.driver.capabilities[:build]
           url = if config.device
-                  Maze::BrowserStackUtils.device_session_log config.username, config.access_key, build
+                  "https://app-automate.browserstack.com/dashboard/v2/search?query=#{build}&type=builds"
                 else
                   "https://automate.browserstack.com/dashboard/v2/search?query=#{build}&type=builds"
                 end
           if ENV['BUILDKITE']
-            $logger.info Maze::LogUtil.linkify url, 'BrowserStack session(s)'
+            $logger.info Maze::LogUtil.linkify url, 'BrowserStack Build'
+            browserstack_res = Maze::BrowserStackUtils.device_session_log config.username, config.access_key, build
+            session_num = 1
+            browserstack_res.each do |session|
+              $logger.info Maze::LogUtil.linkify session['automation_session']['browser_url'], "Session #{session_num} URL"
+              $logger.info Maze::LogUtil.linkify session['automation_session']['logs'], "Session #{session_num} Log URL"
+              $logger.info Maze::LogUtil.linkify session['automation_session']['appium_logs_url'], "Session #{session_num} Appium Log URL"
+              $logger.info Maze::LogUtil.linkify session['automation_session']['device_logs_url'], "Session #{session_num} Device Log URL"
+              session_num += 1
+            end
           else
             $logger.info "BrowserStack session(s): #{url}"
           end

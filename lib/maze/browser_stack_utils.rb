@@ -114,7 +114,6 @@ module Maze
           end
 
           session_json = JSON.parse(res.body)
-          session_json[0]['automation_session']['logs']
         rescue StandardError => e
           $logger.warn "Unable to get link to device session logs: #{e}"
         end

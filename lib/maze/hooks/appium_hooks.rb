@@ -83,15 +83,31 @@ module Maze
                   "https://automate.browserstack.com/dashboard/v2/search?query=#{build}&type=builds"
                 end
           if ENV['BUILDKITE']
-            $logger.info Maze::LogUtil.linkify url, 'BrowserStack Build'
-            browserstack_res = Maze::BrowserStackUtils.device_session_log config.username, config.access_key, build
-            session_num = 1
-            browserstack_res.each do |session|
-              $logger.info Maze::LogUtil.linkify session['automation_session']['browser_url'], "Session #{session_num} URL"
-              $logger.info Maze::LogUtil.linkify session['automation_session']['logs'], "Session #{session_num} Log URL"
-              $logger.info Maze::LogUtil.linkify session['automation_session']['appium_logs_url'], "Session #{session_num} Appium Log URL"
-              $logger.info Maze::LogUtil.linkify session['automation_session']['device_logs_url'], "Session #{session_num} Device Log URL"
-              session_num += 1
+            build_info = Maze::BrowserStackUtils.build_info config.username,
+                                                            config.access_key,
+                                                            build
+
+            $logger.info Maze::LogUtil.linkify url, 'BrowserStack Build URL'
+
+            session_number = 1
+
+            build_info.each do |session|
+              $logger.info "Downloading Device Logs for Session #{session_number}"
+
+              download_log config.username,
+                           config.access_key,
+                           session['automation_session']['device_logs_url'],
+                           session_number
+
+              $logger.info "Downloading Appium Logs for Session #{session_number}"
+
+              download_log config.username,
+                           config.access_key,
+                           session['automation_session']['appium_logs_url'],
+                           session_number
+
+              session_number += 1
+
             end
           else
             $logger.info "BrowserStack session(s): #{url}"

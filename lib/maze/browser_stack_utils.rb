@@ -87,13 +87,13 @@ module Maze
         # ignored
       end
 
-      # Gets the device session build log url from BrowserStack
+      # Gets the build/session info from BrowserStack
       # @param username [String] the BrowserStack username
       # @param access_key [String] the BrowserStack access key
       # @param build_name [String] the name of the BrowserStack build
-      def device_session_log(username, access_key, build_name)
+      def build_info(username, access_key, build_name)
         begin
-          # Get the hashed ID
+          # Get the ID of a build
           uri = URI("https://api.browserstack.com/app-automate/builds.json?name=#{build_name}")
           request = Net::HTTP::Get.new(uri)
           request.basic_auth(username, access_key)
@@ -102,10 +102,11 @@ module Maze
             http.request(request)
           end
 
-          build_json = JSON.parse(res.body)
+          build_id = JSON.parse(res.body)
+          build_id = build_id[0]['automation_build']['hashed_id']
 
-          # Get the session log url
-          uri = URI("https://api.browserstack.com/app-automate/builds/#{build_json[0]['automation_build']['hashed_id']}/sessions")
+          # Get the build info
+          uri = URI("https://api.browserstack.com/app-automate/builds/#{build_id}/sessions")
           request = Net::HTTP::Get.new(uri)
           request.basic_auth(username, access_key)
 
@@ -113,9 +114,45 @@ module Maze
             http.request(request)
           end
 
-          session_json = JSON.parse(res.body)
+          build_json = JSON.parse(res.body)
         rescue StandardError => e
-          $logger.warn "Unable to get link to device session logs: #{e}"
+          $logger.warn "Unable to get build info: #{e}"
+        end
+      end
+
+      # Downloads logs from a BrowserStack URL
+      # @param username [String] the BrowserStack username
+      # @param access_key [String] the BrowserStack access key
+      # @param log_url [String] url to the log
+      # @param session_number [Integer] the session number that we are saving the log for
+      def download_log(username, access_key, log_url, session_number)
+        begin
+          folder1 = File.join(Dir.pwd, 'maze_output')
+
+          if log_url.include?('devicelogs')
+            folder2 = 'devicelogs'
+          elsif log_url.include?('appiumlogs')
+            folder2 = 'appiumlogs'
+          else
+            folder2 = 'browserstack'
+          end
+
+          path = File.join(folder1, folder2)
+          FileUtils.makedirs(path)
+
+
+          uri = URI(log_url)
+          request = Net::HTTP::Get.new(uri)
+          request.basic_auth(username, access_key)
+
+          res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+            http.request(request)
+          end
+
+          File.open("#{path}/session_#{session_number}.log", 'w+') { |file| file.write(res.body) }
+        rescue StandardError => e
+          $logger.warn "Unable to save log from #{log_url}"
+          $logger.warn e
         end
       end
     end

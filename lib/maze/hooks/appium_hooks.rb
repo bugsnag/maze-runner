@@ -94,17 +94,17 @@ module Maze
             build_info.each do |session|
               $logger.info "Downloading Device Logs for Session #{session_number}"
 
-              download_log config.username,
-                           config.access_key,
-                           session['automation_session']['device_logs_url'],
-                           session_number
+              Maze::BrowserStackUtils.download_log config.username,
+                                                   config.access_key,
+                                                   session['automation_session']['device_logs_url'],
+                                                   session_number
 
               $logger.info "Downloading Appium Logs for Session #{session_number}"
 
-              download_log config.username,
-                           config.access_key,
-                           session['automation_session']['appium_logs_url'],
-                           session_number
+              Maze::BrowserStackUtils.download_log config.username,
+                                                   config.access_key,
+                                                   session['automation_session']['appium_logs_url'],
+                                                   session_number
 
               session_number += 1
 

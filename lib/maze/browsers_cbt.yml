@@ -49,7 +49,7 @@ safari_13:
 safari_14:
   browserName: "Safari"
   version: "14"
-  platform: "MacOS 11"
+  platform: "MacOS 11.0"
 
 iphone_7_simulator:
   browserName: "Safari"

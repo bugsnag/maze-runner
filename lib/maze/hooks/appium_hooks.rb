@@ -89,25 +89,21 @@ module Maze
 
             $logger.info Maze::LogUtil.linkify url, 'BrowserStack Build URL'
 
-            session_number = 1
 
-            build_info.each do |session|
-              $logger.info "Uploading Device Logs for Session #{session_number}"
+            build_info.each_with_index do |session, index|
+              $logger.info "Downloading Device Logs for Session #{index + 1}"
 
               Maze::BrowserStackUtils.download_log config.username,
                                                    config.access_key,
                                                    session['automation_session']['device_logs_url'],
-                                                   session_number
+                                                   index + 1
 
-              $logger.info "Uploading Appium Logs for Session #{session_number}"
+              $logger.info "Downloading Appium Logs for Session #{index + 1}"
 
               Maze::BrowserStackUtils.download_log config.username,
                                                    config.access_key,
                                                    session['automation_session']['appium_logs_url'],
-                                                   session_number
-
-              session_number += 1
-
+                                                   index + 1
             end
           else
             $logger.info "BrowserStack session(s): #{url}"

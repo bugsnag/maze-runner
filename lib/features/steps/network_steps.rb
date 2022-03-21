@@ -48,3 +48,13 @@ When('I open the URL {string}') do |url|
     $logger.debug $!.inspect
   end
 end
+
+# Starts the terminating server to cancel requests received.
+When('I start the terminating server') do
+  Maze::TerminatingServer.start
+end
+
+# Sets the response message on the terminating server
+When('I set the terminated response message to {string}') do |response_message|
+  Maze::TerminatingServer.response = response_message
+end

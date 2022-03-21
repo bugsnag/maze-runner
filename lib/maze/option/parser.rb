@@ -45,6 +45,9 @@ module Maze
             opt Option::PORT,
                 'Mock server port',
                 default: 9339
+            opt Option::NULL_PORT,
+                'Terminating connection port',
+                default: 9341
 
             text ''
             text 'Document server options:'

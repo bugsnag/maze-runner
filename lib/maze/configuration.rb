@@ -21,6 +21,9 @@ module Maze
     # Mock server port
     attr_accessor :port
 
+    # Terminating server bind port
+    attr_accessor :null_port
+
     #
     # Document server configuration
     #

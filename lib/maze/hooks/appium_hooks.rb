@@ -83,28 +83,7 @@ module Maze
                   "https://automate.browserstack.com/dashboard/v2/search?query=#{build}&type=builds"
                 end
           if ENV['BUILDKITE']
-            build_info = Maze::BrowserStackUtils.build_info config.username,
-                                                            config.access_key,
-                                                            build
-
             $logger.info Maze::LogUtil.linkify url, 'BrowserStack Build URL'
-
-
-            build_info.each_with_index do |session, index|
-              $logger.info "Downloading Device Logs for Session #{index + 1}"
-
-              Maze::BrowserStackUtils.download_log config.username,
-                                                   config.access_key,
-                                                   session['automation_session']['device_logs_url'],
-                                                   index + 1
-
-              $logger.info "Downloading Appium Logs for Session #{index + 1}"
-
-              Maze::BrowserStackUtils.download_log config.username,
-                                                   config.access_key,
-                                                   session['automation_session']['appium_logs_url'],
-                                                   index + 1
-            end
           else
             $logger.info "BrowserStack session(s): #{url}"
           end

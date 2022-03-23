@@ -140,8 +140,6 @@ module Maze
           path = File.join(folder1, folder2)
           FileUtils.makedirs(path)
 
-          sleep(15)
-
           uri = URI(log_url)
           request = Net::HTTP::Get.new(uri)
           request.basic_auth(username, access_key)

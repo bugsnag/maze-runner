@@ -236,6 +236,25 @@ AfterAll do
   # future test runs are from a clean slate.
   Maze::Docker.down_all_services
 
+  build_info = Maze::BrowserStackUtils.build_info config.username,
+                                                  config.access_key,
+                                                  Maze.capabilities[:build]
+  build_info.each_with_index do |session, index|
+    $logger.info "Downloading Device Logs for Session #{index + 1}"
+
+    Maze::BrowserStackUtils.download_log config.username,
+                                         config.access_key,
+                                         session['automation_session']['device_logs_url'],
+                                         index + 1
+
+    $logger.info "Downloading Appium Logs for Session #{index + 1}"
+
+    Maze::BrowserStackUtils.download_log config.username,
+                                         config.access_key,
+                                         session['automation_session']['appium_logs_url'],
+                                         index + 1
+  end
+
   # Invoke the internal hook for the mode of operation
   Maze.internal_hooks.after_all
 end

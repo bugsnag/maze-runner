@@ -155,7 +155,7 @@ module Maze
       def after_all
         $logger.info "Waiting for BrowserStack logs"
 
-        sleep 90
+        sleep 120
         build_info = Maze::BrowserStackUtils.build_info Maze.config.username,
                                                         Maze.config.access_key,
                                                         Maze.driver.capabilities[:build]

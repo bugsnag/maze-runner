@@ -155,7 +155,7 @@ module Maze
       def after_all
         build_info = Maze::BrowserStackUtils.build_info Maze.config.username,
                                                         Maze.config.access_key,
-                                                        Maze.capabilities[:build]
+                                                        Maze.driver.capabilities[:build]
         build_info.each_with_index do |session, index|
           $logger.info "Downloading Device Logs for Session #{index + 1}"
 

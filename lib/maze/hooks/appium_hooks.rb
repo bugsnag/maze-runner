@@ -153,21 +153,21 @@ module Maze
       end
 
       def after_all
-        build_info = Maze::BrowserStackUtils.build_info config.username,
-                                                        config.access_key,
+        build_info = Maze::BrowserStackUtils.build_info Maze.config.username,
+                                                        Maze.config.access_key,
                                                         Maze.capabilities[:build]
         build_info.each_with_index do |session, index|
           $logger.info "Downloading Device Logs for Session #{index + 1}"
 
-          Maze::BrowserStackUtils.download_log config.username,
-                                               config.access_key,
+          Maze::BrowserStackUtils.download_log Maze.config.username,
+                                               Maze.config.access_key,
                                                session['automation_session']['device_logs_url'],
                                                index + 1
 
           $logger.info "Downloading Appium Logs for Session #{index + 1}"
 
-          Maze::BrowserStackUtils.download_log config.username,
-                                               config.access_key,
+          Maze::BrowserStackUtils.download_log Maze.config.username,
+                                               Maze.config.access_key,
                                                session['automation_session']['appium_logs_url'],
                                                index + 1
         end

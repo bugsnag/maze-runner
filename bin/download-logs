@@ -11,13 +11,21 @@ require 'fileutils'
 
 class DownloadLogEntry
   def start(args)
+    # TODO change this to --file and --build-id
     @args = args.dup
     options = args
+
+    # Get browserstack username and access key from the environment
+    # TODO pull these in the same way that MazeRunner does
     username = ENV['BROWSER_STACK_USERNAME']
     access_key = ENV['BROWSER_STACK_ACCESS_KEY']
+
     build_name = []
+
+    # Check if the argument that we are passing is a file
     if File.file? options[0]
       File.readlines(options[0]).each do |line|
+        # Add each line of the file to the array minus the trailing \n
         build_name << line.gsub("\n", "")
       end
     else
@@ -38,6 +46,7 @@ class DownloadLogEntry
                                              name,
                                              session['automation_session']['device_logs_url'],
                                              index + 1
+
         $logger.info "Downloading Appium Logs for Session: #{index + 1}"
         Maze::BrowserStackUtils.download_log username,
                                              access_key,

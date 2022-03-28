@@ -2,62 +2,49 @@
 # frozen_string_literal: true
 
 require_relative '../lib/maze'
+require_relative '../lib/maze/browser_stack_utils'
 require_relative '../lib/maze/logger'
 require 'net/http'
 require 'json'
 require 'uri'
+require 'fileutils'
 
 class DownloadLogEntry
-  def build_info(username, access_key, build_name)
-    begin
-      # Get the ID of a build
-      uri = URI("https://api.browserstack.com/app-automate/builds.json?name=#{build_name}")
-      request = Net::HTTP::Get.new(uri)
-      request.basic_auth(username, access_key)
-
-      res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
-        http.request(request)
-      end
-
-      build_id = JSON.parse(res.body)
-      build_id = build_id[0]['automation_build']['hashed_id']
-
-      # Get the build info
-      uri = URI("https://api.browserstack.com/app-automate/builds/#{build_id}/sessions")
-      request = Net::HTTP::Get.new(uri)
-      request.basic_auth(username, access_key)
-
-      res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
-        http.request(request)
-      end
-
-      build_json = JSON.parse(res.body)
-    rescue StandardError => e
-      $logger.warn "Unable to get build info: #{e}"
-    end
-  end
-
   def start(args)
-
-    config = Maze.config
+    @args = args.dup
+    options = args
+    username = ENV['BROWSER_STACK_USERNAME']
+    access_key = ENV['BROWSER_STACK_ACCESS_KEY']
     build_name = []
-
-    # Check if argument is a file
-    if File.file? args[0]
-      File.readlines(args[0]).each do |line|
-        build_name << line
+    if File.file? options[0]
+      File.readlines(options[0]).each do |line|
+        build_name << line.gsub("\n", "")
       end
     else
-      build_name << args[0]
+      build_name << options[0]
     end
 
     build_name.each do |name|
-      $logger.info "Getting build ID for #{name}"
-      build_id = build_info config.username,
-                            config.access_key,
-                            name
+      build_info = Maze::BrowserStackUtils.build_info username,
+                                                      access_key,
+                                                      name
 
-      $logger.info "Build ID: #{build_id}"
+      $logger.info "Getting logs for build: #{name}"
+
+      build_info.each_with_index do |session, index|
+        $logger.info "Downloading Device Logs for Session: #{index + 1}"
+        Maze::BrowserStackUtils.download_log username,
+                                             access_key,
+                                             name,
+                                             session['automation_session']['device_logs_url'],
+                                             index + 1
+        $logger.info "Downloading Appium Logs for Session: #{index + 1}"
+        Maze::BrowserStackUtils.download_log username,
+                                             access_key,
+                                             name,
+                                             session['automation_session']['appium_logs_url'],
+                                             index + 1
+      end
     end
   end
 end

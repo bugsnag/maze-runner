@@ -139,6 +139,14 @@ module Maze
             config.capabilities = device_capabilities(config, tunnel_id)
             driver = create_driver(config)
             driver.start_driver unless config.appium_session_isolation
+            if Maze.config.os_version < 1
+              Maze.config.os_version = case Maze.config.os
+              when 'android'
+                driver.session_capabilities['platformVersion'].to_f
+              when 'ios'
+                driver.session_capabilities['sdkVersion'].to_f
+              end
+            end
             Maze.driver = driver
           rescue Selenium::WebDriver::Error::UnknownError => original_exception
             $logger.warn "Attempt to acquire #{config.device} device from farm #{config.farm} failed"

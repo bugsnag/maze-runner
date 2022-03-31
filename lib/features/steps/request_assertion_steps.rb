@@ -100,7 +100,7 @@ Then('the received errors match:') do |table|
 
       events = request[:body]['events']
       Maze.check.equal(1, events.length, 'Expected exactly one event per request')
-      match_count += 1 if request_matches_row(events[0], row)
+      match_count += 1 if Maze::Assertions::RequestSetAssertions.request_matches_row(events[0], row)
     end
   end
   Maze.check.equal(requests.size, match_count, 'Unexpected number of requests matched the received payloads')

@@ -49,6 +49,10 @@ when 'info-log'
  '{"level":"INFO","message":"Today is 2021-02-03"}'
 when 'error-log'
  '{"level":"ERROR","message":"The world is still on pause"}'
+when 'error 1'
+ '{"events":[{"null?":"nope","count":"one"}]}'
+when 'error 2'
+ '{"events":[{"count":"two"}]}'
 else
   exit(1)
 end

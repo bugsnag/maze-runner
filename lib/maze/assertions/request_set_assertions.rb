@@ -71,6 +71,7 @@ module Maze
           row.each do |key, expected_value|
             obs_val = Maze::Helper.read_key_path(body, key)
             next if ('null'.eql? expected_value) && obs_val.nil? # Both are null/nil
+            next if ('@not_null'.eql? expected_value) && !obs_val.nil? # The value isn't null
 
             unless obs_val.nil?
               if expected_value[0] == '/' && expected_value[-1] == '/'

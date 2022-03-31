@@ -1,3 +1,9 @@
+# 6.9.6 - 2022/03/31
+
+## Fixes
+
+- Fix received errors match step [#346](https://github.com/bugsnag/maze-runner/pull/346)
+
 # 6.9.5 - 2022/03/18
 
 ## Fixes

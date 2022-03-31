@@ -7,54 +7,56 @@ require_relative '../lib/maze/logger'
 require 'net/http'
 require 'json'
 require 'uri'
+require 'optimist'
 require 'fileutils'
 
 class DownloadLogEntry
   def start(args)
-    # TODO change this to --file and --build-id
-    @args = args.dup
-    options = args
+    p = Optimist::Parser.new do
+      text 'Download device sessions logs from BrowserStack using the build ID'
+      text ''
+      text 'Usage [OPTIONS] <filenames>'
+      text ''
+      text 'Overridden Cucumber options:'
+      opt :help,
+          'Print this help.'
+      opt :build_id,
+          "ID of the BrowserStack build",
+          :type => :string
+    end
+
+    opts = Optimist::with_standard_exception_handling p do
+      raise Optimist::HelpNeeded if ARGV.empty? # show help screen
+      p.parse ARGV
+    end
 
     # Get browserstack username and access key from the environment
     # TODO pull these in the same way that MazeRunner does
     username = ENV['BROWSER_STACK_USERNAME']
     access_key = ENV['BROWSER_STACK_ACCESS_KEY']
 
-    build_name = []
 
-    # TODO Check that we have an argument
-    # Check if the argument that we are passing is a file
-    if File.file? options[0]
-      File.readlines(options[0]).each do |line|
-        # Add each line of the file to the array minus the trailing \n
-        build_name << line.gsub("\n", "")
-      end
-    else
-      build_name << options[0]
-    end
+    build_info = Maze::BrowserStackUtils.build_info username,
+                                                    access_key,
+                                                    opts[:build_id]
 
-    build_name.each do |name|
-      build_info = Maze::BrowserStackUtils.build_info username,
-                                                      access_key,
-                                                      name
+    $logger.info "Getting logs for build: #{opts[:build_id]}"
 
-      $logger.info "Getting logs for build: #{name}"
+    build_info.each_with_index do |session, index|
+      $logger.info "Downloading Device Logs for Session: #{index + 1}"
+      Maze::BrowserStackUtils.download_log username,
+                                           access_key,
+                                           opts[:build_id],
+                                           session['automation_session']['device_logs_url'],
+                                           index + 1
 
-      build_info.each_with_index do |session, index|
-        $logger.info "Downloading Device Logs for Session: #{index + 1}"
-        Maze::BrowserStackUtils.download_log username,
-                                             access_key,
-                                             name,
-                                             session['automation_session']['device_logs_url'],
-                                             index + 1
+      $logger.info "Downloading Appium Logs for Session: #{index + 1}"
+      Maze::BrowserStackUtils.download_log username,
+                                           access_key,
+                                           opts[:build_id],
+                                           session['automation_session']['appium_logs_url'],
+                                           index + 1
 
-        $logger.info "Downloading Appium Logs for Session: #{index + 1}"
-        Maze::BrowserStackUtils.download_log username,
-                                             access_key,
-                                             name,
-                                             session['automation_session']['appium_logs_url'],
-                                             index + 1
-      end
     end
   end
 end

@@ -39,7 +39,7 @@ class DownloadLogEntry
     build_info = Maze::BrowserStackUtils.build_info username,
                                                     access_key,
                                                     opts[:build_id]
-
+    
     $logger.info "Getting logs for build: #{opts[:build_id]}"
 
     build_info.each_with_index do |session, index|

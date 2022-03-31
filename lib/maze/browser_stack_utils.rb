@@ -101,19 +101,25 @@ module Maze
           http.request(request)
         end
 
-        build_id = JSON.parse(res.body)
-        build_id = build_id[0]['automation_build']['hashed_id']
+        build_info = JSON.parse(res.body)
 
-        # Get the build info
-        uri = URI("https://api.browserstack.com/app-automate/builds/#{build_id}/sessions")
-        request = Net::HTTP::Get.new(uri)
-        request.basic_auth(username, access_key)
+        if !build_info.empty?
+          build_id = build_info[0]['automation_build']['hashed_id']
 
-        res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
-          http.request(request)
+          # Get the build info
+          uri = URI("https://api.browserstack.com/app-automate/builds/#{build_id}/sessions")
+          request = Net::HTTP::Get.new(uri)
+          request.basic_auth(username, access_key)
+
+          res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+            http.request(request)
+          end
+
+          build_json = JSON.parse(res.body)
+        else
+          raise "No build found for given ID: #{build_name}"
         end
 
-        build_json = JSON.parse(res.body)
       end
 
       # @param username [String] the BrowserStack username

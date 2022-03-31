@@ -22,6 +22,7 @@ class DownloadLogEntry
 
     build_name = []
 
+    # TODO Check that we have an argument
     # Check if the argument that we are passing is a file
     if File.file? options[0]
       File.readlines(options[0]).each do |line|

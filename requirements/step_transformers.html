@@ -20512,7 +20512,7 @@ request types.</p>
 
       <span class='id identifier rubyid_events'>events</span> <span class='op'>=</span> <span class='id identifier rubyid_request'>request</span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>events</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
       <span class='const'>Maze</span><span class='period'>.</span><span class='id identifier rubyid_check'>check</span><span class='period'>.</span><span class='id identifier rubyid_equal'>equal</span><span class='lparen'>(</span><span class='int'>1</span><span class='comma'>,</span> <span class='id identifier rubyid_events'>events</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Expected exactly one event per request</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
-      <span class='id identifier rubyid_match_count'>match_count</span> <span class='op'>+=</span> <span class='int'>1</span> <span class='kw'>if</span> <span class='id identifier rubyid_request_matches_row'>request_matches_row</span><span class='lparen'>(</span><span class='id identifier rubyid_events'>events</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_row'>row</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_match_count'>match_count</span> <span class='op'>+=</span> <span class='int'>1</span> <span class='kw'>if</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Assertions</span><span class='op'>::</span><span class='const'>RequestSetAssertions</span><span class='period'>.</span><span class='id identifier rubyid_request_matches_row'>request_matches_row</span><span class='lparen'>(</span><span class='id identifier rubyid_events'>events</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_row'>row</span><span class='rparen'>)</span>
     <span class='kw'>end</span>
   <span class='kw'>end</span>
   <span class='const'>Maze</span><span class='period'>.</span><span class='id identifier rubyid_check'>check</span><span class='period'>.</span><span class='id identifier rubyid_equal'>equal</span><span class='lparen'>(</span><span class='id identifier rubyid_requests'>requests</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='comma'>,</span> <span class='id identifier rubyid_match_count'>match_count</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Unexpected number of requests matched the received payloads</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
@@ -20569,7 +20569,7 @@ request types.</p>
 </div>
 
       <div id="footer">
-  Generated on Fri Mar 18 08:14:29 2022 by
+  Generated on Thu Mar 31 15:04:12 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.27 (ruby-2.7.5).
 </div>

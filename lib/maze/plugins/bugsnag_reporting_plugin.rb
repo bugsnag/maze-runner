@@ -24,6 +24,9 @@ module Maze
           # Ensure we're in the correct test case and that it's failed
           next unless event.test_case.eql?(test_case) && event.result.failed?
 
+          # Ignore assertion failures (Test::Unit::AssertionFailedError)
+          next if event.result.exception.class.eql?(Test::Unit::AssertionFailedError)
+
           Bugsnag.notify(event.result.exception) do |bsg_event|
             unless @last_test_step.nil?
               bsg_event.context = @last_test_step.location

@@ -15,7 +15,7 @@ def assert_received_requests(request_count, list, list_name)
   received = wait.until { list.size >= request_count }
 
   unless received
-    raise <<-MESSAGE
+    raise Test::Unit::AssertionFailedError.new <<-MESSAGE
     Expected #{request_count} #{list_name} but received #{list.size} within the #{timeout}s timeout.
     This could indicate that:
     - Bugsnag crashed with a fatal error.

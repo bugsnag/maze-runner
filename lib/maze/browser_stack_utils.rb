@@ -124,9 +124,9 @@ module Maze
 
       # @param username [String] the BrowserStack username
       # @param access_key [String] the BrowserStack access key
-      # @param log_url [String] url to the log
       # @param name [String] name of the build the log is being downloaded from
-      # @param session_number [Integer] the session number that we are saving the log for
+      # @param log_url [String] url to the log
+      # @param log_type [Symbol] The type of log we are downloading
       def download_log(username, access_key, name, log_url, log_type)
         begin
           path = File.join(Dir.pwd, 'maze_output', log_type.to_s)

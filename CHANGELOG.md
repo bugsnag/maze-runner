@@ -3,6 +3,7 @@
 ## Enhancements
 
 - Add method to download device logs from BrowserStack [#344](https://github.com/bugsnag/maze-runner/pull/344)
+- Only report to Bugsnag on genuine errors, not test failures [#347](https://github.com/bugsnag/maze-runner/pull/347)
 
 ## Fixes
 

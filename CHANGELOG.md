@@ -2,6 +2,12 @@
 
 ## Fixes
 
+- Add method to download device logs from BrowserStack` [#344](https://github.com/bugsnag/maze-runner/pull/344)
+
+# 6.9.7 - 2022/04/01
+
+## Fixes
+
 - Correct BrowserStack capability to `disableAnimations` [#323](https://github.com/bugsnag/maze-runner/pull/323)
 
 # 6.9.6 - 2022/03/31

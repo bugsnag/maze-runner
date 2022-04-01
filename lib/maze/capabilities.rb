@@ -12,7 +12,6 @@ module Maze
           'browserstack.console' => 'errors',
           'browserstack.localIdentifier' => local_id,
           'browserstack.local' => 'true',
-          'disabledAnimations' => 'true',
           'noReset' => 'true'
         }
         capabilities.merge! BrowserStackDevices::DEVICE_HASH[device_type]

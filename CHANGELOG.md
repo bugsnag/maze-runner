@@ -1,3 +1,9 @@
+# TBD
+
+## Fixes
+
+- Correct BrowserStack capability to `disableAnimations` [#323](https://github.com/bugsnag/maze-runner/pull/323)
+
 # 6.9.6 - 2022/03/31
 
 ## Fixes

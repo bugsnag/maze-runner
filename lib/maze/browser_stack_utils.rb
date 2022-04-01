@@ -86,6 +86,67 @@ module Maze
       rescue Errno::ESRCH
         # ignored
       end
+
+      # Gets the build/session info from BrowserStack
+      # @param username [String] the BrowserStack username
+      # @param access_key [String] the BrowserStack access key
+      # @param build_name [String] the name of the BrowserStack build
+      def build_info(username, access_key, build_name)
+        # Get the ID of a build
+        uri = URI("https://api.browserstack.com/app-automate/builds.json?name=#{build_name}")
+        request = Net::HTTP::Get.new(uri)
+        request.basic_auth(username, access_key)
+
+        res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+          http.request(request)
+        end
+
+        build_info = JSON.parse(res.body)
+
+        if !build_info.empty?
+          build_id = build_info[0]['automation_build']['hashed_id']
+
+          # Get the build info
+          uri = URI("https://api.browserstack.com/app-automate/builds/#{build_id}/sessions")
+          request = Net::HTTP::Get.new(uri)
+          request.basic_auth(username, access_key)
+
+          res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+            http.request(request)
+          end
+
+          build_json = JSON.parse(res.body)
+        else
+          raise "No build found for given ID: #{build_name}"
+        end
+        build_json
+      end
+
+      # @param username [String] the BrowserStack username
+      # @param access_key [String] the BrowserStack access key
+      # @param name [String] name of the build the log is being downloaded from
+      # @param log_url [String] url to the log
+      # @param log_type [Symbol] The type of log we are downloading
+      def download_log(username, access_key, name, log_url, log_type)
+        begin
+          path = File.join(Dir.pwd, 'maze_output', log_type.to_s)
+          FileUtils.makedirs(path)
+
+          uri = URI(log_url)
+          request = Net::HTTP::Get.new(uri)
+          request.basic_auth(username, access_key)
+
+          res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+            http.request(request)
+          end
+
+          $logger.info "Saving #{log_type.to_s} log to #{path}/#{name}.log"
+          File.open("#{path}/#{name}.log", 'w+') { |file| file.write(res.body) }
+        rescue StandardError => e
+          $logger.warn "Unable to save log from #{log_url}"
+          $logger.warn e
+        end
+      end
     end
   end
 end

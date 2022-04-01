@@ -52,16 +52,19 @@ class DownloadLogEntry
 
     build_info.each_with_index do |session, index|
       $logger.info "Downloading Device Logs for Session: #{index + 1} to #{Dir.pwd}/maze_output"
+
+      log_name = "#{opts[:build_id]}-#{index + 1}"
+
       Maze::BrowserStackUtils.download_log username,
                                            access_key,
-                                           "#{opts[:build_id]}-#{index + 1}",
+                                           log_name,
                                            session['automation_session']['device_logs_url'],
                                            :device
 
       $logger.info "Downloading Appium Logs for Session: #{index + 1}"
       Maze::BrowserStackUtils.download_log username,
                                            access_key,
-                                           "#{opts[:build_id]}-#{index + 1}",
+                                           log_name,
                                            session['automation_session']['appium_logs_url'],
                                            :appium
 

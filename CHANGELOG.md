@@ -1,8 +1,8 @@
-## Fixes
+# 6.10.0 - 2022/04/01
+
+## Enhancements
 
 - Add method to download device logs from BrowserStack` [#344](https://github.com/bugsnag/maze-runner/pull/344)
-
-# 6.10.0 - 2022/04/01
 
 ## Fixes
 

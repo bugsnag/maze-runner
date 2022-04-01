@@ -15,6 +15,8 @@ class DownloadLogEntry
     p = Optimist::Parser.new do
       text 'Download device sessions logs from BrowserStack using the build ID'
       text ''
+      text 'Requires BROWSER_STACK_USERNAME and BROWSER_STACK_ACCESS_KEY'
+      text ''
       text 'Usage [OPTIONS] <filenames>'
       text ''
       opt :help,
@@ -30,9 +32,16 @@ class DownloadLogEntry
     end
 
     # Get browserstack username and access key from the environment
-    # TODO pull these in the same way that MazeRunner does
     username = ENV['BROWSER_STACK_USERNAME']
     access_key = ENV['BROWSER_STACK_ACCESS_KEY']
+
+    # Check if BROWSER_STACK_USERNAME or BROWSER_STACK_ACCESS_KEY has been set
+    if username.nil? || access_key.nil?
+      $logger.warn "BROWSER_STACK_USERNAME or BROWSER_STACK_ACCESS_KEY has not been set"
+      Optimist::with_standard_exception_handling p do
+        raise Optimist::HelpNeeded
+      end
+    end
 
 
     build_info = Maze::BrowserStackUtils.build_info username,
@@ -42,19 +51,20 @@ class DownloadLogEntry
     $logger.info "Getting logs for build: #{opts[:build_id]}"
 
     build_info.each_with_index do |session, index|
-      $logger.info "Downloading Device Logs for Session: #{index + 1}"
+      $logger.info "Downloading Device Logs for Session: #{index + 1} to #{Dir.pwd}/maze_output"
       Maze::BrowserStackUtils.download_log username,
                                            access_key,
-                                           opts[:build_id],
+                                           "#{opts[:build_id]}-#{index + 1}",
                                            session['automation_session']['device_logs_url'],
-                                           index + 1
+                                           :device
 
       $logger.info "Downloading Appium Logs for Session: #{index + 1}"
       Maze::BrowserStackUtils.download_log username,
                                            access_key,
-                                           opts[:build_id],
+                                           "#{opts[:build_id]}-#{index + 1}",
                                            session['automation_session']['appium_logs_url'],
-                                           index + 1
+                                           :appium
+
 
     end
   end

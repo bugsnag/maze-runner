@@ -119,7 +119,7 @@ module Maze
         else
           raise "No build found for given ID: #{build_name}"
         end
-
+        build_json
       end
 
       # @param username [String] the BrowserStack username
@@ -127,21 +127,10 @@ module Maze
       # @param log_url [String] url to the log
       # @param name [String] name of the build the log is being downloaded from
       # @param session_number [Integer] the session number that we are saving the log for
-      def download_log(username, access_key, name, log_url, session_number)
+      def download_log(username, access_key, name, log_url, log_type)
         begin
-          folder1 = File.join(Dir.pwd, 'maze_output')
-
-          if log_url.include?('devicelogs')
-            folder2 = 'devicelogs'
-          elsif log_url.include?('appiumlogs')
-            folder2 = 'appiumlogs'
-          else
-            folder2 = 'browserstack'
-          end
-
-          path = File.join(folder1, folder2)
+          path = File.join(Dir.pwd, 'maze_output', log_type.to_s)
           FileUtils.makedirs(path)
-
 
           uri = URI(log_url)
           request = Net::HTTP::Get.new(uri)
@@ -151,7 +140,8 @@ module Maze
             http.request(request)
           end
 
-          File.open("#{path}/#{name}-#{session_number}.log", 'w+') { |file| file.write(res.body) }
+          $logger.info "Saving #{log_type.to_s} log to #{path}/#{name}.log"
+          File.open("#{path}/#{name}.log", 'w+') { |file| file.write(res.body) }
         rescue StandardError => e
           $logger.warn "Unable to save log from #{log_url}"
           $logger.warn e

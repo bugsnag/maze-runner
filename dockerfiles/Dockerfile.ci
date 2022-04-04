@@ -18,6 +18,9 @@ RUN wget -q https://storage.googleapis.com/bugsnag-public-test-dependencies/sc-4
   && rm sc-4.7.1-linux.tar.gz \
   && mv sc-4.7.1-linux sauce-connect
 
+RUN wget -q https://sbsecuretunnel.s3.amazonaws.com/cli/linux/SBSecureTunnel \
+  && chmod +x SBSecureTunnel
+
 WORKDIR /app/
 
 COPY bin/ bin/

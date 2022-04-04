@@ -11,6 +11,8 @@ module Maze
       attr_reader :capabilities
 
       def initialize(driver_for, selenium_url=nil, capabilities=nil)
+        $logger.info 'Starting Selenium driver...'
+        time = Time.now
         if driver_for == :remote
           # Sets up identifiers for ease of connecting jobs
           @capabilities = capabilities
@@ -22,6 +24,7 @@ module Maze
         else
           @driver = ::Selenium::WebDriver.for driver_for
         end
+        $logger.info "Selenium driver started in #{(Time.now - time).to_i}s"
       end
 
       def find_element(*args)

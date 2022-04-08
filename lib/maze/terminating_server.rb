@@ -50,9 +50,9 @@ module Maze
 
       # The maximum string length to be received before disconnecting
       #
-      # @return [Integer] The string length, defaults to 1KB
+      # @return [Integer] The string length, defaults to 150B
       def max_received_size
-        @max_received_size ||= 1 * (2 ** 10) # 1 KB default
+        @max_received_size ||= 150
       end
 
       # Set the maximum string length to be received before disconnecting
@@ -76,10 +76,10 @@ module Maze
         @response = new_response
       end
 
-      # Resets the response string to "400/BAD REQUEST" and the read size to 1KB
+      # Resets the response string to "400/BAD REQUEST" and the read size to 150B
       def reset_elements
         @response = BAD_REQUEST_RESPONSE
-        @max_received_size = 1 * (2 ** 10)
+        @max_received_size = 150
       end
 
       # Whether the server thread is running

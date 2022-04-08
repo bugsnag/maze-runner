@@ -33,7 +33,7 @@ module Maze
               end_connection(socket)
             }
           rescue StandardError => e
-            $logger.warn "Terminating server errored: #{e.message}"
+            $logger.warn "Terminating server error: #{e.message}"
           end
 
           break if running?
@@ -50,9 +50,9 @@ module Maze
 
       # The maximum string length to be received before disconnecting
       #
-      # @return [Integer] The string length, defaults to 1MB
+      # @return [Integer] The string length, defaults to 1KB
       def max_received_size
-        @max_received_size ||= 2 ** 20 # 1 MB default
+        @max_received_size ||= 1 * (2 ** 10) # 1 KB default
       end
 
       # Set the maximum string length to be received before disconnecting
@@ -76,9 +76,10 @@ module Maze
         @response = new_response
       end
 
-      # Resets the response string to "400/BAD REQUEST"
-      def reset_response
+      # Resets the response string to "400/BAD REQUEST" and the read size to 1KB
+      def reset_elements
         @response = BAD_REQUEST_RESPONSE
+        @max_received_size = 1 * (2 ** 10)
       end
 
       # Whether the server thread is running

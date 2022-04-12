@@ -34,9 +34,9 @@ module Maze
           end
           config.app = Maze::BitBarUtils.upload_app config.access_key,
                                                     config.app
-          Maze::BitBarUtils.start_local_tunnel config.bb_local,
-                                               config.username,
-                                               config.access_key
+          Maze::SmartBearUtils.start_local_tunnel config.sb_local,
+                                                  config.username,
+                                                  config.access_key
         when :local
           # Attempt to start the local appium server
           appium_uri = URI(config.appium_server_url)
@@ -83,7 +83,7 @@ module Maze
           $logger.info 'Stopping Sauce Connect'
           Maze::SauceLabsUtils.stop_sauce_connect
         elsif Maze.config.farm == :bb
-          Maze::BitBarUtils.stop_local_tunnel
+          Maze::SmartBearUtils.stop_local_tunnel
           Maze::BitBarUtils.release_account(Maze.config.tms_uri) if ENV['BUILDKITE']
         end
       end

@@ -126,11 +126,6 @@ module Maze
                 '(BS only) Path to the BrowserStackLocal binary. MAZE_BS_LOCAL env var or "/BrowserStackLocal" by default',
                 type: :string
 
-            # BitBar-only options
-            opt Option::BB_LOCAL,
-                '(BB only) Path to the SBSecureTunnel binary. MAZE_BB_LOCAL env var or "/SBSecureTunnel" by default',
-                type: :string
-
             # TMS options
             opt Option::TMS_URI,
                 '(BB/Buildkite only) URI of the test management server root.  MAZE_TMS_URI env var',
@@ -224,7 +219,6 @@ module Maze
           options[Option::SB_LOCAL] ||= ENV['MAZE_SB_LOCAL'] || '/SBSecureTunnel'
           options[Option::BS_LOCAL] ||= ENV['MAZE_BS_LOCAL'] || '/BrowserStackLocal'
           options[Option::SL_LOCAL] ||= ENV['MAZE_SL_LOCAL'] || '/sauce-connect/bin/sc'
-          options[Option::BB_LOCAL] ||= ENV['MAZE_BB_LOCAL'] || '/SBSecureTunnel'
           options[Option::APPIUM_SERVER] ||= ENV['MAZE_APPIUM_SERVER'] || 'http://localhost:4723/wd/hub'
           options[Option::APPLE_TEAM_ID] ||= ENV['MAZE_APPLE_TEAM_ID']
           options[Option::UDID] ||= ENV['MAZE_UDID']

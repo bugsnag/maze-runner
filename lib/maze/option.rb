@@ -11,6 +11,7 @@ module Maze
     # Server options
     BIND_ADDRESS = 'bind-address'
     PORT = 'port'
+    NULL_PORT = 'null-port'
 
     # Appium options
     SEPARATE_SESSIONS = 'separate-sessions'

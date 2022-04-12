@@ -91,6 +91,9 @@ After do |scenario|
   # Stop document server if started by the Cucumber step
   Maze::DocumentServer.manual_stop
 
+  # Stop terminating server if started by the Cucumber step
+  Maze::TerminatingServer.stop
+
   # This is here to stop sessions from one test hitting another.
   # However this does mean that tests take longer.
   # In addition, reset the last captured exit code

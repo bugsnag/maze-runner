@@ -48,3 +48,28 @@ When('I open the URL {string}') do |url|
     $logger.debug $!.inspect
   end
 end
+
+# Starts the terminating server to cancel requests received.
+When('I start the terminating server') do
+  Maze::TerminatingServer.start
+end
+
+# Sets the response message on the terminating server
+When('I set the terminated response message to {string}') do |response_message|
+  Maze::TerminatingServer.response = response_message
+end
+
+# Sets the maximum allowable amount of data received to the terminating server
+#
+# @step_input max_length [Integer] The number of bytes receivable
+When('I set the terminating server data threshold to {int} bytes') do |max_length|
+  Maze::TerminatingServer.max_received_size = max_length
+end
+
+# Check if a certain number of connections have been received by the terminating server
+#
+# @step_input request_count [Integer] The number of desired requests
+Then('the terminating server has received {int} requests') do |request_count|
+  Maze.check.equal(request_count, Maze::TerminatingServer.received_request_count,
+    "#{request_count} terminated requests expected, #{Maze::TerminatingServer.received_request_count} received")
+end

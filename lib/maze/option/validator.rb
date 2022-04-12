@@ -16,7 +16,7 @@ module Maze
         # Common options
         farm = options[Option::FARM]
         if farm && !%w[bs cbt sl local bb].include?(farm)
-          errors << "--#{Option::FARM} must be 'bs', 'cbt', 'sl' or 'local' if provided"
+          errors << "--#{Option::FARM} must be 'bs', 'cbt', 'sl', 'bb' or 'local' if provided"
         end
 
         begin

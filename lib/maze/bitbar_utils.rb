@@ -105,63 +105,6 @@ module Maze
           http.request(request)
         end
       end
-
-      # Starts the BitBar local tunnel
-      # @param bb_local [String] path to the SBSecureTunnel binary
-      # @param username [String] Username to start the tunnel with
-      # @param access_key [String] BitBar access key
-      def start_local_tunnel(bb_local, username, access_key)
-        # Make sure the ready/kill files are already deleted
-        File.delete(BB_READY_FILE) if File.exist?(BB_READY_FILE)
-        File.delete(BB_KILL_FILE) if File.exist?(BB_KILL_FILE)
-
-        $logger.info 'Starting BitBar SBSecureTunnel local tunnel'
-        command = "#{bb_local} --username #{username} --authkey #{access_key} " \
-                    "--ready #{BB_READY_FILE} --kill #{BB_KILL_FILE}"
-
-        output = start_tunnel_thread(command)
-
-        success = Maze::Wait.new(timeout: 30).until do
-          File.exist?(BB_READY_FILE)
-        end
-        unless success
-          $logger.error "Failed: #{output}"
-        end
-      end
-
-      # Stops the local tunnel
-      def stop_local_tunnel
-        FileUtils.touch(BB_KILL_FILE)
-        Maze::Wait.new(timeout: 30).until do
-          !File.exist?(BB_READY_FILE)
-        end
-        File.delete(BB_READY_FILE) if File.exist?(BB_READY_FILE)
-        File.delete(BB_KILL_FILE) if File.exist?(BB_KILL_FILE)
-      end
-
-      private
-
-      def start_tunnel_thread(cmd)
-        executor = lambda do
-          Open3.popen2e(Maze::Runner.environment, cmd) do |_stdin, stdout_and_stderr, wait_thr|
-
-            output = []
-            stdout_and_stderr.each do |line|
-              output << line
-              $logger.debug('SBSecureTunnel') {line.chomp}
-            end
-
-            exit_status = wait_thr.value.to_i
-            $logger.debug "Exit status: #{exit_status}"
-
-            output.each { |line| $logger.warn('SBSecureTunnel') {line.chomp} } unless exit_status == 0
-
-            return [output, exit_status]
-          end
-        end
-
-        Thread.new(&executor)
-      end
     end
   end
 end

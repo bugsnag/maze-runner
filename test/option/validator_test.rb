@@ -34,7 +34,7 @@ class ValidatorTest < Test::Unit::TestCase
     errors = @validator.validate options
 
     assert_equal 1, errors.length
-    assert_equal "--farm must be 'bs', 'cbt', 'sl' or 'local' if provided", errors[0]
+    assert_equal "--farm must be 'bs', 'cbt', 'sl', 'bb' or 'local' if provided", errors[0]
   end
 
   def test_valid_browser_stack_options

@@ -18,10 +18,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Log.d("BugsnagMazeRunner", "Starting maze-runner")
-        val button = findViewById<Button>(R.id.trigger_error)
+        var button = findViewById<Button>(R.id.trigger_error)
         button.setOnClickListener {
-            Log.d("BugsnagMazeRunner", "Trigger error clicked")
             val metadata = findViewById<EditText>(R.id.metadata).text.toString()
             val text = if (metadata == "") "HandledException!" else metadata
             Bugsnag.notify(Exception(text))
@@ -50,7 +48,6 @@ class MainActivity : AppCompatActivity() {
         config.autoTrackSessions = false
         config.setEndpoints(EndpointConfiguration("http://maze-local:9339/notify", "http://maze-local:9339/sessions"))
         config.addOnError(OnErrorCallback { event ->
-            Log.d("BugsnagMazeRunner", "CallbackRun")
             event.addMetadata("test", "boolean_false", false)
             event.addMetadata("test", "boolean_true", true)
             event.addMetadata("test", "float", 1.55)

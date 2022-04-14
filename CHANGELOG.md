@@ -1,3 +1,9 @@
+# 6.11.0 - TBD
+
+## Enhancements
+
+- Add Maze.driver.page_source [#348](https://github.com/bugsnag/maze-runner/pull/348)
+
 # 6.10.0 - 2022/04/12
 
 ## Enhancements

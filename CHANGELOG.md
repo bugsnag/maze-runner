@@ -4,6 +4,10 @@
 
 - Add Maze.driver.page_source [#348](https://github.com/bugsnag/maze-runner/pull/348)
 
+## Fixes
+
+- Retry failed BrowserStack app uploads each minute for 10 minutes [#349](https://github.com/bugsnag/maze-runner/pull/349)
+
 # 6.10.0 - 2022/04/12
 
 ## Enhancements

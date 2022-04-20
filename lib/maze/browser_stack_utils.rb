@@ -14,7 +14,6 @@ module Maze
           $logger.info "Using pre-uploaded app from #{app}"
         else
           expanded_app = Maze::Helper.expand_path(app)
-          $logger.info "Uploading app: #{expanded_app}"
 
           uri = URI('https://api-cloud.browserstack.com/app-automate/upload')
           request = Net::HTTP::Post.new(uri)
@@ -22,8 +21,10 @@ module Maze
           request.set_form({ 'file' => File.new(expanded_app, 'rb') }, 'multipart/form-data')
 
           upload_tries = 0
+          allowed_tries = 10
 
-          while upload_tries < 3
+          while upload_tries < allowed_tries
+            $logger.info "Uploading app: #{expanded_app}"
             res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
               http.request(request)
             end
@@ -44,6 +45,10 @@ module Maze
             end
 
             upload_tries += 1
+            if upload_tries < allowed_tries
+              $logger.info 'Retrying upload in 60s'
+              Kernel::sleep 60
+            end
           end
 
           if response.nil? || response.include?('error') || !response.include?('app_url')

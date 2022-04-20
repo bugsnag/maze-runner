@@ -1,12 +1,13 @@
-# 6.11.0 - TBD
+# 6.11.0 - 2022/04/20
 
 ## Enhancements
 
 - Add Maze.driver.page_source [#348](https://github.com/bugsnag/maze-runner/pull/348)
+- Add Maze.driver.unlock [#351](https://github.com/bugsnag/maze-runner/pull/351)
 
 ## Fixes
 
-- Retry failed BrowserStack app uploads each minute for 10 minutes [#349](https://github.com/bugsnag/maze-runner/pull/349)
+- Retry failed BrowserStack app uploads each minute for 10 minutes [#350](https://github.com/bugsnag/maze-runner/pull/350)
 
 # 6.10.0 - 2022/04/12
 

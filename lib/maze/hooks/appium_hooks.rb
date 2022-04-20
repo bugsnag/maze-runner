@@ -34,6 +34,9 @@ module Maze
 
         start_driver(config, tunnel_id)
 
+        # Ensure the device is unlocked
+        Maze.driver.unlock
+
         # Write links to device farm sessions, where applicable
         write_session_links
       end

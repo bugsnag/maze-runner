@@ -124,6 +124,11 @@ module Maze
         @driver.page_source
       end
 
+      # Unlocks the device
+      def unlock
+        @driver.unlock
+      end
+
       # Sends keys to a given element
       #
       # @param element_id [String] the element to send text to

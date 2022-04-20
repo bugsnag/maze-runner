@@ -35,7 +35,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'license_finder', '~> 6.12.0'
   spec.add_development_dependency 'markdown', '~> 1.2'
-  spec.add_development_dependency 'mocha', '~> 1.12.0'
+  spec.add_development_dependency 'mocha', '~> 1.13.0'
   spec.add_development_dependency 'redcarpet', '~> 3.5'
   spec.add_development_dependency 'yard', '~> 0.9.1'
 end

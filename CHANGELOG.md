@@ -2,7 +2,7 @@
 
 ## Enhancements
 
-- Defaults the read size to 1 MB for the terminating server
+- Defaults the read size to 1 MB for the terminating server [352](https://github.com/bugsnag/maze-runner/pull/352)
 
 # 6.11.0 - 2022/04/20
 

@@ -1,8 +1,9 @@
-# 6.12.1 - 2022/04/29
+# 6.13.0 - 2022/04/29
 
 ## Enhancements
 
 - Add Chrome 40, 42 and iPhone 62 (iOS 9), iPhone 13 (iOS 15.4) support [355](https://github.com/bugsnag/maze-runner/pull/355)
+- Allow `--os-version` to be omitted when `--farm=local` [345](https://github.com/bugsnag/maze-runner/pull/345)
 
 ## Fixes
 

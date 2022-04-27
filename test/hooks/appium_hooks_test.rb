@@ -111,6 +111,55 @@ class AppiumHooksTest < Test::Unit::TestCase
 
     $config.expects(:capabilities=).with(:caps)
     $config.expects(:appium_session_isolation).returns(false)
+    $config.expects(:farm).returns(:bs)
+
+    hooks.start_driver($config)
+  end
+
+  def test_start_driver_infer_ios_version
+    driver_mock = mock('driver')
+    driver_mock.expects(:start_driver)
+    driver_mock.expects(:session_capabilities).returns({'sdkVersion' => '9.0'})
+
+    Maze.expects(:driver).twice.returns(false, true)
+    Maze.expects(:driver=).with(driver_mock)
+
+    hooks = Maze::Hooks::AppiumHooks.new
+    hooks.expects(:device_capabilities).with($config, nil).returns(:caps)
+    hooks.expects(:create_driver).with($config).returns(driver_mock)
+
+    $config.expects(:capabilities=).with(:caps)
+    $config.expects(:appium_session_isolation).returns(false)
+    $config.expects(:farm).returns(:local)
+    $config.expects(:os_version).returns(nil)
+    $config.expects(:os).returns('ios')
+
+    $logger.expects(:info).with('Inferred OS version to be 9.0')
+    $config.expects(:os_version=).with(9.0)
+
+    hooks.start_driver($config)
+  end
+
+  def test_start_driver_infer_android_version
+    driver_mock = mock('driver')
+    driver_mock.expects(:start_driver)
+    driver_mock.expects(:session_capabilities).returns({'platformVersion' => '12.0'})
+
+    Maze.expects(:driver).twice.returns(false, true)
+    Maze.expects(:driver=).with(driver_mock)
+
+    hooks = Maze::Hooks::AppiumHooks.new
+    hooks.expects(:device_capabilities).with($config, nil).returns(:caps)
+    hooks.expects(:create_driver).with($config).returns(driver_mock)
+
+    $config.expects(:capabilities=).with(:caps)
+    $config.expects(:appium_session_isolation).returns(false)
+    $config.expects(:farm).returns(:local)
+    $config.expects(:os_version).returns(nil)
+    $config.expects(:os).returns('android')
+
+    $logger.expects(:info).with('Inferred OS version to be 12.0')
+    $config.expects(:os_version=).with(12.0)
 
     hooks.start_driver($config)
   end
@@ -153,7 +202,7 @@ class AppiumHooksTest < Test::Unit::TestCase
     $config.expects(:capabilities=).twice.with(:caps)
     $config.expects(:appium_session_isolation).twice.returns(false)
     $config.expects(:device).twice.returns(:device)
-    $config.expects(:farm).returns(:farm)
+    $config.expects(:farm).twice.returns(:farm)
     device_list = mock('device_list')
     $config.stubs(:device_list).returns(device_list)
     $config.expects(:device_list=).with(device_list)
@@ -215,6 +264,7 @@ class AppiumHooksTest < Test::Unit::TestCase
 
     $config.expects(:capabilities=).with(:caps)
     $config.expects(:appium_session_isolation).returns(true)
+    $config.expects(:farm).returns(:farm)
 
     hooks.start_driver($config)
   end

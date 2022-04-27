@@ -134,8 +134,7 @@ class ValidatorTest < Test::Unit::TestCase
     options = Maze::Option::Parser.parse args
     errors = @validator.validate options
 
-    assert_equal 1, errors.length
-    assert_equal '--os-version must be specified', errors[0]
+    assert_equal 0, errors.length
   end
 
   def test_local_missing_app

@@ -73,9 +73,9 @@ iphone_7:
   os_version: "10.3"
   realMobile: true
 
-android_nexus5:
+android_nexus7:
   browser: "Android Browser"
-  device: "Nexus 5"
+  device: "Nexus 7"
   os: "android"
   os_version: "4.4"
   realMobile: true

@@ -1,3 +1,9 @@
+# 6.11.2 - 2022/04/28
+
+## Enhancements
+
+- Add Chrome 30 and Android 4.4 support [353](https://github.com/bugsnag/maze-runner/pull/353)
+
 # 6.11.1 - 2022/04/21
 
 ## Enhancements

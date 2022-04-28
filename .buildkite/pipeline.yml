@@ -173,7 +173,7 @@ steps:
     concurrency_group: 'browserstack-app'
     concurrency_method: eager
 
-  - label: 'Browserstack web browser test - chrome 30'
+  - label: 'Browserstack web browser test - Latest firefox'
     depends_on: "ci-image-ruby-2-7"
     timeout_in_minutes: 10
     plugins:
@@ -184,24 +184,7 @@ steps:
     command: >-
       bundle exec maze-runner
       --farm=bs
-      --browser=chrome_30
-    env:
-      RUBY_VERSION: "2.7"
-    concurrency: 5
-    concurrency_group: 'browserstack'
-
-  - label: 'Browserstack web browser test - android 4.4'
-    depends_on: "ci-image-ruby-2-7"
-    timeout_in_minutes: 10
-    plugins:
-      docker-compose#v3.7.0:
-        run: browser-tests
-        use-aliases: true
-        verbose: true
-    command: >-
-      bundle exec maze-runner
-      --farm=bs
-      --browser=android_s5
+      --browser=firefox_latest
     env:
       RUBY_VERSION: "2.7"
     concurrency: 5

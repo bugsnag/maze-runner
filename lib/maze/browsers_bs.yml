@@ -77,8 +77,6 @@ android_s5:
   browser: "Android Browser"
   device: "Samsung Galaxy S5"
   os: "android"
-  os_version: "4.4"
-  realMobile: true
 
 android_s8:
   browser: "Android Browser"

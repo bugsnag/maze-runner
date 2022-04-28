@@ -4,6 +4,10 @@
 
 - Add Chrome 40, 42 and iPhone 62 (iOS 9), iPhone 13 (iOS 15.4) support [355](https://github.com/bugsnag/maze-runner/pull/355)
 
+## Fixes
+
+- Correct Maze.check.match implementation to allow message to be provided [354](https://github.com/bugsnag/maze-runner/pull/354)
+
 # 6.12.0 - 2022/04/28
 
 ## Enhancements

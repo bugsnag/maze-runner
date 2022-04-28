@@ -201,7 +201,7 @@ steps:
     command: >-
       bundle exec maze-runner
       --farm=bs
-      --browser=android_nexus7
+      --browser=android_s5
     env:
       RUBY_VERSION: "2.7"
     concurrency: 5

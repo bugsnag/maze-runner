@@ -140,7 +140,7 @@ chrome_34:
 
 chrome_36:
   browser: "chrome"
-  browser_version: "35.0"
+  browser_version: "36.0"
   os: "windows"
   os_version: "7"
 

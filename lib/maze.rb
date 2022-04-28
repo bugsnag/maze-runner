@@ -10,7 +10,7 @@ module Maze
   VERSION = '6.13.0'
 
   class << self
-    attr_accessor :check, :driver, :internal_hooks, :mode, :start_time
+    attr_accessor :check, :driver, :internal_hooks, :mode, :start_time, :dynamic_retry
 
     def config
       @config ||= Maze::Configuration.new

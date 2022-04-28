@@ -37,6 +37,9 @@ BeforeAll do
     FileUtils.rm_rf(maze_output)
   end
 
+  # Default to no dynamic try
+  Maze.dynamic_retry = false
+
   # Record the local server starting time
   Maze.start_time = Time.now.strftime('%Y-%m-%d %H:%M:%S')
 

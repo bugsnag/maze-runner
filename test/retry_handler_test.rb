@@ -4,7 +4,7 @@ require 'test_helper'
 require 'appium_lib'
 require_relative '../lib/maze/errors'
 require_relative '../lib/maze/retry_handler'
-require_relative '../lib/maze/driver/appium/'
+require_relative '../lib/maze/driver/appium'
 require_relative '../lib/maze/driver/browser'
 require_relative '../lib/maze/driver/resilient_appium'
 

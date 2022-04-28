@@ -27,7 +27,7 @@ module Maze
             text 'General options:'
 
             opt Option::ENABLE_RETRIES,
-                'Enables retrying scenarios failures when tagged',
+                'Enables retrying failed scenarios when tagged',
                 type: :boolean,
                 default: true
 

@@ -37,17 +37,19 @@ module Maze
           elsif Maze.driver.is_a?(Maze::Driver::Browser)
             Maze.driver.refresh
           end
-          increment_retry_count(test_case)
-          true
         elsif retry_on_tag?(test_case)
           $logger.warn "Retrying #{test_case.name} due to retry tag"
-          increment_retry_count(test_case)
-          true
         elsif Maze.dynamic_retry
           $logger.warn "Retrying #{test_case.name} due to dynamic retry set"
         else
-          false
+          return false
         end
+        increment_retry_count(test_case)
+        true
+      end
+
+      def retried_previously?(test_case)
+        global_retried[test_case] > 0
       end
 
       private
@@ -64,10 +66,6 @@ module Maze
         test_case.tags.any? do |tag|
           RETRY_TAGS.include?(tag.name)
         end
-      end
-
-      def retried_previously?(test_case)
-        global_retried[test_case] > 0
       end
 
       def global_retried

@@ -1,3 +1,9 @@
+# 6.14.0 - TBD
+
+## Enhancements
+
+- Add dynamic retries [356](https://github.com/bugsnag/maze-runner/pull/356)
+
 # 6.13.0 - 2022/04/29
 
 ## Enhancements

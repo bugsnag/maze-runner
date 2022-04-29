@@ -66,11 +66,25 @@ safari_15:
   os: "OS X"
   os_version: "Monterey"
 
+iphone_6s:
+  browser: "iphone"
+  device: "iPhone 6S"
+  os: "ios"
+  os_version: "9.0"
+  real_mobile: true
+
 iphone_7:
   browser: "iphone"
   device: "iPhone 7"
   os: "ios"
   os_version: "10.3"
+  real_mobile: true
+
+iphone_13:
+  browser: "iphone"
+  device: "iPhone 13"
+  os: "ios"
+  os_version: "15.4"
   real_mobile: true
 
 android_nexus5:
@@ -147,6 +161,18 @@ chrome_36:
 chrome_38:
   browser: "chrome"
   browser_version: "38.0"
+  os: "windows"
+  os_version: "7"
+
+chrome_40:
+  browser: "chrome"
+  browser_version: "40.0"
+  os: "windows"
+  os_version: "7"
+
+chrome_42:
+  browser: "chrome"
+  browser_version: "42.0"
   os: "windows"
   os_version: "7"
 

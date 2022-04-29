@@ -9,7 +9,7 @@ GIT
 PATH
   remote: .
   specs:
-    bugsnag-maze-runner (6.12.1)
+    bugsnag-maze-runner (6.13.0)
       appium_lib (~> 11.2.0)
       bugsnag (~> 6.24)
       cucumber (~> 7.1)
@@ -26,7 +26,7 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (7.0.2.3)
+    activesupport (7.0.2.4)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
@@ -84,7 +84,7 @@ GEM
     i18n (1.10.0)
       concurrent-ruby (~> 1.0)
     iniparser (1.0.1)
-    kramdown (2.3.2)
+    kramdown (2.4.0)
       rexml
     license_finder (6.12.2)
       bundler
@@ -155,4 +155,4 @@ DEPENDENCIES
   yard-cucumber!
 
 BUNDLED WITH
-   2.3.11
+   2.3.0

@@ -4,6 +4,10 @@
 
 - Allow BrowserStack credentials to be set separately for devices and browsers [358](https://github.com/bugsnag/maze-runner/pull/358)
 
+## Fixes
+
+- Stop BrowserStack tunnel after browser test runs [357](https://github.com/bugsnag/maze-runner/pull/357)
+
 # 6.14.0 - 2022/05/03
 
 ## Enhancements

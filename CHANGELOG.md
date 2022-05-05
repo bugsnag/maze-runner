@@ -1,3 +1,9 @@
+# 6.16.0 - TBD
+
+## Enhancements
+
+- Allow appium driver start failures to be retried within 60s [359](https://github.com/bugsnag/maze-runner/pull/359)
+
 # 6.15.1 - TBD
 
 ## Fixes

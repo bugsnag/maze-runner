@@ -39,6 +39,12 @@ module Maze
           Maze.driver = Maze::Driver::Browser.new Maze.config.browser.to_sym
         end
       end
+
+      def at_exit
+        if Maze.config.farm == :bs
+          Maze::BrowserStackUtils.stop_local_tunnel
+        end
+      end
     end
   end
 end

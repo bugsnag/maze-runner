@@ -1,3 +1,9 @@
+# 6.15.0 - 2022/05/05
+
+## Enhancements
+
+- Allow BrowserStack credentials to be set separately for devices and browsers [358](https://github.com/bugsnag/maze-runner/pull/358)
+
 # 6.14.0 - 2022/05/03
 
 ## Enhancements

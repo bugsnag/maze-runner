@@ -264,5 +264,37 @@ class AppiumDriverTest < Test::Unit::TestCase
     assert_equal pipeline, hash[:project]
     assert_match UUID_REGEX, hash[:build]
   end
+
+  def test_start_driver_success
+    logger = start_logger_mock
+
+    driver = Maze::Driver::Appium.new SERVER_URL, @capabilities, :accessibility_id
+
+    Appium::Driver.any_instance.expects(:start_driver).returns(true)
+    Time.expects(:now).twice.returns(0)
+    logger.expects(:info).with('Starting Appium driver...')
+    logger.expects(:info).with('Appium driver started in 0s')
+
+    driver.start_driver
+  end
+
+  def test_start_driver_retry_then_success
+    logger = start_logger_mock
+
+    driver = Maze::Driver::Appium.new SERVER_URL, @capabilities, :accessibility_id
+
+    Time.expects(:now).times(4).returns(0)
+    logger.expects(:info).with('Starting Appium driver...').twice
+    logger.expects(:warn).with('Appium driver failed to start in 0s')
+
+    driver_failure = RuntimeError.new('Appium driver failed')
+    logger.expects(:warn).with("#{driver_failure.class} occurred with message: #{driver_failure.message}")
+
+    Appium::Driver.any_instance.expects(:start_driver).twice.raises(driver_failure).then.returns(true)
+
+    logger.expects(:info).with('Appium driver started in 0s')
+
+    driver.start_driver
+  end
 end
 

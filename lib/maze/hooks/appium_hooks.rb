@@ -38,7 +38,7 @@ module Maze
         Maze.driver.unlock
 
         # Write links to device farm sessions, where applicable
-        write_session_links
+        write_session_link
       end
 
       def before
@@ -75,16 +75,12 @@ module Maze
         end
       end
 
-      def write_session_links
+      def write_session_link
         config = Maze.config
         if config.farm == :bs && (config.device || config.browser)
           # Log a link to the BrowserStack session search dashboard
           build = Maze.driver.capabilities[:build]
-          url = if config.device
-                  "https://app-automate.browserstack.com/dashboard/v2/search?query=#{build}&type=builds"
-                else
-                  "https://automate.browserstack.com/dashboard/v2/search?query=#{build}&type=builds"
-                end
+          url = "https://app-automate.browserstack.com/dashboard/v2/search?query=#{build}&type=builds"
           if ENV['BUILDKITE']
             $logger.info Maze::LogUtil.linkify url, 'BrowserStack session(s)'
           else

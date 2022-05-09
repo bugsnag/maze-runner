@@ -1,3 +1,9 @@
+# 6.15.1 - TBD
+
+## Fixes
+
+- Fix logging of BrowserStack session links [360](https://github.com/bugsnag/maze-runner/pull/360)
+
 # 6.15.0 - 2022/05/05
 
 ## Enhancements

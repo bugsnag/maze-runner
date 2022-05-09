@@ -9,6 +9,10 @@ class ParserTest < Test::Unit::TestCase
   def setup
     ENV.delete('BROWSER_STACK_USERNAME')
     ENV.delete('BROWSER_STACK_ACCESS_KEY')
+    ENV.delete('BROWSER_STACK_BROWSERS_USERNAME')
+    ENV.delete('BROWSER_STACK_BROWSERS_ACCESS_KEY')
+    ENV.delete('BROWSER_STACK_DEVICES_USERNAME')
+    ENV.delete('BROWSER_STACK_DEVICES_ACCESS_KEY')
     ENV.delete('SAUCE_LABS_USERNAME')
     ENV.delete('SAUCE_LABS_ACCESS_KEY')
     ENV.delete('CBT_USERNAME')
@@ -128,6 +132,56 @@ class ParserTest < Test::Unit::TestCase
     ENV['MAZE_UDID'] = 'ENV_UDID'
 
     args = %w[--farm=bs]
+    options = Maze::Option::Parser.parse args
+
+    # BrowserStack-only options
+    assert_equal('ENV_USERNAME', options[Maze::Option::USERNAME])
+    assert_equal('ENV_ACCESS_KEY', options[Maze::Option::ACCESS_KEY])
+    assert_equal('ENV_BS_LOCAL', options[Maze::Option::BS_LOCAL])
+
+    # Local-only options
+    assert_equal('ENV_APPIUM_SERVER', options[Maze::Option::APPIUM_SERVER])
+    assert_equal('ENV_TEAM_ID', options[Maze::Option::APPLE_TEAM_ID])
+    assert_equal('ENV_UDID', options[Maze::Option::UDID])
+  end
+
+  def test_environment_value_browsers
+    ENV['BROWSER_STACK_BROWSERS_USERNAME'] = 'ENV_USERNAME'
+    ENV['BROWSER_STACK_BROWSERS_ACCESS_KEY'] = 'ENV_ACCESS_KEY'
+    ENV['BROWSER_STACK_USERNAME'] = 'DO_NOT_USE'
+    ENV['BROWSER_STACK_ACCESS_KEY'] = 'DO_NOT_USE'
+    ENV['MAZE_BS_LOCAL'] = 'ENV_BS_LOCAL'
+    ENV['MAZE_SL_LOCAL'] = 'ENV_SL_LOCAL'
+    ENV['MAZE_APPIUM_SERVER'] = 'ENV_APPIUM_SERVER'
+    ENV['MAZE_APPLE_TEAM_ID'] = 'ENV_TEAM_ID'
+    ENV['MAZE_UDID'] = 'ENV_UDID'
+
+    args = %w[--farm=bs --browser=something]
+    options = Maze::Option::Parser.parse args
+
+    # BrowserStack-only options
+    assert_equal('ENV_USERNAME', options[Maze::Option::USERNAME])
+    assert_equal('ENV_ACCESS_KEY', options[Maze::Option::ACCESS_KEY])
+    assert_equal('ENV_BS_LOCAL', options[Maze::Option::BS_LOCAL])
+
+    # Local-only options
+    assert_equal('ENV_APPIUM_SERVER', options[Maze::Option::APPIUM_SERVER])
+    assert_equal('ENV_TEAM_ID', options[Maze::Option::APPLE_TEAM_ID])
+    assert_equal('ENV_UDID', options[Maze::Option::UDID])
+  end
+
+  def test_environment_value_devices
+    ENV['BROWSER_STACK_DEVICES_USERNAME'] = 'ENV_USERNAME'
+    ENV['BROWSER_STACK_DEVICES_ACCESS_KEY'] = 'ENV_ACCESS_KEY'
+    ENV['BROWSER_STACK_USERNAME'] = 'DO_NOT_USE'
+    ENV['BROWSER_STACK_ACCESS_KEY'] = 'DO_NOT_USE'
+    ENV['MAZE_BS_LOCAL'] = 'ENV_BS_LOCAL'
+    ENV['MAZE_SL_LOCAL'] = 'ENV_SL_LOCAL'
+    ENV['MAZE_APPIUM_SERVER'] = 'ENV_APPIUM_SERVER'
+    ENV['MAZE_APPLE_TEAM_ID'] = 'ENV_TEAM_ID'
+    ENV['MAZE_UDID'] = 'ENV_UDID'
+
+    args = %w[--farm=bs --device=something]
     options = Maze::Option::Parser.parse args
 
     # BrowserStack-only options

@@ -168,9 +168,7 @@ module Maze
           end
 
           # OS Version
-          if options[Option::OS_VERSION].nil?
-            errors << "--#{Option::OS_VERSION} must be specified"
-          else
+          unless options[Option::OS_VERSION].nil?
             # Ensure OS version is a valid float so that notifier tests can perform numeric checks
             # e.g 'Maze.config.os_version > 7'
             unless /^[1-9][0-9]*(\.[0-9])?/.match? options[Option::OS_VERSION]

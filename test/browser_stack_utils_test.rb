@@ -18,6 +18,7 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
   USERNAME = 'username'
 
   def setup
+    Kernel.stubs(:sleep).with('duration')
     logger_mock = mock('logger')
     $logger = logger_mock
   end
@@ -55,8 +56,10 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
   end
 
   def test_upload_app_error
-    $logger.expects(:info).with("Uploading app: #{APP}").once
-    $logger.expects(:error).with("Upload failed due to error: Useless error").at_most(3)
+    $logger.expects(:info).with("Uploading app: #{APP}").times(10)
+    $logger.expects(:error).with("Upload failed due to error: Useless error").times(10)
+    $logger.expects(:info).with('Retrying upload in 60s').times(9)
+    Kernel.expects(:sleep).with(60).times(9)
 
     File.expects(:new)&.with(APP, 'rb')&.returns('file')
     Maze::Helper.expects(:expand_path).with(APP).returns(APP)
@@ -67,13 +70,13 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
 
     json_response = JSON.dump(error: 'Useless error')
     response_mock = mock('response')
-    response_mock.expects(:body).at_most(3).returns(json_response)
+    response_mock.expects(:body).times(10).returns(json_response)
 
     uri = URI('https://api-cloud.browserstack.com/app-automate/upload')
     Net::HTTP::Post.expects(:new)&.with(uri)&.returns post_mock
     Net::HTTP.expects(:start)&.with('api-cloud.browserstack.com',
                                     443,
-                                    use_ssl: true)&.at_most(3).returns(response_mock)
+                                    use_ssl: true)&.times(10).returns(response_mock)
 
     assert_raise(RuntimeError, 'Upload failed due to error: Error') do
       Maze::BrowserStackUtils.upload_app USERNAME, ACCESS_KEY, APP
@@ -81,8 +84,10 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
   end
 
   def test_upload_app_retry_success
-    $logger.expects(:info).with("Uploading app: #{APP}").once
-    $logger.expects(:error).with("Upload failed due to error: Useless error").at_most(3)
+    $logger.expects(:info).with("Uploading app: #{APP}").twice
+    $logger.expects(:error).with("Upload failed due to error: Useless error").once
+    $logger.expects(:info).with('Retrying upload in 60s').once
+    Kernel.expects(:sleep).with(60).once
 
     $logger.expects(:info).with("app uploaded to: #{TEST_APP_URL}").once
     $logger.expects(:info).with('You can use this url to avoid uploading the same app more than once.').once
@@ -109,8 +114,10 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
   end
 
   def test_upload_app_invalid_response
-    $logger.expects(:info).with("Uploading app: #{APP}").once
-    $logger.expects(:error).with("Error: expected JSON response, received: gobbledygook").at_most(3)
+    $logger.expects(:info).with("Uploading app: #{APP}").times(10)
+    $logger.expects(:error).with("Error: expected JSON response, received: gobbledygook").times(10)
+    $logger.expects(:info).with('Retrying upload in 60s').times(9)
+    Kernel.expects(:sleep).with(60).times(9)
 
     File.expects(:new)&.with(APP, 'rb')&.returns('file')
 
@@ -120,13 +127,13 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
 
     json_response = 'gobbledygook'
     response_mock = mock('response')
-    response_mock.expects(:body).at_most(3).returns(json_response)
+    response_mock.expects(:body).times(10).returns(json_response)
 
     uri = URI('https://api-cloud.browserstack.com/app-automate/upload')
     Net::HTTP::Post.expects(:new)&.with(uri)&.returns post_mock
     Net::HTTP.expects(:start)&.with('api-cloud.browserstack.com',
                                     443,
-                                    use_ssl: true)&.at_most(3).returns(response_mock)
+                                    use_ssl: true)&.times(10).returns(response_mock)
 
     assert_raise(RuntimeError, 'Upload failed due to error: Error') do
       Maze::BrowserStackUtils.upload_app USERNAME, ACCESS_KEY, APP
@@ -143,3 +150,4 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
     Maze::BrowserStackUtils.start_local_tunnel BS_LOCAL, LOCAL_ID, ACCESS_KEY
   end
 end
+

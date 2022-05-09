@@ -38,6 +38,30 @@ module Maze
         when :local
           Maze.driver = Maze::Driver::Browser.new Maze.config.browser.to_sym
         end
+
+        # Write links to device farm sessions, where applicable
+        write_session_link
+      end
+
+      def at_exit
+        if Maze.config.farm == :bs
+          Maze::BrowserStackUtils.stop_local_tunnel
+          Maze.driver.driver_quit
+        end
+      end
+
+      def write_session_link
+        config = Maze.config
+        if config.farm == :bs
+          # Log a link to the BrowserStack session search dashboard
+          build = Maze.driver.capabilities[:build]
+          url = "https://automate.browserstack.com/dashboard/v2/search?query=#{build}&type=builds"
+          if ENV['BUILDKITE']
+            $logger.info Maze::LogUtil.linkify url, 'BrowserStack session(s)'
+          else
+            $logger.info "BrowserStack session(s): #{url}"
+          end
+        end
       end
     end
   end

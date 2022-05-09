@@ -3,6 +3,7 @@
 ## Fixes
 
 - Fix logging of BrowserStack session links [360](https://github.com/bugsnag/maze-runner/pull/360)
+- Close Selenium session at end of test run [361](https://github.com/bugsnag/maze-runner/pull/361)
 
 # 6.15.0 - 2022/05/05
 

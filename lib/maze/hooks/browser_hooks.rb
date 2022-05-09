@@ -46,6 +46,7 @@ module Maze
       def at_exit
         if Maze.config.farm == :bs
           Maze::BrowserStackUtils.stop_local_tunnel
+          Maze.driver.driver_quit
         end
       end
 

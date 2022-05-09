@@ -75,6 +75,29 @@ class ProcessorTest < Test::Unit::TestCase
     assert_false config.start_appium
   end
 
+  def test_populate_local_config_defaults
+    args = %w[--farm=local --app=my_app.apk --os=ios --apple-team-id=ABC --udid=123 \
+              --no-start-appium --document-server-root=root \
+              --document-server-bind-address=5.6.7.8 --document-server-port=5678]
+    options = Maze::Option::Parser.parse args
+    config = Maze::Configuration.new
+    Maze::Option::Processor.populate config, options
+
+    assert_equal :local, config.farm
+    assert_equal 'my_app.apk', config.app
+    assert_equal 'ios', config.os
+    assert_equal 'ABC', config.apple_team_id
+    assert_equal '123', config.device_id
+    assert_equal 'root', config.document_server_root
+    assert_equal '5.6.7.8', config.document_server_bind_address
+    assert_equal 5678, config.document_server_port
+    assert_false config.start_appium
+
+    assert_nil config.os_version
+    assert_nil config.bind_address
+    assert_equal 9339, config.port
+  end
+
   def test_logger_options
     args = %w[--no-file-log --log-requests --always-log]
     options = Maze::Option::Parser.parse args

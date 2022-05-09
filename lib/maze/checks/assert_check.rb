@@ -23,8 +23,8 @@ module Maze
         assert_not_nil(test, message)
       end
 
-      def match(test, message = nil)
-        assert_match(test, message)
+      def match(pattern, string, message = nil)
+        assert_match(pattern, string, message)
       end
 
       def equal(expected, act, message = nil)

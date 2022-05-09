@@ -115,7 +115,7 @@ module Maze
               config.browser = options[Maze::Option::BROWSER]
             else
               os = config.os = options[Maze::Option::OS].downcase
-              config.os_version = options[Maze::Option::OS_VERSION].to_f
+              config.os_version = options[Maze::Option::OS_VERSION].to_f unless options[Maze::Option::OS_VERSION].nil?
               config.appium_server_url = options[Maze::Option::APPIUM_SERVER]
               config.start_appium = options[Maze::Option::START_APPIUM]
               config.appium_logfile = options[Maze::Option::APPIUM_LOGFILE]

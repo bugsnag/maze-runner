@@ -1,3 +1,14 @@
+When('I fail on the first attempt') do
+  if $first_attempt
+    $first_attempt = false
+    fail 'Failing on the first attempt'
+  end
+end
+
+When('I let the scenario retry') do
+  Maze.dynamic_retry = true
+end
+
 # Verifies that an environment variable is set to a given value.
 #
 # @step_input key [String] The environment variable

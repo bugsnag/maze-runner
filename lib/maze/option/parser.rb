@@ -27,7 +27,7 @@ module Maze
             text 'General options:'
 
             opt Option::ENABLE_RETRIES,
-                'Enables retrying scenarios failures when tagged',
+                'Enables retrying failed scenarios when tagged',
                 type: :boolean,
                 default: true
 
@@ -206,8 +206,14 @@ module Maze
             options[Option::USERNAME] ||= ENV['CBT_USERNAME']
             options[Option::ACCESS_KEY] ||= ENV['CBT_ACCESS_KEY']
           when 'bs'
-            options[Option::USERNAME] ||= ENV['BROWSER_STACK_USERNAME']
-            options[Option::ACCESS_KEY] ||= ENV['BROWSER_STACK_ACCESS_KEY']
+            # Allow browser/device credentials to exist in separate accounts
+            if options[Option::BROWSER]
+              options[Option::USERNAME] ||= ENV['BROWSER_STACK_BROWSERS_USERNAME'] || ENV['BROWSER_STACK_USERNAME']
+              options[Option::ACCESS_KEY] ||= ENV['BROWSER_STACK_BROWSERS_ACCESS_KEY'] ||ENV['BROWSER_STACK_ACCESS_KEY']
+            else
+              options[Option::USERNAME] ||= ENV['BROWSER_STACK_DEVICES_USERNAME'] || ENV['BROWSER_STACK_USERNAME']
+              options[Option::ACCESS_KEY] ||= ENV['BROWSER_STACK_DEVICES_ACCESS_KEY'] ||ENV['BROWSER_STACK_ACCESS_KEY']
+            end
           when 'sl'
             options[Option::USERNAME] ||= ENV['SAUCE_LABS_USERNAME']
             options[Option::ACCESS_KEY] ||= ENV['SAUCE_LABS_ACCESS_KEY']

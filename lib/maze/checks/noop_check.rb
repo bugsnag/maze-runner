@@ -12,7 +12,7 @@ module Maze
 
       def not_nil(_test, _message = nil) end
 
-      def match(_test, _message = nil) end
+      def match(_pattern, _string, _message = nil) end
 
       def equal(_expected, _actual, _message = nil) end
 

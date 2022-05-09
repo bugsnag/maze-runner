@@ -187,7 +187,7 @@ steps:
       --browser=firefox_latest
     env:
       RUBY_VERSION: "2.7"
-    concurrency: 5
+    concurrency: 2
     concurrency_group: 'browserstack'
 
   - wait

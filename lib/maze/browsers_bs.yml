@@ -66,19 +66,54 @@ safari_15:
   os: "OS X"
   os_version: "Monterey"
 
+iphone_6s:
+  browser: "iphone"
+  device: "iPhone 6S"
+  os: "ios"
+  os_version: "9.0"
+  real_mobile: true
+
 iphone_7:
   browser: "iphone"
   device: "iPhone 7"
   os: "ios"
   os_version: "10.3"
-  realMobile: true
+  real_mobile: true
+
+iphone_13:
+  browser: "iphone"
+  device: "iPhone 13"
+  os: "ios"
+  os_version: "15.4"
+  real_mobile: true
+
+android_nexus5:
+  browser: "Android Browser"
+  device: "Google Nexus 5"
+  os: "android"
+  os_version: "4.4"
+  real_mobile: true
+
+android_s6:
+  browser: "Android Browser"
+  device: "Samsung Galaxy S6"
+  os: "android"
+  os_version: "5.0"
+  real_mobile: true
+
+android_s7:
+  browser: "Android Browser"
+  device: "Samsung Galaxy S7"
+  os: "android"
+  os_version: "6.0"
+  real_mobile: true
 
 android_s8:
   browser: "Android Browser"
   device: "Samsung Galaxy S8 Plus"
   os: "android"
   os_version: "7.0"
-  realMobile: true
+  real_mobile: true
 
 firefox_30:
   browser: "firefox"
@@ -98,6 +133,48 @@ firefox_latest:
   os: "windows"
   os_version: "10"
   selenium_version: "3.10.0"
+
+chrome_30:
+  browser: "chrome"
+  browser_version: "30.0"
+  os: "windows"
+  os_version: "7"
+
+chrome_32:
+  browser: "chrome"
+  browser_version: "32.0"
+  os: "windows"
+  os_version: "7"
+
+chrome_34:
+  browser: "chrome"
+  browser_version: "34.0"
+  os: "windows"
+  os_version: "7"
+
+chrome_36:
+  browser: "chrome"
+  browser_version: "36.0"
+  os: "windows"
+  os_version: "7"
+
+chrome_38:
+  browser: "chrome"
+  browser_version: "38.0"
+  os: "windows"
+  os_version: "7"
+
+chrome_40:
+  browser: "chrome"
+  browser_version: "40.0"
+  os: "windows"
+  os_version: "7"
+
+chrome_42:
+  browser: "chrome"
+  browser_version: "42.0"
+  os: "windows"
+  os_version: "7"
 
 chrome_43:
   browser: "chrome"

@@ -1,3 +1,60 @@
+# 6.15.1 - TBD
+
+## Fixes
+
+- Fix logging of BrowserStack session links [360](https://github.com/bugsnag/maze-runner/pull/360)
+- Close Selenium session at end of test run [361](https://github.com/bugsnag/maze-runner/pull/361)
+
+# 6.15.0 - 2022/05/05
+
+## Enhancements
+
+- Allow BrowserStack credentials to be set separately for devices and browsers [358](https://github.com/bugsnag/maze-runner/pull/358)
+
+## Fixes
+
+- Stop BrowserStack tunnel after browser test runs [357](https://github.com/bugsnag/maze-runner/pull/357)
+
+# 6.14.0 - 2022/05/03
+
+## Enhancements
+
+- Add dynamic retries [356](https://github.com/bugsnag/maze-runner/pull/356)
+
+# 6.13.0 - 2022/04/29
+
+## Enhancements
+
+- Add Chrome 40, 42 and iPhone 62 (iOS 9), iPhone 13 (iOS 15.4) support [355](https://github.com/bugsnag/maze-runner/pull/355)
+- Allow `--os-version` to be omitted when `--farm=local` [345](https://github.com/bugsnag/maze-runner/pull/345)
+
+## Fixes
+
+- Correct Maze.check.match implementation to allow message to be provided [354](https://github.com/bugsnag/maze-runner/pull/354)
+
+# 6.12.0 - 2022/04/28
+
+## Enhancements
+
+- Add Chrome 30, 32, 34, 36, 38, 40, 42 and Android 4.4, 5.0, 6.0 support [353](https://github.com/bugsnag/maze-runner/pull/353)
+
+# 6.11.1 - 2022/04/21
+
+## Enhancements
+
+- Defaults the read size to 1 MB for the terminating server [352](https://github.com/bugsnag/maze-runner/pull/352)
+
+# 6.11.0 - 2022/04/20
+
+## Enhancements
+
+- Add Maze.driver.page_source [#348](https://github.com/bugsnag/maze-runner/pull/348)
+- Add Maze.driver.unlock [#351](https://github.com/bugsnag/maze-runner/pull/351)
+
+## Fixes
+
+- Retry failed BrowserStack app uploads each minute for 10 minutes [#350](https://github.com/bugsnag/maze-runner/pull/350)
+
 # 6.10.0 - 2022/04/12
 
 ## Enhancements

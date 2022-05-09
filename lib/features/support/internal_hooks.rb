@@ -65,6 +65,9 @@ end
 
 # Before each scenario
 Before do |scenario|
+  # Default to no dynamic try
+  Maze.dynamic_retry = false
+
   $stdout.puts "--- Scenario: #{scenario.name}"
 
   # Invoke the internal hook for the mode of operation

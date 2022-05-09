@@ -1,0 +1,70 @@
+chrome_97:
+  platform: 'Windows'
+  osVersion: '10'
+  browserName: 'chrome'
+  version: '97'
+  resolution: '1920x1080'
+
+chrome_98:
+  platform: 'Windows'
+  osVersion: '10'
+  browserName: 'chrome'
+  version: '98'
+  resolution: '1920x1080'
+
+chrome_99:
+  platform: 'Windows'
+  osVersion: '10'
+  browserName: 'chrome'
+  version: '99'
+  resolution: '1920x1080'
+
+firefox_96:
+  platform: 'Windows'
+  osVersion: '10'
+  browserName: 'firefox'
+  version: '96'
+  resolution: '1920x1080'
+
+firefox_97:
+  platform: 'Windows'
+  osVersion: '10'
+  browserName: 'firefox'
+  version: '97'
+  resolution: '1920x1080'
+
+firefox_98:
+  platform: 'Windows'
+  osVersion: '10'
+  browserName: 'firefox'
+  version: '98'
+  resolution: '1920x1080'
+
+ie_11:
+  platform: 'Windows'
+  osVersion: '10'
+  browserName: 'internet explorer'
+  version: '11'
+  resolution: '1920x1080'
+
+edge_97:
+  platform: 'Windows'
+  osVersion: '10'
+  browserName: 'MicrosoftEdge'
+  version: '97'
+  resolution: '1920x1080'
+
+edge_98:
+  platform: 'Windows'
+  osVersion: '10'
+  browserName: 'MicrosoftEdge'
+  version: '98'
+  resolution: '1920x1080'
+
+
+edge_99:
+  platform: 'Windows'
+  osVersion: '10'
+  browserName: 'MicrosoftEdge'
+  version: '99'
+  resolution: '1920x1080'

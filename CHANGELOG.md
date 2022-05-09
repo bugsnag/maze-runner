@@ -1,8 +1,9 @@
-# 6.16.0 - TBD
+# 6.16.0 - 2022/05/10
 
 ## Enhancements
 
 - Allow appium driver start failures to be retried within 60s [359](https://github.com/bugsnag/maze-runner/pull/359)
+- Add `Maze.config.captured_invalid_requests` to allow invalid requests to be ignored on specific endpoints [362](https://github.com/bugsnag/maze-runner/pull/362)
 
 ## Fixes
 

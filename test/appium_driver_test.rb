@@ -290,11 +290,39 @@ class AppiumDriverTest < Test::Unit::TestCase
     driver_failure = RuntimeError.new('Appium driver failed')
     logger.expects(:warn).with("#{driver_failure.class} occurred with message: #{driver_failure.message}")
 
+    Maze::Wait.any_instance.expects(:sleep).with(10)
+
     Appium::Driver.any_instance.expects(:start_driver).twice.raises(driver_failure).then.returns(true)
 
     logger.expects(:info).with('Appium driver started in 0s')
 
     driver.start_driver
+  end
+
+  def test_start_driver_retry_to_failure
+    logger = start_logger_mock
+
+    driver = Maze::Driver::Appium.new SERVER_URL, @capabilities, :accessibility_id
+
+    Time.expects(:now).times(12).returns(0)
+    logger.expects(:info).with('Starting Appium driver...').times(6)
+    logger.expects(:warn).with('Appium driver failed to start in 0s').times(6)
+
+    driver_failure = RuntimeError.new('Appium driver failed')
+    logger.expects(:warn).with("#{driver_failure.class} occurred with message: #{driver_failure.message}").times(6)
+
+    Maze::Wait.any_instance.expects(:sleep).with(10).times(6)
+
+    Appium::Driver.any_instance.expects(:start_driver).times(6).raises(driver_failure)
+
+    logger.expects(:error).with('Appium driver failed to start after 6 attempts in 60 seconds')
+
+    begin
+      driver.start_driver
+    rescue => e
+      assert_equal e.class, RuntimeError
+      assert_equal e.message, 'Appium driver failed to start in 60 seconds'
+    end
   end
 end
 

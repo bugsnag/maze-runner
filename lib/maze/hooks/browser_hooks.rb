@@ -6,6 +6,16 @@ module Maze
       def before_all
         config = Maze.config
         case config.farm
+        when :bb
+          tunnel_id = SecureRandom.uuid
+          config.capabilities = Maze::Capabilities.for_bitbar_browsers config.browser,
+                                                                             tunnel_id,
+                                                                             config.capabilities_option
+
+          Maze::SmartBearUtils.start_local_tunnel config.sb_local,
+                                                  config.username,
+                                                  config.access_key,
+                                                  tunnel_id
         when :bs
           # BrowserStack browser
           tunnel_id = SecureRandom.uuid

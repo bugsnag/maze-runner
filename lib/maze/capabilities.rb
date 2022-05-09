@@ -46,6 +46,17 @@ module Maze
         capabilities
       end
 
+      # @param browser_type [String] A key from @see browsers_cbt.yml
+      # @param local_id [String] unique key for the SB tunnel instance
+      # @param capabilities_option [String] extra capabilities provided on the command line
+      def for_bitbar_browsers(browser_type, local_id, capabilities_option)
+        capabilities = Selenium::WebDriver::Remote::Capabilities.new
+        browsers = YAML.safe_load(File.read("#{__dir__}/browsers_bb.yml"))
+        capabilities.merge! browsers[browser_type]
+        capabilities.merge! JSON.parse(capabilities_option)
+        capabilities
+      end
+
       # @param device_type [String]
       def for_bitbar_device(bitbar_api_key, device_type, platform, platform_version, capabilities_option)
         capabilities = {

@@ -47,10 +47,10 @@ module Maze
 
       # Provides dynamic access to request lists by name
       #
-      # @param type [String] Request type
+      # @param type [String, Symbol] Request type
       # @return Request list for the type given
       def list_for(type)
-        type = type.to_s if type.is_a? Symbol
+        type = type.to_s
         case type
         when 'error', 'errors'
           errors
@@ -165,9 +165,9 @@ module Maze
             server.mount '/notify', Servlets::Servlet, :errors
             server.mount '/sessions', Servlets::Servlet, :sessions
             server.mount '/builds', Servlets::Servlet, :builds
-            server.mount '/uploads', Servlets::Servlet, uploads
-            server.mount '/sourcemap', Servlets::Servlet, sourcemaps
-            server.mount '/react-native-source-map', Servlets::Servlet, sourcemaps
+            server.mount '/uploads', Servlets::Servlet, :uploads
+            server.mount '/sourcemap', Servlets::Servlet, :sourcemaps
+            server.mount '/react-native-source-map', Servlets::Servlet, :sourcemaps
             server.mount '/command', Servlets::CommandServlet
             server.mount '/logs', Servlets::LogServlet
             server.start

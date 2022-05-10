@@ -42,6 +42,9 @@ module Maze
         when :cbt
           selenium_url = "http://#{config.username}:#{config.access_key}@hub.crossbrowsertesting.com:80/wd/hub"
           Maze.driver = Maze::Driver::Browser.new :remote, selenium_url, config.capabilities
+        when :bb
+          selenium_url = "https://#{config.username}:#{config.access_key}@appium.bitbar.com/wd/hub"
+          Maze.driver = Maze::Driver::Browser.new :remote, selenium_url, config.capabilities
         when :bs
           selenium_url = "http://#{config.username}:#{config.access_key}@hub.browserstack.com/wd/hub"
           Maze.driver = Maze::Driver::Browser.new :remote, selenium_url, config.capabilities

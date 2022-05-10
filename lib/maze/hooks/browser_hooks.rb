@@ -14,8 +14,8 @@ module Maze
 
           Maze::SmartBearUtils.start_local_tunnel config.sb_local,
                                                   config.username,
-                                                  config.access_key,
-                                                  tunnel_id
+                                                  config.access_key
+                                                  # tunnel_id
         when :bs
           # BrowserStack browser
           tunnel_id = SecureRandom.uuid

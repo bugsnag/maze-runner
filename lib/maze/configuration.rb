@@ -9,7 +9,7 @@ module Maze
       self.receive_no_requests_wait = 30
       self.receive_requests_wait = 30
       self.enforce_bugsnag_integrity = true
-      self.captured_invalid_requests = Set[:errors, :sessions, :builds, :uploads]
+      self.captured_invalid_requests = Set[:errors, :sessions, :builds, :uploads, :sourcemaps]
     end
 
     #

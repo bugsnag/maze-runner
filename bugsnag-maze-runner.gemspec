@@ -22,13 +22,13 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'test-unit', '~> 3.5.2'
   spec.add_dependency 'webrick', '~> 1.7.0'
 
-  spec.add_dependency 'appium_lib', '~> 11.2.0'
+  spec.add_dependency 'appium_lib', '~> 12.0'
   spec.add_dependency 'bugsnag', '~> 6.24'
   spec.add_dependency 'cucumber-expressions', '~> 6.0.0'
   spec.add_dependency 'curb', '~> 0.9.6'
   spec.add_dependency 'optimist', '~> 3.0.1'
   spec.add_dependency 'rake', '~> 12.3.3'
-  spec.add_dependency 'selenium-webdriver', '~> 3.11'
+  spec.add_dependency 'selenium-webdriver', '~> 4.0'
 
   # Pin indirect dependencies
   spec.add_runtime_dependency 'rubyzip', '~> 2.3.2'

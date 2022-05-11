@@ -85,6 +85,7 @@ module Maze
           $logger.warn 'Report delivery attempt failed'
           $logger.warn e.message
         end
+        $logger.info 'Cucumber report delivered to test report server'
       end
     end
   end

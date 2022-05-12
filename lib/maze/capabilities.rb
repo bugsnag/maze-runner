@@ -9,14 +9,16 @@ module Maze
       # @param capabilities_option [String] extra capabilities provided on the command line
       def for_browser_stack_device(device_type, local_id, appium_version, capabilities_option)
         capabilities = {
-          'browserstack.console' => 'errors',
-          'browserstack.localIdentifier' => local_id,
-          'browserstack.local' => 'true',
+          'bstack:options' => {
+            'local' => 'true',
+            'localIdentifier' => local_id,
+            'console' => 'errors',
+          },
           'noReset' => 'true'
         }
         capabilities.merge! BrowserStackDevices::DEVICE_HASH[device_type]
         capabilities.merge! JSON.parse(capabilities_option)
-        capabilities['browserstack.appium_version'] = appium_version unless appium_version.nil?
+        capabilities['bstack:options']['appiumVersion'] = appium_version unless appium_version.nil?
         capabilities
       end
 

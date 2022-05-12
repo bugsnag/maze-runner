@@ -53,7 +53,7 @@ When('I relaunch the app') do
     system("killall -KILL #{app} > /dev/null && sleep 1")
     Maze.driver.get(app)
   else
-    Maze.driver.launch_app
+    Maze.driver.activate_app Maze.driver.app_id
   end
 end
 
@@ -65,7 +65,7 @@ When("I relaunch the app after a crash") do
   when 'Mac'
     Maze.driver.get(Maze.driver.capabilities['app'])
   else
-    Maze.driver.launch_app
+    Maze.driver.activate_app Maze.driver.app_id
   end
 end
 

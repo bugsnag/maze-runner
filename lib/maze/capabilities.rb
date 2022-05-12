@@ -11,13 +11,12 @@ module Maze
         capabilities = {
           'bstack:options' => {
             'local' => 'true',
-            'localIdentifier' => local_id,
-            'console' => 'errors',
+            'localIdentifier' => local_id
           },
           'noReset' => 'true'
         }
-        capabilities.merge! BrowserStackDevices::DEVICE_HASH[device_type]
-        capabilities.merge! JSON.parse(capabilities_option)
+        capabilities.deep_merge! BrowserStackDevices::DEVICE_HASH[device_type]
+        capabilities.deep_merge! JSON.parse(capabilities_option)
         capabilities['bstack:options']['appiumVersion'] = appium_version unless appium_version.nil?
         capabilities
       end

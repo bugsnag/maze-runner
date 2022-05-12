@@ -101,7 +101,7 @@ module Maze
           os = os&.downcase
         end
 
-        
+
         raise('Unable to determine the current platform') if os.nil?
 
         os

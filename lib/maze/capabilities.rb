@@ -25,14 +25,18 @@ module Maze
       # @param local_id [String] unique key for the tunnel instance
       # @param capabilities_option [String] extra capabilities provided on the command line
       def for_browser_stack_browser(browser_type, local_id, capabilities_option)
-        capabilities = Selenium::WebDriver::Remote::Capabilities.new
-        capabilities['browserstack.local'] = 'true'
-        capabilities['browserstack.localIdentifier'] = local_id
-        capabilities['browserstack.console'] = 'errors'
+        capabilities = {
+          'bstack:options' => {
+            'local' => 'true',
+            'localIdentifier' => local_id,
+            "os" => "Windows",
+            "osVersion" => "8.1"
+          }
+        }
         browsers = YAML.safe_load(File.read("#{__dir__}/browsers_bs.yml"))
-        capabilities.merge! browsers[browser_type]
-        capabilities.merge! JSON.parse(capabilities_option)
-        capabilities
+        capabilities.deep_merge! browsers[browser_type]
+        capabilities.deep_merge! JSON.parse(capabilities_option)
+        Selenium::WebDriver::Remote::Capabilities.new capabilities
       end
 
       # @param browser_type [String] A key from @see browsers_cbt.yml

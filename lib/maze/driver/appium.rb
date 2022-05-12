@@ -10,6 +10,10 @@ module Maze
     # Provide a thin layer of abstraction above @see Appium::Driver
     class Appium < Appium::Driver
 
+      # @!attribute [rw] device_type
+      #   @return [String] The device, from the list of device capabilities, used for this test
+      attr_accessor :app_id
+
       # @!attribute [r] device_type
       #   @return [String] The device, from the list of device capabilities, used for this test
       attr_reader :device_type

@@ -36,7 +36,6 @@ class ProcessorTest < Test::Unit::TestCase
     assert_equal 'user', config.username
     assert_equal 'key', config.access_key
     assert_equal 'ANDROID_6_0', config.device
-    assert_equal 6, config.os_version
     assert_equal :id, config.locator
     assert_equal 'http://user:key@hub-cloud.browserstack.com/wd/hub', config.appium_server_url
   end

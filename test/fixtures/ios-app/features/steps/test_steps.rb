@@ -53,6 +53,7 @@ When('I relaunch the app') do
     system("killall -KILL #{app} > /dev/null && sleep 1")
     Maze.driver.get(app)
   else
+    Maze.driver.terminate_app Maze.driver.app_id
     Maze.driver.activate_app Maze.driver.app_id
   end
 end

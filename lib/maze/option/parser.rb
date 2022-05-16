@@ -149,6 +149,18 @@ module Maze
                 type: :string
 
             text ''
+            text 'App upload opions:'
+
+            opt Option::UPLOAD_APP,
+                "foobar",
+                type: :boolean,
+                default: false
+
+            opt Option::APP_ID_FILE,
+                "foobar",
+                type: :string
+
+            text ''
             text 'Logging options:'
 
             opt Option::FILE_LOG,

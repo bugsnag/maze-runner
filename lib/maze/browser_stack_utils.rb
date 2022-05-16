@@ -8,7 +8,8 @@ module Maze
       # Uploads an app to BrowserStack for later consumption
       # @param username [String] the BrowserStack username
       # @param access_key [String] the BrowserStack access key
-      def upload_app(username, access_key, app)
+      # @param app_id_file [String] the file to write the uploaded app url to BrowserStack
+      def upload_app(username, access_key, app, app_id_file=nil)
         if app.start_with? 'bs://'
           app_url = app
           $logger.info "Using pre-uploaded app from #{app}"
@@ -59,6 +60,12 @@ module Maze
           $logger.info "app uploaded to: #{app_url}"
           $logger.info 'You can use this url to avoid uploading the same app more than once.'
         end
+
+        unless app_id_file.nil?
+          $logger.info "writing uploaded app url to #{app_id_file}"
+          File.write(app_id_file, app_url)
+        end
+
         app_url
       end
 

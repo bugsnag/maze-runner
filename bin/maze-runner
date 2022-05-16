@@ -48,6 +48,7 @@ require_relative '../lib/maze/assertions/request_set_assertions'
 require_relative '../lib/maze/hooks/hooks'
 require_relative '../lib/maze/hooks/appium_hooks'
 require_relative '../lib/maze/hooks/browser_hooks'
+require_relative '../lib/maze/hooks/upload_hooks'
 require_relative '../lib/maze/hooks/command_hooks'
 
 require_relative '../lib/maze/driver/appium'

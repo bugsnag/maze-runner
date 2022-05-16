@@ -14,16 +14,21 @@ BeforeAll do
   # Infer mode of operation from config, one of:
   # - Appium (using either remote or local devices)
   # - Browser (Selenium with local or remote browsers)
+  # - Upload (Upload app to BrowserStack)
   # - Command (the software under test is invoked with a system call)
   # TODO Consider making this a specific command line option defaulting to Appium
   is_appium = [:bs, :sl, :bb, :local].include?(Maze.config.farm) && !Maze.config.app.nil?
   is_browser = !Maze.config.browser.nil?
+  is_upload_app = Maze.config.upload_app
   if is_appium
     Maze.mode = :appium
     Maze.internal_hooks = Maze::Hooks::AppiumHooks.new
   elsif is_browser
     Maze.mode = :browser
     Maze.internal_hooks = Maze::Hooks::BrowserHooks.new
+  elsif  is_upload_app
+    Maze.mode = "upload"
+    Maze.internal_hooks = Maze::Hooks::UploadHooks.new
   else
     Maze.mode = :command
     Maze.internal_hooks = Maze::Hooks::CommandHooks.new
@@ -44,7 +49,7 @@ BeforeAll do
   Maze::DocumentServer.start unless Maze.config.document_server_root.nil?
 
   # Start mock server
-  Maze::Server.start
+  Maze::Server.start unless is_upload_app
 
   # Invoke the internal hook for the mode of operation
   Maze.internal_hooks.before_all

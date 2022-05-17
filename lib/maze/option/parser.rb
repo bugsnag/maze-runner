@@ -152,12 +152,12 @@ module Maze
             text 'App upload opions:'
 
             opt Option::UPLOAD_APP,
-                "foobar",
+                "Uploads a provided app file to BrowserStack",
                 type: :boolean,
                 default: false
 
             opt Option::APP_ID_FILE,
-                "foobar",
+                "Path to a file that the uploaded app ID is written to. Only used for --upload-app",
                 type: :string
 
             text ''

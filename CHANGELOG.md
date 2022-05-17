@@ -1,3 +1,9 @@
+# 6.17.0 - TBD
+
+## Enhancements
+
+- Add standalone `upload-app` executable [365](https://github.com/bugsnag/maze-runner/pull/365)
+
 # 6.16.0 - 2022/05/10
 
 ## Enhancements

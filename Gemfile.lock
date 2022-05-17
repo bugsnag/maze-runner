@@ -9,7 +9,7 @@ GIT
 PATH
   remote: .
   specs:
-    bugsnag-maze-runner (6.16.0)
+    bugsnag-maze-runner (6.17.0)
       appium_lib (~> 11.2.0)
       bugsnag (~> 6.24)
       cucumber (~> 7.1)
@@ -155,4 +155,4 @@ DEPENDENCIES
   yard-cucumber!
 
 BUNDLED WITH
-   2.3.0
+   2.3.11

@@ -27,16 +27,6 @@ module Maze
           config.document_server_bind_address = options[Maze::Option::DS_BIND_ADDRESS]
           config.document_server_port = options[Maze::Option::DS_PORT]
 
-          # Upload app options
-          config.upload_app = options[Maze::Option::UPLOAD_APP]
-          config.app_id_file = options[Maze::Option::APP_ID_FILE]
-
-          if config.upload_app
-            username = config.username = options[Maze::Option::USERNAME]
-            access_key = config.access_key = options[Maze::Option::ACCESS_KEY]
-            config.appium_server_url = "http://#{username}:#{access_key}@hub-cloud.browserstack.com/wd/hub"
-          end
-
           # Logger options
           config.file_log = options[Maze::Option::FILE_LOG]
           config.log_requests = options[Maze::Option::LOG_REQUESTS] || !ENV['BUILDKITE'].nil?

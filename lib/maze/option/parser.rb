@@ -149,18 +149,6 @@ module Maze
                 type: :string
 
             text ''
-            text 'App upload opions:'
-
-            opt Option::UPLOAD_APP,
-                "Uploads a provided app file to BrowserStack",
-                type: :boolean,
-                default: false
-
-            opt Option::APP_ID_FILE,
-                "Path to a file that the uploaded app ID is written to. Only used for --upload-app",
-                type: :string
-
-            text ''
             text 'Logging options:'
 
             opt Option::FILE_LOG,

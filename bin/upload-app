@@ -1,0 +1,56 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require_relative '../lib/maze'
+require_relative '../lib/maze/browser_stack_utils'
+require_relative '../lib/maze/logger'
+require_relative '../lib/maze/helper'
+require 'optimist'
+require 'uri'
+require 'net/http'
+
+class UploadAppEntry
+  def start(args)
+    p = Optimist::Parser.new do
+      text 'Upload app files to BrowserStack'
+      text ''
+      text 'Requires BROWSER_STACK_USERNAME and BROWSER_STACK_ACCESS_KEY'
+      text ''
+      text 'Usage [OPTIONS]'
+      text ''
+      opt :help,
+          'Print this help.'
+      opt :app,
+          'The app to be installed and run against.  Assumed to be contained in a file if prefixed with @.',
+          :type => :string
+      opt :app_id_file,
+          'The file to write the uploaded app ID back to',
+          :type => :string
+    end
+
+    opts = Optimist::with_standard_exception_handling p do
+      raise Optimist::HelpNeeded if ARGV.empty? # show help screen
+      p.parse ARGV
+    end
+
+    # Get browserstack username and access key from the environment
+    username = ENV['BROWSER_STACK_USERNAME']
+    access_key = ENV['BROWSER_STACK_ACCESS_KEY']
+
+    # Check if BROWSER_STACK_USERNAME or BROWSER_STACK_ACCESS_KEY has been set
+    if username.nil? || access_key.nil?
+      $logger.warn "BROWSER_STACK_USERNAME or BROWSER_STACK_ACCESS_KEY has not been set"
+      Optimist::with_standard_exception_handling p do
+        raise Optimist::HelpNeeded
+      end
+    end
+
+    Maze::BrowserStackUtils.upload_app username,
+                                       access_key,
+                                       opts[:app],
+                                       opts[:app_id_file]
+
+  end
+end
+
+UploadAppEntry.new.start(ARGV)

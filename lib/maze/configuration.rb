@@ -149,13 +149,6 @@ module Maze
     attr_accessor :appium_logfile
 
     #
-    # Upload app configuration
-    #
-    attr_accessor :upload_app
-
-    attr_accessor :app_id_file
-
-    #
     # Logging configuration
     #
 

@@ -46,10 +46,6 @@ module Maze
     APPLE_TEAM_ID = 'apple-team-id'
     UDID = 'udid'
 
-    # Upload app options
-    UPLOAD_APP = 'upload-app'
-    APP_ID_FILE = 'app-id-file'
-
     # Logging options
     FILE_LOG = 'file-log'
     LOG_REQUESTS = 'log-requests'

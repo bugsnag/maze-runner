@@ -146,7 +146,7 @@ steps:
       --app=app/build/outputs/apk/release/app-release.apk
       --farm=bs
       --device=ANDROID_7_1
-    concurrency: 9
+    concurrency: 24
     concurrency_group: 'browserstack-app'
     concurrency_method: eager
 
@@ -167,7 +167,7 @@ steps:
       --app=app/build/outputs/apk/release/app-release.apk
       --farm=bs
       --device=ANDROID_11_0
-    concurrency: 9
+    concurrency: 24
     concurrency_group: 'browserstack-app'
     concurrency_method: eager
 

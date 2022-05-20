@@ -29,6 +29,7 @@ module Maze
     BROWSER = 'browser'
     OS = 'os'
     OS_VERSION = 'os-version'
+    LIST_DEVICES = 'list-devices'
 
     # CrossBrowserTesting/Bitbar options
     SB_LOCAL = 'sb-local'

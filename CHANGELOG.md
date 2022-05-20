@@ -1,3 +1,9 @@
+# 6.17.0 - TBD
+
+## Enhancements
+
+- Add --list-devices option [368](https://github.com/bugsnag/maze-runner/pull/368)
+
 # 6.16.0 - 2022/05/10
 
 ## Enhancements

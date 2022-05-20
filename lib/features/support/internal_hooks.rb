@@ -79,6 +79,10 @@ end
 
 # General processing to be run after each scenario
 After do |scenario|
+  # If we're running on macos, take a screenshot if the scenario fails
+  if Maze.config.os == "macos"
+    system("/usr/sbin/screencapture '/tmp/#{scenario.name}-#{scenario.status}.jpg'") unless scenario.status == :failed
+  end
 
   # Call any blocks registered by the client
   Maze.hooks.call_after scenario

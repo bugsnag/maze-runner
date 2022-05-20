@@ -63,7 +63,7 @@ module Maze
 
         unless app_id_file.nil?
           $logger.info "writing uploaded app url to #{app_id_file}"
-          File.write(app_id_file, app_url)
+          File.write(Maze::Helper.expand_path(app_id_file), app_url)
         end
 
         app_url

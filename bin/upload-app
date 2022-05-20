@@ -21,7 +21,7 @@ class UploadAppEntry
       opt :help,
           'Print this help.'
       opt :app,
-          'The app to be installed and run against.  Assumed to be contained in a file if prefixed with @.',
+          'The app to upload.',
           :type => :string
       opt :app_id_file,
           'The file to write the uploaded app ID back to',

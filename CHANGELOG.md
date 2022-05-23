@@ -1,8 +1,9 @@
-# 6.17.0 - TBD
-
+# 6.17.0 - 2022/05/20
 ## Enhancements
 
+- Add standalone `upload-app` executable [365](https://github.com/bugsnag/maze-runner/pull/365)
 - Add --list-devices option [368](https://github.com/bugsnag/maze-runner/pull/368)
+
 
 # 6.16.0 - 2022/05/10
 

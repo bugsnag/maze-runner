@@ -82,7 +82,7 @@ After do |scenario|
   # If we're running on macos, take a screenshot if the scenario fails
   if Maze.config.os == "macos"
     if scenario.status == :failed
-      Maze::MacosUtils.screenshot(scenario)
+      Maze::MacosUtils.capture_screen(scenario)
     end
   end
 

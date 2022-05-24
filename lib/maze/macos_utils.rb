@@ -3,7 +3,7 @@
 module Maze
   class MacosUtils
     class << self
-      def screenshot(scenario)
+      def capture_screen(scenario)
         path = File.join(File.join(Dir.pwd, 'maze_output'), 'failed', scenario.name.gsub(/[:"& ]/, "_").gsub(/_+/, "_"))
         FileUtils.makedirs(path)
 

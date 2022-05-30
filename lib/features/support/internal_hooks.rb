@@ -80,10 +80,8 @@ end
 # General processing to be run after each scenario
 After do |scenario|
   # If we're running on macos, take a screenshot if the scenario fails
-  if Maze.config.os == "macos"
-    if scenario.status == :failed
-      Maze::MacosUtils.capture_screen(scenario)
-    end
+  if Maze.config.os == "macos" && scenario.status == :failed
+    Maze::MacosUtils.capture_screen(scenario)
   end
 
   # Call any blocks registered by the client
@@ -166,7 +164,7 @@ end
 def write_requests(scenario)
   folder1 = File.join(Dir.pwd, 'maze_output')
   folder2 = scenario.failed? ? 'failed' : 'passed'
-  folder3 = scenario.name.gsub(/[:"& ]/, "_").gsub(/_+/, "_")
+  folder3 = Maze::Helper.to_friendly_filename(scenario.name)
 
   path = File.join(folder1, folder2, folder3)
 

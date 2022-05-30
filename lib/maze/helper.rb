@@ -103,6 +103,12 @@ module Maze
 
         os
       end
+
+      # Returns the name of the scenario to
+      # @param string [String] a string to convert to a file name
+      def to_friendly_filename(string)
+        string.gsub(/[:"& ]/, "_").gsub(/_+/, "_")
+      end
     end
   end
 end

@@ -18,6 +18,7 @@ require_relative '../lib/maze/document_server'
 require_relative '../lib/maze/errors'
 require_relative '../lib/maze/helper'
 require_relative '../lib/maze/logger'
+require_relative '../lib/maze/macos_utils'
 require_relative '../lib/maze/network'
 require_relative '../lib/maze/proxy'
 require_relative '../lib/maze/retry_handler'
@@ -93,12 +94,26 @@ class MazeRunnerEntry
     paths.each { |path| @args << '-r' << path }
   end
 
+  # List devices for the given device farm, or all otherwise
+
   def start(args)
     $logger.info "Maze Runner v#{Maze::VERSION}"
 
     # Parse args, processing any Maze Runner specific options
     @args = args.dup
     options = Maze::Option::Parser.parse args
+
+    if options[Maze::Option::LIST_DEVICES]
+      case options[Maze::Option::FARM]
+      when :bs
+        Maze::BrowserStackDevices.list_devices('ios')
+        Maze::BrowserStackDevices.list_devices('android')
+      else
+        Maze::BrowserStackDevices.list_devices('ios')
+        Maze::BrowserStackDevices.list_devices('android')
+      end
+      exit 0
+    end
 
     # Validate CL options
     errors = Maze::Option::Validator.new.validate options

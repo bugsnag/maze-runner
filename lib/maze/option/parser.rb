@@ -110,6 +110,9 @@ module Maze
             opt Option::APP_BUNDLE_ID,
                 'The bundle identifier of the test application',
                 type: :string
+            opt Option::LIST_DEVICES,
+                'Lists the devices available for the configured device-farm, or all devices if none are specified',
+                default: false
 
             # SmartBear-only options
             opt Option::SB_LOCAL,

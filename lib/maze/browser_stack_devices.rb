@@ -11,6 +11,27 @@ module Maze
     APPIUM_1_21_0 = '1.21.0'
 
     class << self
+
+      def list_devices(os)
+        puts "BrowserStack #{os} devices available"
+        devices = DEVICE_HASH.dup
+        devices.select { |key, device|
+          device['os'].eql?(os)
+        }.map { |key, device|
+          new_device = device.dup
+          new_device['key'] = key
+          new_device
+        }.sort { |dev_1, dev_2|
+          dev_1['os_version'].to_f <=> dev_2['os_version'].to_f
+        }.each{ |device|
+          puts '------------------------------'
+          puts "Device key: #{device['key']}"
+          puts "Device: #{device['device']}"
+          puts "OS: #{device['os']}"
+          puts "OS version: #{device['os_version']}"
+        }
+      end
+
       def make_android_hash(device, version, appium_version = APPIUM_1_20_2)
         hash = {
           'device' => device,

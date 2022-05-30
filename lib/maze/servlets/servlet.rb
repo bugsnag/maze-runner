@@ -8,10 +8,11 @@ module Maze
       # Constructor
       #
       # @param server [HTTPServer] WEBrick HTTPServer
-      # @param requests [RequestList] Request list to add to
-      def initialize(server, requests)
+      # @param request_type [Symbol] Request type that the servlet will receive
+      def initialize(server, request_type)
         super server
-        @requests = requests
+        @request_type = request_type
+        @requests = Server.list_for request_type
       end
 
       # Logs an incoming GET WEBrick request.
@@ -61,23 +62,31 @@ module Maze
         response.status = Server.status_code
       rescue JSON::ParserError => e
         msg = "Unable to parse request as JSON: #{e.message}"
-        $logger.error msg
-        Server.invalid_requests.add({
-          reason: msg,
-          request: request,
-          body: request.body
-        })
+        if Maze.config.captured_invalid_requests.include? @request_type
+          $logger.error msg
+          Server.invalid_requests.add({
+            reason: msg,
+            request: request,
+            body: request.body
+          })
+        else
+          $logger.warn msg
+        end
       rescue StandardError => e
-        $logger.error "Invalid request: #{e.message}"
-        Server.invalid_requests.add({
-          invalid: true,
-          reason: e.message,
-          request: {
-            request_uri: request.request_uri,
-            header: request.header,
-            body: request.inspect
-          }
-        })
+        if Maze.config.captured_invalid_requests.include? @request_type
+          $logger.error "Invalid request: #{e.message}"
+          Server.invalid_requests.add({
+            invalid: true,
+            reason: e.message,
+            request: {
+              request_uri: request.request_uri,
+              header: request.header,
+              body: request.inspect
+            }
+          })
+        else
+          $logger.warn "Invalid request: #{e.message}"
+        end
       end
 
       # Logs and returns a set of valid headers for this servlet.

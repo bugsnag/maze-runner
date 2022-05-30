@@ -9,6 +9,7 @@ module Maze
       self.receive_no_requests_wait = 30
       self.receive_requests_wait = 30
       self.enforce_bugsnag_integrity = true
+      self.captured_invalid_requests = Set[:errors, :sessions, :builds, :uploads, :sourcemaps]
     end
 
     #
@@ -55,6 +56,9 @@ module Maze
 
     # Enables bugsnag reporting
     attr_accessor :enable_bugsnag
+
+    # The server endpoints for which invalid requests should be captured and cause tests to fail
+    attr_accessor :captured_invalid_requests
 
     #
     # General appium configuration

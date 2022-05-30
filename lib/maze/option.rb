@@ -30,6 +30,7 @@ module Maze
     OS = 'os'
     OS_VERSION = 'os-version'
     APP_BUNDLE_ID = 'app-bundle-id'
+    LIST_DEVICES = 'list-devices'
 
     # CrossBrowserTesting/Bitbar options
     SB_LOCAL = 'sb-local'

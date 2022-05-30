@@ -1,4 +1,11 @@
+# 6.18.0 - 2022/05/30
+
+## Enhancements
+
+- Capture macos screen when scenario fails [369](https://github.com/bugsnag/maze-runner/pull/369)
+
 # 6.17.0 - 2022/05/20
+
 ## Enhancements
 
 - Add standalone `upload-app` executable [365](https://github.com/bugsnag/maze-runner/pull/365)

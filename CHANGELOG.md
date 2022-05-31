@@ -1,3 +1,9 @@
+# 6.18.1 - 2022/05/31
+
+## Fixes
+
+- Update start-driver retry logic to enable device lists [366](https://github.com/bugsnag/maze-runner/pull/366)
+
 # 6.18.0 - 2022/05/30
 
 ## Enhancements

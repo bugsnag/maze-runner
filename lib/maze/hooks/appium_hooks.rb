@@ -130,11 +130,35 @@ module Maze
       end
 
       def start_driver(config, tunnel_id = nil)
+        retry_failure = config.device_list.empty?
         until Maze.driver
           begin
             config.capabilities = device_capabilities(config, tunnel_id)
             driver = create_driver(config)
-            driver.start_driver unless config.appium_session_isolation
+
+            start_driver_closure = Proc.new do
+              begin
+                driver.start_driver
+                true
+              rescue => start_error
+                raise start_error unless retry_failure
+                false
+              end
+            end
+
+            unless config.appium_session_isolation
+              if retry_failure
+                wait = Maze::Wait.new(interval: 10, timeout: 60)
+                success = wait.until(&start_driver_closure)
+
+                unless success
+                  $logger.error 'Appium driver failed to start after 6 attempts in 60 seconds'
+                  raise RuntimeError.new('Appium driver failed to start in 60 seconds')
+                end
+              else
+                start_driver_closure.call
+              end
+            end
 
             # Infer OS version if necessary when running locally
             if Maze.config.farm == :local && Maze.config.os_version.nil?
@@ -147,7 +171,6 @@ module Maze
               $logger.info "Inferred OS version to be #{version}"
               Maze.config.os_version = version
             end
-
 
             Maze.driver = driver
           rescue Selenium::WebDriver::Error::UnknownError => original_exception

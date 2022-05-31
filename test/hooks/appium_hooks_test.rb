@@ -3,6 +3,7 @@
 require 'appium_lib'
 require_relative '../test_helper'
 require_relative '../../lib/maze/capabilities'
+require_relative '../../lib/maze/wait'
 require_relative '../../lib/maze/driver/appium'
 require_relative '../../lib/maze/driver/resilient_appium'
 require_relative '../../lib/maze/hooks/appium_hooks'
@@ -13,6 +14,7 @@ class AppiumHooksTest < Test::Unit::TestCase
     $logger = mock('logger')
     $config = mock('config')
     Maze.stubs(:config).returns($config)
+    Maze::Wait.any_instance.stubs(:sleep)
   end
 
   def test_device_capabilities_bs
@@ -98,7 +100,7 @@ class AppiumHooksTest < Test::Unit::TestCase
     assert_equal(:driver, driver)
   end
 
-  def test_start_driver_success
+  def test_start_driver_success_without_device_list
     driver_mock = mock('driver')
     driver_mock.expects(:start_driver)
 
@@ -112,6 +114,7 @@ class AppiumHooksTest < Test::Unit::TestCase
     $config.expects(:capabilities=).with(:caps)
     $config.expects(:appium_session_isolation).returns(false)
     $config.expects(:farm).returns(:bs)
+    $config.stubs(:device_list).returns([])
 
     hooks.start_driver($config)
   end
@@ -133,6 +136,7 @@ class AppiumHooksTest < Test::Unit::TestCase
     $config.expects(:farm).returns(:local)
     $config.expects(:os_version).returns(nil)
     $config.expects(:os).returns('ios')
+    $config.expects(:device_list).returns([])
 
     $logger.expects(:info).with('Inferred OS version to be 9.0')
     $config.expects(:os_version=).with(9.0)
@@ -157,6 +161,7 @@ class AppiumHooksTest < Test::Unit::TestCase
     $config.expects(:farm).returns(:local)
     $config.expects(:os_version).returns(nil)
     $config.expects(:os).returns('android')
+    $config.expects(:device_list).returns([])
 
     $logger.expects(:info).with('Inferred OS version to be 12.0')
     $config.expects(:os_version=).with(12.0)
@@ -164,9 +169,9 @@ class AppiumHooksTest < Test::Unit::TestCase
     hooks.start_driver($config)
   end
 
-  def test_start_driver_fails_once
+  def test_start_driver_fails_without_device_list
     driver_mock = mock('driver')
-    driver_mock.expects(:start_driver).raises(Selenium::WebDriver::Error::UnknownError)
+    driver_mock.expects(:start_driver).times(6).raises(Selenium::WebDriver::Error::UnknownError)
 
     Maze.expects(:driver).returns(false)
 
@@ -176,20 +181,36 @@ class AppiumHooksTest < Test::Unit::TestCase
 
     $config.expects(:capabilities=).with(:caps)
     $config.expects(:appium_session_isolation).returns(false)
-    $config.expects(:device).returns(:device)
-    $config.expects(:farm).returns(:farm)
     $config.expects(:device_list).returns([])
 
-    $logger.expects(:warn).with("Attempt to acquire #{:device} device from farm #{:farm} failed")
-    $logger.expects(:warn).with("Exception: #{Selenium::WebDriver::Error::UnknownError.new.message}")
-    $logger.expects(:error).with('No further devices to try - raising original exception')
+    $logger.expects(:error).with("Appium driver failed to start after 6 attempts in 60 seconds")
 
-    assert_raise Selenium::WebDriver::Error::UnknownError do
+    assert_raise RuntimeError do
       hooks.start_driver($config)
     end
   end
 
-  def test_start_driver_fails_then_succeeds
+  def test_start_driver_fails_then_succeeds_without_device_list
+    driver_mock = mock('driver')
+    driver_mock.expects(:start_driver).twice.raises(Selenium::WebDriver::Error::UnknownError).then.returns(true)
+
+    Maze.expects(:driver).twice.returns(false, true)
+
+    hooks = Maze::Hooks::AppiumHooks.new
+    hooks.expects(:device_capabilities).with($config, nil).returns(:caps)
+    hooks.expects(:create_driver).with($config).returns(driver_mock)
+
+    $config.expects(:capabilities=).with(:caps)
+    $config.expects(:appium_session_isolation).returns(false)
+    $config.expects(:farm).returns(:farm)
+    $config.expects(:device_list).returns([])
+
+    Maze.expects(:driver=).with(driver_mock)
+
+    hooks.start_driver($config)
+  end
+
+  def test_start_driver_fails_then_succeeds_with_device_list
     driver_mock = mock('driver')
     driver_mock.expects(:start_driver).twice.raises(Selenium::WebDriver::Error::UnknownError).then.returns(true)
 
@@ -207,7 +228,7 @@ class AppiumHooksTest < Test::Unit::TestCase
     $config.stubs(:device_list).returns(device_list)
     $config.expects(:device_list=).with(device_list)
     $config.expects(:device=).with(:next_device)
-    device_list.expects(:empty?).returns(false)
+    device_list.expects(:empty?).twice.returns(false, false)
     device_list.expects(:first).returns(:next_device)
     device_list.expects(:drop).with(1).returns(device_list)
 
@@ -220,7 +241,7 @@ class AppiumHooksTest < Test::Unit::TestCase
     hooks.start_driver($config)
   end
 
-  def test_start_driver_fails_multiple_times
+  def test_start_driver_fails_with_device_list
     driver_mock = mock('driver')
     driver_mock.expects(:start_driver).times(3).raises(Selenium::WebDriver::Error::UnknownError)
 
@@ -238,7 +259,7 @@ class AppiumHooksTest < Test::Unit::TestCase
     $config.stubs(:device_list).returns(device_list)
     $config.expects(:device_list=).twice.with(device_list)
     $config.expects(:device=).twice.with(:next_device)
-    device_list.expects(:empty?).times(3).returns(false, false, true)
+    device_list.expects(:empty?).times(4).returns(false, false, false, true)
     device_list.expects(:first).twice.returns(:next_device)
     device_list.expects(:drop).with(1).twice.returns(device_list)
 
@@ -265,6 +286,7 @@ class AppiumHooksTest < Test::Unit::TestCase
     $config.expects(:capabilities=).with(:caps)
     $config.expects(:appium_session_isolation).returns(true)
     $config.expects(:farm).returns(:farm)
+    $config.stubs(:device_list).returns([])
 
     hooks.start_driver($config)
   end

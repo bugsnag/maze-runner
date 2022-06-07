@@ -37,7 +37,7 @@ module Maze
       end
 
       def install_plugin(cuc_config)
-        unless Maze.config.tms_uri
+        unless Maze.config.tms_uri && Maze.config.tms_token
           $logger.warn 'No test report will be delivered for this run'
           return
         end
@@ -76,6 +76,7 @@ module Maze
         uri = URI("#{Maze.config.tms_uri}/report")
         request = Net::HTTP::Post.new(uri)
         request['Content-Type'] = 'application/json'
+        request['Authorization'] = Maze.config.tms_token
         request.body = JSON.generate(report)
 
         begin
@@ -85,6 +86,7 @@ module Maze
           $logger.warn 'Report delivery attempt failed'
           $logger.warn e.message
         end
+        pp response
         $logger.info 'Cucumber report delivered to test report server'
       end
     end

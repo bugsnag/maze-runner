@@ -66,9 +66,16 @@ module Maze
         output_folder = File.join(Dir.pwd, 'maze_output')
         filename = 'maze_report.json'
         filepath = File.join(output_folder, filename)
-        File.open(filepath, 'w') do |file|
-          file.puts JSON.pretty_generate(report)
+
+        begin
+          File.open(filepath, 'w') do |file|
+            file.puts JSON.pretty_generate(report)
+          end
+        rescue => e
+          $logger.warn 'Report could not be saved locally'
+          $logger.warn e.message
         end
+
         send_report
       end
 
@@ -85,9 +92,9 @@ module Maze
         rescue => e
           $logger.warn 'Report delivery attempt failed'
           $logger.warn e.message
+        else
+          $logger.info 'Cucumber report delivered to test report server'
         end
-        pp response
-        $logger.info 'Cucumber report delivered to test report server'
       end
     end
   end

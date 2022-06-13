@@ -58,8 +58,5 @@ module Maze
     # Runtime options
     ENABLE_RETRIES = 'enable-retries'
     ENABLE_BUGSNAG = 'enable-bugsnag'
-
-    # Reporting options
-    TEST_MANAGEMENT_SERVICE = 'test-management-server'
   end
 end

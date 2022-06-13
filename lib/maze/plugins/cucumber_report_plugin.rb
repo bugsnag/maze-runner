@@ -37,8 +37,8 @@ module Maze
       end
 
       def install_plugin(cuc_config)
-        unless Maze.config.tms_uri && Maze.config.tms_token
-          $logger.warn 'No test report will be delivered for this run'
+        unless Maze.config.tms_uri && Maze.config.tms_token && ENV['BUILDKITE']
+          $logger.info 'No test report will be delivered for this run'
           return
         end
         # Add installation hook

@@ -40,6 +40,7 @@ class CucumberReportPluginTest < Test::Unit::TestCase
     $cuc_config_mock = mock(CUC_CONFIG_MOCK_CLASS)
 
     # Setup environment variables used for data
+    ENV['BUILDKITE'] = 'true'
     ENV['BUILDKITE_PIPELINE_NAME'] = BUILDKITE_PIPELINE_NAME
     ENV['BUILDKITE_REPO'] = BUILDKITE_REPO
     ENV['BUILDKITE_BUILD_URL'] = BUILDKITE_BUILD_URL
@@ -74,7 +75,7 @@ class CucumberReportPluginTest < Test::Unit::TestCase
 
   def test_install_plugin_no_uri
     logger = start_logger_mock
-    logger.expects(:warn).with('No test report will be delivered for this run')
+    logger.expects(:info).with('No test report will be delivered for this run')
 
     $config_mock.expects(:tms_uri).returns(false)
     # Stub to allow for it but don't expect the second call
@@ -86,10 +87,22 @@ class CucumberReportPluginTest < Test::Unit::TestCase
 
   def test_install_plugin_no_token
     logger = start_logger_mock
-    logger.expects(:warn).with('No test report will be delivered for this run')
+    logger.expects(:info).with('No test report will be delivered for this run')
 
     $config_mock.expects(:tms_uri).returns(true)
     $config_mock.expects(:tms_token).returns(false)
+
+    plugin = Maze::Plugins::CucumberReportPlugin.new
+    plugin.install_plugin($cuc_config_mock)
+  end
+
+  def test_install_plugin_no_buildkite_env
+    logger = start_logger_mock
+    logger.expects(:info).with('No test report will be delivered for this run')
+
+    ENV.delete('BUILDKITE')
+    $config_mock.expects(:tms_uri).returns(true)
+    $config_mock.expects(:tms_token).returns(true)
 
     plugin = Maze::Plugins::CucumberReportPlugin.new
     plugin.install_plugin($cuc_config_mock)

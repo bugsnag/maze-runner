@@ -9,7 +9,7 @@ GIT
 PATH
   remote: .
   specs:
-    bugsnag-maze-runner (6.18.1)
+    bugsnag-maze-runner (6.19.0)
       appium_lib (~> 11.2.0)
       bugsnag (~> 6.24)
       cucumber (~> 7.1)
@@ -143,6 +143,7 @@ GEM
       webrick (~> 1.7.0)
 
 PLATFORMS
+  x86_64-darwin-19
   x86_64-darwin-20
 
 DEPENDENCIES

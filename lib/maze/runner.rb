@@ -138,8 +138,9 @@ module Maze
         @environment ||= {}
       end
 
-      private
-
+      # Allows access to the process ids created by the runner.
+      #
+      # @return [Array] pids created by the runner
       def pids
         @pids ||= []
       end

@@ -1,8 +1,9 @@
-# TBD
+# 6.19.0 - 2022/06/14
 
 ## Enhancements
 
 - Add support for delivering and saving maze-runner reports [370](https://github.com/bugsnag/maze-runner/pull/370)
+- Allow access to pids created by the Runner [371](https://github.com/bugsnag/maze-runner/pull/371)
 
 # 6.18.1 - 2022/05/31
 

@@ -127,6 +127,15 @@ module Maze
                 '(BS only) Path to the BrowserStackLocal binary. MAZE_BS_LOCAL env var or "/BrowserStackLocal" by default',
                 type: :string
 
+            # TMS options
+            opt Option::TMS_URI,
+                'URI of the test management server root.  MAZE_TMS_URI env var',
+                type: :string
+
+            opt Option::TMS_TOKEN,
+                'Token used to access the test management server.  MAZE_TMS_TOKEN env var',
+                type: :string
+
             text ''
             text 'Local device options:'
 
@@ -215,6 +224,8 @@ module Maze
             options[Option::ACCESS_KEY] ||= ENV['SAUCE_LABS_ACCESS_KEY']
           end
           options[Option::SB_LOCAL] ||= ENV['MAZE_SB_LOCAL'] || '/SBSecureTunnel'
+          options[Option::TMS_URI] ||= ENV['MAZE_TMS_URI']
+          options[Option::TMS_TOKEN] ||= ENV['MAZE_TMS_TOKEN']
           options[Option::BS_LOCAL] ||= ENV['MAZE_BS_LOCAL'] || '/BrowserStackLocal'
           options[Option::SL_LOCAL] ||= ENV['MAZE_SL_LOCAL'] || '/sauce-connect/bin/sc'
           options[Option::APPIUM_SERVER] ||= ENV['MAZE_APPIUM_SERVER'] || 'http://localhost:4723/wd/hub'

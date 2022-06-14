@@ -1,3 +1,9 @@
+# TBD
+
+## Enhancements
+
+- Add support for delivering and saving maze-runner reports [370](https://github.com/bugsnag/maze-runner/pull/370)
+
 # 6.18.1 - 2022/05/31
 
 ## Fixes

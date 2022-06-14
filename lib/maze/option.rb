@@ -40,6 +40,9 @@ module Maze
     # Sauce Labs-only options
     SL_LOCAL = 'sl-local'
 
+    TMS_URI = 'tms-uri'
+    TMS_TOKEN = 'tms-token'
+
     # Local-only options
     APPIUM_SERVER = 'appium-server'
     START_APPIUM = 'start-appium'

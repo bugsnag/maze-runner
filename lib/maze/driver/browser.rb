@@ -11,20 +11,22 @@ module Maze
       attr_reader :capabilities
 
       def initialize(driver_for, selenium_url=nil, capabilities=nil)
-        $logger.info 'Starting Selenium driver...'
-        time = Time.now
-        if driver_for == :remote
-          # Sets up identifiers for ease of connecting jobs
-          @capabilities = capabilities
-          @capabilities.merge! project_name_capabilities
+        @capabilities = capabilities.merge project_name_capabilities
 
-          @driver = ::Selenium::WebDriver.for :remote,
-                                              url: selenium_url,
-                                              desired_capabilities: @capabilities
-        else
-          @driver = ::Selenium::WebDriver.for driver_for
+        wait = Maze::Wait.new(interval: 10, timeout: 60)
+        success = wait.until do
+          begin
+            create_driver(driver_for, selenium_url)
+            true
+          rescue
+            false
+          end
         end
-        $logger.info "Selenium driver started in #{(Time.now - time).to_i}s"
+
+        unless success
+          $logger.error 'Selenium driver failed to start after 6 attempts in 60 seconds'
+          raise RuntimeError.new('Appium driver failed to start in 60 seconds')
+        end
       end
 
       def find_element(*args)
@@ -86,6 +88,29 @@ module Maze
           project: project,
           build: build
         }
+      end
+
+      private
+
+      # Creates and starts the selenium driver
+      def create_driver(driver_for, selenium_url=nil)
+        begin
+          $logger.info "Starting Selenium driver, attempt #{attempts + 1}"
+          time = Time.now
+          if driver_for == :remote
+            driver = ::Selenium::WebDriver.for :remote,
+                                                url: selenium_url,
+                                                desired_capabilities: @capabilities
+          else
+            driver = ::Selenium::WebDriver.for driver_for
+          end
+          $logger.info "Selenium driver started in #{(Time.now - time).to_i}s"
+          @driver = driver
+        rescue => error
+          $logger.warn "Selenium driver failed to start in #{(Time.now - time).to_i}s"
+          $logger.warn "#{error.class} occurred with message: #{error.message}"
+          raise error
+        end
       end
     end
   end

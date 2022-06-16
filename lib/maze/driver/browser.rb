@@ -11,7 +11,8 @@ module Maze
       attr_reader :capabilities
 
       def initialize(driver_for, selenium_url=nil, capabilities=nil)
-        @capabilities = capabilities.merge project_name_capabilities
+        capabilities.merge! project_name_capabilities
+        @capabilities = capabilities
 
         wait = Maze::Wait.new(interval: 10, timeout: 60)
         success = wait.until do

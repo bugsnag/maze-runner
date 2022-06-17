@@ -129,6 +129,9 @@ module Maze
     # URI of the test-management service
     attr_accessor :tms_uri
 
+    # Access token for the test-management service
+    attr_accessor :tms_token
+
     #
     # Local testing specific configuration
     #

@@ -61,6 +61,8 @@ InstallPlugin do |config|
   # Only add the retry plugin if --retry is not used on the command line
   config.filters << Maze::Plugins::GlobalRetryPlugin.new(config) if config.options[:retry].zero?
   config.filters << Maze::Plugins::BugsnagReportingPlugin.new(config)
+  cucumber_report_plugin = Maze::Plugins::CucumberReportPlugin.new
+  cucumber_report_plugin.install_plugin(config)
 end
 
 # Before each scenario

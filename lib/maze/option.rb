@@ -41,7 +41,6 @@ module Maze
     # Sauce Labs-only options
     SL_LOCAL = 'sl-local'
 
-    # BitBar-only options
     TMS_URI = 'tms-uri'
 
     # Local-only options

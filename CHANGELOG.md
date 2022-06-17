@@ -1,3 +1,9 @@
+# 6.19.1 - 2022/06/17
+
+## Fixes
+
+- Update `Maze::Helper.get_current_platform` to support `browser` [373](https://github.com/bugsnag/maze-runner/pull/373)
+
 # 6.19.0 - 2022/06/14
 
 ## Enhancements

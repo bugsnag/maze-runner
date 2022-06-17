@@ -41,3 +41,7 @@ When('I let the test page run for up to {int} seconds') do |n|
   txt = Maze.driver.find_element(id: 'bugsnag-test-state').text
   Maze.check.equal('DONE', txt, "Expected #bugsnag-test-state text to be 'DONE'. It was '#{txt}'.")
 end
+
+Then('Maze Runner reports the current platform as {string}') do |platform|
+  Maze.check.equal(platform, Maze::Helper.get_current_platform)
+end

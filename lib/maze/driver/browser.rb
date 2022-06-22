@@ -96,7 +96,7 @@ module Maze
       # Creates and starts the selenium driver
       def create_driver(driver_for, selenium_url=nil)
         begin
-          $logger.info "Starting Selenium driver, attempt #{attempts + 1}"
+          $logger.info "Starting Selenium driver"
           time = Time.now
           if driver_for == :remote
             driver = ::Selenium::WebDriver.for :remote,

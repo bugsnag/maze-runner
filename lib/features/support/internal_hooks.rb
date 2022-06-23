@@ -61,6 +61,8 @@ InstallPlugin do |config|
   # Only add the retry plugin if --retry is not used on the command line
   config.filters << Maze::Plugins::GlobalRetryPlugin.new(config) if config.options[:retry].zero?
   config.filters << Maze::Plugins::BugsnagReportingPlugin.new(config)
+  cucumber_report_plugin = Maze::Plugins::CucumberReportPlugin.new
+  cucumber_report_plugin.install_plugin(config)
 end
 
 # Before each scenario
@@ -79,6 +81,10 @@ end
 
 # General processing to be run after each scenario
 After do |scenario|
+  # If we're running on macos, take a screenshot if the scenario fails
+  if Maze.config.os == "macos" && scenario.status == :failed
+    Maze::MacosUtils.capture_screen(scenario)
+  end
 
   # Call any blocks registered by the client
   Maze.hooks.call_after scenario
@@ -160,7 +166,7 @@ end
 def write_requests(scenario)
   folder1 = File.join(Dir.pwd, 'maze_output')
   folder2 = scenario.failed? ? 'failed' : 'passed'
-  folder3 = scenario.name.gsub(/[:"& ]/, "_").gsub(/_+/, "_")
+  folder3 = Maze::Helper.to_friendly_filename(scenario.name)
 
   path = File.join(folder1, folder2, folder3)
 

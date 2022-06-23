@@ -87,21 +87,31 @@ module Maze
       end
 
       # Returns the current platform all lower-case.
-      # @@return Typically 'ios', 'android' or 'mac'.
+      # @return Typically 'ios', 'android', 'mac' or 'browser'
       def get_current_platform
-        os = case Maze.config.farm
-             when :bs
-               Maze.config.capabilities['os']
-             when :sl
-               Maze.driver.capabilities['platformName']
-             else
-               Maze.config.os
-             end
-        os = os&.downcase
+        if Maze.mode == :browser
+          os = 'browser'
+        else
+          os = case Maze.config.farm
+               when :bs
+                 Maze.config.capabilities['os']
+               when :sl
+                 Maze.driver.capabilities['platformName']
+               else
+                 Maze.config.os
+               end
+          os = os&.downcase
+        end
 
         raise('Unable to determine the current platform') if os.nil?
 
         os
+      end
+
+      # Returns the name of the scenario to
+      # @param string [String] a string to convert to a file name
+      def to_friendly_filename(string)
+        string.gsub(/[:"& ]/, "_").gsub(/_+/, "_")
       end
     end
   end

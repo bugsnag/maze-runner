@@ -1,4 +1,42 @@
-# 6.15.1 - TBD
+# 6.19.1 - 2022/06/17
+
+## Fixes
+
+- Update `Maze::Helper.get_current_platform` to support `browser` [373](https://github.com/bugsnag/maze-runner/pull/373)
+
+# 6.19.0 - 2022/06/14
+
+## Enhancements
+
+- Add support for delivering and saving maze-runner reports [370](https://github.com/bugsnag/maze-runner/pull/370)
+- Allow access to pids created by the Runner [371](https://github.com/bugsnag/maze-runner/pull/371)
+
+# 6.18.1 - 2022/05/31
+
+## Fixes
+
+- Update start-driver retry logic to enable device lists [366](https://github.com/bugsnag/maze-runner/pull/366)
+
+# 6.18.0 - 2022/05/30
+
+## Enhancements
+
+- Capture macos screen when scenario fails [369](https://github.com/bugsnag/maze-runner/pull/369)
+
+# 6.17.0 - 2022/05/20
+
+## Enhancements
+
+- Add standalone `upload-app` executable [365](https://github.com/bugsnag/maze-runner/pull/365)
+- Add --list-devices option [368](https://github.com/bugsnag/maze-runner/pull/368)
+
+
+# 6.16.0 - 2022/05/10
+
+## Enhancements
+
+- Allow appium driver start failures to be retried within 60s [359](https://github.com/bugsnag/maze-runner/pull/359)
+- Add `Maze.config.captured_invalid_requests` to allow invalid requests to be ignored on specific endpoints [362](https://github.com/bugsnag/maze-runner/pull/362)
 
 ## Fixes
 

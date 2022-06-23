@@ -264,5 +264,18 @@ class AppiumDriverTest < Test::Unit::TestCase
     assert_equal pipeline, hash[:project]
     assert_match UUID_REGEX, hash[:build]
   end
+
+  def test_start_driver_success
+    logger = start_logger_mock
+
+    driver = Maze::Driver::Appium.new SERVER_URL, @capabilities, :accessibility_id
+
+    Appium::Driver.any_instance.expects(:start_driver).returns(true)
+    Time.expects(:now).twice.returns(0)
+    logger.expects(:info).with('Starting Appium driver...')
+    logger.expects(:info).with('Appium driver started in 0s')
+
+    driver.start_driver
+  end
 end
 

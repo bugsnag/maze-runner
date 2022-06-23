@@ -51,10 +51,16 @@ module Maze
 
       # Starts the Appium driver
       def start_driver
-        $logger.info 'Starting Appium driver...'
-        time = Time.now
-        super
-        $logger.info "Appium driver started in #{(Time.now - time).to_i}s"
+        begin
+          $logger.info 'Starting Appium driver...'
+          time = Time.now
+          super
+          $logger.info "Appium driver started in #{(Time.now - time).to_i}s"
+        rescue => error
+          $logger.warn "Appium driver failed to start in #{(Time.now - time).to_i}s"
+          $logger.warn "#{error.class} occurred with message: #{error.message}"
+          raise error
+        end
       end
 
       # Checks for an element, waiting until it is present or the method times out

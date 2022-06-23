@@ -37,6 +37,7 @@ Scenario: Verify text entry and clearing steps
 
 Scenario: Verify "equals the correct platform value" step
   Given the element "trigger_error" is present within 30 seconds
+  Then Maze Runner reports the current platform as "android"
   When I click the element "trigger_error"
   Then I wait to receive an error
   And the error Bugsnag-Integrity header is valid

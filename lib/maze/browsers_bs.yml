@@ -1,196 +1,195 @@
 # Selenium capabilities for browsers available on BrowserStack
 ---
 ie_8:
-  browser: "ie"
-  browser_version: "8"
+  browserName: "ie"
+  browserVersion: "8"
   os: "windows"
-  os_version: "7"
+  osVersion: "7"
 
 ie_9:
-  browser: "ie"
-  browser_version: "9"
+  browserName: "ie"
+  browserVersion: "9"
   os: "windows"
-  os_version: "7"
+  osVersion: "7"
 
 ie_10:
-  browser: "ie"
-  browser_version: "10"
+  browserName: "ie"
+  browserVersion: "10"
   os: "windows"
-  os_version: "8"
+  osVersion: "8"
 
 ie_11:
-  browser: "ie"
-  browser_version: "11"
+  browserName: "ie"
+  browserVersion: "11"
   os: "windows"
-  os_version: "10"
+  osVersion: "10"
 
 edge_14:
-  browser: "edge"
-  browser_version: "14"
+  browserName: "edge"
+  browserVersion: "14"
   os: "windows"
-  os_version: "10"
+  osVersion: "10"
 
 edge_15:
-  browser: "edge"
-  browser_version: "15"
+  browserName: "edge"
+  browserVersion: "15"
   os: "windows"
-  os_version: "10"
+  osVersion: "10"
 
 safari_6:
-  browser: "safari"
-  browser_version: "6"
+  browserName: "safari"
+  browserVersion: "6"
   os: "OS X"
-  os_version: "lion"
+  osVersion: "lion"
 
 safari_10:
-  browser: "safari"
-  browser_version: "10.0"
+  browserName: "safari"
+  browserVersion: "10.0"
   os: "OS X"
-  os_version: "sierra"
+  osVersion: "sierra"
 
 safari_13:
-  browser: "Safari"
-  browser_version: "13.0"
+  browserName: "Safari"
+  browserVersion: "13.0"
   os: "OS X"
-  os_version: "Catalina"
+  osVersion: "Catalina"
 
 safari_14:
-  browser: "Safari"
-  browser_version: "14.0"
+  browserName: "Safari"
+  browserVersion: "14.0"
   os: "OS X"
-  os_version: "Big Sur"
+  osVersion: "Big Sur"
 
 safari_15:
-  browser: "Safari"
-  browser_version: "15.0"
+  browserName: "Safari"
+  browserVersion: "15.0"
   os: "OS X"
-  os_version: "Monterey"
+  osVersion: "Monterey"
 
 iphone_6s:
-  browser: "iphone"
+  browserName: "iphone"
   device: "iPhone 6S"
   os: "ios"
-  os_version: "9.0"
-  real_mobile: true
+  osVersion: "9.0"
+  realMobile: true
 
 iphone_7:
-  browser: "iphone"
+  browserName: "iphone"
   device: "iPhone 7"
   os: "ios"
-  os_version: "10.3"
-  real_mobile: true
+  osVersion: "10.3"
+  realMobile: true
 
 iphone_13:
-  browser: "iphone"
+  browserName: "iphone"
   device: "iPhone 13"
   os: "ios"
-  os_version: "15.4"
-  real_mobile: true
+  osVersion: "15.4"
+  realMobile: true
 
 android_nexus5:
-  browser: "Android Browser"
+  browserName: "Android Browser"
   device: "Google Nexus 5"
   os: "android"
-  os_version: "4.4"
-  real_mobile: true
+  osVersion: "4.4"
+  realMobile: true
 
 android_s6:
-  browser: "Android Browser"
+  browserName: "Android Browser"
   device: "Samsung Galaxy S6"
   os: "android"
-  os_version: "5.0"
-  real_mobile: true
+  osVersion: "5.0"
+  realMobile: true
 
 android_s7:
-  browser: "Android Browser"
+  browserName: "Android Browser"
   device: "Samsung Galaxy S7"
   os: "android"
-  os_version: "6.0"
-  real_mobile: true
+  osVersion: "6.0"
+  realMobile: true
 
 android_s8:
-  browser: "Android Browser"
+  browserName: "Android Browser"
   device: "Samsung Galaxy S8 Plus"
   os: "android"
-  os_version: "7.0"
-  real_mobile: true
+  osVersion: "7.0"
+  realMobile: true
 
 firefox_30:
-  browser: "firefox"
-  browser_version: "30"
+  browserName: "firefox"
+  browserVersion: "30"
   os: "windows"
-  os_version: "7"
+  osVersion: "7"
 
 firefox_56:
-  browser: "firefox"
-  browser_version: "56"
+  browserName: "firefox"
+  browserVersion: "56"
   os: "windows"
-  os_version: "10"
+  osVersion: "10"
 
 firefox_latest:
-  browser: "firefox"
-  browser_version: "latest"
+  browserName: "firefox"
+  browserVersion: "latest"
   os: "windows"
-  os_version: "10"
-  selenium_version: "3.10.0"
+  osVersion: "10"
 
 chrome_30:
-  browser: "chrome"
-  browser_version: "30.0"
+  browserName: "chrome"
+  browserVersion: "30.0"
   os: "windows"
-  os_version: "7"
+  osVersion: "7"
 
 chrome_32:
-  browser: "chrome"
-  browser_version: "32.0"
+  browserName: "chrome"
+  browserVersion: "32.0"
   os: "windows"
-  os_version: "7"
+  osVersion: "7"
 
 chrome_34:
-  browser: "chrome"
-  browser_version: "34.0"
+  browserName: "chrome"
+  browserVersion: "34.0"
   os: "windows"
-  os_version: "7"
+  osVersion: "7"
 
 chrome_36:
-  browser: "chrome"
-  browser_version: "36.0"
+  browserName: "chrome"
+  browserVersion: "36.0"
   os: "windows"
-  os_version: "7"
+  osVersion: "7"
 
 chrome_38:
-  browser: "chrome"
-  browser_version: "38.0"
+  browserName: "chrome"
+  browserVersion: "38.0"
   os: "windows"
-  os_version: "7"
+  osVersion: "7"
 
 chrome_40:
-  browser: "chrome"
-  browser_version: "40.0"
+  browserName: "chrome"
+  browserVersion: "40.0"
   os: "windows"
-  os_version: "7"
+  osVersion: "7"
 
 chrome_42:
-  browser: "chrome"
-  browser_version: "42.0"
+  browserName: "chrome"
+  browserVersion: "42.0"
   os: "windows"
-  os_version: "7"
+  osVersion: "7"
 
 chrome_43:
-  browser: "chrome"
-  browser_version: "43.0"
+  browserName: "chrome"
+  browserVersion: "43.0"
   os: "windows"
-  os_version: "7"
+  osVersion: "7"
 
 chrome_61:
-  browser: "chrome"
-  browser_version: "61.0"
+  browserName: "chrome"
+  browserVersion: "61.0"
   os: "windows"
-  os_version: "10"
+  osVersion: "10"
 
 chrome_latest:
-  browser: "chrome"
-  browser_version: "latest"
+  browserName: "chrome"
+  browserVersion: "latest"
   os: "windows"
-  os_version: "10"
-  selenium_version: "3.14.0"
+  osVersion: "10"
+  seleniumVersion: "3.14.0"

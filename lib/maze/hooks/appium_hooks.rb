@@ -45,6 +45,13 @@ module Maze
 
         start_driver(config, tunnel_id)
 
+        # Set bundle/app id for later use
+        Maze.driver.app_id = case Maze::Helper.get_current_platform
+                             when 'android'
+                               Maze.driver.session_capabilities['appPackage']
+                             when 'ios'
+                               Maze.driver.session_capabilities['bundleId']
+                             end
         # Ensure the device is unlocked
         Maze.driver.unlock
 
@@ -68,7 +75,8 @@ module Maze
         elsif [:bb].include? Maze.config.farm
           Maze.driver.launch_app
         else
-          Maze.driver.reset
+          Maze.driver.terminate_app Maze.driver.app_id
+          Maze.driver.activate_app Maze.driver.app_id
         end
       end
 

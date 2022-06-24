@@ -93,15 +93,14 @@ module Maze
           os = 'browser'
         else
           os = case Maze.config.farm
-               when :bs
-                 Maze.config.capabilities['os']
-               when :sl
-                 Maze.driver.capabilities['platformName']
+               when :bs, :sl
+                 Maze.config.capabilities['platformName']
                else
                  Maze.config.os
                end
           os = os&.downcase
         end
+
 
         raise('Unable to determine the current platform') if os.nil?
 

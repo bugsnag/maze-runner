@@ -1,3 +1,15 @@
+# 7.0.0 - TBD
+
+## Enhancements
+
+- Update appium_lib (v12) and selenium-webdriver (v4), enforcing W3C [364](https://github.com/bugsnag/maze-runner/pull/364)
+
+# 6.20.0 - 2022/06/24
+
+## Enhancements
+
+- Add automatic retries when Selenium driver fails to start [372](https://github.com/bugsnag/maze-runner/pull/372)
+
 # 6.19.1 - 2022/06/17
 
 ## Fixes

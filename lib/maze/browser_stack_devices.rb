@@ -9,6 +9,7 @@ module Maze
     APPIUM_1_15_0 = '1.15.0'
     APPIUM_1_20_2 = '1.20.2'
     APPIUM_1_21_0 = '1.21.0'
+    APPIUM_1_22_0 = '1.22.0'
 
     class << self
 
@@ -34,16 +35,17 @@ module Maze
 
       def make_android_hash(device, version, appium_version = APPIUM_1_20_2)
         hash = {
-          'device' => device,
-          'os_version' => version,
+          'platformName' => 'android',
+          'platformVersion' => version,
+          'deviceName' => device,
           'autoGrantPermissions' => 'true',
-          'platformName' => 'Android',
-          'os' => 'android',
-          'browserstack.appium_version' => appium_version
+          'bstack:options' => {
+            "appiumVersion" => appium_version,
+          },
         }
         # disableAnimations only allowed > Android 6
         if version.to_i > 6
-          hash['disableAnimations'] = 'true'
+          hash['bstack:options']['disableAnimations'] = 'true'
         end
         hash.freeze
       end
@@ -60,12 +62,13 @@ module Maze
 
       def make_ios_hash(device, version, appium_version = APPIUM_1_21_0)
         {
-          'device' => device,
-          'os_version' => version,
-          'platformName' => 'iOS',
-          'os' => 'ios',
-          'disableAnimations' => 'true',
-          'browserstack.appium_version' => appium_version
+          'platformName' => 'ios',
+          'platformVersion' => version,
+          'deviceName' => device,
+          'bstack:options' => {
+            'appiumVersion' => appium_version,
+            'disableAnimations' => 'true'
+          },
         }.freeze
       end
 

@@ -31,6 +31,7 @@ module Maze
     OS_VERSION = 'os-version'
     APP_BUNDLE_ID = 'app-bundle-id'
     LIST_DEVICES = 'list-devices'
+    APP_BUNDLE_ID = 'app-bundle-id'
 
     # CrossBrowserTesting/Bitbar options
     SB_LOCAL = 'sb-local'
@@ -40,6 +41,9 @@ module Maze
 
     # Sauce Labs-only options
     SL_LOCAL = 'sl-local'
+
+    # BitBar-only options
+    TMS_URI = 'tms-uri'
 
     TMS_URI = 'tms-uri'
     TMS_TOKEN = 'tms-token'

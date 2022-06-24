@@ -132,6 +132,7 @@ module Maze
     # Access token for the test-management service
     attr_accessor :tms_token
 
+
     #
     # Local testing specific configuration
     #

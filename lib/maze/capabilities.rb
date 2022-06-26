@@ -57,7 +57,6 @@ module Maze
       def for_bitbar_browsers(browser_type, api_key, local_id, capabilities_option)
         capabilities = Selenium::WebDriver::Remote::Capabilities.new
         capabilities['bitbar_apiKey'] = api_key
-        capabilities['tunnel_name'] = local_id
         browsers = YAML.safe_load(File.read("#{__dir__}/browsers_bb.yml"))
         capabilities.merge! browsers[browser_type]
         capabilities.merge! JSON.parse(capabilities_option)

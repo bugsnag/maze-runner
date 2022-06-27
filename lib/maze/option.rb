@@ -43,8 +43,6 @@ module Maze
 
     # BitBar-only options
     TMS_URI = 'tms-uri'
-
-    TMS_URI = 'tms-uri'
     TMS_TOKEN = 'tms-token'
 
     # Local-only options

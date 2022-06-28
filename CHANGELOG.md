@@ -1,3 +1,9 @@
+# 6.21.0 - TBD
+
+## Enhancements
+
+- Add support for connecting appium driver to BitBar [282](https://github.com/bugsnag/maze-runner/pull/282)
+
 # 6.20.0 - 2022/06/24
 
 ## Enhancements

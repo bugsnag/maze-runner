@@ -95,8 +95,6 @@ module Maze
           os = case Maze.config.farm
                when :bs
                  Maze.config.capabilities['os']
-               when :sl
-                 Maze.driver.capabilities['platformName']
                else
                  Maze.config.os
                end

@@ -102,25 +102,6 @@ module Maze
         capabilities.merge! common
         capabilities.merge! JSON.parse(capabilities_option)
       end
-
-      def for_sauce_labs_device(device_name, os, os_version, tunnel_id, appium_version, capabilities_option)
-        capabilities = {
-          'noReset' => true,
-          'deviceOrientation' => 'portrait',
-          'tunnelIdentifier' => tunnel_id,
-          'browserName' => '',
-          'autoAcceptAlerts' => true,
-          'sendKeyStrategy' => 'setValue',
-          'waitForQuiescence' => false,
-          'newCommandTimeout' => 0
-        }
-        capabilities['deviceName'] = device_name unless device_name.nil?
-        capabilities['platformName'] = os unless os.nil?
-        capabilities['platformVersion'] = os_version unless os_version.nil?
-        capabilities.merge! JSON.parse(capabilities_option)
-        capabilities['appiumVersion'] = appium_version unless appium_version.nil?
-        capabilities
-      end
     end
   end
 end

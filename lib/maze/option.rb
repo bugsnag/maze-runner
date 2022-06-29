@@ -38,9 +38,6 @@ module Maze
     # BrowserStack-only options
     BS_LOCAL = 'bs-local'
 
-    # Sauce Labs-only options
-    SL_LOCAL = 'sl-local'
-
     # BitBar-only options
     TMS_URI = 'tms-uri'
     TMS_TOKEN = 'tms-token'

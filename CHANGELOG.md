@@ -1,3 +1,9 @@
+# 7.0.0 - TBD
+
+## Removals
+
+- Remove support for Sauce Labs [123](https://github.com/bugsnag/maze-runner/pull/123)
+
 # 6.21.0 - 2022/06/29
 
 ## Enhancements

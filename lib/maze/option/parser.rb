@@ -119,11 +119,6 @@ module Maze
                 '(SB only) Path to the SBSecureTunnel binary. MAZE_SB_LOCAL env var or "/SBSecureTunnel" by default',
                 type: :string
 
-            # Sauce Labs-only options
-            opt Option::SL_LOCAL,
-                '(SL only) Path to the Sauce Connect binary. MAZE_SL_LOCAL env var or "/sauce-connect/bin/sc" by default',
-                type: :string
-
             # BrowserStack-only options
             opt Option::BS_LOCAL,
                 '(BS only) Path to the BrowserStackLocal binary. MAZE_BS_LOCAL env var or "/BrowserStackLocal" by default',
@@ -221,9 +216,6 @@ module Maze
               options[Option::USERNAME] ||= ENV['BROWSER_STACK_DEVICES_USERNAME'] || ENV['BROWSER_STACK_USERNAME']
               options[Option::ACCESS_KEY] ||= ENV['BROWSER_STACK_DEVICES_ACCESS_KEY'] ||ENV['BROWSER_STACK_ACCESS_KEY']
             end
-          when 'sl'
-            options[Option::USERNAME] ||= ENV['SAUCE_LABS_USERNAME']
-            options[Option::ACCESS_KEY] ||= ENV['SAUCE_LABS_ACCESS_KEY']
           when 'bb'
             options[Option::USERNAME] ||= ENV['BITBAR_USERNAME']
             options[Option::ACCESS_KEY] ||= ENV['BITBAR_ACCESS_KEY']
@@ -233,7 +225,6 @@ module Maze
           options[Option::TMS_URI] ||= ENV['MAZE_TMS_URI']
           options[Option::TMS_TOKEN] ||= ENV['MAZE_TMS_TOKEN']
           options[Option::BS_LOCAL] ||= ENV['MAZE_BS_LOCAL'] || '/BrowserStackLocal'
-          options[Option::SL_LOCAL] ||= ENV['MAZE_SL_LOCAL'] || '/sauce-connect/bin/sc'
           options[Option::APPIUM_SERVER] ||= ENV['MAZE_APPIUM_SERVER'] || 'http://localhost:4723/wd/hub'
           options[Option::APPLE_TEAM_ID] ||= ENV['MAZE_APPLE_TEAM_ID']
           options[Option::UDID] ||= ENV['MAZE_UDID']

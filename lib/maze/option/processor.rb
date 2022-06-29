@@ -43,7 +43,6 @@ module Maze
                         when nil then :none
                         when 'cbt' then :cbt
                         when 'bs' then :bs
-                        when 'sl' then :sl
                         when 'bb' then :bb
                         when 'local' then :local
                         else
@@ -78,23 +77,6 @@ module Maze
             username = config.username = options[Maze::Option::USERNAME]
             access_key = config.access_key = options[Maze::Option::ACCESS_KEY]
             config.appium_server_url = "http://#{username}:#{access_key}@hub-cloud.browserstack.com/wd/hub"
-          when :sl
-            device_option = options[Maze::Option::DEVICE]
-            if device_option.is_a?(Array)
-              config.device = device_option.first
-              config.device_list = device_option.drop(1)
-            else
-              config.device = device_option
-              config.device_list = []
-            end
-            config.browser = options[Maze::Option::BROWSER]
-            config.os = options[Maze::Option::OS]
-            config.os_version = options[Maze::Option::OS_VERSION].to_f
-            config.sl_local = Maze::Helper.expand_path(options[Maze::Option::SL_LOCAL])
-            config.appium_version = options[Maze::Option::APPIUM_VERSION]
-            username = config.username = options[Maze::Option::USERNAME]
-            access_key = config.access_key = options[Maze::Option::ACCESS_KEY]
-            config.appium_server_url = "https://#{username}:#{access_key}@ondemand.us-west-1.saucelabs.com/wd/hub"
           when :bb then
             config.username = options[Maze::Option::USERNAME]
             config.access_key = options[Maze::Option::ACCESS_KEY]

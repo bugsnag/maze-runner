@@ -1,10 +1,10 @@
 steps:
 
-  - name: ':copyright: License Audit'
-    plugins:
-      docker-compose#v3.7.0:
-        run: license_finder
-    command: /bin/bash -lc '/scan/scripts/license_finder.sh'
+  - label: 'Audit current licenses'
+    timeout_in_minutes: 30
+    agents:
+      queue: macos-12-arm
+    command: ./scripts/license_finder.sh
 
   - label: ':docker: Build CI image for Ruby 2.7'
     key: "ci-image-ruby-2-7"

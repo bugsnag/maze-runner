@@ -101,8 +101,8 @@ module Maze
       # @param tms_uri [String] The URI of the test-management-service
       def release_account(tms_uri)
         uri = URI("#{tms_uri}/account/release?account_id=#{@account_id}")
-        request['Authorization'] = Maze.config.tms_token
         request = Net::HTTP::Get.new(uri)
+        request['Authorization'] = Maze.config.tms_token
         res = Net::HTTP.start(uri.hostname, uri.port) do |http|
           http.request(request)
         end

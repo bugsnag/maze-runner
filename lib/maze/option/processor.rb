@@ -44,6 +44,7 @@ module Maze
                         when 'cbt' then :cbt
                         when 'bs' then :bs
                         when 'sl' then :sl
+                        when 'bb' then :bb
                         when 'local' then :local
                         else
                           raise "Unknown farm '#{farm}'"
@@ -94,7 +95,24 @@ module Maze
             username = config.username = options[Maze::Option::USERNAME]
             access_key = config.access_key = options[Maze::Option::ACCESS_KEY]
             config.appium_server_url = "https://#{username}:#{access_key}@ondemand.us-west-1.saucelabs.com/wd/hub"
-          when :local
+          when :bb then
+            config.username = options[Maze::Option::USERNAME]
+            config.access_key = options[Maze::Option::ACCESS_KEY]
+            config.tms_uri = options[Maze::Option::TMS_URI]
+            device_option = options[Maze::Option::DEVICE]
+            if device_option.is_a?(Array)
+              config.device = device_option.first
+              config.device_list = device_option.drop(1)
+            else
+              config.device = device_option
+              config.device_list = []
+            end
+            config.os = options[Maze::Option::OS]
+            config.os_version = options[Maze::Option::OS_VERSION]
+            config.sb_local = Maze::Helper.expand_path(options[Maze::Option::SB_LOCAL])
+            config.appium_server_url = 'https://appium.bitbar.com/wd/hub'
+            config.app_bundle_id = options[Maze::Option::APP_BUNDLE_ID]
+          when :local then
             if options[Maze::Option::BROWSER]
               config.browser = options[Maze::Option::BROWSER]
             else

@@ -18,8 +18,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        // Trigger error button
         var button = findViewById<Button>(R.id.trigger_error)
         button.setOnClickListener {
             val metadata = findViewById<EditText>(R.id.metadata).text.toString()

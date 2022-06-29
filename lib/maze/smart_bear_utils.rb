@@ -7,19 +7,21 @@ module Maze
       SB_READY_FILE = 'sb.ready'
       SB_KILL_FILE = 'sb.kill'
 
-      # Starts the BitBar local tunnel
+      # Starts the SmartBear local tunnel
+      #
       # @param sb_local [String] path to the SBSecureTunnel binary
-      # @param tunnel_name [String] Tunnel name
       # @param username [String] Username to start the tunnel with
       # @param access_key [String] CBT access key
-      def start_local_tunnel(sb_local, tunnel_name, username, access_key)
+      # @param tunnel_name [String] Tunnel name
+      def start_local_tunnel(sb_local, username, access_key, tunnel_name=nil)
         # Make sure the ready/kill files are already deleted
         File.delete(SB_READY_FILE) if File.exist?(SB_READY_FILE)
         File.delete(SB_KILL_FILE) if File.exist?(SB_KILL_FILE)
 
         $logger.info 'Starting CBT SBSecureTunnel'
         command = "#{sb_local} --username #{username} --authkey #{access_key} --acceptAllCerts " \
-                  "--ready #{SB_READY_FILE} --tunnelname #{tunnel_name} --kill #{SB_KILL_FILE}"
+                  "--ready #{SB_READY_FILE} --kill #{SB_KILL_FILE}"
+        command << " --tunnelname #{tunnel_name}" unless tunnel_name.nil?
 
         output = start_tunnel_thread(command)
 

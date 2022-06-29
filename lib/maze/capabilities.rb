@@ -46,6 +46,21 @@ module Maze
         capabilities
       end
 
+      # @param device_type [String]
+      def for_bitbar_device(bitbar_api_key, device_type, platform, platform_version, capabilities_option)
+        capabilities = {
+          'bitbar_apiKey' => bitbar_api_key,
+          'bitbar_testrun' => "#{platform} #{platform_version}",
+          'bitbar_findDevice' => false,
+          'bitbar_testTimeout' => 7200,
+          'disabledAnimations' => 'true',
+          'noReset' => 'true'
+        }
+        capabilities.merge! BitBarDevices.get_device(device_type, platform, platform_version, bitbar_api_key)
+        capabilities.merge! JSON.parse(capabilities_option)
+        capabilities
+      end
+
       # Constructs Appium capabilities for running on a local Android or iOS device.
       # @param platform [String] 'ios' or 'android'
       # @param capabilities_option [String] extra capabilities provided on the command line

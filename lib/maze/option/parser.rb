@@ -110,7 +110,9 @@ module Maze
             opt Option::LIST_DEVICES,
                 'Lists the devices available for the configured device-farm, or all devices if none are specified',
                 default: false
-
+            opt Option::APP_BUNDLE_ID,
+                'The bundle identifier of the test application',
+                type: :string
 
             # SmartBear-only options
             opt Option::SB_LOCAL,
@@ -222,6 +224,10 @@ module Maze
           when 'sl'
             options[Option::USERNAME] ||= ENV['SAUCE_LABS_USERNAME']
             options[Option::ACCESS_KEY] ||= ENV['SAUCE_LABS_ACCESS_KEY']
+          when 'bb'
+            options[Option::USERNAME] ||= ENV['BITBAR_USERNAME']
+            options[Option::ACCESS_KEY] ||= ENV['BITBAR_ACCESS_KEY']
+            options[Option::TMS_URI] ||= ENV['MAZE_TMS_URI']
           end
           options[Option::SB_LOCAL] ||= ENV['MAZE_SB_LOCAL'] || '/SBSecureTunnel'
           options[Option::TMS_URI] ||= ENV['MAZE_TMS_URI']

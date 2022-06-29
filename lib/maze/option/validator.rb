@@ -15,8 +15,8 @@ module Maze
 
         # Common options
         farm = options[Option::FARM]
-        if farm && !%w[bs cbt sl local].include?(farm)
-          errors << "--#{Option::FARM} must be 'bs', 'cbt', 'sl' or 'local' if provided"
+        if farm && !%w[bs cbt sl local bb].include?(farm)
+          errors << "--#{Option::FARM} must be 'bs', 'cbt', 'sl', 'bb' or 'local' if provided"
         end
 
         begin
@@ -28,6 +28,7 @@ module Maze
         # Farm specific options
         validate_bs options, errors if farm == 'bs'
         validate_sl options, errors if farm == 'sl'
+        validate_bitbar options, errors if farm == 'bb'
         validate_local options, errors if farm == 'local'
 
         errors
@@ -126,6 +127,27 @@ module Maze
         # Credentials
         errors << "--#{Option::USERNAME} must be specified" if options[Option::USERNAME].nil?
         errors << "--#{Option::ACCESS_KEY} must be specified" if options[Option::ACCESS_KEY].nil?
+      end
+
+      # Validates BitBar device options
+      def validate_bitbar(options, errors)
+        if ENV['BUILDKITE']
+          errors << "--#{Option::TMS_URI} must be specified when running on Buildkite" if options[Option::TMS_URI].nil?
+        else
+          errors << "--#{Option::USERNAME} must be specified" if options[Option::USERNAME].nil?
+          errors << "--#{Option::ACCESS_KEY} must be specified" if options[Option::ACCESS_KEY].nil?
+        end
+
+        app = options[Option::APP]
+        if app.nil?
+          errors << "--#{Option::APP} must be provided when running on a device"
+        else
+          uuid_regex = /\A[0-9]+\z/
+          unless uuid_regex.match? app
+            app = Maze::Helper.expand_path app
+            errors << "app file '#{app}' not found" unless File.exist?(app)
+          end
+        end
       end
 
       # Validates Local device options

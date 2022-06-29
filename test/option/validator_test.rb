@@ -20,6 +20,7 @@ class ValidatorTest < Test::Unit::TestCase
     ENV.delete('SAUCE_LABS_ACCESS_KEY')
     ENV.delete('CBT_USERNAME')
     ENV.delete('CBT_ACCESS_KEY')
+    ENV.delete('BITBAR_API_KEY')
 
     Maze::Helper.stubs(:expand_path).with('/BrowserStackLocal').returns('/BrowserStackLocal')
     Maze::Helper.stubs(:expand_path).with('/sauce-connect/bin/sc').returns('/sauce-connect/bin/sc')
@@ -33,7 +34,7 @@ class ValidatorTest < Test::Unit::TestCase
     errors = @validator.validate options
 
     assert_equal 1, errors.length
-    assert_equal "--farm must be 'bs', 'cbt', 'sl' or 'local' if provided", errors[0]
+    assert_equal "--farm must be 'bs', 'cbt', 'sl', 'bb' or 'local' if provided", errors[0]
   end
 
   def test_valid_browser_stack_options

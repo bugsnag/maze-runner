@@ -60,6 +60,7 @@ services:
       MAZE_TMS_URI:
       SAUCE_LABS_USERNAME:
       SAUCE_LABS_ACCESS_KEY:
+    env_file: $DOCKER_ENV_FILE
     volumes:
       - ./test/fixtures/android-appium-test/maze_output:/app/maze_output
 
@@ -68,6 +69,7 @@ services:
       context: test/fixtures/ios-app
       args:
         BRANCH_NAME:
+        RUBY_VERSION:
     extra_hosts:
       - "maze-local:127.0.0.1"
     environment:
@@ -85,6 +87,9 @@ services:
       MAZE_TMS_URI:
       SAUCE_LABS_USERNAME:
       SAUCE_LABS_ACCESS_KEY:
+      BITBAR_USERNAME:
+      BITBAR_ACCESS_KEY:
+    env_file: $DOCKER_ENV_FILE
     volumes:
       - ./test/fixtures/ios-app/maze_output:/app/maze_output
 

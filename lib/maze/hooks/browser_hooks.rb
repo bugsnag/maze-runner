@@ -22,9 +22,9 @@ module Maze
                                                                    tunnel_id,
                                                                    config.capabilities_option
           Maze::SmartBearUtils.start_local_tunnel config.sb_local,
-                                                  tunnel_id,
                                                   config.username,
-                                                  config.access_key
+                                                  config.access_key,
+                                                  tunnel_id
         end
 
         # Create and start the relevant driver

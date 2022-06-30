@@ -13,7 +13,7 @@ Ensure that:
 If the release will create a new major version, also ensure that:
 1. The `Push Docker image for tag` step in `.buildkite/pipeline.yml`
    1. Will recognise the new tag in the `if` condition.
-   1. Pushes the built release image with the correct tag for the major release stream (e.g. `latest-v6-cli`)
+   1. Pushes the built release image with the correct tag for the major release stream (e.g. `latest-v7-cli`)
 
 #### Performing the release
 

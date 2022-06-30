@@ -11,11 +11,8 @@ class ProcessorTest < Test::Unit::TestCase
   def setup
     ENV.delete('BUILDKITE')
     ENV.delete('MAZE_BS_LOCAL')
-    ENV.delete('MAZE_SL_LOCAL')
     ENV.delete('BROWSER_STACK_USERNAME')
     ENV.delete('BROWSER_STACK_ACCESS_KEY')
-    ENV.delete('SAUCE_LABS_USERNAME')
-    ENV.delete('SAUCE_LABS_ACCESS_KEY')
     ENV.delete('CBT_USERNAME')
     ENV.delete('CBT_ACCESS_KEY')
     ENV.delete('BITBAR_API_KEY')

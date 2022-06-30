@@ -16,7 +16,7 @@ BeforeAll do
   # - Browser (Selenium with local or remote browsers)
   # - Command (the software under test is invoked with a system call)
   # TODO Consider making this a specific command line option defaulting to Appium
-  is_appium = [:bs, :sl, :bb, :local].include?(Maze.config.farm) && !Maze.config.app.nil?
+  is_appium = [:bs, :bb, :local].include?(Maze.config.farm) && !Maze.config.app.nil?
   is_browser = !Maze.config.browser.nil?
   if is_appium
     Maze.mode = :appium

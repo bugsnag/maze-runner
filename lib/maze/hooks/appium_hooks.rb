@@ -17,15 +17,6 @@ module Maze
           Maze::BrowserStackUtils.start_local_tunnel config.bs_local,
                                                      tunnel_id,
                                                      config.access_key
-        when :sl
-          config.app = Maze::SauceLabsUtils.upload_app config.username,
-                                                       config.access_key,
-                                                       config.app
-          tunnel_id = SecureRandom.uuid
-          Maze::SauceLabsUtils.start_sauce_connect config.sl_local,
-                                                   tunnel_id,
-                                                   config.username,
-                                                   config.access_key
         when :bb
           if ENV['BUILDKITE']
             credentials = Maze::BitBarUtils.account_credentials config.tms_uri
@@ -82,9 +73,6 @@ module Maze
           Maze::Runner.run_command("log show --predicate '(process == \"#{Maze.config.app}\")' --style syslog --start '#{Maze.start_time}' > #{Maze.config.app}.log")
         elsif Maze.config.farm == :bs
           Maze::BrowserStackUtils.stop_local_tunnel
-        elsif Maze.config.farm == :sl
-          $logger.info 'Stopping Sauce Connect'
-          Maze::SauceLabsUtils.stop_sauce_connect
         elsif Maze.config.farm == :bb
           Maze::SmartBearUtils.stop_local_tunnel
           Maze::BitBarUtils.release_account(Maze.config.tms_uri) if ENV['BUILDKITE']
@@ -113,14 +101,6 @@ module Maze
                                                                      config.appium_version,
                                                                      config.capabilities_option
           capabilities['app'] = config.app
-        when :sl
-          capabilities = Maze::Capabilities.for_sauce_labs_device config.device,
-                                                                  config.os,
-                                                                  config.os_version,
-                                                                  tunnel_id,
-                                                                  config.appium_version,
-                                                                  config.capabilities_option
-          capabilities['app'] = "storage:#{config.app}"
         when :local
           capabilities = Maze::Capabilities.for_local config.os,
                                                       config.capabilities_option,

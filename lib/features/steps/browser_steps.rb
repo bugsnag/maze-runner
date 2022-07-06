@@ -1,8 +1,16 @@
 # @!group Browser steps
 
 When('I navigate to the URL {string}') do |path|
-  $logger.debug "Navigating to: #{path}"
-  Maze.driver.navigate.to path
+  begin
+    $logger.debug "Navigating to: #{path}"
+    Maze.driver.navigate.to path
+  rescue => exception
+    $logger.error("#{exception.class} occurred during navigation attempt with message: #{exception.message}")
+    $logger.error("Restarting driver and retrying navigation to: #{pathß}")
+    Maze.driver.restart_driver
+    Maze.driver.navigate.to path
+    # If a further error occurs it will get thrown as normal
+  end
 end
 
 Then(/^the error is a valid browser payload for the error reporting API$/) do

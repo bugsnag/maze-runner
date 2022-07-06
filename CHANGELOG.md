@@ -1,3 +1,9 @@
+# 6.22.0 - TBD
+
+## Enhancements
+
+- Add driver restart and retry to browser navigation step []()
+
 # 6.21.0 - 2022/06/29
 
 ## Enhancements

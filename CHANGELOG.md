@@ -1,8 +1,8 @@
-# 6.22.0 - TBD
+# 6.22.0 - 2022/07/06
 
 ## Enhancements
 
-- Add driver restart and retry to browser navigation step []()
+- Add driver restart and retry to browser navigation step [377](https://github.com/bugsnag/maze-runner/pull/377)
 
 # 6.21.0 - 2022/06/29
 

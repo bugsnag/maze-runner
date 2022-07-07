@@ -3,6 +3,7 @@
 ## Enhancements
 
 - Add driver restart and retry to browser navigation step [377](https://github.com/bugsnag/maze-runner/pull/377)
+- Include scenario locations in folding log line [378](https://github.com/bugsnag/maze-runner/pull/378)
 
 # 6.21.0 - 2022/06/29
 

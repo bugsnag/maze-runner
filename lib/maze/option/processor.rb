@@ -82,12 +82,18 @@ module Maze
             config.access_key = options[Maze::Option::ACCESS_KEY]
             config.tms_uri = options[Maze::Option::TMS_URI]
             device_option = options[Maze::Option::DEVICE]
-            if device_option.is_a?(Array)
-              config.device = device_option.first
-              config.device_list = device_option.drop(1)
+            if device_option.nil? || device_option.empty?
+              # Bitbar Web
+              config.browser = options[Maze::Option::BROWSER]
             else
-              config.device = device_option
-              config.device_list = []
+              # Bitbar Devices
+              if device_option.is_a?(Array)
+                config.device = device_option.first
+                config.device_list = device_option.drop(1)
+              else
+                config.device = device_option
+                config.device_list = []
+              end
             end
             config.os = options[Maze::Option::OS]
             config.os_version = options[Maze::Option::OS_VERSION]

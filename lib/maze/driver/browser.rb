@@ -110,7 +110,7 @@ module Maze
 
         unless success
           $logger.error "Selenium driver failed to start after #{attempts} attempts in #{timeout} seconds"
-          raise RuntimeError.new("Appium driver failed to start in #{timeout} seconds")
+          raise RuntimeError.new("Selenium driver failed to start in #{timeout} seconds")
         end
       end
 

@@ -4,6 +4,13 @@
 
 - Remove support for Sauce Labs [376](https://github.com/bugsnag/maze-runner/pull/376)
 
+# 6.22.0 - 2022/07/12
+
+## Enhancements
+
+- Add driver restart and retry to browser navigation step [377](https://github.com/bugsnag/maze-runner/pull/377)
+- Include scenario locations in folding log line [378](https://github.com/bugsnag/maze-runner/pull/378)
+
 # 6.21.0 - 2022/06/29
 
 ## Enhancements

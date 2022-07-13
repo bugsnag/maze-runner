@@ -94,12 +94,13 @@ module Maze
         else
           os = case Maze.config.farm
                when :bs
-                 Maze.config.capabilities['os']
+                 Maze.config.capabilities['platformName']
                else
                  Maze.config.os
                end
           os = os&.downcase
         end
+
 
         raise('Unable to determine the current platform') if os.nil?
 

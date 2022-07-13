@@ -1,5 +1,9 @@
 # 7.0.0 - TBD
 
+## Enhancements
+
+- Update appium_lib (v12) and selenium-webdriver (v4), enforcing W3C [364](https://github.com/bugsnag/maze-runner/pull/364)
+
 ## Removals
 
 - Remove support for Sauce Labs [376](https://github.com/bugsnag/maze-runner/pull/376)

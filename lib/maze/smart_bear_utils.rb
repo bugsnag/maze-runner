@@ -18,7 +18,7 @@ module Maze
         File.delete(SB_READY_FILE) if File.exist?(SB_READY_FILE)
         File.delete(SB_KILL_FILE) if File.exist?(SB_KILL_FILE)
 
-        $logger.info 'Starting CBT SBSecureTunnel'
+        $logger.info 'Starting SBSecureTunnel'
         command = "#{sb_local} --username #{username} --authkey #{access_key} --acceptAllCerts " \
                   "--ready #{SB_READY_FILE} --kill #{SB_KILL_FILE}"
         command << " --tunnelname #{tunnel_name}" unless tunnel_name.nil?

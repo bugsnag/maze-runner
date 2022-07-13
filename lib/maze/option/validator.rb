@@ -83,14 +83,28 @@ module Maze
           errors << "--#{Option::ACCESS_KEY} must be specified" if options[Option::ACCESS_KEY].nil?
         end
 
-        app = options[Option::APP]
-        if app.nil?
-          errors << "--#{Option::APP} must be provided when running on a device"
-        else
-          uuid_regex = /\A[0-9]+\z/
-          unless uuid_regex.match? app
-            app = Maze::Helper.expand_path app
-            errors << "app file '#{app}' not found" unless File.exist?(app)
+        # Device
+        browser = options[Option::BROWSER]
+        device = options[Option::DEVICE]
+        if browser.nil? && device.empty?
+          errors << "Either --#{Option::BROWSER} or --#{Option::DEVICE} must be specified"
+        elsif browser
+          browsers = YAML.safe_load(File.read("#{__dir__}/../browsers_bb.yml"))
+
+          unless browsers.include? browser
+            browser_list = browsers.keys.join ', '
+            errors << "Browser type '#{browser}' unknown on BitBar.  Must be one of: #{browser_list}."
+          end
+        elsif device
+          app = options[Option::APP]
+          if app.nil?
+            errors << "--#{Option::APP} must be provided when running on a device"
+          else
+            uuid_regex = /\A[0-9]+\z/
+            unless uuid_regex.match? app
+              app = Maze::Helper.expand_path app
+              errors << "app file '#{app}' not found" unless File.exist?(app)
+            end
           end
         end
       end

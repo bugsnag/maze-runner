@@ -75,8 +75,6 @@ module Maze
         browsers = YAML.safe_load(File.read("#{__dir__}/browsers_bb.yml"))
         capabilities.merge! browsers[browser_type]
         capabilities.merge! JSON.parse(capabilities_option)
-        pp 'DEBUG: CAPS'
-        pp capabilities
         capabilities
       end
 

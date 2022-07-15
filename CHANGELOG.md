@@ -4,6 +4,12 @@
 
 - Remove support for Sauce Labs [376](https://github.com/bugsnag/maze-runner/pull/376)
 
+# 6.22.1 - 2022/07/15
+
+## Fixes
+
+- Display scenario locations in grey [381](https://github.com/bugsnag/maze-runner/pull/381)
+
 # 6.22.0 - 2022/07/12
 
 ## Enhancements

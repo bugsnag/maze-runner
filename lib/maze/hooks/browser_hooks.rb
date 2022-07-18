@@ -7,6 +7,11 @@ module Maze
         config = Maze.config
         case config.farm
         when :bb
+          if ENV['BUILDKITE']
+            credentials = Maze::BitBarUtils.account_credentials config.tms_uri
+            config.username = credentials[:username]
+            config.access_key = credentials[:access_key]
+          end
           tunnel_id = SecureRandom.uuid
           config.capabilities = Maze::Capabilities.for_bitbar_browsers config.browser,
                                                                        config.access_key,

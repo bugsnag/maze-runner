@@ -1,3 +1,7 @@
+# 6.23.0 - 2022/07/22
+
+- Update BrowserStack target definitions [383](https://github.com/bugsnag/maze-runner/pull/383)
+
 # 6.22.1 - 2022/07/15
 
 ## Fixes

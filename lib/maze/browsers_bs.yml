@@ -36,6 +36,12 @@ edge_15:
   os: "windows"
   os_version: "10"
 
+edge_17:
+  browser: "edge"
+  browser_version: "17"
+  os: "windows"
+  os_version: "10"
+
 safari_6:
   browser: "safari"
   browser_version: "6"
@@ -127,6 +133,12 @@ firefox_56:
   os: "windows"
   os_version: "10"
 
+firefox_78:
+  browser: "firefox"
+  browser_version: "78"
+  os: "windows"
+  os_version: "10"
+
 firefox_latest:
   browser: "firefox"
   browser_version: "latest"
@@ -182,9 +194,21 @@ chrome_43:
   os: "windows"
   os_version: "7"
 
+chrome_53:
+  browser: "chrome"
+  browser_version: "53.0"
+  os: "windows"
+  os_version: "10"
+
 chrome_61:
   browser: "chrome"
   browser_version: "61.0"
+  os: "windows"
+  os_version: "10"
+
+chrome_72:
+  browser: "chrome"
+  browser_version: "72.0"
   os: "windows"
   os_version: "10"
 

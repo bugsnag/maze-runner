@@ -1,3 +1,7 @@
+# 6.23.0 - TBD
+
+- Update BrowserStack target definitions []()
+
 # 6.22.1 - 2022/07/15
 
 ## Fixes

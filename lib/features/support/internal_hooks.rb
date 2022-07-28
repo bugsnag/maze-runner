@@ -70,7 +70,10 @@ Before do |scenario|
   # Default to no dynamic try
   Maze.dynamic_retry = false
 
-  $stdout.puts "--- Scenario: #{scenario.name} - #{scenario.location}"
+  if ENV['BUILDKITE']
+    location = "\e[90m\t# #{scenario.location}\e[0m"
+    $stdout.puts "--- Scenario: #{scenario.name} #{location}"
+  end
 
   # Invoke the internal hook for the mode of operation
   Maze.internal_hooks.before

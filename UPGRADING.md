@@ -1,5 +1,13 @@
 # Upgrading Guide
 
+## v6 to v7
+
+Support for Sauce Labs has been removed as we are no longer able to test it.
+
+The Appium and Selenium clients are upgraded to versions 12 and 4 respectively.  Note that these enforce the use of W3C
+capabilities, although the changes for this will typically be encapsulated within Maze Runner.  The change is considered
+breaking as the earliest supported Appium version is now 1.15 (due to the library update).
+
 ## v5 to v6
 
 The version of Cucumber used by Maze Runner has been updated from 3.1.2 to 7.1.0:

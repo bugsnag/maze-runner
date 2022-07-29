@@ -8,9 +8,9 @@ class DevicesTest < Test::Unit::TestCase
   def test_os_version
     # Ensure that every entry in the hash has a meaningful OS version
     Maze::BrowserStackDevices::DEVICE_HASH.each do |key, value|
-      os_version = value['os_version']
+      platform_version = value['platformVersion']
       regex = /^[1-9][0-9]*(\.[0-9])?/
-      assert_match(regex, os_version) unless %w(sl_android sl_ios).include?(key)
+      assert_match(regex, platform_version) unless %w(sl_android sl_ios).include?(key)
     end
   end
 end

@@ -122,7 +122,7 @@ module Maze
           if driver_for == :remote
             driver = ::Selenium::WebDriver.for :remote,
                                                 url: selenium_url,
-                                                desired_capabilities: @capabilities
+                                                capabilities: @capabilities
           else
             driver = ::Selenium::WebDriver.for driver_for
           end

@@ -6,6 +6,22 @@ module Maze
       def before_all
         config = Maze.config
         case config.farm
+        when :bb
+          if ENV['BUILDKITE']
+            credentials = Maze::BitBarUtils.account_credentials config.tms_uri
+            config.username = credentials[:username]
+            config.access_key = credentials[:access_key]
+          end
+          tunnel_id = SecureRandom.uuid
+          config.capabilities = Maze::Capabilities.for_bitbar_browsers config.browser,
+                                                                       config.access_key,
+                                                                       tunnel_id,
+                                                                       config.capabilities_option
+
+          Maze::SmartBearUtils.start_local_tunnel config.sb_local,
+                                                  config.username,
+                                                  config.access_key
+          tunnel_id
         when :bs
           # BrowserStack browser
           tunnel_id = SecureRandom.uuid
@@ -31,6 +47,11 @@ module Maze
         case config.farm
         when :cbt
           selenium_url = "http://#{config.username}:#{config.access_key}@hub.crossbrowsertesting.com:80/wd/hub"
+          Maze.driver = Maze::Driver::Browser.new :remote, selenium_url, config.capabilities
+        when :bb
+          # TODO: This probably needs to be settable via an environment variable
+          # selenium_url = 'https://us-west-desktop-hub.bitbar.com/wd/hub'
+          selenium_url = 'https://eu-desktop-hub.bitbar.com/wd/hub'
           Maze.driver = Maze::Driver::Browser.new :remote, selenium_url, config.capabilities
         when :bs
           selenium_url = "http://#{config.username}:#{config.access_key}@hub.browserstack.com/wd/hub"

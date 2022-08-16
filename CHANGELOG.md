@@ -1,3 +1,9 @@
+# 7.1.0 - 2022/08/17
+
+## Enhancements
+
+- Add support for Android 13 Beta on BrowserStack [385](https://github.com/bugsnag/maze-runner/pull/385)
+
 # 7.0.0 - 2022/07/29
 
 ## Enhancements

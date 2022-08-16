@@ -1,3 +1,9 @@
+# 6.24.0 - 2022/08/17
+
+## Enhancements
+
+- Add support for Android 13 Beta on BrowserStack [386](https://github.com/bugsnag/maze-runner/pull/386)
+  
 # 6.23.0 - 2022/07/22
 
 - Update BrowserStack target definitions [383](https://github.com/bugsnag/maze-runner/pull/383)

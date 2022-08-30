@@ -88,7 +88,7 @@ module Maze
 
         begin
           http = Net::HTTP.new(uri.hostname, uri.port)
-          response = http.request(request)
+          http.request(request)
         rescue => e
           $logger.warn 'Report delivery attempt failed'
           $logger.warn e.message

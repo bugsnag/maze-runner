@@ -1,4 +1,4 @@
-# Devices Mode
+# Device Mode
 
 ## Overview
 
@@ -17,6 +17,8 @@ variables:
 Device farms tend to offer a tunnelling facility, allowing HTTP requests sent by the device to be received by the Maze
 Runner server.  Both BitBar and BrowserStack use a local binary to support this mechanism, and one of the following 
 environment variables should be set to its location in order that Maze Runner can automatically start the tunnel.
+
+`MAZE_BS_LOCAL`/`MAZE_SB_LOCAL`
 
 ## Example usage with BrowserStack
 

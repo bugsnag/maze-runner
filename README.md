@@ -51,7 +51,9 @@ the hood to draft semantic tests.
 
 ## Documentation
 
-[Full documentation can be found here.](https://bugsnag.github.io/maze-runner/)
+[Documentation for Cucumber steps in the latest release can be found here.](https://bugsnag.github.io/maze-runner/)
+
+[The Maze Runner handbook markdown docs can be found here](./DOCS.md)
 
 ## Contributing
 

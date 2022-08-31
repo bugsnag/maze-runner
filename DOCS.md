@@ -9,6 +9,11 @@ applications. Using the runner, each scenario is executed and the requests are
 validated to have to correct fields and values. Uses Gherkin and Cucumber under
 the hood to draft semantic tests.
 
+## Modes of operation
+
+* [Appium/Devices](./docs/Devices.md)
+
+
 ## Setting up a new project
 
 ### First time setup and running locally

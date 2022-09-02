@@ -27,6 +27,11 @@ module Maze
       # Expected logging calls
       @logger_mock.expects(:info).with('Starting mock server')
 
+      # Pre-set securerandom output to avoid issues with generated UUIDs
+      gen_uuid = 'random_uuid'
+      SecureRandom.expects(:uuid).once.returns(gen_uuid)
+      @logger_mock.expects(:info).with("Fixture commands UUID: #{gen_uuid}")
+
       # Force synchronous execution
       Thread.expects(:new).yields
 
@@ -65,6 +70,11 @@ module Maze
       @logger_mock.expects(:info).with('Starting mock server')
       @logger_mock.expects(:warn).with('Failed to start mock server: uncaught throw "Failed to start"')
       @logger_mock.expects(:info).with('Retrying in 5 seconds')
+
+      # Pre-set securerandom output to avoid issues with generated UUIDs
+      gen_uuid = 'random_uuid'
+      SecureRandom.expects(:uuid).once.returns(gen_uuid)
+      @logger_mock.expects(:info).with("Fixture commands UUID: #{gen_uuid}")
 
       # Force synchronous execution
       Thread.expects(:new).yields.twice
@@ -108,6 +118,11 @@ module Maze
       @logger_mock.expects(:warn).with('Failed to start mock server: uncaught throw "Failed to start"')
       @logger_mock.expects(:info).with('Retrying in 5 seconds')
       @logger_mock.expects(:warn).with('Failed to start mock server: uncaught throw "Failed to start"')
+
+      # Pre-set securerandom output to avoid issues with generated UUIDs
+      gen_uuid = 'random_uuid'
+      SecureRandom.expects(:uuid).once.returns(gen_uuid)
+      @logger_mock.expects(:info).with("Fixture commands UUID: #{gen_uuid}")
 
       # Force synchronous execution
       Thread.expects(:new).yields.times(3)

@@ -1,8 +1,8 @@
-# TBD
+# 6.25.0 - 2022/09/05
 
 ## Enhancements
 
-- Attach UUIDs to command payloads for better tracking []()
+- Attach UUIDs to command payloads for better tracking [389](https://github.com/bugsnag/maze-runner/pull/389)
 
 # 6.24.0 - 2022/08/17
 

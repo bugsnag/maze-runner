@@ -1,3 +1,9 @@
+# TBD
+
+## Enhancements
+
+- Attach UUIDs to command payloads for better tracking []()
+
 # 6.24.0 - 2022/08/17
 
 ## Enhancements

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'json'
+require 'securerandom'
 require 'webrick'
 require_relative './logger'
 require_relative './request_list'
@@ -21,6 +22,9 @@ module Maze
 
       # Dictates if the response delay should be reset after use
       attr_writer :reset_response_delay
+
+      # @return [String] The UUID attached to all command requests for this session
+      attr_reader :command_uuid
 
       # The intended HTTP status code on a successful request
       #
@@ -142,6 +146,8 @@ module Maze
       def start
         attempts = 0
         $logger.info 'Starting mock server'
+        @command_uuid = SecureRandom.uuid
+        $logger.info "Fixture commands UUID: #{@command_uuid}"
         loop do
 
           @thread = Thread.new do

@@ -59,33 +59,3 @@ module Maze
     end
   end
 end
-
-# Wrapper for Maze.check.true to avoid making a breaking change.
-# @deprecated TODO Remove in v7
-def assert_true(value, message = nil)
-  Maze.check.true value, message
-end
-
-# Wrapper for Maze.check.false to avoid making a breaking change.
-# @deprecated TODO Remove in v7
-def assert_false(value, message = nil)
-  Maze.check.false value, message
-end
-
-# Wrapper for Maze.check.not_nil to avoid making a breaking change.
-# @deprecated TODO Remove in v7
-def assert_not_nil(value, message = nil)
-  Maze.check.not_nil value, message
-end
-
-# Wrapper for Maze.check.not_nil to avoid making a breaking change.
-# @deprecated TODO Remove in v7
-def assert_block(message = 'block failed', &block)
-  Maze.check.block(message, &block)
-end
-
-# Wrapper for Maze.check.true to avoid making a breaking change.
-# @deprecated TODO Remove in v7
-def assert_equal(value, message = nil)
-  Maze.check.equal value, message
-end

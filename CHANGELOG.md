@@ -4,6 +4,10 @@
 
 - Docs structure improved [388](https://github.com/bugsnag/maze-runner/pull/388)
 
+## Fixes
+
+- Remove assert_* methods no longer needed to avoid a breaking change [387](https://github.com/bugsnag/maze-runner/pull/387)
+
 # 7.0.0 - 2022/07/29
 
 ## Enhancements

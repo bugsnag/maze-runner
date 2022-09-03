@@ -1,3 +1,9 @@
+# 7.1.0 - TBD
+
+## Enhancements
+
+- Docs structure improved [388](https://github.com/bugsnag/maze-runner/pull/388)
+
 # 7.0.0 - 2022/07/29
 
 ## Enhancements

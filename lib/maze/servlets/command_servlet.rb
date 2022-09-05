@@ -20,7 +20,9 @@ module Maze
           response.body = 'No commands to provide'
           response.status = 400
         else
-          response.body = JSON.pretty_generate(commands.current)
+          command = commands.current
+          command[:uuid] = Maze::Server.command_uuid
+          response.body = JSON.pretty_generate(command)
           response.status = 200
           commands.next
         end

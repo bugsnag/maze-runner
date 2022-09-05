@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../option'
-require_relative '../browser_stack_devices'
+require_relative '../farm/browser_stack/appium/devices'
 
 module Maze
   module Option
@@ -70,7 +70,7 @@ module Maze
                 config.device = device_option
                 config.device_list = []
               end
-              config.os_version = Maze::BrowserStackDevices::DEVICE_HASH[config.device]['os_version'].to_f
+              config.os_version = Maze::Farm::BrowserStack::Devices::DEVICE_HASH[config.device]['os_version'].to_f
             end
             config.bs_local = Maze::Helper.expand_path(options[Maze::Option::BS_LOCAL])
             config.appium_version = options[Maze::Option::APPIUM_VERSION]

@@ -4,7 +4,7 @@ module Maze
   # Appium capabilities for each target farm
   class Capabilities
     class << self
-      # @param device_type [String] A key from @see BrowserStackDevices::DEVICE_HASH
+      # @param device_type [String] A key from @see Maze::Farm::BrowserStack::Devices::DEVICE_HASH
       # @param local_id [String] unique key for the tunnel instance
       # @param capabilities_option [String] extra capabilities provided on the command line
       def for_browser_stack_device(device_type, local_id, appium_version, capabilities_option)
@@ -15,7 +15,7 @@ module Maze
           },
           'noReset' => 'true'
         }
-        capabilities.deep_merge! BrowserStackDevices::DEVICE_HASH[device_type]
+        capabilities.deep_merge! Maze::Farm::BrowserStack::Devices::DEVICE_HASH[device_type]
         capabilities.deep_merge! JSON.parse(capabilities_option)
         capabilities['bstack:options']['appiumVersion'] = appium_version unless appium_version.nil?
         capabilities

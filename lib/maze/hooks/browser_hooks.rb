@@ -28,9 +28,9 @@ module Maze
           config.capabilities = Maze::Capabilities.for_browser_stack_browser config.browser,
                                                                              tunnel_id,
                                                                              config.capabilities_option
-          Maze::BrowserStackUtils.start_local_tunnel config.bs_local,
-                                                     tunnel_id,
-                                                     config.access_key
+          Maze::Farm::BrowserStack::Utils.start_local_tunnel config.bs_local,
+                                                             tunnel_id,
+                                                             config.access_key
         when :cbt
           # CrossBrowserTesting browser
           tunnel_id = SecureRandom.uuid
@@ -66,7 +66,7 @@ module Maze
 
       def at_exit
         if Maze.config.farm == :bs
-          Maze::BrowserStackUtils.stop_local_tunnel
+          Maze::Farm::BrowserStack::Utils.stop_local_tunnel
           Maze.driver.driver_quit
         end
       end

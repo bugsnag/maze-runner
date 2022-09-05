@@ -104,10 +104,10 @@ module Maze
       def device_capabilities(config, tunnel_id = nil)
         case config.farm
         when :bs
-          capabilities = Maze::Capabilities.for_browser_stack_device config.device,
-                                                                     tunnel_id,
-                                                                     config.appium_version,
-                                                                     config.capabilities_option
+          capabilities = Maze::Farm::BrowserStack::Capabilities.device config.device,
+                                                                       tunnel_id,
+                                                                       config.appium_version,
+                                                                       config.capabilities_option
           capabilities['app'] = config.app
         when :local
           capabilities = Maze::Capabilities.for_local config.os,

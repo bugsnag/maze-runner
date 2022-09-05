@@ -25,9 +25,9 @@ module Maze
         when :bs
           # BrowserStack browser
           tunnel_id = SecureRandom.uuid
-          config.capabilities = Maze::Capabilities.for_browser_stack_browser config.browser,
-                                                                             tunnel_id,
-                                                                             config.capabilities_option
+          config.capabilities = Maze::Farm::BrowserStack::Capabilities.browser config.browser,
+                                                                               tunnel_id,
+                                                                               config.capabilities_option
           Maze::Farm::BrowserStack::Utils.start_local_tunnel config.bs_local,
                                                              tunnel_id,
                                                              config.access_key

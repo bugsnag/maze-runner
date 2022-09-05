@@ -3,6 +3,7 @@
 require 'appium_lib'
 require_relative '../test_helper'
 require_relative '../../lib/maze/capabilities'
+require_relative '../../lib/maze/farm/browser_stack/capabilities'
 require_relative '../../lib/maze/wait'
 require_relative '../../lib/maze/driver/appium'
 require_relative '../../lib/maze/driver/resilient_appium'
@@ -26,7 +27,7 @@ class AppiumHooksTest < Test::Unit::TestCase
 
     caps_base = {}
 
-    Maze::Capabilities.expects(:for_browser_stack_device).with(
+    Maze::Farm::BrowserStack::Capabilities.expects(:device).with(
       :device,
       :tunnel_id,
       :appium_version,

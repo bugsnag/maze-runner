@@ -8,6 +8,10 @@
 
 - Remove assert_* methods no longer needed to avoid a breaking change [387](https://github.com/bugsnag/maze-runner/pull/387)
 
+## Refactor
+
+- Refactor BrowserStack specific Appium/Selenium code into `Maze::Farm::BrowserStack` [390](https://github.com/bugsnag/maze-runner/pull/390)
+
 # 7.0.0 - 2022/07/29
 
 ## Enhancements

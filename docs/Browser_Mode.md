@@ -7,7 +7,7 @@ CrossBrowserTesting or BrowserStack.  Browser mode is invoked by using the `--br
 expects a symbolic name that maps to an entry in the appropriate device farm's yaml file, for example:
 
 * [BitBar](../lib/maze/browsers_bb.yml)
-* [BrowserStack](../lib/maze/browsers_bs.yml)
+* [BrowserStack](../lib/maze/farm/browser_stack/browsers.yml)
 * [CrossBrowserTesting](../lib/maze/browsers_cbt.yml)
 
 For local browsers, the value given for `--browser` is converted to a symbol and passed directly to 

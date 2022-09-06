@@ -8,6 +8,10 @@
 
 - Remove assert_* methods no longer needed to avoid a breaking change [387](https://github.com/bugsnag/maze-runner/pull/387)
 
+## Removals
+
+- Remove support for CrossBrowserTesting [391](https://github.com/bugsnag/maze-runner/pull/391)
+
 # 7.0.0 - 2022/07/29
 
 ## Enhancements

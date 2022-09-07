@@ -154,7 +154,7 @@ module Maze
       end
 
       def start_driver(config, tunnel_id = nil)
-        retry_failure = config.device_list.empty?
+        retry_failure = config.device_list.nil? || config.device_list.empty?
         until Maze.driver
           begin
             config.capabilities = device_capabilities(config, tunnel_id)

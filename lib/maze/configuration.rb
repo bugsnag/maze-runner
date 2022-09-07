@@ -86,7 +86,6 @@ module Maze
     attr_accessor :resilient
 
     # Device farm to be used, one of:
-    # :cbt (CrossBrowserTesting)
     # :bs (BrowserStack)
     # :local (Using Appium Server with a local device)
     # :none (Cucumber-driven testing with no devices)

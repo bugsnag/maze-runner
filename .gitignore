@@ -13,3 +13,4 @@ doc/
 .yardoc/
 **/src/main/gen/
 .DS_Store
+sb.ready

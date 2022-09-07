@@ -13,8 +13,6 @@ class ParserTest < Test::Unit::TestCase
     ENV.delete('BROWSER_STACK_BROWSERS_ACCESS_KEY')
     ENV.delete('BROWSER_STACK_DEVICES_USERNAME')
     ENV.delete('BROWSER_STACK_DEVICES_ACCESS_KEY')
-    ENV.delete('CBT_USERNAME')
-    ENV.delete('CBT_ACCESS_KEY')
     ENV.delete('MAZE_BS_LOCAL')
     ENV.delete('MAZE_APPIUM_SERVER')
     ENV.delete('MAZE_APPLE_TEAM_ID')

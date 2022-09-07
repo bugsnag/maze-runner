@@ -49,7 +49,11 @@ module Maze
         device_name = get_filtered_device_name(device_group_id, api_key)
         case platform.downcase
         when 'android'
-          automation_name = 'UiAutomator1' if platform_version.start_with?('5')
+          automation_name = if platform_version.start_with?('5')
+                              'UiAutomator1'
+                            else
+                              'UiAutomator2'
+                            end
           make_android_hash(device_name, nil, automation_name)
         when 'ios'
           make_ios_hash(device_name)
@@ -58,15 +62,18 @@ module Maze
         end
       end
 
+
       def make_android_hash(device, appium_version = nil, automation_name = nil)
         hash = {
           'platformName' => 'Android',
-          'bitbar_device' => device,
-          'bitbar_target' => 'android',
-          'deviceName' => 'Android Phone'
+          'deviceName' => 'Android Phone',
+          'bitbar:options' => {
+            'device' => device,
+            # 'bitbar_target' => 'android',
+          }
         }
-        hash['bitbar_appiumVersion'] = appium_version if appium_version
-        hash['automationName'] = automation_name if automation_name
+        # hash['bitbar_appiumVersion'] = appium_version if appium_version
+        # hash['appium:automationName'] = automation_name if automation_name
         hash.freeze
       end
 

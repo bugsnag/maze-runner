@@ -204,9 +204,6 @@ module Maze
         # @returns [Hash] The options hash with environment vars added
         def populate_environmental_defaults(options)
           case options.farm
-          when 'cbt'
-            options[Option::USERNAME] ||= ENV['CBT_USERNAME']
-            options[Option::ACCESS_KEY] ||= ENV['CBT_ACCESS_KEY']
           when 'bs'
             # Allow browser/device credentials to exist in separate accounts
             if options[Option::BROWSER]

@@ -31,23 +31,10 @@ module Maze
           Maze::BrowserStackUtils.start_local_tunnel config.bs_local,
                                                      tunnel_id,
                                                      config.access_key
-        when :cbt
-          # CrossBrowserTesting browser
-          tunnel_id = SecureRandom.uuid
-          config.capabilities = Maze::Capabilities.for_cbt_browser config.browser,
-                                                                   tunnel_id,
-                                                                   config.capabilities_option
-          Maze::SmartBearUtils.start_local_tunnel config.sb_local,
-                                                  config.username,
-                                                  config.access_key,
-                                                  tunnel_id
         end
 
         # Create and start the relevant driver
         case config.farm
-        when :cbt
-          selenium_url = "http://#{config.username}:#{config.access_key}@hub.crossbrowsertesting.com:80/wd/hub"
-          Maze.driver = Maze::Driver::Browser.new :remote, selenium_url, config.capabilities
         when :bb
           # TODO: This probably needs to be settable via an environment variable
           # selenium_url = 'https://us-west-desktop-hub.bitbar.com/wd/hub'

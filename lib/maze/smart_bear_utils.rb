@@ -11,7 +11,7 @@ module Maze
       #
       # @param sb_local [String] path to the SBSecureTunnel binary
       # @param username [String] Username to start the tunnel with
-      # @param access_key [String] CBT access key
+      # @param access_key [String] access key
       # @param tunnel_name [String] Tunnel name
       def start_local_tunnel(sb_local, username, access_key, tunnel_name=nil)
         # Make sure the ready/kill files are already deleted

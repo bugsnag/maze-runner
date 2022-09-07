@@ -1,4 +1,24 @@
 # Contains logic for the Cucumber hooks when in Appium mode
+
+module Selenium
+  module WebDriver
+    module Error
+      class ServerError < StandardError
+        def initialize(response)
+          if response.is_a? String
+            super(response)
+          else
+            super("the status code #{response.code}")
+          end
+        end
+      end # ServerError
+    end # Error
+  end # WebDriver
+end # Selenium
+
+
+
+
 module Maze
   module Hooks
     # Hooks for Appium mode use

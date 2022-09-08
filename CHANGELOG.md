@@ -1,3 +1,9 @@
+# 6.25.1 - 2022/09/08
+
+## Fixes
+
+- Handle nil device list for `--farm=local` [392](https://github.com/bugsnag/maze-runner/pull/392)
+
 # 6.25.0 - 2022/09/05
 
 ## Enhancements

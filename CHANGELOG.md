@@ -1,4 +1,8 @@
-# 6.25.1 - 2022/09/08
+# 6.26.0 - 2022/09/08
+
+## Enhancements
+
+- Add support for Android 13 and iOS 16 Beta on BrowserStack [393](https://github.com/bugsnag/maze-runner/pull/393)
 
 ## Fixes
 

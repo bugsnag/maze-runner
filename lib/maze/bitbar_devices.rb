@@ -40,7 +40,7 @@ module Maze
           'filter': "online_eq_true"
         }
         all_devices = call_bitbar_api(path, query, api_key)
-        $logger.info "all_devices: #{JSON.pretty_generate(all_devices)}"
+        $logger.debug "all_devices: #{JSON.pretty_generate(all_devices)}"
         filtered_devices = all_devices['data'].reject { |device| device['locked'] }
         if filtered_devices.empty?
           $logger.error 'There are no devices available'
@@ -61,7 +61,7 @@ module Maze
                             else
                               'UiAutomator2'
                             end
-          make_android_hash(device_name, nil, automation_name)
+          make_android_hash(device_name, automation_name)
         when 'ios'
           make_ios_hash(device_name)
         else
@@ -69,28 +69,26 @@ module Maze
         end
       end
 
-
-      def make_android_hash(device, appium_version = nil, automation_name = nil)
+      def make_android_hash(device, automation_name)
         hash = {
+          'automationName' => automation_name,
           'platformName' => 'Android',
           'deviceName' => 'Android Phone',
           'bitbar:options' => {
-            'device' => device,
-            # 'bitbar_target' => 'android',
+            'device' => device
           }
         }
-        # hash['bitbar_appiumVersion'] = appium_version if appium_version
-        # hash['appium:automationName'] = automation_name if automation_name
         hash.freeze
       end
 
       def make_ios_hash(device)
         {
-          'platformName' => 'iOS',
-          'bitbar_device' => device,
-          'bitbar_target' => 'ios',
+          'automationName' => 'XCUITest',
           'deviceName' => 'iPhone device',
-          'automationName' => 'XCUITest'
+          'platformName' => 'iOS',
+          'bitbar:options' => {
+            'device' => device
+          }
         }.freeze
       end
     end

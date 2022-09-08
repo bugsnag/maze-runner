@@ -8,7 +8,8 @@ module Selenium
           if response.is_a? String
             super(response)
           else
-            super("the status code #{response.code}")
+            $logger.error "Server response: #{response.inspect}"
+            super("status code #{response.code}")
           end
         end
       end # ServerError

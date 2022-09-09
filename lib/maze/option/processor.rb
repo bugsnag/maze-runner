@@ -92,7 +92,7 @@ module Maze
             config.os = options[Maze::Option::OS]
             config.os_version = options[Maze::Option::OS_VERSION]
             config.sb_local = Maze::Helper.expand_path(options[Maze::Option::SB_LOCAL])
-            config.appium_server_url = 'https://appium.bitbar.com/wd/hub'
+            config.appium_server_url = 'https://us-west-mobile-hub.bitbar.com/wd/hub'
             config.app_bundle_id = options[Maze::Option::APP_BUNDLE_ID]
           when :local then
             if options[Maze::Option::BROWSER]

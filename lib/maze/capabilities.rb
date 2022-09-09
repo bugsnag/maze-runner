@@ -7,15 +7,18 @@ module Maze
       # @param device_type [String]
       def for_bitbar_device(bitbar_api_key, device_type, platform, platform_version, capabilities_option)
         capabilities = {
-          'bitbar_apiKey' => bitbar_api_key,
-          'bitbar_testrun' => "#{platform} #{platform_version}",
-          'bitbar_findDevice' => false,
-          'bitbar_testTimeout' => 7200,
           'disabledAnimations' => 'true',
-          'noReset' => 'true'
+          'noReset' => 'true',
+          'bitbar:options' => {
+            'apiKey' => bitbar_api_key,
+            'testrun' => "#{platform} #{platform_version}",
+            'findDevice' => false,
+            'testTimeout' => 7200,
+          }
         }
-        capabilities.merge! BitBarDevices.get_device(device_type, platform, platform_version, bitbar_api_key)
-        capabilities.merge! JSON.parse(capabilities_option)
+        capabilities.deep_merge! BitBarDevices.get_device(device_type, platform, platform_version, bitbar_api_key)
+        capabilities.deep_merge! JSON.parse(capabilities_option)
+
         capabilities
       end
 

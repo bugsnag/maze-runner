@@ -124,9 +124,6 @@ module Maze
           capabilities['bitbar:options']['app'] = config.app
         end
 
-        $logger.info "Capabilities: #{capabilities.inspect}"
-
-
         capabilities
       end
 

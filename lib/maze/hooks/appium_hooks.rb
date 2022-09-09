@@ -11,12 +11,12 @@ module Maze
         case config.farm
         when :bs
           tunnel_id = SecureRandom.uuid
-          config.app = Maze::BrowserStackUtils.upload_app config.username,
-                                                          config.access_key,
-                                                          config.app
-          Maze::BrowserStackUtils.start_local_tunnel config.bs_local,
-                                                     tunnel_id,
-                                                     config.access_key
+          config.app = Maze::Farm::BrowserStack::Utils.upload_app config.username,
+                                                                  config.access_key,
+                                                                  config.app
+          Maze::Farm::BrowserStack::Utils.start_local_tunnel config.bs_local,
+                                                             tunnel_id,
+                                                             config.access_key
         when :bb
           if ENV['BUILDKITE']
             credentials = Maze::BitBarUtils.account_credentials config.tms_uri
@@ -80,7 +80,7 @@ module Maze
           # Acquire and output the logs for the current session
           Maze::Runner.run_command("log show --predicate '(process == \"#{Maze.config.app}\")' --style syslog --start '#{Maze.start_time}' > #{Maze.config.app}.log")
         elsif Maze.config.farm == :bs
-          Maze::BrowserStackUtils.stop_local_tunnel
+          Maze::Farm::BrowserStack::Utils.stop_local_tunnel
         elsif Maze.config.farm == :bb
           Maze::SmartBearUtils.stop_local_tunnel
           Maze::BitBarUtils.release_account(Maze.config.tms_uri) if ENV['BUILDKITE']
@@ -104,10 +104,10 @@ module Maze
       def device_capabilities(config, tunnel_id = nil)
         case config.farm
         when :bs
-          capabilities = Maze::Capabilities.for_browser_stack_device config.device,
-                                                                     tunnel_id,
-                                                                     config.appium_version,
-                                                                     config.capabilities_option
+          capabilities = Maze::Farm::BrowserStack::Capabilities.device config.device,
+                                                                       tunnel_id,
+                                                                       config.appium_version,
+                                                                       config.capabilities_option
           capabilities['app'] = config.app
         when :local
           capabilities = Maze::Capabilities.for_local config.os,

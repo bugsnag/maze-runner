@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 require_relative '../lib/maze'
-require_relative '../lib/maze/browser_stack_utils'
+require_relative '../lib/maze/farm/browser_stack/utils'
 require_relative '../lib/maze/logger'
 require_relative '../lib/maze/helper'
 require 'optimist'
@@ -45,7 +45,7 @@ class UploadAppEntry
       end
     end
 
-    Maze::BrowserStackUtils.upload_app username,
+    Maze::Farm::BrowserStack::Utils.upload_app username,
                                        access_key,
                                        opts[:app],
                                        opts[:app_id_file]

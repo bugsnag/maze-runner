@@ -12,6 +12,10 @@
 
 - Remove support for CrossBrowserTesting [391](https://github.com/bugsnag/maze-runner/pull/391)
 
+## Refactor
+
+- Refactor BrowserStack specific Appium/Selenium code into `Maze::Farm::BrowserStack` [390](https://github.com/bugsnag/maze-runner/pull/390)
+
 # 7.0.0 - 2022/07/29
 
 ## Enhancements

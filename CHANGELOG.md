@@ -8,6 +8,7 @@
 ## Fixes
 
 - Remove assert_* methods no longer needed to avoid a breaking change [387](https://github.com/bugsnag/maze-runner/pull/387)
+- Fix support for BitBar to work with W3C capabilities [394](https://github.com/bugsnag/maze-runner/pull/394)
 
 ## Removals
 

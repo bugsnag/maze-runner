@@ -40,7 +40,7 @@ module Maze
           begin
             response = JSON.parse res.body
             if response.key?('id')
-              app_uuid = response['id']
+              app_uuid = response['id'].to_s
               $logger.info "Uploaded app ID: #{app_uuid}"
               $logger.info 'You can use this ID to avoid uploading the same app more than once.'
             else

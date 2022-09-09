@@ -121,9 +121,9 @@ module Maze
                                                               config.os,
                                                               config.os_version,
                                                               config.capabilities_option
-          capabilities['bitbar_app'] = config.app
-          capabilities['bundleId'] = config.app_bundle_id
+          capabilities['bitbar:options']['app'] = config.app
         end
+
         capabilities
       end
 

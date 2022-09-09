@@ -137,7 +137,7 @@ class AppiumHooksTest < Test::Unit::TestCase
     $config.expects(:farm).returns(:local)
     $config.expects(:os_version).returns(nil)
     $config.expects(:os).returns('ios')
-    $config.expects(:device_list).returns([])
+    $config.expects(:device_list).returns([]).twice()
 
     $logger.expects(:info).with('Inferred OS version to be 9.0')
     $config.expects(:os_version=).with(9.0)
@@ -162,7 +162,7 @@ class AppiumHooksTest < Test::Unit::TestCase
     $config.expects(:farm).returns(:local)
     $config.expects(:os_version).returns(nil)
     $config.expects(:os).returns('android')
-    $config.expects(:device_list).returns([])
+    $config.expects(:device_list).returns([]).twice()
 
     $logger.expects(:info).with('Inferred OS version to be 12.0')
     $config.expects(:os_version=).with(12.0)
@@ -182,7 +182,7 @@ class AppiumHooksTest < Test::Unit::TestCase
 
     $config.expects(:capabilities=).with(:caps)
     $config.expects(:appium_session_isolation).returns(false)
-    $config.expects(:device_list).returns([])
+    $config.expects(:device_list).returns([]).twice()
 
     $logger.expects(:error).with("Appium driver failed to start after 6 attempts in 60 seconds")
 
@@ -204,7 +204,7 @@ class AppiumHooksTest < Test::Unit::TestCase
     $config.expects(:capabilities=).with(:caps)
     $config.expects(:appium_session_isolation).returns(false)
     $config.expects(:farm).returns(:farm)
-    $config.expects(:device_list).returns([])
+    $config.expects(:device_list).returns([]).twice()
 
     Maze.expects(:driver=).with(driver_mock)
 

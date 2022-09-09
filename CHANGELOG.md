@@ -3,6 +3,7 @@
 ## Enhancements
 
 - Docs structure improved [388](https://github.com/bugsnag/maze-runner/pull/388)
+- v6.23.0 to v6.26.0 forward-ported to v7 stream [395](https://github.com/bugsnag/maze-runner/pull/395)
 
 ## Fixes
 

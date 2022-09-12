@@ -65,10 +65,6 @@ module Maze
             text ''
             text 'Appium options:'
 
-            opt Option::SEPARATE_SESSIONS,
-                'Start a new Appium session for each scenario',
-                type: :boolean,
-                default: false
             opt Option::FARM,
                 'Device farm to use: "bs" (BrowserStack) or "local"',
                 type: :string

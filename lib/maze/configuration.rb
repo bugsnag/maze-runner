@@ -64,9 +64,6 @@ module Maze
     # General appium configuration
     #
 
-    # Whether each scenario should have its own Appium session
-    attr_accessor :appium_session_isolation
-
     # Element locator strategy, :id or :accessibility_id
     attr_accessor :locator
 

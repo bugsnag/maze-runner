@@ -26,7 +26,6 @@ class ParserTest < Test::Unit::TestCase
     options = Maze::Option::Parser.parse args
 
     # Common options
-    assert_false(options[Maze::Option::SEPARATE_SESSIONS])
     assert_nil(options[Maze::Option::FARM])
     assert_nil(options[Maze::Option::APP])
     assert_false(options[Maze::Option::A11Y_LOCATOR])
@@ -65,7 +64,6 @@ class ParserTest < Test::Unit::TestCase
 
   def test_overwritten_values
     args = %w[
-      --separate-sessions
       --farm=ARG_FARM
       --app=ARG_APP
       --a11y-locator
@@ -89,7 +87,6 @@ class ParserTest < Test::Unit::TestCase
     options = Maze::Option::Parser.parse args
 
     # Common options
-    assert_true(options[Maze::Option::SEPARATE_SESSIONS])
     assert_equal('ARG_FARM', options[Maze::Option::FARM])
     assert_equal('ARG_APP', options[Maze::Option::APP])
     assert_true(options[Maze::Option::A11Y_LOCATOR])

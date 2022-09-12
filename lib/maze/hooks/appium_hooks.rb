@@ -51,16 +51,12 @@ module Maze
       end
 
       def before
-        Maze.driver.start_driver if Maze.config.farm != :none && Maze.config.appium_session_isolation
-
         # Launch the app on macOS, if Appium is being used
         Maze.driver.get(Maze.config.app) if Maze.driver && Maze.config.os == 'macos'
       end
 
       def after
-        if Maze.config.appium_session_isolation
-          Maze.driver.driver_quit
-        elsif Maze.config.os == 'macos'
+        if Maze.config.os == 'macos'
           # Close the app - without the sleep, launching the app for the next scenario intermittently fails
           system("killall -KILL #{Maze.config.app} && sleep 1")
         elsif [:bb].include? Maze.config.farm
@@ -73,7 +69,7 @@ module Maze
 
       def at_exit
         # Stop the Appium session and server
-        Maze.driver.driver_quit unless Maze.config.appium_session_isolation
+        Maze.driver.driver_quit
         Maze::AppiumServer.stop if Maze::AppiumServer.running
 
         if Maze.config.farm == :local && Maze.config.os == 'macos'
@@ -158,18 +154,16 @@ module Maze
               end
             end
 
-            unless config.appium_session_isolation
-              if retry_failure
-                wait = Maze::Wait.new(interval: 10, timeout: 60)
-                success = wait.until(&start_driver_closure)
+            if retry_failure
+              wait = Maze::Wait.new(interval: 10, timeout: 60)
+              success = wait.until(&start_driver_closure)
 
-                unless success
-                  $logger.error 'Appium driver failed to start after 6 attempts in 60 seconds'
-                  raise RuntimeError.new('Appium driver failed to start in 60 seconds')
-                end
-              else
-                start_driver_closure.call
+              unless success
+                $logger.error 'Appium driver failed to start after 6 attempts in 60 seconds'
+                raise RuntimeError.new('Appium driver failed to start in 60 seconds')
               end
+            else
+              start_driver_closure.call
             end
 
             # Infer OS version if necessary when running locally

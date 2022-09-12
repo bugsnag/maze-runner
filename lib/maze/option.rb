@@ -14,7 +14,6 @@ module Maze
     NULL_PORT = 'null-port'
 
     # Appium options
-    SEPARATE_SESSIONS = 'separate-sessions'
     FARM = 'farm'
     APP = 'app'
     A11Y_LOCATOR = 'a11y-locator'

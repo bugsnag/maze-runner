@@ -2,7 +2,8 @@
 
 ## Enhancements
 
-- Docs structure improved [388](https://github.com/bugsnag/maze-runner/pull/388)
+- Improve docs structure [388](https://github.com/bugsnag/maze-runner/pull/388)
+- Forward-port v6.23.0 to v6.26.0 to v7 stream [395](https://github.com/bugsnag/maze-runner/pull/395)
 
 ## Fixes
 
@@ -26,6 +27,32 @@
 ## Removals
 
 - Remove support for Sauce Labs [376](https://github.com/bugsnag/maze-runner/pull/376)
+
+# 6.26.0 - 2022/09/08
+
+## Enhancements
+
+- Add support for Android 13 and iOS 16 Beta on BrowserStack [393](https://github.com/bugsnag/maze-runner/pull/393)
+
+## Fixes
+
+- Handle nil device list for `--farm=local` [392](https://github.com/bugsnag/maze-runner/pull/392)
+
+# 6.25.0 - 2022/09/05
+
+## Enhancements
+
+- Attach UUIDs to command payloads for better tracking [389](https://github.com/bugsnag/maze-runner/pull/389)
+
+# 6.24.0 - 2022/08/17
+
+## Enhancements
+
+- Add support for Android 13 Beta on BrowserStack [386](https://github.com/bugsnag/maze-runner/pull/386)
+  
+# 6.23.0 - 2022/07/22
+
+- Update BrowserStack target definitions [383](https://github.com/bugsnag/maze-runner/pull/383)
 
 # 6.22.1 - 2022/07/15
 

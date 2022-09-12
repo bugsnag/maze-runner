@@ -18,16 +18,6 @@ class ProcessorTest < Test::Unit::TestCase
     Maze::Helper.stubs(:expand_path).with('/BrowserStackLocal').returns('/BrowserStackLocal')
   end
 
-  def test_populate_bs_config_resilient
-    args = %w[--farm=bs --app=my_app.apk --username=b --access-key=c --device=ANDROID_6_0 --resilient --a11y-locator]
-    options = Maze::Option::Parser.parse args
-    config = Maze::Configuration.new
-    Maze::Option::Processor.populate config, options
-
-    assert_true config.resilient
-    assert_equal :accessibility_id, config.locator
-  end
-
   def test_populate_local_config
     args = %w[--farm=local --app=my_app.apk --os=ios --os-version=7.1 --apple-team-id=ABC --udid=123 \
               --bind-address=1.2.3.4 --port=1234 --no-start-appium --document-server-root=root \
@@ -97,7 +87,6 @@ class ProcessorTest < Test::Unit::TestCase
     assert_equal 9340, config.document_server_port
 
     assert_equal :id, config.locator
-    assert_false config.resilient
     assert_nil config.capabilities
 
     assert_true config.file_log

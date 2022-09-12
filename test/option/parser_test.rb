@@ -29,7 +29,6 @@ class ParserTest < Test::Unit::TestCase
     assert_nil(options[Maze::Option::FARM])
     assert_nil(options[Maze::Option::APP])
     assert_false(options[Maze::Option::A11Y_LOCATOR])
-    assert_false(options[Maze::Option::RESILIENT])
     assert_equal('{}', options[Maze::Option::CAPABILITIES])
 
     # Device-farm-only options
@@ -67,7 +66,6 @@ class ParserTest < Test::Unit::TestCase
       --farm=ARG_FARM
       --app=ARG_APP
       --a11y-locator
-      --resilient
       --capabilities=ARG_CAPABILITIES
       --bs-local=ARG_BS_LOCAL
       --device=ARG_DEVICE
@@ -90,7 +88,6 @@ class ParserTest < Test::Unit::TestCase
     assert_equal('ARG_FARM', options[Maze::Option::FARM])
     assert_equal('ARG_APP', options[Maze::Option::APP])
     assert_true(options[Maze::Option::A11Y_LOCATOR])
-    assert_true(options[Maze::Option::RESILIENT])
     assert_equal('ARG_CAPABILITIES', options[Maze::Option::CAPABILITIES])
 
     # Device-farm-only options

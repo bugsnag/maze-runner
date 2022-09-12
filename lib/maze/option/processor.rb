@@ -36,7 +36,6 @@ module Maze
 
           # General appium options
           config.app = Maze::Helper.read_at_arg_file options[Maze::Option::APP]
-          config.resilient = options[Maze::Option::RESILIENT]
           farm = options[Maze::Option::FARM]
           config.farm = case farm
                         when nil then :none

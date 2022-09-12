@@ -6,7 +6,6 @@ require_relative '../../lib/maze/capabilities'
 require_relative '../../lib/maze/farm/browser_stack/capabilities'
 require_relative '../../lib/maze/wait'
 require_relative '../../lib/maze/driver/appium'
-require_relative '../../lib/maze/driver/resilient_appium'
 require_relative '../../lib/maze/hooks/appium_hooks'
 
 class AppiumHooksTest < Test::Unit::TestCase
@@ -63,27 +62,7 @@ class AppiumHooksTest < Test::Unit::TestCase
     assert_equal(:app, caps['app'])
   end
 
-  def test_create_driver_resilient
-    $config.expects(:resilient).returns(true)
-    $config.expects(:appium_server_url).returns(:appium_server_url)
-    $config.expects(:capabilities).returns(:capabilities)
-    $config.expects(:locator).returns(:locator)
-    $logger.expects(:info).with('Creating ResilientAppium driver instance')
-
-    Maze::Driver::ResilientAppium.expects(:new).with(
-      :appium_server_url,
-      :capabilities,
-      :locator
-    ).returns(:driver)
-
-    hooks = Maze::Hooks::AppiumHooks.new
-    driver = hooks.create_driver($config)
-
-    assert_equal(:driver, driver)
-  end
-
   def test_create_driver_default
-    $config.expects(:resilient).returns(false)
     $config.expects(:appium_server_url).returns(:appium_server_url)
     $config.expects(:capabilities).returns(:capabilities)
     $config.expects(:locator).returns(:locator)

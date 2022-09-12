@@ -57,7 +57,6 @@ require_relative '../lib/maze/hooks/command_hooks'
 
 require_relative '../lib/maze/driver/appium'
 require_relative '../lib/maze/driver/browser'
-require_relative '../lib/maze/driver/resilient_appium'
 
 require_relative '../lib/maze/plugins/bugsnag_reporting_plugin'
 require_relative '../lib/maze/plugins/cucumber_report_plugin'

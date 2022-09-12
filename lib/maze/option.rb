@@ -17,7 +17,6 @@ module Maze
     FARM = 'farm'
     APP = 'app'
     A11Y_LOCATOR = 'a11y-locator'
-    RESILIENT = 'resilient'
     CAPABILITIES = 'capabilities'
 
     # Generic device farm options

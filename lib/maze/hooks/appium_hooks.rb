@@ -124,17 +124,10 @@ module Maze
       end
 
       def create_driver(config)
-        if Maze.config.resilient
-          $logger.info 'Creating ResilientAppium driver instance'
-          Maze::Driver::ResilientAppium.new config.appium_server_url,
-                                            config.capabilities,
-                                            config.locator
-        else
-          $logger.info 'Creating Appium driver instance'
-          Maze::Driver::Appium.new config.appium_server_url,
-                                   config.capabilities,
-                                   config.locator
-        end
+        $logger.info 'Creating Appium driver instance'
+        Maze::Driver::Appium.new config.appium_server_url,
+                                 config.capabilities,
+                                 config.locator
       end
 
       def start_driver(config, tunnel_id = nil)

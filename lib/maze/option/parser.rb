@@ -75,9 +75,6 @@ module Maze
                 'Locate elements by accessibility id rather than id',
                 type: :boolean,
                 default: false
-            opt Option::RESILIENT,
-                'Use the resilient Appium driver',
-                default: false
             opt Option::CAPABILITIES,
                 'Additional desired Appium capabilities as a JSON string',
                 default: '{}'

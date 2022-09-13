@@ -35,9 +35,7 @@ module Maze
           config.always_log = options[Maze::Option::ALWAYS_LOG]
 
           # General appium options
-          config.appium_session_isolation = options[Maze::Option::SEPARATE_SESSIONS]
           config.app = Maze::Helper.read_at_arg_file options[Maze::Option::APP]
-          config.resilient = options[Maze::Option::RESILIENT]
           farm = options[Maze::Option::FARM]
           config.farm = case farm
                         when nil then :none

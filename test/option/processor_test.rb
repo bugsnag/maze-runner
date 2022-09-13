@@ -18,35 +18,6 @@ class ProcessorTest < Test::Unit::TestCase
     Maze::Helper.stubs(:expand_path).with('/BrowserStackLocal').returns('/BrowserStackLocal')
   end
 
-  def test_populate_bs_config_separate
-    args = %w[--farm=bs --app=my_app.apk --username=user --access-key=key --device=ANDROID_6_0 --separate-sessions]
-    options = Maze::Option::Parser.parse args
-    config = Maze::Configuration.new
-
-    Maze::Option::Processor.populate config, options
-
-    assert_true config.appium_session_isolation
-    assert_false config.resilient
-    assert_equal :bs, config.farm
-    assert_equal 'my_app.apk', config.app
-    assert_equal 'user', config.username
-    assert_equal 'key', config.access_key
-    assert_equal 'ANDROID_6_0', config.device
-    assert_equal :id, config.locator
-    assert_equal 'http://user:key@hub-cloud.browserstack.com/wd/hub', config.appium_server_url
-  end
-
-  def test_populate_bs_config_resilient
-    args = %w[--farm=bs --app=my_app.apk --username=b --access-key=c --device=ANDROID_6_0 --resilient --a11y-locator]
-    options = Maze::Option::Parser.parse args
-    config = Maze::Configuration.new
-    Maze::Option::Processor.populate config, options
-
-    assert_false config.appium_session_isolation
-    assert_true config.resilient
-    assert_equal :accessibility_id, config.locator
-  end
-
   def test_populate_local_config
     args = %w[--farm=local --app=my_app.apk --os=ios --os-version=7.1 --apple-team-id=ABC --udid=123 \
               --bind-address=1.2.3.4 --port=1234 --no-start-appium --document-server-root=root \
@@ -115,9 +86,7 @@ class ProcessorTest < Test::Unit::TestCase
     assert_equal nil, config.document_server_bind_address
     assert_equal 9340, config.document_server_port
 
-    assert_false config.appium_session_isolation
     assert_equal :id, config.locator
-    assert_false config.resilient
     assert_nil config.capabilities
 
     assert_true config.file_log

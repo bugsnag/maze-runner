@@ -32,7 +32,7 @@ module Maze
 
         if retry_on_driver_error?(event)
           $logger.warn "Retrying #{test_case.name} due to driver error: #{event.result.exception}"
-          if Maze.driver.is_a?(Maze::Driver::Appium) || Maze.driver.is_a?(Maze::Driver::ResilientAppium)
+          if Maze.driver.is_a?(Maze::Driver::Appium)
             Maze.driver.restart
           elsif Maze.driver.is_a?(Maze::Driver::Browser)
             Maze.driver.refresh

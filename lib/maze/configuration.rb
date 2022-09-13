@@ -64,9 +64,6 @@ module Maze
     # General appium configuration
     #
 
-    # Whether each scenario should have its own Appium session
-    attr_accessor :appium_session_isolation
-
     # Element locator strategy, :id or :accessibility_id
     attr_accessor :locator
 
@@ -81,9 +78,6 @@ module Maze
     # - a BrowserStack url for a previously uploaded app (bs://...)
     # - on macOS, the name of an installed or previously executed application
     attr_accessor :app
-
-    # Whether the ResilientAppium driver should be used (only applicable when using Appium in the first place)
-    attr_accessor :resilient
 
     # Device farm to be used, one of:
     # :bs (BrowserStack)

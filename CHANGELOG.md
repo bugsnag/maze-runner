@@ -13,6 +13,7 @@
 ## Removals
 
 - Remove support for CrossBrowserTesting [391](https://github.com/bugsnag/maze-runner/pull/391)
+- Remove `--resilient` and `--separate-sessions` options [396](https://github.com/bugsnag/maze-runner/pull/396)
 
 ## Refactor
 

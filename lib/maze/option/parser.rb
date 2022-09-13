@@ -65,10 +65,6 @@ module Maze
             text ''
             text 'Appium options:'
 
-            opt Option::SEPARATE_SESSIONS,
-                'Start a new Appium session for each scenario',
-                type: :boolean,
-                default: false
             opt Option::FARM,
                 'Device farm to use: "bs" (BrowserStack) or "local"',
                 type: :string
@@ -78,9 +74,6 @@ module Maze
             opt Option::A11Y_LOCATOR,
                 'Locate elements by accessibility id rather than id',
                 type: :boolean,
-                default: false
-            opt Option::RESILIENT,
-                'Use the resilient Appium driver',
                 default: false
             opt Option::CAPABILITIES,
                 'Additional desired Appium capabilities as a JSON string',

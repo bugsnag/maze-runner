@@ -6,7 +6,6 @@ require_relative '../lib/maze/errors'
 require_relative '../lib/maze/retry_handler'
 require_relative '../lib/maze/driver/appium'
 require_relative '../lib/maze/driver/browser'
-require_relative '../lib/maze/driver/resilient_appium'
 
 # noinspection RubyNilAnalysis
 class RetryHandlerTest < Test::Unit::TestCase
@@ -172,9 +171,8 @@ class RetryHandlerTest < Test::Unit::TestCase
 
   def test_should_retry_browser_driver_error
     driver_mock = mock('driver')
-    Maze.expects(:driver).times(5).returns(driver_mock)
+    Maze.expects(:driver).times(4).returns(driver_mock)
     driver_mock.expects(:is_a?).with(Maze::Driver::Appium).returns(false)
-    driver_mock.expects(:is_a?).with(Maze::Driver::ResilientAppium).returns(false)
     driver_mock.expects(:is_a?).with(Maze::Driver::Browser).returns(true)
     driver_mock.expects(:refresh)
 

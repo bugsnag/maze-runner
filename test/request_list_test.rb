@@ -29,8 +29,7 @@ class RequestListTest < Test::Unit::TestCase
   def test_fresh_state
     list = Maze::RequestList.new
     assert_nil list.current
-    assert_empty list
-    assert_equal 0, list.size
+    assert_equal 0, list.size_remaining
     assert_equal [], list.all
   end
 
@@ -44,8 +43,7 @@ class RequestListTest < Test::Unit::TestCase
     list.add item2
 
     # Check current and state
-    assert_not_empty list
-    assert_equal 2, list.size
+    assert_equal 2, list.size_remaining
     assert_equal item1, list.current
     assert_not_equal item2, list.current
     assert_equal [item1, item2], list.all

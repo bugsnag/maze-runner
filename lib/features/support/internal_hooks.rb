@@ -152,10 +152,10 @@ end
 
 def output_received_requests(request_type)
   request_queue = Maze::Server.list_for(request_type)
-  if request_queue.empty?
+  count = request_queue.size_all
+  if count == 0
     $logger.info "No #{request_type} received"
   else
-    count = request_queue.size_all
     $logger.info "#{count} #{request_type} were received:"
     request_queue.all.each.with_index(1) do |request, number|
       $stdout.puts "--- #{request_type} #{number} of #{count}"
@@ -227,7 +227,7 @@ end
 # and we need the logic in the other After hook to be performed.
 # Furthermore, this hook should appear after the general hook as they are executed in reverse order by Cucumber.
 After do |scenario|
-  unless Maze::Server.invalid_requests.empty?
+  unless Maze::Server.invalid_requests.size_all == 0
     msg = "#{Maze::Server.invalid_requests.size_all} invalid request(s) received during scenario"
     scenario.fail msg
   end

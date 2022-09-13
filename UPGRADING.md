@@ -8,6 +8,13 @@ The Appium and Selenium clients are upgraded to versions 12 and 4 respectively. 
 capabilities, although the changes for this will typically be encapsulated within Maze Runner.  The change is considered
 breaking as the earliest supported Appium version is now 1.15 (due to the library update).
 
+### RequestList interface change ###
+
+`RequestList.empty?` has been removed, as it was ambiguous whether it applied to all requests received, or just those 
+that had not been processed.  It also meant that in general `empty?` was not the same as `size == 0`.  
+
+`size` has also been renamed to `size_remaining` to avoid ambiguity.
+
 ## v5 to v6
 
 The version of Cucumber used by Maze Runner has been updated from 3.1.2 to 7.1.0:

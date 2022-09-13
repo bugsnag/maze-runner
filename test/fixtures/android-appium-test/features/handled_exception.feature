@@ -15,6 +15,8 @@ Scenario: Test driving a scenario using commands
   Given I issue a command to notify a "Big bang" handled error
   And I issue a command to notify a "Small bang" handled error
   And I run the next command
+  # Ensure the fixture and harness can handle there being no commands to process
+  And I run the next command
   And I wait to receive an error
 
   Then the exception "message" equals "Big bang"

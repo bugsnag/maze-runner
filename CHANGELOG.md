@@ -1,3 +1,9 @@
+# 6.26.1 - 2022/09/14
+
+## Fixes
+
+- Do not read commands from an empty request queue [397](https://github.com/bugsnag/maze-runner/pull/397)
+
 # 6.26.0 - 2022/09/08
 
 ## Enhancements

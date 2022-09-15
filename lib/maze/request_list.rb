@@ -10,12 +10,8 @@ module Maze
       @count = 0
     end
 
-    def empty?
-      @requests.empty?
-    end
-
     # The number of unprocessed/remaining requests in the list (not the total number actually held)
-    def size
+    def size_remaining
       @count
     end
 

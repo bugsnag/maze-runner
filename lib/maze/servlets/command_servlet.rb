@@ -16,7 +16,7 @@ module Maze
         response.header['Access-Control-Allow-Origin'] = '*'
 
         commands = Maze::Server.commands
-        if commands.empty?
+        if commands.size_remaining == 0
           response.body = 'No commands to provide'
           response.status = 400
         else

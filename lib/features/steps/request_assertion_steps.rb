@@ -12,11 +12,11 @@ def assert_received_requests(request_count, list, list_name)
   timeout = Maze.config.receive_requests_wait
   wait = Maze::Wait.new(timeout: timeout)
 
-  received = wait.until { list.size >= request_count }
+  received = wait.until { list.size_remaining >= request_count }
 
   unless received
     raise Test::Unit::AssertionFailedError.new <<-MESSAGE
-    Expected #{request_count} #{list_name} but received #{list.size} within the #{timeout}s timeout.
+    Expected #{request_count} #{list_name} but received #{list.size_remaining} within the #{timeout}s timeout.
     This could indicate that:
     - Bugsnag crashed with a fatal error.
     - Bugsnag did not make the requests that it should have done.
@@ -26,7 +26,7 @@ def assert_received_requests(request_count, list, list_name)
     MESSAGE
   end
 
-  Maze.check.equal(request_count, list.size, "#{list.size} #{list_name} received")
+  Maze.check.equal(request_count, list.size_remaining, "#{list.size_remaining} #{list_name} received")
 end
 
 #
@@ -59,7 +59,7 @@ end
 # @step_input request_type [String] The type of request (error, session, build, etc)
 Then('I have received at least {int} {word}') do |min_received, request_type|
   list = Maze::Server.list_for(request_type)
-  Maze.check.operator(list.size, :>=, min_received, "Actually received #{list.size} #{request_type} requests")
+  Maze.check.operator(list.size_remaining, :>=, min_received, "Actually received #{list.size} #{request_type} requests")
 end
 
 # Assert that the test Server hasn't received any requests - of a specific, or any, type.
@@ -70,11 +70,11 @@ Then('I should receive no {word}') do |request_type|
   sleep Maze.config.receive_no_requests_wait
   if request_type == 'requests'
     # Assert that the test Server hasn't received any requests at all.
-    Maze.check.equal(0, Maze::Server.errors.size, "#{Maze::Server.errors.size} errors received")
-    Maze.check.equal(0, Maze::Server.sessions.size, "#{Maze::Server.sessions.size} sessions received")
+    Maze.check.equal(0, Maze::Server.errors.size_remaining, "#{Maze::Server.errors.size_remaining} errors received")
+    Maze.check.equal(0, Maze::Server.sessions.size_remaining, "#{Maze::Server.sessions.size_remaining} sessions received")
   else
     list = Maze::Server.list_for(request_type)
-    Maze.check.equal(0, list.size, "#{list.size} #{request_type} received")
+    Maze.check.equal(0, list.size_remaining, "#{list.size_remaining} #{request_type} received")
   end
 end
 

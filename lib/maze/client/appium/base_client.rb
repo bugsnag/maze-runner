@@ -12,7 +12,7 @@ module Maze
         end
 
         def start_session
-          start_driver(config)
+          start_driver(Maze.config)
 
           # Set bundle/app id for later use
           Maze.driver.app_id = case Maze::Helper.get_current_platform
@@ -25,13 +25,12 @@ module Maze
           Maze.driver.unlock
         end
 
-
-        def start_driver(config, tunnel_id = nil)
+        def start_driver(config)
           retry_failure = config.device_list.nil? || config.device_list.empty?
           until Maze.driver
             begin
-              config.capabilities = device_capabilities(config, tunnel_id)
-              capabilities['app'] = config.app
+              config.capabilities = device_capabilities
+              config.capabilities['app'] = config.app
 
               $logger.info 'Creating Appium driver instance'
               driver = Maze::Driver::Appium.new config.appium_server_url,
@@ -48,18 +47,16 @@ module Maze
                 end
               end
 
-              unless config.appium_session_isolation
-                if retry_failure
-                  wait = Maze::Wait.new(interval: 10, timeout: 60)
-                  success = wait.until(&start_driver_closure)
+              if retry_failure
+                wait = Maze::Wait.new(interval: 10, timeout: 60)
+                success = wait.until(&start_driver_closure)
 
-                  unless success
-                    $logger.error 'Appium driver failed to start after 6 attempts in 60 seconds'
-                    raise RuntimeError.new('Appium driver failed to start in 60 seconds')
-                  end
-                else
-                  start_driver_closure.call
+                unless success
+                  $logger.error 'Appium driver failed to start after 6 attempts in 60 seconds'
+                  raise RuntimeError.new('Appium driver failed to start in 60 seconds')
                 end
+              else
+                start_driver_closure.call
               end
 
               # Infer OS version if necessary when running locally

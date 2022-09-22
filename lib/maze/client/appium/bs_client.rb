@@ -4,11 +4,13 @@ module Maze
       class BrowserStackClient < BaseClient
         def prepare_session
           # Upload the app and start the secure tunnel
-          config.app = Maze::Farm::BrowserStack::Utils.upload_app config.username,
-                                                                  config.access_key,
-                                                                  config.app
-          Maze::Client::BrowserStackClientUtils::Utils.start_local_tunnel config.bs_local,
-                                                                          config.access_key
+          config = Maze.config
+          config.app = Maze::Client::BrowserStackClientUtils.upload_app config.username,
+                                                                        config.access_key,
+                                                                        config.app
+          Maze::Client::BrowserStackClientUtils.start_local_tunnel config.bs_local,
+                                                                   @session_uuid,
+                                                                   config.access_key
         end
 
         def device_capabilities
@@ -19,9 +21,9 @@ module Maze
               },
               'noReset' => 'true'
             }
-            capabilities.deep_merge! Maze::Client::Appium::BrowserStackDevices.DEVICE_HASH[config.device]
-            capabilities.deep_merge! JSON.parse(config.capabilities_option)
-            capabilities['bstack:options']['appiumVersion'] = config.appium_version unless config.appium_version.nil?
+            capabilities.deep_merge! Maze::Client::Appium::BrowserStackDevices::DEVICE_HASH[Maze.config.device]
+            capabilities.deep_merge! JSON.parse(Maze.config.capabilities_option)
+            capabilities['bstack:options']['appiumVersion'] = Maze.config.appium_version unless Maze.config.appium_version.nil?
             capabilities
         end
 

@@ -45,10 +45,10 @@ class UploadAppEntry
       end
     end
 
-    Maze::Farm::BrowserStack::Utils.upload_app username,
-                                       access_key,
-                                       opts[:app],
-                                       opts[:app_id_file]
+    Maze::Client::BrowserStackClientUtils.upload_app username,
+                                                     access_key,
+                                                     opts[:app],
+                                                     opts[:app_id_file]
 
   end
 end

@@ -25,12 +25,20 @@ module Maze
         when :bs
           # BrowserStack browser
           tunnel_id = SecureRandom.uuid
-          config.capabilities = Maze::Farm::BrowserStack::Capabilities.browser config.browser,
-                                                                               tunnel_id,
-                                                                               config.capabilities_option
-          Maze::Farm::BrowserStack::Utils.start_local_tunnel config.bs_local,
-                                                             tunnel_id,
-                                                             config.access_key
+          capabilities = {
+            'bstack:options' => {
+              'local' => 'true',
+              'localIdentifier' => tunnel_id
+            }
+          }
+          browsers = YAML.safe_load(File.read("#{__dir__}/../client/selenium/bs_browsers.yml"))
+          capabilities.deep_merge! browsers[config.browser]
+          capabilities.deep_merge! JSON.parse(config.capabilities_option)
+          config.capabilities = Selenium::WebDriver::Remote::Capabilities.new capabilities
+
+          Maze::Client::BrowserStackClientUtils.start_local_tunnel config.bs_local,
+                                                                   tunnel_id,
+                                                                   config.access_key
         end
 
         # Create and start the relevant driver
@@ -53,7 +61,7 @@ module Maze
 
       def at_exit
         if Maze.config.farm == :bs
-          Maze::Farm::BrowserStack::Utils.stop_local_tunnel
+          Maze::Client::BrowserStackClientUtils.stop_local_tunnel
           Maze.driver.driver_quit
         end
       end

@@ -44,9 +44,9 @@ class DownloadLogEntry
     end
 
 
-    build_info = Maze::Farm::BrowserStack::Utils.build_info username,
-                                                            access_key,
-                                                            opts[:build_id]
+    build_info = Maze::Client::BrowserStackClientUtils.build_info username,
+                                                                  access_key,
+                                                                  opts[:build_id]
 
     $logger.info "Getting logs for build: #{opts[:build_id]}"
 
@@ -55,18 +55,18 @@ class DownloadLogEntry
 
       log_name = "#{opts[:build_id]}-#{index + 1}"
 
-      Maze::Farm::BrowserStack::Utils.download_log username,
-                                                   access_key,
-                                                   log_name,
-                                                   session['automation_session']['device_logs_url'],
-                                                   :device
+      Maze::Client::BrowserStackClientUtils.download_log username,
+                                                         access_key,
+                                                         log_name,
+                                                         session['automation_session']['device_logs_url'],
+                                                         :device
 
       $logger.info "Downloading Appium Logs for Session: #{index + 1}"
-      Maze::Farm::BrowserStack::Utils.download_log username,
-                                                   access_key,
-                                                   log_name,
-                                                   session['automation_session']['appium_logs_url'],
-                                                   :appium
+      Maze::Client::BrowserStackClientUtils.download_log username,
+                                                         access_key,
+                                                         log_name,
+                                                         session['automation_session']['appium_logs_url'],
+                                                         :appium
     end
   end
 end

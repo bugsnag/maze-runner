@@ -42,7 +42,7 @@ module Maze
 
         def stop_session
           super
-          Maze::Farm::BrowserStack::Utils.stop_local_tunnel
+          Maze::Client::BrowserStackClientUtils.stop_local_tunnel
         end
       end
     end

@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 module Maze
-  module Farm
-    module BrowserStack
+  module Client
+    module Appium
 
       # Provides a source of capabilities used to run tests against specific BrowserStack devices
       # noinspection RubyStringKeysInHashInspection
-      class Devices
+      class BrowserStackDevices
         APPIUM_1_7_0 = '1.7.0'
         APPIUM_1_9_1 = '1.9.1'
         APPIUM_1_15_0 = '1.15.0'

@@ -7,16 +7,21 @@ module Maze
           config.app = Maze::Farm::BrowserStack::Utils.upload_app config.username,
                                                                   config.access_key,
                                                                   config.app
-          Maze::Farm::BrowserStack::Utils.start_local_tunnel config.bs_local,
-                                                             session_uuid,
-                                                             config.access_key
+          Maze::Client::BrowserStackClientUtils::Utils.start_local_tunnel config.bs_local,
+                                                                          config.access_key
         end
 
         def device_capabilities
-            capabilities = Maze::Farm::BrowserStack::Capabilities.device config.device,
-                                                                         tunnel_id,
-                                                                         config.appium_version,
-                                                                         config.capabilities_option
+            capabilities = {
+              'bstack:options' => {
+                'local' => 'true',
+                'localIdentifier' => @session_uuid
+              },
+              'noReset' => 'true'
+            }
+            capabilities.deep_merge! Maze::Client::Appium::BrowserStackDevices.DEVICE_HASH[config.device]
+            capabilities.deep_merge! JSON.parse(config.capabilities_option)
+            capabilities['bstack:options']['appiumVersion'] = config.appium_version unless config.appium_version.nil?
             capabilities
         end
 

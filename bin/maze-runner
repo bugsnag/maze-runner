@@ -115,11 +115,11 @@ class MazeRunnerEntry
     if options[Maze::Option::LIST_DEVICES]
       case options[Maze::Option::FARM]
       when :bs
-        Maze::Farm::BrowserStack::Devices.list_devices('ios')
-        Maze::Farm::BrowserStack::Devices.list_devices('android')
+        Maze::Client::Appium::BrowserStackDevices.list_devices('ios')
+        Maze::Client::Appium::BrowserStackDevices.list_devices('android')
       else
-        Maze::Farm::BrowserStack::Devices.list_devices('ios')
-        Maze::Farm::BrowserStack::Devices.list_devices('android')
+        Maze::Client::Appium::BrowserStackDevices.list_devices('ios')
+        Maze::Client::Appium::BrowserStackDevices.list_devices('android')
       end
       exit 0
     end

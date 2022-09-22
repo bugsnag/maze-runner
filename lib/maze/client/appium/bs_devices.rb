@@ -16,22 +16,22 @@ module Maze
         class << self
 
           def list_devices(os)
-            puts "BrowserStack #{os} devices available"
+            puts "BrowserStack #{os} devices available:"
             devices = DEVICE_HASH.dup
             devices.select { |key, device|
-              device['os'].eql?(os)
+              device['platformName'].eql?(os)
             }.map { |key, device|
               new_device = device.dup
               new_device['key'] = key
               new_device
             }.sort { |dev_1, dev_2|
-              dev_1['os_version'].to_f <=> dev_2['os_version'].to_f
+              dev_1['platformVersion'].to_f <=> dev_2['platformVersion'].to_f
             }.each{ |device|
               puts '------------------------------'
               puts "Device key: #{device['key']}"
-              puts "Device: #{device['device']}"
-              puts "OS: #{device['os']}"
-              puts "OS version: #{device['os_version']}"
+              puts "Device:     #{device['deviceName']}"
+              puts "OS:         #{device['platformName']}"
+              puts "OS version: #{device['platformVersion']}"
             }
           end
 

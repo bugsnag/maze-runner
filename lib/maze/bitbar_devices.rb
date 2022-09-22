@@ -43,7 +43,7 @@ module Maze
         $logger.debug "all_devices: #{JSON.pretty_generate(all_devices)}"
         filtered_devices = all_devices['data'].reject { |device| device['locked'] }
         if filtered_devices.empty?
-          $logger.error 'There are no devices available'
+          raise 'There are no devices available'
         else
           selected = filtered_devices.first['displayName']
           $logger.info "Selected #{selected} from #{filtered_devices.size} available device(s)"

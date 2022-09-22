@@ -3,6 +3,7 @@ module Maze
     module Appium
       class BitBarClient < BaseClient
         def prepare_session
+          config = Maze.config
           if ENV['BUILDKITE']
             credentials = Maze::BitBarUtils.account_credentials config.tms_uri
             config.username = credentials[:username]
@@ -17,11 +18,22 @@ module Maze
 
         def device_capabilities
           config = Maze.config
-          capabilities = Maze::Capabilities.for_bitbar_device config.access_key,
-                                                              config.device,
-                                                              config.os,
-                                                              config.os_version,
-                                                              config.capabilities_option
+          capabilities = {
+            'disabledAnimations' => 'true',
+            'noReset' => 'true',
+            'bitbar:options' => {
+              'apiKey' => config.access_key,
+              'app' => config.app,
+              'testrun' => "#{config.os} #{config.os_version}",
+              'findDevice' => false,
+              'testTimeout' => 7200,
+            }
+          }
+          capabilities.deep_merge! BitBarDevices.get_device(config.device,
+                                                            config.os,
+                                                            config.os_version,
+                                                            config.access_key)
+          capabilities.deep_merge! JSON.parse(config.capabilities_option)
           capabilities
         end
 

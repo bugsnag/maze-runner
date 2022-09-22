@@ -4,23 +4,6 @@ module Maze
   # Appium capabilities for each target farm
   class Capabilities
     class << self
-      # @param device_type [String]
-      def for_bitbar_device(bitbar_api_key, device_type, platform, platform_version, capabilities_option)
-        capabilities = {
-          'disabledAnimations' => 'true',
-          'noReset' => 'true',
-          'bitbar:options' => {
-            'apiKey' => bitbar_api_key,
-            'testrun' => "#{platform} #{platform_version}",
-            'findDevice' => false,
-            'testTimeout' => 7200,
-          }
-        }
-        capabilities.deep_merge! BitBarDevices.get_device(device_type, platform, platform_version, bitbar_api_key)
-        capabilities.deep_merge! JSON.parse(capabilities_option)
-
-        capabilities
-      end
 
       # @param browser_type [String] A key from @see browsers_bb.yml
       # @param local_id [String] unique key for the SB tunnel instance

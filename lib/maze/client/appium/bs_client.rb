@@ -14,17 +14,19 @@ module Maze
         end
 
         def device_capabilities
-            capabilities = {
-              'bstack:options' => {
-                'local' => 'true',
-                'localIdentifier' => @session_uuid
-              },
-              'noReset' => 'true'
-            }
-            capabilities.deep_merge! Maze::Client::Appium::BrowserStackDevices::DEVICE_HASH[Maze.config.device]
-            capabilities.deep_merge! JSON.parse(Maze.config.capabilities_option)
-            capabilities['bstack:options']['appiumVersion'] = Maze.config.appium_version unless Maze.config.appium_version.nil?
-            capabilities
+          config = Maze.config
+          capabilities = {
+            'app' => config.app,
+            'bstack:options' => {
+              'local' => 'true',
+              'localIdentifier' => @session_uuid
+            },
+            'noReset' => 'true'
+          }
+          capabilities.deep_merge! Maze::Client::Appium::BrowserStackDevices::DEVICE_HASH[config.device]
+          capabilities.deep_merge! JSON.parse(config.capabilities_option)
+          capabilities['bstack:options']['appiumVersion'] = config.appium_version unless config.appium_version.nil?
+          capabilities
         end
 
         def log_session_info

@@ -33,7 +33,8 @@ module Maze
           # Close the app - without the sleep, launching the app for the next scenario intermittently fails
           system("killall -KILL #{Maze.config.app} && sleep 1")
         elsif [:bb].include? Maze.config.farm
-          Maze.driver.launch_app
+          Maze.driver.terminate_app Maze.driver.app_id
+          Maze.driver.activate_app Maze.driver.app_id
         else
           Maze.driver.terminate_app Maze.driver.app_id
           Maze.driver.activate_app Maze.driver.app_id

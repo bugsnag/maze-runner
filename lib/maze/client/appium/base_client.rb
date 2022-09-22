@@ -30,7 +30,6 @@ module Maze
           until Maze.driver
             begin
               config.capabilities = device_capabilities
-              config.capabilities['app'] = config.app
 
               $logger.info 'Creating Appium driver instance'
               driver = Maze::Driver::Appium.new config.appium_server_url,

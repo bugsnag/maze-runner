@@ -30,7 +30,7 @@ module Maze
     LIST_DEVICES = 'list-devices'
     APP_BUNDLE_ID = 'app-bundle-id'
 
-    # Bitbar options
+    # BitBar options
     SB_LOCAL = 'sb-local'
 
     # BrowserStack-only options

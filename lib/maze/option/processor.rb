@@ -75,10 +75,10 @@ module Maze
             config.tms_uri = options[Maze::Option::TMS_URI]
             device_option = options[Maze::Option::DEVICE]
             if device_option.nil? || device_option.empty?
-              # Bitbar Web
+              # BitBar Web
               config.browser = options[Maze::Option::BROWSER]
             else
-              # Bitbar Devices
+              # BitBar Devices
               if device_option.is_a?(Array)
                 config.device = device_option.first
                 config.device_list = device_option.drop(1)

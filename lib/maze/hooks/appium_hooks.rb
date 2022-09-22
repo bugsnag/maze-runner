@@ -3,13 +3,26 @@ module Maze
   module Hooks
     # Hooks for Appium mode use
     class AppiumHooks < InternalHooks
+      @client
+
       def before_all
         session_uuid = SecureRandom.uuid
-        Maze::Client::Appium::BaseClient.prepare_session session_uuid
-        Maze::Client::Appium::BaseClient.start_session session_uuid
-        Maze::Client::Appium::BaseClient.log_session_info
+
+        case Maze.config.farm
+        when :bb
+          @client = Maze::Client::Appium::BitBarClient.new session_uuid
+        when :bs
+          @client = Maze::Client::Appium::BrowserStackClient.new session_uuid
+        when :local
+          @client = Maze::Client::Appium::LocalClient.new session_uuid
+        end
+
+        @client.prepare_session
+        @client.start_session
+        @client.log_session_info
       end
 
+      # TODO: Refactor before and after method so that use of the driver is abstracted behind the relevant Appium client
       def before
         # Launch the app on macOS, if Appium is being used
         Maze.driver.get(Maze.config.app) if Maze.driver && Maze.config.os == 'macos'
@@ -28,19 +41,7 @@ module Maze
       end
 
       def at_exit
-        # Stop the Appium session and server
-        Maze.driver.driver_quit
-        Maze::AppiumServer.stop if Maze::AppiumServer.running
-
-        if Maze.config.farm == :local && Maze.config.os == 'macos'
-          # Acquire and output the logs for the current session
-          Maze::Runner.run_command("log show --predicate '(process == \"#{Maze.config.app}\")' --style syslog --start '#{Maze.start_time}' > #{Maze.config.app}.log")
-        elsif Maze.config.farm == :bs
-          Maze::Farm::BrowserStack::Utils.stop_local_tunnel
-        elsif Maze.config.farm == :bb
-          Maze::SmartBearUtils.stop_local_tunnel
-          Maze::BitBarUtils.release_account(Maze.config.tms_uri) if ENV['BUILDKITE']
-        end
+        @client.stop_session
       end
     end
   end

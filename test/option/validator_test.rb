@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../test_helper'
+require_relative '../../lib/maze/client/appium/bs_devices'
 require_relative '../../lib/maze/option/parser'
 require_relative '../../lib/maze/option/validator'
 require_relative '../../lib/maze/helper'

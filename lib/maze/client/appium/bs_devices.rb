@@ -3,7 +3,6 @@
 module Maze
   module Client
     module Appium
-
       # Provides a source of capabilities used to run tests against specific BrowserStack devices
       # noinspection RubyStringKeysInHashInspection
       class BrowserStackDevices

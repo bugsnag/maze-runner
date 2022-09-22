@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative '../option'
-require_relative '../farm/browser_stack/appium/devices'
 
 module Maze
   module Option

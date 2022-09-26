@@ -5,15 +5,44 @@ module Maze
         def prepare_session
           # Attempt to start the local appium server
           appium_uri = URI(config.appium_server_url)
-          Maze::AppiumServer.start(address: appium_uri.host, port: appium_uri.port) if config.start_appium
+          Maze::AppiumServer.start(address: appium_uri.host, port: appium_uri.port.to_s) if config.start_appium
         end
 
         def device_capabilities
           config = Maze.config
-          capabilities = Maze::Capabilities.for_local config.os,
-                                                      config.capabilities_option,
-                                                      config.apple_team_id,
-                                                      config.device_id
+          capabilities = case platform.downcase
+                         when 'android'
+                           {
+                             'platformName' => 'Android',
+                             'automationName' => 'UiAutomator2',
+                             'autoGrantPermissions' => 'true',
+                             'noReset' => 'true'
+                           }
+                         when 'ios'
+                           {
+                             'platformName' => 'iOS',
+                             'automationName' => 'XCUITest',
+                             'deviceName' => config.device_id,
+                             'xcodeOrgId' => config.apple_team_id,
+                             'xcodeSigningId' => 'iPhone Developer',
+                             'udid' => config.device_id,
+                             'noReset' => 'true',
+                             'waitForQuiescence' => false,
+                             'newCommandTimeout' => 0
+                           }
+                         when 'macos'
+                           {
+                             'platformName' => 'Mac'
+                           }
+                         else
+                           raise "Unsupported platform: #{config.os}"
+                         end
+          common = {
+            'os' => platform,
+            'autoAcceptAlerts': 'true'
+          }
+          capabilities.merge! common
+          capabilities.merge! JSON.parse(config.capabilities_option)
           capabilities
         end
 

@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 require_relative '../lib/maze'
-require_relative '../lib/maze/farm/browser_stack/utils'
+require_relative '../lib/maze/client/bs_client_utils'
 require_relative '../lib/maze/logger'
 require_relative '../lib/maze/helper'
 require 'optimist'

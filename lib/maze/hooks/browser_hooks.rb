@@ -20,9 +20,9 @@ module Maze
           capabilities.merge! JSON.parse(config.capabilities_option)
           config.capabilities = capabilities
 
-          Maze::SmartBearUtils.start_local_tunnel config.sb_local,
-                                                  config.username,
-                                                  config.access_key
+          Maze::Client::BitBarClientUtils.start_local_tunnel config.sb_local,
+                                                             config.username,
+                                                             config.access_key
           tunnel_id
         when :bs
           # BrowserStack browser

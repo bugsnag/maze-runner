@@ -88,7 +88,7 @@ module Maze
         if browser.nil? && device.empty?
           errors << "Either --#{Option::BROWSER} or --#{Option::DEVICE} must be specified"
         elsif browser
-          browsers = YAML.safe_load(File.read("#{__dir__}/../browsers_bb.yml"))
+          browsers = YAML.safe_load(File.read("#{__dir__}/../client/selenium/bb_browsers.yml"))
 
           unless browsers.include? browser
             browser_list = browsers.keys.join ', '

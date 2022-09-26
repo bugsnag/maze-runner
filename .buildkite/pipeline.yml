@@ -171,7 +171,7 @@ steps:
     concurrency_group: 'browserstack-app'
     concurrency_method: eager
 
-  - label: 'Browserstack web browser test - Latest firefox'
+  - label: 'BitBar web browser test - Latest Firefox'
     depends_on: "ci-image-ruby-2-7"
     timeout_in_minutes: 10
     plugins:
@@ -183,6 +183,23 @@ steps:
       bundle exec maze-runner
       --farm=bs
       --browser=firefox_latest
+    env:
+      RUBY_VERSION: "2.7"
+    concurrency: 2
+    concurrency_group: 'browserstack'
+
+  - label: 'Browserstack web browser test - Firefox v104'
+    depends_on: "ci-image-ruby-2-7"
+    timeout_in_minutes: 10
+    plugins:
+      docker-compose#v3.7.0:
+        run: browser-tests
+        use-aliases: true
+        verbose: true
+    command: >-
+      bundle exec maze-runner
+      --farm=bb
+      --browser=firefox_104
     env:
       RUBY_VERSION: "2.7"
     concurrency: 2

@@ -54,6 +54,13 @@ firefox_101:
   version: '101'
   resolution: '1920x1080'
 
+firefox_104:
+  platform: 'Windows'
+  osVersion: '11'
+  browserName: 'firefox'
+  version: '104'
+  resolution: '1920x1080'
+
 ie_11:
   platform: 'Windows'
   osVersion: '10'

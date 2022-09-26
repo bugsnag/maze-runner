@@ -15,7 +15,7 @@ module Maze
           tunnel_id = SecureRandom.uuid
           capabilities = Selenium::WebDriver::Remote::Capabilities.new
           capabilities['bitbar_apiKey'] = config.access_key
-          browsers = YAML.safe_load(File.read("#{__dir__}/../client/selenium/browsers_bb.yml"))
+          browsers = YAML.safe_load(File.read("#{__dir__}/../client/selenium/bb_browsers.yml"))
           capabilities.merge! browsers[config.browser]
           capabilities.merge! JSON.parse(config.capabilities_option)
           config.capabilities = capabilities

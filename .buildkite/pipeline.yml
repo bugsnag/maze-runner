@@ -171,7 +171,7 @@ steps:
     concurrency_group: 'browserstack-app'
     concurrency_method: eager
 
-  - label: 'BitBar web browser test - Latest Firefox'
+  - label: 'Browserstack web browser test - Latest Firefox'
     depends_on: "ci-image-ruby-2-7"
     timeout_in_minutes: 10
     plugins:
@@ -188,7 +188,7 @@ steps:
     concurrency: 2
     concurrency_group: 'browserstack'
 
-  - label: 'Browserstack web browser test - Firefox v104'
+  - label: 'BitBar web browser test - Firefox v104'
     depends_on: "ci-image-ruby-2-7"
     timeout_in_minutes: 10
     plugins:
@@ -203,7 +203,7 @@ steps:
     env:
       RUBY_VERSION: "2.7"
     concurrency: 2
-    concurrency_group: 'browserstack'
+    concurrency_group: 'bitbar-web'
 
   - wait
 

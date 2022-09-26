@@ -186,6 +186,8 @@ services:
       BROWSER_STACK_BROWSERS_ACCESS_KEY:
       MAZE_TMS_URI:
       MAZE_TMS_TOKEN:
+    env_file:
+      - ${DOCKER_ENV_FILE:-test/browser/features/fixtures/null_env}
 
 networks:
   default:

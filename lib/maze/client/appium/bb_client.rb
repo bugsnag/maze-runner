@@ -5,12 +5,12 @@ module Maze
         def prepare_session
           config = Maze.config
           if ENV['BUILDKITE']
-            credentials = Maze::BitBarUtils.account_credentials config.tms_uri
+            credentials = Maze::Client::BitBarClientUtils.account_credentials config.tms_uri
             config.username = credentials[:username]
             config.access_key = credentials[:access_key]
           end
-          config.app = Maze::BitBarUtils.upload_app config.access_key,
-                                                    config.app
+          config.app = Maze::Client::BitBarClientUtils.upload_app config.access_key,
+                                                                  config.app
           Maze::SmartBearUtils.start_local_tunnel config.sb_local,
                                                   config.username,
                                                   config.access_key

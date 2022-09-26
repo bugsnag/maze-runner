@@ -8,7 +8,7 @@ module Maze
         case config.farm
         when :bb
           if ENV['BUILDKITE']
-            credentials = Maze::BitBarUtils.account_credentials config.tms_uri
+            credentials = Maze::Client::BitBarClientUtils.account_credentials config.tms_uri
             config.username = credentials[:username]
             config.access_key = credentials[:access_key]
           end

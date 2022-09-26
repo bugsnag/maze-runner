@@ -185,6 +185,7 @@ services:
       BROWSER_STACK_BROWSERS_USERNAME:
       BROWSER_STACK_BROWSERS_ACCESS_KEY:
       MAZE_TMS_URI:
+      MAZE_TMS_TOKEN:
 
 networks:
   default:

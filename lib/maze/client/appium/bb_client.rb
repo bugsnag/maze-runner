@@ -11,9 +11,9 @@ module Maze
           end
           config.app = Maze::Client::BitBarClientUtils.upload_app config.access_key,
                                                                   config.app
-          Maze::SmartBearUtils.start_local_tunnel config.sb_local,
-                                                  config.username,
-                                                  config.access_key
+          Maze::Client::BitBarClientUtils.start_local_tunnel config.sb_local,
+                                                             config.username,
+                                                             config.access_key
         end
 
         def device_capabilities
@@ -43,8 +43,8 @@ module Maze
 
         def stop_session
           super
-          Maze::SmartBearUtils.stop_local_tunnel
-          Maze::BitBarUtils.release_account(Maze.config.tms_uri) if ENV['BUILDKITE']
+          Maze::Client::BitBarClientUtils.stop_local_tunnel
+          Maze::Client::BitBarClientUtils.release_account(Maze.config.tms_uri) if ENV['BUILDKITE']
         end
       end
     end

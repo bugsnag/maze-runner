@@ -13,10 +13,12 @@ module Maze
             config.access_key = credentials[:access_key]
           end
           tunnel_id = SecureRandom.uuid
-          config.capabilities = Maze::Capabilities.for_bitbar_browsers config.browser,
-                                                                       config.access_key,
-                                                                       tunnel_id,
-                                                                       config.capabilities_option
+          capabilities = Selenium::WebDriver::Remote::Capabilities.new
+          capabilities['bitbar_apiKey'] = config.access_key
+          browsers = YAML.safe_load(File.read("#{__dir__}/../client/selenium/browsers_bb.yml"))
+          capabilities.merge! browsers[config.browser]
+          capabilities.merge! JSON.parse(config.capabilities_option)
+          config.capabilities = capabilities
 
           Maze::SmartBearUtils.start_local_tunnel config.sb_local,
                                                   config.username,

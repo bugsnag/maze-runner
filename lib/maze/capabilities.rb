@@ -5,18 +5,6 @@ module Maze
   class Capabilities
     class << self
 
-      # @param browser_type [String] A key from @see browsers_bb.yml
-      # @param local_id [String] unique key for the SB tunnel instance
-      # @param capabilities_option [String] extra capabilities provided on the command line
-      def for_bitbar_browsers(browser_type, api_key, local_id, capabilities_option)
-        capabilities = Selenium::WebDriver::Remote::Capabilities.new
-        capabilities['bitbar_apiKey'] = api_key
-        browsers = YAML.safe_load(File.read("#{__dir__}/browsers_bb.yml"))
-        capabilities.merge! browsers[browser_type]
-        capabilities.merge! JSON.parse(capabilities_option)
-        capabilities
-      end
-
       # Constructs Appium capabilities for running on a local Android or iOS device.
       # @param platform [String] 'ios' or 'android'
       # @param capabilities_option [String] extra capabilities provided on the command line

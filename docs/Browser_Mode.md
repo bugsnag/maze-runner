@@ -6,7 +6,7 @@ Browser mode allows Selenium-based tests to be run on either local or remote bro
 BrowserStack.  Browser mode is invoked by using the `--browser` option, which for remote browsers expects a symbolic 
 name that maps to an entry in the appropriate device farm's yaml file, for example:
 
-* [BitBar](../lib/maze/browsers_bb.yml)
+* [BitBar](../lib/maze/client/selenium/bb_browsers.yml)
 * [BrowserStack](../lib/maze/client/selenium/bs_browsers.yml)
 
 For local browsers, the value given for `--browser` is converted to a symbol and passed directly to 

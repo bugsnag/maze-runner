@@ -78,7 +78,7 @@ module Maze
               false
             else
               # Something has gone wrong, throw an error
-              $logger.error "Unexpected status code received from test-management server"
+              $logger.error "Unexpected status code (#{output.code}) received from test-management server: #{output.body}"
               raise
             end
           end

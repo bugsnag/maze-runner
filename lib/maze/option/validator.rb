@@ -2,7 +2,6 @@
 
 require 'yaml'
 require_relative '../option'
-require_relative '../farm/browser_stack/appium/devices'
 
 module Maze
   module Option
@@ -46,7 +45,7 @@ module Maze
           errors << "Either --#{Option::BROWSER} or --#{Option::DEVICE} must be specified"
         elsif browser
 
-          browsers = YAML.safe_load(File.read("#{__dir__}/../farm/browser_stack/browsers.yml"))
+          browsers = YAML.safe_load(File.read("#{__dir__}/../client/selenium/bs_browsers.yml"))
 
           unless browsers.include? browser
             browser_list = browsers.keys.join ', '
@@ -54,8 +53,8 @@ module Maze
           end
         elsif device
           device.each do |device_key|
-            next if Maze::Farm::BrowserStack::Devices::DEVICE_HASH.key? device_key
-            errors << "Device type '#{device_key}' unknown on BrowserStack.  Must be one of #{Maze::Farm::BrowserStack::Devices::DEVICE_HASH.keys}"
+            next if Maze::Client::Appium::BrowserStackDevices::DEVICE_HASH.key? device_key
+            errors << "Device type '#{device_key}' unknown on BrowserStack.  Must be one of #{Maze::Client::Appium::BrowserStackDevices::DEVICE_HASH.keys}"
           end
           # App
           app = Maze::Helper.read_at_arg_file options[Option::APP]
@@ -89,7 +88,7 @@ module Maze
         if browser.nil? && device.empty?
           errors << "Either --#{Option::BROWSER} or --#{Option::DEVICE} must be specified"
         elsif browser
-          browsers = YAML.safe_load(File.read("#{__dir__}/../browsers_bb.yml"))
+          browsers = YAML.safe_load(File.read("#{__dir__}/../client/selenium/bb_browsers.yml"))
 
           unless browsers.include? browser
             browser_list = browsers.keys.join ', '

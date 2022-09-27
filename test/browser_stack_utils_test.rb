@@ -4,7 +4,7 @@ require 'net/http'
 require 'json'
 require 'open3'
 require 'test_helper'
-require_relative '../lib/maze/farm/browser_stack/utils'
+require_relative '../lib/maze/client/bs_client_utils'
 require_relative '../lib/maze/helper'
 require_relative '../lib/maze/runner'
 
@@ -26,7 +26,7 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
   def test_upload_app_skip
     $logger.expects(:info).with("Using pre-uploaded app from #{TEST_APP_URL}")
 
-    url = Maze::Farm::BrowserStack::Utils.upload_app USERNAME, ACCESS_KEY, TEST_APP_URL
+    url = Maze::Client::BrowserStackClientUtils.upload_app USERNAME, ACCESS_KEY, TEST_APP_URL
     assert_equal(TEST_APP_URL, url)
   end
 
@@ -51,7 +51,7 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
                                     443,
                                     use_ssl: true)&.returns(response_mock)
 
-    url = Maze::Farm::BrowserStack::Utils.upload_app USERNAME, ACCESS_KEY, APP
+    url = Maze::Client::BrowserStackClientUtils.upload_app USERNAME, ACCESS_KEY, APP
     assert_equal(TEST_APP_URL, url)
   end
 
@@ -79,7 +79,7 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
                                     use_ssl: true)&.times(10).returns(response_mock)
 
     assert_raise(RuntimeError, 'Upload failed due to error: Error') do
-      Maze::Farm::BrowserStack::Utils.upload_app USERNAME, ACCESS_KEY, APP
+      Maze::Client::BrowserStackClientUtils.upload_app USERNAME, ACCESS_KEY, APP
     end
   end
 
@@ -109,7 +109,7 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
                                     443,
                                     use_ssl: true)&.returns(response_mock).at_most(2)
 
-    url = Maze::Farm::BrowserStack::Utils.upload_app USERNAME, ACCESS_KEY, APP
+    url = Maze::Client::BrowserStackClientUtils.upload_app USERNAME, ACCESS_KEY, APP
     assert_equal(TEST_APP_URL, url)
   end
 
@@ -136,7 +136,7 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
                                     use_ssl: true)&.times(10).returns(response_mock)
 
     assert_raise(RuntimeError, 'Upload failed due to error: Error') do
-      Maze::Farm::BrowserStack::Utils.upload_app USERNAME, ACCESS_KEY, APP
+      Maze::Client::BrowserStackClientUtils.upload_app USERNAME, ACCESS_KEY, APP
     end
   end
 
@@ -147,7 +147,7 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
     Maze::Runner.expects(:run_command)&.with("#{BS_LOCAL} #{command_options}")&.returns([['{"pid":123}']])
     $logger.expects(:info).with('BrowserStackLocal daemon running under pid 123').once
 
-    Maze::Farm::BrowserStack::Utils.start_local_tunnel BS_LOCAL, LOCAL_ID, ACCESS_KEY
+    Maze::Client::BrowserStackClientUtils.start_local_tunnel BS_LOCAL, LOCAL_ID, ACCESS_KEY
   end
 end
 

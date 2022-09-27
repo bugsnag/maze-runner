@@ -4,7 +4,7 @@ require 'net/http'
 require 'json'
 require 'open3'
 require 'test_helper'
-require_relative '../lib/maze/bitbar_utils'
+require_relative '../lib/maze/client/bb_client_utils'
 require_relative '../lib/maze/helper'
 require_relative '../lib/maze/runner'
 
@@ -22,7 +22,7 @@ class BitBarUtilsTest < Test::Unit::TestCase
   def test_upload_app_skip
     $logger.expects(:info).with("Using pre-uploaded app with ID #{APP_ID}")
 
-    id = Maze::BitBarUtils.upload_app API_KEY, APP_ID
+    id = Maze::Client::BitBarClientUtils.upload_app API_KEY, APP_ID
     assert_equal(APP_ID, id)
   end
 
@@ -48,7 +48,7 @@ class BitBarUtilsTest < Test::Unit::TestCase
                                     443,
                                     use_ssl: true)&.returns(response_mock)
 
-    id = Maze::BitBarUtils.upload_app API_KEY, APP_PATH
+    id = Maze::Client::BitBarClientUtils.upload_app API_KEY, APP_PATH
     assert_equal(APP_ID, id)
   end
 
@@ -74,7 +74,7 @@ class BitBarUtilsTest < Test::Unit::TestCase
 
     $logger.expects(:error).with("Unexpected response body: #{JSON.parse json_response}").once
     assert_raise(RuntimeError, 'App upload failed') do
-      Maze::BitBarUtils.upload_app API_KEY, APP_PATH
+      Maze::Client::BitBarClientUtils.upload_app API_KEY, APP_PATH
     end
   end
 
@@ -100,7 +100,7 @@ class BitBarUtilsTest < Test::Unit::TestCase
 
     $logger.expects(:error).with("Expected JSON response, received: #{response_mock}").once
     assert_raise(JSON::ParserError) do
-      Maze::BitBarUtils.upload_app API_KEY, APP_PATH
+      Maze::Client::BitBarClientUtils.upload_app API_KEY, APP_PATH
     end
   end
 end

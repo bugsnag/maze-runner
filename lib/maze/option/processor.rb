@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative '../option'
-require_relative '../farm/browser_stack/appium/devices'
 
 module Maze
   module Option
@@ -62,7 +61,7 @@ module Maze
                 config.device = device_option
                 config.device_list = []
               end
-              config.os_version = Maze::Farm::BrowserStack::Devices::DEVICE_HASH[config.device]['os_version'].to_f
+              config.os_version = Maze::Client::Appium::BrowserStackDevices::DEVICE_HASH[config.device]['os_version'].to_f
             end
             config.bs_local = Maze::Helper.expand_path(options[Maze::Option::BS_LOCAL])
             config.appium_version = options[Maze::Option::APPIUM_VERSION]
@@ -75,10 +74,10 @@ module Maze
             config.tms_uri = options[Maze::Option::TMS_URI]
             device_option = options[Maze::Option::DEVICE]
             if device_option.nil? || device_option.empty?
-              # Bitbar Web
+              # BitBar Web
               config.browser = options[Maze::Option::BROWSER]
             else
-              # Bitbar Devices
+              # BitBar Devices
               if device_option.is_a?(Array)
                 config.device = device_option.first
                 config.device_list = device_option.drop(1)

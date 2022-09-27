@@ -8,17 +8,19 @@ require_relative '../lib/utils/deep_merge'
 require_relative '../lib/maze'
 
 require_relative '../lib/maze/appium_server'
-require_relative '../lib/maze/bitbar_utils'
-require_relative '../lib/maze/bitbar_devices'
 require_relative '../lib/maze/bugsnag_config'
-require_relative '../lib/maze/capabilities'
+require_relative '../lib/maze/client/bb_client_utils'
+require_relative '../lib/maze/client/bs_client_utils'
+require_relative '../lib/maze/client/appium/base_client'
+require_relative '../lib/maze/client/appium/bb_client'
+require_relative '../lib/maze/client/appium/bb_devices'
+require_relative '../lib/maze/client/appium/bs_client'
+require_relative '../lib/maze/client/appium/bs_devices'
+require_relative '../lib/maze/client/appium/local_client'
 require_relative '../lib/maze/compare'
 require_relative '../lib/maze/docker'
 require_relative '../lib/maze/document_server'
 require_relative '../lib/maze/errors'
-require_relative '../lib/maze/farm/browser_stack/appium/devices'
-require_relative '../lib/maze/farm/browser_stack/capabilities'
-require_relative '../lib/maze/farm/browser_stack/utils'
 require_relative '../lib/maze/helper'
 require_relative '../lib/maze/logger'
 require_relative '../lib/maze/macos_utils'
@@ -26,7 +28,6 @@ require_relative '../lib/maze/network'
 require_relative '../lib/maze/proxy'
 require_relative '../lib/maze/retry_handler'
 require_relative '../lib/maze/runner'
-require_relative '../lib/maze/smart_bear_utils'
 require_relative '../lib/maze/terminating_server'
 
 require_relative '../lib/maze/servlets/base_servlet'
@@ -111,11 +112,11 @@ class MazeRunnerEntry
     if options[Maze::Option::LIST_DEVICES]
       case options[Maze::Option::FARM]
       when :bs
-        Maze::Farm::BrowserStack::Devices.list_devices('ios')
-        Maze::Farm::BrowserStack::Devices.list_devices('android')
+        Maze::Client::Appium::BrowserStackDevices.list_devices('ios')
+        Maze::Client::Appium::BrowserStackDevices.list_devices('android')
       else
-        Maze::Farm::BrowserStack::Devices.list_devices('ios')
-        Maze::Farm::BrowserStack::Devices.list_devices('android')
+        Maze::Client::Appium::BrowserStackDevices.list_devices('ios')
+        Maze::Client::Appium::BrowserStackDevices.list_devices('android')
       end
       exit 0
     end

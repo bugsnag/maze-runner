@@ -12,7 +12,12 @@ module Maze
         when :bb
           @client = Maze::Client::Appium::BitBarClient.new session_uuid
         when :bs
-          @client = Maze::Client::Appium::BrowserStackClient.new session_uuid
+          if Maze.config.w3c_mode
+            @client = Maze::Client::Appium::BrowserStackClient.new session_uuid
+          else
+            $logger.info 'Using the JSON-WP Appium client'
+            @client = Maze::Client::Appium::BrowserStackJsonWPClient.new session_uuid
+          end
         when :local
           @client = Maze::Client::Appium::LocalClient.new session_uuid
         end

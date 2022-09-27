@@ -68,7 +68,7 @@ services:
       MAZE_TMS_URI:
     env_file: $DOCKER_ENV_FILE
     volumes:
-      - ./test/fixtures/android-appium-test:/app
+      - ./test/fixtures/android-appium-test/maze-output:/app/maze-output
 
   ios-appium-test:
     build:

@@ -28,8 +28,7 @@ steps:
       artifacts#v1.5.0:
         upload:
           - from: "./test/fixtures/android-appium-test/app/build/outputs/apk/release/app-release.apk"
-            to: app-release.apk
-
+            to: build/app-release.apk
 
   - label: ':docker: Build CI image for Ruby 2.7'
     timeout_in_minutes: 30
@@ -172,7 +171,7 @@ steps:
       - "ci-image-ruby-2-7"
     plugins:
       artifacts#v1.5.0:
-        download: app-release.apk
+        download: build/app-release.apk
       docker-compose#v3.7.0:
         run: android-appium-test
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
@@ -184,7 +183,7 @@ steps:
       RUBY_VERSION: "2.7"
     command: >-
       bundle exec maze-runner
-      --app=app/build/outputs/apk/release/app-release.apk
+      --app=build/app-release.apk
       --farm=bs
       --device=ANDROID_7_1
     concurrency: 24
@@ -198,7 +197,7 @@ steps:
       - "ci-image-ruby-3"
     plugins:
       artifacts#v1.5.0:
-        download: app-release.apk
+        download: build/app-release.apk
       docker-compose#v3.7.0:
         run: android-appium-test
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
@@ -210,7 +209,7 @@ steps:
       RUBY_VERSION: "3"
     command: >-
       bundle exec maze-runner
-      --app=app/build/outputs/apk/release/app-release.apk
+      --app=build/app-release.apk
       --farm=bs
       --device=ANDROID_13_0
     concurrency: 24

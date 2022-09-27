@@ -6,6 +6,31 @@ steps:
       queue: macos-12-arm
     command: ./scripts/license_finder.sh
 
+  - label: 'AWS - SAM tests'
+    timeout_in_minutes: 30
+    agents:
+      queue: 'opensource-mac-aws-sam'
+    command: >-
+      cd test/fixtures/aws-sam &&
+      bundle install &&
+      bundle exec maze-runner
+      --no-log-requests
+
+  - label: 'Build Appium test fixture'
+    timeout_in_minutes: 30
+    key: appium-test-fixture
+    agents:
+      queue: 'macos-12-arm'
+    command:
+      - cd test/fixtures/android-appium-test
+      - ./gradlew assembleRelease
+    plugins:
+      artifacts#v1.5.0:
+        upload:
+          - from: "./test/fixtures/android-appium-test/app/build/outputs/apk/release/app-release.apk"
+            to: app-release.apk
+
+
   - label: ':docker: Build CI image for Ruby 2.7'
     timeout_in_minutes: 30
     key: "ci-image-ruby-2-7"
@@ -139,28 +164,6 @@ steps:
     env:
       RUBY_VERSION: "3"
     command: 'bundle exec maze-runner'
-
-  - label: 'AWS - SAM tests'
-    timeout_in_minutes: 30
-    agents:
-      queue: 'opensource-mac-aws-sam'
-    command: >-
-      cd test/fixtures/aws-sam &&
-      bundle install &&
-      bundle exec maze-runner
-      --no-log-requests
-
-  - label: 'Build Appium test fixture'
-    timeout_in_minutes: 30
-    key: appium-test-fixture
-    agents:
-      queue: 'macos-12-arm'
-    command: gradle -p test/fixtures/android-appium-test assembleRelease
-    plugins:
-      artifacts#v1.5.0:
-        upload:
-          - from: "./test/fixtures/android-appium-test/app/build/outputs/apk/release/app-release.apk"
-            to: app-release.apk
 
   - label: 'BrowserStack app-automate - Android 7 - Ruby 2.7 - JSON-WP'
     timeout_in_minutes: 20

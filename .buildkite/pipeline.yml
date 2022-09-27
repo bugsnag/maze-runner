@@ -7,6 +7,7 @@ steps:
     command: ./scripts/license_finder.sh
 
   - label: ':docker: Build CI image for Ruby 2.7'
+    timeout_in_minutes: 30
     key: "ci-image-ruby-2-7"
     plugins:
       - docker-compose#v3.7.0:
@@ -22,6 +23,7 @@ steps:
       RUBY_VERSION: "2.7"
 
   - label: ':docker: Build CI image for Ruby 3'
+    timeout_in_minutes: 30
     key: "ci-image-ruby-3"
     plugins:
       - docker-compose#v3.7.0:
@@ -37,6 +39,7 @@ steps:
       RUBY_VERSION: "3"
 
   - label: 'Unit tests with Ruby 2.7'
+    timeout_in_minutes: 30
     depends_on: 'ci-image-ruby-2-7'
     plugins:
       docker-compose#v3.7.0:
@@ -49,6 +52,7 @@ steps:
     command: 'bundle exec rake'
 
   - label: 'Unit tests with Ruby 3'
+    timeout_in_minutes: 30
     depends_on: 'ci-image-ruby-3'
     plugins:
       docker-compose#v3.7.0:
@@ -60,7 +64,8 @@ steps:
       RUBY_VERSION: "3"
     command: 'bundle exec rake'
 
-  - label: ':docker: Push Docker image for branch'
+  - label: ':docker: Push W3C Docker image for branch'
+    timeout_in_minutes: 30
     key: "cli-image"
     depends_on: "ci-image-ruby-2-7"
     plugins:
@@ -90,6 +95,7 @@ steps:
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli-legacy
 
   - label: 'No-device tests with Ruby 2.7'
+    timeout_in_minutes: 30
     depends_on: "ci-image-ruby-2-7"
     plugins:
       - docker-compose#v3.7.0:
@@ -113,6 +119,7 @@ steps:
     command: 'bundle exec maze-runner'
 
   - label: 'No-device tests with Ruby 3'
+    timeout_in_minutes: 30
     depends_on: "ci-image-ruby-3"
     plugins:
       - docker-compose#v3.7.0:
@@ -136,6 +143,7 @@ steps:
     command: 'bundle exec maze-runner'
 
   - label: 'AWS - SAM tests'
+    timeout_in_minutes: 30
     agents:
       queue: 'opensource-mac-aws-sam'
     command: >-
@@ -144,9 +152,26 @@ steps:
       bundle exec maze-runner
       --no-log-requests
 
-  - label: 'Browserstack app-automate test - Android 7 using Ruby 2.7'
-    depends_on: "ci-image-ruby-2-7"
+  - label: 'Build Appium test fixture'
+    timeout_in_minutes: 30
+    key: appium-test-fixture
+    agents:
+      queue: 'macos-12-arm'
+    command: gradle -p test/fixtures/android-appium-test assembleRelease
     plugins:
+      artifacts#v1.5.0:
+        upload:
+          - from: "./test/fixtures/android-appium-test/app/build/outputs/apk/release/app-release.apk"
+            to: app-release.apk
+
+  - label: 'BrowserStack app-automate - Android 7 - Ruby 2.7 - JSON-WP'
+    timeout_in_minutes: 20
+    depends_on:
+      - "appium-test-fixture"
+      - "ci-image-ruby-2-7"
+    plugins:
+      artifacts#v1.5.0:
+        download: app-release.apk
       docker-compose#v3.7.0:
         run: android-appium-test
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
@@ -165,9 +190,14 @@ steps:
     concurrency_group: 'browserstack-app'
     concurrency_method: eager
 
-  - label: 'Browserstack app-automate test - Android 13 using Ruby 3'
-    depends_on: "ci-image-ruby-3"
+  - label: 'BrowserStack app-automate - Android 13 - Ruby 3 - W3C'
+    timeout_in_minutes: 20
+    depends_on:
+      - "appium-test-fixture"
+      - "ci-image-ruby-3"
     plugins:
+      artifacts#v1.5.0:
+        download: app-release.apk
       docker-compose#v3.7.0:
         run: android-appium-test
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
@@ -238,3 +268,6 @@ steps:
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:${BUILDKITE_TAG}-cli
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-v7-cli
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-cli
+            - cli-legacy:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:${BUILDKITE_TAG}-cli-legacy
+            - cli-legacy:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-v7-cli-legacy
+            - cli-legacy:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-cli-legacy

@@ -26,6 +26,10 @@ RUN bundle install
 FROM ci as cli
 ENTRYPOINT ["bundle", "exec", "maze-runner"]
 
+FROM ci as cli-legacy
+RUN rm Gemfile.lock && USE_LEGACY_DRIVER=1 bundle update
+ENTRYPOINT ["bundle", "exec", "maze-runner"]
+
 FROM ci as unit-test
 COPY test/ test/
 COPY Rakefile .

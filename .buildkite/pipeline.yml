@@ -74,6 +74,21 @@ steps:
           push:
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
 
+  - label: ':docker: Push Legacy Docker image for branch'
+    timeout_in_minutes: 30
+    key: "cli-image"
+    depends_on: "ci-image-ruby-2-7"
+    plugins:
+      - docker-compose#v3.7.0:
+          build: cli-legacy
+          image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
+          cache-from:
+            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-2.7
+            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli-legacy
+      - docker-compose#v3.7.0:
+          push:
+            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli-legacy
+
   - label: 'No-device tests with Ruby 2.7'
     depends_on: "ci-image-ruby-2-7"
     plugins:

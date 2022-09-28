@@ -108,6 +108,7 @@ steps:
           build: cli-legacy
           image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
           cache-from:
+            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-2.7
             - cli-legacy:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli-legacy
       - docker-compose#v3.7.0:
           push:
@@ -178,12 +179,10 @@ steps:
         upload: test/fixtures/android-appium-test/maze_output/**/*
     env:
       RUBY_VERSION: "2.7"
-      USE_LEGACY_DRIVER: 1
-    command: >-
-      bundle exec maze-runner
-      --app=build/outputs/apk/release/app-release.apk
-      --farm=bs
-      --device=ANDROID_7_1
+    commands:
+      - "--app=build/outputs/apk/release/app-release.apk"
+      - "--farm=bs"
+      - "--device=ANDROID_7_1"
     concurrency: 24
     concurrency_group: 'browserstack-app'
     concurrency_method: eager
@@ -205,11 +204,10 @@ steps:
         upload: test/fixtures/android-appium-test/maze_output/**/*
     env:
       RUBY_VERSION: "3"
-    command: >-
-      bundle exec maze-runner
-      --app=build/outputs/apk/release/app-release.apk
-      --farm=bs
-      --device=ANDROID_13_0
+    commands:
+      - "--app=build/outputs/apk/release/app-release.apk"
+      - "--farm=bs"
+      - "--device=ANDROID_13_0"
     concurrency: 24
     concurrency_group: 'browserstack-app'
     concurrency_method: eager

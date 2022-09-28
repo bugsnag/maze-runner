@@ -13,6 +13,7 @@ module Maze
           @client = Maze::Client::Appium::BitBarClient.new session_uuid
         when :bs
           if ENV['USE_LEGACY_DRIVER']
+            $logger.info 'Using the W3C Appium client'
             @client = Maze::Client::Appium::BrowserStackClient.new session_uuid
           else
             $logger.info 'Using the JSON-WP Appium client'

@@ -1,0 +1,7 @@
+ARG BRANCH_NAME
+ARG RUBY_VERSION
+FROM 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-${RUBY_VERSION} AS browserstack-app-automate
+RUN rm Gemfile.lock && USE_LEGACY_DRIVER=1 bundle update
+
+COPY . /app
+WORKDIR /app

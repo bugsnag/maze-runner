@@ -4,6 +4,7 @@
 
 - Improve docs structure [388](https://github.com/bugsnag/maze-runner/pull/388)
 - Forward-port v6.23.0 to v6.26.0 to v7 stream [395](https://github.com/bugsnag/maze-runner/pull/395)
+- Allow use of legacy Appium/Selenium clients [400](https://github.com/bugsnag/maze-runner/pull/400)
 
 ## Fixes
 

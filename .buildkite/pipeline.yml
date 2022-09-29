@@ -179,10 +179,10 @@ steps:
         upload: test/fixtures/android-appium-test/maze_output/**/*
     env:
       RUBY_VERSION: "2.7"
-    commands:
-      - "--app=build/outputs/apk/release/app-release.apk"
-      - "--farm=bs"
-      - "--device=ANDROID_7_1"
+    command: >-
+      --app=build/outputs/apk/release/app-release.apk
+      --farm=bs
+      --device=ANDROID_7_1
     concurrency: 24
     concurrency_group: 'browserstack-app'
     concurrency_method: eager
@@ -204,10 +204,10 @@ steps:
         upload: test/fixtures/android-appium-test/maze_output/**/*
     env:
       RUBY_VERSION: "3"
-    commands:
-      - "--app=build/outputs/apk/release/app-release.apk"
-      - "--farm=bs"
-      - "--device=ANDROID_13_0"
+    command: >-
+      --app=build/outputs/apk/release/app-release.apk
+      --farm=bs
+      --device=ANDROID_13_0
     concurrency: 24
     concurrency_group: 'browserstack-app'
     concurrency_method: eager

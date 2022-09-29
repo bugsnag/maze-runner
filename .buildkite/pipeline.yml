@@ -171,6 +171,7 @@ steps:
       artifacts#v1.5.0:
         download: "test/fixtures/android-appium-test/app/build/outputs/apk/release/app-release.apk"
       docker-compose#v3.7.0:
+        pull: android-appium-test-legacy
         run: android-appium-test-legacy
         command:
           - "--app=build/outputs/apk/release/app-release.apk"
@@ -196,6 +197,7 @@ steps:
       artifacts#v1.5.0:
         download: "test/fixtures/android-appium-test/app/build/outputs/apk/release/app-release.apk"
       docker-compose#v3.7.0:
+        pull: android-appium-test
         run: android-appium-test
         command:
           - "--app=build/outputs/apk/release/app-release.apk"

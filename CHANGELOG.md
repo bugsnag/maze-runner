@@ -1,4 +1,4 @@
-# 7.1.0 - TBD
+# 7.1.0 - 2022/09/30
 
 ## Enhancements
 
@@ -11,6 +11,7 @@
 - Remove assert_* methods no longer needed to avoid a breaking change [387](https://github.com/bugsnag/maze-runner/pull/387)
 - Fix support for BitBar to work with W3C capabilities [394](https://github.com/bugsnag/maze-runner/pull/394)
 - Fix `RequestList` interface to avoid ambiguity [398](https://github.com/bugsnag/maze-runner/pull/398)
+- Release BitBar account and stop tunnel on exit [401](https://github.com/bugsnag/maze-runner/pull/401)
 
 ## Removals
 

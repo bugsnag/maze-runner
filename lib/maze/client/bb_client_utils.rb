@@ -101,6 +101,7 @@ module Maze
         # Informs the test-management-service that in-use account id is no longer in use
         # @param tms_uri [String] The URI of the test-management-service
         def release_account(tms_uri)
+          $logger.info "Release account #{@account_id}"
           uri = URI("#{tms_uri}/account/release?account_id=#{@account_id}")
           request = Net::HTTP::Get.new(uri)
           request['Authorization'] = Maze.config.tms_token

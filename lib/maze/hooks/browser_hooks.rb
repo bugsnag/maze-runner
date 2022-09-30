@@ -62,7 +62,11 @@ module Maze
       end
 
       def at_exit
-        if Maze.config.farm == :bs
+        case Maze.config.farm
+        when :bb
+          Maze::Client::BitBarClientUtils.stop_local_tunnel
+          Maze::Client::BitBarClientUtils.release_account(Maze.config.tms_uri) if ENV['BUILDKITE']
+        when :bs
           Maze::Client::BrowserStackClientUtils.stop_local_tunnel
           Maze.driver.driver_quit
         end

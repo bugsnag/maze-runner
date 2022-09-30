@@ -655,7 +655,7 @@
 ## Enhancements
 
 - Further Android 4.4 and 5.0 devices added [#206](https://github.com/bugsnag/maze-runner/pull/206)
-- Sort received requests by Bugsnag-Sent-At header [#207](https://github.com/bugsnag/maze-runner/pull/207)
+- Sort received requests by Bugsnag-Sent-At header [#209](https://github.com/bugsnag/maze-runner/pull/209)
 
 # 4.1.0 - 2021/01/21
 

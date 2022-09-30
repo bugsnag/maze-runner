@@ -35,10 +35,6 @@ module Maze
               'deviceName' => device,
               'autoGrantPermissions' => 'true',
             }
-            # disableAnimations only allowed > Android 6
-            # if version.to_i > 6
-            #   hash['bstack:options']['disableAnimations'] = 'true'
-            # end
             hash.freeze
           end
 
@@ -56,10 +52,7 @@ module Maze
             {
               'platformName' => 'ios',
               'platformVersion' => version,
-              'deviceName' => device,
-              'bstack:options' => {
-                'disableAnimations' => 'true'
-              },
+              'deviceName' => device
             }.freeze
           end
 

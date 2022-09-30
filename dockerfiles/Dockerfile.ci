@@ -1,6 +1,6 @@
 # Ruby image are based on Debian
 ARG RUBY_VERSION
-FROM ruby:${RUBY_VERSION}-bullseye as ci
+FROM ruby:${RUBY_VERSION}-bullseye as ci-base
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
     apt-get install -y apt-utils docker-compose wget unzip bash bundler \
@@ -21,9 +21,17 @@ WORKDIR /app/
 COPY bin/ bin/
 COPY lib/ lib/
 COPY Gemfile* bugsnag-maze-runner.gemspec ./
+
+FROM ci-base as ci
 RUN bundle install
 
+FROM ci-base as ci-legacy
+RUN rm Gemfile.lock && USE_LEGACY_DRIVER=1 bundle install
+
 FROM ci as cli
+ENTRYPOINT ["bundle", "exec", "maze-runner"]
+
+FROM ci-legacy as cli-legacy
 ENTRYPOINT ["bundle", "exec", "maze-runner"]
 
 FROM ci as unit-test

@@ -24,6 +24,14 @@ services:
       args:
         - RUBY_VERSION=2.7
 
+  cli-legacy:
+    build:
+      dockerfile: dockerfiles/Dockerfile.ci
+      context: .
+      target: cli-legacy
+      args:
+        - RUBY_VERSION=2.7
+
   docs:
     build:
       dockerfile: dockerfiles/Dockerfile.docs
@@ -34,6 +42,7 @@ services:
   android-appium-test:
     build:
       context: test/fixtures/android-appium-test
+      dockerfile: Dockerfile.w3c
       args:
         BRANCH_NAME:
         RUBY_VERSION:
@@ -60,7 +69,42 @@ services:
       MAZE_TMS_URI:
     env_file: $DOCKER_ENV_FILE
     volumes:
-      - ./test/fixtures/android-appium-test/maze_output:/app/maze_output
+      - ./test/fixtures/android-appium-test/app/build:/app/build
+      - ./test/fixtures/android-appium-test/maze-output:/app/maze-output
+
+  android-appium-test-legacy:
+    build:
+      context: test/fixtures/android-appium-test
+      dockerfile: Dockerfile.legacy
+      args:
+        BRANCH_NAME:
+        RUBY_VERSION:
+    extra_hosts:
+      - "maze-local:127.0.0.1"
+    environment:
+      BRANCH_NAME:
+      BUILDKITE:
+      BUILDKITE_BRANCH:
+      BUILDKITE_BUILD_CREATOR:
+      BUILDKITE_BUILD_NUMBER:
+      BUILDKITE_BUILD_URL:
+      BUILDKITE_LABEL:
+      BUILDKITE_MESSAGE:
+      BUILDKITE_PIPELINE_NAME:
+      BUILDKITE_REPO:
+      BUILDKITE_RETRY_COUNT:
+      BUILDKITE_STEP_KEY:
+      BROWSER_STACK_USERNAME:
+      BROWSER_STACK_ACCESS_KEY:
+      BROWSER_STACK_DEVICES_USERNAME:
+      BROWSER_STACK_DEVICES_ACCESS_KEY:
+      MAZE_BUGSNAG_API_KEY:
+      MAZE_TMS_URI:
+      USE_LEGACY_DRIVER: 1
+    env_file: $DOCKER_ENV_FILE
+    volumes:
+      - ./test/fixtures/android-appium-test/app/build:/app/build
+      - ./test/fixtures/android-appium-test/maze-output:/app/maze-output
 
   ios-appium-test:
     build:

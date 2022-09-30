@@ -42,8 +42,8 @@ comments in that source file.
 By default, Maze Runner will use the latest version of `appium_lib`, the Ruby Appium library.  For versions onwards,
 the library enforces the use of W3C mode, which in turn means that Appium server v1.15 or later must be used.  If an 
 earlier version is needed for any reason, this case be achieved by setting the `USE_LEGACY_DRIVER` environment variable
-when both `bundle install`ing the Gem and when executing it.  `appium_lib` v11 will then be installed and JSON-WP
-capabilities employed.
+when both `bundle install`ing the Gem and when executing it.  `appium_lib` v11 will then be installed and JWP protocol
+employed.
 
 ```
 rm Gemfile.lock

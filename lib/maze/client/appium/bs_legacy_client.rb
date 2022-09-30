@@ -1,7 +1,7 @@
 module Maze
   module Client
     module Appium
-      class BrowserStackJsonWPClient < BrowserStackClient
+      class BrowserStackLegacyClient < BrowserStackClient
         def device_capabilities
           config = Maze.config
           capabilities = {

@@ -10,6 +10,11 @@ Feature: Testing helper methods respond correctly
         Then I wait to receive a session
         And the session is valid for the session reporting API version "1.0" for the "Maze-runner" notifier
 
+    Scenario: The request body matches an expected session payload
+        When I send a "trace"-type request
+        Then I wait to receive a trace
+        And the trace payload field "trace-value-2" equals "two"
+
     Scenario: The request body is correct for an unhandled payload
         When I send a "unhandled"-type request
         Then I wait to receive an error

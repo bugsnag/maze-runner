@@ -1,3 +1,9 @@
+# 7.2.0 - 2022/10/03
+
+## Enhancements
+
+- Add step to sort received requests by specific field [402](https://github.com/bugsnag/maze-runner/pull/402)
+
 # 7.1.0 - 2022/09/30
 
 ## Enhancements

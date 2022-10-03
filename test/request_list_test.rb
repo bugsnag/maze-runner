@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'test_helper'
+require_relative '../lib/maze/helper'
 require_relative '../lib/maze/request_list'
 
 # noinspection RubyNilAnalysis
@@ -157,7 +158,7 @@ class RequestListTest < Test::Unit::TestCase
     assert_equal [request2, request3, request1], list.remaining
   end
 
-  def test_sort_by_missing header
+  def test_sort_by_missing_header
     time1 = '2021-02-21T15:00:00.001Z'
     time2 = '2021-02-21T15:00:00.000Z'
 
@@ -219,5 +220,29 @@ class RequestListTest < Test::Unit::TestCase
     list.sort_by_sent_at! 2
 
     assert_equal [request3, request2, request4, request5], list.remaining
+  end
+
+  def test_sort_by_key_path
+    request1 = build_item 1
+    request2 = build_item 2
+    request3 = build_item 3
+
+    request1[:body] = {'animals' => [{'name' => 'zebra'}]}
+    request2[:body] = {'animals' => [{'name' => 'water buffalo'}]}
+    request3[:body] = {'animals' => [{'name' => 'yak'}]}
+
+    list = Maze::RequestList.new
+    list.add build_item 1
+    list.add request1
+    list.add request2
+    list.add request3
+    list.next
+
+    list.sort_by! 'animals.0.name'
+    assert_equal request2, list.current
+    list.next
+    assert_equal request3, list.current
+    list.next
+    assert_equal request1, list.current
   end
 end

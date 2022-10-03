@@ -43,7 +43,7 @@ module Maze
       mock_http_server.expects(:mount).with('/builds', any_parameters).once
       mock_http_server.expects(:mount).with('/uploads', any_parameters).once
       mock_http_server.expects(:mount).with('/sourcemap', any_parameters).once
-      mock_http_server.expects(:mount).with('/trace', any_parameters).once
+      mock_http_server.expects(:mount).with('/traces', any_parameters).once
       mock_http_server.expects(:mount).with('/react-native-source-map', any_parameters).once
       mock_http_server.expects(:mount).with('/command', any_parameters).once
       mock_http_server.expects(:mount).with('/logs', any_parameters).once
@@ -93,7 +93,7 @@ module Maze
       mock_http_server.expects(:mount).with('/builds', any_parameters).once
       mock_http_server.expects(:mount).with('/uploads', any_parameters).once
       mock_http_server.expects(:mount).with('/sourcemap', any_parameters).once
-      mock_http_server.expects(:mount).with('/trace', any_parameters).once
+      mock_http_server.expects(:mount).with('/traces', any_parameters).once
       mock_http_server.expects(:mount).with('/react-native-source-map', any_parameters).once
       mock_http_server.expects(:mount).with('/logs', any_parameters).once
       mock_http_server.expects(:mount).with('/command', any_parameters).once

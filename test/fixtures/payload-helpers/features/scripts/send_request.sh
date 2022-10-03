@@ -10,7 +10,7 @@ endpoint = if ENV['request_type'] == 'session'
            elsif ENV['request_type'] == 'build'
              '/builds'
            elsif ENV['request_type'] == 'trace'
-             '/trace'
+             '/traces'
            else
              '/notify'
            end

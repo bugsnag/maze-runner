@@ -79,11 +79,6 @@ module Maze
     def sort_by!(key_path)
       list = remaining
 
-      # Key path must be present in all requests
-      # return if @requests.any? do |r|
-      #   Maze::Helper.read_key_path(r[:body], key_path).nil?
-      # end
-
       # Sort the list and overwrite in the main list
       list.sort_by! { |r| Maze::Helper.read_key_path(r[:body], key_path) }
       list.each_with_index { |r, i| @requests[@current + i] = r }

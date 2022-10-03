@@ -39,6 +39,7 @@ module Maze
                            raise "Unsupported platform: #{config.os}"
                          end
           common = {
+            'app' => config.app,
             'os' => platform,
             'autoAcceptAlerts': 'true'
           }

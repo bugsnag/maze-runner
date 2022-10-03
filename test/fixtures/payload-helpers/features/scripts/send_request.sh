@@ -9,6 +9,8 @@ endpoint = if ENV['request_type'] == 'session'
              '/sessions'
            elsif ENV['request_type'] == 'build'
              '/builds'
+           elsif ENV['request_type'] == 'trace'
+             '/traces'
            else
              '/notify'
            end
@@ -56,6 +58,22 @@ templates = {
       },
       'app' => 'not null',
       'device' => 'not null'
+    }
+  },
+  'trace' => {
+    'headers' => {
+      'Bugsnag-Api-Key' => ENV['BUGSNAG_API_KEY'],
+      'Bugsnag-Payload-Version' => '1.0',
+      'Bugsnag-Sent-At' => Time.now().iso8601(3)
+    },
+    'body' => {
+      'notifier' => {
+        'name' => 'Maze-runner',
+        'url' => 'not null',
+        'version' => '4.4.4'
+      },
+      'trace-value-1' => 'one',
+      'trace-value-2' => 'two'
     }
   },
   'unhandled' => {

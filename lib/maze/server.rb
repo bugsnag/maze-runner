@@ -64,6 +64,8 @@ module Maze
           builds
         when 'log', 'logs'
           logs
+        when 'trace', 'traces'
+          traces
         when 'upload', 'uploads'
           uploads
         when 'sourcemap', 'sourcemaps'
@@ -87,6 +89,13 @@ module Maze
       # @return [RequestList] Received error requests
       def sessions
         @sessions ||= RequestList.new
+      end
+
+      # A list of trace requests received
+      #
+      # @return [RequestList] Received error requests
+      def traces
+        @traces ||= RequestList.new
       end
 
       # A list of build requests received
@@ -173,6 +182,7 @@ module Maze
             server.mount '/builds', Servlets::Servlet, :builds
             server.mount '/uploads', Servlets::Servlet, :uploads
             server.mount '/sourcemap', Servlets::Servlet, :sourcemaps
+            server.mount '/traces', Servlets::Servlet, :traces
             server.mount '/react-native-source-map', Servlets::Servlet, :sourcemaps
             server.mount '/command', Servlets::CommandServlet
             server.mount '/logs', Servlets::LogServlet

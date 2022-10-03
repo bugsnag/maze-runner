@@ -1,3 +1,9 @@
+# 7.TDB (integration/performance)
+
+## Enhancements
+
+- Add `/trace` endpoint [402](https://github.com/bugsnag/maze-runner/pull/402)
+
 # 7.1.0 - 2022/09/30
 
 ## Enhancements

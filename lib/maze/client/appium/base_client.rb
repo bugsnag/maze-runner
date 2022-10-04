@@ -19,7 +19,7 @@ module Maze
                                when 'android'
                                  Maze.driver.session_capabilities['appPackage']
                                when 'ios'
-                                 Maze.driver.session_capabilities['bundleId']
+                                 Maze.driver.session_capabilities['CFBundleIdentifier'] # Present on BS and locally
                                end
           # Ensure the device is unlocked
           Maze.driver.unlock

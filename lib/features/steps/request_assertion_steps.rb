@@ -52,6 +52,15 @@ Then('I wait to receive {int} {word}') do |request_count, request_type|
   list.sort_by_sent_at! request_count
 end
 
+# Sorts the remaining requests in a list by the field path given.
+#
+# @step_input request_type [String] The type of request (error, session, build, etc)
+# @step_input field_path [String] The field to sort by
+Then('I sort the {word} by the payload field {string}') do |request_type, field_path|
+  list = Maze::Server.list_for(request_type)
+  list.sort_by! field_path
+end
+
 # Verify that at least a certain amount of requests have been received
 # This step is only intended for use in stress tests
 #

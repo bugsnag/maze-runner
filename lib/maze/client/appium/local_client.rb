@@ -4,13 +4,14 @@ module Maze
       class LocalClient < BaseClient
         def prepare_session
           # Attempt to start the local appium server
-          appium_uri = URI(config.appium_server_url)
-          Maze::AppiumServer.start(address: appium_uri.host, port: appium_uri.port.to_s) if config.start_appium
+          appium_uri = URI(Maze.config.appium_server_url)
+          Maze::AppiumServer.start(address: appium_uri.host, port: appium_uri.port.to_s) if Maze.config.start_appium
         end
 
         def device_capabilities
           config = Maze.config
-          capabilities = case platform.downcase
+          platform = Maze::Helper.get_current_platform
+          capabilities = case platform
                          when 'android'
                            {
                              'platformName' => 'Android',
@@ -38,6 +39,7 @@ module Maze
                            raise "Unsupported platform: #{config.os}"
                          end
           common = {
+            'app' => config.app,
             'os' => platform,
             'autoAcceptAlerts': 'true'
           }

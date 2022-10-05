@@ -1,3 +1,9 @@
+# 7.2.1 - 2022/10/05
+
+## Fixes
+
+- Fix browser and appium drivers crashing when running without any capabilities [405](https://github.com/bugsnag/maze-runner/pull/405)
+
 # 7.2.0 - 2022/10/04
 
 ## Enhancements

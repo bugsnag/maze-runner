@@ -11,6 +11,7 @@ module Maze
       attr_reader :capabilities
 
       def initialize(driver_for, selenium_url=nil, capabilities=nil)
+        capabilities ||= {}
         capabilities.merge! project_name_capabilities
         @capabilities = capabilities
         @driver_for = driver_for

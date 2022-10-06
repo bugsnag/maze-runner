@@ -30,6 +30,7 @@ module Maze
       def initialize(server_url, capabilities, locator = :id)
         # Sets up identifiers for ease of connecting jobs
         name_capabilities = project_name_capabilities
+        capabilities ||= {}
 
         @element_locator = locator
         @capabilities = capabilities

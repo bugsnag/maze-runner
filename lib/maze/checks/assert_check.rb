@@ -24,7 +24,12 @@ module Maze
       end
 
       def match(pattern, string, message = nil)
-        assert_match(pattern, string, message)
+        regexp = if pattern.class == Regexp
+                   pattern
+                 else
+                   Regexp.new(pattern)
+                 end
+        assert_match(regexp, string, message)
       end
 
       def equal(expected, act, message = nil)

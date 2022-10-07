@@ -11,6 +11,9 @@ BeforeAll do
 
   Maze.check = Maze::Checks::AssertCheck.new
 
+  # Register exit code handler
+  Maze::Hooks::ErrorCodeHook.register_exit_code_hook
+
   # Infer mode of operation from config, one of:
   # - Appium (using either remote or local devices)
   # - Browser (Selenium with local or remote browsers)
@@ -59,6 +62,7 @@ InstallPlugin do |config|
   Maze::BugsnagConfig.start_bugsnag(config)
 
   # Only add the retry plugin if --retry is not used on the command line
+  config.filters << Maze::Plugins::ErrorCodePlugin.new(config)
   config.filters << Maze::Plugins::GlobalRetryPlugin.new(config) if config.options[:retry].zero?
   config.filters << Maze::Plugins::BugsnagReportingPlugin.new(config)
   cucumber_report_plugin = Maze::Plugins::CucumberReportPlugin.new

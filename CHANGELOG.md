@@ -1,3 +1,9 @@
+# 7.2.2 - 2022/10/10
+
+## Fixes
+
+- Ensure `String` patterns behave as expected when calling `Maze.check.match` [407](https://github.com/bugsnag/maze-runner/pull/407)
+
 # 7.2.1 - 2022/10/05
 
 ## Fixes

@@ -87,7 +87,11 @@ class RetryHandlerTest < Test::Unit::TestCase
   def test_retry_on_driver_no_maze_driver
     Maze.expects(:driver).returns(nil)
 
+    result_mock = mock('result')
+    result_mock.expects(:exception).returns(Selenium::WebDriver::Error::UnknownError.new)
+
     event_mock = mock('event')
+    event_mock.expects(:result).returns(result_mock)
 
     assert_nil(Maze::RetryHandler.send(:retry_on_driver_error?, event_mock))
   end

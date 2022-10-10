@@ -22,20 +22,26 @@ module Maze
         def register_exit_code_hook
           return if @registered
           at_exit do
-            override_exit_code = nil
-
-            maze_errors = Maze::Error::ERROR_CODES
-            if maze_errors.include?(last_test_error_class)
-              override_exit_code = maze_errors[last_test_error_class][:error_code]
-            end
-
-            # Check if a specific error code has been registered elsewhere
-            override_exit_code = @exit_code if @exit_code
-
-            # If an override code is specified, use it, otherwise we'll use the native exit code
-            exit(override_exit_code) unless override_exit_code.nil?
+            exit_hook
           end
           @registered = true
+        end
+
+        private
+
+        def exit_hook
+          override_exit_code = nil
+
+          maze_errors = Maze::Error::ERROR_CODES
+          if maze_errors.include?(last_test_error_class)
+            override_exit_code = maze_errors[last_test_error_class][:error_code]
+          end
+
+          # Check if a specific error code has been registered elsewhere
+          override_exit_code = @exit_code if @exit_code
+
+          # If an override code is specified, use it, otherwise we'll use the native exit code
+          exit(override_exit_code) unless override_exit_code.nil?
         end
       end
     end

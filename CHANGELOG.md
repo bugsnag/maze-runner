@@ -1,3 +1,9 @@
+# TBD
+
+## Enhancements
+
+- Add error code handling for pipeline management [406](https://github.com/bugsnag/maze-runner/pull/406)
+
 # 7.3.0 - 2022/10/17
 
 ## Enhancements

@@ -9,9 +9,9 @@ module Maze
 
           # Ensure we're in the correct test case, and the test failed
           next unless event.test_case == test_case
-          next unless event.result.failed?
 
-          Maze::Hooks::ErrorCodeHook.add_test_error(event.result.exception.class)
+          error = event.result.failed? ? event.result.exception.class : nil
+          Maze::Hooks::ErrorCodeHook.last_test_error_class = error
         end
 
         super

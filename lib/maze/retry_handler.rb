@@ -8,17 +8,6 @@ module Maze
   class RetryHandler
     class << self
 
-      # Errors which indicate a selenium/appium driver has crashed and needs to be restarted
-      DRIVER_ERRORS = [
-        Maze::Error::AppiumElementNotFoundError,
-
-        Selenium::WebDriver::Error::NoSuchElementError,
-        Selenium::WebDriver::Error::StaleElementReferenceError,
-        Selenium::WebDriver::Error::TimeoutError,
-        Selenium::WebDriver::Error::UnknownError,
-        Selenium::WebDriver::Error::WebDriverError
-      ].freeze
-
       # Acceptable tags to indicate a test should be restarted
       RETRY_TAGS = %w[@retry @retryable @retriable].freeze
 
@@ -59,7 +48,9 @@ module Maze
       end
 
       def retry_on_driver_error?(event)
-        Maze.driver && DRIVER_ERRORS.include?(event.result.exception.class)
+        error_class = event.result.exception.class
+        maze_errors = Maze::Error::ERROR_CODES
+        Maze.driver && maze_errors.include?(error_class) && maze_errors[error_class][:retry]
       end
 
       def retry_on_tag?(test_case)

@@ -3,34 +3,30 @@
 module Maze
   module Hooks
     # Registers an exit hook that will process the reason for an early exit and provide a suitable error code.
-    # Error codes and their meanings are as follows:
-    #
-    #
+    # Error code sets and specific code meanings are as follows:
+    #   1*: An error has occurred within browser or device drivers:
+    #     10: An unknown error has occurred
+    #     11: An expected UI element was missing
+    #     12: A UI element was missing at time of interaction
+    #     13: A command sent to the remote server timed out
+    #     14: An element was present but did not accept interaction
+    #   2*: Errors relating to potential network, test server, or payload issues
+    #     21: Expected payload(s) was not received
+    #     22: A command was not read by the test fixture
     class ErrorCodeHook
-
-      # Error classes that indicate the selenium/appium drivers have  
-      DRIVER_ERRORS = [
-        Maze::Error::AppiumElementNotFoundError,
-
-        Selenium::WebDriver::Error::NoSuchElementError,
-        Selenium::WebDriver::Error::StaleElementReferenceError,
-        Selenium::WebDriver::Error::TimeoutError,
-        Selenium::WebDriver::Error::UnknownError,
-        Selenium::WebDriver::Error::WebDriverError
-      ].freeze
-
       class << self
 
         attr_accessor :exit_code
+        attr_accessor :last_test_error_class
 
         def register_exit_code_hook
           return if @registered
           at_exit do
             override_exit_code = nil
 
-            case
-            when test_errors.intersection(DRIVER_ERRORS).size > 0
-              override_exit_code = 3
+            maze_errors = Maze::Error::ERROR_CODES
+            if maze_errors.include?(last_test_error_class)
+              override_exit_code = maze_errors[last_test_error_class][:error_code]
             end
 
             # Check if a specific error code has been registered elsewhere
@@ -40,14 +36,6 @@ module Maze
             exit(override_exit_code) unless override_exit_code.nil?
           end
           @registered = true
-        end
-
-        def add_test_error(error)
-          test_errors << error
-        end
-
-        def test_errors
-          @test_errors ||= []
         end
       end
     end

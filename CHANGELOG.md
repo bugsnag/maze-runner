@@ -1,3 +1,9 @@
+# 7.2.3 - 2022/10/11
+
+## Fixes
+
+- Ensure appium-lib-core is restricted to `5.4.*` while ongoing issues are present in `5.5.*` [408](https://github.com/bugsnag/maze-runner/pull/408)
+
 # 7.2.2 - 2022/10/10
 
 ## Fixes

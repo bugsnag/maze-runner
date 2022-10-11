@@ -12,7 +12,7 @@ module Maze
         when :bb
           @client = Maze::Client::Appium::BitBarClient.new session_uuid
         when :bs
-          if ENV['USE_LEGACY_DRIVER']
+          if Maze.config.legacy_driver?
             $logger.info 'Using the Legacy (JWP) Appium client'
             @client = Maze::Client::Appium::BrowserStackLegacyClient.new session_uuid
           else

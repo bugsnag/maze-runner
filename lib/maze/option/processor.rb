@@ -46,6 +46,7 @@ module Maze
                         end
           config.locator = options[Maze::Option::A11Y_LOCATOR] ? :accessibility_id : :id
           config.capabilities_option = options[Maze::Option::CAPABILITIES]
+          config.legacy_driver = !ENV['USE_LEGACY_DRIVER'].nil?
 
           # Farm specific options
           case config.farm

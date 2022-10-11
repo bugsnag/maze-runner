@@ -10,6 +10,7 @@ module Maze
       self.receive_requests_wait = 30
       self.enforce_bugsnag_integrity = true
       self.captured_invalid_requests = Set[:errors, :sessions, :builds, :uploads, :sourcemaps]
+      @legacy_driver = false
     end
 
     #
@@ -122,6 +123,14 @@ module Maze
     # Access token for the test-management service
     attr_accessor :tms_token
 
+    # Whether the legacy (JSON-WP) Appium driver should be used
+    def legacy_driver?
+      @legacy_driver
+    end
+
+    def legacy_driver=(value)
+      @legacy_driver = value
+    end
 
     #
     # Local testing specific configuration

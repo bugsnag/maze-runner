@@ -134,6 +134,9 @@ steps:
           run: docker-tests
       - docker-compose#v3.7.0:
           run: doc-server-tests
+      - docker-compose#v3.7.0:
+          run: exit-codes-tests
+          command: 'bundle exec maze-runner -e features/fixtures'
     env:
       RUBY_VERSION: "2.7"
     command: 'bundle exec maze-runner'
@@ -158,6 +161,9 @@ steps:
           run: docker-tests
       - docker-compose#v3.7.0:
           run: doc-server-tests
+      - docker-compose#v3.7.0:
+          run: exit-codes-tests
+          command: 'bundle exec maze-runner -e features/fixtures'
     env:
       RUBY_VERSION: "3"
     command: 'bundle exec maze-runner'

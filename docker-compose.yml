@@ -160,6 +160,15 @@ services:
     environment:
       MAZE_BUGSNAG_API_KEY:
 
+  exit-codes-tests:
+    build:
+      context: test/fixtures/exit-codes
+      args:
+        BRANCH_NAME:
+        RUBY_VERSION:
+    environment:
+      MAZE_BUGSNAG_API_KEY:
+
   framework-tests:
     build:
       context: test/fixtures/framework

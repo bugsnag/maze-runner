@@ -29,6 +29,7 @@ module Maze
               'testTimeout' => 7200,
             }
           }
+          capabilities['appiumVersion'] = config.appium_version unless config.appium_version.nil?
           capabilities.deep_merge! BitBarDevices.get_device(config.device,
                                                             config.os,
                                                             config.os_version,

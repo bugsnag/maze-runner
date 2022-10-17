@@ -36,7 +36,7 @@ module Maze
         super
 
         response.header['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
-        response.status = Server.status_code
+        response.status = Server.status_code('OPTIONS')
       end
     end
   end

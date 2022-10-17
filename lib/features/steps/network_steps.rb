@@ -23,6 +23,29 @@ When('I set the HTTP status code for the next request to {int}') do |status_code
   Maze::Server.status_code = status_code
 end
 
+# Steps the HTTP status code to be used for all subsequent requests for a given connection type
+#
+# @step_input http_verb [String] The type of request this code will be used for
+# @step_input status_code [Integer] The status code to return
+When('I set the HTTP status code for {string} requests to {int}') do |http_verb, status_code|
+  allowed_verbs = ['OPTIONS', 'GET', 'POST', 'PUT', 'UPDATE']
+  raise("Invalid HTTP verb: #{http_verb}") unless allowed_verbs.include?(http_verb)
+  Maze::Server.status_override_verb = http_verb
+  Maze::Server.status_code = status_code
+end
+
+# Steps the HTTP status code to be used for the next request for a given connection type
+#
+# @step_input http_verb [String] The type of request this code will be used for
+# @step_input status_code [Integer] The status code to return
+When('I set the HTTP status code for the next {string} request to {int}') do |http_verb, status_code|
+  allowed_verbs = ['OPTIONS', 'GET', 'POST', 'PUT', 'UPDATE']
+  raise("Invalid HTTP verb: #{http_verb}") unless allowed_verbs.include?(http_verb)
+  Maze::Server.status_override_verb = http_verb
+  Maze::Server.reset_status_code = true
+  Maze::Server.status_code = status_code
+end
+
 # Sets the response delay to be used for all subsequent requests
 #
 # @step_input response_delay_ms [Integer] The delay in milliseconds

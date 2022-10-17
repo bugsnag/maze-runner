@@ -95,6 +95,7 @@ After do |scenario|
   # Make sure we reset to HTTP 200 return status after each scenario
   Maze::Server.status_code = 200
   Maze::Server.reset_status_code = false
+  Maze::Server.status_override_verb = nil
 
   # Similarly for the response delay
   Maze::Server.response_delay_ms = 0

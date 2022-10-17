@@ -27,7 +27,7 @@ module Maze
         @requests.add(hash)
 
         response.header['Access-Control-Allow-Origin'] = '*'
-        response.status = Server.status_code
+        response.status = Server.status_code('POST')
       rescue JSON::ParserError => e
         msg = "Unable to parse request as JSON: #{e.message}"
         $logger.error msg
@@ -57,7 +57,7 @@ module Maze
         super
 
         response.header['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
-        response.status = Server.status_code
+        response.status = Server.status_code('OPTIONS')
       end
     end
   end

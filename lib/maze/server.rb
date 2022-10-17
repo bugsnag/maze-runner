@@ -14,6 +14,9 @@ module Maze
       # Allows overwriting of the server status code
       attr_writer :status_code
 
+      # Allows indicating a particular verb for the overwritten status code
+      attr_writer :status_override_verb
+
       # Dictates if the status code should be reset after use
       attr_writer :reset_status_code
 
@@ -29,9 +32,22 @@ module Maze
       # The intended HTTP status code on a successful request
       #
       # @return [Integer] The HTTP status code, defaults to 200
-      def status_code
-        code = @status_code ||= 200
-        @status_code = 200 if reset_status_code
+      def status_code(verb=nil)
+        if @status_override_verb
+          override_status = @status_override_verb.eql?(verb)
+        else
+          override_status = true
+        end
+
+        if override_status
+          code = @status_code ||= 200
+          if reset_status_code
+            @status_code = 200
+            @status_override_verb = nil
+          end
+        else
+          code = 200
+        end
         code
       end
 

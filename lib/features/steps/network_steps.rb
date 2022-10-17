@@ -28,7 +28,7 @@ end
 # @step_input http_verb [String] The type of request this code will be used for
 # @step_input status_code [Integer] The status code to return
 When('I set the HTTP status code for {string} requests to {int}') do |http_verb, status_code|
-  allowed_verbs = ['OPTIONS', 'GET', 'POST', 'PUT', 'UPDATE']
+  allowed_verbs = ['OPTIONS', 'GET', 'POST', 'PUT', 'DELETE', 'HEAD', 'TRACE', 'PATCH', 'CONNECT']
   raise("Invalid HTTP verb: #{http_verb}") unless allowed_verbs.include?(http_verb)
   Maze::Server.status_override_verb = http_verb
   Maze::Server.status_code = status_code
@@ -39,7 +39,7 @@ end
 # @step_input http_verb [String] The type of request this code will be used for
 # @step_input status_code [Integer] The status code to return
 When('I set the HTTP status code for the next {string} request to {int}') do |http_verb, status_code|
-  allowed_verbs = ['OPTIONS', 'GET', 'POST', 'PUT', 'UPDATE']
+  allowed_verbs = ['OPTIONS', 'GET', 'POST', 'PUT', 'DELETE', 'HEAD', 'TRACE', 'PATCH', 'CONNECT']
   raise("Invalid HTTP verb: #{http_verb}") unless allowed_verbs.include?(http_verb)
   Maze::Server.status_override_verb = http_verb
   Maze::Server.reset_status_code = true

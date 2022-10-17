@@ -20,6 +20,13 @@ Internally, Maze Runner has the following modes of operation
   Bitbar or BrowserStack.
 * Standalone - For any purposes that don't use devices or browsers.
 
+## Exit codes
+
+In normal usage maze runner will follow the same exit code patterns that cucumber would in normal operation.
+
+When the `--fail-fast` mode is specified, maze-runner will potentially override this default behaviour with a set exit code.
+A list of codes that will automatically be set for errors can be found in [the Error Code Hook class](./lib/maze/hooks/error_code_hook.rb).
+
 ## Troubleshooting
 
 ### Logging

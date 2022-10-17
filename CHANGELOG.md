@@ -1,3 +1,9 @@
+# 7.3.0 - 2022/10/17
+
+## Enhancements
+
+- Add steps to enable specific status codes for given payload type [409](https://github.com/bugsnag/maze-runner/pull/409)
+
 # 7.2.3 - 2022/10/11
 
 ## Fixes

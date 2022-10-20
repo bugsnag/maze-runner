@@ -1,8 +1,9 @@
-# TBD
+# 7.4.0 - 2022/10/20
 
 ## Enhancements
 
 - Add error code handling for pipeline management [406](https://github.com/bugsnag/maze-runner/pull/406)
+- Add step `I wait to receive at least {int} {word}` [411](https://github.com/bugsnag/maze-runner/pull/411)
 
 # 7.3.0 - 2022/10/17
 

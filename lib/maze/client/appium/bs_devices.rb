@@ -106,7 +106,6 @@ module Maze
             add_android 'Samsung Galaxy J7 Prime', '8.1', hash                # ANDROID_8_1_SAMSUNG_GALAXY_J7_PRIME
             add_android 'Samsung Galaxy Tab S4', '8.1', hash                  # ANDROID_8_1_SAMSUNG_GALAXY_TAB_S4
             add_android 'Samsung Galaxy Tab S3', '8.0', hash                  # ANDROID_8_0_SAMSUNG_GALAXY_TAB_S3
-            add_android 'Google Pixel', '8.0', hash                           # ANDROID_8_0_GOOGLE_PIXEL
             add_android 'Google Pixel 2', '8.0', hash                         # ANDROID_8_0_GOOGLE_PIXEL_2
             add_android 'Samsung Galaxy S9', '8.0', hash                      # ANDROID_8_0_SAMSUNG_GALAXY_S9
             add_android 'Samsung Galaxy S9 Plus', '8.0', hash                 # ANDROID_8_0_SAMSUNG_GALAXY_S9_PLUS

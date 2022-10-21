@@ -134,9 +134,11 @@ steps:
           run: docker-tests
       - docker-compose#v3.7.0:
           run: doc-server-tests
+      - docker-compose#v3.7.0:
+          run: exit-codes-tests
     env:
       RUBY_VERSION: "2.7"
-    command: 'bundle exec maze-runner'
+    command: 'bundle exec maze-runner -e features/fixtures'
 
   - label: 'No-device tests with Ruby 3'
     timeout_in_minutes: 30
@@ -158,9 +160,11 @@ steps:
           run: docker-tests
       - docker-compose#v3.7.0:
           run: doc-server-tests
+      - docker-compose#v3.7.0:
+          run: exit-codes-tests
     env:
       RUBY_VERSION: "3"
-    command: 'bundle exec maze-runner'
+    command: 'bundle exec maze-runner -e features/fixtures'
 
   - label: 'BrowserStack app-automate - Android 7 - JWP'
     timeout_in_minutes: 20

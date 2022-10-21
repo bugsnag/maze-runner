@@ -58,6 +58,12 @@ InstallPlugin do |config|
   # Start Bugsnag
   Maze::BugsnagConfig.start_bugsnag(config)
 
+  if config.fail_fast?
+    # Register exit code handler
+    Maze::Hooks::ErrorCodeHook.register_exit_code_hook
+    config.filters << Maze::Plugins::ErrorCodePlugin.new(config)
+  end
+
   # Only add the retry plugin if --retry is not used on the command line
   config.filters << Maze::Plugins::GlobalRetryPlugin.new(config) if config.options[:retry].zero?
   config.filters << Maze::Plugins::BugsnagReportingPlugin.new(config)

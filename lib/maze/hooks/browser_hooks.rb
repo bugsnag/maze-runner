@@ -27,16 +27,35 @@ module Maze
         when :bs
           # BrowserStack browser
           tunnel_id = SecureRandom.uuid
-          capabilities = {
-            'bstack:options' => {
-              'local' => 'true',
-              'localIdentifier' => tunnel_id
-            }
-          }
           browsers = YAML.safe_load(File.read("#{__dir__}/../client/selenium/bs_browsers.yml"))
-          capabilities.deep_merge! browsers[config.browser]
-          capabilities.deep_merge! JSON.parse(config.capabilities_option)
-          config.capabilities = Selenium::WebDriver::Remote::Capabilities.new capabilities
+          browser = browsers[config.browser]
+
+          if Maze.config.legacy_driver?
+            capabilities = Selenium::WebDriver::Remote::Capabilities.new
+            capabilities['browserstack.local'] = 'true'
+            capabilities['browserstack.localIdentifier'] = tunnel_id
+            capabilities['browserstack.console'] = 'errors'
+
+            # Convert W3S capabilities to JSON-WP
+            capabilities['browser'] = browser['browserName']
+            capabilities['browser_version'] = browser['browserVersion']
+            capabilities['device'] = browser['device']
+            capabilities['os'] = browser['os']
+            capabilities['os_version'] = browser['osVersion']
+
+            capabilities.merge! JSON.parse(config.capabilities_option)
+            config.capabilities = capabilities
+          else
+            capabilities = {
+              'bstack:options' => {
+                'local' => 'true',
+                'localIdentifier' => tunnel_id
+              }
+            }
+            capabilities.deep_merge! browser
+            capabilities.deep_merge! JSON.parse(config.capabilities_option)
+            config.capabilities = Selenium::WebDriver::Remote::Capabilities.new capabilities
+          end
 
           Maze::Client::BrowserStackClientUtils.start_local_tunnel config.bs_local,
                                                                    tunnel_id,

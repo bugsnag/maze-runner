@@ -1,3 +1,9 @@
+# 7.4.1 - TBD
+
+## Fixes
+
+- Various fixes having updated bugsnag-android [413](https://github.com/bugsnag/maze-runner/pull/413)
+
 # 7.4.0 - 2022/10/20
 
 ## Enhancements

@@ -8,7 +8,7 @@ require_relative '../../maze/wait'
 
 # @!group Request assertion steps
 
-def assert_received_requests(request_count, list, list_name)
+def assert_received_requests(request_count, list, list_name, precise = true)
   timeout = Maze.config.receive_requests_wait
   wait = Maze::Wait.new(timeout: timeout)
 
@@ -26,7 +26,11 @@ def assert_received_requests(request_count, list, list_name)
     MESSAGE
   end
 
-  Maze.check.equal(request_count, list.size_remaining, "#{list.size_remaining} #{list_name} received")
+  if precise
+    Maze.check.equal(request_count, list.size_remaining, "#{list.size_remaining} #{list_name} received")
+  else
+    Maze.check.operator(request_count, :<=, list.size_remaining, "#{list.size_remaining} #{list_name} received")
+  end
 end
 
 #
@@ -50,6 +54,18 @@ Then('I wait to receive {int} {word}') do |request_count, request_type|
   list = Maze::Server.list_for(request_type)
   assert_received_requests request_count, list, request_type
   list.sort_by_sent_at! request_count
+end
+
+# Continually checks to see if at least the number requests given has been received,
+# timing out according to @see Maze.config.receive_requests_wait.
+#
+# This step can tolerate receiving more than the expected number of requests.
+#
+# @step_input request_type [String] The type of request (error, session, build, etc)
+# @step_input request_count [Integer] The amount of requests expected
+Then('I wait to receive at least {int} {word}') do |request_count, request_type|
+  list = Maze::Server.list_for(request_type)
+  assert_received_requests request_count, list, request_type, false
 end
 
 # Sorts the remaining requests in a list by the field path given.

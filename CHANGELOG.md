@@ -1,4 +1,8 @@
-# 7.4.1 - TBD
+# 7.5.0 - 2022/10/24
+
+## Enhancements
+
+- Reinstate support for JSON-WP with BrowserStack browsers [414](https://github.com/bugsnag/maze-runner/pull/414)
 
 ## Fixes
 

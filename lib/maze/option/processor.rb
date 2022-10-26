@@ -46,6 +46,7 @@ module Maze
                         end
           config.locator = options[Maze::Option::A11Y_LOCATOR] ? :accessibility_id : :id
           config.capabilities_option = options[Maze::Option::CAPABILITIES]
+          config.legacy_driver = !ENV['USE_LEGACY_DRIVER'].nil?
 
           # Farm specific options
           case config.farm
@@ -61,7 +62,11 @@ module Maze
                 config.device = device_option
                 config.device_list = []
               end
-              config.os_version = Maze::Client::Appium::BrowserStackDevices::DEVICE_HASH[config.device]['os_version'].to_f
+              if config.legacy_driver?
+                config.os_version = Maze::Client::Appium::BrowserStackDevices::DEVICE_HASH[config.device]['os_version'].to_f
+              else
+                config.os_version = Maze::Client::Appium::BrowserStackDevices::DEVICE_HASH[config.device]['osVersion'].to_f
+              end
             end
             config.bs_local = Maze::Helper.expand_path(options[Maze::Option::BS_LOCAL])
             config.appium_version = options[Maze::Option::APPIUM_VERSION]

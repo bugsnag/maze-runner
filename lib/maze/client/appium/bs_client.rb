@@ -21,6 +21,7 @@ module Maze
               'local' => 'true',
               'localIdentifier' => @session_uuid
             },
+            'deviceOrientation' => 'portrait',
             'noReset' => 'true'
           }
           device_caps = Maze::Client::Appium::BrowserStackDevices::DEVICE_HASH[config.device]

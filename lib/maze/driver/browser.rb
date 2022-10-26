@@ -121,9 +121,15 @@ module Maze
           $logger.info "Starting Selenium driver"
           time = Time.now
           if driver_for == :remote
-            driver = ::Selenium::WebDriver.for :remote,
-                                                url: selenium_url,
-                                                capabilities: @capabilities
+            if Maze.config.legacy_driver?
+              driver = ::Selenium::WebDriver.for :remote,
+                                                 url: selenium_url,
+                                                 desired_capabilities: @capabilities
+            else
+              driver = ::Selenium::WebDriver.for :remote,
+                                                 url: selenium_url,
+                                                 capabilities: @capabilities
+            end
           else
             driver = ::Selenium::WebDriver.for driver_for
           end

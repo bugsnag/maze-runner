@@ -65,7 +65,7 @@ module Maze
               if config.legacy_driver?
                 config.os_version = Maze::Client::Appium::BrowserStackDevices::DEVICE_HASH[config.device]['os_version'].to_f
               else
-                config.os_version = Maze::Client::Appium::BrowserStackDevices::DEVICE_HASH[config.device]['osVersion'].to_f
+                config.os_version = Maze::Client::Appium::BrowserStackDevices::DEVICE_HASH[config.device]['platformVersion'].to_f
               end
             end
             config.bs_local = Maze::Helper.expand_path(options[Maze::Option::BS_LOCAL])

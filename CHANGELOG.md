@@ -1,3 +1,9 @@
+# 7.5.1 - 2022/11/01
+
+## Fixes
+
+- Correct setting of Maze.config.os_version in W3C mode [415](https://github.com/bugsnag/maze-runner/pull/415)
+
 # 7.5.0 - 2022/10/26
 
 ## Enhancements

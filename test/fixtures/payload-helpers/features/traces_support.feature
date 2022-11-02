@@ -1,4 +1,4 @@
-Feature: Testing gzip support on traces endpoint
+Feature: Testing support on traces endpoint
 
     Scenario: The traces endpoint can accept json payloads
         When I send a "trace"-type request
@@ -56,5 +56,13 @@ Feature: Testing gzip support on traces endpoint
     Scenario: The traces endpoint can accept gzipped streams
         When I run the script "features/scripts/send_gzip.sh" synchronously
         And I wait to receive a trace
-        Then the trace payload field "hello" equals "world"
+        And the trace payload field "hello" equals "world"
         And the trace payload field "array" is a non-empty array
+
+    Scenario: The trace endpoint can identify a valid request
+        When I send a "valid" trace request
+        Then I wait to receive a trace
+
+    Scenario: The trace endpoint can identify an invalid request
+        When I send a "invalid" trace request
+        Then I wait to receive a trace

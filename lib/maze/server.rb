@@ -204,7 +204,7 @@ module Maze
             server.mount '/builds', Servlets::Servlet, :builds
             server.mount '/uploads', Servlets::Servlet, :uploads
             server.mount '/sourcemap', Servlets::Servlet, :sourcemaps
-            server.mount '/traces', Servlets::TraceServlet, :traces
+            server.mount '/traces', Servlets::TraceServlet, :traces, Maze::Schemas::TRACE_SCHEMA
             server.mount '/react-native-source-map', Servlets::Servlet, :sourcemaps
             server.mount '/command', Servlets::CommandServlet
             server.mount '/logs', Servlets::LogServlet

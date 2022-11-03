@@ -1,3 +1,9 @@
+# TBD
+
+## Fixes
+
+- Provide more intuitive message for Maze.check.match failures [417](https://github.com/bugsnag/maze-runner/pull/417)
+
 # 7.5.1 - 2022/11/01
 
 ## Fixes

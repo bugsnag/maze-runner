@@ -6,4 +6,4 @@ Feature: Checks on log requests
     And I wait to receive 2 logs
     Then the "INFO" level log message matches the regex "^Today is \d{4}\-\d{2}\-\d{2}$"
     And I discard the oldest log
-    Then the "ERROR" level log message equals "The world is still on pause"
+    Then the "ERROR" level log message equals "The world is no longer on pause"

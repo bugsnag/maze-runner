@@ -29,6 +29,9 @@ module Maze
                  else
                    Regexp.new(pattern)
                  end
+        if message.nil?
+          message = "<#{string}> was not matched by regex <#{pattern}>"
+        end
         assert_match(regexp, string, message)
       end
 

@@ -35,7 +35,6 @@ module Maze
       # @return [String] The UUID attached to all command requests for this session
       attr_reader :command_uuid
 
-<<<<<<< HEAD
       # The intended HTTP status code on a successful request
       #
       # @return [Integer] The HTTP status code, defaults to 200

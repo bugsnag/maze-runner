@@ -11,3 +11,4 @@ Feature: Testing gzip support on traces endpoint
         And I wait to receive a trace
         And the trace payload field "hello" equals "world"
         And the trace payload field "array" is a non-empty array
+        And The HTTP response header "Bugsnag-Sampling-Probability" equals "1"

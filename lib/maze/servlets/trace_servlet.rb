@@ -6,7 +6,7 @@ module Maze
       def set_response_header(header)
         super
 
-        header['Bugsnag-Sampling-Probability'] = '1'
+        header['Bugsnag-Sampling-Probability'] = Maze::Server.sampling_probability
       end
     end
   end

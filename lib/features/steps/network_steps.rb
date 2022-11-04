@@ -15,6 +15,21 @@ When('I set the HTTP status code to {int}') do |status_code|
   Maze::Server.status_code = status_code
 end
 
+# Sets the sampling probability to be used for the next trace responses
+#
+# @step_input status_code [Integer] The status code to return
+When('I set the sampling probability for the next trace to {string}') do |sampling_probability|
+  Maze::Server.reset_sampling_probability = true
+  Maze::Server.sampling_probability = sampling_probability
+end
+
+# Sets the sampling probability to be used for all subsequent trace responses
+#
+# @step_input sampling_probability [String] The sampling probability to return
+When('I set the sampling probability to {string}') do |sampling_probability|
+  Maze::Server.sampling_probability = sampling_probability
+end
+
 # Sets the HTTP status code to be used for the next request
 #
 # @step_input status_code [Integer] The status code to return

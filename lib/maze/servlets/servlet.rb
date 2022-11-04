@@ -69,7 +69,7 @@ module Maze
           sleep response_delay_ms / 1000.0
         end
         response.header['Access-Control-Allow-Origin'] = '*'
-        response.status = Server.status_code
+        response.status = Server.status_code('POST')
       rescue JSON::ParserError => e
         msg = "Unable to parse request as JSON: #{e.message}"
         if Maze.config.captured_invalid_requests.include? @request_type
@@ -107,7 +107,7 @@ module Maze
         super
 
         response.header['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
-        response.status = Server.status_code
+        response.status = Server.status_code('OPTIONS')
       end
 
       private

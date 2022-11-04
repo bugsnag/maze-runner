@@ -25,7 +25,7 @@ Feature: Setting different response codes
         And the error payload field "second_code" equals "400"
         And the error payload field "second_time" is greater than 3000
 
-    Scenario: Server response code can be set a single request (503)
+    Scenario: Server response code can be set for a single request (503)
         Given I set the HTTP status code for the next request to 503
         When I run the script "features/scripts/send_request.rb" using ruby synchronously
         And I wait to receive 3 errors
@@ -34,3 +34,23 @@ Feature: Setting different response codes
         And the error payload field "first_code" equals "503"
         And I discard the oldest error
         And the error payload field "second_code" equals "200"
+
+    Scenario: Server response code can be set for a specific conneciton type (504)
+        Given I set the HTTP status code for the next "OPTIONS" request to 504
+        When I run the script "features/scripts/send_verbed_requests.rb" using ruby synchronously
+        And I wait to receive 2 errors
+        Then the error payload field "first_options_code" equals "504"
+        And I discard the oldest error
+        And the error payload field "first_options_code" equals "504"
+        And the error payload field "first_post_code" equals "200"
+        And the error payload field "second_options_code" equals "200"
+
+    Scenario: Server response code can be set for all subsequent instances of a  specific conneciton type (505)
+        Given I set the HTTP status code for "OPTIONS" requests to 505
+        When I run the script "features/scripts/send_verbed_requests.rb" using ruby synchronously
+        And I wait to receive 2 errors
+        Then the error payload field "first_options_code" equals "505"
+        And I discard the oldest error
+        And the error payload field "first_options_code" equals "505"
+        And the error payload field "first_post_code" equals "200"
+        And the error payload field "second_options_code" equals "505"

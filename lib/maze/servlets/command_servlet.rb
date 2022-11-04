@@ -16,13 +16,15 @@ module Maze
         response.header['Access-Control-Allow-Origin'] = '*'
 
         commands = Maze::Server.commands
+
         if commands.size_remaining == 0
-          response.body = 'No commands to provide'
-          response.status = 400
+          response.body = '{"action": "noop", "message": "No commands queued"}'
+          response.status = 200
         else
           command = commands.current
+          command_json = JSON.pretty_generate(command)
           command[:uuid] = Maze::Server.command_uuid
-          response.body = JSON.pretty_generate(command)
+          response.body = command_json
           response.status = 200
           commands.next
         end
@@ -36,8 +38,10 @@ module Maze
         super
 
         response.header['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
-        response.status = Server.status_code
+        response.status = Server.status_code('OPTIONS')
       end
     end
   end
 end
+
+

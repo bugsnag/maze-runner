@@ -58,6 +58,12 @@ InstallPlugin do |config|
   # Start Bugsnag
   Maze::BugsnagConfig.start_bugsnag(config)
 
+  if config.fail_fast?
+    # Register exit code handler
+    Maze::Hooks::ErrorCodeHook.register_exit_code_hook
+    config.filters << Maze::Plugins::ErrorCodePlugin.new(config)
+  end
+
   # Only add the retry plugin if --retry is not used on the command line
   config.filters << Maze::Plugins::GlobalRetryPlugin.new(config) if config.options[:retry].zero?
   config.filters << Maze::Plugins::BugsnagReportingPlugin.new(config)
@@ -95,6 +101,7 @@ After do |scenario|
   # Make sure we reset to HTTP 200 return status after each scenario
   Maze::Server.status_code = 200
   Maze::Server.reset_status_code = false
+  Maze::Server.status_override_verb = nil
 
   # Similarly for the response delay
   Maze::Server.response_delay_ms = 0

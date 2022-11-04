@@ -4,6 +4,67 @@
 
 - Add `/trace` endpoint [402](https://github.com/bugsnag/maze-runner/pull/402)
 
+
+##############################
+
+
+# TBD - Next release
+
+## Fixes
+
+- Provide more intuitive message for Maze.check.match failures [417](https://github.com/bugsnag/maze-runner/pull/417)
+
+# 7.5.1 - 2022/11/01
+
+## Fixes
+
+- Correct setting of Maze.config.os_version in W3C mode [415](https://github.com/bugsnag/maze-runner/pull/415)
+
+# 7.5.0 - 2022/10/26
+
+## Enhancements
+
+- Reinstate support for JSON-WP with BrowserStack browsers [414](https://github.com/bugsnag/maze-runner/pull/414)
+
+## Fixes
+
+- Various fixes having updated bugsnag-android [413](https://github.com/bugsnag/maze-runner/pull/413)
+
+# 7.4.0 - 2022/10/20
+
+## Enhancements
+
+- Add error code handling for pipeline management [406](https://github.com/bugsnag/maze-runner/pull/406)
+- Add step `I wait to receive at least {int} {word}` [411](https://github.com/bugsnag/maze-runner/pull/411)
+
+## Removals
+
+- Remove support for Google Pixel-8.0 on BrowserStack (deprecated by them) [412](https://github.com/bugsnag/maze-runner/pull/412)
+  
+# 7.3.0 - 2022/10/17
+
+## Enhancements
+
+- Add steps to enable specific status codes for given payload type [409](https://github.com/bugsnag/maze-runner/pull/409)
+
+# 7.2.3 - 2022/10/11
+
+## Fixes
+
+- Ensure appium-lib-core is restricted to `5.4.*` while ongoing issues are present in `5.5.*` [408](https://github.com/bugsnag/maze-runner/pull/408)
+
+# 7.2.2 - 2022/10/10
+
+## Fixes
+
+- Ensure `String` patterns behave as expected when calling `Maze.check.match` [407](https://github.com/bugsnag/maze-runner/pull/407)
+
+# 7.2.1 - 2022/10/05
+
+## Fixes
+
+- Fix browser and appium drivers crashing when running without any capabilities [405](https://github.com/bugsnag/maze-runner/pull/405)
+
 # 7.2.0 - 2022/10/04
 
 ## Enhancements

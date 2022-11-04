@@ -12,7 +12,7 @@ module Maze
         when :bb
           @client = Maze::Client::Appium::BitBarClient.new session_uuid
         when :bs
-          if ENV['USE_LEGACY_DRIVER']
+          if Maze.config.legacy_driver?
             $logger.info 'Using the Legacy (JWP) Appium client'
             @client = Maze::Client::Appium::BrowserStackLegacyClient.new session_uuid
           else
@@ -39,8 +39,10 @@ module Maze
           # Close the app - without the sleep, launching the app for the next scenario intermittently fails
           system("killall -KILL #{Maze.config.app} && sleep 1")
         elsif [:bb, :bs, :local].include? Maze.config.farm
-          Maze.driver.terminate_app Maze.driver.app_id
-          Maze.driver.activate_app Maze.driver.app_id
+          # appium_lib 12 says that reset is deprecated and activate_app/terminate_app should be used
+          # instead.  However, they do not clear out app data, which we need between scenarios.
+          # install_app/remove_app might also be an option to consider.
+          Maze.driver.reset
         end
       end
 

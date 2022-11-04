@@ -1,3 +1,5 @@
+Maze.config.enable_bugsnag = false
+
 Maze.hooks.before_all do
   $first_attempt = true
   Maze::Runner.environment['AFTER_CONFIG'] = 'FIRST_SCENARIO_ONLY'

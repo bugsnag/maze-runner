@@ -4,9 +4,10 @@ require 'cucumber'
 require 'test_helper'
 require 'webrick'
 require_relative '../lib/maze/servlets/base_servlet'
+require_relative '../lib/maze/servlets/servlet'
 require_relative '../lib/maze/servlets/command_servlet'
 require_relative '../lib/maze/servlets/log_servlet'
-require_relative '../lib/maze/servlets/servlet'
+require_relative '../lib/maze/servlets/trace_servlet'
 require_relative '../lib/maze/server'
 
 # noinspection RubyNilAnalysis

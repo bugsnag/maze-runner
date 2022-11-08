@@ -68,7 +68,7 @@ module Maze
           $logger.info "Waiting #{response_delay_ms} milliseconds before responding"
           sleep response_delay_ms / 1000.0
         end
-        response.header['Access-Control-Allow-Origin'] = '*'
+        set_response_header response.header
         response.status = Server.status_code('POST')
       rescue JSON::ParserError => e
         msg = "Unable to parse request as JSON: #{e.message}"
@@ -97,6 +97,10 @@ module Maze
         else
           $logger.warn "Invalid request: #{e.message}"
         end
+      end
+
+      def set_response_header(header)
+        header['Access-Control-Allow-Origin'] = '*'
       end
 
       # Logs and returns a set of valid headers for this servlet.

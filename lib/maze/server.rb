@@ -20,6 +20,12 @@ module Maze
       # Dictates if the status code should be reset after use
       attr_writer :reset_status_code
 
+      # Allows overwriting of the trace sampling probability
+      attr_writer :sampling_probability
+
+      # Dictates if the probability should be reset after use
+      attr_writer :reset_sampling_probability
+
       # Allows a delay in milliseconds before responding to HTTP requests to be set
       attr_writer :response_delay_ms
 
@@ -49,6 +55,16 @@ module Maze
           code = 200
         end
         code
+      end
+
+      def sampling_probability
+        probability = @sampling_probability ||= '1'
+        @sampling_probability = '1' if reset_sampling_probability
+        probability
+      end
+
+      def reset_sampling_probability
+        @reset_sampling_probability ||= false
       end
 
       def reset_status_code
@@ -198,7 +214,7 @@ module Maze
             server.mount '/builds', Servlets::Servlet, :builds
             server.mount '/uploads', Servlets::Servlet, :uploads
             server.mount '/sourcemap', Servlets::Servlet, :sourcemaps
-            server.mount '/traces', Servlets::Servlet, :traces
+            server.mount '/traces', Servlets::TraceServlet, :traces
             server.mount '/react-native-source-map', Servlets::Servlet, :sourcemaps
             server.mount '/command', Servlets::CommandServlet
             server.mount '/logs', Servlets::LogServlet

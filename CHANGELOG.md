@@ -11,6 +11,10 @@
 
 # TBD - Next release
 
+## Enhancements
+
+- Log device UDID on BrowserStack [418](https://github.com/bugsnag/maze-runner/pull/418)
+
 ## Fixes
 
 - Provide more intuitive message for Maze.check.match failures [417](https://github.com/bugsnag/maze-runner/pull/417)

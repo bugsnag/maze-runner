@@ -124,6 +124,10 @@ module Maze
             add_android 'Samsung Galaxy Tab 4', '4.4', hash                   # ANDROID_4_4_SAMSUNG_GALAXY_TAB_4
 
             # Specific iOS devices
+            add_ios 'iPhone 14 Plus', '16.0', hash                            # IOS_16_0_IPHONE_14_PLUS
+            add_ios 'iPhone 14 Pro', '16.0', hash                             # IOS_16_0_IPHONE_14_PRO
+            add_ios 'iPhone 14 Pro Max', '16.0', hash                         # IOS_16_0_IPHONE_14_PRO_MAX
+
             add_ios 'iPhone 8 Plus', '11.0', hash                             # IOS_11_0_IPHONE_8_PLUS
             add_ios 'iPhone X', '11.0', hash                                  # IOS_11_0_IPHONE_X
             add_ios 'iPhone SE', '11.0', hash                                 # IOS_11_0_IPHONE_SE

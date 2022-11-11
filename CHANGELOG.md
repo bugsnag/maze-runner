@@ -1,19 +1,11 @@
-# 7.TDB (integration/performance)
+# 7.6.0- - 2022/11/11
 
 ## Enhancements
 
 - Add `/trace` endpoint [402](https://github.com/bugsnag/maze-runner/pull/402)
 - Add steps to set sampling probably response header [419](https://github.com/bugsnag/maze-runner/pull/419)
-
-
-##############################
-
-
-# TBD - Next release
-
-## Enhancements
-
 - Log device UDID on BrowserStack [418](https://github.com/bugsnag/maze-runner/pull/418)
+- Add support for iOS 16 on BrowserStack [422](https://github.com/bugsnag/maze-runner/pull/422)
 
 ## Fixes
 

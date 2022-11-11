@@ -7,7 +7,7 @@ require_relative 'maze/timers'
 # Glues the various parts of MazeRunner together that need to be accessed globally,
 # providing an alternative to the proliferation of global variables or singletons.
 module Maze
-  VERSION = '7.5.1'
+  VERSION = '7.6.0'
 
   class << self
     attr_accessor :check, :driver, :internal_hooks, :mode, :start_time, :dynamic_retry

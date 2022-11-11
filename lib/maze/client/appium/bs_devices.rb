@@ -84,7 +84,7 @@ module Maze
               'ANDROID_4_4' => make_android_hash('Google Nexus 5', '4.4'),
 
               # iOS devices
-              'IOS_16_BETA' => make_ios_hash('iPhone 12 Pro Max', '16 Beta'),
+              'IOS_16' => make_ios_hash('iPhone 14', '16'),
               'IOS_15' => make_ios_hash('iPhone 11 Pro', '15'),
               'IOS_14' => make_ios_hash('iPhone 11', '14'),
               'IOS_13' => make_ios_hash('iPhone 8', '13'),
@@ -124,6 +124,10 @@ module Maze
             add_android 'Samsung Galaxy Tab 4', '4.4', hash                   # ANDROID_4_4_SAMSUNG_GALAXY_TAB_4
 
             # Specific iOS devices
+            add_ios 'iPhone 14 Plus', '16.0', hash                            # IOS_16_0_IPHONE_14_PLUS
+            add_ios 'iPhone 14 Pro', '16.0', hash                             # IOS_16_0_IPHONE_14_PRO
+            add_ios 'iPhone 14 Pro Max', '16.0', hash                         # IOS_16_0_IPHONE_14_PRO_MAX
+
             add_ios 'iPhone 8 Plus', '11.0', hash                             # IOS_11_0_IPHONE_8_PLUS
             add_ios 'iPhone X', '11.0', hash                                  # IOS_11_0_IPHONE_X
             add_ios 'iPhone SE', '11.0', hash                                 # IOS_11_0_IPHONE_SE

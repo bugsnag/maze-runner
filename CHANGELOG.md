@@ -1,4 +1,15 @@
-# TBD
+# 7.TDB (integration/performance)
+
+## Enhancements
+
+- Add `/trace` endpoint [402](https://github.com/bugsnag/maze-runner/pull/402)
+- Add steps to set sampling probably response header [419](https://github.com/bugsnag/maze-runner/pull/419)
+
+
+##############################
+
+
+# TBD - Next release
 
 ## Enhancements
 

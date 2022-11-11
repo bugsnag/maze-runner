@@ -150,6 +150,7 @@ ensure
   Maze::Server.builds.clear
   Maze::Server.uploads.clear
   Maze::Server.sourcemaps.clear
+  Maze::Server.traces.clear
   Maze::Server.logs.clear
   Maze::Server.invalid_requests.clear
   Maze::Runner.environment.clear
@@ -182,7 +183,7 @@ def write_requests(scenario)
 
   FileUtils.makedirs(path)
 
-  request_types = %w[errors sessions builds uploads logs sourcemaps invalid]
+  request_types = %w[errors sessions builds uploads logs sourcemaps traces invalid]
 
   request_types.each do |request_type|
     list = Maze::Server.list_for(request_type).all

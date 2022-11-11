@@ -1,4 +1,8 @@
 # frozen_string_literal: true
+
+require 'zlib'
+require 'stringio'
+
 module Maze
   module Servlets
 
@@ -30,12 +34,19 @@ module Maze
       # @param response [HTTPResponse] The response to return
       def do_POST(request, response)
         log_request(request)
-        case request['Content-Type']
-        when %r{^multipart/form-data; boundary=([^;]+)}
+        content_type = request['Content-Type']
+        content_encoding = request['Content-Encoding']
+        if %r{^multipart/form-data; boundary=([^;]+)}.match(content_type)
           boundary = WEBrick::HTTPUtils::dequote($1)
           body = WEBrick::HTTPUtils.parse_form_data(request.body, boundary)
           hash = {
             body: body,
+            request: request
+          }
+        elsif %r{^gzip$}.match(content_encoding)
+          gz_element = Zlib::GzipReader.new(StringIO.new(request.body))
+          hash = {
+            body: JSON.parse(gz_element.read),
             request: request
           }
         else
@@ -57,7 +68,7 @@ module Maze
           $logger.info "Waiting #{response_delay_ms} milliseconds before responding"
           sleep response_delay_ms / 1000.0
         end
-        response.header['Access-Control-Allow-Origin'] = '*'
+        set_response_header response.header
         response.status = Server.status_code('POST')
       rescue JSON::ParserError => e
         msg = "Unable to parse request as JSON: #{e.message}"
@@ -88,6 +99,10 @@ module Maze
         end
       end
 
+      def set_response_header(header)
+        header['Access-Control-Allow-Origin'] = '*'
+      end
+
       # Logs and returns a set of valid headers for this servlet.
       #
       # @param request [HTTPRequest] The incoming GET request
@@ -115,8 +130,10 @@ module Maze
           body = WEBrick::HTTPUtils.parse_form_data(request.body, boundary)
           $logger.debug 'BODY:'
           LogUtil.log_hash(Logger::Severity::DEBUG, body)
-        else
+        when %r{^application/json$}
           $logger.debug "BODY: #{JSON.pretty_generate(JSON.parse(request.body))}"
+        else
+          $logger.debug "BODY: #{request.body}"
         end
       end
 

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>
-  File: README
+  File: DOCS
   
     &mdash; Documentation by YARD 0.9.28
   
@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="css/cucumber.css" type="text/css" />
 
 <script type="text/javascript">
-  pathId = "README";
+  pathId = "DOCS";
   relpath = '';
 </script>
 
@@ -41,7 +41,7 @@
         <div id="menu">
   
     <a href="_index.html">Index</a> &raquo; 
-    <span class="title">File: README</span>
+    <span class="title">File: DOCS</span>
   
 </div>
 
@@ -72,20 +72,291 @@ applications. Using the runner, each scenario is executed and the requests are
 validated to have to correct fields and values. Uses Gherkin and Cucumber under
 the hood to draft semantic tests.</p>
 
-<h2 id="documentation">Documentation</h2>
+<h2 id="setting-up-a-new-project">Setting up a new project</h2>
 
-<p><a href="https://bugsnag.github.io/maze-runner/">Documentation for Cucumber steps in the latest release can be found here.</a></p>
+<h3 id="first-time-setup-and-running-locally">First time setup and running locally</h3>
 
-<p><a href="./DOCS.md">The Maze Runner handbook markdown docs can be found here</a></p>
+<ol>
+<li>Install the <code>bundler</code> gem:</li>
+</ol>
+
+<pre class="code shell"><code class="shell">   gem install bundler
+</code></pre>
+
+<ol>
+<li>Add a Gemfile to the root of your project:</li>
+</ol>
+
+<pre class="code ruby"><code class="ruby">   <span class='id identifier rubyid_source'>source</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://rubygems.org</span><span class='tstring_end'>&quot;</span></span>
+   <span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>maze-runner</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>git:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://github.com/bugsnag/maze-runner</span><span class='tstring_end'>&quot;</span></span>
+</code></pre>
+
+<ol>
+<li><p>Run <code>bundle install</code> to fetch and install Maze Runner</p></li>
+<li><p>Run <code>bundle exec maze-runner init</code> from the root of your project to build the
+basic structure to run test scenarios.</p>
+
+<ul>
+<li><code>features/fixtures</code>: Test fixture files, such as sample JSON payloads</li>
+<li><code>features/scripts</code>: Scripts to be run in scenarios. Any environment
+variables set in scenarios are passed to scripts. The <code>MOCK_API_PORT</code>
+variable is provided by default to configure the location of the mock
+server.</li>
+<li><code>features/steps</code>: Additional steps of the form Given/When/Then required to
+complete scenarios</li>
+<li><code>features/support</code>: Helper functions. Add any setup which should be run
+once before all of the scenarios to <code>features/support/env.rb</code>. Any setup
+which should be run before or after each scenario can go into special
+<code>Before</code> and <code>After</code> functions respectively.</li>
+<li><code>features/*.feature</code>: The plain text scenario specifications</li>
+</ul></li>
+</ol>
+
+<p>A sample feature is included after running <code>init</code>. Try it out with</p>
+
+<pre class="code shell"><code class="shell">   bundle exec maze-runner
+</code></pre>
+
+<h2 id="writing-features">Writing features</h2>
+
+<p>Features should be composed as concisely has possible, reusing existing steps as
+needed. The harness provides a number of reusable step definitions for
+interacting with scripts, setting environment variables, and inspecting output.
+Each new feature should go into a <code>.feature</code> file in the <code>features</code> directory.</p>
+
+<pre class="code ruby"><code class="ruby">Feature: Sinatra support
+
+Scenario: Sinatra unhandled exception
+    When I set environment variable &quot;BUGSNAG_API_KEY&quot; to &quot;a35a2a72bd230ac0aa0f52715bbdc6aa&quot;
+    And I start a Sinatra app
+    And I navigate to the route &quot;/syntax-error&quot;
+    Then I should receive a request
+    And the request is a valid for the error reporting API
+    And the &quot;Bugsnag-API-Key&quot; header equals &quot;a35a2a72bd230ac0aa0f52715bbdc6aa&quot;
+    And the event &quot;unhandled&quot; is true
+</code></pre>
+
+<p>This example includes a mix of the included steps as well as custom ones
+specific to the library being tested. <code>When I set an environment variable</code> is
+provided by default while <code>When I start a Sinatra app</code> is defined in a custom
+steps file in <code>features/steps/</code>, wrapping other included steps:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>When</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>I start a Sinatra app</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
+  <span class='const'>Runner</span><span class='period'>.</span><span class='id identifier rubyid_environment'>environment</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DEMO_APP_PORT</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>DEMO_APP_PORT</span>
+  <span class='id identifier rubyid_steps'>steps</span> <span class='tstring'><span class='tstring_beg'>%Q{</span><span class='tstring_content'>
+    When I run the script &quot;features/fixtures/run_sinatra_app.sh&quot;
+    And I wait for 8 seconds
+  </span><span class='tstring_end'>}</span></span>
+<span class='kw'>end</span>
+
+<span class='const'>When</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>I navigate to the route {string}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_route'>route</span><span class='op'>|</span>
+  <span class='id identifier rubyid_steps'>steps</span> <span class='tstring'><span class='tstring_beg'>%Q{</span><span class='tstring_content'>
+    When I open the URL &quot;http://localhost:</span><span class='embexpr_beg'>#{</span><span class='const'>DEMO_APP_PORT</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_route'>route</span><span class='embexpr_end'>}</span><span class='tstring_content'>&quot;
+    And I wait for 1 second
+  </span><span class='tstring_end'>}</span></span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p>In addition, any helper functions or instance variables defined in
+<code>features/support/env.rb</code> are available to step files. See the included
+<code>_step.rb</code> files for examples. The files in <code>features/support</code> are evaluated
+before scenarios are run, so this is where one-time or per-scenario
+configuration should go.</p>
+
+<pre class="code ruby"><code class="ruby"> <span class='comment'># A helper function included with the harness to run commands and
+</span> <span class='comment'># only print output when the command fails
+</span> <span class='id identifier rubyid_run_required_commands'>run_required_commands</span><span class='lparen'>(</span><span class='lbracket'>[</span>
+   <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bundle</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>install</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+ <span class='rbracket'>]</span><span class='rparen'>)</span>
+
+ <span class='comment'># Maybe shell out to something directly, if necessary
+</span> <span class='backtick'>`</span><span class='tstring_content'>echo Peanut Butter Jelly Time</span><span class='tstring_end'>`</span></span>
+
+ <span class='comment'># Run before every scenarios
+</span> <span class='const'>Maze</span><span class='period'>.</span><span class='id identifier rubyid_hooks'>hooks</span><span class='period'>.</span><span class='id identifier rubyid_before'>before</span> <span class='kw'>do</span>
+   <span class='id identifier rubyid_clean_build_artifacts'>clean_build_artifacts</span>
+ <span class='kw'>end</span>
+
+<span class='comment'># Run after every scenario
+</span><span class='const'>Maze</span><span class='period'>.</span><span class='id identifier rubyid_hooks'>hooks</span><span class='period'>.</span><span class='id identifier rubyid_after'>after</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_scenario'>scenario</span><span class='op'>|</span>
+  <span class='comment'># Teardown scenario configuration here
+</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_scenario'>scenario</span><span class='period'>.</span><span class='id identifier rubyid_failed?'>failed?</span>
+    <span class='comment'># Can be used to do specific cleanup if a scenario fails
+</span>  <span class='kw'>end</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<h3 id="step-definition-links">Step definition links</h3>
+
+<ul>
+<li><a href="/maze-runner/requirements/step_transformers.html#step_definition66-stepdefinition">Request assertion steps</a></li>
+<li><a href="/maze-runner/requirements/step_transformers.html#step_definition29-stepdefinition">Error content steps</a></li>
+<li><a href="/maze-runner/requirements/step_transformers.html#step_definition21-stepdefinition">Breadcrumb steps</a></li>
+<li><a href="/maze-runner/requirements/step_transformers.html#step_definition57-stepdefinition">Session content steps</a></li>
+<li><a href="/maze-runner/requirements/step_transformers.html#step_definition1-stepdefinition">Environment steps</a></li>
+<li><a href="/maze-runner/requirements/step_transformers.html#step_definition7-stepdefinition">Script and docker steps</a></li>
+<li><a href="/maze-runner/requirements/step_transformers.html#step_definition25-stepdefinition">BrowserStack steps</a></li>
+</ul>
+
+<h3 id="step-examples">Step examples</h3>
+
+<h4 id="field-path-notation">Field path notation</h4>
+
+<p>Anywhere a <code>{field}</code>, <code>{path}</code>, <code>{key_path}</code>, etc is denoted, it can be replaced with dot-delimited key path to indicate 
+the path from the root of an object to the intended target.</p>
+
+<p>For example, to match the name of the second objects in the the key <code>fruits</code> below, use <code>fruits.1.name</code> as the keypath.</p>
+
+<pre class="code json"><code class="json">{
+  &quot;fruits&quot;: [
+    { &quot;name&quot;: &quot;apple&quot; },
+    { &quot;name&quot;: &quot;cherry&quot; }
+  ]
+}
+</code></pre>
+
+<h4 id="using-browserstack">Using BrowserStack</h4>
+
+<p>BrowserStack is used to drive many of the mobile device tests written using maze-runner.  For these tests we can use a 
+driver class and accompanying set of steps to interface with the BrowserStack AppAutomate server.  <code>Maze.driver</code> 
+can be used to write custom steps using the API provided by the <code>Appium::Driver</code> class.</p>
+
+<p>The options needed to create a connection to the Appium server should be passed in via the command line when invoking
+Maze Runner.  See <code>bundle exec maze-runner --help</code> for details, but the most pertinent are:</p>
+
+<ul>
+<li> <code>--farm=&lt;s&gt;</code> - Device farm to use: &quot;bs&quot; (BrowserStack) or &quot;local&quot;</li>
+<li> <code>--app=&lt;s&gt;</code> - The app to be installed and run against</li>
+<li> <code>--bs-local=&lt;s&gt;</code> - Path to the BrowserStackLocal binary</li>
+<li> <code>--device=&lt;s&gt;</code> - BrowserStack device to use (a key of Devices.DEVICE_HASH)</li>
+<li> <code>--username=&lt;s&gt;</code> - BrowserStack username</li>
+<li> <code>--access-key=&lt;s&gt;</code> - BrowserStack access key</li>
+</ul>
+
+<h4 id="on-matching-json-templates">On matching JSON templates</h4>
+
+<p>For the following steps:</p>
+
+<pre class="code ruby"><code class="ruby">Then the payload body matches the JSON fixture in &quot;features/fixtures/template.json&quot;
+Then the payload field &quot;items.0.subset&quot; matches the JSON fixture in &quot;features/fixtures/template.json&quot;
+</code></pre>
+
+<p>The template file can either be an exact match or specify regex matches for string fields. For example, given the 
+template:</p>
+
+<pre class="code json"><code class="json">{ &quot;fruit&quot;: { &quot;apple&quot;: { &quot;color&quot;: &quot;\\w+&quot; } } }
+</code></pre>
+
+<p>The following request will match:</p>
+
+<pre class="code json"><code class="json">{ &quot;fruit&quot;: { &quot;apple&quot;: { &quot;color&quot;: &quot;red&quot; } } }
+</code></pre>
+
+<p>Though this request will not match:</p>
+
+<pre class="code json"><code class="json">{ &quot;fruit&quot;: { &quot;apple&quot;: { &quot;color&quot;: &quot;red-orange&quot; } } }
+</code></pre>
+
+<p>If &quot;IGNORE&quot; is specified as a value in a template, that value will be ignored in requests.</p>
+
+<p>Given the following template:</p>
+
+<pre class="code json"><code class="json">{ &quot;fruit&quot;: { &quot;apple&quot;: &quot;IGNORE&quot; } }
+</code></pre>
+
+<p>This request will match:</p>
+
+<pre class="code json"><code class="json">{ &quot;fruit&quot;: { &quot;apple&quot;: &quot;some nonsense&quot; } }
+</code></pre>
+
+<h2 id="running-features">Running features</h2>
+
+<p>Run the entire suite using <code>bundle exec maze-runner</code>. Alternately, you can specify specific files to run:</p>
+
+<pre class="code shell"><code class="shell">bundle exec maze-runner features/something.feature
+</code></pre>
+
+<p>Add the <code>--verbose</code> option to print script output and a trace of what Ruby file is being run.</p>
+
+<h2 id="troubleshooting">Troubleshooting</h2>
+
+<h3 id="logging">Logging</h3>
+
+<p>Maze-runner contains a Ruby logger connected to <code>STDOUT</code> that will attempt to log several events that occur during the 
+testing life-cycle.  By default, the logger is set to report <code>INFO</code> level events or higher, but will log <code>DEBUG</code> level 
+events if the <code>VERBOSE</code> or <code>DEBUG</code> flags are set.  If the <code>QUIET</code> flag is set it will instead log at the <code>ERROR</code> level 
+and above.</p>
+
+<table><thead>
+<tr>
+<th>Log Level</th>
+<th>Event</th>
+<th>Information</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>DEBUG</code></td>
+<td>An error occurs when attempting to open a URL</td>
+<td>The error information</td>
+</tr>
+<tr>
+<td><code>DEBUG</code></td>
+<td>When a command is run</td>
+<td>The command string, any <code>STDOUT</code> and <code>STDERR</code> output, and the exit code</td>
+</tr>
+<tr>
+<td><code>DEBUG</code></td>
+<td>A request is received</td>
+<td>The request method, uri, headers and body</td>
+</tr>
+<tr>
+<td><code>WARN</code></td>
+<td>The server has not received the desired number of requests</td>
+<td>The array of received requests</td>
+</tr>
+<tr>
+<td><code>WARN</code></td>
+<td>Sleep steps are used</td>
+<td>A warning to avoid using sleep where possible</td>
+</tr>
+<tr>
+<td><code>WARN</code></td>
+<td>A Selenium <code>StaleElementReferenceError</code> occurs</td>
+<td>The error information</td>
+</tr>
+<tr>
+<td><code>WARN</code></td>
+<td>A run command fails</td>
+<td>The output from the command</td>
+</tr>
+<tr>
+<td><code>FATAL</code></td>
+<td>The webserver is not running at the start of a test</td>
+<td>Error notification before exiting</td>
+</tr>
+</tbody></table>
+
+<h3 id="known-issues">Known issues</h3>
+
+<ul>
+<li>Payload field matching for raw string values can be ambiguous when there is a possible regex match (e.g. when using 
+&quot;.&quot; as a part of an expected value without escaping it).</li>
+</ul>
+
+<h2 id="contributing">Contributing</h2>
+
+<p>If steps would be useful for different projects using maze-runner, add them to <code>lib/features/steps/</code>. If there are 
+useful helper functions, add them to <code>lib/features/support/*.rb</code>.</p>
 
 <h3 id="running-the-tests">Running the tests</h3>
 
-<p>Maze Runner uses test-unit and minunit to bootstrap itself and run the
-sample app suites in the test fixtures. Run <code>bundle exec rake</code> to run the suite.</p>
+<p>maze-runner uses test-unit and minunit to bootstrap itself and run the sample app suites in the test fixtures. 
+Run <code>bundle exec rake</code> to run the suite.</p>
 </div></div>
 
       <div id="footer">
-  Generated on Fri Nov 11 11:38:30 2022 by
+  Generated on Fri Nov 11 11:42:32 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-2.7.6).
 </div>

@@ -1,3 +1,9 @@
+# 6.27.0 - 2022/11/11
+
+## Enhancements
+
+- Add support for iOS 16 on BrowserStack [421](https://github.com/bugsnag/maze-runner/pull/421)
+
 # 6.26.1 - 2022/09/14
 
 ## Fixes

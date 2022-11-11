@@ -84,7 +84,7 @@ module Maze
               'ANDROID_4_4' => make_android_hash('Google Nexus 5', '4.4'),
 
               # iOS devices
-              'IOS_16_BETA' => make_ios_hash('iPhone 12 Pro Max', '16 Beta'),
+              'IOS_16' => make_ios_hash('iPhone 14', '16'),
               'IOS_15' => make_ios_hash('iPhone 11 Pro', '15'),
               'IOS_14' => make_ios_hash('iPhone 11', '14'),
               'IOS_13' => make_ios_hash('iPhone 8', '13'),

@@ -35,7 +35,19 @@ Feature: Setting different response codes
         And I discard the oldest error
         And the error payload field "second_code" equals "200"
 
-    Scenario: Server response code can be set for a specific conneciton type (504)
+    Scenario: Server response code can be set for multiple requests
+        Given I set the HTTP status code for the next requests to "501,502"
+        When I run the script "features/scripts/send_four_requests.rb" using ruby synchronously
+        And I wait to receive 4 errors
+        Then the error payload field "req" equals "first!"
+        And I discard the oldest error
+        And the error payload field "first_code" equals "501"
+        And I discard the oldest error
+        And the error payload field "second_code" equals "502"
+        And I discard the oldest error
+        And the error payload field "third_code" equals "200"
+
+    Scenario: Server response code can be set for a specific connection type (504)
         Given I set the HTTP status code for the next "OPTIONS" request to 504
         When I run the script "features/scripts/send_verbed_requests.rb" using ruby synchronously
         And I wait to receive 2 errors

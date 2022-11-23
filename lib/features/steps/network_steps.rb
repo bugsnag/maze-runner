@@ -12,15 +12,34 @@ end
 #
 # @step_input status_code [Integer] The status code to return
 When('I set the HTTP status code to {int}') do |status_code|
-  Maze::Server.status_code = status_code
+  Maze::Server.status_code_queue = [status_code].cycle
 end
 
 # Sets the HTTP status code to be used for the next request
 #
 # @step_input status_code [Integer] The status code to return
 When('I set the HTTP status code for the next request to {int}') do |status_code|
-  Maze::Server.reset_status_code = true
-  Maze::Server.status_code = status_code
+  Maze::Server.status_code_queue = create_defaulting_queue [status_code]
+end
+
+# Sets the HTTP status code to be used for the next set of requests
+#
+# @step_input status_codes [String] A comma separated list of status codes to return
+When('I set the HTTP status code for the next requests to {string}') do |status_codes|
+  codes = status_codes.split(',').map(&:strip)
+  Maze::Server.status_code_queue = create_defaulting_queue codes
+end
+
+def create_defaulting_queue(codes)
+  Enumerator.new do |yielder|
+    codes.each do |code|
+      yielder.yield code
+    end
+
+    loop do
+      yielder.yield Maze::Server::DEFAULT_STATUS_CODE
+    end
+  end
 end
 
 # Steps the HTTP status code to be used for all subsequent requests for a given connection type

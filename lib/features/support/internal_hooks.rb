@@ -98,9 +98,8 @@ After do |scenario|
   # Call any blocks registered by the client
   Maze.hooks.call_after scenario
 
-  # Make sure we reset to HTTP 200 return status after each scenario
-  Maze::Server.status_code = 200
-  Maze::Server.reset_status_code = false
+  # Default to HTTP 200 return status after each scenario
+  Maze::Server.status_code_queue = [Maze::Server::DEFAULT_STATUS_CODE].cycle
   Maze::Server.status_override_verb = nil
 
   # Similarly for the response delay

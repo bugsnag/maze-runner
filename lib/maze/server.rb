@@ -9,16 +9,14 @@ require_relative './request_list'
 module Maze
   # Receives and stores requests through a WEBrick HTTPServer
   class Server
+    DEFAULT_STATUS_CODE = 200
 
     class << self
-      # Allows overwriting of the server status code
-      attr_writer :status_code
+      # Allows overwriting of the server status code for one or more requests
+      attr_writer :status_code_queue
 
       # Allows indicating a particular verb for the overwritten status code
       attr_writer :status_override_verb
-
-      # Dictates if the status code should be reset after use
-      attr_writer :reset_status_code
 
       # Allows overwriting of the trace sampling probability
       attr_writer :sampling_probability
@@ -39,6 +37,8 @@ module Maze
       #
       # @return [Integer] The HTTP status code, defaults to 200
       def status_code(verb=nil)
+        return @status_code_queue.next
+
         if @status_override_verb
           override_status = @status_override_verb.eql?(verb)
         else
@@ -46,13 +46,13 @@ module Maze
         end
 
         if override_status
-          code = @status_code ||= 200
+          code = @status_code ||= DEFAULT_STATUS_CODE
           if reset_status_code
-            @status_code = 200
+            @status_code = DEFAULT_STATUS_CODE
             @status_override_verb = nil
           end
         else
-          code = 200
+          code = DEFAULT_STATUS_CODE
         end
         code
       end

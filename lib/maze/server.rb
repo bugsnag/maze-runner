@@ -9,15 +9,10 @@ require_relative './request_list'
 module Maze
   # Receives and stores requests through a WEBrick HTTPServer
   class Server
+    DEFAULT_HTTP_VERB = 'POST'
     DEFAULT_STATUS_CODE = 200
 
     class << self
-      # Allows overwriting of the server status code for one or more requests
-      attr_writer :status_code_generator
-
-      # Allows indicating a particular verb for the overwritten status code
-      attr_writer :status_override_verb
-
       # Allows overwriting of the trace sampling probability
       attr_writer :sampling_probability
 
@@ -33,29 +28,23 @@ module Maze
       # @return [String] The UUID attached to all command requests for this session
       attr_reader :command_uuid
 
+      def set_status_code_generator(generator, verb = DEFAULT_HTTP_VERB)
+        @generators ||= {}
+        @generators[verb] = generator
+      end
+
       # The intended HTTP status code on a successful request
       #
-      # @return [Integer] The HTTP status code, defaults to 200
-      def status_code(verb=nil)
-        # TODO deal with queue
-        return @status_code_generator.next
-
-        if @status_override_verb
-          override_status = @status_override_verb.eql?(verb)
-        else
-          override_status = true
-        end
-
-        if override_status
-          code = @status_code ||= DEFAULT_STATUS_CODE
-          if reset_status_code
-            @status_code = DEFAULT_STATUS_CODE
-            @status_override_verb = nil
-          end
-        else
-          code = DEFAULT_STATUS_CODE
-        end
-        code
+      # @param [String] verb HTTP verb for which the status code is wanted
+      #
+      # @return [Integer] The HTTP status code for the verb given
+      def status_code(verb)
+        generator = if @generators.has_key? verb
+                      @generators[verb]
+                    else
+                      @generators[DEFAULT_HTTP_VERB]
+                    end
+        generator.next
       end
 
       def sampling_probability

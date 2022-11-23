@@ -12,14 +12,14 @@ end
 #
 # @step_input status_code [Integer] The status code to return
 When('I set the HTTP status code to {int}') do |status_code|
-  Maze::Server.status_code_generator = Generator.new [status_code].cycle
+  Maze::Server.set_status_code_generator(Generator.new [status_code].cycle)
 end
 
 # Sets the HTTP status code to be used for the next request
 #
 # @step_input status_code [Integer] The status code to return
 When('I set the HTTP status code for the next request to {int}') do |status_code|
-  Maze::Server.status_code_generator = create_defaulting_generator [status_code]
+  Maze::Server.set_status_code_generator(create_defaulting_generator [status_code])
 end
 
 # Sets the HTTP status code to be used for the next set of requests
@@ -27,11 +27,31 @@ end
 # @step_input status_codes [String] A comma separated list of status codes to return
 When('I set the HTTP status code for the next requests to {string}') do |status_codes|
   codes = status_codes.split(',').map(&:strip)
-  Maze::Server.status_code_generator = create_defaulting_generator codes
+  Maze::Server.set_status_code_generator(create_defaulting_generator codes)
+end
+
+# Steps the HTTP status code to be used for all subsequent requests for a given connection type
+#
+# @step_input http_verb [String] The type of request this code will be used for
+# @step_input status_code [Integer] The status code to return
+When('I set the HTTP status code for {string} requests to {int}') do |http_verb, status_code|
+  allowed_verbs = %w[OPTIONS GET POST PUT DELETE HEAD TRACE PATCH CONNECT]
+  raise("Invalid HTTP verb: #{http_verb}") unless allowed_verbs.include?(http_verb)
+  Maze::Server.set_status_code_generator(Generator.new([status_code].cycle), http_verb)
+end
+
+# Steps the HTTP status code to be used for the next request for a given connection type
+#
+# @step_input http_verb [String] The type of request this code will be used for
+# @step_input status_code [Integer] The status code to return
+When('I set the HTTP status code for the next {string} request to {int}') do |http_verb, status_code|
+  allowed_verbs = %w[OPTIONS GET POST PUT DELETE HEAD TRACE PATCH CONNECT]
+  raise("Invalid HTTP verb: #{http_verb}") unless allowed_verbs.include?(http_verb)
+  Maze::Server.set_status_code_generator(create_defaulting_generator([status_code]), http_verb)
 end
 
 def create_defaulting_generator(codes)
-  Enumerator.new do |yielder|
+  enumerator = Enumerator.new do |yielder|
     codes.each do |code|
       yielder.yield code
     end
@@ -40,29 +60,7 @@ def create_defaulting_generator(codes)
       yielder.yield Maze::Server::DEFAULT_STATUS_CODE
     end
   end
-end
-
-# Steps the HTTP status code to be used for all subsequent requests for a given connection type
-#
-# @step_input http_verb [String] The type of request this code will be used for
-# @step_input status_code [Integer] The status code to return
-When('I set the HTTP status code for {string} requests to {int}') do |http_verb, status_code|
-  allowed_verbs = ['OPTIONS', 'GET', 'POST', 'PUT', 'DELETE', 'HEAD', 'TRACE', 'PATCH', 'CONNECT']
-  raise("Invalid HTTP verb: #{http_verb}") unless allowed_verbs.include?(http_verb)
-  Maze::Server.status_override_verb = http_verb
-  Maze::Server.status_code = status_code
-end
-
-# Steps the HTTP status code to be used for the next request for a given connection type
-#
-# @step_input http_verb [String] The type of request this code will be used for
-# @step_input status_code [Integer] The status code to return
-When('I set the HTTP status code for the next {string} request to {int}') do |http_verb, status_code|
-  allowed_verbs = ['OPTIONS', 'GET', 'POST', 'PUT', 'DELETE', 'HEAD', 'TRACE', 'PATCH', 'CONNECT']
-  raise("Invalid HTTP verb: #{http_verb}") unless allowed_verbs.include?(http_verb)
-  Maze::Server.status_override_verb = http_verb
-  Maze::Server.reset_status_code = true
-  Maze::Server.status_code = status_code
+  Generator.new enumerator
 end
 
 # Sets the sampling probability to be used for all subsequent trace responses

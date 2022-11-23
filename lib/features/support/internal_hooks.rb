@@ -45,6 +45,7 @@ BeforeAll do
 
   # Start mock server
   Maze::Server.start
+  Maze::Server.set_status_code_generator(Generator.new [Maze::Server::DEFAULT_STATUS_CODE].cycle)
 
   # Invoke the internal hook for the mode of operation
   Maze.internal_hooks.before_all
@@ -99,8 +100,7 @@ After do |scenario|
   Maze.hooks.call_after scenario
 
   # Default to HTTP 200 return status after each scenario
-  Maze::Server.status_code_generator = Generator.new [Maze::Server::DEFAULT_STATUS_CODE].cycle
-  Maze::Server.status_override_verb = nil
+  Maze::Server.set_status_code_generator(Generator.new [Maze::Server::DEFAULT_STATUS_CODE].cycle)
 
   # Similarly for the response delay
   Maze::Server.response_delay_ms = 0

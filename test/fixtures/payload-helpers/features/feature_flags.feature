@@ -2,6 +2,7 @@ Feature: Test feature flag steps work
 
     Scenario: Verify no feature flags found
         When I send a "no_feature_flags" feature-flag request
+        And I wait for 5 seconds
         Then I wait to receive an error
         # No featureFlags key
         And the event has no feature flags

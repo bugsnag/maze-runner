@@ -60,9 +60,12 @@ Feature: Testing support on traces endpoint
         And the trace payload field "array" is a non-empty array
 
     Scenario: The trace endpoint can identify a valid request
-        When I send a "valid" trace request
-        Then I wait to receive a trace
+        Given I set up the maze-harness console
+        And I input "bundle exec maze-runner --port=9349 features/passing_schema.feature" interactively
+        Then the last interactive command exit code is 0
 
-    Scenario: The trace endpoint can identify an invalid request
-        When I send a "invalid" trace request
-        Then I wait to receive a trace
+    # Currently the trace endpoint doesn't opperate with a proper schema, so this isn't a possible test
+    #Scenario: The trace endpoint can identify an invalid request
+    #    Given I set up the maze-harness console
+    #    And I input "bundle exec maze-runner --port=9349 features/failing_schema.feature" interactively
+    #    Then the last interactive command exit code is 1

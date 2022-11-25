@@ -1,8 +1,8 @@
 # 7.7.0 - 2022/11/TBD
 
 ## Enhancements
-
-- Allow HTTP response codes to be set for a series of requests [402](https://github.com/bugsnag/maze-runner/pull/402)
+  
+- Allow HTTP response codes to be set for a series of requests [424](https://github.com/bugsnag/maze-runner/pull/424)
 
 # 7.6.0 - 2022/11/11
 

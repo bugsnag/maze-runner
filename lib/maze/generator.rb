@@ -21,24 +21,6 @@ class Generator
     @queue.pop
   end
 
-  # # Set the enumerator used to generate values
-  # #
-  # # @param new_enumerator [Enumerator]
-  # # @return [void]
-  # def enumerator=(new_enumerator)
-  #   @semaphore.synchronize do
-  #     # Stop the current queue filler thread
-  #     @queue_filler.exit
-  #
-  #     # Create a new queue
-  #     @queue.close
-  #     @queue = SizedQueue.new(10) # replace the queue so we get a new empty one
-  #
-  #     # Create a new queue filler with the new enumerator
-  #     @queue_filler = create_queue_filler(new_enumerator)
-  #   end
-  # end
-
   private
 
   # Create a thread that will constantly append to @queue with values from the

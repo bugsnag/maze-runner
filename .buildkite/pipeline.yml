@@ -191,6 +191,9 @@ steps:
     concurrency: 24
     concurrency_group: 'browserstack-app'
     concurrency_method: eager
+    # PLAT-9240: Soft fail pending resolution of BrowserStack secure tunnel outage
+    soft_fail:
+      - exit_status: 1
 
   - label: 'BrowserStack app-automate - Android 13 - W3C'
     timeout_in_minutes: 20

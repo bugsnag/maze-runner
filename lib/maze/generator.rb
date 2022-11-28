@@ -16,15 +16,20 @@ module Maze
       end
     end
 
-    # Get the next value
-    #
     # @return The next value
     def next
       @queue.pop
     end
 
+    # @return Whether the internal queue is empty
     def empty?
       @queue.empty?
+    end
+
+    # Cleans up resources used by the generator
+    def close
+      @queue_filler.exit
+      @queue.close
     end
 
     private

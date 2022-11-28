@@ -35,10 +35,12 @@ module Maze
       def set_status_code_generator(generator, verb = nil)
         @generators ||= {}
         if verb.nil?
-          ALLOWED_HTTP_VERBS.each do |verb|
-            @generators[verb] = generator
+          ALLOWED_HTTP_VERBS.each do |allowed_verb|
+            @generators[allowed_verb]&.close
+            @generators[allowed_verb] = generator
           end
         else
+          @generators[verb]&.close
           @generators[verb] = generator
         end
       end
@@ -64,10 +66,6 @@ module Maze
 
       def reset_sampling_probability
         @reset_sampling_probability ||= false
-      end
-
-      def reset_status_code
-        @reset_status_code ||= false
       end
 
       def response_delay_ms

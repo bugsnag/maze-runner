@@ -24,6 +24,7 @@ module Maze
       $logger = @logger_mock
       Maze.config.bind_address = nil
       Maze.config.port = PORT
+      Maze::Server.reset!
     end
 
     def test_start_cleanily_configured_bind_address
@@ -181,6 +182,33 @@ module Maze
       assert_equal values[2], Maze::Server.status_code('PUT')
 
       # Default code is given once the list is empty
+      assert_equal Maze::Server::DEFAULT_STATUS_CODE, Maze::Server.status_code('OPTIONS')
+      assert_equal Maze::Server::DEFAULT_STATUS_CODE, Maze::Server.status_code('PUT')
+      assert_equal Maze::Server::DEFAULT_STATUS_CODE, Maze::Server.status_code('POST')
+    end
+
+    def test_set_status_code_generator_combined
+      generic_values = [401, 402, 403, 404, 405, 406]
+      Maze::Server.set_status_code_generator(Maze::Generator.new(generic_values.to_enum))
+
+      # Values for OPTIONS are returned in turn no matter which verb is used
+      assert_equal generic_values[0], Maze::Server.status_code('OPTIONS')
+      assert_equal generic_values[1], Maze::Server.status_code('POST')
+
+      # Now replace the generator for PUT only
+      specific_values = [501, 502]
+      Maze::Server.set_status_code_generator(Maze::Generator.new(specific_values.to_enum), 'PUT')
+
+      # PUT now uses a different list while others carry on
+      assert_equal specific_values[0], Maze::Server.status_code('PUT')
+      assert_equal specific_values[1], Maze::Server.status_code('PUT')
+
+      assert_equal generic_values[2], Maze::Server.status_code('POST')
+      assert_equal generic_values[3], Maze::Server.status_code('POST')
+      assert_equal generic_values[4], Maze::Server.status_code('DELETE')
+      assert_equal generic_values[5], Maze::Server.status_code('POST')
+
+      # Default code is given once the lists are empty
       assert_equal Maze::Server::DEFAULT_STATUS_CODE, Maze::Server.status_code('OPTIONS')
       assert_equal Maze::Server::DEFAULT_STATUS_CODE, Maze::Server.status_code('PUT')
       assert_equal Maze::Server::DEFAULT_STATUS_CODE, Maze::Server.status_code('POST')

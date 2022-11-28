@@ -239,6 +239,18 @@ module Maze
         @thread&.kill if @thread&.alive?
         @thread = nil
       end
+
+      def reset!
+        Maze::Server.errors.clear
+        Maze::Server.sessions.clear
+        Maze::Server.builds.clear
+        Maze::Server.uploads.clear
+        Maze::Server.sourcemaps.clear
+        Maze::Server.traces.clear
+        Maze::Server.logs.clear
+        Maze::Server.invalid_requests.clear
+        @generators&.values&.each { |generator| generator.close }
+      end
     end
   end
 end

@@ -144,14 +144,7 @@ After do |scenario|
 ensure
   # Request arrays in particular are cleared here, rather than in the Before hook, to allow requests to be registered
   # when a test fixture starts (which can be before the first Before scenario hook fires).
-  Maze::Server.errors.clear
-  Maze::Server.sessions.clear
-  Maze::Server.builds.clear
-  Maze::Server.uploads.clear
-  Maze::Server.sourcemaps.clear
-  Maze::Server.traces.clear
-  Maze::Server.logs.clear
-  Maze::Server.invalid_requests.clear
+  Maze::Server.reset!
   Maze::Runner.environment.clear
   Maze::Store.values.clear
   Maze::Aws::Sam.reset!

@@ -3,6 +3,8 @@
 require 'cucumber'
 require 'test_helper'
 require 'webrick'
+require_relative '../lib/maze'
+require_relative '../lib/maze/generator'
 require_relative '../lib/maze/servlets/base_servlet'
 require_relative '../lib/maze/servlets/servlet'
 require_relative '../lib/maze/servlets/command_servlet'
@@ -150,6 +152,17 @@ module Maze
       assert_raise RuntimeError do
         Maze::Server.start
       end
+    end
+
+    def test_set_status_code_generator_specific_verb
+      values = [401, 402, 403]
+      Maze::Server.set_status_code_generator(Maze::Generator.new(values.to_enum), 'OPTIONS')
+
+      assert_equal Maze::Server::DEFAULT_STATUS_CODE, Maze::Server.status_code('POST')
+      assert_equal values[0], Maze::Server.status_code('OPTIONS')
+      assert_equal values[1], Maze::Server.status_code('OPTIONS')
+      assert_equal values[2], Maze::Server.status_code('OPTIONS')
+      assert_equal Maze::Server::DEFAULT_STATUS_CODE, Maze::Server.status_code('OPTIONS')
     end
   end
 end

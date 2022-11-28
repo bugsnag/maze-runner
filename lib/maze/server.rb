@@ -9,7 +9,7 @@ require_relative './request_list'
 module Maze
   # Receives and stores requests through a WEBrick HTTPServer
   class Server
-    DEFAULT_HTTP_VERB = 'POST'
+    ALLOWED_HTTP_VERBS = %w[OPTIONS GET POST PUT DELETE HEAD TRACE PATCH CONNECT]
     DEFAULT_STATUS_CODE = 200
 
     class << self
@@ -28,9 +28,19 @@ module Maze
       # @return [String] The UUID attached to all command requests for this session
       attr_reader :command_uuid
 
-      def set_status_code_generator(generator, verb = DEFAULT_HTTP_VERB)
+      # Sets the status code generator for the HTTP verb given.  If no verb is given then the
+      # generator will be shared across all allowable HTTP verbs.
+      #
+      # @param verb [String] HTTP verb
+      def set_status_code_generator(generator, verb = nil)
         @generators ||= {}
-        @generators[verb] = generator
+        if verb.nil?
+          ALLOWED_HTTP_VERBS.each do |verb|
+            @generators[verb] = generator
+          end
+        else
+          @generators[verb] = generator
+        end
       end
 
       # The intended HTTP status code on a successful request
@@ -39,12 +49,11 @@ module Maze
       #
       # @return [Integer] The HTTP status code for the verb given
       def status_code(verb)
-        generator = if @generators.has_key? verb
-                      @generators[verb]
-                    else
-                      @generators[DEFAULT_HTTP_VERB]
-                    end
-        generator.next
+        if @generators[verb].nil? || @generators[verb].empty?
+          DEFAULT_STATUS_CODE
+        else
+          @generators[verb].next
+        end
       end
 
       def sampling_probability

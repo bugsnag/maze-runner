@@ -35,7 +35,7 @@ module Maze
 
       # The intended HTTP status code on a successful request
       #
-      # @param [String] verb HTTP verb for which the status code is wanted
+      # @param verb [String] HTTP verb for which the status code is wanted
       #
       # @return [Integer] The HTTP status code for the verb given
       def status_code(verb)

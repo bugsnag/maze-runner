@@ -57,7 +57,7 @@ Feature: Setting different response codes
         And the error payload field "first_post_code" equals "200"
         And the error payload field "second_options_code" equals "200"
 
-    Scenario: Server response code can be set for all subsequent instances of a  specific conneciton type (505)
+    Scenario: Server response code can be set for all subsequent instances of a  specific connection type (505)
         Given I set the HTTP status code for "OPTIONS" requests to 505
         When I run the script "features/scripts/send_verbed_requests.rb" using ruby synchronously
         And I wait to receive 2 errors

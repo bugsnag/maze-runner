@@ -158,11 +158,32 @@ module Maze
       values = [401, 402, 403]
       Maze::Server.set_status_code_generator(Maze::Generator.new(values.to_enum), 'OPTIONS')
 
+      # Other verbs use the default status code
       assert_equal Maze::Server::DEFAULT_STATUS_CODE, Maze::Server.status_code('POST')
+      assert_equal Maze::Server::DEFAULT_STATUS_CODE, Maze::Server.status_code('PUT')
+
+      # Values for OPTIONS are returned in turn
       assert_equal values[0], Maze::Server.status_code('OPTIONS')
       assert_equal values[1], Maze::Server.status_code('OPTIONS')
       assert_equal values[2], Maze::Server.status_code('OPTIONS')
+
+      # Default code is given for OPTIONS once the list is empty
       assert_equal Maze::Server::DEFAULT_STATUS_CODE, Maze::Server.status_code('OPTIONS')
+    end
+
+    def test_set_status_code_generator_all_verbs
+      values = [401, 402, 403]
+      Maze::Server.set_status_code_generator(Maze::Generator.new(values.to_enum))
+
+      # Values for OPTIONS are returned in turn no matter which verb is used
+      assert_equal values[0], Maze::Server.status_code('OPTIONS')
+      assert_equal values[1], Maze::Server.status_code('POST')
+      assert_equal values[2], Maze::Server.status_code('PUT')
+
+      # Default code is given once the list is empty
+      assert_equal Maze::Server::DEFAULT_STATUS_CODE, Maze::Server.status_code('OPTIONS')
+      assert_equal Maze::Server::DEFAULT_STATUS_CODE, Maze::Server.status_code('PUT')
+      assert_equal Maze::Server::DEFAULT_STATUS_CODE, Maze::Server.status_code('POST')
     end
   end
 end

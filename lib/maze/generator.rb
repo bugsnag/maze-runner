@@ -11,8 +11,9 @@ module Maze
       # the same thread
       @queue_filler = create_queue_filler(enumerator)
 
-      # a mutex to guard against multiple threads replacing the enumerator at once
-      @semaphore = Thread::Mutex.new
+      while @queue.empty? && enumerator.size != 0
+        # Wait for the queue to start filling
+      end
     end
 
     # Get the next value

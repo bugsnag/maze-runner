@@ -34,14 +34,12 @@ module Maze
       # @param verb [String] HTTP verb
       def set_status_code_generator(generator, verb = nil)
         @generators ||= {}
-        if verb.nil?
-          ALLOWED_HTTP_VERBS.each do |allowed_verb|
-            @generators[allowed_verb]&.close
-            @generators[allowed_verb] = generator
-          end
-        else
-          @generators[verb]&.close
+        Array(verb || ALLOWED_HTTP_VERBS).each do |verb|
+          old = @generators[verb]
           @generators[verb] = generator
+
+          # Close the old generator unless it's still being used by another verb
+          old&.close unless @generators.value?(old)
         end
       end
 

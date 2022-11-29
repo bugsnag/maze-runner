@@ -11,7 +11,7 @@ PATH
   specs:
     bugsnag-maze-runner (7.8.0)
       appium_lib (~> 12.0)
-      appium_lib_core (~> 5.4.0)
+      appium_lib_core (~> 5.5.0)
       bugsnag (~> 6.24)
       cucumber (~> 7.1)
       cucumber-expressions (~> 6.0.0)

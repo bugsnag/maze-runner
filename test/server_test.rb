@@ -155,9 +155,23 @@ module Maze
       end
     end
 
+    def create_defaulting_generator(codes)
+      enumerator = Enumerator.new do |yielder|
+        codes.each do |code|
+          yielder.yield code
+        end
+
+        loop do
+          yielder.yield Maze::Server::DEFAULT_STATUS_CODE
+        end
+      end
+      Maze::Generator.new enumerator
+    end
+
     def test_set_status_code_generator_specific_verb
       values = [401, 402, 403]
-      Maze::Server.set_status_code_generator(Maze::Generator.new(values.to_enum), 'OPTIONS')
+      generator = create_defaulting_generator(values)
+      Maze::Server.set_status_code_generator(generator, 'OPTIONS')
 
       # Other verbs use the default status code
       assert_equal Maze::Server::DEFAULT_STATUS_CODE, Maze::Server.status_code('POST')
@@ -174,7 +188,8 @@ module Maze
 
     def test_set_status_code_generator_all_verbs
       values = [401, 402, 403]
-      Maze::Server.set_status_code_generator(Maze::Generator.new(values.to_enum))
+      generator = create_defaulting_generator(values)
+      Maze::Server.set_status_code_generator(generator)
 
       # Values for OPTIONS are returned in turn no matter which verb is used
       assert_equal values[0], Maze::Server.status_code('OPTIONS')
@@ -189,7 +204,8 @@ module Maze
 
     def test_set_status_code_generator_combined
       generic_values = [401, 402, 403, 404, 405, 406]
-      Maze::Server.set_status_code_generator(Maze::Generator.new(generic_values.to_enum))
+      generator = create_defaulting_generator(generic_values)
+      Maze::Server.set_status_code_generator(generator)
 
       # Values for OPTIONS are returned in turn no matter which verb is used
       assert_equal generic_values[0], Maze::Server.status_code('OPTIONS')
@@ -197,7 +213,8 @@ module Maze
 
       # Now replace the generator for PUT only
       specific_values = [501, 502]
-      Maze::Server.set_status_code_generator(Maze::Generator.new(specific_values.to_enum), 'PUT')
+      generator = create_defaulting_generator(specific_values)
+      Maze::Server.set_status_code_generator(generator, 'PUT')
 
       # PUT now uses a different list while others carry on
       assert_equal specific_values[0], Maze::Server.status_code('PUT')

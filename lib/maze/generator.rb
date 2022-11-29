@@ -21,9 +21,9 @@ module Maze
       @queue.pop
     end
 
-    # @return Whether the internal queue is empty
-    def empty?
-      @queue.empty?
+    # @return Whether the generator has been closed
+    def closed?
+      @queue.closed?
     end
 
     # Cleans up resources used by the generator

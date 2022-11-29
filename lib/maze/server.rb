@@ -49,7 +49,7 @@ module Maze
       #
       # @return [Integer] The HTTP status code for the verb given
       def status_code(verb)
-        if @generators[verb].nil? || @generators[verb].empty?
+        if @generators[verb].nil? || @generators[verb].closed?
           DEFAULT_STATUS_CODE
         else
           @generators[verb].next

@@ -19,7 +19,7 @@ end
 #
 # @step_input status_code [Integer] The status code to return
 When('I set the HTTP status code for the next request to {int}') do |status_code|
-  Maze::Server.set_status_code_generator(create_defaulting_generator [status_code])
+  Maze::Server.set_status_code_generator(create_defaulting_generator([status_code], Maze::Server::DEFAULT_STATUS_CODE))
 end
 
 # Sets the HTTP status code to be used for the next set of requests
@@ -27,7 +27,7 @@ end
 # @step_input status_codes [String] A comma separated list of status codes to return
 When('I set the HTTP status code for the next requests to {string}') do |status_codes|
   codes = status_codes.split(',').map(&:strip)
-  Maze::Server.set_status_code_generator(create_defaulting_generator codes)
+  Maze::Server.set_status_code_generator(create_defaulting_generator(codes, Maze::Server::DEFAULT_STATUS_CODE))
 end
 
 # Steps the HTTP status code to be used for all subsequent requests for a given connection type
@@ -45,35 +45,42 @@ end
 # @step_input status_code [Integer] The status code to return
 When('I set the HTTP status code for the next {string} request to {int}') do |http_verb, status_code|
   raise("Invalid HTTP verb: #{http_verb}") unless Maze::Server::ALLOWED_HTTP_VERBS.include?(http_verb)
-  Maze::Server.set_status_code_generator(create_defaulting_generator([status_code]), http_verb)
-end
-
-def create_defaulting_generator(codes)
-  enumerator = Enumerator.new do |yielder|
-    codes.each do |code|
-      yielder.yield code
-    end
-
-    loop do
-      yielder.yield Maze::Server::DEFAULT_STATUS_CODE
-    end
-  end
-  Maze::Generator.new enumerator
+  Maze::Server.set_status_code_generator(create_defaulting_generator([status_code], Maze::Server::DEFAULT_STATUS_CODE), http_verb)
 end
 
 # Sets the sampling probability to be used for all subsequent trace responses
 #
 # @step_input sampling_probability [String] The sampling probability to return
 When('I set the sampling probability to {string}') do |sampling_probability|
-  Maze::Server.sampling_probability = sampling_probability
+  Maze::Server.set_sampling_probability_generator(Maze::Generator.new [sampling_probability].cycle)
 end
 
 # Sets the sampling probability to be used for the next trace responses
 #
 # @step_input status_code [Integer] The status code to return
 When('I set the sampling probability for the next trace to {string}') do |sampling_probability|
-  Maze::Server.reset_sampling_probability = true
-  Maze::Server.sampling_probability = sampling_probability
+  Maze::Server.set_sampling_probability_generator(create_defaulting_generator([sampling_probability], Maze::Server::DEFAULT_SAMPLING_PROBABILITY))
+end
+
+# Sets the sampling probability to be used for the next set of trace requests
+#
+# @step_input sampling_probability [String] A comma separated list of values to use, with "null" used to omit the header
+When('I set the sampling probability for the next traces to {string}') do |status_codes|
+  codes = status_codes.split(',').map(&:strip)
+  Maze::Server.set_sampling_probability_generator(create_defaulting_generator(codes, Maze::Server::DEFAULT_SAMPLING_PROBABILITY))
+end
+
+def create_defaulting_generator(codes, default)
+  enumerator = Enumerator.new do |yielder|
+    codes.each do |code|
+      yielder.yield code
+    end
+
+    loop do
+      yielder.yield default
+    end
+  end
+  Maze::Generator.new enumerator
 end
 
 # Sets the response delay to be used for all subsequent requests

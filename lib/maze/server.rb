@@ -10,15 +10,10 @@ module Maze
   # Receives and stores requests through a WEBrick HTTPServer
   class Server
     ALLOWED_HTTP_VERBS = %w[OPTIONS GET POST PUT DELETE HEAD TRACE PATCH CONNECT]
+    DEFAULT_SAMPLING_PROBABILITY = 1
     DEFAULT_STATUS_CODE = 200
 
     class << self
-      # Allows overwriting of the trace sampling probability
-      attr_writer :sampling_probability
-
-      # Dictates if the probability should be reset after use
-      attr_writer :reset_sampling_probability
-
       # Allows a delay in milliseconds before responding to HTTP requests to be set
       attr_writer :response_delay_ms
 
@@ -28,18 +23,27 @@ module Maze
       # @return [String] The UUID attached to all command requests for this session
       attr_reader :command_uuid
 
+      # Sets the sampling probability generator.
+      #
+      # @param generator [Maze::Generator] The new generator
+      def set_sampling_probability_generator(generator)
+        @sampling_probability_generator&.close
+        @sampling_probability_generator = generator
+      end
+
       # Sets the status code generator for the HTTP verb given.  If no verb is given then the
       # generator will be shared across all allowable HTTP verbs.
       #
+      # @param generator [Maze::Generator] The new generator
       # @param verb [String] HTTP verb
       def set_status_code_generator(generator, verb = nil)
-        @generators ||= {}
+        @status_code_generators ||= {}
         Array(verb || ALLOWED_HTTP_VERBS).each do |verb|
-          old = @generators[verb]
-          @generators[verb] = generator
+          old = @status_code_generators[verb]
+          @status_code_generators[verb] = generator
 
           # Close the old generator unless it's still being used by another verb
-          old&.close unless @generators.value?(old)
+          old&.close unless @status_code_generators.value?(old)
         end
       end
 
@@ -49,21 +53,15 @@ module Maze
       #
       # @return [Integer] The HTTP status code for the verb given
       def status_code(verb)
-        if @generators[verb].nil? || @generators[verb].closed?
+        if @status_code_generators[verb].nil? || @status_code_generators[verb].closed?
           DEFAULT_STATUS_CODE
         else
-          @generators[verb].next
+          @status_code_generators[verb].next
         end
       end
 
       def sampling_probability
-        probability = @sampling_probability ||= '1'
-        @sampling_probability = '1' if reset_sampling_probability
-        probability
-      end
-
-      def reset_sampling_probability
-        @reset_sampling_probability ||= false
+        @sampling_probability_generator.next
       end
 
       def response_delay_ms
@@ -255,6 +253,10 @@ module Maze
         logs.clear
         invalid_requests.clear
       end
+
+      private
+
+      attr_writer :sampling_probability_generator
     end
   end
 end

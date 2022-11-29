@@ -239,8 +239,9 @@ module Maze
       end
 
       def reset!
-        # Default to HTTP 200 return status after each scenario
-        set_status_code_generator(Maze::Generator.new [Maze::Server::DEFAULT_STATUS_CODE].cycle)
+        # Reset generators
+        set_status_code_generator(Maze::Generator.new [DEFAULT_STATUS_CODE].cycle)
+        set_sampling_probability_generator(Maze::Generator.new [DEFAULT_SAMPLING_PROBABILITY].cycle)
 
         @response_delay_ms = 0
         @reset_response_delay = false

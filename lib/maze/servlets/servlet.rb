@@ -84,7 +84,7 @@ module Maze
         end
       rescue StandardError => e
         if Maze.config.captured_invalid_requests.include? @request_type
-          $logger.error "Invalid request: #{e.message}: #{e.backtrace.join '\n'}"
+          $logger.error "Invalid request: #{e.message}"
           Server.invalid_requests.add({
             invalid: true,
             reason: e.message,

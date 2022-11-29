@@ -3,6 +3,8 @@
 require 'cucumber'
 require 'test_helper'
 require 'webrick'
+require_relative '../lib/maze'
+require_relative '../lib/maze/generator'
 require_relative '../lib/maze/servlets/base_servlet'
 require_relative '../lib/maze/servlets/servlet'
 require_relative '../lib/maze/servlets/command_servlet'
@@ -22,6 +24,7 @@ module Maze
       $logger = @logger_mock
       Maze.config.bind_address = nil
       Maze.config.port = PORT
+      Maze::Server.reset!
     end
 
     def test_start_cleanily_configured_bind_address
@@ -150,6 +153,82 @@ module Maze
       assert_raise RuntimeError do
         Maze::Server.start
       end
+    end
+
+    def create_defaulting_generator(codes)
+      enumerator = Enumerator.new do |yielder|
+        codes.each do |code|
+          yielder.yield code
+        end
+
+        loop do
+          yielder.yield Maze::Server::DEFAULT_STATUS_CODE
+        end
+      end
+      Maze::Generator.new enumerator
+    end
+
+    def test_set_status_code_generator_specific_verb
+      values = [401, 402, 403]
+      generator = create_defaulting_generator(values)
+      Maze::Server.set_status_code_generator(generator, 'OPTIONS')
+
+      # Other verbs use the default status code
+      assert_equal Maze::Server::DEFAULT_STATUS_CODE, Maze::Server.status_code('POST')
+      assert_equal Maze::Server::DEFAULT_STATUS_CODE, Maze::Server.status_code('PUT')
+
+      # Values for OPTIONS are returned in turn
+      assert_equal values[0], Maze::Server.status_code('OPTIONS')
+      assert_equal values[1], Maze::Server.status_code('OPTIONS')
+      assert_equal values[2], Maze::Server.status_code('OPTIONS')
+
+      # Default code is given for OPTIONS once the list is empty
+      assert_equal Maze::Server::DEFAULT_STATUS_CODE, Maze::Server.status_code('OPTIONS')
+    end
+
+    def test_set_status_code_generator_all_verbs
+      values = [401, 402, 403]
+      generator = create_defaulting_generator(values)
+      Maze::Server.set_status_code_generator(generator)
+
+      # Values for OPTIONS are returned in turn no matter which verb is used
+      assert_equal values[0], Maze::Server.status_code('OPTIONS')
+      assert_equal values[1], Maze::Server.status_code('POST')
+      assert_equal values[2], Maze::Server.status_code('PUT')
+
+      # Default code is given once the list is empty
+      assert_equal Maze::Server::DEFAULT_STATUS_CODE, Maze::Server.status_code('OPTIONS')
+      assert_equal Maze::Server::DEFAULT_STATUS_CODE, Maze::Server.status_code('PUT')
+      assert_equal Maze::Server::DEFAULT_STATUS_CODE, Maze::Server.status_code('POST')
+    end
+
+    def test_set_status_code_generator_combined
+      generic_values = [401, 402, 403, 404, 405, 406]
+      generator = create_defaulting_generator(generic_values)
+      Maze::Server.set_status_code_generator(generator)
+
+      # Values for OPTIONS are returned in turn no matter which verb is used
+      assert_equal generic_values[0], Maze::Server.status_code('OPTIONS')
+      assert_equal generic_values[1], Maze::Server.status_code('POST')
+
+      # Now replace the generator for PUT only
+      specific_values = [501, 502]
+      generator = create_defaulting_generator(specific_values)
+      Maze::Server.set_status_code_generator(generator, 'PUT')
+
+      # PUT now uses a different list while others carry on
+      assert_equal specific_values[0], Maze::Server.status_code('PUT')
+      assert_equal specific_values[1], Maze::Server.status_code('PUT')
+
+      assert_equal generic_values[2], Maze::Server.status_code('POST')
+      assert_equal generic_values[3], Maze::Server.status_code('POST')
+      assert_equal generic_values[4], Maze::Server.status_code('DELETE')
+      assert_equal generic_values[5], Maze::Server.status_code('POST')
+
+      # Default code is given once the lists are empty
+      assert_equal Maze::Server::DEFAULT_STATUS_CODE, Maze::Server.status_code('OPTIONS')
+      assert_equal Maze::Server::DEFAULT_STATUS_CODE, Maze::Server.status_code('PUT')
+      assert_equal Maze::Server::DEFAULT_STATUS_CODE, Maze::Server.status_code('POST')
     end
   end
 end

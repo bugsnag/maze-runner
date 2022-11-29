@@ -9,17 +9,10 @@ require_relative './request_list'
 module Maze
   # Receives and stores requests through a WEBrick HTTPServer
   class Server
+    ALLOWED_HTTP_VERBS = %w[OPTIONS GET POST PUT DELETE HEAD TRACE PATCH CONNECT]
+    DEFAULT_STATUS_CODE = 200
 
     class << self
-      # Allows overwriting of the server status code
-      attr_writer :status_code
-
-      # Allows indicating a particular verb for the overwritten status code
-      attr_writer :status_override_verb
-
-      # Dictates if the status code should be reset after use
-      attr_writer :reset_status_code
-
       # Allows overwriting of the trace sampling probability
       attr_writer :sampling_probability
 
@@ -35,26 +28,32 @@ module Maze
       # @return [String] The UUID attached to all command requests for this session
       attr_reader :command_uuid
 
+      # Sets the status code generator for the HTTP verb given.  If no verb is given then the
+      # generator will be shared across all allowable HTTP verbs.
+      #
+      # @param verb [String] HTTP verb
+      def set_status_code_generator(generator, verb = nil)
+        @generators ||= {}
+        Array(verb || ALLOWED_HTTP_VERBS).each do |verb|
+          old = @generators[verb]
+          @generators[verb] = generator
+
+          # Close the old generator unless it's still being used by another verb
+          old&.close unless @generators.value?(old)
+        end
+      end
+
       # The intended HTTP status code on a successful request
       #
-      # @return [Integer] The HTTP status code, defaults to 200
-      def status_code(verb=nil)
-        if @status_override_verb
-          override_status = @status_override_verb.eql?(verb)
+      # @param verb [String] HTTP verb for which the status code is wanted
+      #
+      # @return [Integer] The HTTP status code for the verb given
+      def status_code(verb)
+        if @generators[verb].nil? || @generators[verb].closed?
+          DEFAULT_STATUS_CODE
         else
-          override_status = true
+          @generators[verb].next
         end
-
-        if override_status
-          code = @status_code ||= 200
-          if reset_status_code
-            @status_code = 200
-            @status_override_verb = nil
-          end
-        else
-          code = 200
-        end
-        code
       end
 
       def sampling_probability
@@ -65,10 +64,6 @@ module Maze
 
       def reset_sampling_probability
         @reset_sampling_probability ||= false
-      end
-
-      def reset_status_code
-        @reset_status_code ||= false
       end
 
       def response_delay_ms
@@ -243,6 +238,22 @@ module Maze
       def stop
         @thread&.kill if @thread&.alive?
         @thread = nil
+      end
+
+      def reset!
+        # Default to HTTP 200 return status after each scenario
+        set_status_code_generator(Maze::Generator.new [Maze::Server::DEFAULT_STATUS_CODE].cycle)
+
+        @response_delay_ms = 0
+        @reset_response_delay = false
+        errors.clear
+        sessions.clear
+        builds.clear
+        uploads.clear
+        sourcemaps.clear
+        traces.clear
+        logs.clear
+        invalid_requests.clear
       end
     end
   end

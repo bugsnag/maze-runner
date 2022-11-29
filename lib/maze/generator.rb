@@ -43,11 +43,11 @@ module Maze
       # By passing the enumerator as an argument to Thread.new, it creates a copy
       # local to that thread and therefore we're not sharing an enumerator across
       # threads
-      Thread.new(enumerator) do |status_code_generator|
+      Thread.new(enumerator) do |inner|
         loop do
           # Add to the queue until it fills up, this will then block until there's
           # room in the queue again
-          @queue << status_code_generator.next
+          @queue << inner.next
         end
       end
     end

@@ -241,10 +241,6 @@ module Maze
       end
 
       def reset!
-        # Default to HTTP 200 return status after each scenario
-        set_status_code_generator(Maze::Generator.new [Maze::Server::DEFAULT_STATUS_CODE].cycle)
-
-        # Similarly for the response delay
         @response_delay_ms = 0
         @reset_response_delay = false
         errors.clear
@@ -257,6 +253,9 @@ module Maze
         invalid_requests.clear
         @generators&.values.each(&:close)
         @generators = nil
+
+        # Default to HTTP 200 return status after each scenario
+        set_status_code_generator(Maze::Generator.new [Maze::Server::DEFAULT_STATUS_CODE].cycle)
       end
     end
   end

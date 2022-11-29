@@ -241,15 +241,22 @@ module Maze
       end
 
       def reset!
-        Maze::Server.errors.clear
-        Maze::Server.sessions.clear
-        Maze::Server.builds.clear
-        Maze::Server.uploads.clear
-        Maze::Server.sourcemaps.clear
-        Maze::Server.traces.clear
-        Maze::Server.logs.clear
-        Maze::Server.invalid_requests.clear
-        @generators&.values&.each { |generator| generator.close }
+        # Default to HTTP 200 return status after each scenario
+        set_status_code_generator(Maze::Generator.new [Maze::Server::DEFAULT_STATUS_CODE].cycle)
+
+        # Similarly for the response delay
+        @response_delay_ms = 0
+        @reset_response_delay = false
+        errors.clear
+        sessions.clear
+        builds.clear
+        uploads.clear
+        sourcemaps.clear
+        traces.clear
+        logs.clear
+        invalid_requests.clear
+        @generators&.values.each(&:close)
+        @generators = nil
       end
     end
   end

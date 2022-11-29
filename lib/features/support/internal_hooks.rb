@@ -99,13 +99,6 @@ After do |scenario|
   # Call any blocks registered by the client
   Maze.hooks.call_after scenario
 
-  # Default to HTTP 200 return status after each scenario
-  Maze::Server.set_status_code_generator(Maze::Generator.new [Maze::Server::DEFAULT_STATUS_CODE].cycle)
-
-  # Similarly for the response delay
-  Maze::Server.response_delay_ms = 0
-  Maze::Server.reset_response_delay = false
-
   # Stop document server if started by the Cucumber step
   Maze::DocumentServer.manual_stop
 

@@ -54,6 +54,21 @@ module Maze
         @services_started = true
       end
 
+      # Execute a command in an already running docker container. Use {start_service}
+      # to build and run the service before calling this method
+      #
+      # This is equivalent to the Docker Compose 'exec' command:
+      # https://docs.docker.com/engine/reference/commandline/compose_exec/
+      #
+      # @param service [String] The name of the service. This must already be running
+      # @param command [String] The command to run
+      # @param detach [Boolean] Optional. Whether to run detached
+      def exec(service, command, detach: false)
+        flags = detach ? " --detach" : ""
+
+        run_docker_compose_command("exec #{flags} #{service} /bin/sh -c '#{command}'")
+      end
+
       # Kills a running service
       #
       # @param service [String] The name of the service to kill

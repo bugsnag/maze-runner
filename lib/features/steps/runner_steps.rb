@@ -97,6 +97,14 @@ When('I run the service {string} with the command') do |service, command|
   Maze::Docker.start_service(service, command: one_line_cmd)
 end
 
+When('I execute the command {string} in the service {string}') do |command, service|
+  Maze::Docker.exec(service, command)
+end
+
+When('I execute the command {string} in the service {string} in the background') do |command, service|
+  Maze::Docker.exec(service, command, detach: true)
+end
+
 # Allows validation of the last exit code of the last run docker-compose command.
 # Will fail if no commands have been run.
 #

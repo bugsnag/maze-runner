@@ -10,6 +10,11 @@ services:
       context: interactive
     restart: "no"
 
+  sleepy:
+    build:
+      context: sleepy
+    restart: "no"
+
 networks:
   default:
     name: ${NETWORK_NAME:-core-maze-runner}

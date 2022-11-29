@@ -104,3 +104,14 @@ Feature: Running docker services and commands
         Then the last interactive command exit code is 127
         When I input "(exit 0)" interactively
         Then the last interactive command exited successfully
+
+    Scenario: Commands can be run with docker compose exec
+        Given I start the service "sleepy"
+        When I execute the command "echo hi there" in the service "sleepy"
+        Then the last run docker command output "hi there"
+
+    Scenario: Commands can be run with docker compose exec in the background
+        Given I start the service "sleepy"
+        When I execute the command "echo hello friend > greeting.txt" in the service "sleepy" in the background
+        And I execute the command "sleep 2 ; cat greeting.txt" in the service "sleepy"
+        Then the last run docker command output "hello friend"

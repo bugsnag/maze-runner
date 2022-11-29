@@ -29,8 +29,8 @@ Gem::Specification.new do |spec|
     spec.add_dependency 'selenium-webdriver', '~> 3.0'
   else
     puts 'Bundling W3C drivers (Selenium 4/Appium 12)'
-    spec.add_dependency 'appium_lib', '~> 12.0'
-    spec.add_dependency 'appium_lib_core', '~> 5.5.0'
+    spec.add_dependency 'appium_lib', '~> 12.0.0'
+    spec.add_dependency 'appium_lib_core', '~> 5.4.0'
     spec.add_dependency 'selenium-webdriver', '~> 4.0'
   end
 

@@ -30,7 +30,28 @@ Feature: Testing gzip support on traces endpoint
         And I send a "trace"-type request
         And I wait to receive a trace
         Then The HTTP response header "Bugsnag-Sampling-Probability" equals "1"
+        And I discard the oldest trace
 
+        # Sampling probability can be set for a series of trace requests, returning to the default
+        Then I set the sampling probability for the next traces to "0.7,null,0.2"
+        And I send a "trace"-type request
+        And I wait to receive a trace
+        Then The HTTP response header "Bugsnag-Sampling-Probability" equals "0.7"
+        And I discard the oldest trace
+
+        And I send a "trace"-type request
+        And I wait to receive a trace
+        Then The HTTP response header "Bugsnag-Sampling-Probability" is null
+        And I discard the oldest trace
+
+        And I send a "trace"-type request
+        And I wait to receive a trace
+        Then The HTTP response header "Bugsnag-Sampling-Probability" equals "0.2"
+        And I discard the oldest trace
+
+        And I send a "trace"-type request
+        And I wait to receive a trace
+        Then The HTTP response header "Bugsnag-Sampling-Probability" equals "1"
 
     Scenario: The traces endpoint can accept gzipped streams
         When I run the script "features/scripts/send_gzip.sh" synchronously

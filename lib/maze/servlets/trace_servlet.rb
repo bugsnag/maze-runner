@@ -5,8 +5,8 @@ module Maze
     class TraceServlet < Servlet
       def set_response_header(header)
         super
-
-        header['Bugsnag-Sampling-Probability'] = Maze::Server.sampling_probability
+        value = Maze::Server.sampling_probability
+        header['Bugsnag-Sampling-Probability'] =  value unless value == 'null'
       end
     end
   end

@@ -13,3 +13,7 @@ end
 When('The HTTP response header {string} equals {string}') do |header, value|
   Maze.check.equal value, $http_response[header]
 end
+
+When('The HTTP response header {string} is null') do |header|
+  Maze.check.false($http_response.key?(header))
+end

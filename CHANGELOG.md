@@ -1,8 +1,9 @@
-# 7.7.0 - 2022/11/TBD
+# 7.7.0 - 2022/11/30
 
 ## Enhancements
   
 - Allow HTTP response codes to be set for a series of requests [424](https://github.com/bugsnag/maze-runner/pull/424)
+- Allow sampling probability header to be set for a series of requests [426](https://github.com/bugsnag/maze-runner/pull/426)
 
 # 7.6.0 - 2022/11/11
 

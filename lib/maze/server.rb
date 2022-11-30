@@ -10,18 +10,21 @@ module Maze
   # Receives and stores requests through a WEBrick HTTPServer
   class Server
     ALLOWED_HTTP_VERBS = %w[OPTIONS GET POST PUT DELETE HEAD TRACE PATCH CONNECT]
+    DEFAULT_RESPONSE_DELAY = 0
     DEFAULT_SAMPLING_PROBABILITY = 1
     DEFAULT_STATUS_CODE = 200
 
     class << self
-      # Allows a delay in milliseconds before responding to HTTP requests to be set
-      attr_writer :response_delay_ms
-
-      # Dictates if the response delay should be reset after use
-      attr_writer :reset_response_delay
-
       # @return [String] The UUID attached to all command requests for this session
       attr_reader :command_uuid
+
+      # Sets the response delay generator.
+      #
+      # @param generator [Maze::Generator] The new generator
+      def set_response_delay_generator(generator)
+        @response_delay_generator&.close
+        @response_delay_generator = generator
+      end
 
       # Sets the sampling probability generator.
       #
@@ -65,13 +68,7 @@ module Maze
       end
 
       def response_delay_ms
-        delay = @response_delay_ms ||= 0
-        @response_delay_ms = 0 if reset_response_delay
-        delay
-      end
-
-      def reset_response_delay
-        @reset_response_delay ||= false
+        @response_delay_generator.next
       end
 
       # Provides dynamic access to request lists by name
@@ -240,11 +237,11 @@ module Maze
 
       def reset!
         # Reset generators
+        set_response_delay_generator(Maze::Generator.new [DEFAULT_RESPONSE_DELAY].cycle)
         set_status_code_generator(Maze::Generator.new [DEFAULT_STATUS_CODE].cycle)
         set_sampling_probability_generator(Maze::Generator.new [DEFAULT_SAMPLING_PROBABILITY].cycle)
 
-        @response_delay_ms = 0
-        @reset_response_delay = false
+        # Clear request lists
         errors.clear
         sessions.clear
         builds.clear

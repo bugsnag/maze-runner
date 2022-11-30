@@ -70,6 +70,20 @@ When('I set the sampling probability for the next traces to {string}') do |statu
   Maze::Server.set_sampling_probability_generator(create_defaulting_generator(codes, Maze::Server::DEFAULT_SAMPLING_PROBABILITY))
 end
 
+# Sets the response delay to be used for all subsequent requests
+#
+# @step_input response_delay_ms [Integer] The delay in milliseconds
+When('I set the response delay to {int} milliseconds') do |response_delay_ms|
+  Maze::Server.set_response_delay_generator(Maze::Generator.new [response_delay_ms].cycle)
+end
+
+# Sets the response delay to be used for the next request
+#
+# @step_input delay [Integer] The delay in milliseconds
+When('I set the response delay for the next request to {int} milliseconds') do |delay|
+  Maze::Server.set_response_delay_generator(create_defaulting_generator([delay], Maze::Server::DEFAULT_RESPONSE_DELAY))
+end
+
 def create_defaulting_generator(codes, default)
   enumerator = Enumerator.new do |yielder|
     codes.each do |code|
@@ -83,20 +97,6 @@ def create_defaulting_generator(codes, default)
   Maze::Generator.new enumerator
 end
 
-# Sets the response delay to be used for all subsequent requests
-#
-# @step_input response_delay_ms [Integer] The delay in milliseconds
-When('I set the response delay to {int} milliseconds') do |response_delay_ms|
-  Maze::Server.response_delay_ms = response_delay_ms
-end
-
-# Sets the response delay to be used for the next request
-#
-# @step_input delay [Integer] The delay in milliseconds
-When('I set the response delay for the next request to {int} milliseconds') do |delay|
-  Maze::Server.reset_response_delay = true
-  Maze::Server.response_delay_ms = delay
-end
 
 # Attempts to open a URL.
 #

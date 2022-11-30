@@ -251,11 +251,6 @@ module Maze
         logs.clear
         invalid_requests.clear
       end
-
-      private
-
-      attr_writer :response_delay_generator
-      attr_writer :sampling_probability_generator
     end
   end
 end

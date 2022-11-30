@@ -45,6 +45,7 @@ BeforeAll do
 
   # Start mock server
   Maze::Server.start
+  Maze::Server.set_response_delay_generator(Maze::Generator.new [Maze::Server::DEFAULT_RESPONSE_DELAY].cycle)
   Maze::Server.set_sampling_probability_generator(Maze::Generator.new [Maze::Server::DEFAULT_SAMPLING_PROBABILITY].cycle)
   Maze::Server.set_status_code_generator(Maze::Generator.new [Maze::Server::DEFAULT_STATUS_CODE].cycle)
 

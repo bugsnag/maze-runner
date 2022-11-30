@@ -15,6 +15,11 @@ Feature: Breadcrumb helper steps
         Then I wait to receive an error
         And the event does not have a "request" breadcrumb
 
+    Scenario: The payload does not contain a type of breadcrumb with a particular message
+        When I send a "breadcrumbs"-type request
+        Then I wait to receive an error
+        And the event does not have a "process" breadcrumb with message "Barfoo"
+
     Scenario: The payload has a breadcrumb which matches a JSON fixture
         When I send a "breadcrumbs"-type request
         Then I wait to receive an error

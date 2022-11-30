@@ -227,6 +227,14 @@ def send_request(request_type, mock_api_port = 9339)
                   'b' => 2,
                   'c' => 3
                 }
+              },
+              {
+                'type' => 'testing',
+                'name' => 'bar',
+                'timestamp' => '2019-11-26T10:18:23Z',
+                'metaData' => {
+                  'message' => "Barfoo"
+                }
               }
             ]
           }

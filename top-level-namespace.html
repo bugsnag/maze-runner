@@ -117,6 +117,37 @@
 
   
     <h2>
+      Network steps
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="top-level-namespace.html#create_defaulting_generator-instance_method" title="#create_defaulting_generator (instance method)">#<strong>create_defaulting_generator</strong>(codes, default)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>
       Feature flag steps
       <small><a href="#" class="summary_toggle">collapse</a></small>
     </h2>
@@ -629,6 +660,54 @@
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="create_defaulting_generator-instance_method">
+  
+    #<strong>create_defaulting_generator</strong>(codes, default)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/features/steps/network_steps.rb', line 87</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_create_defaulting_generator'>create_defaulting_generator</span><span class='lparen'>(</span><span class='id identifier rubyid_codes'>codes</span><span class='comma'>,</span> <span class='id identifier rubyid_default'>default</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_enumerator'>enumerator</span> <span class='op'>=</span> <span class='const'>Enumerator</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_yielder'>yielder</span><span class='op'>|</span>
+    <span class='id identifier rubyid_codes'>codes</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_code'>code</span><span class='op'>|</span>
+      <span class='id identifier rubyid_yielder'>yielder</span><span class='period'>.</span><span class='id identifier rubyid_yield'>yield</span> <span class='id identifier rubyid_code'>code</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_loop'>loop</span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_yielder'>yielder</span><span class='period'>.</span><span class='id identifier rubyid_yield'>yield</span> <span class='id identifier rubyid_default'>default</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+  <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Generator</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='id identifier rubyid_enumerator'>enumerator</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="get_expected_platform_value-instance_method">
   
     #<strong>get_expected_platform_value</strong>(platform_values)  &#x21d2; <tt>Object</tt> 
@@ -757,22 +836,22 @@
       <pre class="lines">
 
 
-161
-162
-163
-164
-165
-166
-167
-168
-169
-170
-171
-172
-173</pre>
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/internal_hooks.rb', line 161</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/internal_hooks.rb', line 148</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_output_received_requests'>output_received_requests</span><span class='lparen'>(</span><span class='id identifier rubyid_request_type'>request_type</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_request_queue'>request_queue</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_list_for'>list_for</span><span class='lparen'>(</span><span class='id identifier rubyid_request_type'>request_type</span><span class='rparen'>)</span>
@@ -1473,6 +1552,19 @@ maze_output/failed/scenario_name/errors.log</p>
       <pre class="lines">
 
 
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
 177
 178
 179
@@ -1515,23 +1607,10 @@ maze_output/failed/scenario_name/errors.log</p>
 216
 217
 218
-219
-220
-221
-222
-223
-224
-225
-226
-227
-228
-229
-230
-231
-232</pre>
+219</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/internal_hooks.rb', line 177</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/internal_hooks.rb', line 164</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_write_requests'>write_requests</span><span class='lparen'>(</span><span class='id identifier rubyid_scenario'>scenario</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_folder1'>folder1</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_pwd'>pwd</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>maze_output</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
@@ -1599,9 +1678,9 @@ maze_output/failed/scenario_name/errors.log</p>
 </div>
 
       <div id="footer">
-  Generated on Fri Nov 11 15:57:38 2022 by
+  Generated on Wed Nov 30 12:12:47 2022 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.6).
+  0.9.28 (ruby-2.7.7).
 </div>
 
     </div>

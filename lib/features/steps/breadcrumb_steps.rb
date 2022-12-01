@@ -7,9 +7,7 @@
 Then('the event has a {string} breadcrumb named {string}') do |type, name|
   value = Maze::Server.errors.current[:body]['events'].first['breadcrumbs']
   found = false
-  value.each do |crumb|
-    found = true if crumb['type'] == type and crumb['name'] == name
-  end
+  found = value.any? { |crumb| crumb['type'] == type }
   raise("No breadcrumb matched: #{value}") unless found
 end
 
@@ -19,10 +17,7 @@ end
 # @step_input message [String] The expected breadcrumb's message
 Then('the event has a {string} breadcrumb with message {string}') do |type, message|
   value = Maze::Server.errors.current[:body]['events'].first['breadcrumbs']
-  found = false
-  value.each do |crumb|
-    found = true if crumb['type'] == type && crumb['metaData'] && crumb['metaData']['message'] == message
-  end
+  found = value.any? { |crumb| crumb['type'] == type && crumb['metaData'] && crumb['metaData']['message'] == message }
   raise("No breadcrumb matched: #{value}") unless found
 end
 
@@ -32,11 +27,19 @@ end
 # @step_input type [String] The type of breadcrumb expected to not be present
 Then('the event does not have a {string} breadcrumb') do |type|
   value = Maze::Server.errors.current[:body]['events'].first['breadcrumbs']
-  found = false
-  value.each do |crumb|
-    found = true if crumb['type'] == type
-  end
+  found = value.any? { |crumb| crumb['type'] == type  }
   raise("Breadcrumb with type: #{type} matched") if found
+end
+
+# Test whether the first event entry does not contain a breadcrumb with a specific type and message.
+# Used for confirming filtering of breadcrumbs
+#
+# @step_input type [String] The type of the breadcrumb expected to be absent
+# @step_input message [String] The message of the breadcrumb expected to be absent
+Then('the event does not have a {string} breadcrumb with message {string}') do |type, message|
+  value = Maze::Server.errors.current[:body]['events'].first['breadcrumbs']
+  found = value.any? { |crumb| crumb['type'] == type && crumb['metaData'] && crumb['metaData']['message'] == message }
+  raise("Breadcrumb with type: #{type} and message: #{message} matched") if found
 end
 
 # Tests whether any breadcrumb matches a given JSON fixture.  This follows all the usual rules for JSON fixture matching.

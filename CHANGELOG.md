@@ -1,3 +1,9 @@
+# 7.8.0 - TBD
+
+## Enhancements
+
+- Add additional step for breadcrumb tests, and refactor old steps for consistency [428](https://github.com/bugsnag/maze-runner/pull/428)
+
 # 7.7.0 - 2022/11/30
 
 ## Enhancements

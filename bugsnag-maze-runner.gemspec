@@ -29,7 +29,7 @@ Gem::Specification.new do |spec|
     spec.add_dependency 'selenium-webdriver', '~> 3.0'
   else
     puts 'Bundling W3C drivers (Selenium 4/Appium 12)'
-    spec.add_dependency 'appium_lib', '~> 12.0'
+    spec.add_dependency 'appium_lib', '~> 12.0.0'
     spec.add_dependency 'appium_lib_core', '~> 5.4.0'
     spec.add_dependency 'selenium-webdriver', '~> 4.0'
   end
@@ -39,6 +39,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'curb', '~> 0.9.6'
   spec.add_dependency 'optimist', '~> 3.0.1'
   spec.add_dependency 'rake', '~> 12.3.3'
+  spec.add_dependency 'json-schema', '~> 2.8.1'
 
   # Pin indirect dependencies
   spec.add_runtime_dependency 'rubyzip', '~> 2.3.2'

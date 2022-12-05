@@ -1,8 +1,9 @@
-# 7.8.0 - TBD
+# 7.8.0 - 2022/12/05
 
 ## Enhancements
 
 - Add additional step for breadcrumb tests, and refactor old steps for consistency [428](https://github.com/bugsnag/maze-runner/pull/428)
+- Add schema validation for endpoints based on json-schema [416](https://github.com/bugsnag/maze-runner/pull/416)
 
 # 7.7.0 - 2022/11/30
 

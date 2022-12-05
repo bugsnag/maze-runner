@@ -40,6 +40,8 @@ require_relative '../lib/maze/servlets/trace_servlet'
 require_relative '../lib/maze/servlets/reflective_servlet'
 require_relative '../lib/maze/server'
 
+require_relative '../lib/maze/schemas/trace_schema'
+
 require_relative '../lib/maze/store'
 require_relative '../lib/maze/timers'
 
@@ -50,7 +52,6 @@ require_relative '../lib/maze/option'
 require_relative '../lib/maze/option/parser'
 require_relative '../lib/maze/option/processor'
 require_relative '../lib/maze/option/validator'
-
 
 require_relative '../lib/maze/assertions/request_set_assertions'
 

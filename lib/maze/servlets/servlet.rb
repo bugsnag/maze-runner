@@ -2,6 +2,7 @@
 
 require 'zlib'
 require 'stringio'
+require 'json-schema'
 
 module Maze
   module Servlets
@@ -12,10 +13,12 @@ module Maze
       #
       # @param server [HTTPServer] WEBrick HTTPServer
       # @param request_type [Symbol] Request type that the servlet will receive
-      def initialize(server, request_type)
+      # @param schema [Dictionary] A `json-schema` describing the payload for POST requests
+      def initialize(server, request_type, schema=nil)
         super server
         @request_type = request_type
         @requests = Server.list_for request_type
+        @schema = schema
       end
 
       # Logs an incoming GET WEBrick request.
@@ -59,6 +62,10 @@ module Maze
             request: request,
             digests: digests
           }
+        end
+        if @schema
+          schema_errors = JSON::Validator.fully_validate(@schema, hash[:body], strict: true)
+          hash[:schema_errors] = schema_errors
         end
         @requests.add(hash)
 

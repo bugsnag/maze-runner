@@ -91,7 +91,7 @@ module Maze
       def get_docker_compose_command(command)
         project_name = compose_project_name.nil? ? '' : "-p #{compose_project_name}"
 
-        "docker-compose #{project_name} -f #{COMPOSE_FILENAME} #{command}"
+        "docker compose #{project_name} -f #{COMPOSE_FILENAME} #{command}"
       end
 
       def run_docker_compose_command(command, success_codes: nil)

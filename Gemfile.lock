@@ -9,9 +9,9 @@ GIT
 PATH
   remote: .
   specs:
-    bugsnag-maze-runner (7.8.0)
-      appium_lib (~> 12.0)
-      appium_lib_core (~> 5.5.0)
+    bugsnag-maze-runner (7.9.0)
+      appium_lib (~> 12.0.0)
+      appium_lib_core (~> 5.4.0)
       bugsnag (~> 6.24)
       cucumber (~> 7.1)
       cucumber-expressions (~> 6.0.0)
@@ -42,7 +42,7 @@ GEM
     appium_lib_core (5.4.0)
       faye-websocket (~> 0.11.0)
       selenium-webdriver (~> 4.2, < 4.6)
-    bugsnag (6.24.2)
+    bugsnag (6.25.0)
       concurrent-ruby (~> 1.0)
     builder (3.2.4)
     childprocess (4.1.0)
@@ -118,7 +118,7 @@ GEM
     props (1.2.0)
       iniparser (>= 0.1.0)
     public_suffix (5.0.0)
-    racc (1.6.0)
+    racc (1.6.1)
     rake (12.3.3)
     redcarpet (3.5.1)
     rexml (3.2.5)

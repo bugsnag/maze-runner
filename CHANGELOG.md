@@ -1,8 +1,12 @@
-# TBD
+# 7.9.0 - 2022/12/07
 
 ## Enhancements
 
 - Use `docker compose` instead of `docker-compose` [429](https://github.com/bugsnag/maze-runner/pull/429)
+- Bump Bitbar browsers to those currently available [430](https://github.com/bugsnag/maze-runner/pull/430)
+  - Firefox 102 to 107
+  - Chrome 103 to 108
+  - Edge 101 to 106
 
 # 7.8.0 - 2022/12/05
 

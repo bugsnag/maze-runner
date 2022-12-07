@@ -36,7 +36,7 @@ Then('the session is valid for the session reporting API version {string} for th
     And the session "Content-Type" header equals "application/json"
     And the session "Bugsnag-Sent-At" header is a timestamp
 
-    And the session payload field "notifier.name" matches the regex "(Android|iOS) Bugsnag Notifier"
+    And the session payload field "notifier.name" matches the regex "(Bugsnag React Native|(Android|iOS) Bugsnag Notifier)"
     And the session payload field "notifier.url" is not null
     And the session payload field "notifier.version" is not null
 

@@ -106,6 +106,9 @@ module Maze
             opt Option::APP_BUNDLE_ID,
                 'The bundle identifier of the test application',
                 type: :string
+            opt Option::TUNNEL,
+                'Start the device farm secure tunnel',
+                default: true
 
             # SmartBear-only options
             opt Option::SB_LOCAL,

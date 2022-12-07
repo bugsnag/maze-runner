@@ -28,6 +28,7 @@ module Maze
     LIST_DEVICES = 'list-devices'
     OS = 'os'
     OS_VERSION = 'os-version'
+    TUNNEL = 'tunnel'
     USERNAME = 'username'
 
     # BitBar options

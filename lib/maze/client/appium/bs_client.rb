@@ -8,9 +8,11 @@ module Maze
           config.app = Maze::Client::BrowserStackClientUtils.upload_app config.username,
                                                                         config.access_key,
                                                                         config.app
-          Maze::Client::BrowserStackClientUtils.start_local_tunnel config.bs_local,
-                                                                   @session_uuid,
-                                                                   config.access_key
+          if Maze.config.start_tunnel
+            Maze::Client::BrowserStackClientUtils.start_local_tunnel config.bs_local,
+                                                                     @session_uuid,
+                                                                     config.access_key
+          end
         end
 
         def device_capabilities
@@ -53,7 +55,7 @@ module Maze
 
         def stop_session
           super
-          Maze::Client::BrowserStackClientUtils.stop_local_tunnel
+          Maze::Client::BrowserStackClientUtils.stop_local_tunnel if Maze.config.start_tunnel
         end
       end
     end

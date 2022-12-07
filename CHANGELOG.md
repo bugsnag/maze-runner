@@ -1,3 +1,9 @@
+# TBD
+
+## Fixes
+
+- Relax check on React Native Notifier name [432](https://github.com/bugsnag/maze-runner/pull/432)
+
 # 7.9.0 - 2022/12/07
 
 ## Enhancements

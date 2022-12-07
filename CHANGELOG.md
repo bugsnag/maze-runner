@@ -7,6 +7,7 @@
   - Firefox 102 to 107
   - Chrome 103 to 108
   - Edge 101 to 106
+  - Safari 15 to 16
 
 # 7.8.0 - 2022/12/05
 

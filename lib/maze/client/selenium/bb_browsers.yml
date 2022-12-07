@@ -131,6 +131,13 @@ edge_101:
   version: '101'
   resolution: '1920x1080'
 
+safari_16:
+  platform: 'macOS'
+  osVersion: '13'
+  browserName: 'safari'
+  version: '16'
+  resolution: '2560x1920'
+
 safari_15:
   platform: 'macOS'
   osVersion: '12'

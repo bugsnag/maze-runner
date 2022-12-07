@@ -19,12 +19,9 @@ module Maze
           config = Maze.config
           capabilities = {
             'app' => config.app,
-            'bstack:options' => {
-              'local' => 'true',
-              'localIdentifier' => @session_uuid
-            },
             'deviceOrientation' => 'portrait',
-            'noReset' => 'true'
+            'noReset' => 'true',
+            'bstack:options' => {}
           }
           device_caps = Maze::Client::Appium::BrowserStackDevices::DEVICE_HASH[config.device]
           capabilities.deep_merge! device_caps
@@ -33,6 +30,11 @@ module Maze
           unless device_caps['platformName'] == 'android' && device_caps['platformVersion'].to_i <= 6
             capabilities['bstack:options']['disableAnimations'] = 'true'
           end
+          if Maze.config.start_tunnel
+            capabilities['bstack:options']['local'] = 'true'
+            capabilities['bstack:options']['localIdentifier'] = @session_uuid
+          end
+
           capabilities
         end
 

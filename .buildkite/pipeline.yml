@@ -238,7 +238,7 @@ steps:
     concurrency: 2
     concurrency_group: 'browserstack'
 
-  - label: 'BitBar web browser test - Firefox v104'
+  - label: 'BitBar web browser test - Firefox v107'
     depends_on: "ci-image-ruby-2-7"
     timeout_in_minutes: 10
     plugins:
@@ -249,7 +249,7 @@ steps:
     command: >-
       bundle exec maze-runner
       --farm=bb
-      --browser=firefox_104
+      --browser=firefox_107
     env:
       RUBY_VERSION: "2.7"
     concurrency: 2

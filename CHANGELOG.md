@@ -1,3 +1,9 @@
+# TBD
+
+## Enhancements
+
+- Use `docker compose` instead of `docker-compose` [429](https://github.com/bugsnag/maze-runner/pull/429)
+
 # 7.8.0 - 2022/12/05
 
 ## Enhancements

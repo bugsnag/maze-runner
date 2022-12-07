@@ -90,6 +90,7 @@ class ProcessorTest < Test::Unit::TestCase
     assert_nil config.capabilities
 
     assert_true config.file_log
+    assert_true config.start_tunnel
     assert_false config.log_requests
     assert_false config.always_log
   end

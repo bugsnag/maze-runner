@@ -38,6 +38,7 @@ class ParserTest < Test::Unit::TestCase
     assert_nil(options[Maze::Option::USERNAME])
     assert_nil(options[Maze::Option::ACCESS_KEY])
     assert_nil(options[Maze::Option::APPIUM_VERSION])
+    assert_true(options[Maze::Option::TUNNEL])
 
     # Local-only options
     assert_nil(options[Maze::Option::OS])
@@ -81,6 +82,7 @@ class ParserTest < Test::Unit::TestCase
       --udid=ARG_UDID
       --log-requests
       --no-file-log
+      --no-tunnel
     ]
     options = Maze::Option::Parser.parse args
 
@@ -97,6 +99,7 @@ class ParserTest < Test::Unit::TestCase
     assert_equal('ARG_USERNAME', options[Maze::Option::USERNAME])
     assert_equal('ARG_ACCESS_KEY', options[Maze::Option::ACCESS_KEY])
     assert_equal('ARG_APPIUM_VERSION', options[Maze::Option::APPIUM_VERSION])
+    assert_false(options[Maze::Option::TUNNEL])
 
     # Local-only options
     assert_equal('ARG_OS', options[Maze::Option::OS])

@@ -3,6 +3,7 @@
 ## Enhancements
 
 - Add `--tunnel` (and `--no-tunnel`) option [431](https://github.com/bugsnag/maze-runner/pull/431)
+- Add support for running `docker compose exec` commands [425](https://github.com/bugsnag/maze-runner/pull/425)
 
 ## Fixes
 

@@ -36,6 +36,10 @@ module Maze
                 type: :boolean,
                 default: true
 
+            opt Option::REPEATER_API_KEY,
+                'If set, all requests received by the mock server will be forwarded to the relevant endpoint on bugsnag.com',
+                type: :string
+
             text ''
             text 'Server options:'
 

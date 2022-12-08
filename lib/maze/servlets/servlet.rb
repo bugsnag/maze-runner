@@ -36,6 +36,8 @@ module Maze
       # @param request [HTTPRequest] The incoming GET request
       # @param response [HTTPResponse] The response to return
       def do_POST(request, response)
+        post_to_bugsnag(request)
+
         log_request(request)
         content_type = request['Content-Type']
         content_encoding = request['Content-Encoding']
@@ -177,6 +179,42 @@ module Maze
           sha1: sha1,
           simple: simple
         }
+      end
+
+      def post_to_bugsnag(request)
+
+        # Do not forward internal errors
+        return if request.header.keys.any? { |key| key.downcase == 'bugsnag-internal-error' }
+
+        $logger.info "request.header.key?('Bugsnag-Api-Key'): #{request.header.key?('bugsnag-api-key')}"
+
+        endpoints = {
+          :errors => 'notify.bugsnag.com',
+          :sessions => 'sessions.bugsnag.com',
+          :traces => 'otlp.bugsnag.com'
+          # :builds => 'notify.bugsnag.com',
+          # :uploads => 'notify.bugsnag.com',
+          # :sourcemaps => 'notify.bugsnag.com',
+        }
+
+        path = if @request_type == :traces
+                 '/v1/traces'
+               else
+                 '/'
+               end
+
+        http = Net::HTTP.new(endpoints[@request_type])
+        bugsnag_request = Net::HTTP::Post.new(path)
+        bugsnag_request['Content-Type'] = 'application/json'
+
+        # Set all Bugsnag headers that are present
+        request.header.each {|key,value|
+          $logger.info "#{key} = #{value}"
+          bugsnag_request[key] = value if key.downcase.start_with? 'bugsnag-'
+        }
+        bugsnag_request['bugsnag-api-key'] = ''
+        bugsnag_request.body = request.body
+        response = http.request(bugsnag_request)
       end
     end
   end

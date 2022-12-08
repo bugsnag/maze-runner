@@ -22,6 +22,7 @@ module Maze
           config.enable_bugsnag = options[Maze::Option::ENABLE_BUGSNAG]
           config.tms_uri = options[Maze::Option::TMS_URI]
           config.tms_token = options[Maze::Option::TMS_TOKEN]
+          config.repeater_api_key = options[Maze::Option::TMS_TOKEN]
 
           # Document server options
           config.document_server_root = options[Maze::Option::DS_ROOT]

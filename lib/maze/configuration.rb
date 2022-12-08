@@ -61,6 +61,9 @@ module Maze
     # The server endpoints for which invalid requests should be captured and cause tests to fail
     attr_accessor :captured_invalid_requests
 
+    # API key to use when repeating requests received by the mock server
+    attr_accessor :repeater_api_key
+
     #
     # General appium configuration
     #

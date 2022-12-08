@@ -64,8 +64,7 @@ Feature: Testing support on traces endpoint
         And I input "bundle exec maze-runner --port=9349 features/passing_schema.feature" interactively
         Then the last interactive command exit code is 0
 
-    # Currently the trace endpoint doesn't opperate with a proper schema, so this isn't a possible test
-    #Scenario: The trace endpoint can identify an invalid request
-    #    Given I set up the maze-harness console
-    #    And I input "bundle exec maze-runner --port=9349 features/failing_schema.feature" interactively
-    #    Then the last interactive command exit code is 1
+    Scenario: The trace endpoint can identify an invalid request
+       Given I set up the maze-harness console
+       And I input "bundle exec maze-runner --port=9349 features/failing_schema.feature" interactively
+       Then the last interactive command exit code is 1

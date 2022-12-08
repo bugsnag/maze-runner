@@ -36,16 +36,20 @@ def assert_received_requests(request_count, list, list_name, precise = true)
 end
 
 def verify_schema_matches(list, list_name)
-  request_schema_errors = list.all.map { |request| request[:schema_errors] }
+  request_schema_results = list.all.map { |request| request[:schema_errors] }
   passed = true
-  request_schema_errors.each.with_index(1) do |schema_errors, index|
+  request_schema_results.each.with_index(1) do |schema_results, index|
+    schema_errors = schema_results.validation_errors
     next if schema_errors.nil?
 
     if schema_errors.size > 0
       passed = false
       $stdout.puts "\n"
       $stdout.puts "\e[31m--- #{list_name} #{index} failed validation with the following errors:\e[0m"
-      schema_errors.each { |error| $stdout.puts "\e[31m#{error}\e[0m" }
+      schema_errors.each do |error|
+        next if error.instance_ptr.empty?
+        $stdout.puts "\e[31m#{error.message} : #{error.instance_ptr.fragment}\e[0m"
+      end
       $stdout.puts "\n"
     end
   end

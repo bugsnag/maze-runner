@@ -2,7 +2,7 @@
 
 require 'zlib'
 require 'stringio'
-require 'json-schema'
+require 'jsi'
 
 module Maze
   module Servlets
@@ -18,7 +18,7 @@ module Maze
         super server
         @request_type = request_type
         @requests = Server.list_for request_type
-        @schema = schema
+        @schema = JSI.new_schema(schema)
       end
 
       # Logs an incoming GET WEBrick request.
@@ -64,7 +64,7 @@ module Maze
           }
         end
         if @schema
-          schema_errors = JSON::Validator.fully_validate(@schema, hash[:body], strict: true)
+          schema_errors = @schema.instance_validate(hash[:body])
           hash[:schema_errors] = schema_errors
         end
         @requests.add(hash)

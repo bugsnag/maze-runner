@@ -10,25 +10,26 @@ module Maze
 
     # Server options
     BIND_ADDRESS = 'bind-address'
-    PORT = 'port'
     NULL_PORT = 'null-port'
+    PORT = 'port'
 
     # Appium options
-    FARM = 'farm'
-    APP = 'app'
     A11Y_LOCATOR = 'a11y-locator'
+    APP = 'app'
     CAPABILITIES = 'capabilities'
+    FARM = 'farm'
 
     # Generic device farm options
-    USERNAME = 'username'
     ACCESS_KEY = 'access-key'
+    APP_BUNDLE_ID = 'app-bundle-id'
     APPIUM_VERSION = 'appium-version'
-    DEVICE = 'device'
     BROWSER = 'browser'
+    DEVICE = 'device'
+    LIST_DEVICES = 'list-devices'
     OS = 'os'
     OS_VERSION = 'os-version'
-    LIST_DEVICES = 'list-devices'
-    APP_BUNDLE_ID = 'app-bundle-id'
+    TUNNEL = 'tunnel'
+    USERNAME = 'username'
 
     # BitBar options
     SB_LOCAL = 'sb-local'
@@ -41,19 +42,19 @@ module Maze
     TMS_TOKEN = 'tms-token'
 
     # Local-only options
-    APPIUM_SERVER = 'appium-server'
-    START_APPIUM = 'start-appium'
     APPIUM_LOGFILE = 'appium-logfile'
+    APPIUM_SERVER = 'appium-server'
     APPLE_TEAM_ID = 'apple-team-id'
+    START_APPIUM = 'start-appium'
     UDID = 'udid'
 
     # Logging options
+    ALWAYS_LOG = 'always-log'
     FILE_LOG = 'file-log'
     LOG_REQUESTS = 'log-requests'
-    ALWAYS_LOG = 'always-log'
 
     # Runtime options
-    ENABLE_RETRIES = 'enable-retries'
     ENABLE_BUGSNAG = 'enable-bugsnag'
+    ENABLE_RETRIES = 'enable-retries'
   end
 end

@@ -7,8 +7,6 @@ module Maze
           capabilities = {
             'app' => config.app,
             'browserstack.console' => 'errors',
-            'browserstack.localIdentifier' => @session_uuid,
-            'browserstack.local' => 'true',
             'deviceOrientation' => 'portrait',
             'noReset' => 'true'
           }
@@ -19,6 +17,11 @@ module Maze
           unless device_caps['platformName'] == 'android' && device_caps['platformVersion'].to_i <= 6
             capabilities['disableAnimations'] = 'true'
           end
+          if Maze.config.start_tunnel
+            capabilities['browserstack.localIdentifier'] = @session_uuid
+            capabilities['browserstack.local'] = 'true'
+          end
+
           capabilities
         end
       end

@@ -86,6 +86,9 @@ module Maze
     # :none (Cucumber-driven testing with no devices)
     attr_accessor :farm
 
+    # Whether the device farm secure tunnel should be started
+    attr_accessor :start_tunnel
+
     #
     # Device farm specific configuration
     #

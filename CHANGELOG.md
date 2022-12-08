@@ -1,5 +1,9 @@
 # TBD
 
+## Enhancements
+
+- Add `--tunnel` (and `--no-tunnel`) option [431](https://github.com/bugsnag/maze-runner/pull/431)
+
 ## Fixes
 
 - Relax check on React Native Notifier name [432](https://github.com/bugsnag/maze-runner/pull/432)

@@ -8,21 +8,20 @@ module Maze
           config.app = Maze::Client::BrowserStackClientUtils.upload_app config.username,
                                                                         config.access_key,
                                                                         config.app
-          Maze::Client::BrowserStackClientUtils.start_local_tunnel config.bs_local,
-                                                                   @session_uuid,
-                                                                   config.access_key
+          if Maze.config.start_tunnel
+            Maze::Client::BrowserStackClientUtils.start_local_tunnel config.bs_local,
+                                                                     @session_uuid,
+                                                                     config.access_key
+          end
         end
 
         def device_capabilities
           config = Maze.config
           capabilities = {
             'app' => config.app,
-            'bstack:options' => {
-              'local' => 'true',
-              'localIdentifier' => @session_uuid
-            },
             'deviceOrientation' => 'portrait',
-            'noReset' => 'true'
+            'noReset' => 'true',
+            'bstack:options' => {}
           }
           device_caps = Maze::Client::Appium::BrowserStackDevices::DEVICE_HASH[config.device]
           capabilities.deep_merge! device_caps
@@ -31,6 +30,11 @@ module Maze
           unless device_caps['platformName'] == 'android' && device_caps['platformVersion'].to_i <= 6
             capabilities['bstack:options']['disableAnimations'] = 'true'
           end
+          if Maze.config.start_tunnel
+            capabilities['bstack:options']['local'] = 'true'
+            capabilities['bstack:options']['localIdentifier'] = @session_uuid
+          end
+
           capabilities
         end
 
@@ -53,7 +57,7 @@ module Maze
 
         def stop_session
           super
-          Maze::Client::BrowserStackClientUtils.stop_local_tunnel
+          Maze::Client::BrowserStackClientUtils.stop_local_tunnel if Maze.config.start_tunnel
         end
       end
     end

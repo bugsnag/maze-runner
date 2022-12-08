@@ -18,7 +18,7 @@ module Maze
         super server
         @request_type = request_type
         @requests = Server.list_for request_type
-        @schema = JSI.new_schema(schema)
+        @schema = JSI.new_schema(schema) unless schema.nil?
       end
 
       # Logs an incoming GET WEBrick request.

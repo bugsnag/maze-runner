@@ -8,7 +8,7 @@ Then("the event has {int} breadcrumb(s)") do |expected|
 
   Maze.check.equal(
     expected,
-    breadcrumbs.length,
+    breadcrumbs&.length || 0,
     "Expected event to have '#{expected}' breadcrumbs, but got: #{breadcrumbs}"
   )
 end

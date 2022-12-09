@@ -9,6 +9,7 @@
 ## Fixes
 
 - Relax check on React Native Notifier name [432](https://github.com/bugsnag/maze-runner/pull/432)
+- Add missing assertion against the breadcrumb name in "the event has a {string} breadcrumb named {string}" step [435](https://github.com/bugsnag/maze-runner/pull/435)
 
 # 7.9.0 - 2022/12/07
 

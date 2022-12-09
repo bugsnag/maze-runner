@@ -39,7 +39,7 @@ def verify_schema_matches(list, list_name)
   request_schema_results = list.all.map { |request| request[:schema_errors] }
   passed = true
   request_schema_results.each.with_index(1) do |schema_results, index|
-    next unless schema_results.validation_errors
+    next unless schema_results&.validation_errors
     schema_errors = schema_results.validation_errors
     if schema_errors.size > 0
       passed = false

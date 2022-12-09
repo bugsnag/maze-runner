@@ -32,13 +32,14 @@ module Maze
                 default: true
 
             opt Option::ENABLE_BUGSNAG,
-                'Enables reporting to Bugsnag on scenario failure (Require MAZE_BUGSNAG_API_KEY)',
+                'Enables reporting to Bugsnag on scenario failure (requires MAZE_BUGSNAG_API_KEY)',
                 type: :boolean,
                 default: true
 
-            opt Option::REPEATER_API_KEY,
-                'If set, all requests received by the mock server will be forwarded to the relevant endpoint on bugsnag.com',
-                type: :string
+            opt Option::REPEATER,
+                'Enables forwarding of all received POST requests to Bugsnag using the API key held in MAZE_REPEATER_API_KEY',
+                type: :boolean,
+                default: false
 
             text ''
             text 'Server options:'

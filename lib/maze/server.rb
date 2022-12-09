@@ -199,12 +199,12 @@ module Maze
             end
 
             # When adding more endpoints, be sure to update the 'I should receive no requests' step
-            server.mount '/notify', Servlets::Servlet, :errors
-            server.mount '/sessions', Servlets::Servlet, :sessions
-            server.mount '/builds', Servlets::Servlet, :builds
+            server.mount '/notify', Servlets::Servlet, :errors, repeater_url: 'https://notify.bugsnag.com/'
+            server.mount '/sessions', Servlets::Servlet, :sessions, repeater_url: 'https://sessions.bugsnag.com/'
+            server.mount '/builds', Servlets::Servlet, :builds, repeater_url: 'https://otlp.bugsnag.com/v1/traces'
             server.mount '/uploads', Servlets::Servlet, :uploads
             server.mount '/sourcemap', Servlets::Servlet, :sourcemaps
-            server.mount '/traces', Servlets::TraceServlet, :traces, Maze::Schemas::TRACE_SCHEMA
+            server.mount '/traces', Servlets::TraceServlet, :traces, schema: Maze::Schemas::TRACE_SCHEMA
             server.mount '/react-native-source-map', Servlets::Servlet, :sourcemaps
             server.mount '/command', Servlets::CommandServlet
             server.mount '/logs', Servlets::LogServlet

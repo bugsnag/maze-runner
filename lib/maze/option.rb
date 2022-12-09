@@ -54,7 +54,7 @@ module Maze
     LOG_REQUESTS = 'log-requests'
 
     # General options
-    REPEATER_API_KEY = 'repeater-api-key'
+    REPEATER = 'repeater'
     ENABLE_BUGSNAG = 'enable-bugsnag'
     ENABLE_RETRIES = 'enable-retries'
   end

@@ -13,12 +13,14 @@ module Maze
       #
       # @param server [HTTPServer] WEBrick HTTPServer
       # @param request_type [Symbol] Request type that the servlet will receive
+      # @param repeater_url [String] The Url that POST requests should be repeated to, if --repeater is enabled
       # @param schema [Dictionary] A `json-schema` describing the payload for POST requests
-      def initialize(server, request_type, schema=nil)
+      def initialize(server, request_type, repeater_url, schema=nil)
         super server
         @request_type = request_type
         @requests = Server.list_for request_type
         @schema = schema
+        @repeater = Maze::RequestRepeater.new repeater_url
       end
 
       # Logs an incoming GET WEBrick request.
@@ -36,7 +38,7 @@ module Maze
       # @param request [HTTPRequest] The incoming GET request
       # @param response [HTTPResponse] The response to return
       def do_POST(request, response)
-        post_to_bugsnag(request)
+        @repeater.repeat(request) if Maze.config.repeater
 
         log_request(request)
         content_type = request['Content-Type']
@@ -179,39 +181,6 @@ module Maze
           sha1: sha1,
           simple: simple
         }
-      end
-
-      def post_to_bugsnag(request)
-
-        # Do not forward internal errors
-        return if request.header.keys.any? { |key| key.downcase == 'bugsnag-internal-error' }
-
-        $logger.info "request.header.key?('Bugsnag-Api-Key'): #{request.header.key?('bugsnag-api-key')}"
-
-        endpoints = {
-          :errors => 'notify.bugsnag.com',
-          :sessions => 'sessions.bugsnag.com',
-          :traces => 'otlp.bugsnag.com'
-        }
-
-        path = if @request_type == :traces
-                 '/v1/traces'
-               else
-                 '/'
-               end
-
-        http = Net::HTTP.new(endpoints[@request_type])
-        bugsnag_request = Net::HTTP::Post.new(path)
-        bugsnag_request['Content-Type'] = 'application/json'
-
-        # Set all Bugsnag headers that are present
-        request.header.each {|key,value|
-          $logger.info "#{key} = #{value}"
-          bugsnag_request[key] = value if key.downcase.start_with? 'bugsnag-'
-        }
-        bugsnag_request['bugsnag-api-key'] = ''
-        bugsnag_request.body = request.body
-        response = http.request(bugsnag_request)
       end
     end
   end

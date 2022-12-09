@@ -97,10 +97,24 @@ When('I run the service {string} with the command') do |service, command|
   Maze::Docker.start_service(service, command: one_line_cmd)
 end
 
+# Executes a command in the given docker compose service.
+#
+# The service must already be running for this to succeed as it uses 'docker
+# compose exec'.
+#
+# @step_input command [String] The command to run inside the service
+# @step_input service [String] The name of the service
 When('I execute the command {string} in the service {string}') do |command, service|
   Maze::Docker.exec(service, command)
 end
 
+# Executes a command in the given docker compose service in the background.
+#
+# The service must already be running for this to succeed as it uses 'docker
+# compose exec --detach'.
+#
+# @step_input command [String] The command to run inside the service
+# @step_input service [String] The name of the service
 When('I execute the command {string} in the service {string} in the background') do |command, service|
   Maze::Docker.exec(service, command, detach: true)
 end

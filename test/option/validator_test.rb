@@ -17,6 +17,7 @@ class ValidatorTest < Test::Unit::TestCase
     ENV.delete('BROWSER_STACK_USERNAME')
     ENV.delete('BROWSER_STACK_ACCESS_KEY')
     ENV.delete('BITBAR_API_KEY')
+    ENV.delete('MAZE_REPEATER_API_KEY')
 
     Maze::Helper.stubs(:expand_path).with('/BrowserStackLocal').returns('/BrowserStackLocal')
     Maze::Helper.stubs(:expand_path).with('my_app.apk').returns('my_app.apk')
@@ -30,6 +31,16 @@ class ValidatorTest < Test::Unit::TestCase
 
     assert_equal 1, errors.length
     assert_equal "--farm must be 'bs', 'bb' or 'local' if provided", errors[0]
+  end
+
+  def test_repeater_api_key
+    args = %w[--repeater]
+    ENV['MAZE_REPEATER_API_KEY'] = 'invalid'
+    options = Maze::Option::Parser.parse args
+    errors = @validator.validate options
+
+    assert_equal 1, errors.length
+    assert_equal "MAZE_REPEATER_API_KEY must be set to a 32-character hex value", errors[0]
   end
 
   def test_valid_browser_stack_options

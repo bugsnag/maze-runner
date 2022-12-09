@@ -204,6 +204,22 @@ def send_request(request_type, mock_api_port = 9339)
         ]
       }
     },
+    'breadcrumb' => {
+      'headers' => {},
+      'body' => {
+        'events' => [
+          {
+            'breadcrumbs' => [
+              {
+                'type' => 'process',
+                'name' => 'foo',
+                'timestamp' => '2019-11-26T10:15:46Z',
+              },
+            ]
+          }
+        ]
+      }
+    },
     'breadcrumbs' => {
       'headers' => {},
       'body' => {

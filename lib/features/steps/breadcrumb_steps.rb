@@ -1,5 +1,30 @@
 # @!group Breadcrumb steps
 
+# Tests whether the first event entry contains the specified number of breadcrumbs.
+#
+# @step_input expected [Integer] The expected number of breadcrumbs
+Then("the event has {int} breadcrumb(s)") do |expected|
+  breadcrumbs = Maze::Server.errors.current[:body]['events'].first['breadcrumbs']
+
+  Maze.check.equal(
+    expected,
+    breadcrumbs.length,
+    "Expected event to have '#{expected}' breadcrumbs, but got: #{breadcrumbs}"
+  )
+end
+
+# Tests whether the first event entry contains no breadcrumbs.
+Then("the event has no breadcrumbs") do
+  breadcrumbs = Maze::Server.errors.current[:body]['events'].first['breadcrumbs']
+
+  Maze.check.true(
+    # some notifiers may omit breadcrumbs entirely when empty, otherwise it should
+    # be an empty array
+    breadcrumbs.nil? || breadcrumbs.empty?,
+    "Expected event not to have breadcrumbs, but got: #{breadcrumbs}"
+  )
+end
+
 # Tests whether the first event entry contains a specific breadcrumb with a type and name.
 #
 # @step_input type [String] The expected breadcrumb's type

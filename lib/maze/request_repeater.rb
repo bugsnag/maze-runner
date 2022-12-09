@@ -16,7 +16,7 @@ module Maze
       $logger.info "request.header.key?('Bugsnag-Api-Key'): #{request.header.key?('bugsnag-api-key')}"
 
       http = Net::HTTP.new(@url.host)
-      bugsnag_request = Net::HTTP::Post.new(path)
+      bugsnag_request = Net::HTTP::Post.new(@url.path)
       bugsnag_request['Content-Type'] = 'application/json'
 
       # Set all Bugsnag headers that are present
@@ -24,7 +24,9 @@ module Maze
         $logger.info "#{key} = #{value}"
         bugsnag_request[key] = value if key.downcase.start_with? 'bugsnag-'
       }
-      bugsnag_request['bugsnag-api-key'] = ''
+      bugsnag_request['bugsnag-api-key'] = Maze.config.repeater_api_key
+      # TODO Also overwrite apiKey in the payload, if present, and recalculate the integrity header
+
       bugsnag_request.body = request.body
       http.request(bugsnag_request)
     end

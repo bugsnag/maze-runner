@@ -64,6 +64,9 @@ module Maze
     # Whether POST requests should be repeated to the real Bugsnag endpoints
     attr_accessor :repeater
 
+    # API key to use when repeating requests
+    attr_accessor :repeater_api_key
+
     #
     # General appium configuration
     #

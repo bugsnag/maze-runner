@@ -192,9 +192,6 @@ module Maze
           :errors => 'notify.bugsnag.com',
           :sessions => 'sessions.bugsnag.com',
           :traces => 'otlp.bugsnag.com'
-          # :builds => 'notify.bugsnag.com',
-          # :uploads => 'notify.bugsnag.com',
-          # :sourcemaps => 'notify.bugsnag.com',
         }
 
         path = if @request_type == :traces

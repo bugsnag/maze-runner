@@ -38,16 +38,13 @@ end
 def verify_schema_matches(list, list_name)
   request_schema_results = list.all.map { |request| request[:schema_errors] }
   passed = true
-  request_schema_results.each.with_index(1) do |schema_results, index|
-    next unless schema_results&.validation_errors
-    schema_errors = schema_results.validation_errors
+  request_schema_results.each.with_index(1) do |schema_errors, index|
     if schema_errors.size > 0
       passed = false
       $stdout.puts "\n"
-      $stdout.puts "\e[31m--- #{list_name} #{index} failed validation with the following errors:\e[0m"
+      $stdout.puts "\e[31m--- #{list_name} #{index} failed validation with errors at the following locations:\e[0m"
       schema_errors.each do |error|
-        next if error.instance_ptr.empty?
-        $stdout.puts "\e[31m#{error.message} : #{error.instance_ptr.fragment}\e[0m"
+        $stdout.puts "\e[31m#{error["data_pointer"]} failed to match #{error["schema_pointer"]}\e[0m"
       end
       $stdout.puts "\n"
     end

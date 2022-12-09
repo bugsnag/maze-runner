@@ -30,10 +30,12 @@ end
 # @step_input type [String] The expected breadcrumb's type
 # @step_input name [String] The expected breadcrumb's name
 Then('the event has a {string} breadcrumb named {string}') do |type, name|
-  value = Maze::Server.errors.current[:body]['events'].first['breadcrumbs']
-  found = false
-  found = value.any? { |crumb| crumb['type'] == type }
-  raise("No breadcrumb matched: #{value}") unless found
+  breadcrumbs = Maze::Server.errors.current[:body]['events'].first['breadcrumbs']
+
+  Maze.check.true(
+    breadcrumbs.any? { |crumb| crumb['type'] == type && crumb['name'] == name },
+    "Expected event to have a breadcrumb with type '#{type}' and name '#{name}', but got: #{breadcrumbs}"
+  )
 end
 
 # Tests whether the first event entry contains a specific breadcrumb with a type and message.

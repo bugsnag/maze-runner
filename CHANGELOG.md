@@ -6,6 +6,7 @@
 - Add support for running `docker compose exec` commands [425](https://github.com/bugsnag/maze-runner/pull/425)
 - Add steps for checking an event has a specific number of breadcrumbs, or no breadcrumbs at all [433](https://github.com/bugsnag/maze-runner/pull/433)
 - Simplify logger format [437](https://github.com/bugsnag/maze-runner/pull/437)
+- Add `--repeater` option [438](https://github.com/bugsnag/maze-runner/pull/438)
 
 ## Fixes
 

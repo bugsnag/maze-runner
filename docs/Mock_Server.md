@@ -22,3 +22,6 @@ list of available options run `bundle exec maze-runner --help`.
   - Populating the Bugsnag dashboard with dummy data
   - Identifying gaps in test coverage
   - Testing new features of Bugsnag during development
+
+If using this option, the `MAZE_REPEATER_API_KEY` environment should be set to the API key of the desired destination 
+project in the Bugsnag dashboard.

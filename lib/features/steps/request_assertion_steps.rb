@@ -39,7 +39,8 @@ def verify_schema_matches(list, list_name)
   request_schema_results = list.all.map { |request| request[:schema_errors] }
   passed = true
   request_schema_results.each.with_index(1) do |schema_errors, index|
-    if schema_errors&.size > 0
+    next if schema_errors.nil
+    if schema_errors.size > 0
       passed = false
       $stdout.puts "\n"
       $stdout.puts "\e[31m--- #{list_name} #{index} failed validation with errors at the following locations:\e[0m"

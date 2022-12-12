@@ -110,6 +110,8 @@ GEM
     minitest (5.16.3)
     mocha (1.13.0)
     multi_test (0.1.2)
+    nokogiri (1.13.9-arm64-darwin)
+      racc (~> 1.4)
     nokogiri (1.13.9-x86_64-darwin)
       racc (~> 1.4)
     optimist (3.0.1)
@@ -138,6 +140,7 @@ GEM
       props (>= 1.1.2)
       rubyzip (>= 1.0.0)
     thor (1.0.1)
+    timecop (0.9.6)
     tomlrb (2.0.3)
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
@@ -153,6 +156,7 @@ GEM
       webrick (~> 1.7.0)
 
 PLATFORMS
+  arm64-darwin-21
   x86_64-darwin-19
   x86_64-darwin-20
 
@@ -162,6 +166,7 @@ DEPENDENCIES
   markdown (~> 1.2)
   mocha (~> 1.13.0)
   redcarpet (~> 3.5)
+  timecop (~> 0.9.6)
   yard (~> 0.9.1)
   yard-cucumber!
 

@@ -18,7 +18,7 @@ module Maze
         super(STDOUT, level: Logger::INFO)
       end
 
-      self.formatter = proc do |severity, time, _name, message|
+      @formatter = proc do |severity, time, _name, message|
         formatted_time = time.strftime('%H:%M:%S')
 
         "\e[2m[#{formatted_time}]\e[0m #{severity.rjust(5)}: #{message}\n"

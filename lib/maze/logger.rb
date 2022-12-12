@@ -7,8 +7,8 @@ require 'singleton'
 module Maze
   # A logger, with level configured according to the environment
   class Logger < Logger
-
     include Singleton
+
     def initialize
       if ENV['VERBOSE'] || ENV['DEBUG']
         super(STDOUT, level: Logger::DEBUG)
@@ -17,7 +17,12 @@ module Maze
       else
         super(STDOUT, level: Logger::INFO)
       end
-      self.datetime_format = '%Y-%m-%d %H:%M:%S'
+
+      self.formatter = proc do |severity, time, _name, message|
+        formatted_time = time.strftime('%H:%M:%S')
+
+        "\e[2m[#{formatted_time}]\e[0m #{severity.rjust(5)}: #{message}\n"
+      end
     end
   end
 

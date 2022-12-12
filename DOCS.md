@@ -10,6 +10,15 @@ to draft semantic tests.
 
 [Getting Started](./docs/Getting_Started.md)
 
+## Mock server
+
+In all modes of operation, Maze Runner automatically starts an HTTP server that mocks Bugsnag's server endpoint.
+This mock server provides a URL for each endpoint that Bugsnag does, allowing it to receive errors, session, builds,
+source map uploads and traces.
+
+See [here](./docs/Mock_Server.md) for more details of the options available for controlling the behaviour of the mock 
+server.
+
 ## Modes of operation
 
 Internally, Maze Runner has the following modes of operation
@@ -17,21 +26,14 @@ Internally, Maze Runner has the following modes of operation
 * [Appium/Devices](./docs/Device_Mode.md) - For running tests with Appium on local Android/iOS device or using a device 
   farm such as Bitbar or BrowserStack.
 * [Selenium/Browsers](./docs/Browser_Mode.md) - For running tests with Selenium locally using a browser farm such as 
-  Bitbar or BrowserStack.
-* Standalone - For any purposes that don't use devices or browsers.
-
-## Exit codes
-
-In normal usage maze runner will follow the same exit code patterns that cucumber would in normal operation.
-
-When the `--fail-fast` mode is specified, maze-runner will potentially override this default behaviour with a set exit code.
-A list of codes that will automatically be set for errors can be found in [the Error Code Hook class](./lib/maze/hooks/error_code_hook.rb).
-
-## Troubleshooting
+  Bitbar or BrowserStack.n## Troubleshooting
 
 ### Logging
 
-Maze-runner contains a Ruby logger connected to `STDOUT` that will attempt to log several events that occur during the  testing life-cycle.  By default, the logger is set to report `INFO` level events or higher, but will log `DEBUG` level events if the `VERBOSE` or `DEBUG` flags are set.  If the `QUIET` flag is set it will instead log at the `ERROR` level and above.
+Maze Runner contains a Ruby logger connected to `STDOUT` that will attempt to log several events that occur during the 
+testing life-cycle.  By default, the logger is set to report `INFO` level events or higher, but will log `DEBUG` level 
+events if the `VERBOSE` or `DEBUG` flags are set.  If the `QUIET` flag is set it will instead log at the `ERROR` level 
+and above.
 
 | Log Level | Event | Information |
 |-----------|-------|-------------|

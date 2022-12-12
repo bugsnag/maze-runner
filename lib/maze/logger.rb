@@ -9,6 +9,8 @@ module Maze
   class Logger < Logger
     include Singleton
 
+    attr_accessor :datetime_format
+
     def initialize
       if ENV['VERBOSE'] || ENV['DEBUG']
         super(STDOUT, level: Logger::DEBUG)
@@ -18,8 +20,10 @@ module Maze
         super(STDOUT, level: Logger::INFO)
       end
 
+      @datetime_format = '%H:%M:%S'
+
       @formatter = proc do |severity, time, _name, message|
-        formatted_time = time.strftime('%H:%M:%S')
+        formatted_time = time.strftime(@datetime_format)
 
         "\e[2m[#{formatted_time}]\e[0m #{severity.rjust(5)}: #{message}\n"
       end

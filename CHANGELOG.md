@@ -1,4 +1,4 @@
-# TBD
+# 7.10.0
 
 ## Enhancements
 
@@ -11,6 +11,7 @@
 
 - Relax check on React Native Notifier name [432](https://github.com/bugsnag/maze-runner/pull/432)
 - Add missing assertion against the breadcrumb name in "the event has a {string} breadcrumb named {string}" step [435](https://github.com/bugsnag/maze-runner/pull/435)
+- Refactor schema validation to use JSON-schemer [436](https://github.com/bugsnag/maze-runner/pull/436)
 
 # 7.9.0 - 2022/12/07
 

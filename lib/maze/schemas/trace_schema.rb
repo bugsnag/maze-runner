@@ -2,6 +2,6 @@
 
 module Maze
   module Schemas
-    TRACE_SCHEMA = JSON.parse(File.read(File.expand_path("TracesData-temp.json", File.dirname(__FILE__))))
+    TRACE_SCHEMA = JSON.parse(File.read(File.expand_path("OtelTraceSchema.json", File.dirname(__FILE__))))
   end
 end

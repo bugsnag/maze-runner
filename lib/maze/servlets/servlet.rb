@@ -2,7 +2,7 @@
 
 require 'zlib'
 require 'stringio'
-require 'json-schema'
+require 'json_schemer'
 
 module Maze
   module Servlets
@@ -18,7 +18,7 @@ module Maze
         super server
         @request_type = request_type
         @requests = Server.list_for request_type
-        @schema = schema
+        @schema = JSONSchemer.schema(schema) unless schema.nil?
       end
 
       # Logs an incoming GET WEBrick request.
@@ -64,8 +64,8 @@ module Maze
           }
         end
         if @schema
-          schema_errors = JSON::Validator.fully_validate(@schema, hash[:body], strict: true)
-          hash[:schema_errors] = schema_errors
+          schema_errors = @schema.validate(hash[:body])
+          hash[:schema_errors] = schema_errors.to_a
         end
         @requests.add(hash)
 

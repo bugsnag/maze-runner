@@ -13,9 +13,9 @@ templates = {
   'valid' => {
     'headers' => {},
     'body' => {
-      "resource_spans": [
+      "resourceSpans": [
         {
-          "scope_spans": [
+          "scopeSpans": [
             {
               "spans": [
                 {

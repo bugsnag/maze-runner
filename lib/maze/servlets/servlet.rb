@@ -38,7 +38,7 @@ module Maze
       # @param request [HTTPRequest] The incoming GET request
       # @param response [HTTPResponse] The response to return
       def do_POST(request, response)
-        @repeater.repeat(request) if Maze.config.repeater
+        @repeater.repeat(request) if Maze.config.repeater_api_key
 
         log_request(request)
         content_type = request['Content-Type']

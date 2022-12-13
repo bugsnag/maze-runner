@@ -4,17 +4,13 @@ A test runner for validating requests.
 
 ## How it works
 
-The test harness launches a mock API which awaits requests from sample applications. Using the runner, each scenario is 
-executed and the requests are validated to have to correct fields and values. Uses Gherkin and Cucumber under the hood 
-to draft semantic tests.
+The test harness launches a mock API which awaits requests from sample applications. Using the runner, each scenario is executed and the requests are validated to have to correct fields and values. Uses Gherkin and Cucumber under the hood to draft semantic tests.
 
 [Getting Started](./docs/Getting_Started.md)
 
 ## Mock server
 
-In all modes of operation, Maze Runner automatically starts an HTTP server that mocks Bugsnag's server endpoints.
-This mock server provides a URL for each endpoint that Bugsnag does, allowing it to receive errors, session, builds,
-source map uploads and traces.
+In all modes of operation, Maze Runner automatically starts an HTTP server that mocks Bugsnag's server endpoints. This mock server provides a URL for each endpoint that Bugsnag does, allowing it to receive errors, session, builds, source map uploads and traces.
 
 See [Mock Server](./docs/Mock_Server.md) for more details of the options available for controlling the behaviour of the mock 
 server.
@@ -23,19 +19,14 @@ server.
 
 Internally, Maze Runner has the following modes of operation
 
-* [Appium/Devices](./docs/Device_Mode.md) - For running tests with Appium on local Android/iOS device or using a device 
-  farm such as Bitbar or BrowserStack.
-* [Selenium/Browsers](./docs/Browser_Mode.md) - For running tests with Selenium locally using a browser farm such as 
-  Bitbar or BrowserStack.
+* [Appium/Devices](./docs/Device_Mode.md) - For running tests with Appium on local Android/iOS device or using a device farm such as BitBar or BrowserStack.
+* [Selenium/Browsers](./docs/Browser_Mode.md) - For running tests with Selenium locally using a browser farm such as BitBar or BrowserStack.
 
 ## Troubleshooting
 
 ### Logging
 
-Maze Runner contains a Ruby logger connected to `STDOUT` that will attempt to log several events that occur during the 
-testing life-cycle.  By default, the logger is set to report `INFO` level events or higher, but will log `DEBUG` level 
-events if the `VERBOSE` or `DEBUG` flags are set.  If the `QUIET` flag is set it will instead log at the `ERROR` level 
-and above.
+Maze Runner contains a Ruby logger connected to `STDOUT` that will attempt to log several events that occur during the testing life-cycle.  By default, the logger is set to report `INFO` level events or higher, but will log `DEBUG` level events if the `VERBOSE` or `DEBUG` flags are set.  If the `QUIET` flag is set it will instead log at the `ERROR` level and above.
 
 | Log Level | Event | Information |
 |-----------|-------|-------------|
@@ -86,10 +77,8 @@ Note: Maze Runner does not set the `progname`, so it will always be `nil` in a f
 
 ### Known issues
 
-* Payload field matching for raw string values can be ambiguous when there is a possible regex match (e.g. when using 
-"." as a part of an expected value without escaping it).
+* Payload field matching for raw string values can be ambiguous when there is a possible regex match (e.g. when using "." as a part of an expected value without escaping it).
 
 ### Running the tests
 
-maze-runner uses test-unit and minunit to bootstrap itself and run the sample app suites in the test fixtures. 
-Run `bundle exec rake` to run the suite.
+maze-runner uses test-unit and minunit to bootstrap itself and run the sample app suites in the test fixtures. Run `bundle exec rake` to run the suite.

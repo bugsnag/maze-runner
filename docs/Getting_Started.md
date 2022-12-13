@@ -19,8 +19,7 @@
 
 3. Run `bundle install` to fetch and install Maze Runner
 
-4. Run `bundle exec maze-runner init` from the root of your project to build the
-   basic structure to run test scenarios.
+4. Run `bundle exec maze-runner init` from the root of your project to build the basic structure to run test scenarios.
     * `features/fixtures`: Test fixture files, such as sample JSON payloads
     * `features/scripts`: Scripts to be run in scenarios. Any environment
       variables set in scenarios are passed to scripts. The `MOCK_API_PORT`
@@ -42,10 +41,7 @@
 
 ## Writing features
 
-Features should be composed as concisely has possible, reusing existing steps as
-needed. The harness provides a number of reusable step definitions for
-interacting with scripts, setting environment variables, and inspecting output.
-Each new feature should go into a `.feature` file in the `features` directory.
+Features should be composed as concisely has possible, reusing existing steps as needed. The harness provides a number of reusable step definitions for interacting with scripts, setting environment variables, and inspecting output. Each new feature should go into a `.feature` file in the `features` directory.
 
 ```
 Feature: Sinatra support
@@ -60,10 +56,7 @@ Scenario: Sinatra unhandled exception
     And the event "unhandled" is true
 ```
 
-This example includes a mix of the included steps as well as custom ones
-specific to the library being tested. `When I set an environment variable` is
-provided by default while `When I start a Sinatra app` is defined in a custom
-steps file in `features/steps/`, wrapping other included steps:
+This example includes a mix of the included steps as well as custom ones specific to the library being tested. `When I set an environment variable` is provided by default while `When I start a Sinatra app` is defined in a custom steps file in `features/steps/`, wrapping other included steps:
 
 ```ruby
 When("I start a Sinatra app") do
@@ -82,11 +75,7 @@ When("I navigate to the route {string}") do |route|
 end
 ```
 
-In addition, any helper functions or instance variables defined in
-`features/support/env.rb` are available to step files. See the included
-`_step.rb` files for examples. The files in `features/support` are evaluated
-before scenarios are run, so this is where one-time or per-scenario
-configuration should go.
+In addition, any helper functions or instance variables defined in `features/support/env.rb` are available to step files. See the included `_step.rb` files for examples. The files in `features/support` are evaluated before scenarios are run, so this is where one-time or per-scenario configuration should go.
 
  ```ruby
  # A helper function included with the harness to run commands and
@@ -127,8 +116,7 @@ end
 
 #### Field path notation
 
-Anywhere a `{field}`, `{path}`, `{key_path}`, etc is denoted, it can be replaced with dot-delimited key path to indicate
-the path from the root of an object to the intended target.
+Anywhere a `{field}`, `{path}`, `{key_path}`, etc is denoted, it can be replaced with dot-delimited key path to indicate the path from the root of an object to the intended target.
 
 For example, to match the name of the second objects in the the key `fruits` below, use `fruits.1.name` as the keypath.
 
@@ -150,8 +138,7 @@ Then the payload body matches the JSON fixture in "features/fixtures/template.js
 Then the payload field "items.0.subset" matches the JSON fixture in "features/fixtures/template.json"
 ```
 
-The template file can either be an exact match or specify regex matches for string fields. For example, given the
-template:
+The template file can either be an exact match or specify regex matches for string fields. For example, given the template:
 ```json
 { "fruit": { "apple": { "color": "\\w+" } } }
 ```

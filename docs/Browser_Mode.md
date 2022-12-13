@@ -2,9 +2,7 @@
 
 ## Overview
 
-Browser mode allows Selenium-based tests to be run on either local or remote browsers using a service such as BitBar or 
-BrowserStack.  Browser mode is invoked by using the `--browser` option, which for remote browsers expects a symbolic 
-name that maps to an entry in the appropriate device farm's yaml file, for example:
+Browser mode allows Selenium-based tests to be run on either local or remote browsers using a service such as BitBar or BrowserStack.  Browser mode is invoked by using the `--browser` option, which for remote browsers expects a symbolic name that maps to an entry in the appropriate device farm's yaml file, for example:
 
 * [BitBar](../lib/maze/client/selenium/bb_browsers.yml)
 * [BrowserStack](../lib/maze/client/selenium/bs_browsers.yml)
@@ -14,8 +12,7 @@ For local browsers, the value given for `--browser` is converted to a symbol and
 
 ## Environment variables
 
-To run tests on a service such as BitBar or BrowserStack you will need an account and set one of the following pairs
-of environment variables:
+To run tests on a service such as BitBar or BrowserStack you will need an account and set one of the following pairs of environment variables:
 
 * `BROWSER_STACK_USERNAME`/`BROWSER_STACK_ACCESS_KEY`
 * `BITBAR_USERNAME`/`BITBAR_ACCESS_KEY`

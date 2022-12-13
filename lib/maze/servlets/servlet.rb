@@ -13,14 +13,14 @@ module Maze
       #
       # @param server [HTTPServer] WEBrick HTTPServer
       # @param request_type [Symbol] Request type that the servlet will receive
-      # @param repeater_url [String] The Url that POST requests should be repeated to, if --repeater is enabled
       # @param schema [Dictionary] A `json-schema` describing the payload for POST requests
-      def initialize(server, request_type, repeater_url=nil, schema=nil)
+      def initialize(server, request_type, schema=nil)
         super server
         @request_type = request_type
         @requests = Server.list_for request_type
         @schema = JSONSchemer.schema(schema) unless schema.nil?
-        @repeater = Maze::RequestRepeater.new(repeater_url) if repeater_url
+
+        @repeater = Maze::RequestRepeater.new(@request_type) if [:errors, :sessions, :traces].include? @request_type
       end
 
       # Logs an incoming GET WEBrick request.

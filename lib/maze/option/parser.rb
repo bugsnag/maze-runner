@@ -36,10 +36,9 @@ module Maze
                 type: :boolean,
                 default: true
 
-            opt Option::REPEATER,
-                'Enables forwarding of all received POST requests to Bugsnag using the API key held in MAZE_REPEATER_API_KEY',
-                type: :boolean,
-                default: false
+            opt Option::REPEATER_API_KEY,
+                'Eables forwarding of all received POST requests to Bugsnag, using the API key provided',
+                type: :string
 
             text ''
             text 'Server options:'

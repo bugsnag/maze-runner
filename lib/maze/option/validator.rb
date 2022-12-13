@@ -30,13 +30,10 @@ module Maze
         end
 
         # --repeater-api-key
-        repeater = options[Option::REPEATER]
-        if repeater
-          key = ENV['MAZE_REPEATER_API_KEY']
-          key_regex = /^[0-9a-fA-F]{32}$/
-          unless key_regex.match?(key)
-            errors << "MAZE_REPEATER_API_KEY must be set to a 32-character hex value"
-          end
+        key = options[Option::REPEATER_API_KEY]
+        key_regex = /^[0-9a-fA-F]{32}$/
+        if key && !key_regex.match?(key)
+          errors << "--#{Option::REPEATER_API_KEY} must be set to a 32-character hex value"
         end
 
         # Farm specific options

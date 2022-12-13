@@ -14,7 +14,6 @@ class ProcessorTest < Test::Unit::TestCase
     ENV.delete('BROWSER_STACK_USERNAME')
     ENV.delete('BROWSER_STACK_ACCESS_KEY')
     ENV.delete('BITBAR_API_KEY')
-    ENV.delete('MAZE_REPEATER_API_KEY')
 
     Maze::Helper.stubs(:expand_path).with('/BrowserStackLocal').returns('/BrowserStackLocal')
   end
@@ -22,7 +21,7 @@ class ProcessorTest < Test::Unit::TestCase
   def test_populate_local_config
     args = %w[--farm=local --app=my_app.apk --os=ios --os-version=7.1 --apple-team-id=ABC --udid=123 \
               --bind-address=1.2.3.4 --port=1234 --no-start-appium --document-server-root=root \
-              --document-server-bind-address=5.6.7.8 --document-server-port=5678 --repeater]
+              --document-server-bind-address=5.6.7.8 --document-server-port=5678 --repeater-api-key=123456789012345678901234567890ab]
     options = Maze::Option::Parser.parse args
     config = Maze::Configuration.new
     Maze::Option::Processor.populate config, options
@@ -39,7 +38,7 @@ class ProcessorTest < Test::Unit::TestCase
     assert_equal '5.6.7.8', config.document_server_bind_address
     assert_equal 5678, config.document_server_port
     assert_false config.start_appium
-    assert_true config.repeater
+    assert_equal '123456789012345678901234567890ab', config.repeater_api_key
   end
 
   def test_populate_local_config_defaults
@@ -95,7 +94,7 @@ class ProcessorTest < Test::Unit::TestCase
     assert_true config.start_tunnel
     assert_false config.log_requests
     assert_false config.always_log
-    assert_false config.repeater
+    assert_nil config.repeater_api_key
   end
 
   def test_filename_options
@@ -112,16 +111,13 @@ class ProcessorTest < Test::Unit::TestCase
   end
 
   def test_environment_options
-    api_key = '123456789012345678901234567890ab'
-    ENV['MAZE_REPEATER_API_KEY'] = api_key
     ENV['USE_LEGACY_DRIVER'] = '1'
 
-    args = %w[--repeater]
+    args = []
     options = Maze::Option::Parser.parse args
     config = Maze::Configuration.new
     Maze::Option::Processor.populate config, options
 
-    assert_equal api_key, config.repeater_api_key
     assert_true config.legacy_driver?
   end
 end

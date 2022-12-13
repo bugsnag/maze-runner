@@ -12,11 +12,11 @@ to draft semantic tests.
 
 ## Mock server
 
-In all modes of operation, Maze Runner automatically starts an HTTP server that mocks Bugsnag's server endpoint.
+In all modes of operation, Maze Runner automatically starts an HTTP server that mocks Bugsnag's server endpoints.
 This mock server provides a URL for each endpoint that Bugsnag does, allowing it to receive errors, session, builds,
 source map uploads and traces.
 
-See [here](./docs/Mock_Server.md) for more details of the options available for controlling the behaviour of the mock 
+See [Mock Server](./docs/Mock_Server.md) for more details of the options available for controlling the behaviour of the mock 
 server.
 
 ## Modes of operation
@@ -26,7 +26,9 @@ Internally, Maze Runner has the following modes of operation
 * [Appium/Devices](./docs/Device_Mode.md) - For running tests with Appium on local Android/iOS device or using a device 
   farm such as Bitbar or BrowserStack.
 * [Selenium/Browsers](./docs/Browser_Mode.md) - For running tests with Selenium locally using a browser farm such as 
-  Bitbar or BrowserStack.n## Troubleshooting
+  Bitbar or BrowserStack.
+
+## Troubleshooting
 
 ### Logging
 

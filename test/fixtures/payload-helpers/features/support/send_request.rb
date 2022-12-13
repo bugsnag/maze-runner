@@ -68,13 +68,32 @@ def send_request(request_type, mock_api_port = 9339)
         'Bugsnag-Sent-At' => Time.now().iso8601(3)
       },
       'body' => {
-        'notifier' => {
-          'name' => 'Maze-runner',
-          'url' => 'not null',
-          'version' => '4.4.4'
-        },
-        'trace-value-1' => 'one',
-        'trace-value-2' => 'two'
+        "resourceSpans": [
+          {
+            "resource": {
+              "attributes": [
+                {
+                  "key": "telemetry.sdk.version",
+                  "value": {
+                    "stringValue": "0.0"
+                  }
+                },
+                {
+                  "key": "service.name",
+                  "value": {
+                    "stringValue": "com.bugsnag.Example"
+                  }
+                },
+                {
+                  "key": "telemetry.sdk.name",
+                  "value": {
+                    "stringValue": "bugsnag.performance.cocoa"
+                  }
+                }
+              ]
+            }
+          }
+        ]
       }
     },
     'unhandled' => {

@@ -3,8 +3,8 @@ Feature: Testing support on traces endpoint
     Scenario: The traces endpoint can accept json payloads
         When I send a "trace"-type request
         Then I wait to receive a trace
-        And the trace payload field "trace-value-1" equals "one"
-        And the trace payload field "trace-value-2" equals "two"
+        And the trace payload field "resourceSpans.0.resource.attributes.0.key" equals "telemetry.sdk.version"
+        And the trace payload field "resourceSpans.0.resource.attributes.0.value.stringValue" equals "0.0"
         And The HTTP response header "Bugsnag-Sampling-Probability" equals "1"
 
         # Sampling probability can be set for all subsequent trace requests
@@ -56,16 +56,15 @@ Feature: Testing support on traces endpoint
     Scenario: The traces endpoint can accept gzipped streams
         When I run the script "features/scripts/send_gzip.sh" synchronously
         And I wait to receive a trace
-        And the trace payload field "hello" equals "world"
-        And the trace payload field "array" is a non-empty array
+        And the trace payload field "resourceSpans.0.resource.attributes.0.key" equals "telemetry.sdk.version"
+        And the trace payload field "resourceSpans.0.resource.attributes.0.value.stringValue" equals "0.0"
 
     Scenario: The trace endpoint can identify a valid request
         Given I set up the maze-harness console
         And I input "bundle exec maze-runner --port=9349 features/passing_schema.feature" interactively
         Then the last interactive command exit code is 0
 
-    # Currently the trace endpoint doesn't opperate with a proper schema, so this isn't a possible test
-    #Scenario: The trace endpoint can identify an invalid request
-    #    Given I set up the maze-harness console
-    #    And I input "bundle exec maze-runner --port=9349 features/failing_schema.feature" interactively
-    #    Then the last interactive command exit code is 1
+    Scenario: The trace endpoint can identify an invalid request
+       Given I set up the maze-harness console
+       And I input "bundle exec maze-runner --port=9349 features/failing_schema.feature" interactively
+       Then the last interactive command exit code is 1

@@ -9,6 +9,9 @@ module Maze
 
     # Receives and parses the requests and payloads sent from the test fixture
     class Servlet < BaseServlet
+
+      REPEATED_REQUEST_TYPES = [:errors, :sessions, :traces]
+
       # Constructor
       #
       # @param server [HTTPServer] WEBrick HTTPServer
@@ -20,7 +23,7 @@ module Maze
         @requests = Server.list_for request_type
         @schema = JSONSchemer.schema(schema) unless schema.nil?
 
-        @repeater = Maze::RequestRepeater.new(@request_type) if [:errors, :sessions, :traces].include? @request_type
+        @repeater = Maze::RequestRepeater.new(@request_type) if REPEATED_REQUEST_TYPES.include? @request_type
       end
 
       # Logs an incoming GET WEBrick request.

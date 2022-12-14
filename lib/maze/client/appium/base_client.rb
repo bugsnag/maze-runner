@@ -91,7 +91,7 @@ module Maze
         end
 
         def stop_session
-          Maze.driver.driver_quit
+          Maze.driver&.driver_quit
           Maze::AppiumServer.stop if Maze::AppiumServer.running
         end
       end

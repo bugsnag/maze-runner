@@ -84,11 +84,20 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
   end
 
   def test_upload_app_retry_success
-    $logger.expects(:info).with("Uploading app: #{APP}").twice
-    $logger.expects(:error).with("Upload failed due to error: Useless error").once
-    $logger.expects(:info).with('Retrying upload in 60s').once
-    Kernel.expects(:sleep).with(60).once
 
+    $logger.expects(:info).with("Uploading app: #{APP}").times(3)
+
+    # First attempt fails due to ReadTimeout
+    $logger.expects(:error).with("Upload failed due to ReadTimeout").once
+    $logger.expects(:info).with('Retrying upload in 60s')
+    Kernel.expects(:sleep).with(60)
+
+    # Second attempt fails due to invalid response
+    $logger.expects(:error).with("Upload failed due to error: Useless error").once
+    $logger.expects(:info).with('Retrying upload in 60s')
+    Kernel.expects(:sleep).with(60)
+
+    # Third attempt succeeds
     $logger.expects(:info).with("app uploaded to: #{TEST_APP_URL}").once
     $logger.expects(:info).with('You can use this url to avoid uploading the same app more than once.').once
 
@@ -105,9 +114,9 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
 
     uri = URI('https://api-cloud.browserstack.com/app-automate/upload')
     Net::HTTP::Post.expects(:new)&.with(uri)&.returns post_mock
-    Net::HTTP.expects(:start)&.with('api-cloud.browserstack.com',
-                                    443,
-                                    use_ssl: true)&.returns(response_mock).at_most(2)
+    Net::HTTP.expects(:start)&.with('api-cloud.browserstack.com', 443, use_ssl: true)&.raises(Net::ReadTimeout.new)
+             .then.returns(response_mock)
+             .then.returns(response_mock).at_most(3)
 
     url = Maze::Client::BrowserStackClientUtils.upload_app USERNAME, ACCESS_KEY, APP
     assert_equal(TEST_APP_URL, url)
@@ -115,7 +124,7 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
 
   def test_upload_app_invalid_response
     $logger.expects(:info).with("Uploading app: #{APP}").times(10)
-    $logger.expects(:error).with("Error: expected JSON response, received: gobbledygook").times(10)
+    $logger.expects(:error).with("Unexpected JSON response, received: gobbledygook").times(10)
     $logger.expects(:info).with('Retrying upload in 60s').times(9)
     Kernel.expects(:sleep).with(60).times(9)
 

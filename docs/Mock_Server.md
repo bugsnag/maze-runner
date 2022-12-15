@@ -23,4 +23,4 @@ bundle exec maze-runner --help
   - Identifying gaps in test coverage
   - Testing new features of Bugsnag during development
 
-Set this value to the API key of the desired destination project in the Bugsnag dashboard.
+Set this value to the API key of the desired destination project in the Bugsnag dashboard.  The MAZE_REPEATER_API_KEY environment variable can also be set as an alternative to this option.

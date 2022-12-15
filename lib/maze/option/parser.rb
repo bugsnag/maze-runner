@@ -37,7 +37,7 @@ module Maze
                 default: true
 
             opt Option::REPEATER_API_KEY,
-                'Eables forwarding of all received POST requests to Bugsnag, using the API key provided',
+                'Enables forwarding of all received POST requests to Bugsnag, using the API key provided',
                 type: :string
 
             text ''

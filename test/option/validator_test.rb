@@ -32,6 +32,15 @@ class ValidatorTest < Test::Unit::TestCase
     assert_equal "--farm must be 'bs', 'bb' or 'local' if provided", errors[0]
   end
 
+  def test_repeater_api_key
+    args = %w[--repeater-api-key=invalid]
+    options = Maze::Option::Parser.parse args
+    errors = @validator.validate options
+
+    assert_equal 1, errors.length
+    assert_equal "--repeater-api-key must be set to a 32-character hex value", errors[0]
+  end
+
   def test_valid_browser_stack_options
     args = %w[--farm=bs --app=my_app.apk --username=user --access-key=key --device=ANDROID_6_0]
     File.stubs(:exist?).with('/BrowserStackLocal').returns(true)

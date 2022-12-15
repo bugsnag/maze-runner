@@ -12,16 +12,28 @@ module Maze
       def validate(options)
         errors = []
 
+        #
         # Common options
+        #
+
+        # --farm
         farm = options[Option::FARM]
         if farm && !%w[bs local bb].include?(farm)
           errors << "--#{Option::FARM} must be 'bs', 'bb' or 'local' if provided"
         end
 
+        # --capabilities
         begin
           JSON.parse(options[Option::CAPABILITIES])
         rescue JSON::ParserError
           errors << "--#{Option::CAPABILITIES} must be valid JSON (given #{options[Option::CAPABILITIES]})"
+        end
+
+        # --repeater-api-key
+        key = options[Option::REPEATER_API_KEY]
+        key_regex = /^[0-9a-fA-F]{32}$/
+        if key && !key_regex.match?(key)
+          errors << "--#{Option::REPEATER_API_KEY} must be set to a 32-character hex value"
         end
 
         # Farm specific options

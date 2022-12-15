@@ -9,6 +9,8 @@ module Maze
 
     # Receives and parses the requests and payloads sent from the test fixture
     class Servlet < BaseServlet
+      prepend RequestRepeater
+
       # Constructor
       #
       # @param server [HTTPServer] WEBrick HTTPServer

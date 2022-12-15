@@ -6,6 +6,7 @@
 - Add support for running `docker compose exec` commands [425](https://github.com/bugsnag/maze-runner/pull/425)
 - Add steps for checking an event has a specific number of breadcrumbs, or no breadcrumbs at all [433](https://github.com/bugsnag/maze-runner/pull/433)
 - Simplify logger format [437](https://github.com/bugsnag/maze-runner/pull/437)
+- Add `--repeater` option [438](https://github.com/bugsnag/maze-runner/pull/438)
 
 ## Fixes
 
@@ -18,7 +19,7 @@
 ## Enhancements
 
 - Use `docker compose` instead of `docker-compose` [429](https://github.com/bugsnag/maze-runner/pull/429)
-- Bump Bitbar browsers to those currently available [430](https://github.com/bugsnag/maze-runner/pull/430)
+- Bump BitBar browsers to those currently available [430](https://github.com/bugsnag/maze-runner/pull/430)
   - Firefox 102 to 107
   - Chrome 103 to 108
   - Edge 101 to 106

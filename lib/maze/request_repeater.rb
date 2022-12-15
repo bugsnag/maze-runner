@@ -41,8 +41,9 @@ module Maze
             when :errors then 'https://notify.bugsnag.com/'
             when :sessions then 'https://sessions.bugsnag.com/'
             when :traces then 'https://otlp.bugsnag.com/v1/traces'
+            else return nil
             end
-      URI.parse(url) if url
+      URI.parse(url)
     end
   end
 end

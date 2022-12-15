@@ -72,6 +72,12 @@ safari_15:
   os: "OS X"
   osVersion: "Monterey"
 
+safari_16:
+  browserName: "Safari"
+  browserVersion: "16.0"
+  os: "OS X"
+  osVersion: "Monterey"
+
 iphone_6s:
   browserName: "iphone"
   device: "iPhone 6S"

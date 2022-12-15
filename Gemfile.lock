@@ -9,7 +9,7 @@ GIT
 PATH
   remote: .
   specs:
-    bugsnag-maze-runner (7.10.0)
+    bugsnag-maze-runner (7.10.1)
       appium_lib (~> 12.0.0)
       appium_lib_core (~> 5.4.0)
       bugsnag (~> 6.24)
@@ -134,7 +134,7 @@ GEM
       websocket (~> 1.0)
     sys-uname (1.2.2)
       ffi (~> 1.1)
-    test-unit (3.5.5)
+    test-unit (3.5.7)
       power_assert
     textutils (1.4.0)
       activesupport

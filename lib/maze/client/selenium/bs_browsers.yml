@@ -76,7 +76,7 @@ safari_16:
   browserName: "Safari"
   browserVersion: "16.0"
   os: "OS X"
-  osVersion: "Monterey"
+  osVersion: "Ventura"
 
 iphone_6s:
   browserName: "iphone"

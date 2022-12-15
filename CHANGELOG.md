@@ -1,3 +1,9 @@
+# 7.10.1 - 2022/12/15
+
+## Fixes
+
+- Correct capabilities for Safari 16 on BrowserStack [441](https://github.com/bugsnag/maze-runner/pull/441)
+
 # 7.10.0 - 2022/12/15
 
 ## Enhancements

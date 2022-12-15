@@ -37,7 +37,7 @@ module Maze
                 default: true
 
             opt Option::REPEATER_API_KEY,
-                'Eables forwarding of all received POST requests to Bugsnag, using the API key provided',
+                'Enables forwarding of all received POST requests to Bugsnag, using the API key provided.  MAZE_REPEATER_API_KEY may also be set.',
                 type: :string
 
             text ''
@@ -92,7 +92,7 @@ module Maze
                 type: :string,
                 multi: true
             opt Option::BROWSER,
-                'Browser to use (an entry in browsers_<farm>.yml)',
+                'Browser to use (an entry in <farm>_browsers.yml)',
                 short: :none,
                 type: :string
             opt Option::USERNAME,
@@ -105,7 +105,7 @@ module Maze
                 'The Appium version to use',
                 type: :string
             opt Option::LIST_DEVICES,
-                'Lists the devices available for the configured device-farm, or all devices if none are specified',
+                'Lists the devices available for the configured device farm, or all devices if none are specified',
                 default: false
             opt Option::APP_BUNDLE_ID,
                 'The bundle identifier of the test application',
@@ -218,6 +218,8 @@ module Maze
             options[Option::ACCESS_KEY] ||= ENV['BITBAR_ACCESS_KEY']
             options[Option::TMS_URI] ||= ENV['MAZE_TMS_URI']
           end
+
+          options[Option::REPEATER_API_KEY] ||= ENV['MAZE_REPEATER_API_KEY']
           options[Option::SB_LOCAL] ||= ENV['MAZE_SB_LOCAL'] || '/SBSecureTunnel'
           options[Option::TMS_URI] ||= ENV['MAZE_TMS_URI']
           options[Option::TMS_TOKEN] ||= ENV['MAZE_TMS_TOKEN']

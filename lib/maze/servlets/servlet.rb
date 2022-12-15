@@ -9,8 +9,7 @@ module Maze
 
     # Receives and parses the requests and payloads sent from the test fixture
     class Servlet < BaseServlet
-
-      REPEATED_REQUEST_TYPES = [:errors, :sessions, :traces]
+      prepend RequestRepeater
 
       # Constructor
       #
@@ -22,10 +21,6 @@ module Maze
         @request_type = request_type
         @requests = Server.list_for request_type
         @schema = JSONSchemer.schema(schema) unless schema.nil?
-
-        if Maze.config.repeater_api_key && REPEATED_REQUEST_TYPES.include?(@request_type)
-          @repeater = Maze::RequestRepeater.new(@request_type)
-        end
       end
 
       # Logs an incoming GET WEBrick request.
@@ -43,8 +38,6 @@ module Maze
       # @param request [HTTPRequest] The incoming GET request
       # @param response [HTTPResponse] The response to return
       def do_POST(request, response)
-        @repeater&.repeat(request)
-
         log_request(request)
         content_type = request['Content-Type']
         content_encoding = request['Content-Encoding']

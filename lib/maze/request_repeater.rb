@@ -1,10 +1,18 @@
 module Maze
   # Repeats POST requests
-  class RequestRepeater
+  module RequestRepeater
 
-    # @param request_type [String] The type of request being handled by this repeater
-    def initialize(request_type)
-      @url = url_for_request_type(request_type)
+    def do_POST(request, response)
+      repeat(request) if enabled?
+
+      super(request, response)
+    end
+
+    private
+
+    def enabled?
+      # enabled if the config option is on and this request type should be repeated
+      Maze.config.repeater_api_key && url_for_request_type
     end
 
     # @param request [HTTPRequest] The request to be repeated
@@ -13,8 +21,9 @@ module Maze
       # TODO: Forwarding of internal errors to be considered later
       return if request.header.keys.any? { |key| key.downcase == 'bugsnag-internal-error' }
 
-      http = Net::HTTP.new(@url.host)
-      bugsnag_request = Net::HTTP::Post.new(@url.path)
+      url = url_for_request_type
+      http = Net::HTTP.new(url.host)
+      bugsnag_request = Net::HTTP::Post.new(url.path)
       bugsnag_request['Content-Type'] = 'application/json'
 
       # Set all Bugsnag headers that are present
@@ -27,15 +36,13 @@ module Maze
       http.request(bugsnag_request)
     end
 
-    private
-
-    def url_for_request_type(request_type)
-      url = case request_type
+    def url_for_request_type
+      url = case @request_type
             when :errors then 'https://notify.bugsnag.com/'
             when :sessions then 'https://sessions.bugsnag.com/'
             when :traces then 'https://otlp.bugsnag.com/v1/traces'
             end
-      URI.parse(url)
+      URI.parse(url) if url
     end
   end
 end

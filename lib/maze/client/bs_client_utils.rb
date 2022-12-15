@@ -26,12 +26,12 @@ module Maze
             allowed_tries = 10
 
             while upload_tries < allowed_tries
-              $logger.info "Uploading app: #{expanded_app}"
-              res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
-                http.request(request)
-              end
-
               begin
+                $logger.info "Uploading app: #{expanded_app}"
+                res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+                  http.request(request)
+                end
+
                 body = res.body
                 response = JSON.parse body
                 if response.include?('error')
@@ -42,8 +42,10 @@ module Maze
                   # Successful upload
                   break
                 end
+              rescue Net::ReadTimeout
+                $logger.error "Upload failed due to ReadTimeout"
               rescue JSON::ParserError
-                $logger.error "Error: expected JSON response, received: #{body}"
+                $logger.error "Unexpected JSON response, received: #{body}"
               end
 
               upload_tries += 1

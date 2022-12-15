@@ -7,6 +7,7 @@
 - Add steps for checking an event has a specific number of breadcrumbs, or no breadcrumbs at all [433](https://github.com/bugsnag/maze-runner/pull/433)
 - Simplify logger format [437](https://github.com/bugsnag/maze-runner/pull/437)
 - Add `--repeater` option [438](https://github.com/bugsnag/maze-runner/pull/438)
+- Add Safari 16 on BrowserStack [440](https://github.com/bugsnag/maze-runner/pull/440)
 
 ## Fixes
 

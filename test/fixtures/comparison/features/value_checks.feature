@@ -3,6 +3,7 @@ Feature: Checks on value types
   Scenario: Checks on values of different types
     When I send a "values"-type request
     And I wait to receive 1 error
+    And I have received at least 1 error
 
     Then the error payload field "values.uuid" is a UUID
     And the error payload field "values.number" is a number

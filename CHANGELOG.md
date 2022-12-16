@@ -1,3 +1,9 @@
+# 7.10.2 - TDB
+
+## Fixes
+
+- Fix error in step `I have received at least {int} {word}` [442](https://github.com/bugsnag/maze-runner/pull/442)
+
 # 7.10.1 - 2022/12/15
 
 ## Fixes

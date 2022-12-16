@@ -248,13 +248,18 @@ Then('I wait for the shell prompt {string}') do |expected_prompt|
   Maze.check.true(success, "The current output line \"#{shell.current_buffer}\" did not match \"#{expected_prompt}\"")
 end
 
+def check_match(matched, lines, to_match)
+  msg = "No output lines from:\n#{lines.join "  \n"} matched #{to_match}"
+  Maze.check.true(matched, msg)
+end
+
 # Verify a string appears in the stdout logs
 #
 # @step_input expected_line [String] The string present in stdout logs
 Then('the shell has output {string} to stdout') do |expected_line|
-  current_shell = Maze::Runner.interactive_session
-  match = current_shell.stdout_lines.any? { |line| line == expected_line }
-  Maze.check.true(match, "No output lines from #{current_shell.stdout_lines} matched #{expected_line}")
+  lines = Maze::Runner.interactive_session.stdout_lines
+  match = lines.any? { |line| line == expected_line }
+  check_match(match, lines, expected_line)
 end
 
 # Wait for a string to appear in the stdout logs, timing out after Maze.config.receive_requests_wait seconds.
@@ -262,22 +267,22 @@ end
 # @step_input expected_line [String] The string present in stdout logs
 Then('I wait for the shell to output {string} to stdout') do |expected_line|
   wait = Maze::Wait.new(timeout: Maze.config.receive_requests_wait)
-  current_shell = Maze::Runner.interactive_session
+  lines = Maze::Runner.interactive_session.stdout_lines
 
-  success = wait.until do
-    current_shell.stdout_lines.any? { |line| line == expected_line }
+  match = wait.until do
+    lines.any? { |line| line == expected_line }
   end
 
-  Maze.check.true(success, "No output lines from #{current_shell.stdout_lines} matched #{expected_line}")
+  check_match(match, lines, expected_line)
 end
 
 # Verify a string using a regex in the stdout logs
 #
 # @step_input regex_matcher [String] The regex expected to match a line in stdout logs
 Then('the shell has output a match for the regex {string} to stdout') do |regex_matcher|
-  current_shell = Maze::Runner.interactive_session
-  match = current_shell.stdout_lines.any? { |line| line.match?(regex_matcher) }
-  Maze.check.true(match, "No output lines from #{current_shell.stdout_lines} matched #{regex_matcher}")
+  lines = Maze::Runner.interactive_session.stdout_lines
+  match = lines.any? { |line| line.match?(regex_matcher) }
+  check_match(match, lines, regex_matcher)
 end
 
 # Wait for a string matching a regex in the stdout logs, timing out after Maze.config.receive_requests_wait seconds.
@@ -285,13 +290,13 @@ end
 # @step_input regex_matcher [String] The regex expected to match a line in stdout logs
 Then('I wait for the shell to output a match for the regex {string} to stdout') do |regex_matcher|
   wait = Maze::Wait.new(timeout: Maze.config.receive_requests_wait)
-  current_shell = Maze::Runner.interactive_session
+  lines = Maze::Runner.interactive_session.stdout_lines
 
-  success = wait.until do
-    current_shell.stdout_lines.any? { |line| line.match?(regex_matcher) }
+  match = wait.until do
+    lines.any? { |line| line.match?(regex_matcher) }
   end
 
-  Maze.check.true(success, "No output lines from #{current_shell.stdout_lines} matched #{regex_matcher}")
+  check_match(match, lines, regex_matcher)
 end
 
 # Wait for the shell to output a number of strings in STDOUT, as defined by a table.
@@ -317,9 +322,10 @@ end
 #
 # @step_input expected_err [String] The string present in stderr logs
 Then('the shell has output {string} to stderr') do |expected_err|
-  current_shell = Maze::Runner.interactive_session
-  match = current_shell.stderr_lines.any? { |line| line == expected_err }
-  Maze.check.true(match, "No output lines from #{current_shell.stderr_lines} matched #{expected_err}")
+  lines = Maze::Runner.interactive_session.stderr_lines
+  match = lines.any? { |line| line == expected_err }
+
+  check_match(match, lines, expected_err)
 end
 
 # Wait for a string to appear in the stderr logs
@@ -327,13 +333,13 @@ end
 # @step_input expected_line [String] The string present in stderr logs
 Then('I wait for the shell to output {string} to stderr') do |expected_line|
   wait = Maze::Wait.new(timeout: Maze.config.receive_requests_wait)
-  current_shell = Maze::Runner.interactive_session
+  lines = Maze::Runner.interactive_session.stderr_lines
 
-  success = wait.until do
-    current_shell.stderr_lines.any? { |line| line == expected_line }
+  match = wait.until do
+    lines.any? { |line| line == expected_line }
   end
 
-  Maze.check.true(success, "No output lines from #{current_shell.stderr_lines} matched #{expected_line}")
+  check_match(match, lines, expected_line)
 end
 
 # Verify the last interactive command exited successfully (assuming a 0 is a success)

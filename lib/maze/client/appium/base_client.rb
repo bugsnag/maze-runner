@@ -86,6 +86,10 @@ module Maze
           end
         end
 
+        def device_capabilities
+          raise 'Method not implemented by this class'
+        end
+
         def log_session_info
           raise 'Method not implemented by this class'
         end

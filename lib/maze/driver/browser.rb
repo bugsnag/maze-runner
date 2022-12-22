@@ -16,8 +16,6 @@ module Maze
         @capabilities = capabilities
         @driver_for = driver_for
         @selenium_url = selenium_url
-
-        start_driver
       end
 
       def find_element(*args)
@@ -92,8 +90,6 @@ module Maze
         start_driver(attempts)
       end
 
-      private
-
       # Attempts to create a new selenium driver a given number of times
       #
       # @param attempts [Integer] The number of times we should retry a failed attempt (defaults to 6)
@@ -114,6 +110,8 @@ module Maze
           raise RuntimeError.new("Selenium driver failed to start in #{timeout} seconds")
         end
       end
+
+      private
 
       # Creates and starts the selenium driver
       def create_driver(driver_for, selenium_url=nil)

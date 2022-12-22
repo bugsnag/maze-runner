@@ -64,8 +64,8 @@ module Maze
         end
 
         def stop_session
+          super
           Maze::Client::BrowserStackClientUtils.stop_local_tunnel
-          Maze.driver&.driver_quit
         end
       end
     end

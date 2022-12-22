@@ -35,6 +35,7 @@ module Maze
         end
 
         def stop_session
+          super
           Maze::Client::BitBarClientUtils.stop_local_tunnel
           Maze::Client::BitBarClientUtils.release_account(Maze.config.tms_uri) if ENV['BUILDKITE']
         end

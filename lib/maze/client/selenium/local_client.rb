@@ -16,7 +16,7 @@ module Maze
         end
 
         def stop_session
-          # Nothing to do
+          # No need to quit the local driver
         end
       end
     end

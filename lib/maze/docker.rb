@@ -69,6 +69,30 @@ module Maze
         run_docker_compose_command("exec #{flags} #{service} /bin/sh -c '#{command}'")
       end
 
+      # Copy a file or directory from a container to the local filesystem
+      #
+      # This is equivalent to the Docker Compose 'cp' command:
+      # https://docs.docker.com/engine/reference/commandline/compose_cp/
+      #
+      # @param service [String] The name of the service to copy from. This must already be running
+      # @param from [String] The path to the file/directory that should be copied
+      # @param to [String] The path to copy the file/directory to
+      def copy_from_container(service, from:, to:)
+        run_docker_compose_command("cp #{service}:#{from} #{to}", success_codes: [0])
+      end
+
+      # Copy a file or directory from the local filesystem to a container
+      #
+      # This is equivalent to the Docker Compose 'cp' command:
+      # https://docs.docker.com/engine/reference/commandline/compose_cp/
+      #
+      # @param service [String] The name of the service to copy to. This must already be running
+      # @param from [String] The path to the file/directory that should be copied
+      # @param to [String] The path to copy the file/directory to
+      def copy_to_container(service, from:, to:)
+        run_docker_compose_command("cp #{from} #{service}:#{to}", success_codes: [0])
+      end
+
       # Kills a running service
       #
       # @param service [String] The name of the service to kill

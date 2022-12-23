@@ -7,7 +7,7 @@
 ## Refactor
 
 - Refactor Selenium framework code into new class hierarchy in `Maze::Client::Selenium` [444](https://github.com/bugsnag/maze-runner/pull/444)
-- Refactor starting of Appium client `Maze::Client::Appium` [445](https://github.com/bugsnag/maze-runner/pull/445)
+- Refactor starting of Appium client `Maze::Client::Appium` [446](https://github.com/bugsnag/maze-runner/pull/446)
 
 # 7.10.1 - 2022/12/15
 

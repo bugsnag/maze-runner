@@ -51,6 +51,11 @@ module Maze
           log_session_info
         end
 
+        def stop_session
+          super
+          Maze::Client::BrowserStackClientUtils.stop_local_tunnel
+        end
+
         private
 
         def log_session_info
@@ -62,11 +67,6 @@ module Maze
           else
             $logger.info "BrowserStack session(s): #{url}"
           end
-        end
-
-        def stop_session
-          super
-          Maze::Client::BrowserStackClientUtils.stop_local_tunnel
         end
       end
     end

@@ -4,18 +4,7 @@ module Maze
     # Hooks for Browser mode use
     class BrowserHooks < InternalHooks
       def before_all
-        session_uuid = SecureRandom.uuid
-
-        case Maze.config.farm
-        when :bb
-          @client = Maze::Client::Selenium::BitBarClient.new session_uuid
-        when :bs
-          @client = Maze::Client::Selenium::BrowserStackClient.new session_uuid
-        when :local
-          @client = Maze::Client::Selenium::LocalClient.new session_uuid
-        end
-
-        @client.start_session
+        @client = Maze::Client::Selenium.start(SecureRandom.uuid)
       end
 
       def at_exit

@@ -2,7 +2,7 @@ module Maze
   module Client
     module Selenium
       class BitBarClient < BaseClient
-        def prepare_session
+        def start_session
           config = Maze.config
           if ENV['BUILDKITE']
             credentials = Maze::Client::BitBarClientUtils.account_credentials config.tms_uri
@@ -20,18 +20,12 @@ module Maze
                                                              config.username,
                                                              config.access_key
                                                              @session_uuid
-        end
 
-        def start_session
           # TODO This probably needs to be settable via an environment variable
           # selenium_url = 'https://us-west-desktop-hub.bitbar.com/wd/hub'
           selenium_url = 'https://eu-desktop-hub.bitbar.com/wd/hub'
-          Maze.driver = Maze::Driver::Browser.new :remote, selenium_url, Maze.config.capabilities
+          Maze.driver = Maze::Driver::Browser.new :remote, selenium_url, config.capabilities
           Maze.driver.start_driver
-        end
-
-        def log_session_info
-          # TODO TBD
         end
 
         def stop_session

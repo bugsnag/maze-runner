@@ -15,9 +15,7 @@ module Maze
           @client = Maze::Client::Selenium::LocalClient.new session_uuid
         end
 
-        @client.prepare_session
         @client.start_session
-        @client.log_session_info
       end
 
       def at_exit

@@ -2,8 +2,8 @@ module Maze
   module Client
     module Selenium
       class BrowserStackClient < BaseClient
-        def prepare_session
-          # BrowserStack browser
+        def start_session
+          # Set up the capabilities
           tunnel_id = SecureRandom.uuid
           browsers = YAML.safe_load(File.read("#{__dir__}/bs_browsers.yml"))
 
@@ -37,20 +37,21 @@ module Maze
             config.capabilities = ::Selenium::WebDriver::Remote::Capabilities.new capabilities
           end
 
+          # Start the tunnel
           Maze::Client::BrowserStackClientUtils.start_local_tunnel config.bs_local,
                                                                    tunnel_id,
                                                                    config.access_key
-        end
 
-        def start_session
-          config = Maze.config
+          # Start the driver
           selenium_url = "https://#{config.username}:#{config.access_key}@hub.browserstack.com/wd/hub"
-
-          $logger.info config.capabilities.class
-
           Maze.driver = Maze::Driver::Browser.new :remote, selenium_url, config.capabilities
           Maze.driver.start_driver
+
+          # Log details for the session
+          log_session_info
         end
+
+        private
 
         def log_session_info
           # Log a link to the BrowserStack session search dashboard

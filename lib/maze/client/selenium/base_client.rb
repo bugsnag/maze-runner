@@ -6,15 +6,7 @@ module Maze
           @session_uuid = session_uuid
         end
 
-        def prepare_session
-          raise 'Method not implemented by this class'
-        end
-
         def start_session
-          raise 'Method not implemented by this class'
-        end
-
-        def log_session_info
           raise 'Method not implemented by this class'
         end
 

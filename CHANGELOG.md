@@ -1,8 +1,9 @@
-# 7.10.2 - TDB
+# 7.10.2 - 2023/01/05
 
 ## Fixes
 
 - Fix error in step `I have received at least {int} {word}` [442](https://github.com/bugsnag/maze-runner/pull/442)
+- Decode all Gzipped POST requests [447](https://github.com/bugsnag/maze-runner/pull/447)
 
 ## Refactor
 

@@ -3,6 +3,7 @@
 require 'zlib'
 require 'stringio'
 require 'json_schemer'
+require 'delegate'
 
 module Maze
   module Servlets
@@ -38,20 +39,15 @@ module Maze
       # @param request [HTTPRequest] The incoming GET request
       # @param response [HTTPResponse] The response to return
       def do_POST(request, response)
-        log_request(request)
+        # Turn the WEBrick HttpRequest into our internal HttpRequest delegate
+        request = HttpRequest.new(request)
+
         content_type = request['Content-Type']
-        content_encoding = request['Content-Encoding']
         if %r{^multipart/form-data; boundary=([^;]+)}.match(content_type)
           boundary = WEBrick::HTTPUtils::dequote($1)
           body = WEBrick::HTTPUtils.parse_form_data(request.body, boundary)
           hash = {
             body: body,
-            request: request
-          }
-        elsif %r{^gzip$}.match(content_encoding)
-          gz_element = Zlib::GzipReader.new(StringIO.new(request.body))
-          hash = {
-            body: JSON.parse(gz_element.read),
             request: request
           }
         else

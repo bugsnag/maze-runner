@@ -54,8 +54,10 @@ Feature: Testing support on traces endpoint
         Then The HTTP response header "Bugsnag-Sampling-Probability" equals "1"
 
     Scenario: The traces endpoint can accept gzipped streams
-        When I run the script "features/scripts/send_gzip.sh" synchronously
+        When I enforce checking of the Bugsnag-Integrity header
+        And I run the script "features/scripts/send_gzip.sh" synchronously
         And I wait to receive a trace
+        Then the trace Bugsnag-Integrity header is valid
         And the trace payload field "resourceSpans.0.resource.attributes.0.key" equals "telemetry.sdk.version"
         And the trace payload field "resourceSpans.0.resource.attributes.0.value.stringValue" equals "0.0"
 

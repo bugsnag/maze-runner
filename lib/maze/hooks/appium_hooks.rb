@@ -6,26 +6,7 @@ module Maze
       @client
 
       def before_all
-        session_uuid = SecureRandom.uuid
-
-        case Maze.config.farm
-        when :bb
-          @client = Maze::Client::Appium::BitBarClient.new session_uuid
-        when :bs
-          if Maze.config.legacy_driver?
-            $logger.info 'Using the Legacy (JWP) Appium client'
-            @client = Maze::Client::Appium::BrowserStackLegacyClient.new session_uuid
-          else
-            $logger.info 'Using the W3C Appium client'
-            @client = Maze::Client::Appium::BrowserStackClient.new session_uuid
-          end
-        when :local
-          @client = Maze::Client::Appium::LocalClient.new session_uuid
-        end
-
-        @client.prepare_session
-        @client.start_session
-        @client.log_session_info
+        @client = Maze::Client::Appium.start(SecureRandom.uuid)
       end
 
       # TODO: Refactor before and after method so that use of the driver is abstracted behind the relevant Appium client

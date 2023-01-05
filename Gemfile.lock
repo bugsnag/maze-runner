@@ -9,7 +9,7 @@ GIT
 PATH
   remote: .
   specs:
-    bugsnag-maze-runner (7.10.1)
+    bugsnag-maze-runner (7.10.2)
       appium_lib (~> 12.0.0)
       appium_lib_core (~> 5.4.0)
       bugsnag (~> 6.24)
@@ -118,10 +118,10 @@ GEM
       racc (~> 1.4)
     optimist (3.0.1)
     os (1.0.1)
-    power_assert (2.0.2)
+    power_assert (2.0.3)
     props (1.2.0)
       iniparser (>= 0.1.0)
-    racc (1.6.1)
+    racc (1.6.2)
     rake (12.3.3)
     redcarpet (3.5.1)
     regexp_parser (2.6.1)

@@ -7,11 +7,9 @@ module Maze
           @session_uuid = session_uuid
         end
 
-        def prepare_session
-          raise 'Method not implemented by this class'
-        end
-
         def start_session
+          prepare_session
+
           start_driver(Maze.config)
 
           # Set bundle/app id for later use
@@ -23,6 +21,12 @@ module Maze
                                end
           # Ensure the device is unlocked
           Maze.driver.unlock
+
+          log_session_info
+        end
+
+        def prepare_session
+          raise 'Method not implemented by this class'
         end
 
         def start_driver(config)
@@ -84,6 +88,10 @@ module Maze
               end
             end
           end
+        end
+
+        def device_capabilities
+          raise 'Method not implemented by this class'
         end
 
         def log_session_info

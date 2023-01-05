@@ -9,7 +9,7 @@ GIT
 PATH
   remote: .
   specs:
-    bugsnag-maze-runner (7.10.2)
+    bugsnag-maze-runner (7.11.0)
       appium_lib (~> 12.0.0)
       appium_lib_core (~> 5.4.0)
       bugsnag (~> 6.24)
@@ -40,7 +40,7 @@ GEM
     appium_lib_core (5.4.0)
       faye-websocket (~> 0.11.0)
       selenium-webdriver (~> 4.2, < 4.6)
-    bugsnag (6.25.0)
+    bugsnag (6.25.1)
       concurrent-ruby (~> 1.0)
     builder (3.2.4)
     childprocess (4.1.0)

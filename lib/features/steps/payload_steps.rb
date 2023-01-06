@@ -86,6 +86,29 @@ Then('the {word} payload field {string} equals {int}') do |request_type, field_p
                    Maze::Helper.read_key_path(Maze::Server.list_for(request_type).current[:body], field_path))
 end
 
+# Tests that a payload element equals a float.
+#
+# @step_input request_type [String] The type of request (error, session, build, etc)
+# @step_input field_path [String] Path to the tested element
+# @step_input float_value [Float] The value to test against
+Then('the {word} payload field {string} equals {float}') do |request_type, field_path, float_value|
+  Maze.check.equal(float_value,
+                   Maze::Helper.read_key_path(Maze::Server.list_for(request_type).current[:body], field_path))
+end
+
+# Tests that a payload element equals a float, to a given number of decimal places.
+#
+# @step_input request_type [String] The type of request (error, session, build, etc)
+# @step_input field_path [String] Path to the tested element
+# @step_input float_value [Float] The value to test against
+# @step_input places [Int] The number of decimal places to round the actual value to first
+Then('the {word} payload field {string} equals {float} to {int} decimal place(s)') do |request_type, field_path, float_value, places|
+  body = Maze::Server.list_for(request_type).current[:body]
+  rounded_value = Maze::Helper.read_key_path(body, field_path).round places
+  Maze.check.equal(float_value,
+                   rounded_value)
+end
+
 # Tests the payload field value against an environment variable.
 #
 # @step_input request_type [String] The type of request (error, session, build, etc)

@@ -120,6 +120,22 @@ Then('the event {string} equals {string}') do |field, string_value|
   step "the error payload field \"events.0.#{field}\" equals \"#{string_value}\""
 end
 
+# Tests whether a value in the first event entry matches a floating point value.
+#
+# @step_input field [String] The relative location of the value to test
+# @step_input string_value [String] The string to match against
+Then('the event {string} equals {float}') do |field, float_value|
+  step "the error payload field \"events.0.#{field}\" equals #{float_value}"
+end
+
+# Tests whether a value in the first event entry matches a floating point value, to a given number of decimal places.
+#
+# @step_input field [String] The relative location of the value to test
+# @step_input string_value [String] The string to match against
+Then('the event {string} equals {float} to {int} decimal place(s)') do |field, float_value, places|
+  step "the error payload field \"events.0.#{field}\" equals #{float_value} to #{places} decimal places"
+end
+
 # Tests whether a value in the first event entry equals an integer.
 #
 # @step_input field [String] The relative location of the value to test

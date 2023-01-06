@@ -57,12 +57,17 @@ Scenario: Verify "equals the correct platform value" step
   And the event "metaData.test.boolean_false" equals the platform-dependent boolean:
     | android | false |
   # Verify numeric comparisons
+  And the error payload field "events.0.metaData.test.float" equals 1.55
   And the error payload field "events.0.metaData.test.float" equals the platform-dependent numeric:
     | android | 1.55 |
+  And the error payload field "events.0.metaData.test.integer" equals 2
   And the error payload field "events.0.metaData.test.integer" equals the platform-dependent numeric:
     | android | 2 |
+  And the event "metaData.test.float" equals 1.55
+  And the event "metaData.test.float" equals 1.6 to 1 decimal place
   And the event "metaData.test.float" equals the platform-dependent numeric:
     | android | 1.55 |
+  And the event "metaData.test.integer" equals 2
   And the event "metaData.test.integer" equals the platform-dependent numeric:
     | android | 2 |
   # Verify the skips

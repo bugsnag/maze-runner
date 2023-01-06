@@ -5,6 +5,10 @@
 - Add support for `docker compose cp` commands [445](https://github.com/bugsnag/maze-runner/pull/445)
 - Add steps for checking floating point values in error payloads [448](https://github.com/bugsnag/maze-runner/pull/448)
 
+## Fixes
+
+- Fix legacy mode for browser testing [449](https://github.com/bugsnag/maze-runner/pull/449)
+
 # 7.10.2 - 2023/01/05
 
 ## Fixes

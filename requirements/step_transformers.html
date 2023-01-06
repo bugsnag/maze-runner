@@ -67,7 +67,7 @@
   <div class="title">Step Definitions &amp; Transforms</div>
 
   <div class="summary">
-    <div>224<a href="#step_definitions">Step Definitions</a></div>
+    <div>228<a href="#step_definitions">Step Definitions</a></div>
     <div>0<a href="#step_transforms">Step Transforms</a></div>
     <div>0<a href="#undefined_steps">Undefined Steps</a></div>
   </div>
@@ -11192,6 +11192,243 @@ not respond but did run successfully</p>
   <a name="step_definition116-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
+    <span class="name">'the {word} payload field {string} equals {float}'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+%7Bword%7D+payload+field+%7Bstring%7D+equals+%7Bfloat%7D'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/payload_steps.rb:94</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Tests that a payload element equals a float.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>request_type [String] The type of request (error, session, build, etc)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>field_path [String] Path to the tested element</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>float_value [Float] The value to test against</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">94
+95
+96
+97</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {word} payload field {string} equals {float}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_float_value'>float_value</span><span class='op'>|</span>
+  <span class='const'>Maze</span><span class='period'>.</span><span class='id identifier rubyid_check'>check</span><span class='period'>.</span><span class='id identifier rubyid_equal'>equal</span><span class='lparen'>(</span><span class='id identifier rubyid_float_value'>float_value</span><span class='comma'>,</span>
+                   <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Helper</span><span class='period'>.</span><span class='id identifier rubyid_read_key_path'>read_key_path</span><span class='lparen'>(</span><span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_list_for'>list_for</span><span class='lparen'>(</span><span class='id identifier rubyid_request_type'>request_type</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_current'>current</span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='rparen'>)</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition117-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the {word} payload field {string} equals {float} to {int} decimal place(s)'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+%7Bword%7D+payload+field+%7Bstring%7D+equals+%7Bfloat%7D+to+%7Bint%7D+decimal+place(s)'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/payload_steps.rb:105</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Tests that a payload element equals a float, to a given number of decimal places.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>request_type [String] The type of request (error, session, build, etc)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>field_path [String] Path to the tested element</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>float_value [Float] The value to test against</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>places [Int] The number of decimal places to round the actual value to first</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">105
+106
+107
+108
+109
+110</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {word} payload field {string} equals {float} to {int} decimal place(s)</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_float_value'>float_value</span><span class='comma'>,</span> <span class='id identifier rubyid_places'>places</span><span class='op'>|</span>
+  <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_list_for'>list_for</span><span class='lparen'>(</span><span class='id identifier rubyid_request_type'>request_type</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_current'>current</span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_rounded_value'>rounded_value</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Helper</span><span class='period'>.</span><span class='id identifier rubyid_read_key_path'>read_key_path</span><span class='lparen'>(</span><span class='id identifier rubyid_body'>body</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_round'>round</span> <span class='id identifier rubyid_places'>places</span>
+  <span class='const'>Maze</span><span class='period'>.</span><span class='id identifier rubyid_check'>check</span><span class='period'>.</span><span class='id identifier rubyid_equal'>equal</span><span class='lparen'>(</span><span class='id identifier rubyid_float_value'>float_value</span><span class='comma'>,</span>
+                   <span class='id identifier rubyid_rounded_value'>rounded_value</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition118-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
     <span class="name">'the {word} payload field {string} equals the environment variable {string}'</span>
     <div style="float: right;">
       <a href="http://rubular.com/?regex='the+%7Bword%7D+payload+field+%7Bstring%7D+equals+the+environment+variable+%7Bstring%7D'" target="_blank">Rubular</a>
@@ -11205,7 +11442,7 @@ not respond but did run successfully</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/payload_steps.rb:94</div>
+      <div class="file">lib/features/steps/payload_steps.rb:117</div>
     </div>
     
     <!-- Comments -->
@@ -11266,15 +11503,15 @@ not respond but did run successfully</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">94
-95
-96
-97
-98
-99
-100
-101
-102</pre>
+            <pre class="lines">117
+118
+119
+120
+121
+122
+123
+124
+125</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {word} payload field {string} equals the environment variable {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> \
@@ -11310,7 +11547,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition117-stepdefinition"></a>
+  <a name="step_definition119-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {word} payload field {string} is greater than {int}'</span>
@@ -11326,7 +11563,7 @@ not respond but did run successfully</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/payload_steps.rb:109</div>
+      <div class="file">lib/features/steps/payload_steps.rb:132</div>
     </div>
     
     <!-- Comments -->
@@ -11387,12 +11624,12 @@ not respond but did run successfully</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">109
-110
-111
-112
-113
-114</pre>
+            <pre class="lines">132
+133
+134
+135
+136
+137</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {word} payload field {string} is greater than {int}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_int_value'>int_value</span><span class='op'>|</span>
@@ -11425,7 +11662,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition118-stepdefinition"></a>
+  <a name="step_definition120-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {word} payload field {string} is less than {int}'</span>
@@ -11441,7 +11678,7 @@ not respond but did run successfully</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/payload_steps.rb:121</div>
+      <div class="file">lib/features/steps/payload_steps.rb:144</div>
     </div>
     
     <!-- Comments -->
@@ -11502,13 +11739,13 @@ not respond but did run successfully</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">121
-122
-123
-124
-125
-126
-127</pre>
+            <pre class="lines">144
+145
+146
+147
+148
+149
+150</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {word} payload field {string} is less than {int}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_int_value'>int_value</span><span class='op'>|</span>
@@ -11542,7 +11779,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition119-stepdefinition"></a>
+  <a name="step_definition121-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {word} payload field {string} equals {string}'</span>
@@ -11558,7 +11795,7 @@ not respond but did run successfully</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/payload_steps.rb:134</div>
+      <div class="file">lib/features/steps/payload_steps.rb:157</div>
     </div>
     
     <!-- Comments -->
@@ -11619,10 +11856,10 @@ not respond but did run successfully</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">134
-135
-136
-137</pre>
+            <pre class="lines">157
+158
+159
+160</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {word} payload field {string} equals {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_string_value'>string_value</span><span class='op'>|</span>
@@ -11653,7 +11890,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition120-stepdefinition"></a>
+  <a name="step_definition122-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {word} payload field {string} starts with {string}'</span>
@@ -11669,7 +11906,7 @@ not respond but did run successfully</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/payload_steps.rb:144</div>
+      <div class="file">lib/features/steps/payload_steps.rb:167</div>
     </div>
     
     <!-- Comments -->
@@ -11730,15 +11967,15 @@ not respond but did run successfully</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">144
-145
-146
-147
-148
-149
-150
-151
-152</pre>
+            <pre class="lines">167
+168
+169
+170
+171
+172
+173
+174
+175</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {word} payload field {string} starts with {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_string_value'>string_value</span><span class='op'>|</span>
@@ -11774,7 +12011,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition121-stepdefinition"></a>
+  <a name="step_definition123-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {word} payload field {string} ends with {string}'</span>
@@ -11790,7 +12027,7 @@ not respond but did run successfully</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/payload_steps.rb:159</div>
+      <div class="file">lib/features/steps/payload_steps.rb:182</div>
     </div>
     
     <!-- Comments -->
@@ -11851,15 +12088,15 @@ not respond but did run successfully</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">159
-160
-161
-162
-163
-164
-165
-166
-167</pre>
+            <pre class="lines">182
+183
+184
+185
+186
+187
+188
+189
+190</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {word} payload field {string} ends with {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_string_value'>string_value</span><span class='op'>|</span>
@@ -11895,7 +12132,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition122-stepdefinition"></a>
+  <a name="step_definition124-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {word} payload field {string} is an array with {int} elements'</span>
@@ -11911,7 +12148,7 @@ not respond but did run successfully</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/payload_steps.rb:174</div>
+      <div class="file">lib/features/steps/payload_steps.rb:197</div>
     </div>
     
     <!-- Comments -->
@@ -11972,12 +12209,12 @@ not respond but did run successfully</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">174
-175
-176
-177
-178
-179</pre>
+            <pre class="lines">197
+198
+199
+200
+201
+202</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {word} payload field {string} is an array with {int} elements</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_count'>count</span><span class='op'>|</span>
@@ -12010,7 +12247,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition123-stepdefinition"></a>
+  <a name="step_definition125-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {word} payload field {string} is a non-empty array'</span>
@@ -12026,7 +12263,7 @@ not respond but did run successfully</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/payload_steps.rb:185</div>
+      <div class="file">lib/features/steps/payload_steps.rb:208</div>
     </div>
     
     <!-- Comments -->
@@ -12076,12 +12313,12 @@ not respond but did run successfully</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">185
-186
-187
-188
-189
-190</pre>
+            <pre class="lines">208
+209
+210
+211
+212
+213</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {word} payload field {string} is a non-empty array</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field'>field</span><span class='op'>|</span>
@@ -12114,7 +12351,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition124-stepdefinition"></a>
+  <a name="step_definition126-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {word} payload field {string} matches the regex {string}'</span>
@@ -12130,7 +12367,7 @@ not respond but did run successfully</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/payload_steps.rb:197</div>
+      <div class="file">lib/features/steps/payload_steps.rb:220</div>
     </div>
     
     <!-- Comments -->
@@ -12191,12 +12428,12 @@ not respond but did run successfully</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">197
-198
-199
-200
-201
-202</pre>
+            <pre class="lines">220
+221
+222
+223
+224
+225</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {word} payload field {string} matches the regex {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_regex_string'>regex_string</span><span class='op'>|</span>
@@ -12229,7 +12466,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition125-stepdefinition"></a>
+  <a name="step_definition127-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {word} payload field {string} is a parsable timestamp in seconds'</span>
@@ -12245,7 +12482,7 @@ not respond but did run successfully</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/payload_steps.rb:208</div>
+      <div class="file">lib/features/steps/payload_steps.rb:231</div>
     </div>
     
     <!-- Comments -->
@@ -12295,17 +12532,17 @@ not respond but did run successfully</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">208
-209
-210
-211
-212
-213
-214
-215
-216
-217
-218</pre>
+            <pre class="lines">231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {word} payload field {string} is a parsable timestamp in seconds</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field'>field</span><span class='op'>|</span>
@@ -12343,7 +12580,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition126-stepdefinition"></a>
+  <a name="step_definition128-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'each element in {word} payload field {string} has {string}'</span>
@@ -12359,7 +12596,7 @@ not respond but did run successfully</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/payload_steps.rb:225</div>
+      <div class="file">lib/features/steps/payload_steps.rb:248</div>
     </div>
     
     <!-- Comments -->
@@ -12420,15 +12657,15 @@ not respond but did run successfully</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">225
-226
-227
-228
-229
-230
-231
-232
-233</pre>
+            <pre class="lines">248
+249
+250
+251
+252
+253
+254
+255
+256</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>each element in {word} payload field {string} has {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_key_path'>key_path</span><span class='comma'>,</span> <span class='id identifier rubyid_element_key_path'>element_key_path</span><span class='op'>|</span>
@@ -12464,7 +12701,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition127-stepdefinition"></a>
+  <a name="step_definition129-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the build is valid for the Build API'</span>
@@ -12543,7 +12780,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition128-stepdefinition"></a>
+  <a name="step_definition130-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the build is valid for the Android Mapping API'</span>
@@ -12630,7 +12867,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition129-stepdefinition"></a>
+  <a name="step_definition131-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event has {int} breadcrumb(s)"</span>
@@ -12729,7 +12966,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition130-stepdefinition"></a>
+  <a name="step_definition132-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event has no breadcrumbs"</span>
@@ -12815,7 +13052,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition131-stepdefinition"></a>
+  <a name="step_definition133-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event has a {string} breadcrumb named {string}'</span>
@@ -12923,7 +13160,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition132-stepdefinition"></a>
+  <a name="step_definition134-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event has a {string} breadcrumb with message {string}'</span>
@@ -13025,7 +13262,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition133-stepdefinition"></a>
+  <a name="step_definition135-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event does not have a {string} breadcrumb'</span>
@@ -13117,7 +13354,7 @@ Used for confirming filtering of breadcrumbs</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition134-stepdefinition"></a>
+  <a name="step_definition136-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event does not have a {string} breadcrumb with message {string}'</span>
@@ -13220,7 +13457,7 @@ Used for confirming filtering of breadcrumbs</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition135-stepdefinition"></a>
+  <a name="step_definition137-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event contains a breadcrumb matching the JSON fixture in {string}'</span>
@@ -13313,7 +13550,7 @@ Used for confirming filtering of breadcrumbs</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition136-stepdefinition"></a>
+  <a name="step_definition138-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'event {int} has no feature flags'</span>
@@ -13402,7 +13639,7 @@ Used for confirming filtering of breadcrumbs</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition137-stepdefinition"></a>
+  <a name="step_definition139-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event has no feature flags'</span>
@@ -13478,7 +13715,7 @@ Used for confirming filtering of breadcrumbs</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition138-stepdefinition"></a>
+  <a name="step_definition140-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'event {int} contains the feature flag {string} with variant {string}'</span>
@@ -13615,7 +13852,7 @@ Used for confirming filtering of breadcrumbs</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition139-stepdefinition"></a>
+  <a name="step_definition141-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event contains the feature flag {string} with variant {string}'</span>
@@ -13717,7 +13954,7 @@ Used for confirming filtering of breadcrumbs</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition140-stepdefinition"></a>
+  <a name="step_definition142-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'event {int} contains the feature flag {string} with no variant'</span>
@@ -13845,7 +14082,7 @@ Used for confirming filtering of breadcrumbs</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition141-stepdefinition"></a>
+  <a name="step_definition143-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event contains the feature flag {string} with no variant'</span>
@@ -13936,7 +14173,7 @@ Used for confirming filtering of breadcrumbs</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition142-stepdefinition"></a>
+  <a name="step_definition144-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'event {int} contains the following feature flags:'</span>
@@ -14045,7 +14282,7 @@ values.  For flags with a variant leave the <code>variant</code> column blank.</
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition143-stepdefinition"></a>
+  <a name="step_definition145-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event contains the following feature flags:'</span>
@@ -14136,7 +14373,7 @@ values.  For flags with a variant leave the <code>variant</code> column blank.</
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition144-stepdefinition"></a>
+  <a name="step_definition146-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'event {int} does not contain the feature flag {string}'</span>
@@ -14252,7 +14489,7 @@ values.  For flags with a variant leave the <code>variant</code> column blank.</
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition145-stepdefinition"></a>
+  <a name="step_definition147-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event does not contain the feature flag {string}'</span>
@@ -14343,7 +14580,7 @@ values.  For flags with a variant leave the <code>variant</code> column blank.</
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition146-stepdefinition"></a>
+  <a name="step_definition148-stepdefinition"></a>
   <div class="title">
     <span class="pre">Given</span>
     <span class="name">'the element {string} is present'</span>
@@ -14433,7 +14670,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition147-stepdefinition"></a>
+  <a name="step_definition149-stepdefinition"></a>
   <div class="title">
     <span class="pre">Given</span>
     <span class="name">'the element {string} is present within {int} seconds'</span>
@@ -14534,7 +14771,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition148-stepdefinition"></a>
+  <a name="step_definition150-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I click the element {string}'</span>
@@ -14622,7 +14859,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition149-stepdefinition"></a>
+  <a name="step_definition151-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I send the app to the background'</span>
@@ -14695,7 +14932,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition150-stepdefinition"></a>
+  <a name="step_definition152-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I send the app to the background for {int} second(s)'</span>
@@ -14783,7 +15020,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition151-stepdefinition"></a>
+  <a name="step_definition153-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I clear the element {string}'</span>
@@ -14871,7 +15108,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition152-stepdefinition"></a>
+  <a name="step_definition154-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I send the keys {string} to the element {string}'</span>
@@ -14970,7 +15207,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition153-stepdefinition"></a>
+  <a name="step_definition155-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {word} payload field {string} equals the platform-dependent string:'</span>
@@ -15089,7 +15326,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition154-stepdefinition"></a>
+  <a name="step_definition156-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} equals the platform-dependent string:'</span>
@@ -15187,7 +15424,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition155-stepdefinition"></a>
+  <a name="step_definition157-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {word} payload field {string} equals the platform-dependent numeric:'</span>
@@ -15306,7 +15543,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition156-stepdefinition"></a>
+  <a name="step_definition158-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} equals the platform-dependent numeric:'</span>
@@ -15404,7 +15641,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition157-stepdefinition"></a>
+  <a name="step_definition159-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {word} payload field {string} equals the platform-dependent boolean:'</span>
@@ -15523,7 +15760,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition158-stepdefinition"></a>
+  <a name="step_definition160-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} equals the platform-dependent boolean:'</span>
@@ -15621,7 +15858,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition159-stepdefinition"></a>
+  <a name="step_definition161-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the exception {string} equals the platform-dependent string:'</span>
@@ -15719,7 +15956,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition160-stepdefinition"></a>
+  <a name="step_definition162-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} of stack frame {int} equals the platform-dependent string:'</span>
@@ -15828,7 +16065,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition161-stepdefinition"></a>
+  <a name="step_definition163-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I clear and send the keys {string} to the element {string}'</span>
@@ -15927,7 +16164,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition162-stepdefinition"></a>
+  <a name="step_definition164-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I start the document server'</span>
@@ -16000,7 +16237,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition163-stepdefinition"></a>
+  <a name="step_definition165-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the error is valid for the error reporting API version {string} for the {string} notifier'</span>
@@ -16101,7 +16338,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition164-stepdefinition"></a>
+  <a name="step_definition166-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the error is valid for the error reporting API version {string}' \
@@ -16250,7 +16487,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition165-stepdefinition"></a>
+  <a name="step_definition167-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'event {int} is unhandled'</span>
@@ -16326,7 +16563,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition166-stepdefinition"></a>
+  <a name="step_definition168-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'event {int} is unhandled with the severity {string}'</span>
@@ -16402,7 +16639,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition167-stepdefinition"></a>
+  <a name="step_definition169-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'event {int} is handled'</span>
@@ -16478,7 +16715,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition168-stepdefinition"></a>
+  <a name="step_definition170-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'event {int} is handled with the severity {string}'</span>
@@ -16554,7 +16791,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition169-stepdefinition"></a>
+  <a name="step_definition171-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the error payload contains the payloadVersion {string}'</span>
@@ -16659,7 +16896,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition170-stepdefinition"></a>
+  <a name="step_definition172-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">/^the event "(.+)" is (true|false|null|not null)$/</span>
@@ -16757,7 +16994,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition171-stepdefinition"></a>
+  <a name="step_definition173-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} equals {string}'</span>
@@ -16855,7 +17092,203 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition172-stepdefinition"></a>
+  <a name="step_definition174-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the event {string} equals {float}'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+event+%7Bstring%7D+equals+%7Bfloat%7D'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/error_reporting_steps.rb:127</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Tests whether a value in the first event entry matches a floating point value.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>field [String] The relative location of the value to test</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>string_value [String] The string to match against</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">127
+128
+129</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the event {string} equals {float}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_float_value'>float_value</span><span class='op'>|</span>
+  <span class='id identifier rubyid_step'>step</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the error payload field \&quot;events.0.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_field'>field</span><span class='embexpr_end'>}</span><span class='tstring_content'>\&quot; equals </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_float_value'>float_value</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition175-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the event {string} equals {float} to {int} decimal place(s)'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+event+%7Bstring%7D+equals+%7Bfloat%7D+to+%7Bint%7D+decimal+place(s)'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/error_reporting_steps.rb:135</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Tests whether a value in the first event entry matches a floating point value, to a given number of decimal places.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>field [String] The relative location of the value to test</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>string_value [String] The string to match against</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">135
+136
+137</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the event {string} equals {float} to {int} decimal place(s)</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_float_value'>float_value</span><span class='comma'>,</span> <span class='id identifier rubyid_places'>places</span><span class='op'>|</span>
+  <span class='id identifier rubyid_step'>step</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the error payload field \&quot;events.0.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_field'>field</span><span class='embexpr_end'>}</span><span class='tstring_content'>\&quot; equals </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_float_value'>float_value</span><span class='embexpr_end'>}</span><span class='tstring_content'> to </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_places'>places</span><span class='embexpr_end'>}</span><span class='tstring_content'> decimal places</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition176-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} equals {int}'</span>
@@ -16871,7 +17304,7 @@ This checks various elements of the payload matching an unhandled error includin
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:127</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:143</div>
     </div>
     
     <!-- Comments -->
@@ -16921,9 +17354,9 @@ This checks various elements of the payload matching an unhandled error includin
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">127
-128
-129</pre>
+            <pre class="lines">143
+144
+145</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the event {string} equals {int}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
@@ -16953,7 +17386,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition173-stepdefinition"></a>
+  <a name="step_definition177-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} starts with {string}'</span>
@@ -16969,7 +17402,7 @@ This checks various elements of the payload matching an unhandled error includin
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:135</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:151</div>
     </div>
     
     <!-- Comments -->
@@ -17019,9 +17452,9 @@ This checks various elements of the payload matching an unhandled error includin
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">135
-136
-137</pre>
+            <pre class="lines">151
+152
+153</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the event {string} starts with {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_string_value'>string_value</span><span class='op'>|</span>
@@ -17051,7 +17484,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition174-stepdefinition"></a>
+  <a name="step_definition178-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} ends with {string}'</span>
@@ -17067,7 +17500,7 @@ This checks various elements of the payload matching an unhandled error includin
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:143</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:159</div>
     </div>
     
     <!-- Comments -->
@@ -17117,9 +17550,9 @@ This checks various elements of the payload matching an unhandled error includin
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">143
-144
-145</pre>
+            <pre class="lines">159
+160
+161</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the event {string} ends with {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_string_value'>string_value</span><span class='op'>|</span>
@@ -17149,7 +17582,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition175-stepdefinition"></a>
+  <a name="step_definition179-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} matches {string}'</span>
@@ -17165,7 +17598,7 @@ This checks various elements of the payload matching an unhandled error includin
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:151</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:167</div>
     </div>
     
     <!-- Comments -->
@@ -17215,9 +17648,9 @@ This checks various elements of the payload matching an unhandled error includin
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">151
-152
-153</pre>
+            <pre class="lines">167
+168
+169</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the event {string} matches {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_pattern'>pattern</span><span class='op'>|</span>
@@ -17247,7 +17680,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition176-stepdefinition"></a>
+  <a name="step_definition180-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} is a timestamp'</span>
@@ -17263,7 +17696,7 @@ This checks various elements of the payload matching an unhandled error includin
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:158</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:174</div>
     </div>
     
     <!-- Comments -->
@@ -17302,9 +17735,9 @@ This checks various elements of the payload matching an unhandled error includin
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">158
-159
-160</pre>
+            <pre class="lines">174
+175
+176</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the event {string} is a timestamp</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='op'>|</span>
@@ -17334,7 +17767,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition177-stepdefinition"></a>
+  <a name="step_definition181-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} is a parsable timestamp in seconds'</span>
@@ -17350,7 +17783,7 @@ This checks various elements of the payload matching an unhandled error includin
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:165</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:181</div>
     </div>
     
     <!-- Comments -->
@@ -17389,9 +17822,9 @@ This checks various elements of the payload matching an unhandled error includin
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">165
-166
-167</pre>
+            <pre class="lines">181
+182
+183</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the event {string} is a parsable timestamp in seconds</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='op'>|</span>
@@ -17421,7 +17854,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition178-stepdefinition"></a>
+  <a name="step_definition182-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} equals the environment variable {string}'</span>
@@ -17437,7 +17870,7 @@ This checks various elements of the payload matching an unhandled error includin
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:173</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:189</div>
     </div>
     
     <!-- Comments -->
@@ -17487,9 +17920,9 @@ This checks various elements of the payload matching an unhandled error includin
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">173
-174
-175</pre>
+            <pre class="lines">189
+190
+191</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the event {string} equals the environment variable {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_env_var'>env_var</span><span class='op'>|</span>
@@ -17519,7 +17952,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition179-stepdefinition"></a>
+  <a name="step_definition183-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} matches the JSON fixture in {string}'</span>
@@ -17535,7 +17968,7 @@ This checks various elements of the payload matching an unhandled error includin
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:181</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:197</div>
     </div>
     
     <!-- Comments -->
@@ -17585,9 +18018,9 @@ This checks various elements of the payload matching an unhandled error includin
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">181
-182
-183</pre>
+            <pre class="lines">197
+198
+199</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the event {string} matches the JSON fixture in {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_fixture_path'>fixture_path</span><span class='op'>|</span>
@@ -17617,7 +18050,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition180-stepdefinition"></a>
+  <a name="step_definition184-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} string is empty'</span>
@@ -17633,7 +18066,7 @@ This checks various elements of the payload matching an unhandled error includin
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:185</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:201</div>
     </div>
     
     <!-- Comments -->
@@ -17647,10 +18080,10 @@ This checks various elements of the payload matching an unhandled error includin
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">185
-186
-187
-188</pre>
+            <pre class="lines">201
+202
+203
+204</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the event {string} string is empty</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_keypath'>keypath</span><span class='op'>|</span>
@@ -17681,7 +18114,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition181-stepdefinition"></a>
+  <a name="step_definition185-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} is greater than {int}'</span>
@@ -17697,7 +18130,7 @@ This checks various elements of the payload matching an unhandled error includin
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:190</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:206</div>
     </div>
     
     <!-- Comments -->
@@ -17711,11 +18144,11 @@ This checks various elements of the payload matching an unhandled error includin
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">190
-191
-192
-193
-194</pre>
+            <pre class="lines">206
+207
+208
+209
+210</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the event {string} is greater than {int}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_keypath'>keypath</span><span class='comma'>,</span> <span class='id identifier rubyid_int'>int</span><span class='op'>|</span>
@@ -17747,7 +18180,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition182-stepdefinition"></a>
+  <a name="step_definition186-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the exception {string} starts with {string}'</span>
@@ -17763,7 +18196,7 @@ This checks various elements of the payload matching an unhandled error includin
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:200</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:216</div>
     </div>
     
     <!-- Comments -->
@@ -17813,9 +18246,9 @@ This checks various elements of the payload matching an unhandled error includin
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">200
-201
-202</pre>
+            <pre class="lines">216
+217
+218</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the exception {string} starts with {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_string_value'>string_value</span><span class='op'>|</span>
@@ -17845,7 +18278,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition183-stepdefinition"></a>
+  <a name="step_definition187-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the exception {string} ends with {string}'</span>
@@ -17861,7 +18294,7 @@ This checks various elements of the payload matching an unhandled error includin
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:208</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:224</div>
     </div>
     
     <!-- Comments -->
@@ -17911,9 +18344,9 @@ This checks various elements of the payload matching an unhandled error includin
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">208
-209
-210</pre>
+            <pre class="lines">224
+225
+226</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the exception {string} ends with {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_string_value'>string_value</span><span class='op'>|</span>
@@ -17943,7 +18376,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition184-stepdefinition"></a>
+  <a name="step_definition188-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the exception {string} equals {string}'</span>
@@ -17959,7 +18392,7 @@ This checks various elements of the payload matching an unhandled error includin
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:216</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:232</div>
     </div>
     
     <!-- Comments -->
@@ -18009,9 +18442,9 @@ This checks various elements of the payload matching an unhandled error includin
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">216
-217
-218</pre>
+            <pre class="lines">232
+233
+234</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the exception {string} equals {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_string_value'>string_value</span><span class='op'>|</span>
@@ -18041,7 +18474,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition185-stepdefinition"></a>
+  <a name="step_definition189-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the exception {string} matches {string}'</span>
@@ -18057,7 +18490,7 @@ This checks various elements of the payload matching an unhandled error includin
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:224</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:240</div>
     </div>
     
     <!-- Comments -->
@@ -18107,9 +18540,9 @@ This checks various elements of the payload matching an unhandled error includin
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">224
-225
-226</pre>
+            <pre class="lines">240
+241
+242</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the exception {string} matches {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_pattern'>pattern</span><span class='op'>|</span>
@@ -18139,7 +18572,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition186-stepdefinition"></a>
+  <a name="step_definition190-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} of stack frame {int} equals {int}'</span>
@@ -18155,7 +18588,7 @@ This checks various elements of the payload matching an unhandled error includin
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:233</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:249</div>
     </div>
     
     <!-- Comments -->
@@ -18216,10 +18649,10 @@ This checks various elements of the payload matching an unhandled error includin
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">233
-234
-235
-236</pre>
+            <pre class="lines">249
+250
+251
+252</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {string} of stack frame {int} equals {int}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_num'>num</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
@@ -18250,7 +18683,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition187-stepdefinition"></a>
+  <a name="step_definition191-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} of stack frame {int} matches {string}'</span>
@@ -18266,7 +18699,7 @@ This checks various elements of the payload matching an unhandled error includin
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:243</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:259</div>
     </div>
     
     <!-- Comments -->
@@ -18327,10 +18760,10 @@ This checks various elements of the payload matching an unhandled error includin
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">243
-244
-245
-246</pre>
+            <pre class="lines">259
+260
+261
+262</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {string} of stack frame {int} matches {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_num'>num</span><span class='comma'>,</span> <span class='id identifier rubyid_pattern'>pattern</span><span class='op'>|</span>
@@ -18361,7 +18794,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition188-stepdefinition"></a>
+  <a name="step_definition192-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} of stack frame {int} equals {string}'</span>
@@ -18377,7 +18810,7 @@ This checks various elements of the payload matching an unhandled error includin
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:253</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:269</div>
     </div>
     
     <!-- Comments -->
@@ -18438,10 +18871,10 @@ This checks various elements of the payload matching an unhandled error includin
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">253
-254
-255
-256</pre>
+            <pre class="lines">269
+270
+271
+272</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {string} of stack frame {int} equals {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_num'>num</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
@@ -18472,7 +18905,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition189-stepdefinition"></a>
+  <a name="step_definition193-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} of stack frame {int} starts with {string}'</span>
@@ -18488,7 +18921,7 @@ This checks various elements of the payload matching an unhandled error includin
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:263</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:279</div>
     </div>
     
     <!-- Comments -->
@@ -18549,10 +18982,10 @@ This checks various elements of the payload matching an unhandled error includin
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">263
-264
-265
-266</pre>
+            <pre class="lines">279
+280
+281
+282</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {string} of stack frame {int} starts with {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_num'>num</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
@@ -18583,7 +19016,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition190-stepdefinition"></a>
+  <a name="step_definition194-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} of stack frame {int} ends with {string}'</span>
@@ -18599,7 +19032,7 @@ This checks various elements of the payload matching an unhandled error includin
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:273</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:289</div>
     </div>
     
     <!-- Comments -->
@@ -18660,10 +19093,10 @@ This checks various elements of the payload matching an unhandled error includin
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">273
-274
-275
-276</pre>
+            <pre class="lines">289
+290
+291
+292</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {string} of stack frame {int} ends with {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_num'>num</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
@@ -18694,7 +19127,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition191-stepdefinition"></a>
+  <a name="step_definition195-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">/^the "(.*)" of stack frame (\d*) is (true|false|null|not null)$/</span>
@@ -18710,7 +19143,7 @@ This checks various elements of the payload matching an unhandled error includin
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:283</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:299</div>
     </div>
     
     <!-- Comments -->
@@ -18771,10 +19204,10 @@ This checks various elements of the payload matching an unhandled error includin
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">283
-284
-285
-286</pre>
+            <pre class="lines">299
+300
+301
+302</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^the &quot;(.*)&quot; of stack frame (\d*) is (true|false|null|not null)$</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_num'>num</span><span class='comma'>,</span> <span class='id identifier rubyid_literal'>literal</span><span class='op'>|</span>
@@ -18805,7 +19238,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition192-stepdefinition"></a>
+  <a name="step_definition196-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the thread with name {string} contains the error reporting flag'</span>
@@ -18821,7 +19254,7 @@ This checks various elements of the payload matching an unhandled error includin
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:291</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:307</div>
     </div>
     
     <!-- Comments -->
@@ -18860,9 +19293,9 @@ This checks various elements of the payload matching an unhandled error includin
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">291
-292
-293</pre>
+            <pre class="lines">307
+308
+309</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the thread with name {string} contains the error reporting flag</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_thread_name'>thread_name</span><span class='op'>|</span>
@@ -18892,7 +19325,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition193-stepdefinition"></a>
+  <a name="step_definition197-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the thread with id {string} contains the error reporting flag'</span>
@@ -18908,7 +19341,7 @@ This checks various elements of the payload matching an unhandled error includin
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/error_reporting_steps.rb:298</div>
+      <div class="file">lib/features/steps/error_reporting_steps.rb:314</div>
     </div>
     
     <!-- Comments -->
@@ -18947,9 +19380,9 @@ This checks various elements of the payload matching an unhandled error includin
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">298
-299
-300</pre>
+            <pre class="lines">314
+315
+316</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the thread with id {string} contains the error reporting flag</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_thread_id'>thread_id</span><span class='op'>|</span>
@@ -18979,7 +19412,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition194-stepdefinition"></a>
+  <a name="step_definition198-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {word} {string} query parameter equals {string}'</span>
@@ -19090,7 +19523,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition195-stepdefinition"></a>
+  <a name="step_definition199-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {word} {string} query parameter is not null'</span>
@@ -19190,7 +19623,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition196-stepdefinition"></a>
+  <a name="step_definition200-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {word} {string} query parameter is a timestamp'</span>
@@ -19290,7 +19723,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition197-stepdefinition"></a>
+  <a name="step_definition201-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the session is valid for the session reporting API version {string} for the {string} notifier'</span>
@@ -19415,7 +19848,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition198-stepdefinition"></a>
+  <a name="step_definition202-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the session is valid for the session reporting API version {string} for the React Native notifier'</span>
@@ -19541,7 +19974,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition199-stepdefinition"></a>
+  <a name="step_definition203-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">/^the session "(.+)" is (true|false|null|not null)$/</span>
@@ -19639,7 +20072,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition200-stepdefinition"></a>
+  <a name="step_definition204-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the session {string} equals {string}'</span>
@@ -19737,7 +20170,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition201-stepdefinition"></a>
+  <a name="step_definition205-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the session {string} is a timestamp'</span>
@@ -19824,7 +20257,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition202-stepdefinition"></a>
+  <a name="step_definition206-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">/^the sessionCount "(.+)" is (true|false|null|not null)$/</span>
@@ -19922,7 +20355,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition203-stepdefinition"></a>
+  <a name="step_definition207-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the sessionCount {string} equals {string}'</span>
@@ -20020,7 +20453,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition204-stepdefinition"></a>
+  <a name="step_definition208-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the sessionCount {string} equals {int}'</span>
@@ -20118,7 +20551,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition205-stepdefinition"></a>
+  <a name="step_definition209-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the sessionCount {string} is a timestamp'</span>
@@ -20205,7 +20638,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition206-stepdefinition"></a>
+  <a name="step_definition210-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the session payload has a valid sessions array'</span>
@@ -20297,7 +20730,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition207-stepdefinition"></a>
+  <a name="step_definition211-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {word} request is valid multipart form-data'</span>
@@ -20386,7 +20819,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition208-stepdefinition"></a>
+  <a name="step_definition212-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'all {word} requests are valid multipart form-data'</span>
@@ -20475,7 +20908,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition209-stepdefinition"></a>
+  <a name="step_definition213-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {word} multipart request has {int} fields'</span>
@@ -20577,7 +21010,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition210-stepdefinition"></a>
+  <a name="step_definition214-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {word} multipart request has a non-empty body'</span>
@@ -20668,7 +21101,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition211-stepdefinition"></a>
+  <a name="step_definition215-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {word} multipart body does not match the JSON file in {string}'</span>
@@ -20779,7 +21212,7 @@ JSON formatted multipart fields will be parsed into hashes.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition212-stepdefinition"></a>
+  <a name="step_definition216-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {word} multipart body matches the JSON file in {string}'</span>
@@ -20890,7 +21323,7 @@ JSON formatted multipart fields will be parsed into hashes.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition213-stepdefinition"></a>
+  <a name="step_definition217-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {word} multipart field {string} matches the JSON file in {string}'</span>
@@ -21010,7 +21443,7 @@ The field will be parsed into a hash.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition214-stepdefinition"></a>
+  <a name="step_definition218-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the field {string} for multipart {word} is not null'</span>
@@ -21110,7 +21543,7 @@ The field will be parsed into a hash.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition215-stepdefinition"></a>
+  <a name="step_definition219-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the field {string} for multipart {word} is null'</span>
@@ -21210,7 +21643,7 @@ The field will be parsed into a hash.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition216-stepdefinition"></a>
+  <a name="step_definition220-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the field {string} for multipart {word} equals {string}'</span>
@@ -21321,7 +21754,7 @@ The field will be parsed into a hash.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition217-stepdefinition"></a>
+  <a name="step_definition221-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I wait to receive a(n) {word}'</span>
@@ -21410,7 +21843,7 @@ The field will be parsed into a hash.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition218-stepdefinition"></a>
+  <a name="step_definition222-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I wait to receive {int} {word}'</span>
@@ -21515,7 +21948,7 @@ will be sorted by the header.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition219-stepdefinition"></a>
+  <a name="step_definition223-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I wait to receive at least {int} {word}'</span>
@@ -21618,7 +22051,7 @@ timing out according to @see Maze.config.receive_requests_wait.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition220-stepdefinition"></a>
+  <a name="step_definition224-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I sort the {word} by the payload field {string}'</span>
@@ -21718,7 +22151,7 @@ timing out according to @see Maze.config.receive_requests_wait.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition221-stepdefinition"></a>
+  <a name="step_definition225-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I have received at least {int} {word}'</span>
@@ -21819,7 +22252,7 @@ This step is only intended for use in stress tests</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition222-stepdefinition"></a>
+  <a name="step_definition226-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I should receive no {word}'</span>
@@ -21923,7 +22356,7 @@ request types.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition223-stepdefinition"></a>
+  <a name="step_definition227-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I discard the oldest {word}'</span>
@@ -22014,7 +22447,7 @@ request types.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition224-stepdefinition"></a>
+  <a name="step_definition228-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the received errors match:'</span>
@@ -22134,7 +22567,7 @@ request types.</p>
 </div>
 
       <div id="footer">
-  Generated on Thu Jan  5 17:38:03 2023 by
+  Generated on Fri Jan  6 15:44:16 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-2.7.7).
 </div>

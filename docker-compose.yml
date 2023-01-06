@@ -228,6 +228,7 @@ services:
   browser-tests:
     build:
       context: test/fixtures/browser
+      dockerfile: Dockerfile.w3c
       args:
         BRANCH_NAME:
         RUBY_VERSION:
@@ -239,6 +240,25 @@ services:
       BROWSER_STACK_BROWSERS_ACCESS_KEY:
       MAZE_TMS_URI:
       MAZE_TMS_TOKEN:
+    env_file:
+      - ${DOCKER_ENV_FILE:-test/browser/features/fixtures/null_env}
+
+  browser-tests-legacy:
+    build:
+      context: test/fixtures/browser
+      dockerfile: Dockerfile.legacy
+      args:
+        BRANCH_NAME:
+        RUBY_VERSION:
+    environment:
+      BUILDKITE:
+      BROWSER_STACK_USERNAME:
+      BROWSER_STACK_ACCESS_KEY:
+      BROWSER_STACK_BROWSERS_USERNAME:
+      BROWSER_STACK_BROWSERS_ACCESS_KEY:
+      MAZE_TMS_URI:
+      MAZE_TMS_TOKEN:
+      USE_LEGACY_DRIVER: 1
     env_file:
       - ${DOCKER_ENV_FILE:-test/browser/features/fixtures/null_env}
 

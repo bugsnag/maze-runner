@@ -221,20 +221,32 @@ steps:
     concurrency_group: 'browserstack-app'
     concurrency_method: eager
 
+  - label: 'Browserstack web browser test - Legacy driver'
+    depends_on: "ci-image-ruby-2-7"
+    timeout_in_minutes: 10
+    plugins:
+      docker-compose#v3.7.0:
+        run: browser-tests-legacy
+        use-aliases: true
+        verbose: true
+        command:
+          - "--farm=bs"
+          - "--browser=firefox_latest"
+    concurrency: 2
+    concurrency_group: 'browserstack'
+
   - label: 'Browserstack web browser test - Latest Firefox'
     depends_on: "ci-image-ruby-2-7"
     timeout_in_minutes: 10
     plugins:
       docker-compose#v3.7.0:
+        pull: browser-tests
         run: browser-tests
         use-aliases: true
         verbose: true
-    command: >-
-      bundle exec maze-runner
-      --farm=bs
-      --browser=firefox_latest
-    env:
-      RUBY_VERSION: "2.7"
+        command:
+          - "--farm=bs"
+          - "--browser=firefox_latest"
     concurrency: 2
     concurrency_group: 'browserstack'
 

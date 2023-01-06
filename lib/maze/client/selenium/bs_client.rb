@@ -13,7 +13,7 @@ module Maze
           browser = browsers[config.browser]
 
           if config.legacy_driver?
-            capabilities = Selenium::WebDriver::Remote::Capabilities.new
+            capabilities = ::Selenium::WebDriver::Remote::Capabilities.new
             capabilities['browserstack.local'] = 'true'
             capabilities['browserstack.localIdentifier'] = tunnel_id
             capabilities['browserstack.console'] = 'errors'

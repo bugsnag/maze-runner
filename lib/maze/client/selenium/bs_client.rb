@@ -1,3 +1,5 @@
+require 'selenium-webdriver'
+
 module Maze
   module Client
     module Selenium

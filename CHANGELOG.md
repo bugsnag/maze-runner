@@ -1,3 +1,9 @@
+# 7.11.0 - 2023/01/06
+
+## Enhancements
+
+- Add support for `docker compose cp` commands [445](https://github.com/bugsnag/maze-runner/pull/445)
+
 # 7.10.2 - 2023/01/05
 
 ## Fixes

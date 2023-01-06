@@ -115,3 +115,14 @@ Feature: Running docker services and commands
         When I execute the command "echo hello friend > greeting.txt" in the service "sleepy" in the background
         And I execute the command "sleep 2 ; cat greeting.txt" in the service "sleepy"
         Then the last run docker command output "hello friend"
+
+    Scenario: A file can be copied from a container to the local filesystem
+        Given I start the service "sleepy"
+        When I execute the command "printf hello > greeting.txt" in the service "sleepy"
+        Then the greeting file on "sleepy" should read "hello"
+
+    Scenario: A file can be copied from the local filesystem to a container
+        Given I start the service "sleepy"
+        When I copy the greeting file to "sleepy"
+        And I execute the command "cat greeting.txt" in the service "sleepy"
+        Then the last run docker command output "hello friend"

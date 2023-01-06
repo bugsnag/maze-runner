@@ -259,10 +259,9 @@ steps:
         run: browser-tests
         use-aliases: true
         verbose: true
-    command: >-
-      bundle exec maze-runner
-      --farm=bb
-      --browser=firefox_107
+        command:
+          - "--farm=bb"
+          - "--browser=firefox_107"
     env:
       RUBY_VERSION: "2.7"
     concurrency: 2

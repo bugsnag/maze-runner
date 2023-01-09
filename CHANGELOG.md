@@ -1,3 +1,9 @@
+# TBD
+
+## Fixes
+
+- Only set `project` and `build` capabilities for BrowserStack [450](https://github.com/bugsnag/maze-runner/pull/450)
+
 # 7.11.0 - 2023/01/06
 
 ## Enhancements

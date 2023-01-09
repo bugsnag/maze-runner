@@ -18,8 +18,7 @@ module Maze
 
           Maze::Client::BitBarClientUtils.start_local_tunnel config.sb_local,
                                                              config.username,
-                                                             config.access_key,
-                                                             Maze.run_uuid
+                                                             config.access_key
 
           # TODO This probably needs to be settable via an environment variable
           # selenium_url = 'https://us-west-desktop-hub.bitbar.com/wd/hub'

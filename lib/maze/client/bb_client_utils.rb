@@ -124,7 +124,6 @@ module Maze
           $logger.info 'Starting SBSecureTunnel'
           command = "#{sb_local} --username #{username} --authkey #{access_key} --acceptAllCerts " \
                   "--ready #{BB_READY_FILE} --kill #{BB_KILL_FILE}"
-          command << " --tunnelname #{tunnel_name}" unless tunnel_name.nil?
 
           output = start_tunnel_thread(command)
 

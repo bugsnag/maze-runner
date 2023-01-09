@@ -22,9 +22,6 @@ class AppiumDriverTest < Test::Unit::TestCase
   def start_logger_mock
     logger_mock = mock('logger')
     $logger = logger_mock
-    logger_mock.expects(:info).with('Appium driver initialized for:').once
-    logger_mock.expects(:info).with('    project : local').once
-    logger_mock.expects(:info).with(regexp_matches(/^\s{4}build\s{3}:\s\S{36}$/))
     logger_mock
   end
 

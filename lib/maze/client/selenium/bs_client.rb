@@ -14,7 +14,7 @@ module Maze
           if config.legacy_driver?
             capabilities = ::Selenium::WebDriver::Remote::Capabilities.new
             capabilities['browserstack.local'] = 'true'
-            capabilities['browserstack.localIdentifier'] = @session_uuid
+            capabilities['browserstack.localIdentifier'] = Maze.run_uuid
             capabilities['browserstack.console'] = 'errors'
 
             # Convert W3S capabilities to JSON-WP
@@ -31,7 +31,7 @@ module Maze
             capabilities = {
               'bstack:options' => {
                 'local' => 'true',
-                'localIdentifier' => @session_uuid
+                'localIdentifier' => Maze.run_uuid
               }
             }
             capabilities.deep_merge! browser
@@ -42,7 +42,7 @@ module Maze
 
           # Start the tunnel
           Maze::Client::BrowserStackClientUtils.start_local_tunnel config.bs_local,
-                                                                   @session_uuid,
+                                                                   Maze.run_uuid,
                                                                    config.access_key
 
           # Start the driver
@@ -74,13 +74,13 @@ module Maze
           end
           {
             project: project,
-            build: @session_uuid
+            build: Maze.run_uuid
           }
         end
 
         def log_session_info
           # Log a link to the BrowserStack session search dashboard
-          url = "https://automate.browserstack.com/dashboard/v2/search?query=#{@session_uuid}&type=builds"
+          url = "https://automate.browserstack.com/dashboard/v2/search?query=#{Maze.run_uuid}&type=builds"
           if ENV['BUILDKITE']
             $logger.info Maze::LogUtil.linkify url, 'BrowserStack session(s)'
           else

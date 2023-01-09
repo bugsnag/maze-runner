@@ -4,7 +4,7 @@ module Maze
     # Hooks for Browser mode use
     class BrowserHooks < InternalHooks
       def before_all
-        @client = Maze::Client::Selenium.start(SecureRandom.uuid)
+        @client = Maze::Client::Selenium.start
       end
 
       def at_exit

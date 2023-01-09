@@ -1,7 +1,7 @@
 module Maze
   module Client
     module Appium
-      def self.start(session_uuid)
+      def self.start
         client_class =
           case Maze.config.farm
           when :bb then BitBarClient
@@ -16,7 +16,7 @@ module Maze
           when :local then LocalClient
           end
 
-        client_class.new(session_uuid).tap(&:start_session)
+        client_class.new.tap(&:start_session)
       end
     end
   end

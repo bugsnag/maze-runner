@@ -23,7 +23,7 @@ module Maze
         else
           command = commands.current
           command_json = JSON.pretty_generate(command)
-          command[:uuid] = Maze::Server.command_uuid
+          command[:uuid] = Maze.run_uuid
           response.body = command_json
           response.status = 200
           commands.next

@@ -19,7 +19,7 @@ module Maze
             capabilities['disableAnimations'] = 'true'
           end
           if Maze.config.start_tunnel
-            capabilities['browserstack.localIdentifier'] = @session_uuid
+            capabilities['browserstack.localIdentifier'] = Maze.run_uuid
             capabilities['browserstack.local'] = 'true'
           end
 

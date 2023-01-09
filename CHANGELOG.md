@@ -1,5 +1,9 @@
 # TBD
 
+## Enhancements
+
+- Generate and use a single "run UUID" throughout the app [451](https://github.com/bugsnag/maze-runner/pull/451)
+
 ## Fixes
 
 - Only set `project` and `build` capabilities for BrowserStack [450](https://github.com/bugsnag/maze-runner/pull/450)

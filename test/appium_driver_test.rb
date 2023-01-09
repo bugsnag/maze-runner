@@ -241,30 +241,6 @@ class AppiumDriverTest < Test::Unit::TestCase
     driver.clear_and_send_keys_to_element('test_text_entry', 'Test_text')
   end
 
-  def test_project_name_capabilities_local
-    # BUILDKITE environment variable is cleared in setup
-    start_logger_mock
-    driver = Maze::Driver::Appium.new SERVER_URL, @capabilities, :accessibility_id
-    hash = driver.project_name_capabilities
-
-    assert_equal 'local', hash[:project]
-    assert_match UUID_REGEX, hash[:build]
-  end
-
-  def test_project_name_capabilities_browser_stack
-    start_logger_mock
-
-    pipeline = 'Android Bugsnag Notifier'
-    driver = Maze::Driver::Appium.new SERVER_URL, @capabilities, :accessibility_id
-
-    ENV['BUILDKITE'] = 'true'
-    ENV['BUILDKITE_PIPELINE_NAME'] = pipeline
-    hash = driver.project_name_capabilities
-
-    assert_equal pipeline, hash[:project]
-    assert_match UUID_REGEX, hash[:build]
-  end
-
   def test_start_driver_success
     logger = start_logger_mock
 

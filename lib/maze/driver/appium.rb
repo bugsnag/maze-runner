@@ -29,12 +29,10 @@ module Maze
       # @param locator [Symbol] the primary locator strategy Appium should use to find elements
       def initialize(server_url, capabilities, locator = :id)
         # Sets up identifiers for ease of connecting jobs
-        name_capabilities = project_name_capabilities
         capabilities ||= {}
 
         @element_locator = locator
         @capabilities = capabilities
-        @capabilities.merge! name_capabilities
 
         # Timers
         @find_element_timer = Maze.timers.add 'Appium - find element'
@@ -48,10 +46,6 @@ module Maze
             server_url: server_url
           }
         }, true)
-
-        $logger.info 'Appium driver initialized for:'
-        $logger.info "    project : #{name_capabilities[:project]}"
-        $logger.info "    build   : #{name_capabilities[:build]}"
       end
 
       # Starts the Appium driver
@@ -190,24 +184,6 @@ module Maze
       def reset_with_timeout(timeout = 0.1)
         sleep(timeout)
         reset
-      end
-
-      # Determines and returns sensible project, build, and name capabilities
-      #
-      # @return [Hash] A hash containing the 'project' and 'build' capabilities
-      def project_name_capabilities
-        # Default to values for running locally
-        project = 'local'
-        build = SecureRandom.uuid
-
-        if ENV['BUILDKITE']
-          # Project
-          project = ENV['BUILDKITE_PIPELINE_NAME']
-        end
-        {
-          project: project,
-          build: build
-        }
       end
 
       def device_info

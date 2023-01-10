@@ -22,9 +22,6 @@ class AppiumDriverTest < Test::Unit::TestCase
   def start_logger_mock
     logger_mock = mock('logger')
     $logger = logger_mock
-    logger_mock.expects(:info).with('Appium driver initialized for:').once
-    logger_mock.expects(:info).with('    project : local').once
-    logger_mock.expects(:info).with(regexp_matches(/^\s{4}build\s{3}:\s\S{36}$/))
     logger_mock
   end
 
@@ -239,30 +236,6 @@ class AppiumDriverTest < Test::Unit::TestCase
     driver.expects(:find_element).with(:accessibility_id, 'test_text_entry').returns(mocked_element)
 
     driver.clear_and_send_keys_to_element('test_text_entry', 'Test_text')
-  end
-
-  def test_project_name_capabilities_local
-    # BUILDKITE environment variable is cleared in setup
-    start_logger_mock
-    driver = Maze::Driver::Appium.new SERVER_URL, @capabilities, :accessibility_id
-    hash = driver.project_name_capabilities
-
-    assert_equal 'local', hash[:project]
-    assert_match UUID_REGEX, hash[:build]
-  end
-
-  def test_project_name_capabilities_browser_stack
-    start_logger_mock
-
-    pipeline = 'Android Bugsnag Notifier'
-    driver = Maze::Driver::Appium.new SERVER_URL, @capabilities, :accessibility_id
-
-    ENV['BUILDKITE'] = 'true'
-    ENV['BUILDKITE_PIPELINE_NAME'] = pipeline
-    hash = driver.project_name_capabilities
-
-    assert_equal pipeline, hash[:project]
-    assert_match UUID_REGEX, hash[:build]
   end
 
   def test_start_driver_success

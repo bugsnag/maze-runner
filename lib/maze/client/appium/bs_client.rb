@@ -26,6 +26,7 @@ module Maze
           device_caps = Maze::Client::Appium::BrowserStackDevices::DEVICE_HASH[config.device]
           capabilities.deep_merge! device_caps
           capabilities.deep_merge! JSON.parse(config.capabilities_option)
+          capabilities.merge! project_name_capabilities
           capabilities['bstack:options']['appiumVersion'] = config.appium_version unless config.appium_version.nil?
           unless device_caps['platformName'] == 'android' && device_caps['platformVersion'].to_i <= 6
             capabilities['bstack:options']['disableAnimations'] = 'true'
@@ -45,8 +46,7 @@ module Maze
             $logger.info "Running on device: #{udid}" unless udid.nil?
 
             # Log a link to the BrowserStack session search dashboard
-            build = Maze.driver.capabilities[:build]
-            url = "https://app-automate.browserstack.com/dashboard/v2/search?query=#{build}&type=builds"
+            url = "https://app-automate.browserstack.com/dashboard/v2/search?query=#{@session_uuid}&type=builds"
             if ENV['BUILDKITE']
               $logger.info Maze::LogUtil.linkify(url, 'BrowserStack session(s)')
             else
@@ -58,6 +58,25 @@ module Maze
         def stop_session
           super
           Maze::Client::BrowserStackClientUtils.stop_local_tunnel if Maze.config.start_tunnel
+        end
+
+        private
+
+        # Determines and returns sensible project, build, and name capabilities
+        #
+        # @return [Hash] A hash containing the 'project' and 'build' capabilities
+        def project_name_capabilities
+          # Default to values for running locally
+          project = 'local'
+
+          if ENV['BUILDKITE']
+            # Project
+            project = ENV['BUILDKITE_PIPELINE_NAME']
+          end
+          {
+            project: project,
+            build: @session_uuid
+          }
         end
       end
     end

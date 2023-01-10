@@ -12,7 +12,6 @@ module Maze
 
       def initialize(driver_for, selenium_url=nil, capabilities=nil)
         capabilities ||= {}
-        capabilities.merge! project_name_capabilities
         @capabilities = capabilities
         @driver_for = driver_for
         @selenium_url = selenium_url
@@ -59,24 +58,6 @@ module Maze
         return false
       }
         JAVASCRIPT
-      end
-
-      # Determines and returns sensible project and build capabilities
-      #
-      # @return [Hash] A hash containing the 'project' and 'build' capabilities
-      def project_name_capabilities
-        # Default to values for running locally
-        project = 'local'
-        build = SecureRandom.uuid
-
-        if ENV['BUILDKITE']
-          # Project
-          project = ENV['BUILDKITE_PIPELINE_NAME']
-        end
-        {
-          project: project,
-          build: build
-        }
       end
 
       # Restarts the underlying-driver in the case an unrecoverable error occurs

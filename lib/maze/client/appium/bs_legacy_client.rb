@@ -13,6 +13,7 @@ module Maze
           device_caps = Maze::Client::Appium::BrowserStackDevices::DEVICE_HASH[config.device]
           capabilities.deep_merge! device_caps
           capabilities.deep_merge! JSON.parse(config.capabilities_option)
+          capabilities.merge! project_name_capabilities
           capabilities['browserstack.appium_version'] = config.appium_version unless config.appium_version.nil?
           unless device_caps['platformName'] == 'android' && device_caps['platformVersion'].to_i <= 6
             capabilities['disableAnimations'] = 'true'

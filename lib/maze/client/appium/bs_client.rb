@@ -10,7 +10,7 @@ module Maze
                                                                         config.app
           if Maze.config.start_tunnel
             Maze::Client::BrowserStackClientUtils.start_local_tunnel config.bs_local,
-                                                                     @session_uuid,
+                                                                     Maze.run_uuid,
                                                                      config.access_key
           end
         end
@@ -33,7 +33,7 @@ module Maze
           end
           if Maze.config.start_tunnel
             capabilities['bstack:options']['local'] = 'true'
-            capabilities['bstack:options']['localIdentifier'] = @session_uuid
+            capabilities['bstack:options']['localIdentifier'] = Maze.run_uuid
           end
 
           capabilities
@@ -46,7 +46,7 @@ module Maze
             $logger.info "Running on device: #{udid}" unless udid.nil?
 
             # Log a link to the BrowserStack session search dashboard
-            url = "https://app-automate.browserstack.com/dashboard/v2/search?query=#{@session_uuid}&type=builds"
+            url = "https://app-automate.browserstack.com/dashboard/v2/search?query=#{Maze.run_uuid}&type=builds"
             if ENV['BUILDKITE']
               $logger.info Maze::LogUtil.linkify(url, 'BrowserStack session(s)')
             else
@@ -75,7 +75,7 @@ module Maze
           end
           {
             project: project,
-            build: @session_uuid
+            build: Maze.run_uuid
           }
         end
       end

@@ -2,10 +2,6 @@ module Maze
   module Client
     module Selenium
       class BaseClient
-        def initialize(session_uuid)
-          @session_uuid = session_uuid
-        end
-
         def start_session
           raise 'Method not implemented by this class'
         end

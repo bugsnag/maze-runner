@@ -3,10 +3,6 @@ module Maze
     module Appium
       class BaseClient
 
-        def initialize(session_uuid)
-          @session_uuid = session_uuid
-        end
-
         def start_session
           prepare_session
 

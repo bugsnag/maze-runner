@@ -6,7 +6,7 @@ module Maze
       @client
 
       def before_all
-        @client = Maze::Client::Appium.start(SecureRandom.uuid)
+        @client = Maze::Client::Appium.start
       end
 
       # TODO: Refactor before and after method so that use of the driver is abstracted behind the relevant Appium client

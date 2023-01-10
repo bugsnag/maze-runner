@@ -40,6 +40,11 @@ BeforeAll do
   # Record the local server starting time
   Maze.start_time = Time.now.strftime('%Y-%m-%d %H:%M:%S')
 
+  # Give each run of the tool a unique id
+  Maze.run_uuid = SecureRandom.uuid
+  $logger.info "UUID for this run: #{Maze.run_uuid}"
+
+
   # Start document server, if asked for
   Maze::DocumentServer.start unless Maze.config.document_server_root.nil?
 

@@ -26,6 +26,11 @@ module Maze
             text ''
             text 'General options:'
 
+            opt Option::AWS_PUBLIC_IP,
+                'Intended for use on Buildkite with the Elastic CI Stack for CI.  Enables awareness of being run with a public IP address.',
+                type: :boolean,
+                default: false
+
             opt Option::ENABLE_RETRIES,
                 'Enables retrying failed scenarios when tagged',
                 type: :boolean,

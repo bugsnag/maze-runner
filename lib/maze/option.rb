@@ -44,6 +44,7 @@ module Maze
     # Local-only options
     APPIUM_LOGFILE = 'appium-logfile'
     APPIUM_SERVER = 'appium-server'
+    APPIUM_SERVER = 'appium-server'
     APPLE_TEAM_ID = 'apple-team-id'
     START_APPIUM = 'start-appium'
     UDID = 'udid'
@@ -54,6 +55,7 @@ module Maze
     LOG_REQUESTS = 'log-requests'
 
     # General options
+    AWS_PUBLIC_IP = 'aws-public-ip'
     REPEATER_API_KEY = 'repeater-api-key'
     ENABLE_BUGSNAG = 'enable-bugsnag'
     ENABLE_RETRIES = 'enable-retries'

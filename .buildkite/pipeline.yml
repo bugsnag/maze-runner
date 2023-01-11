@@ -32,13 +32,13 @@ steps:
     timeout_in_minutes: 30
     key: "ci-image-ruby-2-7"
     plugins:
-      - docker-compose#v3.7.0:
+      - docker-compose#v4.7.0:
           build:
             - ci-ruby-2.7
           image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
           cache-from:
             - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-2.7
-      - docker-compose#v3.7.0:
+      - docker-compose#v4.7.0:
           push:
             - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-2.7
     env:
@@ -48,13 +48,13 @@ steps:
     timeout_in_minutes: 30
     key: "ci-image-ruby-3"
     plugins:
-      - docker-compose#v3.7.0:
+      - docker-compose#v4.7.0:
           build:
             - ci-ruby-3
           image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
           cache-from:
             - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-3
-      - docker-compose#v3.7.0:
+      - docker-compose#v4.7.0:
           push:
             - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-3
     env:
@@ -64,7 +64,7 @@ steps:
     timeout_in_minutes: 30
     depends_on: 'ci-image-ruby-2-7'
     plugins:
-      docker-compose#v3.7.0:
+      docker-compose#v4.7.0:
         run: unit-test
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
         cache-from:
@@ -77,7 +77,7 @@ steps:
     timeout_in_minutes: 30
     depends_on: 'ci-image-ruby-3'
     plugins:
-      docker-compose#v3.7.0:
+      docker-compose#v4.7.0:
         run: unit-test
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
         cache-from:
@@ -91,12 +91,12 @@ steps:
     timeout_in_minutes: 30
     depends_on: "ci-image-ruby-2-7"
     plugins:
-      - docker-compose#v3.7.0:
+      - docker-compose#v4.7.0:
           build: cli
           image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
           cache-from:
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
-      - docker-compose#v3.7.0:
+      - docker-compose#v4.7.0:
           push:
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
 
@@ -105,12 +105,12 @@ steps:
     timeout_in_minutes: 30
     depends_on: "ci-image-ruby-2-7"
     plugins:
-      - docker-compose#v3.7.0:
+      - docker-compose#v4.7.0:
           build: cli-legacy
           image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
           cache-from:
             - cli-legacy:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli-legacy
-      - docker-compose#v3.7.0:
+      - docker-compose#v4.7.0:
           push:
             - cli-legacy:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli-legacy
 
@@ -118,23 +118,23 @@ steps:
     timeout_in_minutes: 30
     depends_on: "ci-image-ruby-2-7"
     plugins:
-      - docker-compose#v3.7.0:
+      - docker-compose#v4.7.0:
           run: framework-tests
-      - docker-compose#v3.7.0:
+      - docker-compose#v4.7.0:
           run: comparison-tests
-      - docker-compose#v3.7.0:
+      - docker-compose#v4.7.0:
           run: proxy-tests
-      - docker-compose#v3.7.0:
+      - docker-compose#v4.7.0:
           run: cli-tests
-      - docker-compose#v3.7.0:
+      - docker-compose#v4.7.0:
           run: http-response-tests
-      - docker-compose#v3.7.0:
+      - docker-compose#v4.7.0:
           run: payload-helper-tests
-      - docker-compose#v3.7.0:
+      - docker-compose#v4.7.0:
           run: docker-tests
-      - docker-compose#v3.7.0:
+      - docker-compose#v4.7.0:
           run: doc-server-tests
-      - docker-compose#v3.7.0:
+      - docker-compose#v4.7.0:
           run: exit-codes-tests
     env:
       RUBY_VERSION: "2.7"
@@ -144,23 +144,23 @@ steps:
     timeout_in_minutes: 30
     depends_on: "ci-image-ruby-3"
     plugins:
-      - docker-compose#v3.7.0:
+      - docker-compose#v4.7.0:
           run: framework-tests
-      - docker-compose#v3.7.0:
+      - docker-compose#v4.7.0:
           run: comparison-tests
-      - docker-compose#v3.7.0:
+      - docker-compose#v4.7.0:
           run: proxy-tests
-      - docker-compose#v3.7.0:
+      - docker-compose#v4.7.0:
           run: cli-tests
-      - docker-compose#v3.7.0:
+      - docker-compose#v4.7.0:
           run: http-response-tests
-      - docker-compose#v3.7.0:
+      - docker-compose#v4.7.0:
           run: payload-helper-tests
-      - docker-compose#v3.7.0:
+      - docker-compose#v4.7.0:
           run: docker-tests
-      - docker-compose#v3.7.0:
+      - docker-compose#v4.7.0:
           run: doc-server-tests
-      - docker-compose#v3.7.0:
+      - docker-compose#v4.7.0:
           run: exit-codes-tests
     env:
       RUBY_VERSION: "3"
@@ -174,7 +174,7 @@ steps:
     plugins:
       artifacts#v1.5.0:
         download: "test/fixtures/android-appium-test/app/build/outputs/apk/release/app-release.apk"
-      docker-compose#v3.7.0:
+      docker-compose#v4.7.0:
         pull: android-appium-test-legacy
         run: android-appium-test-legacy
         command:
@@ -203,7 +203,7 @@ steps:
     plugins:
       artifacts#v1.5.0:
         download: "test/fixtures/android-appium-test/app/build/outputs/apk/release/app-release.apk"
-      docker-compose#v3.7.0:
+      docker-compose#v4.7.0:
         pull: android-appium-test
         run: android-appium-test
         command:
@@ -225,7 +225,7 @@ steps:
     depends_on: "push-branch-cli-legacy"
     timeout_in_minutes: 10
     plugins:
-      docker-compose#v3.7.0:
+      docker-compose#v4.7.0:
         run: browser-tests-legacy
         use-aliases: true
         verbose: true
@@ -239,7 +239,7 @@ steps:
     depends_on: "push-branch-cli"
     timeout_in_minutes: 10
     plugins:
-      docker-compose#v3.7.0:
+      docker-compose#v4.7.0:
         pull: browser-tests
         run: browser-tests
         use-aliases: true
@@ -254,14 +254,16 @@ steps:
     depends_on: "push-branch-cli"
     timeout_in_minutes: 10
     plugins:
-      docker-compose#v3.7.0:
+      docker-compose#v4.7.0:
         pull: browser-tests
         run: browser-tests
+        service-ports: true
         use-aliases: true
         verbose: true
         command:
           - "--farm=bb"
           - "--browser=firefox_107"
+          - "--aws-public-ip"
     env:
       RUBY_VERSION: "2.7"
     concurrency: 2
@@ -272,7 +274,7 @@ steps:
   - label: 'Update docs'
     if: build.tag =~ /^v[2-9]\.[0-9]+\.[0-9]+\$/
     plugins:
-      docker-compose#v3.7.0:
+      docker-compose#v4.7.0:
         run: docs
     command: 'bundle exec rake docs:build_and_publish'
 
@@ -280,7 +282,7 @@ steps:
   - label: 'Push Docker image for tag'
     if: build.tag =~ /^v[2-9]\.[0-9]+\.[0-9]+\$/
     plugins:
-      - docker-compose#v3.7.0:
+      - docker-compose#v4.7.0:
           push:
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:${BUILDKITE_TAG}-cli
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-v7-cli

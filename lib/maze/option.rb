@@ -44,7 +44,6 @@ module Maze
     # Local-only options
     APPIUM_LOGFILE = 'appium-logfile'
     APPIUM_SERVER = 'appium-server'
-    APPIUM_SERVER = 'appium-server'
     APPLE_TEAM_ID = 'apple-team-id'
     START_APPIUM = 'start-appium'
     UDID = 'udid'

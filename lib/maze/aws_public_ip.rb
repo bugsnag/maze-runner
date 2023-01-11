@@ -22,9 +22,10 @@ module Maze
     def determine_public_port
       port = 0
       count = 0
+      max_attempts = 30
 
       # Give up after 30 seconds
-      while port == 0 && count < 30 do
+      while port == 0 && count < max_attempts do
         hostname = ENV['HOSTNAME']
         command = "curl --silent -XGET --unix-socket /var/run/docker.sock http://localhost/containers/#{hostname}/json"
         result = Maze::Runner.run_command(command)
@@ -40,8 +41,11 @@ module Maze
         end
 
         count += 1
-        sleep 1 if port == 0 && count < 30
+        sleep 1 if port == 0 && count < max_attempts
       end
+      $logger.error "Failed to determine public port within #{max_attempts} attempts" if port == 0 && count == max_attempts
+
+      port
     end
   end
 end

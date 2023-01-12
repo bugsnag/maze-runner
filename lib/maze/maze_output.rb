@@ -10,7 +10,8 @@ module Maze
     # Writes each list of requests to a separate file under, e.g:
     # maze_output/failed/scenario_name/errors.log
     def write_requests
-      FileUtils.makedirs(output_folder)
+      path = output_folder
+      FileUtils.makedirs(path)
 
       request_types = %w[errors sessions builds uploads logs sourcemaps traces invalid]
 
@@ -64,8 +65,9 @@ module Maze
     # @param logs [Array<String>] The lines of log to be written
     def write_device_logs(logs)
 
-      FileUtils.makedirs(output_folder)
-      filepath = File.join(path, 'device.log')
+      dir = output_folder
+      FileUtils.makedirs(dir)
+      filepath = File.join(dir, 'device.log')
 
       File.open(filepath, 'w+') do |file|
         logs.each { |line| file.puts line }

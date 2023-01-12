@@ -141,7 +141,7 @@ After do |scenario|
   end
 
   # Log all received requests to file
-  Maze::MazeOutput.write_requests(scenario) if Maze.config.file_log
+  Maze::MazeOutput.new(scenario).write_requests if Maze.config.file_log
 
   # Invoke the internal hook for the mode of operation
   Maze.internal_hooks.after scenario

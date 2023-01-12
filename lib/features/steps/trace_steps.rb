@@ -42,13 +42,39 @@ Then('the trace payload field {string} string attribute {string} matches the reg
   Maze.check.match regex, value
 end
 
+Then('the trace payload field {string} integer attribute {string} matches the regex {string}') do |field, attribute, pattern|
+  regex = Regexp.new(pattern)
+  list = Maze::Server.traces
+  attributes = Maze::Helper.read_key_path(list.current[:body], "#{field}.attributes")
+  attribute = attributes.find { |a| a['key'] == attribute }
+  value = attribute["value"]["intValue"]
+  Maze.check.match(regex, value)
+end
+
 Then('the trace payload field {string} string attribute {string} exists') do |field, attribute|
   value = get_attribute_value field, attribute, 'stringValue'
   Maze.check.not_nil value
-  end
+end
+
+Then('the trace payload field {string} string attribute {string} is one of:') do |field, key, possible_values|
+  list = Maze::Server.traces
+  attributes = Maze::Helper.read_key_path(list.current[:body], "#{field}.attributes")
+  attribute = attributes.find { |a| a['key'] == key }
+
+  possible_attributes = possible_values.raw.flatten.map { |v| { 'key' => key, 'value' => { 'stringValue' => v } } }
+  Maze.check.not_nil(attribute, "The attribute #{key} is nil")
+  Maze.check.include(possible_attributes, attribute)
+end
+
+Then('the trace payload field {string} boolean attribute {string} is true') do |field, key|
+  assert_attribute field, key, { 'boolValue' => true }
+end
+
+Then('the trace payload field {string} boolean attribute {string} is false') do |field, key|
+  assert_attribute field, key, { 'boolValue' => false }
+end
 
 # @!group Span steps
-
 Then('a span {word} equals {string}') do |attribute, expected|
   spans = spans_from_request_list(Maze::Server.list_for('traces'))
   selected_attributes = spans.map { |span| span[attribute] }
@@ -156,4 +182,10 @@ end
 def check_attribute_equal(field, attribute, attr_type, expected)
   value = get_attribute_value field, attribute, attr_type
   Maze.check.equal value, expected
+end
+
+def assert_attribute(field, key, expected)
+  list = Maze::Server.traces
+  attributes = Maze::Helper.read_key_path(list.current[:body], "#{field}.attributes")
+  Maze.check.equal attributes.find { |a| a['key'] == key }, { 'key' => key, 'value' => expected }
 end

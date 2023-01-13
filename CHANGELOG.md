@@ -1,10 +1,11 @@
-# 7.12.0 - TBD
+# 7.12.0 - 2023/01/13
 
 ## Enhancements
 
 - Generate and use a single "run UUID" throughout the app [451](https://github.com/bugsnag/maze-runner/pull/451)
 - Add `--aws-public-ip` option [452](https://github.com/bugsnag/maze-runner/pull/452)
 - Get device logs for failed scenarios [453](https://github.com/bugsnag/maze-runner/pull/453)
+- Add steps for verifying traces and spans [454](https://github.com/bugsnag/maze-runner/pull/454)
 
 ## Fixes
 

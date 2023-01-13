@@ -95,7 +95,7 @@ Before do |scenario|
   end
 
   # Invoke the internal hook for the mode of operation
-  Maze.internal_hooks.before
+  Maze.internal_hooks.before scenario
 
   # Call any blocks registered by the client
   Maze.hooks.call_before scenario
@@ -130,7 +130,7 @@ After do |scenario|
 
   Maze::Proxy.instance.stop
 
-  # Log unprocessed requests on Buildkite if the scenario fails
+  # Log all received requests to the console if the scenario fails and/or config says to
   if (scenario.failed? && Maze.config.log_requests) || Maze.config.always_log
     $stdout.puts '^^^ +++'
     output_received_requests('errors')
@@ -141,10 +141,10 @@ After do |scenario|
   end
 
   # Log all received requests to file
-  write_requests(scenario) if Maze.config.file_log
+  Maze::MazeOutput.new(scenario).write_requests if Maze.config.file_log
 
   # Invoke the internal hook for the mode of operation
-  Maze.internal_hooks.after
+  Maze.internal_hooks.after scenario
 
 ensure
   # Request arrays in particular are cleared here, rather than in the Before hook, to allow requests to be registered
@@ -165,65 +165,6 @@ def output_received_requests(request_type)
     request_queue.all.each.with_index(1) do |request, number|
       $stdout.puts "--- #{request_type} #{number} of #{count}"
       Maze::LogUtil.log_hash(Logger::Severity::INFO, request)
-    end
-  end
-end
-
-# Writes each list of requests to a separate file under, e.g:
-# maze_output/failed/scenario_name/errors.log
-def write_requests(scenario)
-  folder1 = File.join(Dir.pwd, 'maze_output')
-  folder2 = scenario.failed? ? 'failed' : 'passed'
-  folder3 = Maze::Helper.to_friendly_filename(scenario.name)
-
-  path = File.join(folder1, folder2, folder3)
-
-  FileUtils.makedirs(path)
-
-  request_types = %w[errors sessions builds uploads logs sourcemaps traces invalid]
-
-  request_types.each do |request_type|
-    list = Maze::Server.list_for(request_type).all
-    next if list.empty?
-
-    filename = "#{request_type}.log"
-    filepath = File.join(path, filename)
-
-    counter = 1
-    File.open(filepath, 'w+') do |file|
-      list.each do |request|
-        file.puts "=== Request #{counter} of #{list.size} ==="
-        if request[:invalid]
-          invalid_request = true
-          uri = request[:request][:request_uri]
-          headers = request[:request][:header]
-          body = request[:request][:body]
-        else
-          invalid_request = false
-          uri = request[:request].request_uri
-          headers = request[:request].header
-          body = request[:body]
-        end
-        file.puts "URI: #{uri}"
-        file.puts "HEADERS:"
-        headers.each do |key, values|
-          file.puts "  #{key}: #{values.map {|v| "'#{v}'"}.join(' ')}"
-        end
-        file.puts
-        file.puts "BODY:"
-        if !invalid_request && headers["content-type"].first == 'application/json'
-          file.puts JSON.pretty_generate(body)
-        else
-          file.puts body
-        end
-        file.puts
-        if request.include?(:reason)
-          file.puts "REASON:"
-          file.puts request[:reason]
-          file.puts
-        end
-        counter += 1
-      end
     end
   end
 end

@@ -49,9 +49,9 @@ module Maze
     class InternalHooks
       def before_all; end
 
-      def before; end
+      def before(_scenario); end
 
-      def after; end
+      def after(_scenario); end
 
       def after_all; end
 

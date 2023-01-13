@@ -7,6 +7,14 @@ When('I wait for {int} span(s)') do |span_count|
   assert_received_spans span_count, Maze::Server.list_for('traces')
 end
 
+When('I receive and discard the initial p-value request') do
+  steps %Q{
+    And I wait to receive at least 1 trace
+    And the trace payload field "resourceSpans" is an array with 0 elements
+    And I discard the oldest trace
+  }
+end
+
 Then('the trace payload field {string} bool attribute {string} is true') do |field, attribute|
   check_attribute_equal field, attribute, 'boolValue', true
 end

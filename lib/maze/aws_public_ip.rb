@@ -15,6 +15,8 @@ module Maze
 
     # Determines the public IP address of the running AWS instance
     def determine_public_ip
+      # 169.254.169.254 is the address of the AWS instance metadata service
+      # See https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html
       `curl --silent -XGET http://169.254.169.254/latest/meta-data/public-ipv4`
     end
 

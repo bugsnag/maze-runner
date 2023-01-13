@@ -54,6 +54,7 @@ module Maze
     LOG_REQUESTS = 'log-requests'
 
     # General options
+    AWS_PUBLIC_IP = 'aws-public-ip'
     REPEATER_API_KEY = 'repeater-api-key'
     ENABLE_BUGSNAG = 'enable-bugsnag'
     ENABLE_RETRIES = 'enable-retries'

@@ -44,9 +44,14 @@ BeforeAll do
   Maze.run_uuid = SecureRandom.uuid
   $logger.info "UUID for this run: #{Maze.run_uuid}"
 
-
   # Start document server, if asked for
   Maze::DocumentServer.start unless Maze.config.document_server_root.nil?
+
+  # Determine public IP if enabled
+  if Maze.config.aws_public_ip
+    Maze.public_address = Maze::AwsPublicIp.new.address
+    $logger.info "Maze Runner server should be available on public address: #{Maze.public_address}"
+  end
 
   # Start mock server
   Maze::Server.start

@@ -3,6 +3,7 @@
 ## Enhancements
 
 - Generate and use a single "run UUID" throughout the app [451](https://github.com/bugsnag/maze-runner/pull/451)
+- Add `--aws-public-ip` option [452](https://github.com/bugsnag/maze-runner/pull/452)
 
 ## Fixes
 

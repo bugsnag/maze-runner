@@ -242,6 +242,10 @@ services:
       MAZE_TMS_TOKEN:
     env_file:
       - ${DOCKER_ENV_FILE:-test/browser/features/fixtures/null_env}
+    ports:
+      - "9000-9499:9339"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 
   browser-tests-legacy:
     build:

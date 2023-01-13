@@ -18,6 +18,7 @@ module Maze
           config.null_port = options[Maze::Option::NULL_PORT]
 
           # General options
+          config.aws_public_ip = options[Maze::Option::AWS_PUBLIC_IP]
           config.enable_retries = options[Maze::Option::ENABLE_RETRIES]
           config.enable_bugsnag = options[Maze::Option::ENABLE_BUGSNAG]
           config.tms_uri = options[Maze::Option::TMS_URI]

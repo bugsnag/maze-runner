@@ -64,6 +64,9 @@ module Maze
     # API key to use when repeating requests
     attr_accessor :repeater_api_key
 
+    # Enables awareness of a public IP address on Buildkite with the Elastic CI Stack for AWS.
+    attr_accessor :aws_public_ip
+
     #
     # General appium configuration
     #

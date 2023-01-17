@@ -16,7 +16,7 @@ module Maze
                              when 'ios'
                                "@#{@driver.app_id}/Documents/#{destination_filename}"
                              when 'android'
-                               "/data/user/0/#{@driver.app_id}/files/#{destination_filename}"
+                               "/sdcard/Android/data/#{@driver.app_id}/#{destination_filename}"
                              end
           $logger.debug "Pushing file '#{source_path}' to '#{destination_path}'"
           @driver.push_file(destination_path, File.read(source_path))

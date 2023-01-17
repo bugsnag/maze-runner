@@ -5,7 +5,7 @@ Pods
 *.gem
 coverage/
 maze_output/
-work_dir/
+maze_working/
 Gemfile.lock
 package-lock.json
 test/fixtures/init-test

@@ -1,3 +1,9 @@
+# 7.13.0 - TBD
+
+## Enhancements
+
+- Push test fixture config file containing Maze Runner address for Appium tests [456](https://github.com/bugsnag/maze-runner/pull/456)
+
 # 7.12.0 - 2023/01/13
 
 ## Enhancements

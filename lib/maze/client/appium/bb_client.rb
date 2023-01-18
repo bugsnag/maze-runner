@@ -19,11 +19,7 @@ module Maze
         end
 
         def maze_address
-          if Maze.config.aws_public_ip
-            Maze.public_address
-          else
-            "local:#{Maze.config.port}"
-          end
+          Maze.public_address || "local:#{Maze.config.port}"
         end
 
         def device_capabilities

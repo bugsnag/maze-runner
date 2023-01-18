@@ -21,9 +21,8 @@ module Maze
           # Write Maze's address to file and push to the device
           config = Maze::Internal::FixtureConfig.new
           config.add('maze_address', maze_address)
-          config.write
-          Maze::Api::Appium::FileManager.new.push_app_file(Maze::Internal::FixtureConfig::WORKING_FILE,
-                                                           Maze::Internal::FixtureConfig::DEVICE_FILENAME)
+          Maze::Api::Appium::FileManager.new.write_app_file(config.to_s,
+                                                            Maze::Internal::FixtureConfig::DEVICE_FILENAME)
 
           log_session_info
         end

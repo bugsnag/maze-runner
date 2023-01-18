@@ -2,6 +2,7 @@ module Maze
   module Client
     module Appium
       class BaseClient
+        FIXTURE_CONFIG = 'fixture_config.json'
 
         def start_session
           prepare_session
@@ -19,10 +20,8 @@ module Maze
           Maze.driver.unlock
 
           # Write Maze's address to file and push to the device
-          config = Maze::Internal::FixtureConfig.new
-          config.add('maze_address', maze_address)
-          Maze::Api::Appium::FileManager.new.write_app_file(config.to_s,
-                                                            Maze::Internal::FixtureConfig::DEVICE_FILENAME)
+          Maze::Api::Appium::FileManager.new.write_app_file("{\"maze_address\": \"#{maze_address}\"}",
+                                                            FIXTURE_CONFIG)
 
           log_session_info
         end

@@ -5,7 +5,6 @@ Pods
 *.gem
 coverage/
 maze_output/
-maze_working/
 Gemfile.lock
 package-lock.json
 test/fixtures/init-test
@@ -15,4 +14,3 @@ doc/
 **/src/main/gen/
 .DS_Store
 bb.ready
-sb.ready

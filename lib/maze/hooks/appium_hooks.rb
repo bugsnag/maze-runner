@@ -10,8 +10,7 @@ module Maze
       end
 
       def before(scenario)
-        # Launch the app on macOS, if Appium is being used
-        Maze.driver.get(Maze.config.app) if Maze.driver && Maze.config.os == 'macos'
+        @client.start_scenario
       end
 
       def after(scenario)

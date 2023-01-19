@@ -19,10 +19,6 @@ module Maze
           # Ensure the device is unlocked
           Maze.driver.unlock
 
-          # Write Maze's address to file and push to the device
-          Maze::Api::Appium::FileManager.new.write_app_file("{\"maze_address\": \"#{maze_address}\"}",
-                                                            FIXTURE_CONFIG)
-
           log_session_info
         end
 
@@ -93,6 +89,15 @@ module Maze
               end
             end
           end
+        end
+
+        def start_scenario
+          # Write Maze's address to file and push to the device
+          Maze::Api::Appium::FileManager.new.write_app_file("{\"maze_address\": \"#{maze_address}\"}",
+                                                            FIXTURE_CONFIG)
+
+          # Launch the app on macOS
+          Maze.driver.get(Maze.config.app) if Maze.config.os == 'macos'
         end
 
         def device_capabilities

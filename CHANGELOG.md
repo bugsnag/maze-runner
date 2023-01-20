@@ -3,6 +3,7 @@
 ## Enhancements
 
 - Push test fixture config file containing Maze Runner address for Appium tests [456](https://github.com/bugsnag/maze-runner/pull/456) [458](https://github.com/bugsnag/maze-runner/pull/458)
+- Add reflective servlet to main mock server [457](https://github.com/bugsnag/maze-runner/pull/457)
 
 # 7.12.0 - 2023/01/13
 

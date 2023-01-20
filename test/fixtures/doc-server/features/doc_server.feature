@@ -5,13 +5,24 @@ Feature: Using the document server
     Then I wait to receive an error
     And the error payload body matches the JSON fixture in "features/fixtures/payload.json"
 
-  Scenario: Reflective requests
+  Scenario: Reflective requests with the main mock server
     When I start a timer
-    And I make a reflective GET request with status "202" and delay of "2000"
+    And I make a reflective GET request on port "9339" with status "202" and delay of "2000"
     Then the status code for the last reflective request was "202"
     And at least 2000 ms have passed
 
     And I start a timer
-    And I make a reflective POST request with status "567" and delay of "2000"
+    And I make a reflective POST request on port "9339" with status "567" and delay of "2000"
+    Then the status code for the last reflective request was "567"
+    And at least 2000 ms have passed
+
+  Scenario: Reflective requests with the document server
+    When I start a timer
+    And I make a reflective GET request on port "9340" with status "202" and delay of "2000"
+    Then the status code for the last reflective request was "202"
+    And at least 2000 ms have passed
+
+    And I start a timer
+    And I make a reflective POST request on port "9340" with status "567" and delay of "2000"
     Then the status code for the last reflective request was "567"
     And at least 2000 ms have passed

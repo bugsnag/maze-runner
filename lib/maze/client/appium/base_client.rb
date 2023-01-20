@@ -1,3 +1,5 @@
+require 'json'
+
 module Maze
   module Client
     module Appium
@@ -93,7 +95,7 @@ module Maze
 
         def start_scenario
           # Write Maze's address to file and push to the device
-          Maze::Api::Appium::FileManager.new.write_app_file("{\"maze_address\": \"#{maze_address}\"}",
+          Maze::Api::Appium::FileManager.new.write_app_file(JSON.generate({ maze_address: maze_address }),
                                                             FIXTURE_CONFIG)
 
           # Launch the app on macOS

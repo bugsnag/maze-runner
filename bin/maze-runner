@@ -8,6 +8,7 @@ require_relative '../lib/utils/deep_merge'
 require_relative '../lib/maze'
 
 require_relative '../lib/maze/appium_server'
+require_relative '../lib/maze/api/appium/file_manager'
 require_relative '../lib/maze/bugsnag_config'
 require_relative '../lib/maze/client/bb_client_utils'
 require_relative '../lib/maze/client/bs_client_utils'

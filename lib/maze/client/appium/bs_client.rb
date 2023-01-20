@@ -15,6 +15,10 @@ module Maze
           end
         end
 
+        def maze_address
+          "bs-local.com:#{Maze.config.port}"
+        end
+
         def device_capabilities
           config = Maze.config
           capabilities = {

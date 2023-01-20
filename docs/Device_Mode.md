@@ -43,3 +43,12 @@ USE_LEGACY_DRIVER=1 bundle exec maze-runner features/smoke_tests    \
 ```
 
 Note that the `Gemfile.lock` must also be removed when taking this approach.
+
+## Test fixture config files
+
+Test fixture apps need to know the netword address of the MAze Runner server in order to configure Bugsnag properly.  Rather than having to hard code the address in test fixture code, Maze Runner had the concept of a test fixture configuration file.  This is a JSON file written to disk locally under `maze_working/` and pushed onto the device using Appium.  A test fixture can then read this file to find the address.  Example file:
+```
+{
+  "maze_address": "bs-local.com:9339"
+}
+```

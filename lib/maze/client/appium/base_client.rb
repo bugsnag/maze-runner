@@ -1,7 +1,10 @@
+require 'json'
+
 module Maze
   module Client
     module Appium
       class BaseClient
+        FIXTURE_CONFIG = 'fixture_config.json'
 
         def start_session
           prepare_session
@@ -22,6 +25,10 @@ module Maze
         end
 
         def prepare_session
+          raise 'Method not implemented by this class'
+        end
+
+        def maze_address
           raise 'Method not implemented by this class'
         end
 
@@ -84,6 +91,15 @@ module Maze
               end
             end
           end
+        end
+
+        def start_scenario
+          # Write Maze's address to file and push to the device
+          Maze::Api::Appium::FileManager.new.write_app_file(JSON.generate({ maze_address: maze_address }),
+                                                            FIXTURE_CONFIG)
+
+          # Launch the app on macOS
+          Maze.driver.get(Maze.config.app) if Maze.config.os == 'macos'
         end
 
         def device_capabilities

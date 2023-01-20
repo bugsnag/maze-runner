@@ -14,4 +14,3 @@ doc/
 **/src/main/gen/
 .DS_Store
 bb.ready
-sb.ready

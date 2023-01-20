@@ -9,10 +9,8 @@ module Maze
         @client = Maze::Client::Appium.start
       end
 
-      # TODO: Refactor before and after method so that use of the driver is abstracted behind the relevant Appium client
       def before(scenario)
-        # Launch the app on macOS, if Appium is being used
-        Maze.driver.get(Maze.config.app) if Maze.driver && Maze.config.os == 'macos'
+        @client.start_scenario
       end
 
       def after(scenario)

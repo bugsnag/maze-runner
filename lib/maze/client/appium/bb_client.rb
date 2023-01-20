@@ -18,6 +18,10 @@ module Maze
           end
         end
 
+        def maze_address
+          Maze.public_address || "local:#{Maze.config.port}"
+        end
+
         def device_capabilities
           config = Maze.config
           capabilities = {

@@ -12,6 +12,7 @@ require_relative '../lib/maze/servlets/servlet'
 require_relative '../lib/maze/servlets/command_servlet'
 require_relative '../lib/maze/servlets/log_servlet'
 require_relative '../lib/maze/servlets/trace_servlet'
+require_relative '../lib/maze/servlets/reflective_servlet'
 require_relative '../lib/maze/server'
 
 # noinspection RubyNilAnalysis
@@ -46,6 +47,7 @@ module Maze
       mock_http_server.expects(:mount).with('/react-native-source-map', any_parameters).once
       mock_http_server.expects(:mount).with('/command', any_parameters).once
       mock_http_server.expects(:mount).with('/logs', any_parameters).once
+      mock_http_server.expects(:mount).with('/reflect', any_parameters).once
 
       mock_http_server.expects(:start)
       mock_http_server.expects(:shutdown)
@@ -89,6 +91,7 @@ module Maze
       mock_http_server.expects(:mount).with('/traces', any_parameters).once
       mock_http_server.expects(:mount).with('/react-native-source-map', any_parameters).once
       mock_http_server.expects(:mount).with('/logs', any_parameters).once
+      mock_http_server.expects(:mount).with('/reflect', any_parameters).once
       mock_http_server.expects(:mount).with('/command', any_parameters).once
       mock_http_server.expects(:start)
       mock_http_server.expects(:shutdown)

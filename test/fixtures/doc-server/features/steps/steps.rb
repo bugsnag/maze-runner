@@ -9,8 +9,8 @@ Then('at least {int} ms have passed') do |millis|
   assert_compare millis, '<', duration
 end
 
-When('I make a reflective {word} request with status {string} and delay of {string}') do |method, status, delay_ms|
-  http = Net::HTTP.new('localhost', '9340')
+When('I make a reflective {word} request on port {string} with status {string} and delay of {string}') do |method, port, status, delay_ms|
+  http = Net::HTTP.new('localhost', port)
 
   case method.downcase
   when 'get'

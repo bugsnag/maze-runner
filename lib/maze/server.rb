@@ -202,6 +202,7 @@ module Maze
             server.mount '/react-native-source-map', Servlets::Servlet, :sourcemaps
             server.mount '/command', Servlets::CommandServlet
             server.mount '/logs', Servlets::LogServlet
+            server.mount '/reflect', Servlets::ReflectiveServlet
             server.start
           rescue StandardError => e
             $logger.warn "Failed to start mock server: #{e.message}"

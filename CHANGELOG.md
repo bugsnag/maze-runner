@@ -1,3 +1,9 @@
+# 7.13.1 - 2023/01/24
+
+## Fixes
+
+- Only push test fixture config file on mobile and not in legacy mode [459](https://github.com/bugsnag/maze-runner/pull/459)
+
 # 7.13.0 - 2023/01/23
 
 ## Enhancements

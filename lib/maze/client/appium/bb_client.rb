@@ -29,6 +29,7 @@ module Maze
           capabilities = {
             'disabledAnimations' => 'true',
             'noReset' => 'true',
+            'newCommandTimeout' => 0,
             'bitbar:options' => {
               # Some capabilities probably belong in the top level
               # of the hash, but BitBar picks them up from here.

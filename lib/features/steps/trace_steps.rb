@@ -15,6 +15,11 @@ When('I receive and discard the initial p-value request') do
   }
 end
 
+Then('I should have received no spans') do
+  sleep Maze.config.receive_no_requests_wait
+  Maze.check.equal spans_from_request_list(Maze::Server.list_for('traces')).size, 0
+end
+
 Then('the trace payload field {string} bool attribute {string} is true') do |field, attribute|
   check_attribute_equal field, attribute, 'boolValue', true
 end

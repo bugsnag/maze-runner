@@ -123,7 +123,7 @@ module Maze
 
           $logger.info 'Starting SBSecureTunnel'
           command = "#{sb_local} --username #{username} --authkey #{access_key} --acceptAllCerts " \
-                  "--ready #{BB_READY_FILE} --kill #{BB_KILL_FILE}"
+                  "--ready #{BB_READY_FILE} --kill #{BB_KILL_FILE} --verbose --log tunnel.log"
 
           output = start_tunnel_thread(command)
 
@@ -154,7 +154,7 @@ module Maze
               output = []
               stdout_and_stderr.each do |line|
                 output << line
-                $logger.debug('SBSecureTunnel') {line.chomp}
+                $logger.info('SBSecureTunnel') {line.chomp}
               end
 
               exit_status = wait_thr.value.to_i

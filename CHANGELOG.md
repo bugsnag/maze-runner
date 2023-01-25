@@ -1,3 +1,9 @@
+# 7.14.0 - 2023/01/25
+
+## Enhancements
+
+- Added a step to assert that no spans have been received [460](https://github.com/bugsnag/maze-runner/pull/460)
+
 # 7.13.1 - 2023/01/24
 
 ## Fixes

@@ -7,7 +7,7 @@ module Maze
     # - status - HTTP response code
     # For GET requests these are expected to passed as GET parameters,
     # for POST requests they are expected to be given as JSON fields.
-    class ReflectiveServlet < WEBrick::HTTPServlet::AbstractServlet
+    class ReflectiveServlet < BaseServlet
 
       # Accepts a GET request to provide a reflective response to.
       #

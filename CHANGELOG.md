@@ -1,3 +1,9 @@
+# TBD
+
+## Fixes
+
+- Set missing CORS headers for OPTIONS requests in reflective servlet [461](https://github.com/bugsnag/maze-runner/pull/461)
+
 # 7.14.0 - 2023/01/25
 
 ## Enhancements

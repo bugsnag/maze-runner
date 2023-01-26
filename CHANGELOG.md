@@ -1,3 +1,9 @@
+# 7.14.2 - 2023/01/27
+
+## Fixes
+
+- Set `newCommandTimout` to 0 for BitBar Appium sessions [462](https://github.com/bugsnag/maze-runner/pull/462)
+
 # 7.14.1 - 2023/01/26
 
 ## Fixes

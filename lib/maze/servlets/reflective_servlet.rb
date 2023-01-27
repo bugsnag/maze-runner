@@ -28,7 +28,7 @@ module Maze
 
         content_type = request['Content-Type']
 
-        # For JSON, pull the instruction from the body, other take them from the query parameters
+        # For JSON, pull the instructions from the body.  Otherwise, take them from the query string.
         if content_type == 'application/json'
           body = JSON.parse(request.body)
           delay_ms = body['delay_ms']

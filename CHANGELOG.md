@@ -1,3 +1,9 @@
+# 7.17.0 - TBD
+
+## Enhancements
+
+- Associate `--device` with device groups on BitBar and remove the need to provide `--os`/`--os-version` options. [465](https://github.com/bugsnag/maze-runner/pull/465)
+
 # 7.16.0 - 2023/01/30
 
 ## Enhancements

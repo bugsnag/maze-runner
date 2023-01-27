@@ -20,6 +20,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'cucumber', '~> 7.1'
   spec.add_dependency 'os', '~> 1.0.0'
   spec.add_dependency 'test-unit', '~> 3.5.2'
+  spec.add_dependency 'rack', '~> 2.2'
   spec.add_dependency 'webrick', '~> 1.7.0'
 
   # Appium 12/Selenium 4 enforce the use of W3C

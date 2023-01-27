@@ -9,7 +9,7 @@ Then('at least {int} ms have passed') do |millis|
   assert_compare millis, '<', duration
 end
 
-When('I make a reflective {word} request on port {string} with status {string} and delay of {string}') do |method, port, status, delay_ms|
+When('I make a reflective {string} request on port {string} with status {string} and delay of {string}') do |method, port, status, delay_ms|
   http = Net::HTTP.new('localhost', port)
 
   case method.downcase
@@ -19,6 +19,8 @@ When('I make a reflective {word} request on port {string} with status {string} a
     request = Net::HTTP::Post.new('/reflect')
     request['Content-Type'] = 'application/json'
     request.body = "{\"status\": \"#{status}\", \"delay_ms\": \"#{delay_ms}\"}"
+  when 'post-with-query'
+    request = Net::HTTP::Post.new("/reflect?status=#{status}&delay_ms=#{delay_ms}")
   end
 
   response = http.request(request)

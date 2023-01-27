@@ -1,3 +1,9 @@
+# 7.15.0 - TBD
+
+## Enhancements
+
+- Add support for non-JSON content types to the reflective servlet [463](https://github.com/bugsnag/maze-runner/pull/463)
+
 # 7.14.2 - 2023/01/27
 
 ## Fixes

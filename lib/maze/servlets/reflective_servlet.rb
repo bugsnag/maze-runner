@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'rack'
 
 module Maze
   module Servlets
@@ -26,17 +27,17 @@ module Maze
       def do_POST(request, response)
 
         content_type = request['Content-Type']
-        unless content_type == 'application/json'
-          msg = "Content-Type '#{content_type}' not supported - only application/json is supported at present"
-          $logger.error msg
-          response.status = 415
-          response.body = msg
-          return
-        end
 
-        body = JSON.parse(request.body)
-        delay_ms = body['delay_ms']
-        status = body['status']
+        # For JSON, pull the instruction from the body, other take them from the query parameters
+        if content_type == 'application/json'
+          body = JSON.parse(request.body)
+          delay_ms = body['delay_ms']
+          status = body['status']
+        else
+          query = Rack::Utils.parse_nested_query(request.query_string)
+          delay_ms = query['delay_ms']
+          status = query['status']
+        end
 
         reflect response, delay_ms, status
       rescue JSON::ParserError => e

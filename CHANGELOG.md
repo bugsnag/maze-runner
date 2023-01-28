@@ -1,6 +1,6 @@
 # 7.16.0 - TDB
 
-## Fixes
+## Enhancements
 
 - Remove use of the TMS for BitBar Appium sessions on CI [464](https://github.com/bugsnag/maze-runner/pull/464)
 

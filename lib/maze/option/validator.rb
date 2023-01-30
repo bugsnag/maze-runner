@@ -87,7 +87,10 @@ module Maze
 
       # Validates BitBar device options
       def validate_bitbar(options, errors)
-        if ENV['BUILDKITE']
+        browser = options[Option::BROWSER]
+        device = options[Option::DEVICE]
+
+        if ENV['BUILDKITE'] && browser
           errors << "--#{Option::TMS_URI} must be specified when running on Buildkite" if options[Option::TMS_URI].nil?
         else
           errors << "--#{Option::USERNAME} must be specified" if options[Option::USERNAME].nil?
@@ -95,8 +98,6 @@ module Maze
         end
 
         # Device
-        browser = options[Option::BROWSER]
-        device = options[Option::DEVICE]
         if browser.nil? && device.empty?
           errors << "Either --#{Option::BROWSER} or --#{Option::DEVICE} must be specified"
         elsif browser

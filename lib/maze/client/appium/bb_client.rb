@@ -4,11 +4,6 @@ module Maze
       class BitBarClient < BaseClient
         def prepare_session
           config = Maze.config
-          if ENV['BUILDKITE']
-            credentials = Maze::Client::BitBarClientUtils.account_credentials config.tms_uri
-            config.username = credentials[:username]
-            config.access_key = credentials[:access_key]
-          end
           config.app = Maze::Client::BitBarClientUtils.upload_app config.access_key,
                                                                   config.app
           if Maze.config.start_tunnel
@@ -63,7 +58,6 @@ module Maze
           if Maze.config.start_tunnel
             Maze::Client::BitBarClientUtils.stop_local_tunnel
           end
-          Maze::Client::BitBarClientUtils.release_account(Maze.config.tms_uri) if ENV['BUILDKITE']
         end
       end
     end

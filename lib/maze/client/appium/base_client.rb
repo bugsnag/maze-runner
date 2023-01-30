@@ -78,7 +78,7 @@ module Maze
               end
 
               Maze.driver = driver
-            rescue Selenium::WebDriver::Error::UnknownError => original_exception
+            rescue ::Selenium::WebDriver::Error::UnknownError => original_exception
               $logger.warn "Attempt to acquire #{config.device} device from farm #{config.farm} failed"
               $logger.warn "Exception: #{original_exception.message}"
               if config.device_list.empty?

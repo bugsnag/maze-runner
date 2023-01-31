@@ -7,56 +7,37 @@ module Maze
       # Provides a source of capabilities used to run tests against specific BitBar devices
       # noinspection RubyStringKeysInHashInspection
       class BitBarDevices
-        APPIUM_1_9_1 = '1.9.1'
-        APPIUM_1_15_0 = '1.15.0'
-        APPIUM_1_20_2 = '1.20.2'
-
         BASE_URI = 'https://cloud.bitbar.com/api/v2/me'
-        FILTER_PATH = 'devices/filters'
-
-        DEVICE_GROUP_IDS = {
-          # Classic, non-specific devices for each Android version
-          'ANDROID_10_0' => '46024',
-
-          # iOS devices
-          'IOS_14' => '46025'
-        }
 
         class << self
-          def call_bitbar_api(path, query, api_key)
-            encoded_query = URI.encode_www_form(query)
-            uri = URI("#{BASE_URI}/#{path}?#{encoded_query}")
-            request = Net::HTTP::Get.new(uri)
-            request.basic_auth(api_key, '')
-
-            res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
-              http.request(request)
-            end
-
-            JSON.parse(res.body)
-          end
-
-          def get_filtered_device_name(device_group_id, api_key)
-            path = "device-groups/#{device_group_id}/devices"
-            query = {
-              'filter': "online_eq_true"
-            }
-            all_devices = call_bitbar_api(path, query, api_key)
-            $logger.debug "all_devices: #{JSON.pretty_generate(all_devices)}"
-            filtered_devices = all_devices['data'].reject { |device| device['locked'] }
-            if filtered_devices.empty?
+          # Uses the BitBar API to find an available device from the group name given
+          # @param device_group_name [String] Name of the device group for which to find an availavble device
+          # @return Capabilities hash for the available device
+          def get_available_device(device_group_name)
+            device_group_id = get_device_group_id(device_group_name)
+            $logger.debug "Got group id #{device_group_id} for #{device_group_name}"
+            group_count, device = find_device_in_group(device_group_id)
+            if device.nil?
+              # TODO: Retry rather than fail, see PLAT-7377
               raise 'There are no devices available'
             else
-              selected = filtered_devices.first['displayName']
-              $logger.info "Selected #{selected} from #{filtered_devices.size} available device(s)"
-              selected
+              $logger.info "#{group_count} device(s) currently available in group '#{device_group_name}'"
             end
-          end
 
-          def get_device(device_group, platform, platform_version, api_key)
-            device_group_id = DEVICE_GROUP_IDS[device_group]
-            device_name = get_filtered_device_name(device_group_id, api_key)
-            case platform.downcase
+            device_name = device['displayName']
+            platform = device['platform'].downcase
+            platform_version = device['softwareVersion']['releaseVersion']
+
+            $logger.info "Device   : #{device_name}"
+            $logger.info "Platform : #{platform}"
+            $logger.info "Version  : #{platform_version}"
+
+            # TODO: Setting the config here is rather a side effect and factoring it out would be better.
+            #   For now, though, it means not having to provide the --os and --os-version options on the command line.
+            Maze.config.os = platform
+            Maze.config.os_version = platform_version.to_f.floor
+
+            case platform
             when 'android'
               automation_name = if platform_version.start_with?('5')
                                   'UiAutomator1'
@@ -69,6 +50,45 @@ module Maze
             else
               throw "Invalid device platform specified #{platform}"
             end
+          end
+
+          # Get the id of a device group given its name
+          def get_device_group_id(device_group_name)
+            query = {
+              'filter': "displayName_eq_#{device_group_name}"
+            }
+            devices = query_api('device-groups', query)
+            if devices['data'].size != 1
+              $logger.error "Expected exactly one group with name #{device_group_name}, found #{devices.size}"
+              raise "Failed to find a device group named '#{device_group_name}'"
+            end
+            devices['data'][0]['id']
+          end
+
+          def find_device_in_group(device_group_id)
+            path = "device-groups/#{device_group_id}/devices"
+            query = {
+              'filter': "online_eq_true"
+            }
+            all_devices = query_api(path, query)
+
+            $logger.debug "All available devices in group #{device_group_id}: #{JSON.pretty_generate(all_devices)}"
+            filtered_devices = all_devices['data'].reject { |device| device['locked'] }
+            return filtered_devices.size, filtered_devices.first
+          end
+
+          # Queries the BitBar REST API
+          def query_api(path, query)
+            encoded_query = URI.encode_www_form(query)
+            uri = URI("#{BASE_URI}/#{path}?#{encoded_query}")
+            request = Net::HTTP::Get.new(uri)
+            request.basic_auth(Maze.config.access_key, '')
+
+            res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+              http.request(request)
+            end
+
+            JSON.parse(res.body)
           end
 
           def make_android_hash(device, automation_name)

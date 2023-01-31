@@ -29,7 +29,7 @@ module Maze
       end
 
       def at_exit
-        @client.stop_session
+        @client&.stop_session
       end
 
       private

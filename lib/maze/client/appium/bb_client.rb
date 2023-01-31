@@ -41,10 +41,7 @@ module Maze
             }
           }
           capabilities['appiumVersion'] = config.appium_version unless config.appium_version.nil?
-          capabilities.deep_merge! BitBarDevices.get_device(config.device,
-                                                            config.os,
-                                                            config.os_version,
-                                                            config.access_key)
+          capabilities.deep_merge! BitBarDevices.get_available_device(config.device)
           capabilities.deep_merge! JSON.parse(config.capabilities_option)
           capabilities
         end

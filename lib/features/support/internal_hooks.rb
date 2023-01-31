@@ -50,7 +50,7 @@ BeforeAll do
   # Determine public IP if enabled
   if Maze.config.aws_public_ip
     Maze.public_address = Maze::AwsPublicIp.new.address
-    $logger.info "Maze Runner server should be available on public address: #{Maze.public_address}"
+    $logger.info "Public address: #{Maze.public_address}"
   end
 
   # Start mock server

@@ -36,15 +36,14 @@ module Maze
           retry_failure = config.device_list.nil? || config.device_list.empty?
           until Maze.driver
             begin
-              config.capabilities = device_capabilities
-
-              $logger.info 'Creating Appium driver instance'
-              driver = Maze::Driver::Appium.new config.appium_server_url,
-                                                config.capabilities,
-                                                config.locator
-
               start_driver_closure = Proc.new do
                 begin
+                  config.capabilities = device_capabilities
+
+                  $logger.info 'Creating Appium driver instance'
+                  driver = Maze::Driver::Appium.new config.appium_server_url,
+                                                    config.capabilities,
+                                                    config.locator
                   driver.start_driver
                   true
                 rescue => start_error

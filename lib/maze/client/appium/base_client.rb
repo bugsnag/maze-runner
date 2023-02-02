@@ -34,6 +34,7 @@ module Maze
 
         def start_driver(config)
           retry_failure = config.device_list.nil? || config.device_list.empty?
+          driver = nil
           until Maze.driver
             begin
               start_driver_closure = Proc.new do

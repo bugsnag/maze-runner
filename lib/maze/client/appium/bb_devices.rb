@@ -97,6 +97,7 @@ module Maze
               'platformName' => 'Android',
               'deviceName' => 'Android Phone',
               'bitbar:options' => {
+                'waitForQuiescence' => false,
                 'device' => device
               }
             }
@@ -109,6 +110,8 @@ module Maze
               'deviceName' => 'iPhone device',
               'platformName' => 'iOS',
               'bitbar:options' => {
+                'noReset' => 'true',
+                'shouldTerminateApp' => 'true',
                 'device' => device
               }
             }.freeze

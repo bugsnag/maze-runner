@@ -97,7 +97,6 @@ module Maze
               'platformName' => 'Android',
               'deviceName' => 'Android Phone',
               'bitbar:options' => {
-                'waitForQuiescence' => false,
                 'device' => device
               }
             }

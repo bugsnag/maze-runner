@@ -3,6 +3,7 @@
 ## Enhancements
 
 - Associate `--device` with device groups on BitBar and remove the need to provide `--os`/`--os-version` options. [465](https://github.com/bugsnag/maze-runner/pull/465)
+- Acquire device capabilities each time a driver start is attempted. Add Randomness to device selection to reduce likelihood of race conditions. [467](https://github.com/bugsnag/maze-runner/pull/467)
 
 # 7.16.0 - 2023/01/30
 

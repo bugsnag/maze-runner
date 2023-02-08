@@ -193,7 +193,7 @@ steps:
     env:
       RUBY_VERSION: "2.7"
     concurrency: 24
-    concurrency_group: 'BrowserStack-app'
+    concurrency_group: 'browserstack-app'
     concurrency_method: eager
 
   - label: 'BrowserStack app-automate - Android 13 - W3C'
@@ -219,7 +219,7 @@ steps:
     env:
       RUBY_VERSION: "3"
     concurrency: 24
-    concurrency_group: 'BrowserStack-app'
+    concurrency_group: 'browserstack-app'
     concurrency_method: eager
 
   - label: 'BrowserStack web browser test - Legacy driver'
@@ -233,8 +233,9 @@ steps:
         command:
           - "--farm=bs"
           - "--browser=firefox_latest"
-    concurrency: 2
-    concurrency_group: 'BrowserStack'
+    concurrency: 5
+    concurrency_group: 'bitbar-android-10'
+    concurrency_method: eager
 
   - label: 'BrowserStack web browser test - Latest Firefox'
     depends_on: "push-branch-cli"
@@ -249,7 +250,8 @@ steps:
           - "--farm=bs"
           - "--browser=firefox_latest"
     concurrency: 2
-    concurrency_group: 'BrowserStack'
+    concurrency_group: 'browserstack'
+    concurrency_method: eager
 
   #
   # BitBar tests
@@ -271,8 +273,9 @@ steps:
           - "--aws-public-ip"
     env:
       RUBY_VERSION: "2.7"
-    concurrency: 2
+    concurrency: 5
     concurrency_group: 'bitbar-web'
+    concurrency_method: eager
 
   - label: 'BitBar app-automate - Android 10'
     timeout_in_minutes: 20
@@ -283,8 +286,8 @@ steps:
       artifacts#v1.5.0:
         download: "test/fixtures/android-appium-test/app/build/outputs/apk/release/app-release.apk"
       docker-compose#v4.7.0:
-        pull: android-appium-test
-        run: android-appium-test
+        pull: android-appium-test-bitbar
+        run: android-appium-test-bitbar
         service-ports: true
         command:
           - "--app=build/outputs/apk/release/app-release.apk"
@@ -295,8 +298,8 @@ steps:
         upload: test/fixtures/android-appium-test/maze_output/**/*
     env:
       RUBY_VERSION: "3"
-    concurrency: 24
-    concurrency_group: 'BrowserStack-app'
+    concurrency: 5
+    concurrency_group: 'bitbar-android-10'
     concurrency_method: eager
 
   - wait

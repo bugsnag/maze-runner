@@ -74,7 +74,7 @@ module Maze
 
             $logger.debug "All available devices in group #{device_group_id}: #{JSON.pretty_generate(all_devices)}"
             filtered_devices = all_devices['data'].reject { |device| device['locked'] }
-            return filtered_devices.size, filtered_devices.first
+            return filtered_devices.size, filtered_devices.sample
           end
 
           # Queries the BitBar REST API

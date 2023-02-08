@@ -57,12 +57,12 @@ module Maze
             query = {
               'filter': "displayName_eq_#{device_group_name}"
             }
-            devices = query_api('device-groups', query)
-            if devices['data'].size != 1
-              $logger.error "Expected exactly one group with name #{device_group_name}, found #{devices.size}"
+            device_groups = query_api('device-groups', query)
+            if device_groups['data'].size != 1
+              $logger.error "Expected exactly one group with name #{device_group_name}, found #{devices['data'].size}"
               raise "Failed to find a device group named '#{device_group_name}'"
             end
-            devices['data'][0]['id']
+            device_groups['data'][0]['id']
           end
 
           def find_device_in_group(device_group_id)
@@ -109,6 +109,8 @@ module Maze
               'deviceName' => 'iPhone device',
               'platformName' => 'iOS',
               'bitbar:options' => {
+                'noReset' => 'true',
+                'shouldTerminateApp' => 'true',
                 'device' => device
               }
             }.freeze

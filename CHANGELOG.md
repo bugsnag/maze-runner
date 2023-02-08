@@ -1,3 +1,9 @@
+# TDB
+
+## Fixes
+
+- Set capabilities needed for iOS devices on BitBar (with Appium 1.22) [466](https://github.com/bugsnag/maze-runner/pull/466)
+
 # 7.17.0 - 2023/01/31
 
 ## Enhancements

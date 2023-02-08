@@ -70,6 +70,7 @@ services:
     env_file: $DOCKER_ENV_FILE
     volumes:
       - ./test/fixtures/android-appium-test/app/build:/app/build
+      - ./test/fixtures/android-appium-test/features:/app/features
       - ./test/fixtures/android-appium-test/maze-output:/app/maze-output
 
   android-appium-test-legacy:
@@ -104,6 +105,7 @@ services:
     env_file: $DOCKER_ENV_FILE
     volumes:
       - ./test/fixtures/android-appium-test/app/build:/app/build
+      - ./test/fixtures/android-appium-test/features:/app/features
       - ./test/fixtures/android-appium-test/maze-output:/app/maze-output
 
   ios-appium-test:

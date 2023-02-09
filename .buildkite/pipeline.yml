@@ -166,6 +166,10 @@ steps:
       RUBY_VERSION: "3"
     command: 'bundle exec maze-runner -e features/fixtures'
 
+  #
+  # BrowserStack tests
+  #
+
   - label: 'BrowserStack app-automate - Android 7 - JWP'
     timeout_in_minutes: 20
     depends_on:
@@ -184,16 +188,13 @@ steps:
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
         cache-from:
           - cli-legacy:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli-legacy
-      artifacts#v1.3.0:
+      artifacts#v1.9.0:
         upload: test/fixtures/android-appium-test/maze_output/**/*
     env:
       RUBY_VERSION: "2.7"
     concurrency: 24
     concurrency_group: 'browserstack-app'
     concurrency_method: eager
-    # PLAT-9240: Soft fail pending resolution of BrowserStack secure tunnel outage
-    soft_fail:
-      - exit_status: 1
 
   - label: 'BrowserStack app-automate - Android 13 - W3C'
     timeout_in_minutes: 20
@@ -213,7 +214,7 @@ steps:
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
         cache-from:
           - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
-      artifacts#v1.3.0:
+      artifacts#v1.9.0:
         upload: test/fixtures/android-appium-test/maze_output/**/*
     env:
       RUBY_VERSION: "3"
@@ -221,7 +222,7 @@ steps:
     concurrency_group: 'browserstack-app'
     concurrency_method: eager
 
-  - label: 'Browserstack web browser test - Legacy driver'
+  - label: 'BrowserStack web browser test - Legacy driver'
     depends_on: "push-branch-cli-legacy"
     timeout_in_minutes: 10
     plugins:
@@ -232,10 +233,11 @@ steps:
         command:
           - "--farm=bs"
           - "--browser=firefox_latest"
-    concurrency: 2
-    concurrency_group: 'browserstack'
+    concurrency: 5
+    concurrency_group: 'bitbar-android-10'
+    concurrency_method: eager
 
-  - label: 'Browserstack web browser test - Latest Firefox'
+  - label: 'BrowserStack web browser test - Latest Firefox'
     depends_on: "push-branch-cli"
     timeout_in_minutes: 10
     plugins:
@@ -249,6 +251,11 @@ steps:
           - "--browser=firefox_latest"
     concurrency: 2
     concurrency_group: 'browserstack'
+    concurrency_method: eager
+
+  #
+  # BitBar tests
+  #
 
   - label: 'BitBar web browser test - Firefox v107'
     depends_on: "push-branch-cli"
@@ -266,8 +273,34 @@ steps:
           - "--aws-public-ip"
     env:
       RUBY_VERSION: "2.7"
-    concurrency: 2
+    concurrency: 5
     concurrency_group: 'bitbar-web'
+    concurrency_method: eager
+
+  - label: 'BitBar app-automate - Android 10'
+    timeout_in_minutes: 20
+    depends_on:
+      - "appium-test-fixture"
+      - "push-branch-cli-legacy"
+    plugins:
+      artifacts#v1.5.0:
+        download: "test/fixtures/android-appium-test/app/build/outputs/apk/release/app-release.apk"
+      docker-compose#v4.7.0:
+        pull: android-appium-test-bitbar
+        run: android-appium-test-bitbar
+        service-ports: true
+        command:
+          - "--app=build/outputs/apk/release/app-release.apk"
+          - "--farm=bb"
+          - "--device=ANDROID_10"
+        image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
+      artifacts#v1.9.0:
+        upload: test/fixtures/android-appium-test/maze_output/**/*
+    env:
+      RUBY_VERSION: "3"
+    concurrency: 5
+    concurrency_group: 'bitbar-android-10'
+    concurrency_method: eager
 
   - wait
 

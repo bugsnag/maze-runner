@@ -185,6 +185,7 @@ steps:
           - "--app=build/outputs/apk/release/app-release.apk"
           - "--farm=bs"
           - "--device=ANDROID_7_1"
+          - "--fail-fast"
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
         cache-from:
           - cli-legacy:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli-legacy
@@ -211,6 +212,7 @@ steps:
           - "--app=build/outputs/apk/release/app-release.apk"
           - "--farm=bs"
           - "--device=ANDROID_13_0"
+          - "--fail-fast"
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
         cache-from:
           - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
@@ -233,6 +235,7 @@ steps:
         command:
           - "--farm=bs"
           - "--browser=firefox_latest"
+          - "--fail-fast"
     concurrency: 5
     concurrency_group: 'bitbar-android-10'
     concurrency_method: eager
@@ -249,6 +252,7 @@ steps:
         command:
           - "--farm=bs"
           - "--browser=firefox_latest"
+          - "--fail-fast"
     concurrency: 2
     concurrency_group: 'browserstack'
     concurrency_method: eager
@@ -271,6 +275,7 @@ steps:
           - "--farm=bb"
           - "--browser=firefox_107"
           - "--aws-public-ip"
+          - "--fail-fast"
     env:
       RUBY_VERSION: "2.7"
     concurrency: 5

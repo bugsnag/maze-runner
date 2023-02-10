@@ -51,18 +51,12 @@ module Maze
         end
 
         def log_session_info
-          if Maze.config.device || Maze.config.browser
-            # Log device id
-            udid = Maze.driver.session_capabilities['udid']
-            $logger.info "Running on device: #{udid}" unless udid.nil?
-
-            # Log a link to the BrowserStack session search dashboard
-            url = "https://app-automate.browserstack.com/dashboard/v2/search?query=#{Maze.run_uuid}&type=builds"
-            if ENV['BUILDKITE']
-              $logger.info Maze::LogUtil.linkify(url, 'BrowserStack session(s)')
-            else
-              $logger.info "BrowserStack session(s): #{url}"
-            end
+          # Log a link to the BrowserStack session search dashboard
+          url = "https://app-automate.browserstack.com/dashboard/v2/search?query=#{Maze.run_uuid}&type=builds"
+          if ENV['BUILDKITE']
+            $logger.info Maze::LogUtil.linkify(url, 'BrowserStack session(s)')
+          else
+            $logger.info "BrowserStack session(s): #{url}"
           end
         end
 

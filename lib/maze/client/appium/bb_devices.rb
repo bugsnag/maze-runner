@@ -7,16 +7,15 @@ module Maze
       # Provides a source of capabilities used to run tests against specific BitBar devices
       # noinspection RubyStringKeysInHashInspection
       class BitBarDevices
-        BASE_URI = 'https://cloud.bitbar.com/api/v2/me'
-
         class << self
           # Uses the BitBar API to find an available device from the group name given
           # @param device_group_name [String] Name of the device group for which to find an availavble device
           # @return Capabilities hash for the available device
           def get_available_device(device_group_name)
-            device_group_id = get_device_group_id(device_group_name)
+            api_client = BitBarApiClient.new
+            device_group_id = api_client.get_device_group_id(device_group_name)
             $logger.debug "Got group id #{device_group_id} for #{device_group_name}"
-            group_count, device = find_device_in_group(device_group_id)
+            group_count, device = api_client.find_device_in_group(device_group_id)
             if device.nil?
               # TODO: Retry rather than fail, see PLAT-7377
               raise 'There are no devices available'
@@ -50,45 +49,6 @@ module Maze
             else
               throw "Invalid device platform specified #{platform}"
             end
-          end
-
-          # Get the id of a device group given its name
-          def get_device_group_id(device_group_name)
-            query = {
-              'filter': "displayName_eq_#{device_group_name}"
-            }
-            device_groups = query_api('device-groups', query)
-            if device_groups['data'].size != 1
-              $logger.error "Expected exactly one group with name #{device_group_name}, found #{devices['data'].size}"
-              raise "Failed to find a device group named '#{device_group_name}'"
-            end
-            device_groups['data'][0]['id']
-          end
-
-          def find_device_in_group(device_group_id)
-            path = "device-groups/#{device_group_id}/devices"
-            query = {
-              'filter': "online_eq_true"
-            }
-            all_devices = query_api(path, query)
-
-            $logger.debug "All available devices in group #{device_group_id}: #{JSON.pretty_generate(all_devices)}"
-            filtered_devices = all_devices['data'].reject { |device| device['locked'] }
-            return filtered_devices.size, filtered_devices.sample
-          end
-
-          # Queries the BitBar REST API
-          def query_api(path, query)
-            encoded_query = URI.encode_www_form(query)
-            uri = URI("#{BASE_URI}/#{path}?#{encoded_query}")
-            request = Net::HTTP::Get.new(uri)
-            request.basic_auth(Maze.config.access_key, '')
-
-            res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
-              http.request(request)
-            end
-
-            JSON.parse(res.body)
           end
 
           def make_android_hash(device, automation_name)

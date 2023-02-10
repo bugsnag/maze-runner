@@ -28,6 +28,10 @@ module Maze
         end
       end
 
+      def after_all
+        @client&.log_session_info
+      end
+
       def at_exit
         @client&.stop_session
       end

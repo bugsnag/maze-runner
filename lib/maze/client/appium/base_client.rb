@@ -6,6 +6,10 @@ module Maze
       class BaseClient
         FIXTURE_CONFIG = 'fixture_config.json'
 
+        def initialize
+          @session_ids = []
+        end
+
         def start_session
           prepare_session
 
@@ -41,12 +45,23 @@ module Maze
                 begin
                   config.capabilities = device_capabilities
 
-                  $logger.info 'Creating Appium driver instance'
+                  $logger.info 'Creating Appium session'
                   driver = Maze::Driver::Appium.new config.appium_server_url,
                                                     config.capabilities,
                                                     config.locator
-                  driver.start_driver
-                  true
+
+
+                  result = driver.start_driver
+                  if result
+                    # Log details of this session
+                    $logger.info "Created Appium session: #{driver.session_id}"
+                    @session_ids << driver.session_id
+                    #
+                    # Log device id
+                    udid = driver.session_capabilities['udid']
+                    $logger.info "Running on device: #{udid}" unless udid.nil?
+                  end
+                  result
                 rescue => start_error
                   raise start_error unless retry_failure
                   false
@@ -107,7 +122,11 @@ module Maze
         end
 
         def stop_session
-          Maze.driver&.driver_quit
+          if Maze.driver
+            $logger.info 'Appium session(s) created:'
+            @session_ids.each { |id| $logger.info "  #{id}" }
+            Maze.driver.driver_quit
+          end
           Maze::AppiumServer.stop if Maze::AppiumServer.running
         end
       end

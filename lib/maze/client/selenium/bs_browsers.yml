@@ -92,6 +92,20 @@ iphone_7:
   osVersion: "10.3"
   realMobile: true
 
+iphone_x:
+  browserName: "iphone"
+  device: "iPhone X"
+  os: "ios"
+  osVersion: "11"
+  realMobile: true
+
+iphone_xs:
+  browserName: "iphone"
+  device: "iPhone XS"
+  os: "ios"
+  osVersion: "12"
+  realMobile: true
+
 iphone_13:
   browserName: "iphone"
   device: "iPhone 13"

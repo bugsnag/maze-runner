@@ -53,11 +53,7 @@ module Maze
         def log_session_info
           # Log a link to the BrowserStack session search dashboard
           url = "https://app-automate.browserstack.com/dashboard/v2/search?query=#{Maze.run_uuid}&type=builds"
-          if ENV['BUILDKITE']
-            $logger.info Maze::LogUtil.linkify(url, 'BrowserStack session(s)')
-          else
-            $logger.info "BrowserStack session(s): #{url}"
-          end
+          $logger.info Maze::LogUtil.linkify(url, 'BrowserStack session(s)')
         end
 
         def stop_session

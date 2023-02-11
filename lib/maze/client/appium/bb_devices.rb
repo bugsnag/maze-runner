@@ -27,9 +27,7 @@ module Maze
             platform = device['platform'].downcase
             platform_version = device['softwareVersion']['releaseVersion']
 
-            $logger.info "Device   : #{device_name}"
-            $logger.info "Platform : #{platform}"
-            $logger.info "Version  : #{platform_version}"
+            $logger.info "Selected device: #{device_name} (#{platform} #{platform_version})"
 
             # TODO: Setting the config here is rather a side effect and factoring it out would be better.
             #   For now, though, it means not having to provide the --os and --os-version options on the command line.

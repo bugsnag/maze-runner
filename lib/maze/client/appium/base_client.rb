@@ -25,7 +25,7 @@ module Maze
           # Ensure the device is unlocked
           Maze.driver.unlock
 
-          log_session_info
+          log_run_intro
         end
 
         def prepare_session
@@ -44,18 +44,16 @@ module Maze
               start_driver_closure = Proc.new do
                 begin
                   config.capabilities = device_capabilities
-
-                  $logger.info 'Creating Appium session'
                   driver = Maze::Driver::Appium.new config.appium_server_url,
                                                     config.capabilities,
                                                     config.locator
-
 
                   result = driver.start_driver
                   if result
                     # Log details of this session
                     $logger.info "Created Appium session: #{driver.session_id}"
                     @session_ids << driver.session_id
+
                     #
                     # Log device id
                     udid = driver.session_capabilities['udid']
@@ -117,16 +115,16 @@ module Maze
           raise 'Method not implemented by this class'
         end
 
-        def log_session_info
+        def log_run_intro
+          raise 'Method not implemented by this class'
+        end
+
+        def log_run_outro
           raise 'Method not implemented by this class'
         end
 
         def stop_session
-          if Maze.driver
-            $logger.info 'Appium session(s) created:'
-            @session_ids.each { |id| $logger.info "  #{id}" }
-            Maze.driver.driver_quit
-          end
+          Maze.driver&.driver_quit
           Maze::AppiumServer.stop if Maze::AppiumServer.running
         end
       end

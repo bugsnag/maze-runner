@@ -29,7 +29,7 @@ module Maze
       end
 
       def after_all
-        @client&.log_session_info
+        @client&.log_run_outro
       end
 
       def at_exit

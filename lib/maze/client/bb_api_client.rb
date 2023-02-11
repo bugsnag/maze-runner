@@ -2,7 +2,7 @@ module Maze
   # Utils supporting the BitBar device farm integration
   module Client
     class BitBarApiClient
-      BASE_URI = 'https://cloud.bitbar.com/api/v2/me'
+      BASE_BITBAR_API_URI = 'https://cloud.bitbar.com/api/v2/me'
 
       # Get the id of a device group given its name
       def get_device_group_id(device_group_name)
@@ -29,15 +29,30 @@ module Maze
         return filtered_devices.size, filtered_devices.sample
       end
 
+      def get_device_session_ui_link(session_id)
+        query = {
+          'filter': "clientSideId_eq_#{session_id}"
+        }
+        data = query_api('device-sessions', query)['data']
+        if data.size == 1
+          data[0]['uiLink']
+        else
+          # TODO
+        end
+      end
+
       private
 
       # Queries the BitBar REST API
-      def query_api(path, query)
-        encoded_query = URI.encode_www_form(query)
-        uri = URI("#{BASE_URI}/#{path}?#{encoded_query}")
+      def query_api(path, query=nil)
+        if query
+          encoded_query = URI.encode_www_form(query)
+          uri = URI("#{BASE_BITBAR_API_URI}/#{path}?#{encoded_query}")
+        else
+          uri = URI("#{BASE_BITBAR_API_URI}/#{path}")
+        end
         request = Net::HTTP::Get.new(uri)
         request.basic_auth(Maze.config.access_key, '')
-
         res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
           http.request(request)
         end
@@ -47,3 +62,4 @@ module Maze
     end
   end
 end
+

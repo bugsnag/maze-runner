@@ -53,9 +53,6 @@ module Maze
                     # Log details of this session
                     $logger.info "Created Appium session: #{driver.session_id}"
                     @session_ids << driver.session_id
-
-                    #
-                    # Log device id
                     udid = driver.session_capabilities['udid']
                     $logger.info "Running on device: #{udid}" unless udid.nil?
                   end

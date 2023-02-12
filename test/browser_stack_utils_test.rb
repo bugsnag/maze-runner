@@ -32,7 +32,7 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
 
   def test_upload_app_success
     $logger.expects(:info).with("Uploading app: #{APP}").once
-    $logger.expects(:info).with("app uploaded to: #{TEST_APP_URL}").once
+    $logger.expects(:info).with("App uploaded to: #{TEST_APP_URL}").once
     $logger.expects(:info).with('You can use this url to avoid uploading the same app more than once.').once
 
     File.expects(:new)&.with(APP, 'rb')&.returns('file')
@@ -98,7 +98,7 @@ class BrowserStackUtilsTest < Test::Unit::TestCase
     Kernel.expects(:sleep).with(60)
 
     # Third attempt succeeds
-    $logger.expects(:info).with("app uploaded to: #{TEST_APP_URL}").once
+    $logger.expects(:info).with("App uploaded to: #{TEST_APP_URL}").once
     $logger.expects(:info).with('You can use this url to avoid uploading the same app more than once.').once
 
     File.expects(:new)&.with(APP, 'rb')&.returns('file')

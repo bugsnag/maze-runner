@@ -47,7 +47,7 @@ module Maze
         end
 
         def log_run_intro
-          # Not yet implemented
+          # Nothing to log at the start
         end
 
         def log_run_outro
@@ -55,10 +55,8 @@ module Maze
 
           $logger.info 'Appium session(s) created:'
           @session_ids.each do |id|
-
             link = api_client.get_device_session_ui_link(id)
-
-            $logger.info "  #{id}: #{link}"
+            $logger.info Maze::LogUtil.linkify(link, id)
           end
         end
 

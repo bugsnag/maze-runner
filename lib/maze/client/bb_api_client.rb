@@ -37,7 +37,7 @@ module Maze
         if data.size == 1
           data[0]['uiLink']
         else
-          # TODO
+          $logger.warn "Failed to get UI link for session #{session_id}.  Expected exactly 1 device-session, found #{date.size}"
         end
       end
 

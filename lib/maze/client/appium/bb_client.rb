@@ -56,7 +56,7 @@ module Maze
           $logger.info 'Appium session(s) created:'
           @session_ids.each do |id|
             link = api_client.get_device_session_ui_link(id)
-            $logger.info Maze::LogUtil.linkify(link, id)
+            $logger.info Maze::LogUtil.linkify(link, id) if link
           end
         end
 

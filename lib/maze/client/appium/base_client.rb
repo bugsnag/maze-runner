@@ -6,6 +6,10 @@ module Maze
       class BaseClient
         FIXTURE_CONFIG = 'fixture_config.json'
 
+        def initialize
+          @session_ids = []
+        end
+
         def start_session
           prepare_session
 
@@ -21,7 +25,7 @@ module Maze
           # Ensure the device is unlocked
           Maze.driver.unlock
 
-          log_session_info
+          log_run_intro
         end
 
         def prepare_session
@@ -40,13 +44,19 @@ module Maze
               start_driver_closure = Proc.new do
                 begin
                   config.capabilities = device_capabilities
-
-                  $logger.info 'Creating Appium driver instance'
                   driver = Maze::Driver::Appium.new config.appium_server_url,
                                                     config.capabilities,
                                                     config.locator
-                  driver.start_driver
-                  true
+
+                  result = driver.start_driver
+                  if result
+                    # Log details of this session
+                    $logger.info "Created Appium session: #{driver.session_id}"
+                    @session_ids << driver.session_id
+                    udid = driver.session_capabilities['udid']
+                    $logger.info "Running on device: #{udid}" unless udid.nil?
+                  end
+                  result
                 rescue => start_error
                   raise start_error unless retry_failure
                   false
@@ -102,7 +112,11 @@ module Maze
           raise 'Method not implemented by this class'
         end
 
-        def log_session_info
+        def log_run_intro
+          raise 'Method not implemented by this class'
+        end
+
+        def log_run_outro
           raise 'Method not implemented by this class'
         end
 

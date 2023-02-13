@@ -8,7 +8,7 @@
 
 ## Enhancements
 
-- Add iOS 11 and 12 browsers on BrowserStack. [469](https://github.com/bugsnag/maze-runner/pull/469)
+- Add link to BitBar dashboard for each Appium session. [470](https://github.com/bugsnag/maze-runner/pull/470)
 
 # 7.17.0 - 2023/01/31
 

@@ -48,7 +48,11 @@ module Maze
           capabilities
         end
 
-        def log_session_info
+        def log_run_intro
+          # Nothing to do
+        end
+
+        def log_run_outro
           # Nothing to do
         end
 

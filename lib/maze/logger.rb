@@ -75,7 +75,11 @@ module Maze
       # @param url [String] Link URL
       # @param text [String] Link text
       def linkify(url, text)
-        "\033]1339;url='#{url}';content='#{text}'\a"
+        if ENV['BUILDKITE']
+          "\033]1339;url='#{url}';content='#{text}'\a"
+        else
+          "#{text}: #{url}"
+        end
       end
     end
   end

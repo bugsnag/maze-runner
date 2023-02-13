@@ -46,8 +46,18 @@ module Maze
           capabilities
         end
 
-        def log_session_info
-          # Not yet implemented
+        def log_run_intro
+          # Nothing to log at the start
+        end
+
+        def log_run_outro
+          api_client = BitBarApiClient.new
+
+          $logger.info 'Appium session(s) created:'
+          @session_ids.each do |id|
+            link = api_client.get_device_session_ui_link(id)
+            $logger.info Maze::LogUtil.linkify(link, id) if link
+          end
         end
 
         def stop_session

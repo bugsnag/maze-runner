@@ -73,20 +73,20 @@ module Maze
         #
         # @return [Hash] A hash containing the 'project' and 'build' capabilities
         def project_name_capabilities
-          # Default to values for running locally
-          project = 'Unknown'
-          test_run = Maze.run_uuid
+          # Attempt to use the current git repo as the project name
+          output, status = Maze::Runner.run_command('git rev-parse --show-toplevel')
+          project = if status == 0
+                      File.basename(output[0].strip)
+                    else
+                      'Unknown'
+                    end
 
           if ENV['BUILDKITE']
-            project = ENV['BUILDKITE_PIPELINE_NAME']
             test_run = "#{ENV['BUILDKITE_BUILD_NUMBER']} - #{ENV['BUILDKITE_LABEL']}"
           else
-            # Attempt to use the current git repo as the project name
-            output, status = Maze::Runner.run_command('git rev-parse --show-toplevel')
-            if status == 0
-              project = File.basename(output[0].strip)
-            end
+            test_run = Maze.run_uuid
           end
+
           {
             'bitbar:options' => {
               bitbar_project: project,

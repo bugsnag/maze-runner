@@ -58,6 +58,7 @@ module Maze
                   end
                   result
                 rescue => start_error
+                  $logger.error "Session creation failed: #{start_error}"
                   raise start_error unless retry_failure
                   false
                 end

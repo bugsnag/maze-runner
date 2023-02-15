@@ -67,8 +67,6 @@ module Maze
           end
         end
 
-        private
-
         # Determines capabilities used to organise sessions in the BitBar dashboard.
         #
         # @return [Hash] A hash containing the capabilities.
@@ -79,11 +77,7 @@ module Maze
             project = File.basename(output[0].strip)
           else
             if ENV['BUILDKITE']
-              slug = ENV['BUILDKITE_PIPELINE_SLUG']
-              unless slug
-                $logger.warn 'Unable to determine project name, add BUILDKITE_PIPELINE_SLUG to the Docker service'
-              end
-              project = slug || 'Unknown'
+              project = ENV['BUILDKITE_PIPELINE_SLUG']
             else
               $logger.warn 'Unable to determine project name, consider running Maze Runner from within a Git repository'
               project = 'Unknown'

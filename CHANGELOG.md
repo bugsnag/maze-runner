@@ -1,5 +1,10 @@
 # TDB
 
+## Enhancements
+ 
+- Add link to BitBar dashboard for each Appium session. [470](https://github.com/bugsnag/maze-runner/pull/470)
+- Set Appium capabilities for the BitBar dashboard. [471](https://github.com/bugsnag/maze-runner/pull/471)
+
 ## Fixes
 
 - Set capabilities needed for iOS devices on BitBar (with Appium 1.22) [466](https://github.com/bugsnag/maze-runner/pull/466)
@@ -8,7 +13,7 @@
 
 ## Enhancements
 
-- Add link to BitBar dashboard for each Appium session. [470](https://github.com/bugsnag/maze-runner/pull/470)
+- Add iOS 11 and 12 browsers on BrowserStack. [469](https://github.com/bugsnag/maze-runner/pull/469)
 
 # 7.17.0 - 2023/01/31
 

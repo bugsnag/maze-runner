@@ -40,7 +40,7 @@ module Maze
             }
           }
           capabilities['appiumVersion'] = config.appium_version unless config.appium_version.nil?
-          capabilities.deep_merge! project_name_capabilities
+          capabilities.deep_merge! dashboard_capabilities
           capabilities.deep_merge! BitBarDevices.get_available_device(config.device)
           capabilities.deep_merge! JSON.parse(config.capabilities_option)
           capabilities
@@ -69,17 +69,26 @@ module Maze
 
         private
 
-        # Determines and returns sensible project, build, and name capabilities
+        # Determines capabilities used to organise sessions in the BitBar dashboard.
         #
-        # @return [Hash] A hash containing the 'project' and 'build' capabilities
-        def project_name_capabilities
+        # @return [Hash] A hash containing the capabilities.
+        def dashboard_capabilities
           # Attempt to use the current git repo as the project name
           output, status = Maze::Runner.run_command('git rev-parse --show-toplevel')
-          project = if status == 0
-                      File.basename(output[0].strip)
-                    else
-                      'Unknown'
-                    end
+          if status == 0
+            project = File.basename(output[0].strip)
+          else
+            if ENV['BUILDKITE']
+              slug = ENV['BUILDKITE_PIPELINE_SLUG']
+              unless slug
+                $logger.warn 'Unable to determine project name, add BUILDKITE_PIPELINE_SLUG to the Docker service'
+              end
+              project = slug || 'Unknown'
+            else
+              $logger.warn 'Unable to determine project name, consider running Maze Runner from within a Git repository'
+              project = 'Unknown'
+            end
+          end
 
           if ENV['BUILDKITE']
             test_run = "#{ENV['BUILDKITE_BUILD_NUMBER']} - #{ENV['BUILDKITE_LABEL']}"

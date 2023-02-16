@@ -299,6 +299,8 @@ steps:
           - "--farm=bb"
           - "--device=ANDROID_10"
           - "--fail-fast"
+          - "--no-tunnel"
+          - "--aws-public-ip"
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
       artifacts#v1.9.0:
         upload: test/fixtures/android-appium-test/maze_output/**/*

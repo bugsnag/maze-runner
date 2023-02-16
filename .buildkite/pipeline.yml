@@ -265,6 +265,8 @@ steps:
     depends_on: "push-branch-cli"
     timeout_in_minutes: 10
     plugins:
+      artifacts#v1.9.0:
+        upload: "maze_output/failed/**/*"
       docker-compose#v4.7.0:
         pull: browser-tests
         run: browser-tests
@@ -288,8 +290,9 @@ steps:
       - "appium-test-fixture"
       - "push-branch-cli"
     plugins:
-      artifacts#v1.5.0:
+      artifacts#v1.9.0:
         download: "test/fixtures/android-appium-test/app/build/outputs/apk/release/app-release.apk"
+        upload: test/fixtures/android-appium-test/maze_output/**/*
       docker-compose#v4.7.0:
         pull: android-appium-test-bitbar
         run: android-appium-test-bitbar
@@ -302,8 +305,6 @@ steps:
           - "--no-tunnel"
           - "--aws-public-ip"
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
-      artifacts#v1.9.0:
-        upload: test/fixtures/android-appium-test/maze_output/**/*
     env:
       RUBY_VERSION: "3"
     concurrency: 5

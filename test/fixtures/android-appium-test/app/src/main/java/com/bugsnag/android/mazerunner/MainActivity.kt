@@ -35,7 +35,9 @@ class MainActivity : AppCompatActivity() {
         button = findViewById<Button>(R.id.run_command)
         button.setOnClickListener {
             thread(start = true) {
-                val command = URL("http://maze-local:9339/command").readText()
+                if (mazeAddress == null) setMazeRunnerAddress()
+
+                val command = URL("http://$mazeAddress/command").readText()
                 val jsonObject = JSONTokener(command).nextValue() as JSONObject
                 val metadata = jsonObject.getString("metadata")
 
@@ -60,6 +62,7 @@ class MainActivity : AppCompatActivity() {
         while (System.currentTimeMillis() < pollEnd) {
             if (configFile.exists()) {
                 val fileContents = configFile.readText()
+                log("fixture_config.json contents: ${fileContents}")
                 val fixtureConfig = runCatching { JSONObject(fileContents) }.getOrNull()
                 mazeAddress = getStringSafely(fixtureConfig, "maze_address")
                 if (!mazeAddress.isNullOrBlank()) {

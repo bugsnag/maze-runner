@@ -11,7 +11,7 @@ module Maze
         }
         device_groups = query_api('device-groups', query)
         if device_groups['data'].size != 1
-          $logger.error "Expected exactly one group with name #{device_group_name}, found #{devices['data'].size}"
+          $logger.error "Expected exactly one group with name #{device_group_name}, found #{device_groups['data'].size}"
           raise "Failed to find a device group named '#{device_group_name}'"
         end
         device_groups['data'][0]['id']
@@ -37,7 +37,7 @@ module Maze
         if data.size == 1
           data[0]['uiLink']
         else
-          $logger.warn "Failed to get UI link for session #{session_id}.  Expected exactly 1 device-session, found #{date.size}"
+          $logger.warn "Failed to get UI link for session #{session_id}.  Expected exactly 1 device-session, found #{data.size}"
         end
       end
 

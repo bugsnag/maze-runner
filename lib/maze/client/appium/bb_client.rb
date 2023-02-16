@@ -34,13 +34,13 @@ module Maze
               # of the hash, but BitBar picks them up from here.
               'apiKey' => config.access_key,
               'app' => config.app,
-              'testrun' => "#{config.os} #{config.os_version}",
               'findDevice' => false,
               'testTimeout' => 7200,
               'newCommandTimeout' => 0
             }
           }
           capabilities['appiumVersion'] = config.appium_version unless config.appium_version.nil?
+          capabilities.deep_merge! dashboard_capabilities
           capabilities.deep_merge! BitBarDevices.get_available_device(config.device)
           capabilities.deep_merge! JSON.parse(config.capabilities_option)
           capabilities
@@ -65,6 +65,37 @@ module Maze
           if Maze.config.start_tunnel
             Maze::Client::BitBarClientUtils.stop_local_tunnel
           end
+        end
+
+        # Determines capabilities used to organise sessions in the BitBar dashboard.
+        #
+        # @return [Hash] A hash containing the capabilities.
+        def dashboard_capabilities
+          # Attempt to use the current git repo as the project name
+          output, status = Maze::Runner.run_command('git rev-parse --show-toplevel')
+          if status == 0
+            project = File.basename(output[0].strip)
+          else
+            if ENV['BUILDKITE']
+              project = ENV['BUILDKITE_PIPELINE_SLUG']
+            else
+              $logger.warn 'Unable to determine project name, consider running Maze Runner from within a Git repository'
+              project = 'Unknown'
+            end
+          end
+
+          if ENV['BUILDKITE']
+            test_run = "#{ENV['BUILDKITE_BUILD_NUMBER']} - #{ENV['BUILDKITE_LABEL']}"
+          else
+            test_run = Maze.run_uuid
+          end
+
+          {
+            'bitbar:options' => {
+              bitbar_project: project,
+              bitbar_testrun: test_run
+            }
+          }
         end
       end
     end

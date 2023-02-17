@@ -19,6 +19,7 @@ const val CONFIG_FILE_TIMEOUT = 30000
 
 class MainActivity : AppCompatActivity() {
 
+    var bugsnagStarted: Boolean = false
     var mazeAddress: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +27,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         var button = findViewById<Button>(R.id.trigger_error)
         button.setOnClickListener {
+            if (!bugsnagStarted) startBugsnag()
+
             val metadata = findViewById<EditText>(R.id.metadata).text.toString()
             val text = if (metadata == "") "HandledException!" else metadata
             Bugsnag.notify(Exception(text))
@@ -35,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         button = findViewById<Button>(R.id.run_command)
         button.setOnClickListener {
             thread(start = true) {
-                if (mazeAddress == null) setMazeRunnerAddress()
+                if (!bugsnagStarted) startBugsnag()
 
                 val command = URL("http://$mazeAddress/command").readText()
                 val jsonObject = JSONTokener(command).nextValue() as JSONObject
@@ -48,7 +51,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        startBugsnag()
     }
 
     private fun setMazeRunnerAddress() {
@@ -91,7 +93,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startBugsnag() {
-        if (mazeAddress == null) setMazeRunnerAddress()
+        setMazeRunnerAddress()
+
         val config = Configuration("12312312312312312312312312312312")
         config.autoTrackSessions = false
         config.setEndpoints(EndpointConfiguration("http://$mazeAddress/notify", "http://$mazeAddress/sessions"))

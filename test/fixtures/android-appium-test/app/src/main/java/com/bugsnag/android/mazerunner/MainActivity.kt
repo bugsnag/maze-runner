@@ -1,6 +1,8 @@
 package com.bugsnag.android.mazerunner
 
 import android.os.Build
+import android.os.Build.VERSION
+import android.os.Build.VERSION_CODES
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -54,6 +56,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setMazeRunnerAddress() {
+
+        // Assume we are using the legacy driver (which means a config file is not pushed) below Android 8
+        if (VERSION.SDK_INT < VERSION_CODES.O) {
+            mazeAddress = "bs-local.com:9339"
+            return
+        }
+
         val context = getApplicationContext()
         val externalFilesDir = context.getExternalFilesDir(null)
         val configFile = File(externalFilesDir, "fixture_config.json")

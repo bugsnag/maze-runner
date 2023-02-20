@@ -27,8 +27,7 @@ module Maze
         def device_capabilities
           config = Maze.config
           capabilities = {
-            'disabledAnimations' => 'true',
-            'noReset' => 'true',
+            'noReset' => true,
             'bitbar:options' => {
               # Some capabilities probably belong in the top level
               # of the hash, but BitBar picks them up from here.

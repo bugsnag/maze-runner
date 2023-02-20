@@ -55,7 +55,8 @@ module Maze
               'platformName' => 'Android',
               'deviceName' => 'Android Phone',
               'bitbar:options' => {
-                'device' => device
+                'autoGrantPermissions' => true,
+                'device' => device,
               }
             }
             hash.freeze

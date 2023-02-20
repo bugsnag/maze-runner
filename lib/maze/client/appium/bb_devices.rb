@@ -18,7 +18,7 @@ module Maze
             group_count, device = api_client.find_device_in_group(device_group_id)
             if device.nil?
               # TODO: Retry rather than fail, see PLAT-7377
-              raise 'There are no devices available'
+              Maze::Helper.error_exit 'There are no devices available'
             else
               $logger.info "#{group_count} device(s) currently available in group '#{device_group_name}'"
             end

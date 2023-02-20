@@ -2,9 +2,10 @@
 
 ## Enhancements
  
-- Add link to BitBar dashboard for each Appium session. [470](https://github.com/bugsnag/maze-runner/pull/470)
-- Set Appium capabilities for the BitBar dashboard. [471](https://github.com/bugsnag/maze-runner/pull/471)
-- Clean exit for user readable errors. [474](https://github.com/bugsnag/maze-runner/pull/474)
+- Add link to BitBar dashboard for each Appium session [470](https://github.com/bugsnag/maze-runner/pull/470)
+- Set Appium capabilities for the BitBar dashboard [471](https://github.com/bugsnag/maze-runner/pull/471)
+- Clean exit for user readable errors [474](https://github.com/bugsnag/maze-runner/pull/474)
+- Allow `--device` to specify a device (rather than device group) on BitBar [475](https://github.com/bugsnag/maze-runner/pull/475)
 
 ## Fixes
 

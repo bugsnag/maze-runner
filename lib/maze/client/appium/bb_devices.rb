@@ -8,19 +8,25 @@ module Maze
       # noinspection RubyStringKeysInHashInspection
       class BitBarDevices
         class << self
-          # Uses the BitBar API to find an available device from the group name given
-          # @param device_group_name [String] Name of the device group for which to find an availavble device
+          # Uses the BitBar API to find an available device from the group name given, or a device of that name
+          # @param device_or_group_name [String] Name of the device, or device group for which to find an available device
           # @return Capabilities hash for the available device
-          def get_available_device(device_group_name)
+          def get_available_device(device_or_group_name)
             api_client = BitBarApiClient.new
-            device_group_id = api_client.get_device_group_id(device_group_name)
-            $logger.debug "Got group id #{device_group_id} for #{device_group_name}"
-            group_count, device = api_client.find_device_in_group(device_group_id)
-            if device.nil?
-              # TODO: Retry rather than fail, see PLAT-7377
-              Maze::Helper.error_exit 'There are no devices available'
+            device_group_id = api_client.get_device_group_id(device_or_group_name)
+            if device_group_id
+              # Device group found - find a free device in it
+              $logger.debug "Got group id #{device_group_id} for #{device_or_group_name}"
+              group_count, device = api_client.find_device_in_group(device_group_id)
+              if device.nil?
+                # TODO: Retry rather than fail, see PLAT-7377
+                Maze::Helper.error_exit 'There are no devices available'
+              else
+                $logger.info "#{group_count} device(s) currently available in group '#{device_or_group_name}'"
+              end
             else
-              $logger.info "#{group_count} device(s) currently available in group '#{device_group_name}'"
+              # See if there is a device with the given name
+              device = api_client.find_device device_or_group_name
             end
 
             device_name = device['displayName']

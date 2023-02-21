@@ -149,8 +149,10 @@ Then('a span field {string} equals {string}') do |key, expected|
 end
 
 Then('a span field {string} matches the regex {string}') do |attribute, pattern|
+  regex = Regexp.new pattern
   spans = spans_from_request_list(Maze::Server.list_for('traces'))
-  selected_attributes = spans.map { |span| Maze.check.match pattern, span[attribute] }
+  selected_attributes = spans.select { |span| regex.match? span[attribute] }
+
   Maze.check.false(selected_attributes.empty?)
 end
 

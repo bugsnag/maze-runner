@@ -12,6 +12,12 @@
 - Set capabilities needed for iOS devices on BitBar (with Appium 1.22) [466](https://github.com/bugsnag/maze-runner/pull/466)
 - Tidy capabilities for BitBat devices [473](https://github.com/bugsnag/maze-runner/pull/473)
 
+# 7.18.1 - 2023/02/21
+
+## Fixes
+ 
+- Correct logic for step `a span field {string} matches the regex {string}` [476](https://github.com/bugsnag/maze-runner/pull/476)
+
 # 7.18.0 - 2023/02/10
 
 ## Enhancements

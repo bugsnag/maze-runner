@@ -128,10 +128,16 @@ class MazeRunnerEntry
     options = Maze::Option::Parser.parse args
 
     if options[Maze::Option::LIST_DEVICES]
-      case options[Maze::Option::FARM]
+      case options[Maze::Option::FARM].to_sym
       when :bs
         Maze::Client::Appium::BrowserStackDevices.list_devices('ios')
         Maze::Client::Appium::BrowserStackDevices.list_devices('android')
+      when :bb
+        unless options[Maze::Option::ACCESS_KEY]
+          puts 'Listing BitBar device groups available requires a valid access key'
+          exit 1
+        end
+        Maze::Client::Appium::BitBarDevices.list_device_groups(options[Maze::Option::ACCESS_KEY])
       else
         Maze::Client::Appium::BrowserStackDevices.list_devices('ios')
         Maze::Client::Appium::BrowserStackDevices.list_devices('android')

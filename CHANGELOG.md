@@ -1,3 +1,9 @@
+# TBD
+
+## Enhancements
+
+- Add --list-devices option for BitBar device groups []()
+
 # 7.19.0 - 2023/02/22
 
 ## Enhancements

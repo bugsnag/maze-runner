@@ -12,7 +12,7 @@ module Maze
           # @param device_or_group_name [String] Name of the device, or device group for which to find an available device
           # @return Capabilities hash for the available device
           def get_available_device(device_or_group_name)
-            api_client = BitBarApiClient.new
+            api_client = BitBarApiClient.new(Maze.config.access_key)
             device_group_id = api_client.get_device_group_id(device_or_group_name)
             if device_group_id
               # Device group found - find a free device in it
@@ -52,6 +52,23 @@ module Maze
               make_ios_hash(device_name)
             else
               throw "Invalid device platform specified #{platform}"
+            end
+          end
+
+          def list_device_groups(access_key)
+            api_client = BitBarApiClient.new(access_key)
+            device_groups = api_client.get_device_group_list
+            unless device_groups['data']
+              puts 'There are no device groups available for the given user access key'
+              exit 0
+            end
+            puts "BitBar device groups available:"
+            device_groups['data'].each do |group|
+              puts '------------------------------'
+              puts "Group name   : #{group['displayName']}"
+              puts "Group ID     : #{group['id']}"
+              puts "OS           : #{group['osType']}"
+              puts "Device count : #{group['deviceCount']}"
             end
           end
 

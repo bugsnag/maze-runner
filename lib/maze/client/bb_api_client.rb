@@ -5,6 +5,15 @@ module Maze
       BASE_URI = 'https://cloud.bitbar.com/api'
       USER_SPECIFIC_URI = "#{BASE_URI}/v2/me"
 
+      def initialize(access_key)
+        @access_key = access_key
+      end
+
+      # Get a formatted list of all available device groups
+      def get_device_group_list
+        query_api('device-groups')
+      end
+
       # Get the id of a device group given its name
       def get_device_group_id(device_group_name)
         query = {
@@ -74,7 +83,7 @@ module Maze
           uri = URI("#{uri}/#{path}")
         end
         request = Net::HTTP::Get.new(uri)
-        request.basic_auth(Maze.config.access_key, '')
+        request.basic_auth(@access_key, '')
         res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
           http.request(request)
         end

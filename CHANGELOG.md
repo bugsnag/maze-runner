@@ -2,7 +2,7 @@
 
 ## Enhancements
 
-- Add --list-devices option for BitBar device groups []()
+- Add --list-devices option for BitBar device groups [480](https://github.com/bugsnag/maze-runner/pull/480)
 
 # 7.19.0 - 2023/02/22
 

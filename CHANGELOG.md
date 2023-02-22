@@ -1,3 +1,17 @@
+# 7.19.0 - 2023/02/22
+
+## Enhancements
+ 
+- Add link to BitBar dashboard for each Appium session [470](https://github.com/bugsnag/maze-runner/pull/470)
+- Set Appium capabilities for the BitBar dashboard [471](https://github.com/bugsnag/maze-runner/pull/471)
+- Clean exit for user readable errors [474](https://github.com/bugsnag/maze-runner/pull/474)
+- Allow `--device` to specify a device (rather than device group) on BitBar [475](https://github.com/bugsnag/maze-runner/pull/475)
+
+## Fixes
+
+- Set capabilities needed for iOS devices on BitBar (with Appium 1.22) [466](https://github.com/bugsnag/maze-runner/pull/466)
+- Tidy capabilities for BitBar devices [473](https://github.com/bugsnag/maze-runner/pull/473)
+
 # 7.18.1 - 2023/02/21
 
 ## Fixes
@@ -15,6 +29,7 @@
 ## Enhancements
 
 - Associate `--device` with device groups on BitBar and remove the need to provide `--os`/`--os-version` options. [465](https://github.com/bugsnag/maze-runner/pull/465)
+- Acquire device capabilities each time a driver start is attempted. Add Randomness to device selection to reduce likelihood of race conditions. [467](https://github.com/bugsnag/maze-runner/pull/467)
 
 # 7.16.0 - 2023/01/30
 

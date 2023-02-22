@@ -60,7 +60,7 @@ module Maze
             end
 
             app_url = response['app_url']
-            $logger.info "app uploaded to: #{app_url}"
+            $logger.info "App uploaded to: #{app_url}"
             $logger.info 'You can use this url to avoid uploading the same app more than once.'
           end
 

@@ -114,7 +114,7 @@ steps:
           push:
             - cli-legacy:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli-legacy
 
-  - label: 'No-device tests with Ruby 2.7'
+  - label: 'No-device tests with Ruby 2.7 - batch 1'
     timeout_in_minutes: 30
     depends_on: "ci-image-ruby-2-7"
     plugins:
@@ -128,6 +128,14 @@ steps:
           run: cli-tests
       - docker-compose#v4.7.0:
           run: http-response-tests
+    env:
+      RUBY_VERSION: "2.7"
+    command: 'bundle exec maze-runner -e features/fixtures'
+
+  - label: 'No-device tests with Ruby 2.7 - batch 2'
+    timeout_in_minutes: 30
+    depends_on: "ci-image-ruby-2-7"
+    plugins:
       - docker-compose#v4.7.0:
           run: payload-helper-tests
       - docker-compose#v4.7.0:
@@ -140,7 +148,7 @@ steps:
       RUBY_VERSION: "2.7"
     command: 'bundle exec maze-runner -e features/fixtures'
 
-  - label: 'No-device tests with Ruby 3'
+  - label: 'No-device tests with Ruby 3 - batch 1'
     timeout_in_minutes: 30
     depends_on: "ci-image-ruby-3"
     plugins:
@@ -154,6 +162,14 @@ steps:
           run: cli-tests
       - docker-compose#v4.7.0:
           run: http-response-tests
+    env:
+      RUBY_VERSION: "3"
+    command: 'bundle exec maze-runner -e features/fixtures'
+
+  - label: 'No-device tests with Ruby 3 - batch 2'
+    timeout_in_minutes: 30
+    depends_on: "ci-image-ruby-3"
+    plugins:
       - docker-compose#v4.7.0:
           run: payload-helper-tests
       - docker-compose#v4.7.0:
@@ -185,6 +201,7 @@ steps:
           - "--app=build/outputs/apk/release/app-release.apk"
           - "--farm=bs"
           - "--device=ANDROID_7_1"
+          - "--fail-fast"
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
         cache-from:
           - cli-legacy:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli-legacy
@@ -211,6 +228,7 @@ steps:
           - "--app=build/outputs/apk/release/app-release.apk"
           - "--farm=bs"
           - "--device=ANDROID_13_0"
+          - "--fail-fast"
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
         cache-from:
           - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
@@ -233,6 +251,7 @@ steps:
         command:
           - "--farm=bs"
           - "--browser=firefox_latest"
+          - "--fail-fast"
     concurrency: 5
     concurrency_group: 'bitbar-android-10'
     concurrency_method: eager
@@ -249,6 +268,7 @@ steps:
         command:
           - "--farm=bs"
           - "--browser=firefox_latest"
+          - "--fail-fast"
     concurrency: 2
     concurrency_group: 'browserstack'
     concurrency_method: eager
@@ -261,6 +281,8 @@ steps:
     depends_on: "push-branch-cli"
     timeout_in_minutes: 10
     plugins:
+      artifacts#v1.9.0:
+        upload: "maze_output/failed/**/*"
       docker-compose#v4.7.0:
         pull: browser-tests
         run: browser-tests
@@ -271,6 +293,7 @@ steps:
           - "--farm=bb"
           - "--browser=firefox_107"
           - "--aws-public-ip"
+          - "--fail-fast"
     env:
       RUBY_VERSION: "2.7"
     concurrency: 5
@@ -283,8 +306,9 @@ steps:
       - "appium-test-fixture"
       - "push-branch-cli"
     plugins:
-      artifacts#v1.5.0:
+      artifacts#v1.9.0:
         download: "test/fixtures/android-appium-test/app/build/outputs/apk/release/app-release.apk"
+        upload: test/fixtures/android-appium-test/maze_output/**/*
       docker-compose#v4.7.0:
         pull: android-appium-test-bitbar
         run: android-appium-test-bitbar
@@ -293,9 +317,10 @@ steps:
           - "--app=build/outputs/apk/release/app-release.apk"
           - "--farm=bb"
           - "--device=ANDROID_10"
+          - "--fail-fast"
+          - "--no-tunnel"
+          - "--aws-public-ip"
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
-      artifacts#v1.9.0:
-        upload: test/fixtures/android-appium-test/maze_output/**/*
     env:
       RUBY_VERSION: "3"
     concurrency: 5

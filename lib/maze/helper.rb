@@ -101,10 +101,15 @@ module Maze
           os = os&.downcase
         end
 
-
         raise('Unable to determine the current platform') if os.nil?
 
         os
+      end
+
+      # Logs the given message and exits the program with a failure status
+      def error_exit(message)
+        $logger.error message
+        exit false
       end
 
       # Returns the name of the scenario to

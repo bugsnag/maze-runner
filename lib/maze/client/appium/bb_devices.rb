@@ -58,15 +58,14 @@ module Maze
           def list_device_groups(access_key)
             api_client = BitBarApiClient.new(access_key)
             device_groups = api_client.get_device_group_list
-            unless device_groups['data']
+            unless device_groups['data'] && !device_groups['data'].empty?
               puts 'There are no device groups available for the given user access key'
               exit 0
             end
             puts "BitBar device groups available:"
-            device_groups['data'].each do |group|
+            device_groups['data'].sort_by{|g| g['displayName']}.each do |group|
               puts '------------------------------'
               puts "Group name   : #{group['displayName']}"
-              puts "Group ID     : #{group['id']}"
               puts "OS           : #{group['osType']}"
               puts "Device count : #{group['deviceCount']}"
             end

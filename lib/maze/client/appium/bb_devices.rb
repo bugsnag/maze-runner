@@ -84,11 +84,10 @@ module Maze
               return
             end
             puts "BitBar devices available for device group #{device_group}:"
-            devices['data'].each do |device|
+            devices['data'].sort_by{|d| d['displayName']}.each do |device|
               puts '------------------------------'
               puts "Device name : #{device['displayName']}"
-              puts "OS type     : #{device['platform']}"
-              puts "OS version  : #{device['softwareVersion']['releaseVersion']}"
+              puts "OS          : #{device['platform']} #{device['softwareVersion']['releaseVersion']}"
 
               if device['platform'].eql? 'ANDROID'
                 puts "API level   : #{device['softwareVersion']['apiLevel']}"

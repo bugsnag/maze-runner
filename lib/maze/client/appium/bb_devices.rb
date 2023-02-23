@@ -83,7 +83,7 @@ module Maze
               puts "There are no devices available for the #{device_group} device group"
               return
             end
-
+            puts "BitBar devices available for device group #{device_group}:"
             devices['data'].each do |device|
               puts '------------------------------'
               puts "Device name : #{device['displayName']}"

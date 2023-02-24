@@ -79,9 +79,6 @@ module Maze
               'ANDROID_8_1' => make_android_hash('Samsung Galaxy Note 9', '8.1'),
               'ANDROID_8_0' => make_android_hash('Google Pixel 2', '8.0'),
               'ANDROID_7_1' => make_android_hash('Google Pixel', '7.1'),
-              'ANDROID_6_0' => make_android_hash('Google Nexus 6', '6.0'),
-              'ANDROID_5_0' => make_android_hash('Google Nexus 6', '5.0'),
-              'ANDROID_4_4' => make_android_hash('Google Nexus 5', '4.4'),
 
               # iOS devices
               'IOS_16' => make_ios_hash('iPhone 14', '16'),
@@ -114,14 +111,6 @@ module Maze
             add_android 'Samsung Galaxy Note 8', '7.1', hash                  # ANDROID_7_1_SAMSUNG_GALAXY_NOTE_8
             add_android 'Samsung Galaxy S8', '7.0', hash                      # ANDROID_7_0_SAMSUNG_GALAXY_S8
             add_android 'Samsung Galaxy S8 Plus', '7.0', hash                 # ANDROID_7_0_SAMSUNG_GALAXY_S8_PLUS
-
-            add_android 'Motorola Moto X 2nd Gen', '6.0', hash                # ANDROID_6_0_MOTOROLA_MOTO_X_2ND_GEN
-            add_android 'Google Nexus 6', '6.0', hash                         # ANDROID_6_0_GOOGLE_NEXUS_6
-            add_android 'Samsung Galaxy S7', '6.0', hash                      # ANDROID_6_0_SAMSUNG_GALAXY_S7
-            add_android 'Google Nexus 6', '5.0', hash                         # ANDROID_5_0_GOOGLE_NEXUS_6
-            add_android 'Samsung Galaxy S6', '5.0', hash                      # ANDROID_5_0_SAMSUNG_GALAXY_S6
-            add_android 'Samsung Galaxy Note 4', '4.4', hash                  # ANDROID_4_4_SAMSUNG_GALAXY_NOTE_4
-            add_android 'Samsung Galaxy Tab 4', '4.4', hash                   # ANDROID_4_4_SAMSUNG_GALAXY_TAB_4
 
             # Specific iOS devices
             add_ios 'iPhone 14 Plus', '16.0', hash                            # IOS_16_0_IPHONE_14_PLUS

@@ -42,7 +42,7 @@ class ValidatorTest < Test::Unit::TestCase
   end
 
   def test_valid_browser_stack_options
-    args = %w[--farm=bs --app=my_app.apk --username=user --access-key=key --device=ANDROID_6_0]
+    args = %w[--farm=bs --app=my_app.apk --username=user --access-key=key --device=ANDROID_11_0]
     File.stubs(:exist?).with('/BrowserStackLocal').returns(true)
     File.stubs(:exist?).with('my_app.apk').returns(true)
 
@@ -89,7 +89,7 @@ class ValidatorTest < Test::Unit::TestCase
   end
 
   def test_browser_stack_missing_app
-    args = %w[--farm=bs --username=user --access-key=key --device=ANDROID_6_0]
+    args = %w[--farm=bs --username=user --access-key=key --device=ANDROID_11_0]
     File.stubs(:exist?).with('/BrowserStackLocal').returns(true)
 
     options = Maze::Option::Parser.parse args

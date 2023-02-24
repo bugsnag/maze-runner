@@ -50,7 +50,7 @@ module Maze
         end
 
         def log_run_outro
-          api_client = BitBarApiClient.new
+          api_client = BitBarApiClient.new(Maze.config.access_key)
 
           $logger.info 'Appium session(s) created:'
           @session_ids.each do |id|

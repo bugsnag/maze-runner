@@ -60,7 +60,7 @@ module Maze
             device_groups = api_client.get_device_group_list
             unless device_groups['data'] && !device_groups['data'].empty?
               puts 'There are no device groups available for the given user access key'
-              exit 0
+              exit 1
             end
             puts "BitBar device groups available:"
             device_groups['data'].sort_by{|g| g['displayName']}.each do |group|
@@ -68,6 +68,30 @@ module Maze
               puts "Group name   : #{group['displayName']}"
               puts "OS           : #{group['osType']}"
               puts "Device count : #{group['deviceCount']}"
+            end
+          end
+
+          def list_devices_for_group(device_group, access_key)
+            api_client = BitBarApiClient.new(access_key)
+            group_id = api_client.get_device_group_id(device_group)
+            unless group_id
+              puts "No device groups were found with the given name #{device_group}"
+              return
+            end
+            devices = api_client.get_device_list_for_group(group_id)
+            if devices['data'].empty?
+              puts "There are no devices available for the #{device_group} device group"
+              return
+            end
+            puts "BitBar devices available for device group #{device_group}:"
+            devices['data'].sort_by{|d| d['displayName']}.each do |device|
+              puts '------------------------------'
+              puts "Device name : #{device['displayName']}"
+              puts "OS          : #{device['platform']} #{device['softwareVersion']['releaseVersion']}"
+
+              if device['platform'].eql? 'ANDROID'
+                puts "API level   : #{device['softwareVersion']['apiLevel']}"
+              end
             end
           end
 

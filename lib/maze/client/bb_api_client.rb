@@ -9,9 +9,15 @@ module Maze
         @access_key = access_key
       end
 
-      # Get a formatted list of all available device groups
+      # Get a list of all available device groups
       def get_device_group_list
         query_api('device-groups')
+      end
+
+      # Get a list of all available devices in a device group
+      def get_device_list_for_group(device_group_id)
+        path = "device-groups/#{device_group_id}/devices"
+        query_api(path)
       end
 
       # Get the id of a device group given its name

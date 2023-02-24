@@ -6,6 +6,10 @@
   - [480](https://github.com/bugsnag/maze-runner/pull/480)
   - [481](https://github.com/bugsnag/maze-runner/pull/481)
 
+## Removals
+
+- Remove support for all Android 4 to 6 devices on BrowserStack [482](https://github.com/bugsnag/maze-runner/pull/482)
+
 # 7.19.0 - 2023/02/22
 
 ## Enhancements

@@ -41,18 +41,18 @@ chrome_103:
   resolution: '1920x1080'
 
 chrome_72:
-	platform: 'Windows'
-	osVersion: '10'
-	browserName: 'chrome'
-	version: '72'
-	resolution: '1920x1080'
+  platform: 'Windows'
+  osVersion: '10'
+  browserName: 'chrome'
+  version: '72'
+  resolution: '1920x1080'
 
 chrome_43:
-	platform': 'Windows'
-	osVersion: '10'
-	browserName: 'chrome'
-	version: '43'
-	resolution: '1920x1080'
+  platform': 'Windows'
+  osVersion: '10'
+  browserName: 'chrome'
+  version: '43'
+  resolution: '1920x1080'
 
 firefox_107:
   platform: 'Windows'
@@ -97,11 +97,11 @@ firefox_102:
   resolution: '1920x1080'
 
 firefox_78:
-	platform: 'Windows'
-	osVersion: '10'
-	browserName: 'firefox'
-	version: '78'
-	resolution: '1920x1080'
+  platform: 'Windows'
+  osVersion: '10'
+  browserName: 'firefox'
+  version: '78'
+  resolution: '1920x1080'
 
 ie_11:
   platform: 'Windows'

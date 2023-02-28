@@ -1,10 +1,13 @@
-# TBD
+# 7.20.0 - 2023/02/28
 
 ## Enhancements
 
 - Add --list-devices option for BitBar devices and device groups
   - [480](https://github.com/bugsnag/maze-runner/pull/480)
   - [481](https://github.com/bugsnag/maze-runner/pull/481)
+- Add BitBar browsers to those currently available [483](https://github.com/bugsnag/maze-runner/pull/483)
+  - Firefox 78
+  - Chrome 43 and 72
 
 ## Removals
 

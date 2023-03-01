@@ -26,7 +26,7 @@ module Maze
         def send_log(log)
           pp 'Send log'
           pp log
-          uri = URI("#{Maze.config.tms_uri}/maze_log")
+          uri = URI("#{Maze.config.tms_uri}/maze-log")
           request = Net::HTTP::Post.new(uri)
           request['Content-Type'] = 'application/json'
           request['Authorization'] = Maze.config.tms_token

@@ -100,6 +100,7 @@ services:
       BITBAR_ACCESS_KEY:
       MAZE_BUGSNAG_API_KEY:
       MAZE_TMS_URI:
+      MAZE_TMS_TOKEN:
     env_file: $DOCKER_ENV_FILE
     ports:
       - "9000-9499:9339"

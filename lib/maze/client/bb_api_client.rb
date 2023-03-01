@@ -41,6 +41,7 @@ module Maze
         all_devices = query_api(path, query)
 
         $logger.debug "All available devices in group #{device_group_id}: #{JSON.pretty_generate(all_devices)}"
+        Maze::Plugins::MetricsPlugin.log_event('get_device_group', all_devices)
         filtered_devices = all_devices['data'].reject { |device| device['locked'] }
         return filtered_devices.size, filtered_devices.sample
       end

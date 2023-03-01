@@ -44,9 +44,6 @@ BeforeAll do
   Maze.run_uuid = SecureRandom.uuid
   $logger.info "UUID for this run: #{Maze.run_uuid}"
 
-  # Start document server, if asked for
-  Maze::DocumentServer.start unless Maze.config.document_server_root.nil?
-
   # Determine public IP if enabled
   if Maze.config.aws_public_ip
     Maze.public_address = Maze::AwsPublicIp.new.address
@@ -64,6 +61,10 @@ BeforeAll do
 
   # Call any blocks registered by the client
   Maze.hooks.call_before_all
+
+  # Start document server, if asked for
+  # This must happen after any client hooks have run, so that they can set the server root
+  Maze::DocumentServer.start unless Maze.config.document_server_root.nil?
 end
 
 # @param config The Cucumber config

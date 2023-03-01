@@ -80,6 +80,7 @@ require_relative '../lib/maze/plugins/bugsnag_reporting_plugin'
 require_relative '../lib/maze/plugins/cucumber_report_plugin'
 require_relative '../lib/maze/plugins/error_code_plugin'
 require_relative '../lib/maze/plugins/global_retry_plugin'
+require_relative '../lib/maze/plugins/metrics_plugin'
 
 # Require monkey-patches after everything else
 require_relative '../lib/utils/selenium_money_patch'

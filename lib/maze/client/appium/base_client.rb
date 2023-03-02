@@ -146,7 +146,13 @@ module Maze
         def stop_session
           Maze::Plugins::MetricsPlugin.log_event('AppiumSessionFinished', {
             farm: Maze.config.farm,
-            device: Maze.config.device
+            device: Maze.config.device,
+            deviceCapabilities: {
+              device: config.capabilities['bitbar:options']['device'],
+              testRun: config.capabilities['bitbar:options']['bitbar_testrun'],
+              platformName: config.capabilities['platformName'],
+              deviceName: config.capabilities['deviceName']
+            }
           })
           Maze.driver&.driver_quit
           Maze::AppiumServer.stop if Maze::AppiumServer.running

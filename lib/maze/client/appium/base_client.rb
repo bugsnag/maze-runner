@@ -57,7 +57,8 @@ module Maze
                     $logger.info "Running on device: #{udid}" unless udid.nil?
                     Maze::Plugins::MetricsPlugin.log_event('AppiumDriverStarted', {
                       farm: Maze.config.farm,
-                      device_capabilities: device_capabilities,
+                      device: Maze.config.device,
+                      device_capabilities: config.capabilities,
                       success: true
                     })
                   end
@@ -67,7 +68,7 @@ module Maze
                   Maze::Plugins::MetricsPlugin.log_event('AppiumDriverStarted', {
                     farm: Maze.config.farm,
                     device: Maze.config.device,
-                    device_capabilities: device_capabilities,
+                    device_capabilities: config.capabilities,
                     success: false
                   })
                   raise start_error unless retry_failure

@@ -66,7 +66,7 @@ module Maze
                   $logger.error "Session creation failed: #{start_error}"
                   Maze::Plugins::MetricsPlugin.log_event('AppiumDriverStarted', {
                     farm: Maze.config.farm,
-                    device: Maze.config.device
+                    device: Maze.config.device,
                     device_capabilities: device_capabilities,
                     success: false
                   })

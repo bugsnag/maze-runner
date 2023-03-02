@@ -58,7 +58,12 @@ module Maze
                     Maze::Plugins::MetricsPlugin.log_event('AppiumDriverStarted', {
                       farm: Maze.config.farm,
                       device: Maze.config.device,
-                      device_capabilities: config.capabilities,
+                      deviceCapabilities: {
+                        device: config.capabilities['bitbar:options']['device'],
+                        testRun: config.capabilities['bitbar:options']['bitbar_testrun'],
+                        platformName: config.capabilities['platformName'],
+                        deviceName: config.capabilities['deviceName']
+                      },
                       success: true
                     })
                   end
@@ -68,7 +73,12 @@ module Maze
                   Maze::Plugins::MetricsPlugin.log_event('AppiumDriverStarted', {
                     farm: Maze.config.farm,
                     device: Maze.config.device,
-                    device_capabilities: config.capabilities,
+                    deviceCapabilities: {
+                      device: config.capabilities['bitbar:options']['device'],
+                      testRun: config.capabilities['bitbar:options']['bitbar_testrun'],
+                      platformName: config.capabilities['platformName'],
+                      deviceName: config.capabilities['deviceName']
+                    },
                     success: false
                   })
                   raise start_error unless retry_failure

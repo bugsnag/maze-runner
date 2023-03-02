@@ -42,7 +42,7 @@ module Maze
 
         $logger.debug "All available devices in group #{device_group_id}: #{JSON.pretty_generate(all_devices)}"
 
-        Maze::Plugins::MetricsPlugin.log_event('get_device_group', all_devices['data'].map { |device|
+        Maze::Plugins::MetricsPlugin.log_event('GetDeviceGroupDevices', all_devices['data'].map { |device|
           {
             id: device['id'],
             name: device['displayName'],

@@ -55,10 +55,21 @@ module Maze
                     @session_ids << driver.session_id
                     udid = driver.session_capabilities['udid']
                     $logger.info "Running on device: #{udid}" unless udid.nil?
+                    Maze::Plugins::MetricsPlugin.log_event('AppiumDriverStarted', {
+                      farm: Maze.config.farm,
+                      device_capabilities: device_capabilities,
+                      success: true
+                    })
                   end
                   result
                 rescue => start_error
                   $logger.error "Session creation failed: #{start_error}"
+                  Maze::Plugins::MetricsPlugin.log_event('AppiumDriverStarted', {
+                    farm: Maze.config.farm,
+                    device: Maze.config.device
+                    device_capabilities: device_capabilities,
+                    success: false
+                  })
                   raise start_error unless retry_failure
                   false
                 end
@@ -122,6 +133,10 @@ module Maze
         end
 
         def stop_session
+          Maze::Plugins::MetricsPlugin.log_event('AppiumSessionFinished', {
+            farm: Maze.config.farm,
+            device: Maze.config.device
+          })
           Maze.driver&.driver_quit
           Maze::AppiumServer.stop if Maze::AppiumServer.running
         end

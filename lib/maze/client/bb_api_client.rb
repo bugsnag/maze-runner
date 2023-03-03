@@ -42,18 +42,20 @@ module Maze
 
         $logger.debug "All available devices in group #{device_group_id}: #{JSON.pretty_generate(all_devices)}"
 
-        Maze::Plugins::MetricsPlugin.log_event('GetDeviceGroupDevices', all_devices['data'].map { |device|
-          {
-            id: device['id'],
-            name: device['displayName'],
-            online: device['online'],
-            osType: device['osType'],
-            platform: device['platform'],
-            version: device['softwareVersion'],
-            available: device['available'],
-            enabled: device['enabled'],
-            locked: device['locked']
-          }
+        Maze::Plugins::MetricsPlugin.log_event('GetDeviceGroupDevices', {
+            devices: all_devices['data'].map { |device|
+              {
+                id: device['id'],
+                name: device['displayName'],
+                online: device['online'],
+                osType: device['osType'],
+                platform: device['platform'],
+                version: device['softwareVersion'],
+                available: device['available'],
+                enabled: device['enabled'],
+                locked: device['locked']
+              }
+            }
         })
 
         filtered_devices = all_devices['data'].reject { |device| device['locked'] }

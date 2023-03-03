@@ -25,12 +25,20 @@ module Maze
           selenium_url = 'https://eu-desktop-hub.bitbar.com/wd/hub'
           Maze.driver = Maze::Driver::Browser.new :remote, selenium_url, config.capabilities
           Maze.driver.start_driver
+          Maze::Plugins::MetricsPlugin.log_event('SeleniumDriverStarted', {
+            farm: Maze.config.farm,
+            browser: config.browser
+          })
         end
 
         def stop_session
           super
           Maze::Client::BitBarClientUtils.stop_local_tunnel
           Maze::Client::BitBarClientUtils.release_account(Maze.config.tms_uri) if ENV['BUILDKITE']
+          Maze::Plugins::MetricsPlugin.log_event('SeleniumDriverStopped', {
+            farm: Maze.config.farm,
+            browser: config.browser
+          })
         end
       end
     end

@@ -50,6 +50,11 @@ module Maze
           Maze.driver = Maze::Driver::Browser.new :remote, selenium_url, config.capabilities
           Maze.driver.start_driver
 
+          Maze::Plugins::MetricsPlugin.log_event('SeleniumDriverStarted', {
+            farm: Maze.config.farm,
+            browser: config.browser
+          })
+
           # Log details for the session
           log_session_info
         end
@@ -57,6 +62,10 @@ module Maze
         def stop_session
           super
           Maze::Client::BrowserStackClientUtils.stop_local_tunnel
+          Maze::Plugins::MetricsPlugin.log_event('SeleniumDriverStopped', {
+            farm: Maze.config.farm,
+            browser: config.browser
+          })
         end
 
         private

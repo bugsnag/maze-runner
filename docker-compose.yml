@@ -67,6 +67,7 @@ services:
       BROWSER_STACK_DEVICES_ACCESS_KEY:
       MAZE_BUGSNAG_API_KEY:
       MAZE_TMS_URI:
+      MAZE_TMS_TOKEN:
     env_file: $DOCKER_ENV_FILE
     volumes:
       - ./test/fixtures/android-appium-test/app/build:/app/build
@@ -138,6 +139,7 @@ services:
       BROWSER_STACK_DEVICES_ACCESS_KEY:
       MAZE_BUGSNAG_API_KEY:
       MAZE_TMS_URI:
+      MAZE_TMS_TOKEN:
       USE_LEGACY_DRIVER: 1
     env_file: $DOCKER_ENV_FILE
     volumes:
@@ -166,6 +168,7 @@ services:
       BROWSER_STACK_DEVICES_ACCESS_KEY:
       MAZE_BUGSNAG_API_KEY:
       MAZE_TMS_URI:
+      MAZE_TMS_TOKEN:
       BITBAR_USERNAME:
       BITBAR_ACCESS_KEY:
     env_file: $DOCKER_ENV_FILE

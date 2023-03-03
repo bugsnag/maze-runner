@@ -1,3 +1,9 @@
+# TBD
+
+## Fixes
+
+- Start the document server after client hooks run so the document root can be set with other Maze Runner configuration [484](https://github.com/bugsnag/maze-runner/pull/484)
+
 # 7.20.0 - 2023/02/28
 
 ## Enhancements

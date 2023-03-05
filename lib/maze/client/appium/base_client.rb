@@ -55,30 +55,30 @@ module Maze
                     @session_ids << driver.session_id
                     udid = driver.session_capabilities['udid']
                     $logger.info "Running on device: #{udid}" unless udid.nil?
+                    recorded_capabilities = {}
+                    recorded_capabilities[:device] = config.capabilities['bitbar:options']['device'] unless config.capabilities['bitbar:options'].nil?
+                    recorded_capabilities[:device] = config.capabilities['bitbar:options']['bitbar_testrun'] unless config.capabilities['bitbar:options'].nil?
+                    recorded_capabilities[:device] = config.capabilities['platformName']
+                    recorded_capabilities[:device] = config.capabilities['deviceName']
                     Maze::Plugins::MetricsPlugin.log_event('AppiumDriverStarted', {
                       farm: Maze.config.farm,
                       device: Maze.config.device,
-                      deviceCapabilities: {
-                        device: config.capabilities['bitbar:options']['device'],
-                        testRun: config.capabilities['bitbar:options']['bitbar_testrun'],
-                        platformName: config.capabilities['platformName'],
-                        deviceName: config.capabilities['deviceName']
-                      },
+                      deviceCapabilities: recorded_capabilities,
                       success: true
                     })
                   end
                   result
                 rescue => start_error
                   $logger.error "Session creation failed: #{start_error}"
+                  recorded_capabilities = {}
+                  recorded_capabilities[:device] = config.capabilities['bitbar:options']['device'] unless config.capabilities['bitbar:options'].nil?
+                  recorded_capabilities[:device] = config.capabilities['bitbar:options']['bitbar_testrun'] unless config.capabilities['bitbar:options'].nil?
+                  recorded_capabilities[:device] = config.capabilities['platformName']
+                  recorded_capabilities[:device] = config.capabilities['deviceName']
                   Maze::Plugins::MetricsPlugin.log_event('AppiumDriverStarted', {
                     farm: Maze.config.farm,
                     device: Maze.config.device,
-                    deviceCapabilities: {
-                      device: config.capabilities['bitbar:options']['device'],
-                      testRun: config.capabilities['bitbar:options']['bitbar_testrun'],
-                      platformName: config.capabilities['platformName'],
-                      deviceName: config.capabilities['deviceName']
-                    },
+                    deviceCapabilities: recorded_capabilities,
                     success: false
                   })
                   raise start_error unless retry_failure
@@ -144,15 +144,15 @@ module Maze
         end
 
         def stop_session
+          recorded_capabilities = {}
+          recorded_capabilities[:device] = config.capabilities['bitbar:options']['device'] unless config.capabilities['bitbar:options'].nil?
+          recorded_capabilities[:device] = config.capabilities['bitbar:options']['bitbar_testrun'] unless config.capabilities['bitbar:options'].nil?
+          recorded_capabilities[:device] = config.capabilities['platformName']
+          recorded_capabilities[:device] = config.capabilities['deviceName']
           Maze::Plugins::MetricsPlugin.log_event('AppiumSessionFinished', {
             farm: Maze.config.farm,
             device: Maze.config.device,
-            deviceCapabilities: {
-              device: config.capabilities['bitbar:options']['device'],
-              testRun: config.capabilities['bitbar:options']['bitbar_testrun'],
-              platformName: config.capabilities['platformName'],
-              deviceName: config.capabilities['deviceName']
-            }
+            deviceCapabilities: recorded_capabilities
           })
           Maze.driver&.driver_quit
           Maze::AppiumServer.stop if Maze::AppiumServer.running

@@ -17,6 +17,7 @@ module Maze
             reference: reference,
             data: data,
             build_url: ENV['BUILDKITE_BUILD_URL'],
+            pipeline: ENV['BUILDKITE_PIPELINE_NAME'],
             maze_timestamp: Time.now
           })
         end

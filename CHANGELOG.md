@@ -1,5 +1,9 @@
 # TBD
 
+## Enhancements
+
+- Add an element assertion list utility to verify a request against an array of given assertions []()
+
 ## Fixes
 
 - Start the document server after client hooks run so the document root can be set with other Maze Runner configuration [484](https://github.com/bugsnag/maze-runner/pull/484)

@@ -10,6 +10,7 @@ require_relative '../lib/maze'
 require_relative '../lib/maze/appium_server'
 require_relative '../lib/maze/api/appium/file_manager'
 require_relative '../lib/maze/bugsnag_config'
+
 require_relative '../lib/maze/client/bb_api_client'
 require_relative '../lib/maze/client/bb_client_utils'
 require_relative '../lib/maze/client/bs_client_utils'
@@ -26,6 +27,7 @@ require_relative '../lib/maze/client/selenium/base_client'
 require_relative '../lib/maze/client/selenium/bb_client'
 require_relative '../lib/maze/client/selenium/bs_client'
 require_relative '../lib/maze/client/selenium/local_client'
+
 require_relative '../lib/maze/aws_public_ip'
 require_relative '../lib/maze/compare'
 require_relative '../lib/maze/docker'
@@ -65,6 +67,7 @@ require_relative '../lib/maze/option/parser'
 require_relative '../lib/maze/option/processor'
 require_relative '../lib/maze/option/validator'
 
+require_relative '../lib/maze/assertions/element_list_assertions'
 require_relative '../lib/maze/assertions/request_set_assertions'
 
 require_relative '../lib/maze/hooks/hooks'

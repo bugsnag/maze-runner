@@ -18,20 +18,20 @@ module Maze
     # @param request [HTTPRequest] The request to be repeated
     def repeat(request)
 
-      # TODO: Forwarding of internal errors to be considered later
+      # TODO Forwarding of internal errors to be considered later
       return if request.header.keys.any? { |key| key.downcase == 'bugsnag-internal-error' }
 
       url = url_for_request_type
       http = Net::HTTP.new(url.host)
       bugsnag_request = Net::HTTP::Post.new(url.path)
-      bugsnag_request['Content-Type'] = 'application/json'
 
-      # Set all Bugsnag headers that are present
+      # Set all headers that are present
       bugsnag_request.body = request.body
-      request.header.each {|key,value| bugsnag_request[key] = value if key.downcase.start_with? 'bugsnag-' }
+      request.header.each {|key,value| bugsnag_request[key] = value }
       bugsnag_request['bugsnag-api-key'] = Maze.config.repeater_api_key
 
-      # TODO Also overwrite apiKey in the payload, if present, and recalculate the integrity header
+      # TODO Also overwrite apiKey in the payload, if present, recalculate the integrity header (handling
+      #   compressed payloads if the content-encoding header is set accordingly)
 
       http.request(bugsnag_request)
     end

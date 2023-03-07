@@ -11,11 +11,16 @@ module Maze
       # @param response [HTTPResponse] The response to return
       def do_OPTIONS(request, response)
         response.header['Access-Control-Allow-Origin'] = '*'
-        response.header['Access-Control-Allow-Headers'] = %w[Accept
-                                                             Bugsnag-Api-Key Bugsnag-Integrity
-                                                             Bugsnag-Payload-Version
-                                                             Bugsnag-Sent-At Content-Type
-                                                             Origin].join(',')
+        response.header['Access-Control-Allow-Headers'] = %w[
+          Accept
+          Bugsnag-Api-Key
+          Bugsnag-Integrity
+          Bugsnag-Payload-Version
+          Bugsnag-Sent-At
+          Bugsnag-Span-Sampling
+          Content-Type
+          Origin
+        ].join(',')
       end
     end
   end

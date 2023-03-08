@@ -73,13 +73,17 @@ def validate_payload_elements(list, list_name)
     end
 
     return if validators.all? { |validator| validator.success }
-    validators.each_with_index do |validator, index|
+    validators.each_with_index(1) do |validator, index|
       unless validator.success
-        $logger.error("#{list_name}:#{index} failed validation with the following errors:")
-        validator.errors.each { |error_string| $logger.error("    #{error_string}") }
+        $stdout.puts "\n"
+        $stdout.puts "\e[31m--- #{list_name} #{index} failed validation with the following errors:\e[0m"
+        validator.errors.each do |error|
+          $stdout.puts "\e[31m#{error_string}\e[0m"
+        end
+        $stdout.puts "\n"
       end
     end
-    raise RuntimeError.new("A number of #{list_name} payloads failed validation")
+    raise Test::Unit::AssertionFailedError.new("A number of #{list_name} payloads failed validation.  A full list of the errors can be found above")
   end
 end
 

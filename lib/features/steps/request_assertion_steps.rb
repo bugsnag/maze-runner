@@ -83,7 +83,7 @@ def validate_payload_elements(list, list_name)
         $stdout.puts "\n"
       end
     end
-    raise Test::Unit::AssertionFailedError.new("A number of #{list_name} payloads failed validation.  A full list of the errors can be found above")
+    raise Test::Unit::AssertionFailedError.new("One or more #{list_name} payloads failed validation.  A full list of the errors can be found above")
   end
 end
 

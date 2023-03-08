@@ -68,26 +68,148 @@ def send_request(request_type, mock_api_port = 9339)
         'Bugsnag-Sent-At' => Time.now().iso8601(3)
       },
       'body' => {
-        "resourceSpans": [
+        "resourceSpans":[
           {
-            "resource": {
-              "attributes": [
+            "scopeSpans":[
+              {
+                "spans":[
+                  {
+                    "spanId":"7af51275a21aa300",
+                    "startTimeUnixNano":"1677082365052111104",
+                    "traceId":"f8b18e12a2c1dca33362ac31772ed3b4",
+                    "endTimeUnixNano":"1677082367268691968",
+                    "kind":"SPAN_KIND_INTERNAL",
+                    "attributes":[
+                      {
+                        "key":"bugsnag.app_start.type",
+                        "value":{
+                          "stringValue":"cold"
+                        }
+                      },
+                      {
+                        "key":"bugsnag.span.category",
+                        "value":{
+                          "stringValue":"app_start"
+                        }
+                      },
+                      {
+                        "key":"net.host.connection.type",
+                        "value":{
+                          "stringValue":"wifi"
+                        }
+                      },
+                      {
+                        "key":"bugsnag.app.in_foreground",
+                        "value":{
+                          "boolValue":true
+                        }
+                      }
+                    ],
+                    "name":"AppStart\\134/Cold"
+                  },
+                  {
+                    "spanId":"96775346bf426548",
+                    "startTimeUnixNano":"1677082367269565184",
+                    "traceId":"4dea8da13b30db98f1c56bee0fdc734c",
+                    "endTimeUnixNano":"1677082367269576192",
+                    "kind":"SPAN_KIND_INTERNAL",
+                    "attributes":[
+                      {
+                        "key":"bugsnag.app.in_foreground",
+                        "value":{
+                          "boolValue":true
+                        }
+                      },
+                      {
+                        "key":"net.host.connection.type",
+                        "value":{
+                          "stringValue":"wifi"
+                        }
+                      }
+                    ],
+                    "name":"ManualSpanScenario"
+                  }
+                ]
+              }
+            ],
+            "resource":{
+              "attributes":[
                 {
-                  "key": "telemetry.sdk.version",
-                  "value": {
-                    "stringValue": "0.0"
+                  "key":"device.id",
+                  "value":{
+                    "stringValue":"cd5c48566a5ba0b8597dca328c392e1a7f98ce86"
                   }
                 },
                 {
-                  "key": "service.name",
-                  "value": {
-                    "stringValue": "com.bugsnag.Example"
+                  "key":"bugsnag.app.bundle_version",
+                  "value":{
+                    "stringValue":"1"
                   }
                 },
                 {
-                  "key": "telemetry.sdk.name",
-                  "value": {
-                    "stringValue": "bugsnag.performance.cocoa"
+                  "key":"host.arch",
+                  "value":{
+                    "stringValue":"arm64"
+                  }
+                },
+                {
+                  "key":"device.model.identifier",
+                  "value":{
+                    "stringValue":"iPhone12,3"
+                  }
+                },
+                {
+                  "key":"os.type",
+                  "value":{
+                    "stringValue":"darwin"
+                  }
+                },
+                {
+                  "key":"deployment.environment",
+                  "value":{
+                    "stringValue":"production"
+                  }
+                },
+                {
+                  "key":"os.version",
+                  "value":{
+                    "stringValue":"15.4.1"
+                  }
+                },
+                {
+                  "key":"service.version",
+                  "value":{
+                    "stringValue":"1.0"
+                  }
+                },
+                {
+                  "key":"telemetry.sdk.name",
+                  "value":{
+                    "stringValue":"bugsnag.performance.cocoa"
+                  }
+                },
+                {
+                  "key":"os.name",
+                  "value":{
+                    "stringValue":"iOS"
+                  }
+                },
+                {
+                  "key":"telemetry.sdk.version",
+                  "value":{
+                    "stringValue":"0.0"
+                  }
+                },
+                {
+                  "key":"device.manufacturer",
+                  "value":{
+                    "stringValue":"Apple"
+                  }
+                },
+                {
+                  "key":"service.name",
+                  "value":{
+                    "stringValue":"com.bugsnag.Fixture"
                   }
                 }
               ]

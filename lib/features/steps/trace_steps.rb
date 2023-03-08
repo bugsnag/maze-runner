@@ -29,7 +29,7 @@ Then('the trace payload field {string} bool attribute {string} is false') do |fi
 end
 
 Then('the trace payload field {string} integer attribute {string} equals {int}') do |field, attribute, expected|
-  check_attribute_equal field, attribute, 'stringValue', expected
+  check_attribute_equal field, attribute, 'intValue', expected
 end
 
 Then('the trace payload field {string} integer attribute {string} is greater than {int}') do |field, attribute, expected|

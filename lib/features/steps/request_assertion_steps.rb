@@ -73,12 +73,12 @@ def validate_payload_elements(list, list_name)
     end
 
     return if validators.all? { |validator| validator.success }
-    validators.each_with_index(1) do |validator, index|
+    validators.each.with_index(1) do |validator, index|
       unless validator.success
         $stdout.puts "\n"
         $stdout.puts "\e[31m--- #{list_name} #{index} failed validation with the following errors:\e[0m"
         validator.errors.each do |error|
-          $stdout.puts "\e[31m#{error_string}\e[0m"
+          $stdout.puts "\e[31m#{error}\e[0m"
         end
         $stdout.puts "\n"
       end

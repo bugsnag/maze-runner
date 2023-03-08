@@ -1,3 +1,9 @@
+# TBD
+
+## Fixes
+
+- Fix integer attribute step looking at stringValue [487](https://github.com/bugsnag/maze-runner/pull/487)
+
 # 7.20.1 - 2023/03/07
 
 ## Fixes

@@ -67,7 +67,7 @@ module Maze
         if value_type && possible_values
           unless element['value'] && element['value'][value_type] && possible_values.include?(element['value'][value_type])
             @success = false
-            @errors << "Element '#{path}':'#{element}' did not contain a value from #{possible_values}"
+            @errors << "Element '#{path}':'#{element}' did not contain a value of #{value_type} from #{possible_values}"
           end
         end
       end
@@ -77,7 +77,7 @@ module Maze
         element_b = Maze::Helper.read_key_path(@body, path_b)
         unless element_a && element_b && element_a > element_b
           @success = false
-          @errors << "Element '#{path_a}':'#{element_a} was expected to be greater than '#{path_b}':'#{element_b}'"
+          @errors << "Element '#{path_a}':'#{element_a}' was expected to be greater than '#{path_b}':'#{element_b}'"
         end
       end
     end

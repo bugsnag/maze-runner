@@ -10,6 +10,10 @@
 
 - Add 'latest' versions of Chrome, Firefox & Edge to BitBar browser list [490](https://github.com/bugsnag/maze-runner/pull/490)
 
+## Enhancements
+
+- Add further validation for trace payloads [489](https://github.com/bugsnag/maze-runner/pull/489)
+
 ## Fixes
 
 - Fix integer attribute step looking at stringValue [487](https://github.com/bugsnag/maze-runner/pull/487)

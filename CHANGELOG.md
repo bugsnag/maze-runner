@@ -3,13 +3,14 @@
 ## Fixes
 
 - Fix integer attribute step looking at stringValue [487](https://github.com/bugsnag/maze-runner/pull/487)
+- Set all headers present when repeating requests to Bugsnag [488](https://github.com/bugsnag/maze-runner/pull/488)
 
 # 7.20.1 - 2023/03/07
 
 ## Fixes
 
 - Start the document server after client hooks run so the document root can be set with other Maze Runner configuration [484](https://github.com/bugsnag/maze-runner/pull/484)
-- Add missing Busnag-Span-Sampling header to Access-Control-Allow-Headers [485](https://github.com/bugsnag/maze-runner/pull/485)
+- Add missing Bugsnag-Span-Sampling header to Access-Control-Allow-Headers [485](https://github.com/bugsnag/maze-runner/pull/485)
 
 # 7.20.0 - 2023/02/28
 

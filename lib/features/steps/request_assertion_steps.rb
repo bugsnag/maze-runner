@@ -33,6 +33,7 @@ def assert_received_requests(request_count, list, list_name, precise = true)
   end
 
   verify_schema_matches(list, list_name)
+  validate_payload_elements(list, list_name)
 end
 
 def verify_schema_matches(list, list_name)
@@ -53,6 +54,32 @@ def verify_schema_matches(list, list_name)
 
   unless passed
     raise Test::Unit::AssertionFailedError.new 'The received payloads did not match the endpoint schema.  A full list of the errors can be found above'
+  end
+end
+
+def validate_payload_elements(list, list_name)
+  validator_class = case list_name
+  when 'trace', 'traces'
+    Maze::Schemas::TraceValidator
+  else
+    nil
+  end
+
+  if validator_class
+    validators = list.all.map do |request|
+      validator = validator_class.new(request[:body])
+      validator.validate
+      validator
+    end
+
+    return if validators.all? { |validator| validator.success }
+    validators.each_with_index do |validator, index|
+      unless validator.success
+        $logger.error("#{list_name}:#{index} failed validation with the following errors:")
+        validator.errors.each { |error_string| $logger.error("    #{error_string}") }
+      end
+    end
+    raise RuntimeError.new("A number of #{list_name} payloads failed validation")
   end
 end
 

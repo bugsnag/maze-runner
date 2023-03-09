@@ -24,7 +24,36 @@ class TraceValidationTest < Test::Unit::TestCase
     validator.regex_comparison('value', '[ab12]{6}')
     assert_false(validator.success)
     assert_equal(validator.errors.size, 1)
-    assert_equal(validator.errors.first, "Element 'value' was expected to match the regex [ab12]{6}, but was abc123")
+    assert_equal(validator.errors.first, "Element 'value' was expected to match the regex '[ab12]{6}', but was 'abc123'")
+  end
+
+  def test_element_int_in_range_success
+    validator = Maze::Schemas::TraceValidator.new({
+      'value' => 2
+    })
+    validator.element_int_in_range('value', 1..3)
+    assert_nil(validator.success)
+    assert(validator.errors.empty?)
+  end
+
+  def test_element_int_in_range_failure
+    validator = Maze::Schemas::TraceValidator.new({
+      'value' => 4
+    })
+    validator.element_int_in_range('value', 1..3)
+    assert_false(validator.success)
+    assert_equal(validator.errors.size, 1)
+    assert_equal(validator.errors.first, "Element 'value':'4' was expected to be in the range '1..3'")
+  end
+
+  def test_element_int_in_range_no_int_failure
+    validator = Maze::Schemas::TraceValidator.new({
+      'value' => 'abc'
+    })
+    validator.element_int_in_range('value', 1..3)
+    assert_false(validator.success)
+    assert_equal(validator.errors.size, 1)
+    assert_equal(validator.errors.first, "Element 'value' was expected to be an integer, was 'abc'")
   end
 
   def test_contains_key_success
@@ -69,7 +98,7 @@ class TraceValidationTest < Test::Unit::TestCase
     validator.element_contains('value', 'incorrect')
     assert_false(validator.success)
     assert_equal(validator.errors.size, 1)
-    assert_equal(validator.errors.first, "Element 'value' did not contain a value with the key incorrect")
+    assert_equal(validator.errors.first, "Element 'value' did not contain a value with the key 'incorrect'")
   end
 
   def test_contains_not_array
@@ -79,7 +108,7 @@ class TraceValidationTest < Test::Unit::TestCase
     validator.element_contains('value', 'incorrect')
     assert_false(validator.success)
     assert_equal(validator.errors.size, 1)
-    assert_equal(validator.errors.first, "Element 'value' was expected to be an array, was 1234")
+    assert_equal(validator.errors.first, "Element 'value' was expected to be an array, was '1234'")
   end
 
   def test_contains_key_value_and_options_success
@@ -124,7 +153,7 @@ class TraceValidationTest < Test::Unit::TestCase
     validator.element_contains('value', 'correct', 'stringValue', ['good', 'one'])
     assert_false(validator.success)
     assert_equal(validator.errors.size, 1)
-    assert_equal(validator.errors.first, "Element 'value':'{\"key\"=>\"correct\", \"value\"=>{\"stringValue\"=>\"done\"}}' did not contain a value of stringValue from [\"good\", \"one\"]")
+    assert_equal(validator.errors.first, "Element 'value':'{\"key\"=>\"correct\", \"value\"=>{\"stringValue\"=>\"done\"}}' did not contain a value of 'stringValue' from '[\"good\", \"one\"]'")
   end
 
   def test_contains_key_value_and_options_value_type_missing_failure
@@ -147,7 +176,7 @@ class TraceValidationTest < Test::Unit::TestCase
     validator.element_contains('value', 'correct', 'intValue', ['good', 'one'])
     assert_false(validator.success)
     assert_equal(validator.errors.size, 1)
-    assert_equal(validator.errors.first, "Element 'value':'{\"key\"=>\"correct\", \"value\"=>{\"stringValue\"=>\"done\"}}' did not contain a value of intValue from [\"good\", \"one\"]")
+    assert_equal(validator.errors.first, "Element 'value':'{\"key\"=>\"correct\", \"value\"=>{\"stringValue\"=>\"done\"}}' did not contain a value of 'intValue' from '[\"good\", \"one\"]'")
   end
 
   def test_greater_than_success

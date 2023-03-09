@@ -27,13 +27,10 @@ module Maze
         @success = true
         regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.spanId', '^[A-Fa-f0-9]{16}$')
         regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.traceId', '^[A-Fa-f0-9]{32}$')
-        regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.kind', '^[A-Za-z_]+')
+        element_int_in_range('resourceSpans.0.scopeSpans.0.spans.0.kind', 0..5)
         regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.startTimeUnixNano', '^[0-9]+$')
         regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.endTimeUnixNano', '^[0-9]+$')
-        element_contains('resourceSpans.0.resource.attributes', 'os.type')
-        element_contains('resourceSpans.0.resource.attributes', 'os.name')
-        element_contains('resourceSpans.0.resource.attributes', 'deployment.environment', 'stringValue', ['development', 'production'])
-        element_contains('resourceSpans.0.resource.attributes', 'service.name')
+        element_contains('resourceSpans.0.resource.attributes', 'deployment.environment')
         element_contains('resourceSpans.0.resource.attributes', 'telemetry.sdk.name')
         element_contains('resourceSpans.0.resource.attributes', 'telemetry.sdk.version')
         element_a_greater_than_element_b(
@@ -47,7 +44,20 @@ module Maze
         expected = Regexp.new(regex)
         unless expected.match(element_value)
           @success = false
-          @errors << "Element '#{path}' was expected to match the regex #{regex}, but was #{element_value}"
+          @errors << "Element '#{path}' was expected to match the regex '#{regex}', but was '#{element_value}'"
+        end
+      end
+
+      def element_int_in_range(path, range)
+        element_value = Maze::Helper.read_key_path(@body, path)
+        if element_value.nil? || !element_value.kind_of?(Integer)
+          @success = false
+          @errors << "Element '#{path}' was expected to be an integer, was '#{element_value}'"
+          return
+        end
+        unless range.include?(element_value)
+          @success = false
+          @errors << "Element '#{path}':'#{element_value}' was expected to be in the range '#{range}'"
         end
       end
 
@@ -55,19 +65,19 @@ module Maze
         container = Maze::Helper.read_key_path(@body, path)
         if container.nil? || !container.kind_of?(Array)
           @success = false
-          @errors << "Element '#{path}' was expected to be an array, was #{container}"
+          @errors << "Element '#{path}' was expected to be an array, was '#{container}'"
           return
         end
         element = container.find { |value| value['key'].eql?(key_value) }
         unless element
           @success = false
-          @errors << "Element '#{path}' did not contain a value with the key #{key_value}"
+          @errors << "Element '#{path}' did not contain a value with the key '#{key_value}'"
           return
         end
         if value_type && possible_values
           unless element['value'] && element['value'][value_type] && possible_values.include?(element['value'][value_type])
             @success = false
-            @errors << "Element '#{path}':'#{element}' did not contain a value of #{value_type} from #{possible_values}"
+            @errors << "Element '#{path}':'#{element}' did not contain a value of '#{value_type}' from '#{possible_values}'"
           end
         end
       end

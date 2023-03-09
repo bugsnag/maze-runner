@@ -23,7 +23,7 @@ templates = {
                   "startTimeUnixNano":"1677082365052111104",
                   "traceId":"f8b18e12a2c1dca33362ac31772ed3b4",
                   "endTimeUnixNano":"1677082367268691968",
-                  "kind":"SPAN_KIND_INTERNAL",
+                  "kind":1,
                   "attributes":[
                     {
                       "key":"bugsnag.app_start.type",

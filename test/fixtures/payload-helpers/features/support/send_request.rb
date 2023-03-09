@@ -10,7 +10,7 @@ def send_request(request_type, mock_api_port = 9339)
                '/sessions'
              elsif request_type == 'build'
                '/builds'
-             elsif request_type == 'trace'
+             elsif request_type == 'trace' || request_type == 'mobile-trace'
                '/traces'
              else
                '/notify'
@@ -78,7 +78,7 @@ def send_request(request_type, mock_api_port = 9339)
                     "startTimeUnixNano":"1677082365052111104",
                     "traceId":"f8b18e12a2c1dca33362ac31772ed3b4",
                     "endTimeUnixNano":"1677082367268691968",
-                    "kind":"SPAN_KIND_INTERNAL",
+                    "kind":1,
                     "attributes":[
                       {
                         "key":"bugsnag.app_start.type",
@@ -214,6 +214,81 @@ def send_request(request_type, mock_api_port = 9339)
                 }
               ]
             }
+          }
+        ]
+      }
+    },
+    'mobile-trace' => {
+      'headers' => {
+        'Bugsnag-Api-Key' => $api_key,
+        'Bugsnag-Payload-Version' => '1.0',
+        'Bugsnag-Sent-At' => Time.now().iso8601(3)
+      },
+      'body' => {
+        "resourceSpans": [
+          {
+            "resource": {
+              "attributes": [
+                {
+                  "key": "deployment.environment",
+                  "value": {
+                    "stringValue": "production"
+                  }
+                },
+                {
+                  "key": "telemetry.sdk.name",
+                  "value": {
+                    "stringValue": "bugsnag.performance.browser"
+                  }
+                },
+                {
+                  "key": "telemetry.sdk.version",
+                  "value": {
+                    "stringValue": "0.0.0"
+                  }
+                },
+                {
+                  "key": "userAgent",
+                  "value": {
+                    "stringValue": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36"
+                  }
+                },
+                {
+                  "key": "platform",
+                  "value": {
+                    "stringValue": "macOS"
+                  }
+                },
+                {
+                  "key": "mobile",
+                  "value": {
+                    "boolValue": false
+                  }
+                }
+              ]
+            },
+            "scopeSpans": [
+              {
+                "spans": [
+                  {
+                    "name": "Custom/ManualSpanScenario",
+                    "kind": 3,
+                    "spanId": "91d2a550b5f30013",
+                    "traceId": "b9aeacea86240cf4c07284e819d39ba8",
+                    "startTimeUnixNano": "1678294830942000000",
+                    "endTimeUnixNano": "1678294830942000000",
+                    "attributes": [
+                      {
+                        "key": "browser.page.url",
+                        "value": {
+                          "stringValue": "http://localhost:9340/manual-span/?ENDPOINT=http://localhost:9339/traces&LOGS=http://localhost:9339/logs&API_KEY=b3ad5c823d527e720d9beb4767efda18"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
           }
         ]
       }

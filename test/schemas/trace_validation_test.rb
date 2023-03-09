@@ -185,21 +185,20 @@ class TraceValidationTest < Test::Unit::TestCase
       'unit' => 1,
       'larger' => 5
     })
-    validator.element_a_greater_than_element_b('larger', 'smaller')
+    validator.element_a_greater_or_equal_element_b('larger', 'smaller')
     assert_nil(validator.success)
     assert(validator.errors.empty?)
   end
 
-  def test_greater_than_failure_equals
+  def test_greater_than_success_equals
     validator = Maze::Schemas::TraceValidator.new({
       'smaller' => 1,
       'unit' => 1,
       'larger' => 5
     })
-    validator.element_a_greater_than_element_b('smaller', 'unit')
-    assert_false(validator.success)
-    assert_equal(validator.errors.size, 1)
-    assert_equal(validator.errors.first, "Element 'smaller':'1' was expected to be greater than 'unit':'1'")
+    validator.element_a_greater_or_equal_element_b('smaller', 'unit')
+    assert_nil(validator.success)
+    assert(validator.errors.empty?)
   end
 
   def test_greater_than_failure_lesser
@@ -208,9 +207,9 @@ class TraceValidationTest < Test::Unit::TestCase
       'unit' => 1,
       'larger' => 5
     })
-    validator.element_a_greater_than_element_b('smaller', 'larger')
+    validator.element_a_greater_or_equal_element_b('smaller', 'larger')
     assert_false(validator.success)
     assert_equal(validator.errors.size, 1)
-    assert_equal(validator.errors.first, "Element 'smaller':'1' was expected to be greater than 'larger':'5'")
+    assert_equal(validator.errors.first, "Element 'smaller':'1' was expected to be greater than or equal to 'larger':'5'")
   end
 end

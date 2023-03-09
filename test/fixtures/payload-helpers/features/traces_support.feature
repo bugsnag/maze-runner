@@ -1,14 +1,21 @@
 Feature: Testing support on traces endpoint
 
     Scenario: The traces endpoint can accept json payloads
+        # A mobile trace
         When I send a "trace"-type request
         Then I wait to receive a trace
         And The HTTP response header "Bugsnag-Sampling-Probability" equals "1"
         And the trace payload field "resourceSpans.0.resource.attributes.0.key" equals "device.id"
         And the trace payload field "resourceSpans.0.resource.attributes.0.value.stringValue" equals "cd5c48566a5ba0b8597dca328c392e1a7f98ce86"
 
-        # Sampling probability can be set for all subsequent trace requests
+        # A browser trace
         Then I discard the oldest trace
+        And I send a "mobile-trace"-type request
+        Then I wait to receive a trace
+        And The HTTP response header "Bugsnag-Sampling-Probability" equals "1"
+        And I discard the oldest trace
+
+        # Sampling probability can be set for all subsequent trace requests
         And I set the sampling probability to "0.5"
         And I send a "trace"-type request
         And I wait to receive a trace

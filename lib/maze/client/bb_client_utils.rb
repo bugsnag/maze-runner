@@ -153,7 +153,6 @@ module Maze
               output = []
               stdout_and_stderr.each do |line|
                 output << line
-                $logger.debug('SBSecureTunnel') {line.chomp}
               end
 
               exit_status = wait_thr.value.to_i

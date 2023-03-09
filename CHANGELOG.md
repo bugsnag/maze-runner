@@ -3,16 +3,13 @@
 ## Enhancements
 
 - Add Edge 80, Firefox 60 & Safari 11 to BrowserStack browser list [493](https://github.com/bugsnag/maze-runner/pull/493)
+- Add further validation for trace payloads [489](https://github.com/bugsnag/maze-runner/pull/489)
 
 # 7.21.0 - 2023/03/09
 
 ## Enhancements
 
 - Add 'latest' versions of Chrome, Firefox & Edge to BitBar browser list [490](https://github.com/bugsnag/maze-runner/pull/490)
-
-## Enhancements
-
-- Add further validation for trace payloads [489](https://github.com/bugsnag/maze-runner/pull/489)
 
 ## Fixes
 

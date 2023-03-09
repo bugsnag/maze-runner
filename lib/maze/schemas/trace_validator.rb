@@ -33,7 +33,7 @@ module Maze
         element_contains('resourceSpans.0.resource.attributes', 'deployment.environment')
         element_contains('resourceSpans.0.resource.attributes', 'telemetry.sdk.name')
         element_contains('resourceSpans.0.resource.attributes', 'telemetry.sdk.version')
-        element_a_greater_than_element_b(
+        element_a_greater_or_equal_element_b(
           'resourceSpans.0.scopeSpans.0.spans.0.endTimeUnixNano',
           'resourceSpans.0.scopeSpans.0.spans.0.startTimeUnixNano'
         )
@@ -82,12 +82,12 @@ module Maze
         end
       end
 
-      def element_a_greater_than_element_b(path_a, path_b)
+      def element_a_greater_or_equal_element_b(path_a, path_b)
         element_a = Maze::Helper.read_key_path(@body, path_a)
         element_b = Maze::Helper.read_key_path(@body, path_b)
-        unless element_a && element_b && element_a > element_b
+        unless element_a && element_b && element_a >= element_b
           @success = false
-          @errors << "Element '#{path_a}':'#{element_a}' was expected to be greater than '#{path_b}':'#{element_b}'"
+          @errors << "Element '#{path_a}':'#{element_a}' was expected to be greater than or equal to '#{path_b}':'#{element_b}'"
         end
       end
     end

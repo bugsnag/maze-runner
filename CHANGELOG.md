@@ -1,5 +1,9 @@
 # TBD
 
+## Enhancements
+
+- Add 'latest' versions of Chrome, Firefox & Edge to BitBar browser list [490](https://github.com/bugsnag/maze-runner/pull/490)
+
 ## Fixes
 
 - Fix integer attribute step looking at stringValue [487](https://github.com/bugsnag/maze-runner/pull/487)

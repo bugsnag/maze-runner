@@ -277,7 +277,7 @@ steps:
   # BitBar tests
   #
 
-  - label: 'BitBar web browser test - Firefox v107'
+  - label: 'BitBar web browser test - Firefox latest'
     depends_on: "push-branch-cli"
     timeout_in_minutes: 10
     plugins:
@@ -291,7 +291,7 @@ steps:
         verbose: true
         command:
           - "--farm=bb"
-          - "--browser=firefox_107"
+          - "--browser=firefox_latest"
           - "--aws-public-ip"
           - "--fail-fast"
     env:

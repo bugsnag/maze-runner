@@ -1,3 +1,9 @@
+# TBD
+
+## Enhancements
+
+- Add Edge 80, Firefox 60 & Safari 11 to BrowserStack browser list [493](https://github.com/bugsnag/maze-runner/pull/493)
+
 # 7.21.0 - 2023/03/09
 
 ## Enhancements

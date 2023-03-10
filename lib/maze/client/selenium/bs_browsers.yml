@@ -42,6 +42,12 @@ edge_17:
   os: "windows"
   os_version: "10"
 
+edge_80:
+  browser: "edge"
+  browser_version: "80"
+  os: "windows"
+  os_version: "11"
+
 safari_6:
   browserName: "safari"
   browserVersion: "6"
@@ -53,6 +59,12 @@ safari_10:
   browserVersion: "10.0"
   os: "OS X"
   osVersion: "sierra"
+
+safari_11:
+  browserName: "safari"
+  browserVersion: "11.1"
+  os: "OS X"
+  osVersion: "High Sierra"
 
 safari_13:
   browserName: "Safari"
@@ -150,6 +162,12 @@ firefox_30:
 firefox_56:
   browserName: "firefox"
   browserVersion: "56"
+  os: "windows"
+  osVersion: "10"
+
+firefox_60:
+  browserName: "firefox"
+  browserVersion: "60"
   os: "windows"
   osVersion: "10"
 

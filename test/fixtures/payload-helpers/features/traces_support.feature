@@ -10,7 +10,7 @@ Feature: Testing support on traces endpoint
 
         # A browser trace
         Then I discard the oldest trace
-        And I send a "mobile-trace"-type request
+        And I send a "browser-trace"-type request
         Then I wait to receive a trace
         And The HTTP response header "Bugsnag-Sampling-Probability" equals "1"
         And I discard the oldest trace

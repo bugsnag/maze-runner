@@ -10,7 +10,7 @@ def send_request(request_type, mock_api_port = 9339)
                '/sessions'
              elsif request_type == 'build'
                '/builds'
-             elsif request_type == 'trace' || request_type == 'mobile-trace'
+             elsif request_type == 'trace' || request_type == 'browser-trace'
                '/traces'
              else
                '/notify'
@@ -218,7 +218,7 @@ def send_request(request_type, mock_api_port = 9339)
         ]
       }
     },
-    'mobile-trace' => {
+    'browser-trace' => {
       'headers' => {
         'Bugsnag-Api-Key' => $api_key,
         'Bugsnag-Payload-Version' => '1.0',

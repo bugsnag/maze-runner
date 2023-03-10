@@ -13,91 +13,155 @@ templates = {
   'valid' => {
     'headers' => {},
     'body' => {
-      "resourceSpans": [
+      "resourceSpans":[
         {
-          "scopeSpans": [
+          "scopeSpans":[
             {
-              "spans": [
+              "spans":[
                 {
-                  "spanId": "b74d6a628eafbbfa",
-                  "startTimeUnixNano": "1666597446638054912",
-                  "traceId": "df943b5467203ac6752bc6d12ab52d2a",
-                  "endTimeUnixNano": "1666597446894199808",
-                  "kind": "SPAN_KIND_INTERNAL",
-                  "attributes": [
+                  "spanId":"7af51275a21aa300",
+                  "startTimeUnixNano":"1677082365052111104",
+                  "traceId":"f8b18e12a2c1dca33362ac31772ed3b4",
+                  "endTimeUnixNano":"1677082367268691968",
+                  "kind":1,
+                  "attributes":[
                     {
-                      "key": "http.request_content_length",
-                      "value": {
-                        "intValue": "970"
+                      "key":"bugsnag.app_start.type",
+                      "value":{
+                        "stringValue":"cold"
                       }
                     },
                     {
-                      "key": "bugsnag.span_category",
-                      "value": {
-                        "stringValue": "network"
+                      "key":"bugsnag.span.category",
+                      "value":{
+                        "stringValue":"app_start"
                       }
                     },
                     {
-                      "key": "http.flavor",
-                      "value": {
-                        "stringValue": "1.1"
+                      "key":"net.host.connection.type",
+                      "value":{
+                        "stringValue":"wifi"
                       }
                     },
                     {
-                      "key": "http.url",
-                      "value": {
-                        "stringValue": "https://webhook.site/14b03305-a46e-4e1f-b8b4-8434643631dc"
-                      }
-                    },
-                    {
-                      "key": "http.status_code",
-                      "value": {
-                        "intValue": "200"
-                      }
-                    },
-                    {
-                      "key": "net.host.connection.type",
-                      "value": {
-                        "stringValue": "wifi"
-                      }
-                    },
-                    {
-                      "key": "http.method",
-                      "value": {
-                        "stringValue": "POST"
+                      "key":"bugsnag.app.in_foreground",
+                      "value":{
+                        "boolValue":true
                       }
                     }
                   ],
-                  "name": "HTTP/POST"
+                  "name":"AppStart\\134/Cold"
+                },
+                {
+                  "spanId":"96775346bf426548",
+                  "startTimeUnixNano":"1677082367269565184",
+                  "traceId":"4dea8da13b30db98f1c56bee0fdc734c",
+                  "endTimeUnixNano":"1677082367269576192",
+                  "kind":"SPAN_KIND_INTERNAL",
+                  "attributes":[
+                    {
+                      "key":"bugsnag.app.in_foreground",
+                      "value":{
+                        "boolValue":true
+                      }
+                    },
+                    {
+                      "key":"net.host.connection.type",
+                      "value":{
+                        "stringValue":"wifi"
+                      }
+                    }
+                  ],
+                  "name":"ManualSpanScenario"
                 }
               ]
             }
           ],
-          "resource": {
-            "attributes": [
+          "resource":{
+            "attributes":[
               {
-                "key": "telemetry.sdk.version",
-                "value": {
-                  "stringValue": "0.0"
+                "key":"device.id",
+                "value":{
+                  "stringValue":"cd5c48566a5ba0b8597dca328c392e1a7f98ce86"
                 }
               },
               {
-                "key": "service.name",
-                "value": {
-                  "stringValue": "com.bugsnag.Example"
+                "key":"bugsnag.app.bundle_version",
+                "value":{
+                  "stringValue":"1"
                 }
               },
               {
-                "key": "telemetry.sdk.name",
-                "value": {
-                  "stringValue": "bugsnag.performance.cocoa"
+                "key":"host.arch",
+                "value":{
+                  "stringValue":"arm64"
+                }
+              },
+              {
+                "key":"device.model.identifier",
+                "value":{
+                  "stringValue":"iPhone12,3"
+                }
+              },
+              {
+                "key":"os.type",
+                "value":{
+                  "stringValue":"darwin"
+                }
+              },
+              {
+                "key":"deployment.environment",
+                "value":{
+                  "stringValue":"production"
+                }
+              },
+              {
+                "key":"os.version",
+                "value":{
+                  "stringValue":"15.4.1"
+                }
+              },
+              {
+                "key":"service.version",
+                "value":{
+                  "stringValue":"1.0"
+                }
+              },
+              {
+                "key":"telemetry.sdk.name",
+                "value":{
+                  "stringValue":"bugsnag.performance.cocoa"
+                }
+              },
+              {
+                "key":"os.name",
+                "value":{
+                  "stringValue":"iOS"
+                }
+              },
+              {
+                "key":"telemetry.sdk.version",
+                "value":{
+                  "stringValue":"0.0"
+                }
+              },
+              {
+                "key":"device.manufacturer",
+                "value":{
+                  "stringValue":"Apple"
+                }
+              },
+              {
+                "key":"service.name",
+                "value":{
+                  "stringValue":"com.bugsnag.Fixture"
                 }
               }
             ]
           }
         }
       ]
-    }
+    },
   },
   'invalid' => {
     'headers' => {},

@@ -1,14 +1,21 @@
 Feature: Testing support on traces endpoint
 
     Scenario: The traces endpoint can accept json payloads
+        # A mobile trace
         When I send a "trace"-type request
         Then I wait to receive a trace
-        And the trace payload field "resourceSpans.0.resource.attributes.0.key" equals "telemetry.sdk.version"
-        And the trace payload field "resourceSpans.0.resource.attributes.0.value.stringValue" equals "0.0"
         And The HTTP response header "Bugsnag-Sampling-Probability" equals "1"
+        And the trace payload field "resourceSpans.0.resource.attributes.0.key" equals "device.id"
+        And the trace payload field "resourceSpans.0.resource.attributes.0.value.stringValue" equals "cd5c48566a5ba0b8597dca328c392e1a7f98ce86"
+
+        # A browser trace
+        Then I discard the oldest trace
+        And I send a "browser-trace"-type request
+        Then I wait to receive a trace
+        And The HTTP response header "Bugsnag-Sampling-Probability" equals "1"
+        And I discard the oldest trace
 
         # Sampling probability can be set for all subsequent trace requests
-        Then I discard the oldest trace
         And I set the sampling probability to "0.5"
         And I send a "trace"-type request
         And I wait to receive a trace
@@ -58,8 +65,8 @@ Feature: Testing support on traces endpoint
         And I run the script "features/scripts/send_gzip.sh" synchronously
         And I wait to receive a trace
         Then the trace Bugsnag-Integrity header is valid
-        And the trace payload field "resourceSpans.0.resource.attributes.0.key" equals "telemetry.sdk.version"
-        And the trace payload field "resourceSpans.0.resource.attributes.0.value.stringValue" equals "0.0"
+        And the trace payload field "resourceSpans.0.resource.attributes.0.key" equals "device.id"
+        And the trace payload field "resourceSpans.0.resource.attributes.0.value.stringValue" equals "cd5c48566a5ba0b8597dca328c392e1a7f98ce86"
 
     Scenario: The trace endpoint can identify a valid request
         Given I set up the maze-harness console

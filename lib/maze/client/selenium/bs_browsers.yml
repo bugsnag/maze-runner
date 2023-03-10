@@ -141,11 +141,18 @@ android_s8:
   osVersion: "7.0"
   realMobile: true
 
-android_pixel7:
+android_pixel_7_firefox:
   browserName: "Firefox"
   device: "Google Pixel 7"
   os: "android"
   osVersion: "13.0"
+  realMobile: true
+
+android_s_22_chrome:
+  browserName: "Chrome"
+  device: "Samsung Galaxy S22"
+  os: "android"
+  osVersion: "12.0"
   realMobile: true
 
 firefox_30:

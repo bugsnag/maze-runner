@@ -9,7 +9,7 @@ GIT
 PATH
   remote: .
   specs:
-    bugsnag-maze-runner (7.21.0)
+    bugsnag-maze-runner (7.22.0)
       appium_lib (~> 12.0.0)
       appium_lib_core (~> 5.4.0)
       bugsnag (~> 6.24)
@@ -115,8 +115,6 @@ GEM
     minitest (5.16.3)
     mocha (1.13.0)
     multi_test (0.1.2)
-    nokogiri (1.14.2-arm64-darwin)
-      racc (~> 1.4)
     nokogiri (1.14.2-x86_64-darwin)
       racc (~> 1.4)
     optimist (3.0.1)

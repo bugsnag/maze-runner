@@ -3,7 +3,7 @@
 ## Fixes
 
 - Fix wait for the SBSecureTunnel stopping [495](https://github.com/bugsnag/maze-runner/pull/495)
-- Add missing passthrough for the initial sampling value trace payload []()
+- Add missing passthrough for the initial sampling value trace payload [496](https://github.com/bugsnag/maze-runner/pull/496)
 
 # 7.22.0 - 2023/03/10
 

@@ -10,7 +10,7 @@ def send_request(request_type, mock_api_port = 9339)
                '/sessions'
              elsif request_type == 'build'
                '/builds'
-             elsif request_type == 'trace' || request_type == 'browser-trace'
+             elsif request_type == 'trace' || request_type == 'browser-trace' || request_type == 'sampling-trace'
                '/traces'
              else
                '/notify'
@@ -59,6 +59,16 @@ def send_request(request_type, mock_api_port = 9339)
         },
         'app' => 'not null',
         'device' => 'not null'
+      }
+    },
+    'sampling-trace' => {
+      'headers' => {
+        'Bugsnag-Api-Key' => $api_key,
+        'Bugsnag-Payload-Version' => '1.0',
+        'Bugsnag-Sent-At' => Time.now().iso8601(3)
+      },
+      'body' => {
+        "resourceSpans": []
       }
     },
     'trace' => {

@@ -1,3 +1,9 @@
+# TBD
+
+## Fixes
+
+- Fix wait for the SBSecureTunnel stopping [495](https://github.com/bugsnag/maze-runner/pull/495)
+
 # 7.22.0 - 2023/03/10
 
 ## Enhancements

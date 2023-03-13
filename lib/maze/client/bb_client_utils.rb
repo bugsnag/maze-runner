@@ -137,9 +137,18 @@ module Maze
         # Stops the local tunnel
         def stop_local_tunnel
           FileUtils.touch(BB_KILL_FILE)
-          Maze::Wait.new(timeout: 30).until do
-            !File.exist?(BB_READY_FILE)
+
+          success = Maze::Wait.new(timeout: 30).until do
+            @tunnel_thread.nil? || !@tunnel_thread.alive?
           end
+
+          if success
+            $logger.info("Shutdown SBSecureTunnel")
+          else
+            $logger.error("Failed to shutdown SBSecureTunnel!")
+          end
+
+          @tunnel_thread = nil
           File.delete(BB_READY_FILE) if File.exist?(BB_READY_FILE)
           File.delete(BB_KILL_FILE) if File.exist?(BB_KILL_FILE)
         end
@@ -164,7 +173,7 @@ module Maze
             end
           end
 
-          Thread.new(&executor)
+          @tunnel_thread = Thread.new(&executor)
         end
       end
     end

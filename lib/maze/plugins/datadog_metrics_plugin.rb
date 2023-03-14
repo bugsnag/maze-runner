@@ -24,8 +24,8 @@ module Maze
 
         def initialize_stats_dog
           tags = []
-          tags << Maze.config.device if Maze.config.device
-          tags << Maze.config.farm if Maze.config.farm
+          tags << Maze.config.device.to_s if Maze.config.device
+          tags << Maze.config.farm.to_s if Maze.config.farm
           @stats_dog = Datadog::Statsd.new(aws_instance_ip, 8125, tags: tags, namespace: 'maze-runner')
         end
 

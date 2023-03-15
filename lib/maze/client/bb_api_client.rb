@@ -43,7 +43,7 @@ module Maze
         $logger.debug "All available devices in group #{device_group_id}: #{JSON.pretty_generate(all_devices)}"
         Maze::Plugins::DatadogMetricsPlugin.send_gauge('bitbar.device.available', all_devices['data'].size, ['device_group_id'])
         filtered_devices = all_devices['data'].reject { |device| device['locked'] }
-        Maze::Plugins::DatadogMetricsPlugin.send_gauge('bitbar.device.unlocked', filtered_devices['data'].size, ['device_group_id'])
+        Maze::Plugins::DatadogMetricsPlugin.send_gauge('bitbar.device.unlocked', filtered_devices.size, ['device_group_id'])
         return filtered_devices.size, filtered_devices.sample
       end
 

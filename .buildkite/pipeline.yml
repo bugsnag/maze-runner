@@ -1,5 +1,16 @@
 steps:
 
+  - label: 'Push RubyGem'
+    #    if: build.tag =~ /^v[2-9]\.[0-9]+\.[0-9]+\$/
+    agents:
+      queue: macos-12-arm
+    commands:
+      - 'gem build bugsnag-maze-runner.gemspec'
+      - 'gem push bugsnag-maze-runner-*.gem'
+    retry:
+      manual:
+        permit_on_passed: true
+
   - label: 'Audit current licenses'
     timeout_in_minutes: 30
     agents:

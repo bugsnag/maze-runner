@@ -6,7 +6,7 @@ steps:
       queue: macos-12-arm
     commands:
       - 'gem build bugsnag-maze-runner.gemspec'
-      - 'gem build bugsnag-maze-runner-*.gem'
+      - 'gem push bugsnag-maze-runner-*.gem'
     retry:
       manual:
         permit_on_passed: true

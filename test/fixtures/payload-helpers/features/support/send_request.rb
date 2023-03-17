@@ -161,7 +161,7 @@ def send_request(request_type, mock_api_port = 9339)
                       {
                         "key":"test.int_value",
                         "value":{
-                          "intValue":50
+                          "intValue":"50"
                         }
                       },
                       {

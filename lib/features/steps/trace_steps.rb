@@ -198,7 +198,7 @@ def attribute_value_matches?(attribute_value, expected_type, expected_value)
   when 'bytesValue', 'stringValue'
     expected_value.eql?(attribute_value[expected_type])
   when 'intValue'
-    expected_value.to_i.eql?(attribute_value[expected_type])
+    expected_value.to_i.eql?(attribute_value[expected_type].to_i)
   when 'doubleValue'
     expected_value.to_f.eql?(attribute_value[expected_type])
   when 'boolValue'

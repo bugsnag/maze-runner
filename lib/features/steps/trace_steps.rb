@@ -156,12 +156,60 @@ Then('a span field {string} matches the regex {string}') do |attribute, pattern|
   Maze.check.false(selected_attributes.empty?)
 end
 
+Then('a span named {string} contains the attributes:') do |span_name, table|
+  spans = spans_from_request_list(Maze::Server.list_for('traces'))
+  named_spans = spans.find_all { |span| span['name'].eql?(span_name) }
+  raise Test::Unit::AssertionFailedError.new "No spans were found with the name #{span_name}" if named_spans.empty?
+
+  expected_attributes = table.hashes
+
+  match = false
+  named_spans.each do |span|
+    matches = expected_attributes.map do |expected_attribute|
+      span['attributes'].find_all { |attribute| attribute['key'].eql?(expected_attribute['attribute']) }
+        .any? { |attribute| attribute_value_matches?(attribute['value'], expected_attribute['type'], expected_attribute['value']) }
+    end
+    if matches.all? && !matches.empty?
+      match = true
+      break
+    end
+  end
+
+  unless match
+    raise Test::Unit::AssertionFailedError.new "No spans were found containing all of the given attributes"
+  end
+end
+
 def spans_from_request_list list
   return list.remaining
              .flat_map { |req| req[:body]['resourceSpans'] }
              .flat_map { |r| r['scopeSpans'] }
              .flat_map { |s| s['spans'] }
              .select { |s| !s.nil? }
+end
+
+def attribute_value_matches?(attribute_value, expected_type, expected_value)
+  # Check that the required value type key is present
+  unless attribute_value.keys.include?(expected_type)
+    return false
+  end
+
+  case expected_type
+  when 'bytesValue', 'stringValue'
+    expected_value.eql?(attribute_value[expected_type])
+  when 'intValue'
+    expected_value.to_i.eql?(attribute_value[expected_type])
+  when 'doubleValue'
+    expected_value.to_f.eql?(attribute_value[expected_type])
+  when 'boolValue'
+    expected_value.eql?('true').eql?(attribute_value[expected_type])
+  when 'arrayValue', 'kvlistValue'
+    $logger.error('Span attribute validation does not currently support the "arrayValue" or "kvlistValue" types')
+    false
+  else
+    $logger.error("An invalid attribute type was expected: '#{expected_type}'")
+    false
+  end
 end
 
 def assert_received_spans(span_count, list)

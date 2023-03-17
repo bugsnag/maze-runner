@@ -138,6 +138,46 @@ def send_request(request_type, mock_api_port = 9339)
                       }
                     ],
                     "name":"ManualSpanScenario"
+                  },
+                  {
+                    "spanId":"96775346bf426548",
+                    "startTimeUnixNano":"1677082367269565184",
+                    "traceId":"4dea8da13b30db98f1c56bee0fdc734c",
+                    "endTimeUnixNano":"1677082367269576192",
+                    "kind":"SPAN_KIND_INTERNAL",
+                    "attributes":[
+                      {
+                        "key":"test.bool_value",
+                        "value":{
+                          "boolValue":true
+                        }
+                      },
+                      {
+                        "key":"test.string_value",
+                        "value":{
+                          "stringValue":"frayed_knot"
+                        }
+                      },
+                      {
+                        "key":"test.int_value",
+                        "value":{
+                          "intValue":50
+                        }
+                      },
+                      {
+                        "key":"test.double_value",
+                        "value":{
+                          "doubleValue":6.4
+                        }
+                      },
+                      {
+                        "key":"test.bytes_value",
+                        "value":{
+                          "bytesValue":"deadbeef"
+                        }
+                      }
+                    ],
+                    "name":"TestSpan"
                   }
                 ]
               }
@@ -295,6 +335,22 @@ def send_request(request_type, mock_api_port = 9339)
                         }
                       }
                     ]
+                  },
+                  {
+                    "spanId":"96775346bf426548",
+                    "startTimeUnixNano":"1677082367269565184",
+                    "traceId":"4dea8da13b30db98f1c56bee0fdc734c",
+                    "endTimeUnixNano":"1677082367269576192",
+                    "kind":"SPAN_KIND_INTERNAL",
+                    "attributes":[
+                      {
+                        "key":"test.next_payload_value",
+                        "value":{
+                          "stringValue":"another!"
+                        }
+                      }
+                    ],
+                    "name":"TestSpan"
                   }
                 ]
               }

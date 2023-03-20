@@ -32,6 +32,8 @@ module Maze
           at_exit do
             @stats_dog.close
           end
+
+          @stats_dog
         end
 
         def aws_instance_ip

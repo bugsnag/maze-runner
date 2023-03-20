@@ -252,8 +252,8 @@ steps:
           - "--farm=bs"
           - "--browser=firefox_latest"
           - "--fail-fast"
-    concurrency: 5
-    concurrency_group: 'bitbar-android-10'
+    concurrency: 2
+    concurrency_group: 'browserstack'
     concurrency_method: eager
 
   - label: 'BrowserStack web browser test - Latest Firefox'
@@ -323,8 +323,8 @@ steps:
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
     env:
       RUBY_VERSION: "3"
-    concurrency: 5
-    concurrency_group: 'bitbar-android-10'
+    concurrency: 25
+    concurrency_group: 'bitbar-app'
     concurrency_method: eager
 
   - wait

@@ -10,6 +10,7 @@ module Maze
         def send_gauge(metric, value, tags=[])
           return unless logging?
           stats_dog.gauge(metric, value, tags: tags)
+          pp stats_dog
         end
 
         private

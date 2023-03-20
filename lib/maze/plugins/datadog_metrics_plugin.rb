@@ -10,8 +10,6 @@ module Maze
         def send_gauge(metric, value, tags=[])
           return unless logging?
           stats_dog.gauge(metric, value, tags: tags)
-          pp stats_dog.flush
-          pp stats_dog
         end
 
         private
@@ -30,10 +28,14 @@ module Maze
           tags << Maze.config.device.to_s if Maze.config.device
           tags << Maze.config.farm.to_s if Maze.config.farm
           @stats_dog = Datadog::Statsd.new(aws_instance_ip, 8125, tags: tags, namespace: 'maze-runner', single_thread: true)
+
+          at_exit do
+            @stats_dog.close
+          end
         end
 
         def aws_instance_ip
-          `curl --silent -XGET http://169.254.169.254/latest/meta-data/public-ipv4`
+          `curl --silent -XGET http://169.254.169.254/latest/meta-data/local-ipv4`
         end
       end
     end

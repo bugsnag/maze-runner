@@ -1,3 +1,9 @@
+# 7.23.0 - 2023/03/20
+
+## Enhancements
+
+- Add extra step to test if a particular span exists in a set a of trace payloads [499](https://github.com/bugsnag/maze-runner/pull/499)
+
 # 7.22.1 - 2023/03/13
 
 ## Fixes

@@ -83,3 +83,17 @@ Feature: Testing support on traces endpoint
        Given I set up the maze-harness console
        And I input "bundle exec maze-runner --port=9349 features/failing_schema.feature" interactively
        Then the last interactive command exit code is 1
+
+    Scenario: Spans can be validated across requests
+        When I send a "trace"-type request
+        And I send a "browser-trace"-type request
+        Then a span named "TestSpan" contains the attributes:
+            | attribute               | type        | value       |
+            | test.bool_value         | boolValue   | true        |
+            | test.string_value       | stringValue | frayed_knot |
+            | test.int_value          | intValue    | 50          |
+            | test.double_value       | doubleValue | 6.4         |
+            | test.bytes_value        | bytesValue  | deadbeef    |
+        And a span named "TestSpan" contains the attributes:
+            | attribute               | type        | value       |
+            | test.next_payload_value | stringValue | another!    |

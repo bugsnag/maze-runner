@@ -73,7 +73,7 @@ module Maze
 
           # Determine project name
           if ENV['BUILDKITE']
-            $logger.info 'Using BUILDKITE_PIPELINE_SLUG for BitBar project'
+            $logger.info 'Using BUILDKITE_PIPELINE_SLUG for BitBar project name'
             project = ENV['BUILDKITE_PIPELINE_SLUG']
           else
             # Attempt to use the current git repo
@@ -99,12 +99,12 @@ module Maze
             test_run = Maze.run_uuid
           end
 
-          $logger.info "BitBar dashboard project: #{project}"
-          $logger.info "BitBar dashboard test run: #{test_run}"
+          $logger.info "BitBar project name: #{project}"
+          $logger.info "BitBar test run: #{test_run}"
           {
             'bitbar:options' => {
-              bitbarProject: project,
-              bitbarTestrun: test_run
+              bitbar_project: project,
+              bitbar_testrun: test_run
             }
           }
         end

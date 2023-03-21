@@ -19,6 +19,7 @@ class BitBarUtilsTest < Test::Unit::TestCase
     ENV.delete('BUILDKITE_BUILD_NUMBER')
     ENV.delete('BUILDKITE_LABEL')
     ENV.delete('BUILDKITE_PIPELINE_SLUG')
+    ENV.delete('BUILDKITE_RETRY_COUNT')
 
     logger_mock = mock('logger')
     $logger = logger_mock
@@ -31,6 +32,8 @@ class BitBarUtilsTest < Test::Unit::TestCase
   def test_dashboard_capabilities_no_git
     Maze::Runner.expects(:run_command).with(GIT_COMMAND).returns([[], 1])
     $logger.expects(:warn).with('Unable to determine project name, consider running Maze Runner from within a Git repository')
+    $logger.expects(:info).with("BitBar project name: #{UNKNOWN_PROJECT}")
+    $logger.expects(:info).with("BitBar test run: #{UUID}")
 
     hash = @client.dashboard_capabilities
 
@@ -44,18 +47,22 @@ class BitBarUtilsTest < Test::Unit::TestCase
   end
 
   def test_dashboard_capabilities_buildkite
-    Maze::Runner.expects(:run_command).with(GIT_COMMAND).returns([[], 1])
+    $logger.expects(:info).with('Using BUILDKITE_PIPELINE_SLUG for BitBar project name')
+    $logger.expects(:info).with('BitBar project name: slug')
+    $logger.expects(:info).with('BitBar test run: 1234 - Android 6 tests (3)')
+
     ENV['BUILDKITE'] = 'true'
     ENV['BUILDKITE_PIPELINE_SLUG'] = 'slug'
     ENV['BUILDKITE_BUILD_NUMBER'] = '1234'
     ENV['BUILDKITE_LABEL'] = 'Android 6 tests'
+    ENV['BUILDKITE_RETRY_COUNT'] = "3"
 
     hash = @client.dashboard_capabilities
 
     expected_hash = {
       'bitbar:options' => {
         bitbar_project: 'slug',
-        bitbar_testrun: '1234 - Android 6 tests'
+        bitbar_testrun: '1234 - Android 6 tests (3)'
       }
     }
     assert_equal expected_hash, hash
@@ -63,6 +70,9 @@ class BitBarUtilsTest < Test::Unit::TestCase
 
   def test_dashboard_capabilities_local_git
     Maze::Runner.expects(:run_command).with(GIT_COMMAND).returns([[REPO_PATH], 0])
+    $logger.expects(:info).with("BitBar project name: #{REPO_NAME}")
+    $logger.expects(:info).with("BitBar test run: #{UUID}")
+
     hash = @client.dashboard_capabilities
     expected_hash = {
       'bitbar:options' => {

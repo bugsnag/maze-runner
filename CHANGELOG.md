@@ -1,3 +1,9 @@
+# TBD
+
+## Enhancements
+
+- Add logic for step `a span field {string} equals {int}` [501](https://github.com/bugsnag/maze-runner/pull/501)
+
 # 7.23.0 - 2023/03/20
 
 ## Enhancements
@@ -30,10 +36,6 @@
 - Set all headers present when repeating requests to Bugsnag [488](https://github.com/bugsnag/maze-runner/pull/488)
 
 # 7.20.1 - 2023/03/07
-
-## Enhancements
-
-- Add logic for step `a span field {string} matches the regex {int}` [501](https://github.com/bugsnag/maze-runner/pull/501)
 
 ## Fixes
 

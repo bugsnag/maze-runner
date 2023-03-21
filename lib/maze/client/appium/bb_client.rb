@@ -77,7 +77,7 @@ module Maze
           else
             $logger.warn "Cannot determine BitBar project name using git.  Does the Docker container need a volume mapping for .git?"
             if ENV['BUILDKITE']
-              $logger.info 'Using '
+              $logger.info 'Using BUILDKITE_PIPELINE_SLUG for BitBar project'
               project = ENV['BUILDKITE_PIPELINE_SLUG']
             else
               $logger.warn 'Unable to determine project name, consider running Maze Runner from within a Git repository'
@@ -86,7 +86,13 @@ module Maze
           end
           #  BUILDKITE_RETRY_COUNT
           if ENV['BUILDKITE']
-            test_run = "#{ENV['BUILDKITE_BUILD_NUMBER']} - #{ENV['BUILDKITE_LABEL']}"
+            bk_retry = ENV['BUILDKITE_RETRY_COUNT']
+            retry_string = if !bk_retry.nil? && bk_retry.to_i > 1
+                             " (#{bk_retry})"
+                           else
+                             ''
+                           end
+            test_run = "#{ENV['BUILDKITE_BUILD_NUMBER']} - #{ENV['BUILDKITE_LABEL']}#{retry_string}"
           else
             test_run = Maze.run_uuid
           end

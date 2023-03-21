@@ -38,7 +38,7 @@ module Maze
         end
 
         def aws_instance_ip
-          'http://host.docker.internal'
+          'host.docker.internal'
         end
       end
     end

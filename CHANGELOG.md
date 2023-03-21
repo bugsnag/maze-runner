@@ -1,3 +1,9 @@
+# TBD
+
+## Enhancements
+
+- Add logic for step `a span field {string} equals {int}` [501](https://github.com/bugsnag/maze-runner/pull/501)
+
 # 7.23.0 - 2023/03/20
 
 ## Enhancements

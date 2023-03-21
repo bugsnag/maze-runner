@@ -148,6 +148,12 @@ Then('a span field {string} equals {string}') do |key, expected|
   Maze.check.includes selected_keys, expected
 end
 
+Then('a span field {string} equals {int}') do |key, expected|
+  spans = spans_from_request_list(Maze::Server.list_for('traces'))
+  selected_keys = spans.map { |span| span[key] }
+  Maze.check.includes selected_keys, expected
+end
+
 Then('a span field {string} matches the regex {string}') do |attribute, pattern|
   regex = Regexp.new pattern
   spans = spans_from_request_list(Maze::Server.list_for('traces'))

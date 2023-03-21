@@ -38,7 +38,7 @@ module Maze
         end
 
         def aws_instance_ip
-          'host.docker.internal'
+          `curl --silent -XGET http://169.254.169.254/latest/meta-data/local-ipv4`
         end
       end
     end

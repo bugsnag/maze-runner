@@ -1,8 +1,12 @@
-# TBD
+# 7.24.0 - TBD
 
 ## Enhancements
 
 - Add logic for step `a span field {string} equals {int}` [501](https://github.com/bugsnag/maze-runner/pull/501)
+
+## Fixes
+
+- Improve logging when calculating BitBar dashboard project and test run [501](https://github.com/bugsnag/maze-runner/pull/502)
 
 # 7.23.0 - 2023/03/20
 

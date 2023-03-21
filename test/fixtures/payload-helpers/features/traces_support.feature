@@ -97,3 +97,4 @@ Feature: Testing support on traces endpoint
         And a span named "TestSpan" contains the attributes:
             | attribute               | type        | value       |
             | test.next_payload_value | stringValue | another!    |
+        And a span field "kind" equals 1

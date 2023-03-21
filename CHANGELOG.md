@@ -31,6 +31,10 @@
 
 # 7.20.1 - 2023/03/07
 
+## Enhancements
+
+- Add logic for step `a span field {string} matches the regex {int}` [501](https://github.com/bugsnag/maze-runner/pull/501)
+
 ## Fixes
 
 - Start the document server after client hooks run so the document root can be set with other Maze Runner configuration [484](https://github.com/bugsnag/maze-runner/pull/484)

@@ -3,6 +3,7 @@
 
 require_relative '../lib/maze'
 require_relative '../lib/maze/client/bs_client_utils'
+require_relative '../lib/maze/client/bb_client_utils'
 require_relative '../lib/maze/logger'
 require_relative '../lib/maze/helper'
 require 'optimist'
@@ -11,45 +12,70 @@ require 'net/http'
 
 class UploadAppEntry
   def start(args)
-    p = Optimist::Parser.new do
-      text 'Upload app files to BrowserStack'
-      text ''
-      text 'Requires BROWSER_STACK_USERNAME and BROWSER_STACK_ACCESS_KEY'
+    parser = Optimist::Parser.new do
+      text 'Upload app files to a device farm'
       text ''
       text 'Usage [OPTIONS]'
       text ''
       opt :help,
-          'Print this help.'
+        'Print this help.'
       opt :app,
-          'The app to upload.',
-          :type => :string
+        'The app to upload.',
+        type: :string,
+        required: true
       opt :app_id_file,
-          'The file to write the uploaded app ID back to',
-          :type => :string
+        'The file to write the uploaded app ID back to',
+        type: :string
+      opt :farm,
+        'The device farm to upload the app to, one of bb (BitBar) or bs (BrowserStack) (default)',
+        type: :string,
+        default: 'bs'
+      opt :username,
+        'Device farm username. Defaults to BROWSER_STACK_DEVICES_USERNAME variable (required for BrowserStack)',
+        type: :string
+      opt :access_key,
+        'Device farm access key. Defaults to BROWSER_STACK_DEVICES_ACCESS_KEY or BITBAR_ACCESS_KEY environment variables (required)',
+        type: :string
     end
 
-    opts = Optimist::with_standard_exception_handling p do
+    options = Optimist::with_standard_exception_handling parser do
       raise Optimist::HelpNeeded if ARGV.empty? # show help screen
-      p.parse ARGV
+      parser.parse ARGV
     end
 
-    # Get browserstack username and access key from the environment
-    username = ENV['BROWSER_STACK_USERNAME']
-    access_key = ENV['BROWSER_STACK_ACCESS_KEY']
+    # Get username and access key from the environment
+    case options[:farm]
+    when 'bs'
+      options[:username] ||= ENV['BROWSER_STACK_DEVICES_USERNAME'] || ENV['BROWSER_STACK_USERNAME']
+      options[:access_key] ||= ENV['BROWSER_STACK_DEVICES_ACCESS_KEY'] ||ENV['BROWSER_STACK_ACCESS_KEY']
+      if options[:username].nil?
+        $logger.warn 'Browserstack requires username option to be set'
+        Optimist::with_standard_exception_handling parser do
+          raise Optimist::HelpNeeded
+        end
+      end
+    when 'bb'
+      options[:access_key] ||= ENV['BITBAR_ACCESS_KEY']
+    end
 
-    # Check if BROWSER_STACK_USERNAME or BROWSER_STACK_ACCESS_KEY has been set
-    if username.nil? || access_key.nil?
-      $logger.warn "BROWSER_STACK_USERNAME or BROWSER_STACK_ACCESS_KEY has not been set"
-      Optimist::with_standard_exception_handling p do
+    if options[:access_key].nil?
+      $logger.warn 'An access_key is required to upload the app'
+      Optimist::with_standard_exception_handling parser do
         raise Optimist::HelpNeeded
       end
     end
 
-    Maze::Client::BrowserStackClientUtils.upload_app username,
-                                                     access_key,
-                                                     opts[:app],
-                                                     opts[:app_id_file]
-
+    case options[:farm]
+    when 'bs'
+      Maze::Client::BrowserStackClientUtils.upload_app options[:username],
+                                                       options[:access_key],
+                                                       options[:app],
+                                                       options[:app_id_file]
+    when 'bb'
+      Maze::Client::BitBarClientUtils.upload_app options[:access_key],
+                                                 options[:app],
+                                                 options[:app_id_file]
+    end
   end
 end
 

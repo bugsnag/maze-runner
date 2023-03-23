@@ -17,7 +17,7 @@ module Maze
         # Uploads an app to BitBar for later consumption
         # @param api_key [String] The BitBar API key
         # @param app [String] A path to the application file
-        # @param app_id_file [String] the file to write the uploaded app url to BrowserStack
+        # @param app_id_file [String] the file to write the uploaded app url to BitBar
         def upload_app(api_key, app, app_id_file=nil)
           uuid_regex = /\A[0-9]+\z/
 

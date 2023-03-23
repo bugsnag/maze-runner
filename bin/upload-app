@@ -27,9 +27,9 @@ class UploadAppEntry
         'The file to write the uploaded app ID back to',
         type: :string
       opt :farm,
-        'The device farm to upload the app to, one of bb (BitBar) or bs (BrowserStack) (required)',
+        'The device farm to upload the app to, one of bb (BitBar) or bs (BrowserStack) (default)',
         type: :string,
-        required: true
+        default: 'bs'
       opt :username,
         'Device farm username. Defaults to BROWSER_STACK_DEVICES_USERNAME variable (required for BrowserStack)',
         type: :string

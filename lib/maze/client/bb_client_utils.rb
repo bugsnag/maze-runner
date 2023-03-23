@@ -17,7 +17,8 @@ module Maze
         # Uploads an app to BitBar for later consumption
         # @param api_key [String] The BitBar API key
         # @param app [String] A path to the application file
-        def upload_app(api_key, app)
+        # @param app_id_file [String] the file to write the uploaded app url to BrowserStack
+        def upload_app(api_key, app, app_id_file=nil)
           uuid_regex = /\A[0-9]+\z/
 
           if uuid_regex.match? app
@@ -53,6 +54,12 @@ module Maze
               raise
             end
           end
+
+          unless app_id_file.nil?
+            $logger.info "Writing uploaded app id to #{app_id_file}"
+            File.write(Maze::Helper.expand_path(app_id_file), app_uuid)
+          end
+
           app_uuid
         end
 

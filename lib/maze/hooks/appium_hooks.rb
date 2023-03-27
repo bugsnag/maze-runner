@@ -6,6 +6,7 @@ module Maze
       @client
 
       def before_all
+        Maze::Plugins::DatadogMetricsPlugin.send_increment('appium.test_started')
         @client = Maze::Client::Appium.start
       end
 
@@ -33,6 +34,11 @@ module Maze
       end
 
       def at_exit
+        if $success
+          Maze::Plugins::DatadogMetricsPlugin.send_increment('appium.test_succeeded')
+        else
+          Maze::Plugins::DatadogMetricsPlugin.send_increment('appium.test_failed')
+        end
         @client&.stop_session
       end
 

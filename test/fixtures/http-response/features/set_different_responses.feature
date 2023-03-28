@@ -76,3 +76,13 @@ Feature: Setting different response codes
         And the error payload field "first_options_code" equals "200"
         And the error payload field "first_post_code" equals "503"
         And the error payload field "second_options_code" equals "200"
+
+    Scenario: A list of codes without a verb defaults to POST requests
+        Given I set the HTTP status code for the next requests to "501,502"
+        And I run the script "features/scripts/send_verbed_requests.rb" using ruby synchronously
+        And I wait to receive 2 errors
+        Then the error payload field "first_options_code" equals "200"
+        And I discard the oldest error
+        And the error payload field "first_options_code" equals "200"
+        And the error payload field "first_post_code" equals "501"
+        And the error payload field "second_options_code" equals "200"

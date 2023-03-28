@@ -34,6 +34,7 @@ module Maze
       end
 
       def at_exit
+        pp 'Appium at_exit hook'
         if $success
           Maze::Plugins::DatadogMetricsPlugin.send_increment('appium.test_succeeded')
         else

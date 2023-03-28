@@ -31,15 +31,14 @@ module Maze
 
       def after_all
         @client&.log_run_outro
-      end
-
-      def at_exit
-        pp 'Appium at_exit hook'
         if $success
           Maze::Plugins::DatadogMetricsPlugin.send_increment('appium.test_succeeded')
         else
           Maze::Plugins::DatadogMetricsPlugin.send_increment('appium.test_failed')
         end
+      end
+
+      def at_exit
         @client&.stop_session
       end
 

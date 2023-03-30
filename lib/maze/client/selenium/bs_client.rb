@@ -59,6 +59,10 @@ module Maze
           Maze::Client::BrowserStackClientUtils.stop_local_tunnel
         end
 
+        def log_run_outro
+          log_session_info
+        end
+
         private
 
         # Determines and returns sensible project and build capabilities
@@ -82,10 +86,6 @@ module Maze
           # Log a link to the BrowserStack session search dashboard
           url = "https://automate.browserstack.com/dashboard/v2/search?query=#{Maze.run_uuid}&type=builds"
           $logger.info Maze::LogUtil.linkify url, 'BrowserStack session(s)'
-        end
-
-        def log_run_outro
-          log_session_info
         end
       end
     end

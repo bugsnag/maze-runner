@@ -31,12 +31,11 @@ module Maze
           api_client = BitBarApiClient.new(Maze.config.access_key)
 
           $logger.info 'Appium session(s) created:'
-          @session_ids.each do |id|
-            link = api_client.get_device_session_ui_link(id)
-            pp id
-            pp link
-            $logger.info Maze::LogUtil.linkify(link, "BitBar session: #{id}") if link
-          end
+          id = Maze.driver.session_id
+          link = api_client.get_device_session_ui_link(id)
+          pp id
+          pp link
+          $logger.info Maze::LogUtil.linkify(link, "BitBar session: #{id}") if link
         end
 
         def stop_session

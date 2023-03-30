@@ -10,6 +10,7 @@
 ## Fixes
 
 - Improve logging when calculating BitBar dashboard project and test run [501](https://github.com/bugsnag/maze-runner/pull/502)
+- Use `URI.open` directly instead of `Kernel.open` [506](https://github.com/bugsnag/maze-runner/pull/506)
 
 # 7.23.0 - 2023/03/20
 

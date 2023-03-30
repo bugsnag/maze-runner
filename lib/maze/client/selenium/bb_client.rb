@@ -33,8 +33,6 @@ module Maze
           $logger.info 'Appium session(s) created:'
           id = Maze.driver.session_id
           link = api_client.get_device_session_ui_link(id)
-          pp id
-          pp link
           $logger.info Maze::LogUtil.linkify(link, "BitBar session: #{id}") if link
         end
 

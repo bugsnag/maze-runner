@@ -30,10 +30,10 @@ module Maze
         def log_run_outro
           api_client = BitBarApiClient.new(Maze.config.access_key)
 
-          $logger.info 'Appium session(s) created:'
+          $logger.info 'Selenium session created:'
           id = Maze.driver.session_id
           link = api_client.get_device_session_ui_link(id)
-          $logger.info Maze::LogUtil.linkify(link, "BitBar session: #{id}") if link
+          $logger.info Maze::LogUtil.linkify link, 'BitBar session(s)'
         end
 
         def stop_session

@@ -65,6 +65,9 @@ BeforeAll do
   # Start document server, if asked for
   # This must happen after any client hooks have run, so that they can set the server root
   Maze::DocumentServer.start unless Maze.config.document_server_root.nil?
+
+  # An initial setup for total success status
+  $success = true
 end
 
 # @param config The Cucumber config
@@ -140,6 +143,9 @@ After do |scenario|
     output_received_requests('logs')
     output_received_requests('invalid requests')
   end
+
+  # Keep a global record of the total test status for reporting purposes
+  $success = !scenario.failed?
 
   # Log all received requests to file
   Maze::MazeOutput.new(scenario).write_requests if Maze.config.file_log

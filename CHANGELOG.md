@@ -1,10 +1,11 @@
-# 7.24.0 - TBD
+# 7.24.0 - 2023/03/30
 
 ## Enhancements
 
 - Add logic for step `a span field {string} equals {int}` [501](https://github.com/bugsnag/maze-runner/pull/501)
 - Update upload-app script to allow BitBar uploads [504](https://github.com/bugsnag/maze-runner/pull/504)
 - Add Datadog StatsD metric reporting for BitBar devices [503](https://github.com/bugsnag/maze-runner/pull/503)
+- Add Datadog StatsD metric reporting appium test amounts [505](https://github.com/bugsnag/maze-runner/pull/505)
 
 ## Fixes
 

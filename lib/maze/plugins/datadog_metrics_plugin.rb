@@ -18,6 +18,15 @@ module Maze
           stats_dog.gauge(metric, value, tags: tags)
         end
 
+        # Sends an increment metric to Datadog
+        #
+        # @param metric [String] The identifier of the metric
+        # @param tags [Array] An array of strings with which to tag the metric
+        def send_increment(metric, tags=[])
+          return unless logging?
+          stats_dog.increment(metric, tags: tags)
+        end
+
         private
 
         # Whether metrics should be delivered to Datadog

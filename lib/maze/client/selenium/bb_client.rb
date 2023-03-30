@@ -27,6 +27,18 @@ module Maze
           Maze.driver.start_driver
         end
 
+        def log_run_outro
+          api_client = BitBarApiClient.new(Maze.config.access_key)
+
+          $logger.info 'Appium session(s) created:'
+          @session_ids.each do |id|
+            link = api_client.get_device_session_ui_link(id)
+            pp id
+            pp link
+            $logger.info Maze::LogUtil.linkify(link, "BitBar session: #{id}") if link
+          end
+        end
+
         def stop_session
           super
           Maze::Client::BitBarClientUtils.stop_local_tunnel

@@ -83,6 +83,10 @@ module Maze
           url = "https://automate.browserstack.com/dashboard/v2/search?query=#{Maze.run_uuid}&type=builds"
           $logger.info Maze::LogUtil.linkify url, 'BrowserStack session(s)'
         end
+
+        def log_run_outro
+          log_session_info
+        end
       end
     end
   end

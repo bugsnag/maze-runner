@@ -92,6 +92,13 @@ module Maze
         end
       end
 
+      # Returns the driver session ID
+      #
+      # @returns [String] The session ID of the selenium session
+      def session_id
+        @driver.session_id
+      end
+
       private
 
       # Creates and starts the selenium driver

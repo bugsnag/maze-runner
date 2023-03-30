@@ -33,7 +33,7 @@ module Maze
           $logger.info 'Selenium session created:'
           id = Maze.driver.session_id
           link = api_client.get_device_session_ui_link(id)
-          $logger.info Maze::LogUtil.linkify link, 'BitBar session(s)'
+          $logger.info Maze::LogUtil.linkify link, 'BitBar session(s)' if link
         end
 
         def stop_session

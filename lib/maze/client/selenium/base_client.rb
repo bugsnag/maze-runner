@@ -6,6 +6,10 @@ module Maze
           raise 'Method not implemented by this class'
         end
 
+        def log_run_outro
+          raise 'Method not implemented by this class'
+        end
+
         def stop_session
           Maze.driver&.driver_quit
         end

@@ -6,6 +6,7 @@
 - Update upload-app script to allow BitBar uploads [504](https://github.com/bugsnag/maze-runner/pull/504)
 - Add Datadog StatsD metric reporting for BitBar devices [503](https://github.com/bugsnag/maze-runner/pull/503)
 - Add Datadog StatsD metric reporting appium test amounts [505](https://github.com/bugsnag/maze-runner/pull/505)
+- Add logged links for selenium test sessions [507](https://github.com/bugsnag/maze-runner/pull/507)
 
 ## Fixes
 

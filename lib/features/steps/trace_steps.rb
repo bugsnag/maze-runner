@@ -186,6 +186,22 @@ Then('a span named {string} contains the attributes:') do |span_name, table|
   end
 end
 
+Then('a span named {string} has a parent named {string}') do |child_name, parent_name|
+  spans = spans_from_request_list(Maze::Server.list_for('traces'))
+  child_spans = spans.find_all { |span| span['name'].eql?(child_name) }
+  raise Test::Unit::AssertionFailedError.new "No spans were found with the name #{child_name}" if child_spans.empty?
+  parent_spans = spans.find_all { |span| span['name'].eql?(parent_name) }
+  raise Test::Unit::AssertionFailedError.new "No spans were found with the name #{parent_name}" if parent_spans.empty?
+
+  expectedParentIds = child_spans.map { |span| span['parentSpanId'] }
+  parentIds = parent_spans.map { |span| span['spanId'] }
+  match = expectedParentIds.any? { |expected_id| parentIds.include?(expected_id) }
+
+  unless match
+    raise Test::Unit::AssertionFailedError.new "No child span named #{child_name} was found with a parent named #{parent_name}"
+  end
+end
+
 def spans_from_request_list list
   return list.remaining
              .flat_map { |req| req[:body]['resourceSpans'] }

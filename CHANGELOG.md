@@ -1,3 +1,9 @@
+# TBD
+
+## Enhancements
+
+- Set default verb for HTTP status code steps to "POST" [506](https://github.com/bugsnag/maze-runner/pull/506)
+
 # 7.24.0 - 2023/03/30
 
 ## Enhancements

@@ -29,4 +29,16 @@ second_post_request.body = %({
   "second_options_code": "#{second_options_response.code}"
 })
 
-http.request(second_post_request)
+second_post_response = http.request(second_post_request)
+
+third_post_request = Net::HTTP::Post.new('/notify')
+third_post_request['Content-Type'] = 'application/json'
+
+third_post_request.body = %({
+  "first_options_code": "#{first_options_response.code}",
+  "first_post_code": "#{first_post_response.code}",
+  "second_options_code": "#{second_options_response.code}",
+  "second_post_code": "#{second_post_response.code}"
+})
+
+http.request(third_post_request)

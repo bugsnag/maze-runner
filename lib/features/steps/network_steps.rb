@@ -8,13 +8,6 @@ When('I wait for the host {string} to open port {string}') do |host, port|
   Maze::Network.wait_for_port(host, port)
 end
 
-# Sets the HTTP status code to be used for all subsequent requests
-#
-# @step_input status_code [Integer] The status code to return
-When('I set the HTTP status code to {int}') do |status_code|
-  Maze::Server.set_status_code_generator(Maze::Generator.new [status_code].cycle)
-end
-
 # Sets the HTTP status code to be used for the next set of requests for a given connection type
 #
 # @step_input http_verb [String] The type of request this code will be used for
@@ -41,6 +34,13 @@ end
 When('I set the HTTP status code for the next {string} request to {int}') do |http_verb, status_code|
   raise("Invalid HTTP verb: #{http_verb}") unless Maze::Server::ALLOWED_HTTP_VERBS.include?(http_verb)
   Maze::Server.set_status_code_generator(create_defaulting_generator([status_code], Maze::Server::DEFAULT_STATUS_CODE), http_verb)
+end
+
+# Sets the HTTP status code to be used for all subsequent POST requests
+#
+# @step_input status_code [Integer] The status code to return
+When('I set the HTTP status code to {int}') do |status_code|
+  step %{I set the HTTP status code for "POST" requests to #{status_code}}
 end
 
 # Sets the HTTP status code to be used for the next POST request

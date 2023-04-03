@@ -24,3 +24,19 @@ bundle exec maze-runner --help
   - Testing new features of Bugsnag during development
 
 Set this value to the API key of the desired destination project in the Bugsnag dashboard.  The MAZE_REPEATER_API_KEY environment variable can also be set as an alternative to this option.
+
+# Endpoints
+
+The mock server provides a number of endpoints for test fixture to use:
+
+- `/` - simply responds to every request with a 200 status code
+- `/notify` - for `POST`ing Bugsnag errors to for later verification
+- `/sessions` - for `POST`ing Bugsnag sessions to for later verification
+- `/traces` - for `POST`ing Bugsnag Performance traces to for later verification
+- `/builds` - for `POST`ing Bugsnag builds to for later verification
+- `/uploads` - for `POST`ing Bugsnag uploads to for later verification
+- `/sourcemap`, `react-native-source-map` - for `POST`ing Bugsnag sourcemaps to for later verification
+- `/reflect` - provides a mechanism for instructing the server to behave in certain ways (e.g. responding after a specified time delay)
+- `/logs` - provides a mechanism for recording and checking log messages
+- `/command` - provides a mechanism for feeding instructions and any other information to the test fixture using only HTTP requests instigated by the test fixture.  Essential for platforms that either do not support Appium, or render in such a way that elements are not accessible.
+- `/metrics` - provides a mechanism for collecting arbitrary metrics from a test fixture, collating and writing them to a CSV file at the end of a run.

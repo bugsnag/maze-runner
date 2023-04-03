@@ -16,9 +16,9 @@ class MetricsProcessorTest < Test::Unit::TestCase
     metric2 = {"name" => "henry", "age" => 10}
     metric3 = {"name" => "steve", "age" => 43}
 
-    metrics.add metric1
-    metrics.add metric2
-    metrics.add metric3
+    metrics.add({:body => metric1})
+    metrics.add({:body => metric2})
+    metrics.add({:body => metric3})
 
     processor = Maze::MetricsProcessor.new(metrics)
 
@@ -41,9 +41,9 @@ class MetricsProcessorTest < Test::Unit::TestCase
     metric2 = {"name" => "chris penny", "shoeSize" => 10}
     metric3 = {"name" => "clare", "age" => "40"}
 
-    metrics.add metric1
-    metrics.add metric2
-    metrics.add metric3
+    metrics.add({:body => metric1})
+    metrics.add({:body => metric2})
+    metrics.add({:body => metric3})
 
     processor = Maze::MetricsProcessor.new(metrics)
 

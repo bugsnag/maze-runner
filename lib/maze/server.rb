@@ -83,6 +83,8 @@ module Maze
           builds
         when 'log', 'logs'
           logs
+        when 'metric', 'metrics'
+          metrics
         when 'trace', 'traces'
           traces
         when 'upload', 'uploads'
@@ -145,6 +147,13 @@ module Maze
         @logs ||= RequestList.new
       end
 
+      # A list of metric requests received
+      #
+      # @return [RequestList] Received metric requests
+      def metrics
+        @metrics ||= RequestList.new
+      end
+
       # A list of commands for a test fixture to perform.  Strictly speaking these are responses to HTTP
       # requests, but the list behavior is all we need.
       #
@@ -202,6 +211,7 @@ module Maze
             server.mount '/react-native-source-map', Servlets::Servlet, :sourcemaps
             server.mount '/command', Servlets::CommandServlet
             server.mount '/logs', Servlets::LogServlet
+            server.mount '/metrics', Servlets::Servlet, :metrics
             server.mount '/reflect', Servlets::ReflectiveServlet
             server.start
           rescue StandardError => e

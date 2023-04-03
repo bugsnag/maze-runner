@@ -20,8 +20,9 @@ module Maze
     # Organises the raw metrics into an Array of hashes representing each row of the CSV,
     # whilst also capturing an overall set of column headings
     def collate
-      @metrics.all.each do |metric|
+      @metrics.all.each do |request|
         row = {}
+        metric = request[:body]
         metric.each do |key, value|
           @columns.add key
           row[key] = value

@@ -41,6 +41,7 @@ module Maze
       mock_http_server.expects(:mount).with('/notify', any_parameters).once
       mock_http_server.expects(:mount).with('/sessions', any_parameters).once
       mock_http_server.expects(:mount).with('/builds', any_parameters).once
+      mock_http_server.expects(:mount).with('/metrics', any_parameters).once
       mock_http_server.expects(:mount).with('/uploads', any_parameters).once
       mock_http_server.expects(:mount).with('/sourcemap', any_parameters).once
       mock_http_server.expects(:mount).with('/traces', any_parameters).once
@@ -86,6 +87,7 @@ module Maze
       mock_http_server.expects(:mount).with('/notify', any_parameters).once
       mock_http_server.expects(:mount).with('/sessions', any_parameters).once
       mock_http_server.expects(:mount).with('/builds', any_parameters).once
+      mock_http_server.expects(:mount).with('/metrics', any_parameters).once
       mock_http_server.expects(:mount).with('/uploads', any_parameters).once
       mock_http_server.expects(:mount).with('/sourcemap', any_parameters).once
       mock_http_server.expects(:mount).with('/traces', any_parameters).once

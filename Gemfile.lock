@@ -9,13 +9,14 @@ GIT
 PATH
   remote: .
   specs:
-    bugsnag-maze-runner (7.23.0)
+    bugsnag-maze-runner (7.24.0)
       appium_lib (~> 12.0.0)
       appium_lib_core (~> 5.4.0)
       bugsnag (~> 6.24)
       cucumber (~> 7.1)
       cucumber-expressions (~> 6.0.0)
       curb (~> 0.9.6)
+      dogstatsd-ruby (~> 5.5.0)
       json_schemer (~> 0.2.24)
       optimist (~> 3.0.1)
       os (~> 1.0.0)
@@ -79,6 +80,7 @@ GEM
       cucumber-cucumber-expressions (~> 14.0, >= 14.0.0)
     curb (0.9.11)
     diff-lcs (1.5.0)
+    dogstatsd-ruby (5.5.0)
     ecma-re-validator (0.4.0)
       regexp_parser (~> 2.2)
     eventmachine (1.2.7)

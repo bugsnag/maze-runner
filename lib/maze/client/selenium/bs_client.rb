@@ -59,6 +59,10 @@ module Maze
           Maze::Client::BrowserStackClientUtils.stop_local_tunnel
         end
 
+        def log_run_outro
+          log_session_info
+        end
+
         private
 
         # Determines and returns sensible project and build capabilities

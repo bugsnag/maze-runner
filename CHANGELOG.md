@@ -1,13 +1,23 @@
-# 7.24.0 - TBD
+# TBD
+
+## Enhancements
+
+- Set default verb for HTTP status code steps to "POST" [506](https://github.com/bugsnag/maze-runner/pull/506)
+
+# 7.24.0 - 2023/03/30
 
 ## Enhancements
 
 - Add logic for step `a span field {string} equals {int}` [501](https://github.com/bugsnag/maze-runner/pull/501)
 - Update upload-app script to allow BitBar uploads [504](https://github.com/bugsnag/maze-runner/pull/504)
+- Add Datadog StatsD metric reporting for BitBar devices [503](https://github.com/bugsnag/maze-runner/pull/503)
+- Add Datadog StatsD metric reporting appium test amounts [505](https://github.com/bugsnag/maze-runner/pull/505)
+- Add logged links for selenium test sessions [507](https://github.com/bugsnag/maze-runner/pull/507)
 
 ## Fixes
 
 - Improve logging when calculating BitBar dashboard project and test run [501](https://github.com/bugsnag/maze-runner/pull/502)
+- Use `URI.open` directly instead of `Kernel.open` [508](https://github.com/bugsnag/maze-runner/pull/508)
 
 # 7.23.0 - 2023/03/20
 

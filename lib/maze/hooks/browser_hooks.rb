@@ -7,8 +7,12 @@ module Maze
         @client = Maze::Client::Selenium.start
       end
 
+      def after_all
+        @client&.log_run_outro
+      end
+
       def at_exit
-        @client.stop_session
+        @client&.stop_session
       end
     end
   end

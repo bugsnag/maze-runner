@@ -27,6 +27,15 @@ module Maze
           Maze.driver.start_driver
         end
 
+        def log_run_outro
+          api_client = BitBarApiClient.new(Maze.config.access_key)
+
+          $logger.info 'Selenium session created:'
+          id = Maze.driver.session_id
+          link = api_client.get_device_session_ui_link(id)
+          $logger.info Maze::LogUtil.linkify link, 'BitBar session(s)' if link
+        end
+
         def stop_session
           super
           Maze::Client::BitBarClientUtils.stop_local_tunnel

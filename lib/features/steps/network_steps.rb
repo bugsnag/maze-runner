@@ -8,29 +8,17 @@ When('I wait for the host {string} to open port {string}') do |host, port|
   Maze::Network.wait_for_port(host, port)
 end
 
-# Sets the HTTP status code to be used for all subsequent requests
+# Sets the HTTP status code to be used for the next set of requests for a given connection type
 #
-# @step_input status_code [Integer] The status code to return
-When('I set the HTTP status code to {int}') do |status_code|
-  Maze::Server.set_status_code_generator(Maze::Generator.new [status_code].cycle)
-end
-
-# Sets the HTTP status code to be used for the next request
-#
-# @step_input status_code [Integer] The status code to return
-When('I set the HTTP status code for the next request to {int}') do |status_code|
-  Maze::Server.set_status_code_generator(create_defaulting_generator([status_code], Maze::Server::DEFAULT_STATUS_CODE))
-end
-
-# Sets the HTTP status code to be used for the next set of requests
-#
+# @step_input http_verb [String] The type of request this code will be used for
 # @step_input status_codes [String] A comma separated list of status codes to return
-When('I set the HTTP status code for the next requests to {string}') do |status_codes|
+When('I set the HTTP status code for the next {string} requests to {string}') do |http_verb, status_codes|
+  raise("Invalid HTTP verb: #{http_verb}") unless Maze::Server::ALLOWED_HTTP_VERBS.include?(http_verb)
   codes = status_codes.split(',').map(&:strip)
-  Maze::Server.set_status_code_generator(create_defaulting_generator(codes, Maze::Server::DEFAULT_STATUS_CODE))
+  Maze::Server.set_status_code_generator(create_defaulting_generator(codes, Maze::Server::DEFAULT_STATUS_CODE), http_verb)
 end
 
-# Steps the HTTP status code to be used for all subsequent requests for a given connection type
+# Sets the HTTP status code to be used for all subsequent requests for a given connection type
 #
 # @step_input http_verb [String] The type of request this code will be used for
 # @step_input status_code [Integer] The status code to return
@@ -39,13 +27,34 @@ When('I set the HTTP status code for {string} requests to {int}') do |http_verb,
   Maze::Server.set_status_code_generator(Maze::Generator.new([status_code].cycle), http_verb)
 end
 
-# Steps the HTTP status code to be used for the next request for a given connection type
+# Sets the HTTP status code to be used for the next request for a given connection type
 #
 # @step_input http_verb [String] The type of request this code will be used for
 # @step_input status_code [Integer] The status code to return
 When('I set the HTTP status code for the next {string} request to {int}') do |http_verb, status_code|
   raise("Invalid HTTP verb: #{http_verb}") unless Maze::Server::ALLOWED_HTTP_VERBS.include?(http_verb)
   Maze::Server.set_status_code_generator(create_defaulting_generator([status_code], Maze::Server::DEFAULT_STATUS_CODE), http_verb)
+end
+
+# Sets the HTTP status code to be used for all subsequent POST requests
+#
+# @step_input status_code [Integer] The status code to return
+When('I set the HTTP status code to {int}') do |status_code|
+  step %{I set the HTTP status code for "POST" requests to #{status_code}}
+end
+
+# Sets the HTTP status code to be used for the next POST request
+#
+# @step_input status_code [Integer] The status code to return
+When('I set the HTTP status code for the next request to {int}') do |status_code|
+  step %{I set the HTTP status code for the next "POST" request to #{status_code}}
+end
+
+# Sets the HTTP status code to be used for the next set of POST requests
+#
+# @step_input status_codes [String] A comma separated list of status codes to return
+When('I set the HTTP status code for the next requests to {string}') do |status_codes|
+  step %{I set the HTTP status code for the next "POST" requests to "#{status_codes}"}
 end
 
 # Sets the sampling probability to be used for all subsequent trace responses
@@ -103,7 +112,7 @@ end
 # @step_input url [String] The URL to open.
 When('I open the URL {string}') do |url|
   begin
-    open(url, &:read)
+    URI.open(url, &:read)
   rescue OpenURI::HTTPError
     $logger.debug $!.inspect
   end

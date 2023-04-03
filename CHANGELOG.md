@@ -2,6 +2,7 @@
 
 ## Enhancements
 
+- Add `/metrics` endpoint [509](https://github.com/bugsnag/maze-runner/pull/509)
 - Set default verb for HTTP status code steps to "POST" [506](https://github.com/bugsnag/maze-runner/pull/506)
 
 # 7.24.0 - 2023/03/30

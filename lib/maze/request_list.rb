@@ -54,7 +54,7 @@ module Maze
       @requests.clone.freeze
     end
 
-    # Clears the list
+    # Clears the list completely
     def clear
       @requests.clear
       @current = 0

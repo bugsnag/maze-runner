@@ -10,6 +10,8 @@ def send_request(request_type, mock_api_port = 9339)
                '/sessions'
              elsif request_type == 'build'
                '/builds'
+             elsif request_type.start_with? 'metric'
+               '/metrics'
              elsif request_type == 'trace' || request_type == 'browser-trace' || request_type == 'sampling-trace'
                '/traces'
              else
@@ -19,6 +21,20 @@ def send_request(request_type, mock_api_port = 9339)
   request['Content-Type'] = 'application/json'
 
   templates = {
+    'metric-age' => {
+      'headers' => {},
+      'body' => {
+        'name' => 'steve',
+        'age' => '44',
+      }
+    },
+    'metric-shoeSize' => {
+      'headers' => {},
+      'body' => {
+        'name' => 'steve',
+        'shoeSize' => '14',
+      }
+    },
     'payload' => {
       'headers' => {
         'Bugsnag-Api-Key' => $api_key,

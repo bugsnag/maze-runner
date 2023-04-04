@@ -189,6 +189,9 @@ end
 # After all tests
 AfterAll do
 
+  metrics = Maze::MetricsProcessor.new(Maze::Server.metrics)
+  metrics.process
+
   if Maze.timers.size.positive?
     $stdout.puts '--- Timer summary'
     Maze.timers.report

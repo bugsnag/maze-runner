@@ -245,6 +245,8 @@ services:
         RUBY_VERSION:
     environment:
       MAZE_BUGSNAG_API_KEY:
+    volumes:
+      - ./test/fixtures/payload-helpers/maze_output:/app/maze_output
 
   http-response-tests:
     build:

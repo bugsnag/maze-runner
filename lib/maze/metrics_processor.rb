@@ -38,7 +38,7 @@ module Maze
 
       File.open(filepath, 'w') do |file|
         # Write the header, with columns ordered alphabetically
-        sorted_columns = @columns.to_a.sort
+        sorted_columns = @columns.to_a.sort!
         header = sorted_columns.join ','
         file.puts header
 
@@ -47,7 +47,7 @@ module Maze
           row_values = []
           sorted_columns.each do |column|
             add = if row.has_key? column
-                    "#{to_csv_friendly(row[column])}"
+                    to_csv_friendly(row[column])
                   else
                     ''
                   end

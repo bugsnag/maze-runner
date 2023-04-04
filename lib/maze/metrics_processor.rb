@@ -44,15 +44,13 @@ module Maze
 
         # Write the rows
         @rows.each do |row|
-          row_values = []
-          sorted_columns.each do |column|
-            add = if row.has_key? column
-                    to_csv_friendly(row[column])
-                  else
-                    ''
-                  end
-            row_values << add
+          row_values = sorted_columns.map do |column|
+            if row.has_key? column
+              to_csv_friendly(row[column])
+            else
+              ''
             end
+          end
 
           file.puts row_values.join ','
         end

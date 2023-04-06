@@ -1,8 +1,12 @@
 require 'yaml'
 
-def get_test_url path
-  host = 'bs-local.com'
-  "http://#{host}:#{FIXTURES_SERVER_PORT}#{path}"
+def get_test_url(path)
+  if Maze.config.aws_public_ip
+    "http://#{Maze.public_address}#{path}"
+  else
+    "http://bs-local.com:#{FIXTURES_SERVER_PORT}#{path}"
+  end
+
 end
 
 BeforeAll do

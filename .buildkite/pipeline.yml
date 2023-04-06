@@ -288,8 +288,8 @@ steps:
       artifacts#v1.9.0:
         upload: "maze_output/failed/**/*"
       docker-compose#v4.7.0:
-        pull: browser-tests
-        run: browser-tests
+        pull: browser-tests-bitbar
+        run: browser-tests-bitbar
         service-ports: true
         use-aliases: true
         verbose: true
@@ -298,6 +298,7 @@ steps:
           - "--browser=firefox_latest"
           - "--aws-public-ip"
           - "--fail-fast"
+          - "--no-tunnel"
     env:
       RUBY_VERSION: "2.7"
     concurrency: 5

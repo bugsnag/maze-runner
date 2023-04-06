@@ -306,6 +306,28 @@ services:
     env_file:
       - ${DOCKER_ENV_FILE:-test/browser/features/fixtures/null_env}
 
+  browser-tests-bitbar:
+    build:
+      context: test/fixtures/browser
+      dockerfile: Dockerfile.w3c
+      args:
+        BRANCH_NAME:
+        RUBY_VERSION:
+    environment:
+      BITBAR_USERNAME:
+      BITBAR_ACCESS_KEY:
+      BUILDKITE:
+      BUILDKITE_BUILD_NUMBER:
+      BUILDKITE_LABEL:
+      BUILDKITE_PIPELINE_SLUG:
+      BUILDKITE_RETRY_COUNT:
+    env_file:
+      - ${DOCKER_ENV_FILE:-test/browser/features/fixtures/null_env}
+    ports:
+      - "9000-9499:9339"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
 networks:
   default:
     name: ${BUILDKITE_JOB_ID:-core-maze-runner}

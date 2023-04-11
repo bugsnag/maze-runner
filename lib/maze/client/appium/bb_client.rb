@@ -27,16 +27,16 @@ module Maze
         def device_capabilities
           config = Maze.config
           capabilities = {
-            'noReset' => true,
+            'appium:noReset' => true,
             'bitbar:options' => {
               # Some capabilities probably belong in the top level
               # of the hash, but BitBar picks them up from here.
               'apiKey' => config.access_key,
               'app' => config.app,
               'findDevice' => false,
-              'testTimeout' => 7200,
-              'newCommandTimeout' => 0
-            }
+              'testTimeout' => 7200
+            },
+            'appium:newCommandTimeout' => 0
           }
           capabilities['appiumVersion'] = config.appium_version unless config.appium_version.nil?
           capabilities.deep_merge! dashboard_capabilities

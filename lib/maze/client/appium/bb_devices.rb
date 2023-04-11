@@ -113,9 +113,8 @@ module Maze
               'automationName' => 'XCUITest',
               'deviceName' => 'iPhone device',
               'platformName' => 'iOS',
+              'appium:shouldTerminateApp' => 'true',
               'bitbar:options' => {
-                'noReset' => 'true',
-                'shouldTerminateApp' => 'true',
                 'device' => device
               }
             }.freeze

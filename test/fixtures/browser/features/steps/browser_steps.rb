@@ -1,5 +1,6 @@
 When('I navigate to the test URL {string}') do |test_path|
   path = get_test_url test_path
+  path = "http://news.bbc.co.uk"
   step("I navigate to the URL \"#{path}\"")
 end
 

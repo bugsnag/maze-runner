@@ -89,7 +89,7 @@ steps:
   - label: ':docker: Push W3C Docker image for branch'
     key: push-branch-cli
     timeout_in_minutes: 30
-    depends_on: "ci-image-ruby-2-7"
+    depends_on: "ci-image-ruby-3"
     plugins:
       - docker-compose#v4.7.0:
           build: cli
@@ -103,7 +103,7 @@ steps:
   - label: ':docker: Push Legacy Docker image for branch'
     key: push-branch-cli-legacy
     timeout_in_minutes: 30
-    depends_on: "ci-image-ruby-2-7"
+    depends_on: "ci-image-ruby-3"
     plugins:
       - docker-compose#v4.7.0:
           build: cli-legacy

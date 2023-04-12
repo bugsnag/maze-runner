@@ -87,6 +87,7 @@ Feature: Testing support on traces endpoint
     Scenario: Spans can be validated across requests
         When I send a "trace"-type request
         And I send a "browser-trace"-type request
+        And I wait to receive 2 traces
         Then a span named "TestSpan" contains the attributes:
             | attribute               | type        | value       |
             | test.bool_value         | boolValue   | true        |
@@ -98,3 +99,8 @@ Feature: Testing support on traces endpoint
             | attribute               | type        | value       |
             | test.next_payload_value | stringValue | another!    |
         And a span field "kind" equals 1
+
+    Scenario: Parent-child spans can be matched together
+        When I send a "trace"-type request
+        And I wait to receive a trace
+        Then a span named "TestSpan" has a parent named "ManualSpanScenario"

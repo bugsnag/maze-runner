@@ -1,3 +1,9 @@
+# TBD
+
+## Enhancements
+
+- Add step to assert parent-child span relationships [510](https://github.com/bugsnag/maze-runner/pull/510)
+
 # 7.25.0 - 2023/04/05
 
 ## Enhancements

@@ -156,7 +156,8 @@ def send_request(request_type, mock_api_port = 9339)
                     "name":"ManualSpanScenario"
                   },
                   {
-                    "spanId":"96775346bf426548",
+                    "spanId":"96775346a21aa300",
+                    "parentSpanId":"96775346bf426548",
                     "startTimeUnixNano":"1677082367269565184",
                     "traceId":"4dea8da13b30db98f1c56bee0fdc734c",
                     "endTimeUnixNano":"1677082367269576192",

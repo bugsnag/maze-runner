@@ -70,7 +70,7 @@ module Maze
         def account_credentials(tms_uri)
           interval_seconds = 10
 
-          Maze::Wait.new(interval: interval_seconds, timeout: 1800).until do
+          credentials = Maze::Wait.new(interval: interval_seconds, timeout: 1800).until do
             output = request_account_index(tms_uri)
             case output.code
             when '200'
@@ -91,6 +91,10 @@ module Maze
               raise
             end
           end
+
+          return credentials if credentials
+
+          raise "Could not fetch BitBar credentials in time"
         end
 
         # Makes the HTTP call to acquire an account id

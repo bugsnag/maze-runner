@@ -720,14 +720,14 @@
       <pre class="lines">
 
 
-256
-257
-258
-259
-260</pre>
+273
+274
+275
+276
+277</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/steps/trace_steps.rb', line 256</span>
+      <pre class="code"><span class="info file"># File 'lib/features/steps/trace_steps.rb', line 273</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_assert_attribute'>assert_attribute</span><span class='lparen'>(</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_expected'>expected</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_list'>list</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_traces'>traces</span>
@@ -876,30 +876,30 @@
       <pre class="lines">
 
 
-221
-222
-223
-224
-225
-226
-227
-228
-229
-230
-231
-232
-233
-234
-235
-236
-237
 238
 239
 240
-241</pre>
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/steps/trace_steps.rb', line 221</span>
+      <pre class="code"><span class="info file"># File 'lib/features/steps/trace_steps.rb', line 238</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_assert_received_spans'>assert_received_spans</span><span class='lparen'>(</span><span class='id identifier rubyid_span_count'>span_count</span><span class='comma'>,</span> <span class='id identifier rubyid_list'>list</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_timeout'>timeout</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='period'>.</span><span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_receive_requests_wait'>receive_requests_wait</span>
@@ -964,32 +964,32 @@
       <pre class="lines">
 
 
-197
-198
-199
-200
-201
-202
-203
-204
-205
-206
-207
-208
-209
-210
-211
-212
-213
 214
 215
 216
 217
 218
-219</pre>
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/steps/trace_steps.rb', line 197</span>
+      <pre class="code"><span class="info file"># File 'lib/features/steps/trace_steps.rb', line 214</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_attribute_value_matches?'>attribute_value_matches?</span><span class='lparen'>(</span><span class='id identifier rubyid_attribute_value'>attribute_value</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_type'>expected_type</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_value'>expected_value</span><span class='rparen'>)</span>
   <span class='comment'># Check that the required value type key is present
@@ -1034,13 +1034,13 @@
       <pre class="lines">
 
 
-251
-252
-253
-254</pre>
+268
+269
+270
+271</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/steps/trace_steps.rb', line 251</span>
+      <pre class="code"><span class="info file"># File 'lib/features/steps/trace_steps.rb', line 268</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_check_attribute_equal'>check_attribute_equal</span><span class='lparen'>(</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_attribute'>attribute</span><span class='comma'>,</span> <span class='id identifier rubyid_attr_type'>attr_type</span><span class='comma'>,</span> <span class='id identifier rubyid_expected'>expected</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='id identifier rubyid_get_attribute_value'><span class='object_link'><a href="#get_attribute_value-instance_method" title="#get_attribute_value (method)">get_attribute_value</a></span></span> <span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_attribute'>attribute</span><span class='comma'>,</span> <span class='id identifier rubyid_attr_type'>attr_type</span>
@@ -1114,16 +1114,16 @@
       <pre class="lines">
 
 
-243
-244
-245
-246
-247
-248
-249</pre>
+260
+261
+262
+263
+264
+265
+266</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/steps/trace_steps.rb', line 243</span>
+      <pre class="code"><span class="info file"># File 'lib/features/steps/trace_steps.rb', line 260</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_attribute_value'>get_attribute_value</span><span class='lparen'>(</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_attribute'>attribute</span><span class='comma'>,</span> <span class='id identifier rubyid_attr_type'>attr_type</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_list'>list</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_list_for'>list_for</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>trace</span><span class='tstring_end'>&#39;</span></span>
@@ -1431,16 +1431,16 @@ Used to convert a multipart/form-data request into a JSON comparable hash</p>
       <pre class="lines">
 
 
-189
-190
-191
-192
-193
-194
-195</pre>
+206
+207
+208
+209
+210
+211
+212</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/steps/trace_steps.rb', line 189</span>
+      <pre class="code"><span class="info file"># File 'lib/features/steps/trace_steps.rb', line 206</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_spans_from_request_list'>spans_from_request_list</span> <span class='id identifier rubyid_list'>list</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_list'>list</span><span class='period'>.</span><span class='id identifier rubyid_remaining'>remaining</span>
@@ -2145,7 +2145,7 @@ for a multipart/form-data request</p>
 </div>
 
       <div id="footer">
-  Generated on Wed Apr  5 08:34:19 2023 by
+  Generated on Wed Apr 12 17:45:52 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-2.7.8).
 </div>

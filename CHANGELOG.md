@@ -1,4 +1,4 @@
-# TBD
+# 7.26.0 - 2023/04/12
 
 ## Enhancements
 
@@ -6,7 +6,7 @@
 
 ## Fixes
 
-- Fix issue causing nil access errors in some span steps []()
+- Fix issue causing nil access errors in some span steps [514](https://github.com/bugsnag/maze-runner/pull/514)
 
 # 7.25.0 - 2023/04/05
 

@@ -132,14 +132,15 @@ end
 
 Then('a span string attribute {string} exists') do |attribute|
   spans = spans_from_request_list(Maze::Server.list_for('traces'))
-  selected_attributes = spans.map { |span| span['attributes'].find { |a| a['key'] == attribute }['value']['stringValue'] }
+  selected_attributes = spans.map { |span| span['attributes'].find { |a| a['key'].eql?(attribute) && a['value'].has_key?('stringValue') } }.compact
   Maze.check.false(selected_attributes.empty?)
 end
 
 Then('a span string attribute {string} equals {string}') do |attribute, expected|
   spans = spans_from_request_list(Maze::Server.list_for('traces'))
-  selected_attributes = spans.map { |span| span['attributes'].find { |a| a['key'] == attribute }['value']['stringValue'] }
-  Maze.check.includes selected_attributes, expected
+  selected_attributes = spans.map { |span| span['attributes'].find { |a| a['key'].eql?(attribute) && a['value'].has_key?('stringValue') } }.compact
+  attribute_values = selected_attributes.map { |a| a['value']['stringValue'] }
+  Maze.check.includes attribute_values, expected
 end
 
 Then('a span field {string} equals {string}') do |key, expected|

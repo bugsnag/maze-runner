@@ -4,6 +4,10 @@
 
 - Add step to assert parent-child span relationships [510](https://github.com/bugsnag/maze-runner/pull/510)
 
+## Fixes
+
+- Fix issue causing nil access errors in some span steps []()
+
 # 7.25.0 - 2023/04/05
 
 ## Enhancements

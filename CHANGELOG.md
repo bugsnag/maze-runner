@@ -29,6 +29,7 @@
 ## Enhancements
 
 - Add step to assert parent-child span relationships [510](https://github.com/bugsnag/maze-runner/pull/510)
+- Update appium capabilities for appium 2.0 compatibility [512](https://github.com/bugsnag/maze-runner/pull/512)
 
 ## Fixes
 

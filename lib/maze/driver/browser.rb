@@ -27,7 +27,7 @@ module Maze
 
       # Refreshes the page
       def refresh
-        @driver.refresh
+        @driver.navigate.refresh
       end
 
       # Quits the driver

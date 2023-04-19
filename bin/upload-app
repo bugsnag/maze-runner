@@ -60,7 +60,7 @@ class UploadAppEntry
 
     if options[:access_key].nil?
       Optimist::with_standard_exception_handling parser do
-        raise Optimist::CommandlineError.new('An access_key is required to upload the app', 1)
+        parser.die('An access_key is required to upload the app', 1)
       end
     end
 

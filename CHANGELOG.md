@@ -3,6 +3,7 @@
 ## Fixes
 
 - Fix crash when trying to retry browser tests [515](https://github.com/bugsnag/maze-runner/pull/515)
+- Fix crash when BitBar credentials cannot be fetched [513](https://github.com/bugsnag/maze-runner/pull/513)
 
 # 7.26.0 - 2023/04/12
 

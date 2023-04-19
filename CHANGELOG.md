@@ -1,3 +1,9 @@
+# TBD
+
+## Fixes
+
+- Refactor schema validation and add it to span expectation step [520](https://github.com/bugsnag/maze-runner/pull/520)
+
 # 7.27.0 - 2023/04/24
 
 ## Enhancements

@@ -83,7 +83,7 @@ module Maze
         return argument unless argument.start_with? '@'
 
         file = argument[1..argument.size]
-        File.read file
+        (File.read file).strip
       end
 
       # Returns the current platform all lower-case.

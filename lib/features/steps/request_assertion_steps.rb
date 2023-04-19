@@ -44,9 +44,9 @@ def verify_schema_matches(list, list_name)
     if schema_errors.size > 0
       passed = false
       $stdout.puts "\n"
-      $stdout.puts "\e[31m--- #{list_name} #{index} failed validation with errors at the following locations:\e[0m"
+      $stdout.puts "\e[31m--- #{list_name} #{index} failed validation:\e[0m"
       schema_errors.each do |error|
-        $stdout.puts "\e[31m#{error["data_pointer"]} failed to match #{error["schema_pointer"]}\e[0m"
+        $stdout.puts "\e[31m#{JSONSchemer::Errors.pretty(error)}\e[0m"
       end
       $stdout.puts "\n"
     end

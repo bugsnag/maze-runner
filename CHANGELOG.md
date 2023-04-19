@@ -1,5 +1,9 @@
 # TBD
 
+## Enhancements
+
+- Improve JSON schema validation failure messages [516](https://github.com/bugsnag/maze-runner/pull/516)
+
 ## Fixes
 
 - Fix crash when trying to retry browser tests [515](https://github.com/bugsnag/maze-runner/pull/515)

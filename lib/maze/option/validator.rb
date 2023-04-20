@@ -108,7 +108,7 @@ module Maze
             errors << "Browser type '#{browser}' unknown on BitBar.  Must be one of: #{browser_list}."
           end
         elsif device
-          app = options[Option::APP]
+          app = Maze::Helper.read_at_arg_file options[Option::APP]
           if app.nil?
             errors << "--#{Option::APP} must be provided when running on a device"
           else

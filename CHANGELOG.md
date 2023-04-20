@@ -6,6 +6,7 @@
 - Fix crash when BitBar credentials cannot be fetched [513](https://github.com/bugsnag/maze-runner/pull/513)
 - Allow JS to access the sampling header [517](https://github.com/bugsnag/maze-runner/pull/517)
 - Fail upload-app with non-zero exit code if access key not given [518](https://github.com/bugsnag/maze-runner/pull/518)
+- Ensure ids for apps uploaded to BitBar can be read from file [519](https://github.com/bugsnag/maze-runner/pull/519)
 
 # 7.26.0 - 2023/04/12
 

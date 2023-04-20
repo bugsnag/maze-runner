@@ -7,6 +7,7 @@
 - Allow JS to access the sampling header [517](https://github.com/bugsnag/maze-runner/pull/517)
 - Fail upload-app with non-zero exit code if access key not given [518](https://github.com/bugsnag/maze-runner/pull/518)
 - Ensure ids for apps uploaded to BitBar can be read from file [519](https://github.com/bugsnag/maze-runner/pull/519)
+- Fix crash in Selenium `LocalClient` caused by unimplemented method [521](https://github.com/bugsnag/maze-runner/pull/521)
 
 # 7.26.0 - 2023/04/12
 

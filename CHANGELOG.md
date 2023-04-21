@@ -1,3 +1,9 @@
+# TBD
+
+## Fixes
+
+- Update BitBar browsers list to match capabilities creator [523](https://github.com/bugsnag/maze-runner/pull/523)
+
 # 7.26.1 - 2023/04/20
 
 ## Fixes

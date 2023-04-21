@@ -5,6 +5,34 @@ chrome_latest:
   version: 'latest'
   resolution: '1920x1080'
 
+chrome_112:
+  platform: 'Windows'
+  osVersion: '11'
+  browserName: 'chrome'
+  version: '112'
+  resolution: '1920x1080'
+
+chrome_111:
+  platform: 'Windows'
+  osVersion: '11'
+  browserName: 'chrome'
+  version: '111'
+  resolution: '1920x1080'
+
+chrome_110:
+  platform: 'Windows'
+  osVersion: '11'
+  browserName: 'chrome'
+  version: '110'
+  resolution: '1920x1080'
+
+chrome_109:
+  platform: 'Windows'
+  osVersion: '11'
+  browserName: 'chrome'
+  version: '109'
+  resolution: '1920x1080'
+
 chrome_108:
   platform: 'Windows'
   osVersion: '11'
@@ -17,34 +45,6 @@ chrome_107:
   osVersion: '11'
   browserName: 'chrome'
   version: '107'
-  resolution: '1920x1080'
-
-chrome_106:
-  platform: 'Windows'
-  osVersion: '11'
-  browserName: 'chrome'
-  version: '106'
-  resolution: '1920x1080'
-
-chrome_105:
-  platform: 'Windows'
-  osVersion: '11'
-  browserName: 'chrome'
-  version: '105'
-  resolution: '1920x1080'
-
-chrome_104:
-  platform: 'Windows'
-  osVersion: '11'
-  browserName: 'chrome'
-  version: '104'
-  resolution: '1920x1080'
-
-chrome_103:
-  platform: 'Windows'
-  osVersion: '11'
-  browserName: 'chrome'
-  version: '103'
   resolution: '1920x1080'
 
 chrome_72:
@@ -131,46 +131,46 @@ edge_latest:
   version: 'latest'
   resolution: '1920x1080'
 
-edge_106:
+edge_112:
   platform: 'Windows'
   osVersion: '11'
   browserName: 'MicrosoftEdge'
-  version: '106'
+  version: '112'
   resolution: '1920x1080'
 
-edge_105:
+edge_111:
   platform: 'Windows'
   osVersion: '11'
   browserName: 'MicrosoftEdge'
-  version: '105'
+  version: '111'
   resolution: '1920x1080'
 
-edge_104:
+edge_110:
   platform: 'Windows'
   osVersion: '11'
   browserName: 'MicrosoftEdge'
-  version: '104'
+  version: '110'
   resolution: '1920x1080'
 
-edge_103:
+edge_109:
   platform: 'Windows'
   osVersion: '11'
   browserName: 'MicrosoftEdge'
-  version: '103'
+  version: '109'
   resolution: '1920x1080'
 
-edge_102:
+edge_108:
   platform: 'Windows'
   osVersion: '11'
   browserName: 'MicrosoftEdge'
-  version: '102'
+  version: '108'
   resolution: '1920x1080'
 
-edge_101:
+edge_107:
   platform: 'Windows'
   osVersion: '11'
   browserName: 'MicrosoftEdge'
-  version: '101'
+  version: '107'
   resolution: '1920x1080'
 
 safari_16:

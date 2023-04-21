@@ -5,34 +5,6 @@ chrome_latest:
   version: 'latest'
   resolution: '1920x1080'
 
-chrome_112:
-  platform: 'Windows'
-  osVersion: '11'
-  browserName: 'chrome'
-  version: '112'
-  resolution: '1920x1080'
-
-chrome_111:
-  platform: 'Windows'
-  osVersion: '11'
-  browserName: 'chrome'
-  version: '111'
-  resolution: '1920x1080'
-
-chrome_110:
-  platform: 'Windows'
-  osVersion: '11'
-  browserName: 'chrome'
-  version: '110'
-  resolution: '1920x1080'
-
-chrome_109:
-  platform: 'Windows'
-  osVersion: '11'
-  browserName: 'chrome'
-  version: '109'
-  resolution: '1920x1080'
-
 chrome_108:
   platform: 'Windows'
   osVersion: '11'
@@ -129,48 +101,6 @@ edge_latest:
   osVersion: '11'
   browserName: 'MicrosoftEdge'
   version: 'latest'
-  resolution: '1920x1080'
-
-edge_112:
-  platform: 'Windows'
-  osVersion: '11'
-  browserName: 'MicrosoftEdge'
-  version: '112'
-  resolution: '1920x1080'
-
-edge_111:
-  platform: 'Windows'
-  osVersion: '11'
-  browserName: 'MicrosoftEdge'
-  version: '111'
-  resolution: '1920x1080'
-
-edge_110:
-  platform: 'Windows'
-  osVersion: '11'
-  browserName: 'MicrosoftEdge'
-  version: '110'
-  resolution: '1920x1080'
-
-edge_109:
-  platform: 'Windows'
-  osVersion: '11'
-  browserName: 'MicrosoftEdge'
-  version: '109'
-  resolution: '1920x1080'
-
-edge_108:
-  platform: 'Windows'
-  osVersion: '11'
-  browserName: 'MicrosoftEdge'
-  version: '108'
-  resolution: '1920x1080'
-
-edge_107:
-  platform: 'Windows'
-  osVersion: '11'
-  browserName: 'MicrosoftEdge'
-  version: '107'
   resolution: '1920x1080'
 
 safari_16:

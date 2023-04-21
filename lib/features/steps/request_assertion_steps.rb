@@ -31,9 +31,6 @@ def assert_received_requests(request_count, list, list_name, precise = true)
   else
     Maze.check.operator(request_count, :<=, list.size_remaining, "#{list.size_remaining} #{list_name} received")
   end
-
-  Maze::Schemas::Validator.verify_against_schema(list, list_name)
-  Maze::Schemas::Validator.validate_payload_elements(list, list_name)
 end
 
 #

@@ -8,6 +8,11 @@ module Maze
 
       class << self
 
+        # Tests that payloads for a specific path have passed any schema checks implemented on receipt
+        # Throws an AssertionFailedError with a list of issues on failure
+        #
+        # @param list [Array] An array of received requests
+        # @param list_name [String] The name of the payload list for received requests
         def verify_against_schema(list, list_name)
           request_schema_results = list.all.map { |request| request[:schema_errors] }
           passed = true
@@ -29,6 +34,11 @@ module Maze
           end
         end
 
+        # Tests that payloads for a specific path pass any additional validation checks
+        # Throws an AssertionFailedError with a list of issues on failure
+        #
+        # @param list [Array] An array of received requests
+        # @param list_name [String] The name of the payload list for received requests
         def validate_payload_elements(list, list_name)
           validator_class = case list_name
           when 'trace', 'traces'

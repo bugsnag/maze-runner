@@ -1,8 +1,8 @@
 # 7.26.2 - 2023/04/21
 
-## Fixes
+## Removals
 
-- Update BitBar browsers list to match capabilities creator [523](https://github.com/bugsnag/maze-runner/pull/523)
+- Remove absolute browser versions no longer supported by BitBar [523](https://github.com/bugsnag/maze-runner/pull/523)
 
 # 7.26.1 - 2023/04/20
 

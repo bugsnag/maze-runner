@@ -2,7 +2,7 @@
 
 ## Enhancements
 
-- Fix crash when trying to retry browser tests [5xx](https://github.com/bugsnag/maze-runner/pull/5xx)
+- Allow BitBar Selenium server URL to be configured [524](https://github.com/bugsnag/maze-runner/pull/524)
 
 ## Removals
 

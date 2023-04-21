@@ -1,9 +1,13 @@
-# 7.26.2 - 2023/04/21
+# 7.27.0 - 2023/04/21
+
+## Enhancements
+
+- Fix crash when trying to retry browser tests [5xx](https://github.com/bugsnag/maze-runner/pull/5xx)
 
 ## Removals
 
 - Remove absolute browser versions no longer supported by BitBar [523](https://github.com/bugsnag/maze-runner/pull/523)
-
+  
 # 7.26.1 - 2023/04/20
 
 ## Fixes

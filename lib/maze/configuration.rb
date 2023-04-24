@@ -132,6 +132,12 @@ module Maze
     # Access token for the test-management service
     attr_accessor :tms_token
 
+    # URL of the Appium server
+    attr_accessor :appium_server_url
+
+    # URL of the Selenium server
+    attr_accessor :selenium_server_url
+
     # Whether the legacy (JSON-WP) Appium driver should be used
     def legacy_driver?
       @legacy_driver
@@ -156,9 +162,6 @@ module Maze
 
     # Device id for running on local iOS devices
     attr_accessor :device_id
-
-    # URL of the Appium server
-    attr_accessor :appium_server_url
 
     # Whether an appium server should be started
     attr_accessor :start_appium

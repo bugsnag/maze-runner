@@ -20,9 +20,7 @@ module Maze
                                                              config.username,
                                                              config.access_key
 
-          # TODO This probably needs to be settable via an environment variable
-          # selenium_url = 'https://us-west-desktop-hub.bitbar.com/wd/hub'
-          selenium_url = 'https://eu-desktop-hub.bitbar.com/wd/hub'
+          selenium_url = Maze.config.selenium_server_url
           Maze.driver = Maze::Driver::Browser.new :remote, selenium_url, config.capabilities
           Maze.driver.start_driver
         end

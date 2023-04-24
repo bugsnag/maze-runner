@@ -58,9 +58,9 @@ module Maze
             validators.each.with_index(1) do |validator, index|
               unless validator.success
                 $stdout.puts "\n"
-                $stdout.puts "\e[31m--- #{list_name} #{index} failed validation with the following errors:\e[0m"
+                $stdout.puts "\e[31m--- #{list_name} #{index} failed validation:\e[0m"
                 validator.errors.each do |error|
-                  $stdout.puts "\e[31m#{error}\e[0m"
+                  $stdout.puts "\e[31m#{JSONSchemer::Errors.pretty(error)}\e[0m"
                 end
                 $stdout.puts "\n"
               end

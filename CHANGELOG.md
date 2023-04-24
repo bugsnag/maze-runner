@@ -1,15 +1,15 @@
 # TBD
 
-## Fixes
-
-- Refactor schema validation and add it to span expectation step [520](https://github.com/bugsnag/maze-runner/pull/520)
-
 # 7.27.0 - 2023/04/24
 
 ## Enhancements
 
 - Allow BitBar Selenium server URL to be configured [524](https://github.com/bugsnag/maze-runner/pull/524)
 - Improve JSON schema validation failure messages [516](https://github.com/bugsnag/maze-runner/pull/516)
+
+## Fixes
+
+- Refactor schema validation and add it to span expectation step [520](https://github.com/bugsnag/maze-runner/pull/520)
 
 ## Removals
 

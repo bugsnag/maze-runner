@@ -119,12 +119,10 @@ module Maze
                 'Start the device farm secure tunnel',
                 default: true
             opt Option::APPIUM_SERVER,
-                <<~HELP
-                  Appium server URL. Defaults are:
-                    --farm=local - MAZE_APPIUM_SERVER or http://localhost:4723/wd/hub
-                    --farm=bb - MAZE_APPIUM_SERVER or https://us-west-mobile-hub.bitbar.com/wd/hub
-                  Not used for --farm=bs
-                HELP
+                "Appium server URL.  Defaults are: \n" +
+                "  --farm=local - MAZE_APPIUM_SERVER or http://localhost:4723/wd/hub\n" +
+                "  --farm=bb - MAZE_APPIUM_SERVER or https://us-west-mobile-hub.bitbar.com/wd/hub\n" +
+                'Not used for --farm=bs',
                 type: :string
             opt Option::SELENIUM_SERVER,
                 "Selenium server URL. Only used for --farm=bb, defaulting to MAZE_SELENIUM_SERVER or https://us-west-desktop-hub.bitbar.com/wd/hub",

@@ -125,7 +125,7 @@ module Maze
                 'Not used for --farm=bs',
                 type: :string
             opt Option::SELENIUM_SERVER,
-                "Selenium server URL.  Only used for--farm=bb, defaulting to MAZE_SELENIUM_SERVER or https://us-west-desktop-hub.bitbar.com/wd/hub",
+                "Selenium server URL. Only used for --farm=bb, defaulting to MAZE_SELENIUM_SERVER or https://us-west-desktop-hub.bitbar.com/wd/hub",
                 type: :string
 
             # SmartBear-only options

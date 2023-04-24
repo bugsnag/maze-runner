@@ -1,3 +1,9 @@
+# TBD
+
+## Enhancements
+
+- Update appium capabilities for appium 2.0 compatibility [512](https://github.com/bugsnag/maze-runner/pull/512)
+
 # 7.27.0 - 2023/04/25
 
 ## Enhancements
@@ -12,7 +18,7 @@
 ## Removals
 
 - Remove absolute browser versions no longer supported by BitBar [523](https://github.com/bugsnag/maze-runner/pull/523)
-  
+
 # 7.26.1 - 2023/04/20
 
 ## Fixes
@@ -29,7 +35,6 @@
 ## Enhancements
 
 - Add step to assert parent-child span relationships [510](https://github.com/bugsnag/maze-runner/pull/510)
-- Update appium capabilities for appium 2.0 compatibility [512](https://github.com/bugsnag/maze-runner/pull/512)
 
 ## Fixes
 

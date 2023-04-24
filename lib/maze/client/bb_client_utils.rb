@@ -68,7 +68,9 @@ module Maze
         #
         # @returns
         def account_credentials(tms_uri)
-          Maze::Wait.new(interval: 10, timeout: 1800).until do
+          interval_seconds = 10
+
+          credentials = Maze::Wait.new(interval: interval_seconds, timeout: 1800).until do
             output = request_account_index(tms_uri)
             case output.code
             when '200'
@@ -81,7 +83,7 @@ module Maze
               }
             when '409'
               # All accounts are in use, wait for one to become available
-              $logger.info 'All accounts are currently in use, retrying in 30s'
+              $logger.info("All accounts are currently in use, retrying in #{interval_seconds}s")
               false
             else
               # Something has gone wrong, throw an error
@@ -89,6 +91,10 @@ module Maze
               raise
             end
           end
+
+          return credentials if credentials
+
+          raise "Could not fetch BitBar credentials in time"
         end
 
         # Makes the HTTP call to acquire an account id

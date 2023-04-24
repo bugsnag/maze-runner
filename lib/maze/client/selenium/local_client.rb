@@ -7,6 +7,10 @@ module Maze
           Maze.driver.start_driver
         end
 
+        def log_run_outro
+          # Nothing to do
+        end
+
         def stop_session
           # No need to quit the local driver
         end

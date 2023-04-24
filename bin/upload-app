@@ -59,9 +59,8 @@ class UploadAppEntry
     end
 
     if options[:access_key].nil?
-      $logger.warn 'An access_key is required to upload the app'
       Optimist::with_standard_exception_handling parser do
-        raise Optimist::HelpNeeded
+        parser.die('An access_key is required to upload the app', 1)
       end
     end
 

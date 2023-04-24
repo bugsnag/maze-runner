@@ -3,16 +3,13 @@
 ## Enhancements
 
 - Allow BitBar Selenium server URL to be configured [524](https://github.com/bugsnag/maze-runner/pull/524)
+- Improve JSON schema validation failure messages [516](https://github.com/bugsnag/maze-runner/pull/516)
 
 ## Removals
 
 - Remove absolute browser versions no longer supported by BitBar [523](https://github.com/bugsnag/maze-runner/pull/523)
   
 # 7.26.1 - 2023/04/20
-
-## Enhancements
-
-- Improve JSON schema validation failure messages [516](https://github.com/bugsnag/maze-runner/pull/516)
 
 ## Fixes
 

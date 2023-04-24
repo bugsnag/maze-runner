@@ -118,6 +118,15 @@ module Maze
             opt Option::TUNNEL,
                 'Start the device farm secure tunnel',
                 default: true
+            opt Option::APPIUM_SERVER,
+                "Appium server URL.  Defaults are: \n" +
+                "  --farm=local - MAZE_APPIUM_SERVER or http://localhost:4723/wd/hub\n" +
+                "  --farm=bb - MAZE_APPIUM_SERVER or https://us-west-mobile-hub.bitbar.com/wd/hub\n" +
+                'Not used for --farm=bs',
+                type: :string
+            opt Option::SELENIUM_SERVER,
+                "Selenium server URL. Only used for --farm=bb, defaulting to MAZE_SELENIUM_SERVER or https://us-west-desktop-hub.bitbar.com/wd/hub",
+                type: :string
 
             # SmartBear-only options
             opt Option::SB_LOCAL,
@@ -146,9 +155,6 @@ module Maze
                 type: :string
             opt Option::OS_VERSION,
                 'The intended OS version when running on a local device',
-                type: :string
-            opt Option::APPIUM_SERVER,
-                'Appium server URL, only used for --farm=local. MAZE_APPIUM_SERVER env var or "http://localhost:4723/wd/hub" by default',
                 type: :string
             opt Option::START_APPIUM,
                 'Whether a local Appium server should be start.  Only used for --farm=local.',
@@ -222,6 +228,8 @@ module Maze
             options[Option::USERNAME] ||= ENV['BITBAR_USERNAME']
             options[Option::ACCESS_KEY] ||= ENV['BITBAR_ACCESS_KEY']
             options[Option::TMS_URI] ||= ENV['MAZE_TMS_URI']
+            options[Option::APPIUM_SERVER] ||= ENV['MAZE_APPIUM_SERVER'] || 'https://us-west-mobile-hub.bitbar.com/wd/hub'
+            options[Option::SELENIUM_SERVER] ||= ENV['MAZE_SELENIUM_SERVER'] || 'https://us-west-desktop-hub.bitbar.com/wd/hub'
           end
 
           options[Option::REPEATER_API_KEY] ||= ENV['MAZE_REPEATER_API_KEY']

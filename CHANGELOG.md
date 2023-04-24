@@ -1,9 +1,13 @@
-# 7.26.2 - 2023/04/21
+# 7.27.0 - 2023/04/24
+
+## Enhancements
+
+- Allow BitBar Selenium server URL to be configured [524](https://github.com/bugsnag/maze-runner/pull/524)
 
 ## Removals
 
 - Remove absolute browser versions no longer supported by BitBar [523](https://github.com/bugsnag/maze-runner/pull/523)
-
+  
 # 7.26.1 - 2023/04/20
 
 ## Enhancements

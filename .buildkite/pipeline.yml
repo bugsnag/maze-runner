@@ -213,7 +213,7 @@ steps:
         upload: test/fixtures/android-appium-test/maze_output/**/*
     env:
       RUBY_VERSION: "2.7"
-    concurrency: 24
+    concurrency: 5
     concurrency_group: 'browserstack-app'
     concurrency_method: eager
 
@@ -240,7 +240,7 @@ steps:
         upload: test/fixtures/android-appium-test/maze_output/**/*
     env:
       RUBY_VERSION: "3"
-    concurrency: 24
+    concurrency: 5
     concurrency_group: 'browserstack-app'
     concurrency_method: eager
 

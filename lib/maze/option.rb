@@ -30,6 +30,8 @@ module Maze
     OS_VERSION = 'os-version'
     TUNNEL = 'tunnel'
     USERNAME = 'username'
+    APPIUM_SERVER = 'appium-server'
+    SELENIUM_SERVER = 'selenium-server'
 
     # BitBar options
     SB_LOCAL = 'sb-local'
@@ -43,7 +45,6 @@ module Maze
 
     # Local-only options
     APPIUM_LOGFILE = 'appium-logfile'
-    APPIUM_SERVER = 'appium-server'
     APPLE_TEAM_ID = 'apple-team-id'
     START_APPIUM = 'start-appium'
     UDID = 'udid'

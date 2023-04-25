@@ -33,10 +33,10 @@ module Maze
               # of the hash, but BitBar picks them up from here.
               'apiKey' => config.access_key,
               'app' => config.app,
+              'appium:newCommandTimeout' => 0,
               'findDevice' => false,
               'testTimeout' => 7200
-            },
-            'appium:newCommandTimeout' => 0
+            }
           }
           capabilities['appiumVersion'] = config.appium_version unless config.appium_version.nil?
           capabilities.deep_merge! dashboard_capabilities

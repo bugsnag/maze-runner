@@ -7,6 +7,10 @@ module Maze
       # Provides a source of capabilities used to run tests against specific BitBar devices
       # noinspection RubyStringKeysInHashInspection
       class BitBarDevices
+        APPIUM_2_PREFIX_GROUPS = [
+          'IOS_16'
+        ].freeze
+
         class << self
           # Uses the BitBar API to find an available device from the group name given, or a device of that name
           # @param device_or_group_name [String] Name of the device, or device group for which to find an available device
@@ -40,6 +44,8 @@ module Maze
             Maze.config.os = platform
             Maze.config.os_version = platform_version.to_f.floor
 
+            prefix = caps_prefix(device_or_group_name)
+
             case platform
             when 'android'
               automation_name = if platform_version.start_with?('5')
@@ -49,7 +55,7 @@ module Maze
                                 end
               make_android_hash(device_name, automation_name)
             when 'ios'
-              make_ios_hash(device_name)
+              make_ios_hash(device_name, prefix)
             else
               throw "Invalid device platform specified #{platform}"
             end
@@ -108,16 +114,20 @@ module Maze
             hash.freeze
           end
 
-          def make_ios_hash(device)
+          def make_ios_hash(device, prefix='')
             {
               'automationName' => 'XCUITest',
               'deviceName' => 'iPhone device',
               'platformName' => 'iOS',
-              'appium:shouldTerminateApp' => 'true',
+              "#{prefix}shouldTerminateApp" => 'true',
               'bitbar:options' => {
                 'device' => device
               }
             }.freeze
+          end
+
+          def caps_prefix(device_group)
+            APPIUM_2_PREFIX_GROUPS.include?(device_group) ? 'appium:' : ''
           end
         end
       end

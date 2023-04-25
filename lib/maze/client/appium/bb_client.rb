@@ -26,14 +26,15 @@ module Maze
 
         def device_capabilities
           config = Maze.config
+          prefix = BitBarDevices.caps_prefix(config.device)
           capabilities = {
-            'appium:noReset' => true,
+            "#{prefix}noReset" => true,
             'bitbar:options' => {
               # Some capabilities probably belong in the top level
               # of the hash, but BitBar picks them up from here.
               'apiKey' => config.access_key,
               'app' => config.app,
-              'appium:newCommandTimeout' => 0,
+              "#{prefix}newCommandTimeout" => 0,
               'findDevice' => false,
               'testTimeout' => 7200
             }

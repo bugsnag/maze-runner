@@ -186,6 +186,15 @@ After do |scenario|
   end
 end
 
+# Test all requests against schemas or extra validation rules.  These will only run if the schema/validation is
+# specified for the specific endpoint
+After do |scenario|
+  ['error', 'session', 'build', 'trace'].each do |endpoint|
+    Maze::Schemas::Validator.verify_against_schema(Maze::Server.list_for(endpoint), endpoint)
+    Maze::Schemas::Validator.validate_payload_elements(Maze::Server.list_for(endpoint), endpoint)
+  end
+end
+
 # After all tests
 AfterAll do
 

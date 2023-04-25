@@ -255,6 +255,9 @@ def assert_received_spans(span_count, list)
   end
 
   Maze.check.operator(span_count, :<=, received_count, "#{received_count} spans received")
+
+  Maze::Schemas::Validator.verify_against_schema(list, 'trace')
+  Maze::Schemas::Validator.validate_payload_elements(list, 'trace')
 end
 
 def get_attribute_value(field, attribute, attr_type)

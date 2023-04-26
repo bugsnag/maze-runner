@@ -26,7 +26,7 @@ module Maze
 
         def device_capabilities
           config = Maze.config
-          prefix = BitBarDevices.caps_prefix(config.device)
+          prefix = BitBarDevices.caps_prefix(config.appium_version)
           capabilities = {
             "#{prefix}noReset" => true,
             'bitbar:options' => {
@@ -39,7 +39,6 @@ module Maze
               'testTimeout' => 7200
             }
           }
-          capabilities['appiumVersion'] = config.appium_version unless config.appium_version.nil?
           capabilities.deep_merge! dashboard_capabilities
           capabilities.deep_merge! BitBarDevices.get_available_device(config.device)
           capabilities.deep_merge! JSON.parse(config.capabilities_option)

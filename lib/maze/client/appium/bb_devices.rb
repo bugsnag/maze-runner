@@ -123,9 +123,6 @@ module Maze
           end
 
           def caps_prefix(appium_version)
-            pp "APPIUM_VERSION"
-            pp appium_version
-            pp appium_version.nil?
             appium_version.nil? || (appium_version.to_i < 2) ? '' : 'appium:'
           end
         end

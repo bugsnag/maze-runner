@@ -27,7 +27,6 @@ module Maze
         def device_capabilities
           config = Maze.config
           prefix = BitBarDevices.caps_prefix(config.appium_version)
-          pp "Using prefix #{prefix}"
           capabilities = {
             "#{prefix}noReset" => true,
             'bitbar:options' => {

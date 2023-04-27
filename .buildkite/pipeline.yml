@@ -52,3 +52,50 @@ steps:
     concurrency: 5
     concurrency_group: 'bitbar-web'
     concurrency_method: eager
+
+
+  - label: 'BitBar web browser test - Safari 15'
+    depends_on: "push-branch-cli"
+    timeout_in_minutes: 10
+    plugins:
+      artifacts#v1.9.0:
+        upload: "maze_output/failed/**/*"
+      docker-compose#v4.7.0:
+        pull: browser-tests-bitbar
+        run: browser-tests-bitbar
+        service-ports: true
+        use-aliases: true
+        verbose: true
+        command:
+          - "--farm=bb"
+          - "--browser=safari_15"
+          - "--aws-public-ip"
+          - "--no-tunnel"
+    env:
+      RUBY_VERSION: "2.7"
+    concurrency: 5
+    concurrency_group: 'bitbar-web'
+    concurrency_method: eager
+
+  - label: 'BitBar web browser test - Safari 16'
+    depends_on: "push-branch-cli"
+    timeout_in_minutes: 10
+    plugins:
+      artifacts#v1.9.0:
+        upload: "maze_output/failed/**/*"
+      docker-compose#v4.7.0:
+        pull: browser-tests-bitbar
+        run: browser-tests-bitbar
+        service-ports: true
+        use-aliases: true
+        verbose: true
+        command:
+          - "--farm=bb"
+          - "--browser=safari_16"
+          - "--aws-public-ip"
+          - "--no-tunnel"
+    env:
+      RUBY_VERSION: "2.7"
+    concurrency: 5
+    concurrency_group: 'bitbar-web'
+    concurrency_method: eager

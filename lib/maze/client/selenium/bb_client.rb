@@ -16,9 +16,11 @@ module Maze
           capabilities.merge! JSON.parse(config.capabilities_option)
           config.capabilities = capabilities
 
-          Maze::Client::BitBarClientUtils.start_local_tunnel config.sb_local,
-                                                             config.username,
-                                                             config.access_key
+          unless Maze.config.aws_public_ip
+            Maze::Client::BitBarClientUtils.start_local_tunnel config.sb_local,
+                                                               config.username,
+                                                               config.access_key
+          end
 
           selenium_url = Maze.config.selenium_server_url
           Maze.driver = Maze::Driver::Browser.new :remote, selenium_url, config.capabilities

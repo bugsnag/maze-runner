@@ -281,7 +281,7 @@ steps:
   # BitBar tests
   #
 
-  - label: 'BitBar web browser test - Firefox latest'
+  - label: 'BitBar web browser test - Safari 16'
     depends_on: "push-branch-cli"
     timeout_in_minutes: 10
     plugins:
@@ -295,7 +295,7 @@ steps:
         verbose: true
         command:
           - "--farm=bb"
-          - "--browser=firefox_latest"
+          - "--browser=safari_16"
           - "--aws-public-ip"
           - "--fail-fast"
           - "--no-tunnel"

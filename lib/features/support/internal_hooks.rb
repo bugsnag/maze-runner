@@ -46,8 +46,14 @@ BeforeAll do
 
   # Determine public IP if enabled
   if Maze.config.aws_public_ip
-    Maze.public_address = Maze::AwsPublicIp.new.address
+    public_ip = Maze::AwsPublicIp.new
+    Maze.public_address = public_ip.address
     $logger.info "Public address: #{Maze.public_address}"
+
+    unless Maze.config.document_server_root.nil?
+      Maze.public_document_server_address = public_ip.document_server_address
+      $logger.info "Public document server address: #{Maze.public_document_server_address}"
+    end
   end
 
   # Start mock server

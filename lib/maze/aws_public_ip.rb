@@ -1,16 +1,32 @@
 module Maze
   # Determines the public IP address and port when running on Buildkite with the Elastic CI Stack for AWS
   class AwsPublicIp
-    attr_reader :address
+    attr_reader :host
+    attr_reader :port
+    attr_reader :document_server_port
+
+    def address
+      "#{@ip}:#{@port}"
+    end
+
+    def document_server_address
+      return nil if @document_server_port.nil?
+
+      "#{@ip}:#{@document_server_port}"
+    end
 
     def initialize
       # This class is only relevant on Buildkite
       return unless ENV['BUILDKITE']
 
-      ip = determine_public_ip
-      port = determine_public_port
-
+      @ip = determine_public_ip
+      @port = determine_public_port Maze.config.port
       @address = "#{ip}:#{port}"
+
+      unless Maze.config.document_server_root.nil?
+        @document_server_port = determine_public_port Maze.config.document_server_port
+      end
+
     end
 
     # Determines the public IP address of the running AWS instance
@@ -20,8 +36,9 @@ module Maze
       `curl --silent -XGET http://169.254.169.254/latest/meta-data/public-ipv4`
     end
 
-    # Determines the external port of the running Docker container that's associated with the port of the mock server
-    def determine_public_port
+    # Determines the external port of the running Docker container that's associated with the port given
+    # @param local_port Local port to find the external port for
+    def determine_public_port(local_port)
       port = 0
       count = 0
       max_attempts = 30
@@ -35,7 +52,11 @@ module Maze
           begin
             json_string = result[0][0].strip
             json_result = JSON.parse(json_string)
-            port = json_result['NetworkSettings']['Ports']["#{Maze.config.port}/tcp"][0]['HostPort']
+
+            $logger.info 'Result of query:'
+            $logger.info JSON.pretty_generate json_result
+
+            port = json_result['NetworkSettings']['Ports']["#{local_port}/tcp"][0]['HostPort']
           rescue StandardError
             $logger.error "Unable to parse public port from: #{json_string}"
             return 0

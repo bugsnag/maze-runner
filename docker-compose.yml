@@ -325,6 +325,7 @@ services:
       - ${DOCKER_ENV_FILE:-test/browser/features/fixtures/null_env}
     ports:
       - "9000-9499:9339"
+      - "9000-9499:9340"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 

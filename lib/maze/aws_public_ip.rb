@@ -21,7 +21,6 @@ module Maze
 
       @ip = determine_public_ip
       @port = determine_public_port Maze.config.port
-      @address = "#{ip}:#{port}"
 
       unless Maze.config.document_server_root.nil?
         @document_server_port = determine_public_port Maze.config.document_server_port

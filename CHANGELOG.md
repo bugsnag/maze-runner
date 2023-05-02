@@ -1,3 +1,9 @@
+# 7.28.0 - 2023/05/02
+
+## Enhancements
+
+- Provide access to document server via AWS public IP addresses [525](https://github.com/bugsnag/maze-runner/pull/525)
+
 # 7.27.0 - 2023/04/25
 
 ## Enhancements

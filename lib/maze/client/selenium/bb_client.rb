@@ -4,11 +4,6 @@ module Maze
       class BitBarClient < BaseClient
         def start_session
           config = Maze.config
-          if ENV['BUILDKITE']
-            credentials = Maze::Client::BitBarClientUtils.account_credentials config.tms_uri
-            config.username = credentials[:username]
-            config.access_key = credentials[:access_key]
-          end
           capabilities = ::Selenium::WebDriver::Remote::Capabilities.new
           capabilities['bitbar_apiKey'] = config.access_key
           browsers = YAML.safe_load(File.read("#{__dir__}/bb_browsers.yml"))
@@ -16,9 +11,15 @@ module Maze
           capabilities.merge! JSON.parse(config.capabilities_option)
           config.capabilities = capabilities
 
-          Maze::Client::BitBarClientUtils.start_local_tunnel config.sb_local,
-                                                             config.username,
-                                                             config.access_key
+          if Maze::Client::BitBarClientUtils.use_local_tunnel?
+            credentials = Maze::Client::BitBarClientUtils.account_credentials config.tms_uri
+            config.username = credentials[:username]
+            config.access_key = credentials[:access_key]
+
+            Maze::Client::BitBarClientUtils.start_local_tunnel config.sb_local,
+                                                               config.username,
+                                                               config.access_key
+          end
 
           selenium_url = Maze.config.selenium_server_url
           Maze.driver = Maze::Driver::Browser.new :remote, selenium_url, config.capabilities
@@ -36,8 +37,10 @@ module Maze
 
         def stop_session
           super
-          Maze::Client::BitBarClientUtils.stop_local_tunnel
-          Maze::Client::BitBarClientUtils.release_account(Maze.config.tms_uri) if ENV['BUILDKITE']
+          if Maze::Client::BitBarClientUtils.use_local_tunnel?
+            Maze::Client::BitBarClientUtils.stop_local_tunnel
+            Maze::Client::BitBarClientUtils.release_account(Maze.config.tms_uri) if ENV['BUILDKITE']
+          end
         end
       end
     end

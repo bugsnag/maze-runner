@@ -1,21 +1,9 @@
 require 'yaml'
 
-def get_test_url path
-  host = 'bs-local.com'
-  "http://#{host}:#{FIXTURES_SERVER_PORT}#{path}"
-end
-
-BeforeAll do
+Maze.hooks.before_all do
   Maze.config.receive_no_requests_wait = 15
   Maze.config.enforce_bugsnag_integrity = false
-
-  FIXTURES_SERVER_PORT = '9020'
-  DEV_NULL = Gem.win_platform? ? 'NUL' : '/dev/null'
-    pid = Process.spawn({"PORT"=>FIXTURES_SERVER_PORT},
-                        'ruby features/lib/server.rb',
-                        :out => DEV_NULL,
-                        :err => DEV_NULL)
-  Process.detach(pid)
+  Maze.config.document_server_root = 'features/fixtures'
 end
 
 at_exit do

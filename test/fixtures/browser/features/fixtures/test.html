@@ -2,12 +2,17 @@
 <html>
   <head>
     <meta charset="utf-8" />
+    <title>Test Fixture</title>
   </head>
   <body>
     <h1>Hello World</h1>
     <script type="text/javascript">
-      console.log("Hello");
-      fetch("http://bs-local.com:9339/notify", {
+      const parameters = new URLSearchParams(window.location.search)
+      const mazeAddress = parameters.get('maze_address')
+
+      console.log("Maze Runner address is " + mazeAddress);
+      url =
+      fetch(mazeAddress + "/notify", {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         headers: {
           'Content-Type': 'application/json'

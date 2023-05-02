@@ -16,7 +16,7 @@ module Maze
           capabilities.merge! JSON.parse(config.capabilities_option)
           config.capabilities = capabilities
 
-          unless Maze.config.aws_public_ip
+          if Maze.config.start_tunnel && !Maze.config.aws_public_ip
             Maze::Client::BitBarClientUtils.start_local_tunnel config.sb_local,
                                                                config.username,
                                                                config.access_key
@@ -38,7 +38,7 @@ module Maze
 
         def stop_session
           super
-          unless Maze.config.aws_public_ip
+          if Maze.config.start_tunnel && !Maze.config.aws_public_ip
             Maze::Client::BitBarClientUtils.stop_local_tunnel
             Maze::Client::BitBarClientUtils.release_account(Maze.config.tms_uri) if ENV['BUILDKITE']
           end

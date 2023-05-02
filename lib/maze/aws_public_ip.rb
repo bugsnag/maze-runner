@@ -51,10 +51,6 @@ module Maze
           begin
             json_string = result[0][0].strip
             json_result = JSON.parse(json_string)
-
-            $logger.info 'Result of query:'
-            $logger.info JSON.pretty_generate json_result
-
             port = json_result['NetworkSettings']['Ports']["#{local_port}/tcp"][0]['HostPort']
           rescue StandardError
             $logger.error "Unable to parse public port from: #{json_string}"

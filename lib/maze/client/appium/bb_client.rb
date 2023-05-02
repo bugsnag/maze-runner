@@ -6,7 +6,7 @@ module Maze
           config = Maze.config
           config.app = Maze::Client::BitBarClientUtils.upload_app config.access_key,
                                                                   config.app
-          if Maze.config.start_tunnel
+          if Maze.config.start_tunnel && !Maze.config.aws_public_ip
             Maze::Client::BitBarClientUtils.start_local_tunnel config.sb_local,
                                                                config.username,
                                                                config.access_key
@@ -61,7 +61,7 @@ module Maze
 
         def stop_session
           super
-          if Maze.config.start_tunnel
+          if Maze.config.start_tunnel && !Maze.config.aws_public_ip
             Maze::Client::BitBarClientUtils.stop_local_tunnel
           end
         end

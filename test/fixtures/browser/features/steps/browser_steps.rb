@@ -24,7 +24,7 @@ def get_private_hostname
     'bs-local.com'
   else # :bb
     # Get the IP address of the local machine - this is the only way I could
-    # find to make it with with Firefox, Chrome and Safari over the tunnel.
+    # find to make it work with Firefox, Chrome and Safari over the tunnel.
     addr_infos = Socket.ip_address_list.reject( &:ipv6? )
                                        .reject( &:ipv4_loopback? )
     address = addr_infos[0].ip_address

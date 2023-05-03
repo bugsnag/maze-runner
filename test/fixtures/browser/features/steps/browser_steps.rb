@@ -1,3 +1,5 @@
+require 'socket'
+
 def get_document_server_url
   if Maze.config.aws_public_ip
     "http://#{Maze.public_document_server_address}"
@@ -21,14 +23,20 @@ def get_private_hostname
   when :bs
     'bs-local.com'
   else # :bb
-    'local'
+    # Get the IP address of the local machine - this is the only way I could
+    # find to make it work with Firefox, Chrome and Safari over the tunnel.
+    addr_infos = Socket.ip_address_list.reject( &:ipv6? )
+                                       .reject( &:ipv4_loopback? )
+    address = addr_infos[0].ip_address
+    $logger.info "Using IP address #{address} to reach Maze Runner"
+    address
   end
 end
 
 When('I navigate to the test URL {string}') do |test_path|
   maze_address = get_maze_runner_url
   doc_server = get_document_server_url
-  url = "#{doc_server}/#{test_path}?maze_address=#{CGI.escape(maze_address)}"
+  url = "#{doc_server}#{test_path}?maze_address=#{CGI.escape(maze_address)}"
   step("I navigate to the URL \"#{url}\"")
 end
 

@@ -190,7 +190,7 @@ steps:
   # BrowserStack tests
   #
 
-  - label: 'BrowserStack app-automate - Android 7 - JWP'
+  - label: 'BrowserStack app-automate - Android 8.1 - JWP'
     timeout_in_minutes: 20
     depends_on:
       - "appium-test-fixture"
@@ -204,7 +204,7 @@ steps:
         command:
           - "--app=build/outputs/apk/release/app-release.apk"
           - "--farm=bs"
-          - "--device=ANDROID_7_1"
+          - "--device=ANDROID_8_1"
           - "--fail-fast"
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
         cache-from:

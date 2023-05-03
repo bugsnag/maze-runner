@@ -321,6 +321,8 @@ services:
       BUILDKITE_LABEL:
       BUILDKITE_PIPELINE_SLUG:
       BUILDKITE_RETRY_COUNT:
+      MAZE_TMS_URI:
+      MAZE_TMS_TOKEN:
     env_file:
       - ${DOCKER_ENV_FILE:-test/browser/features/fixtures/null_env}
     ports:

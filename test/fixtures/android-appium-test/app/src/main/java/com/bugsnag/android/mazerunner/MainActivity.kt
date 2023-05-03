@@ -17,7 +17,7 @@ import kotlin.concurrent.thread
 import org.json.JSONObject
 import org.json.JSONTokener
 
-const val CONFIG_FILE_TIMEOUT = 30000
+const val CONFIG_FILE_TIMEOUT = 10000
 
 class MainActivity : AppCompatActivity() {
 

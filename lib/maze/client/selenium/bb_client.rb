@@ -11,6 +11,9 @@ module Maze
           capabilities.merge! JSON.parse(config.capabilities_option)
           config.capabilities = capabilities
 
+          $logger.info "Capabilities: #{capabilities}"
+          
+
           if Maze::Client::BitBarClientUtils.use_local_tunnel?
             if ENV['BUILDKITE']
               credentials = Maze::Client::BitBarClientUtils.account_credentials config.tms_uri

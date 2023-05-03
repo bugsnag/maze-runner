@@ -2,11 +2,11 @@
 
 ## Enhancements
 
-- Update appium capabilities for appium 2.0 compatibility [526](https://github.com/bugsnag/maze-runner/pull/526)
+- Update appium capabilities for appium 2.0 compatibility [512](https://github.com/bugsnag/maze-runner/pull/512)
 
 ## Fix
 
-- Only use separate BitBar accounts on CI [512](https://github.com/bugsnag/maze-runner/pull/512)
+- Only use separate BitBar accounts on CI [526](https://github.com/bugsnag/maze-runner/pull/526)
 
 # 7.28.0 - 2023/05/02
 

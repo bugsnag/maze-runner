@@ -12,9 +12,11 @@ module Maze
           config.capabilities = capabilities
 
           if Maze::Client::BitBarClientUtils.use_local_tunnel?
-            credentials = Maze::Client::BitBarClientUtils.account_credentials config.tms_uri
-            config.username = credentials[:username]
-            config.access_key = credentials[:access_key]
+            if ENV['BUILDKITE']
+              credentials = Maze::Client::BitBarClientUtils.account_credentials config.tms_uri
+              config.username = credentials[:username]
+              config.access_key = credentials[:access_key]
+            end
 
             Maze::Client::BitBarClientUtils.start_local_tunnel config.sb_local,
                                                                config.username,

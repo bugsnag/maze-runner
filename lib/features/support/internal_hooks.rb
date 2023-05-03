@@ -44,12 +44,6 @@ BeforeAll do
   Maze.run_uuid = SecureRandom.uuid
   $logger.info "UUID for this run: #{Maze.run_uuid}"
 
-  # Determine public IP if enabled
-  if Maze.config.aws_public_ip
-    Maze.public_address = Maze::AwsPublicIp.new.address
-    $logger.info "Public address: #{Maze.public_address}"
-  end
-
   # Start mock server
   Maze::Server.start
   Maze::Server.set_response_delay_generator(Maze::Generator.new [Maze::Server::DEFAULT_RESPONSE_DELAY].cycle)
@@ -65,6 +59,18 @@ BeforeAll do
   # Start document server, if asked for
   # This must happen after any client hooks have run, so that they can set the server root
   Maze::DocumentServer.start unless Maze.config.document_server_root.nil?
+
+  # Determine public IP if enabled
+  if Maze.config.aws_public_ip
+    public_ip = Maze::AwsPublicIp.new
+    Maze.public_address = public_ip.address
+    $logger.info "Public address: #{Maze.public_address}"
+
+    unless Maze.config.document_server_root.nil?
+      Maze.public_document_server_address = public_ip.document_server_address
+      $logger.info "Public document server address: #{Maze.public_document_server_address}"
+    end
+  end
 
   # An initial setup for total success status
   $success = true

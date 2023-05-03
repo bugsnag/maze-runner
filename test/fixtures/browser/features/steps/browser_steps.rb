@@ -1,6 +1,35 @@
+def get_document_server_url
+  if Maze.config.aws_public_ip
+    "http://#{Maze.public_document_server_address}"
+  else
+    "http://#{get_private_hostname}:#{Maze.config.document_server_port}"
+  end
+end
+
+def get_maze_runner_url
+  if Maze.config.aws_public_ip
+      "http://#{Maze.public_address}"
+  else
+    "http://#{get_private_hostname}:#{Maze.config.port}"
+  end
+end
+
+def get_private_hostname
+  case Maze.config.farm
+  when :local
+    'localhost'
+  when :bs
+    'bs-local.com'
+  else # :bb
+    'local'
+  end
+end
+
 When('I navigate to the test URL {string}') do |test_path|
-  path = get_test_url test_path
-  step("I navigate to the URL \"#{path}\"")
+  maze_address = get_maze_runner_url
+  doc_server = get_document_server_url
+  url = "#{doc_server}/#{test_path}?maze_address=#{CGI.escape(maze_address)}"
+  step("I navigate to the URL \"#{url}\"")
 end
 
 When('the exception matches the {string} values for the current browser') do |fixture|

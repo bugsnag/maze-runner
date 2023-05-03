@@ -123,6 +123,10 @@ module Maze
           end
         end
 
+        def use_local_tunnel?
+          Maze.config.start_tunnel && !Maze.config.aws_public_ip
+        end
+
         # Starts the BitBar local tunnel
         #
         # @param sb_local [String] path to the SBSecureTunnel binary

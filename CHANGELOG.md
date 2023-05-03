@@ -1,3 +1,9 @@
+# 7.29.0 - TBD
+
+## Enhancements
+
+- Update appium capabilities for appium 2.0 compatibility [512](https://github.com/bugsnag/maze-runner/pull/512)
+
 # 7.28.0 - 2023/05/02
 
 ## Enhancements
@@ -18,7 +24,7 @@
 ## Removals
 
 - Remove absolute browser versions no longer supported by BitBar [523](https://github.com/bugsnag/maze-runner/pull/523)
-  
+
 # 7.26.1 - 2023/04/20
 
 ## Fixes

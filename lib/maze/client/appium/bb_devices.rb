@@ -40,6 +40,8 @@ module Maze
             Maze.config.os = platform
             Maze.config.os_version = platform_version.to_f.floor
 
+            prefix = caps_prefix(Maze.config.appium_version)
+
             case platform
             when 'android'
               automation_name = if platform_version.start_with?('5')
@@ -49,7 +51,7 @@ module Maze
                                 end
               make_android_hash(device_name, automation_name)
             when 'ios'
-              make_ios_hash(device_name)
+              make_ios_hash(device_name, prefix)
             else
               throw "Invalid device platform specified #{platform}"
             end
@@ -108,17 +110,20 @@ module Maze
             hash.freeze
           end
 
-          def make_ios_hash(device)
+          def make_ios_hash(device, prefix='')
             {
               'automationName' => 'XCUITest',
               'deviceName' => 'iPhone device',
               'platformName' => 'iOS',
+              "#{prefix}shouldTerminateApp" => 'true',
               'bitbar:options' => {
-                'noReset' => 'true',
-                'shouldTerminateApp' => 'true',
                 'device' => device
               }
             }.freeze
+          end
+
+          def caps_prefix(appium_version)
+            appium_version.nil? || (appium_version.to_i < 2) ? '' : 'appium:'
           end
         end
       end

@@ -26,19 +26,19 @@ module Maze
 
         def device_capabilities
           config = Maze.config
+          prefix = BitBarDevices.caps_prefix(config.appium_version)
           capabilities = {
-            'noReset' => true,
+            "#{prefix}noReset" => true,
             'bitbar:options' => {
               # Some capabilities probably belong in the top level
               # of the hash, but BitBar picks them up from here.
               'apiKey' => config.access_key,
               'app' => config.app,
+              "#{prefix}newCommandTimeout" => 0,
               'findDevice' => false,
-              'testTimeout' => 7200,
-              'newCommandTimeout' => 0
+              'testTimeout' => 7200
             }
           }
-          capabilities['appiumVersion'] = config.appium_version unless config.appium_version.nil?
           capabilities.deep_merge! dashboard_capabilities
           capabilities.deep_merge! BitBarDevices.get_available_device(config.device)
           capabilities.deep_merge! JSON.parse(config.capabilities_option)

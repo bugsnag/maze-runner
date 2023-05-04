@@ -305,7 +305,7 @@ steps:
     concurrency_group: 'bitbar-web'
     concurrency_method: eager
 
-  - label: 'BitBar web browser test - Firefox'
+  - label: 'BitBar web browser with tunnel - Firefox'
     depends_on: "push-branch-cli"
     timeout_in_minutes: 10
     plugins:
@@ -318,7 +318,7 @@ steps:
         verbose: true
         command:
           - "--farm=bb"
-          - "--browser=safari_16"
+          - "--browser=firefox_latest"
           - "--fail-fast"
     env:
       RUBY_VERSION: "2.7"

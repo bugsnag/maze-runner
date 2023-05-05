@@ -23,14 +23,14 @@ def get_private_hostname
   when :bs
     'bs-local.com'
   else # :bb
-    return 'local'
-    # Get the IP address of the local machine - this is the only way I could
-    # find to make it work with Firefox, Chrome and Safari over the tunnel.
-    addr_infos = Socket.ip_address_list.reject( &:ipv6? )
-                                       .reject( &:ipv4_loopback? )
-    address = addr_infos[0].ip_address
-    $logger.info "Using IP address #{address} to reach Maze Runner"
-    address
+    'local'
+    # # Get the IP address of the local machine - this is the only way I could
+    # # find to make it work with Firefox, Chrome and Safari over the tunnel.
+    # addr_infos = Socket.ip_address_list.reject( &:ipv6? )
+    #                                    .reject( &:ipv4_loopback? )
+    # address = addr_infos[0].ip_address
+    # $logger.info "Using IP address #{address} to reach Maze Runner"
+    # address
   end
 end
 

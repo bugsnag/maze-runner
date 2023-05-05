@@ -308,15 +308,18 @@ steps:
   - label: 'BitBar web browser with tunnel - Firefox'
     depends_on: "push-branch-cli"
     timeout_in_minutes: 10
-    agents:
-      queue: macos-12-arm
     plugins:
       artifacts#v1.9.0:
         upload: "maze_output/failed/**/*"
-    command:
-      - "cd test/fixtures/browser"
-      - "bundle install"
-      - "bundle exec maze-runner --farm=bb --browser=firefox_latest"
+      docker-compose#v4.7.0:
+        pull: browser-tests-bitbar
+        run: browser-tests-bitbar
+        use-aliases: true
+        verbose: true
+        command:
+          - "--farm=bb"
+          - "--browser=firefox_latest"
+          - "--fail-fast"
     env:
       RUBY_VERSION: "2.7"
     concurrency: 5

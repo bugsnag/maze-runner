@@ -3,6 +3,7 @@
 ## Enhancements
 
 - Update appium capabilities for appium 2.0 compatibility [512](https://github.com/bugsnag/maze-runner/pull/512)
+- Add support for Edge latest on BrowserStack [528](https://github.com/bugsnag/maze-runner/pull/528)
 
 ## Fixes
 

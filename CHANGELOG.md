@@ -1,4 +1,4 @@
-# 7.29.0 - TBD
+# 7.29.0 - 2023/05/09
 
 ## Enhancements
 
@@ -9,6 +9,7 @@
 
 - Only use separate BitBar accounts on CI [526](https://github.com/bugsnag/maze-runner/pull/526)
 - Ensure BitBar apiKey is provided when using the tunnel [527](https://github.com/bugsnag/maze-runner/pull/527)
+- Correct setting of `newCommandTimeout` capability for BitBar Appium sessions [529](https://github.com/bugsnag/maze-runner/pull/529)
 
 # 7.28.0 - 2023/05/02
 

@@ -48,6 +48,12 @@ edge_80:
   os: "windows"
   os_version: "11"
 
+edge_latest:
+  browser: "edge"
+  browser_version: "latest"
+  os: "windows"
+  os_version: "11"
+
 safari_6:
   browserName: "safari"
   browserVersion: "6"

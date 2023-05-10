@@ -305,7 +305,7 @@ steps:
     concurrency_group: 'bitbar-web'
     concurrency_method: eager
 
-  - label: 'BitBar app-automate - Android 10'
+  - label: 'BitBar app-automate - Android'
     timeout_in_minutes: 20
     depends_on:
       - "appium-test-fixture"
@@ -321,7 +321,7 @@ steps:
         command:
           - "--app=build/outputs/apk/release/app-release.apk"
           - "--farm=bb"
-          - "--device=ANDROID_10"
+          - "--device=ANDROID_10|ANDROID_11|ANDROID_12|ANDROID_13"
           - "--fail-fast"
           - "--no-tunnel"
           - "--aws-public-ip"

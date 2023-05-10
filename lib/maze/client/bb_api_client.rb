@@ -20,30 +20,38 @@ module Maze
         query_api(path)
       end
 
-      # Get the id of a device group given its name
-      def get_device_group_id(device_group_name)
+      # Get the id(s) of a one or more device groups given their names.  Multiple device group names should be separated
+      # by a pipe (which is directly supported by the BitBar API)
+      def get_device_group_ids(device_group_names)
         query = {
-          'filter': "displayName_eq_#{device_group_name}"
+          'filter': "displayName_in_#{device_group_names}"
         }
         device_groups = query_api('device-groups', query)
         if device_groups['data'].nil? || device_groups['data'].size == 0
           nil
         else
-          device_groups['data'][0]['id']
+          device_groups['data'].map { |group| group['id'] }
         end
       end
 
-      def find_device_in_group(device_group_id)
-        path = "device-groups/#{device_group_id}/devices"
-        query = {
-          'filter': "online_eq_true"
-        }
-        all_devices = query_api(path, query)
+      def find_device_in_groups(device_group_ids)
+        all_devices = []
+        device_group_ids.each do |group_id|
+          path = "device-groups/#{group_id}/devices"
+          query = {
+            'filter': "online_eq_true"
+          }
+          all_devices += query_api(path, query)['data']
+        end
 
-        $logger.debug "All available devices in group #{device_group_id}: #{JSON.pretty_generate(all_devices)}"
-        Maze::Plugins::DatadogMetricsPlugin.send_gauge('bitbar.device.available', all_devices['data'].size, [Maze.config.device])
-        filtered_devices = all_devices['data'].reject { |device| device['locked'] }
-        Maze::Plugins::DatadogMetricsPlugin.send_gauge('bitbar.device.unlocked', filtered_devices.size, [Maze.config.device])
+        $logger.debug "All available devices in group(s) #{device_group_ids}: #{JSON.pretty_generate(all_devices)}"
+        filtered_devices = all_devices.reject { |device| device['locked'] }
+
+        # Only send gauges to DataDog for single device groups
+        if device_group_ids.size == 1
+          Maze::Plugins::DatadogMetricsPlugin.send_gauge('bitbar.device.available', all_devices.size, [Maze.config.device])
+          Maze::Plugins::DatadogMetricsPlugin.send_gauge('bitbar.device.unlocked', filtered_devices.size, [Maze.config.device])
+        end
         return filtered_devices.size, filtered_devices.sample
       end
 

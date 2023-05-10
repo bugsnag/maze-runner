@@ -9,24 +9,25 @@ module Maze
       class BitBarDevices
         class << self
           # Uses the BitBar API to find an available device from the group name given, or a device of that name
-          # @param device_or_group_name [String] Name of the device, or device group for which to find an available device
+          # @param device_or_group_names [String] Name of the device, or device group(s) for which to find an available
+          # device.  Multiple device group names can be separated by a pipe.
           # @return Capabilities hash for the available device
-          def get_available_device(device_or_group_name)
+          def get_available_device(device_or_group_names)
             api_client = BitBarApiClient.new(Maze.config.access_key)
-            device_group_id = api_client.get_device_group_id(device_or_group_name)
-            if device_group_id
+            device_group_ids = api_client.get_device_group_ids(device_or_group_names)
+            if device_group_ids
               # Device group found - find a free device in it
-              $logger.debug "Got group id #{device_group_id} for #{device_or_group_name}"
-              group_count, device = api_client.find_device_in_group(device_group_id)
+              $logger.debug "Got group ids #{device_group_ids} for #{device_or_group_names}"
+              group_count, device = api_client.find_device_in_groups(device_group_ids)
               if device.nil?
                 # TODO: Retry rather than fail, see PLAT-7377
                 Maze::Helper.error_exit 'There are no devices available'
               else
-                $logger.info "#{group_count} device(s) currently available in group '#{device_or_group_name}'"
+                $logger.info "#{group_count} device(s) currently available in group(s) '#{device_or_group_names}'"
               end
             else
               # See if there is a device with the given name
-              device = api_client.find_device device_or_group_name
+              device = api_client.find_device device_or_group_names
             end
 
             device_name = device['displayName']

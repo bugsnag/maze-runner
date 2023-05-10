@@ -2,6 +2,12 @@
 
 ## Enhancements
 
+- Allow a list of BitBar device groups to be selected from [529](https://github.com/bugsnag/maze-runner/pull/529)
+
+# 7.29.0 - 2023/05/09
+
+## Enhancements
+
 - Update appium capabilities for appium 2.0 compatibility [512](https://github.com/bugsnag/maze-runner/pull/512)
 - Add support for Edge latest on BrowserStack [528](https://github.com/bugsnag/maze-runner/pull/528)
 

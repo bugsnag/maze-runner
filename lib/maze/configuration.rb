@@ -62,6 +62,9 @@ module Maze
     attr_accessor :captured_invalid_requests
 
     # API key to use when repeating requests to Bugsnag
+    attr_accessor :aspecto_repeater_api_key
+
+    # API key to use when repeating requests to Bugsnag
     attr_accessor :bugsnag_repeater_api_key
 
     # Enables awareness of a public IP address on Buildkite with the Elastic CI Stack for AWS.

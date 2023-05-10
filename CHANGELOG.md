@@ -3,6 +3,7 @@
 ## Enhancements
 
 - Allow a list of BitBar device groups to be selected from [530](https://github.com/bugsnag/maze-runner/pull/530)
+- Forward trace requests to Aspecto [531](https://github.com/bugsnag/maze-runner/pull/531)
 
 # 7.29.0 - 2023/05/09
 

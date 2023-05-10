@@ -41,7 +41,11 @@ module Maze
                 type: :boolean,
                 default: true
 
-            opt Option::REPEATER_API_KEY,
+            opt Option::ASPECTO_REPEATER_API_KEY,
+                'Enables forwarding of all received POST requests to Aspecto, using the API key provided.  MAZE_ASPECTO_REPEATER_API_KEY may also be set.',
+                type: :string
+
+            opt Option::BUGSNAG_REPEATER_API_KEY,
                 'Enables forwarding of all received POST requests to Bugsnag, using the API key provided.  MAZE_REPEATER_API_KEY may also be set.',
                 type: :string
 
@@ -232,7 +236,8 @@ module Maze
             options[Option::SELENIUM_SERVER] ||= ENV['MAZE_SELENIUM_SERVER'] || 'https://us-west-desktop-hub.bitbar.com/wd/hub'
           end
 
-          options[Option::REPEATER_API_KEY] ||= ENV['MAZE_REPEATER_API_KEY']
+          options[Option::ASPECTO_REPEATER_API_KEY] ||= ENV['MAZE_ASPECTO_REPEATER_API_KEY']
+          options[Option::BUGSNAG_REPEATER_API_KEY] ||= ENV['MAZE_REPEATER_API_KEY']
           options[Option::SB_LOCAL] ||= ENV['MAZE_SB_LOCAL'] || '/SBSecureTunnel'
           options[Option::TMS_URI] ||= ENV['MAZE_TMS_URI']
           options[Option::TMS_TOKEN] ||= ENV['MAZE_TMS_TOKEN']

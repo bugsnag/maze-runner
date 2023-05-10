@@ -32,7 +32,7 @@ class ValidatorTest < Test::Unit::TestCase
     assert_equal "--farm must be 'bs', 'bb' or 'local' if provided", errors[0]
   end
 
-  def test_repeater_api_key
+  def test_bugsnag_repeater_api_key
     args = %w[--repeater-api-key=invalid]
     options = Maze::Option::Parser.parse args
     errors = @validator.validate options

@@ -39,7 +39,7 @@ module Maze
         @request_type = request_type
         @requests = Server.list_for request_type
         @schema = JSONSchemer.schema(schema) unless schema.nil?
-        @bugsnag_repeater = Maze::Repeaters::RequestRepeater.new(@request_type)
+        @bugsnag_repeater = Maze::Repeaters::BugsnagRepeater.new(@request_type)
       end
 
       # Logs an incoming GET WEBrick request.

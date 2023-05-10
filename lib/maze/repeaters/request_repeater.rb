@@ -17,34 +17,24 @@ module Maze
 
         url = url_for_request_type
         http = Net::HTTP.new(url.host)
-        bugsnag_request = Net::HTTP::Post.new(url.path)
+        onward_request = Net::HTTP::Post.new(url.path)
 
         # Set all headers that are present
-        bugsnag_request.body = request.body
-        request.header.each {|key,value| bugsnag_request[key] = value }
-        bugsnag_request['bugsnag-api-key'] = Maze.config.repeater_api_key
+        onward_request.body = request.body
+        request.header.each {|key,value| onward_request[key] = value }
+        set_headers onward_request
 
-        # TODO Also overwrite apiKey in the payload, if present, recalculate the integrity header (handling
-        #   compressed payloads if the content-encoding header is set accordingly)
-
-        http.request(bugsnag_request)
+        http.request(onward_request)
       end
 
       private
 
       def enabled?
-        # enabled if the config option is on and this request type should be repeated
-        Maze.config.repeater_api_key && url_for_request_type
+        raise 'Method not implemented by this class'
       end
 
       def url_for_request_type
-        url = case @request_type
-              when :errors then 'https://notify.bugsnag.com/'
-              when :sessions then 'https://sessions.bugsnag.com/'
-              when :traces then 'https://otlp.bugsnag.com/v1/traces'
-              else return nil
-              end
-        URI.parse(url)
+        raise 'Method not implemented by this class'
       end
     end
   end

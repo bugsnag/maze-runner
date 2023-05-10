@@ -42,7 +42,7 @@ require_relative '../lib/maze/metrics_processor'
 require_relative '../lib/maze/network'
 require_relative '../lib/maze/proxy'
 require_relative '../lib/maze/retry_handler'
-require_relative '../lib/maze/request_repeater'
+require_relative '../lib/maze/repeaters/request_repeater'
 require_relative '../lib/maze/runner'
 require_relative '../lib/maze/terminating_server'
 

@@ -1,8 +1,8 @@
-# 7.29.0 - 2023/05/09
+# 7.30.0 - TBD
 
 ## Enhancements
 
-- Allow a list of BitBar device groups to be selected from [529](https://github.com/bugsnag/maze-runner/pull/529)
+- Allow a list of BitBar device groups to be selected from [530](https://github.com/bugsnag/maze-runner/pull/530)
 
 # 7.29.0 - 2023/05/09
 

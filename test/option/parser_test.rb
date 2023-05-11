@@ -139,7 +139,7 @@ class ParserTest < Test::Unit::TestCase
     assert_equal('ENV_TEAM_ID', options[Maze::Option::APPLE_TEAM_ID])
     assert_equal('ENV_UDID', options[Maze::Option::UDID])
     assert_equal('ENV_ASPECTO_REPEATER_API_KEY', options[Maze::Option::ASPECTO_REPEATER_API_KEY])
-    assert_equal('ENV_REPEATER_API_KEY', options[Maze::Option::REPEATER_API_KEY])
+    assert_equal('ENV_REPEATER_API_KEY', options[Maze::Option::BUGSNAG_REPEATER_API_KEY])
   end
 
   def test_environment_value_browsers

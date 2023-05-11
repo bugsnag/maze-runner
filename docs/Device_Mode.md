@@ -41,7 +41,7 @@ bundle exec maze-runner features/smoke_tests    \
                         --fail-fast
 ```
 
-In the case of BitBar, the `--device` option maps directly to the name of either a device, or a device group configured in the BitBar dashboard.
+For BitBar, the `--device` option maps directly to the name of either a device, or a device group configured in the BitBar dashboard.  Multiple device groups can also be listed, separated by a pipe.  Maze Runner will select an available device from them at random.  E.g. `--device=ANDROID_10|ANDROID_11`.
 
 ## Appium client modes
 

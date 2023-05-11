@@ -26,7 +26,6 @@ module Maze
             next if !gzip_supported && key.downcase == 'content-encoding'
             next if key.downcase.start_with? 'bugsnag'
 
-            $logger.info "#{key} = #{value}"
             onward_request[key] = value
           end
           set_headers onward_request

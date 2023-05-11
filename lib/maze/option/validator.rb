@@ -29,14 +29,6 @@ module Maze
           errors << "--#{Option::CAPABILITIES} must be valid JSON (given #{options[Option::CAPABILITIES]})"
         end
 
-        # --aspecto-repeater-api-key
-        key = options[Option::ASPECTO_REPEATER_API_KEY]
-        # TODO correct the regex
-        # key_regex = /^[0-9a-fA-F]{32}$/
-        # if key && !key_regex.match?(key)
-        #   errors << "--#{Option::ASPECTO_REPEATER_API_KEY} must be set to a 32-character hex value"
-        # end
-
         # --repeater-api-key
         key = options[Option::BUGSNAG_REPEATER_API_KEY]
         key_regex = /^[0-9a-fA-F]{32}$/

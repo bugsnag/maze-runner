@@ -38,7 +38,7 @@ class ProcessorTest < Test::Unit::TestCase
     assert_equal '5.6.7.8', config.document_server_bind_address
     assert_equal 5678, config.document_server_port
     assert_false config.start_appium
-    assert_equal '123456789012345678901234567890ab', config.repeater_api_key
+    assert_equal '123456789012345678901234567890ab', config.bugsnag_repeater_api_key
   end
 
   def test_populate_local_config_defaults
@@ -94,7 +94,7 @@ class ProcessorTest < Test::Unit::TestCase
     assert_true config.start_tunnel
     assert_false config.log_requests
     assert_false config.always_log
-    assert_nil config.repeater_api_key
+    assert_nil config.bugsnag_repeater_api_key
   end
 
   def test_filename_options

@@ -6,14 +6,16 @@ module Maze
       private
 
       def set_headers(request)
-        # TODO Also overwrite apiKey in the payload, if present, recalculate the integrity header (handling
-        #   compressed payloads if the content-encoding header is set accordingly)
         request['Authorization'] = Maze.config.aspecto_repeater_api_key
       end
 
       def enabled?
         # enabled if the config option is on and this request type should be repeated
         Maze.config.aspecto_repeater_api_key && url_for_request_type
+      end
+
+      def gzip_supported
+        false
       end
 
       def url_for_request_type

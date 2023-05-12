@@ -25,6 +25,10 @@ module Maze
               end
         URI.parse(url)
       end
+
+      def include_header?(key, _value)
+        true unless key.start_with? 'bugsnag'
+      end
     end
   end
 end

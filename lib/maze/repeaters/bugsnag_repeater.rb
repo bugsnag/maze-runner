@@ -25,6 +25,11 @@ module Maze
               end
         URI.parse(url)
       end
+
+      def include_header?(key, value)
+        # Include all headers apart from the API key, which is set separately
+        key != 'bugsnag-api-key'
+      end
     end
   end
 end

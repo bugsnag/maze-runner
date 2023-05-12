@@ -18,19 +18,25 @@ module Maze
         uri = url_for_request_type
 
         Net::HTTP.start(uri.host, uri.port, :use_ssl => true) do |https|
-          onward_request = Net::HTTP::Post.new(uri)
+          onward_request = Net::HTTP::Post.new(uri.path)
           onward_request.body = decompress(request)
 
           # Set all headers that are present, unless Gzip is not supported
           request.header.each do |key,value|
+            # Only include content-type header if gip is supported
             next if !gzip_supported && key.downcase == 'content-encoding'
-            next if key.downcase.start_with? 'bugsnag'
+
+            # All other headers are opt-in to avoid accidental leakage
+            next unless include_header? key.downcase, value
 
             onward_request[key] = value
           end
+
+          # Set headers specific to the repeater
           set_headers onward_request
 
-          https.request(onward_request)
+          response = https.request(onward_request)
+          log_response response
         end
       end
 
@@ -42,6 +48,7 @@ module Maze
 
       def decompress(request)
         if !gzip_supported && %r{^gzip$}.match(request['Content-Encoding'])
+
           reader = Zlib::GzipReader.new(StringIO.new(request.body))
           reader.read
         else
@@ -55,6 +62,25 @@ module Maze
 
       def url_for_request_type
         raise 'Method not implemented by this class'
+      end
+
+      def include_header?(_key, _value)
+        raise 'Method not implemented by this class'
+      end
+
+      def log_response(response)
+        log "HEADERS:"
+        response.header.each_header do |key, value|
+          log "  #{key}: #{value}"
+        end
+
+        log
+        log "BODY:"
+        log response.body
+      end
+      
+      def log(message = '')
+        $logger.debug message
       end
     end
   end

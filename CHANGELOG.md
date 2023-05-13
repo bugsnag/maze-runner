@@ -1,3 +1,9 @@
+# 7.30.1 - 2023/05/13
+
+## Fixes
+
+- Correct setting of headers on repeated requests [532](https://github.com/bugsnag/maze-runner/pull/532)
+
 # 7.30.0 - 2023/05/11
 
 ## Enhancements

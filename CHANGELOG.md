@@ -1,3 +1,16 @@
+# 8.0.0 - TBD
+
+## Enhancements
+
+- Upgrade Docker image to Ruby 3 [534](https://github.com/bugsnag/maze-runner/pull/534)
+
+
+<!---
+
+END OF v8 INTEGRATION
+
+--->
+
 # 7.30.1 - 2023/05/13
 
 ## Fixes

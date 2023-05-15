@@ -2,7 +2,7 @@
 
 ## Enhancements
 
-- Command line options reviewed for consistency [xyz](https://github.com/bugsnag/maze-runner/pull/xyz)
+- Command line options reviewed for consistency [533](https://github.com/bugsnag/maze-runner/pull/533)
 
 
 <!---

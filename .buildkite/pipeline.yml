@@ -28,68 +28,35 @@ steps:
       artifacts#v1.5.0:
         upload: "test/fixtures/android-appium-test/app/build/outputs/apk/release/app-release.apk"
 
-  - label: ':docker: Build CI image for Ruby 2.7'
+  - label: ':docker: Build CI image'
     timeout_in_minutes: 30
-    key: "ci-image-ruby-2-7"
+    key: "ci-image"
     plugins:
       - docker-compose#v4.7.0:
           build:
-            - ci-ruby-2.7
+            - ci
           image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
           cache-from:
-            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-2.7
+            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
       - docker-compose#v4.7.0:
           push:
-            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-2.7
-    env:
-      RUBY_VERSION: "2.7"
+            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
 
-  - label: ':docker: Build CI image for Ruby 3'
+  - label: 'Unit tests'
     timeout_in_minutes: 30
-    key: "ci-image-ruby-3"
-    plugins:
-      - docker-compose#v4.7.0:
-          build:
-            - ci-ruby-3
-          image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
-          cache-from:
-            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-3
-      - docker-compose#v4.7.0:
-          push:
-            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-3
-    env:
-      RUBY_VERSION: "3"
-
-  - label: 'Unit tests with Ruby 2.7'
-    timeout_in_minutes: 30
-    depends_on: 'ci-image-ruby-2-7'
+    depends_on: 'ci-image'
     plugins:
       docker-compose#v4.7.0:
         run: unit-test
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
         cache-from:
-          - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-2.7
-    env:
-      RUBY_VERSION: "2.7"
-    command: 'bundle exec rake'
-
-  - label: 'Unit tests with Ruby 3'
-    timeout_in_minutes: 30
-    depends_on: 'ci-image-ruby-3'
-    plugins:
-      docker-compose#v4.7.0:
-        run: unit-test
-        image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
-        cache-from:
-          - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-3
-    env:
-      RUBY_VERSION: "3"
+          - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
     command: 'bundle exec rake'
 
   - label: ':docker: Push W3C Docker image for branch'
     key: push-branch-cli
     timeout_in_minutes: 30
-    depends_on: "ci-image-ruby-2-7"
+    depends_on: "ci-image"
     plugins:
       - docker-compose#v4.7.0:
           build: cli
@@ -103,7 +70,7 @@ steps:
   - label: ':docker: Push Legacy Docker image for branch'
     key: push-branch-cli-legacy
     timeout_in_minutes: 30
-    depends_on: "ci-image-ruby-2-7"
+    depends_on: "ci-image"
     plugins:
       - docker-compose#v4.7.0:
           build: cli-legacy
@@ -114,9 +81,9 @@ steps:
           push:
             - cli-legacy:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli-legacy
 
-  - label: 'No-device tests with Ruby 2.7 - batch 1'
+  - label: 'No-device tests - batch 1'
     timeout_in_minutes: 30
-    depends_on: "ci-image-ruby-2-7"
+    depends_on: "ci-image"
     plugins:
       - docker-compose#v4.7.0:
           run: framework-tests
@@ -128,13 +95,11 @@ steps:
           run: cli-tests
       - docker-compose#v4.7.0:
           run: http-response-tests
-    env:
-      RUBY_VERSION: "2.7"
     command: 'bundle exec maze-runner -e features/fixtures'
 
-  - label: 'No-device tests with Ruby 2.7 - batch 2'
+  - label: 'No-device tests - batch 2'
     timeout_in_minutes: 30
-    depends_on: "ci-image-ruby-2-7"
+    depends_on: "ci-image"
     plugins:
       - docker-compose#v4.7.0:
           run: payload-helper-tests
@@ -144,46 +109,6 @@ steps:
           run: doc-server-tests
       - docker-compose#v4.7.0:
           run: exit-codes-tests
-      - artifacts#v1.9.0:
-          upload:
-            - test/fixtures/payload-helpers/maze_output/**/*
-            - test/fixtures/payload-helpers/maze_output/*
-    env:
-      RUBY_VERSION: "2.7"
-    command: 'bundle exec maze-runner -e features/fixtures'
-
-  - label: 'No-device tests with Ruby 3 - batch 1'
-    timeout_in_minutes: 30
-    depends_on: "ci-image-ruby-3"
-    plugins:
-      - docker-compose#v4.7.0:
-          run: framework-tests
-      - docker-compose#v4.7.0:
-          run: comparison-tests
-      - docker-compose#v4.7.0:
-          run: proxy-tests
-      - docker-compose#v4.7.0:
-          run: cli-tests
-      - docker-compose#v4.7.0:
-          run: http-response-tests
-    env:
-      RUBY_VERSION: "3"
-    command: 'bundle exec maze-runner -e features/fixtures'
-
-  - label: 'No-device tests with Ruby 3 - batch 2'
-    timeout_in_minutes: 30
-    depends_on: "ci-image-ruby-3"
-    plugins:
-      - docker-compose#v4.7.0:
-          run: payload-helper-tests
-      - docker-compose#v4.7.0:
-          run: docker-tests
-      - docker-compose#v4.7.0:
-          run: doc-server-tests
-      - docker-compose#v4.7.0:
-          run: exit-codes-tests
-    env:
-      RUBY_VERSION: "3"
     command: 'bundle exec maze-runner -e features/fixtures'
 
   #
@@ -211,8 +136,7 @@ steps:
           - cli-legacy:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli-legacy
       artifacts#v1.9.0:
         upload: test/fixtures/android-appium-test/maze_output/**/*
-    env:
-      RUBY_VERSION: "2.7"
+    concurrency: 5
     concurrency: 5
     concurrency_group: 'browserstack-app'
     concurrency_method: eager
@@ -238,8 +162,6 @@ steps:
           - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
       artifacts#v1.9.0:
         upload: test/fixtures/android-appium-test/maze_output/**/*
-    env:
-      RUBY_VERSION: "3"
     concurrency: 5
     concurrency_group: 'browserstack-app'
     concurrency_method: eager
@@ -299,8 +221,6 @@ steps:
           - "--aws-public-ip"
           - "--fail-fast"
           - "--no-tunnel"
-    env:
-      RUBY_VERSION: "2.7"
     concurrency: 5
     concurrency_group: 'bitbar-web'
     concurrency_method: eager
@@ -326,8 +246,6 @@ steps:
           - "--no-tunnel"
           - "--aws-public-ip"
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
-    env:
-      RUBY_VERSION: "3"
     concurrency: 25
     concurrency_group: 'bitbar-app'
     concurrency_method: eager
@@ -348,10 +266,10 @@ steps:
       - docker-compose#v4.7.0:
           push:
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:${BUILDKITE_TAG}-cli
-            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-v7-cli
+            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-v8-cli
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-cli
             - cli-legacy:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:${BUILDKITE_TAG}-cli-legacy
-            - cli-legacy:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-v7-cli-legacy
+            - cli-legacy:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-v8-cli-legacy
             - cli-legacy:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-cli-legacy
 
   - label: 'Push to RubyGems.org'

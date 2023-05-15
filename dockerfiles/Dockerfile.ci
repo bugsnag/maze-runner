@@ -1,6 +1,5 @@
-# Ruby image are based on Debian
-ARG RUBY_VERSION
-FROM ruby:${RUBY_VERSION}-bullseye as ci-base
+# Ruby images are based on Debian
+FROM ruby:3-bullseye as ci-base
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
     apt-get install -y apt-utils wget unzip bash bundler \

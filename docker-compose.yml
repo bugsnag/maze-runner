@@ -13,24 +13,18 @@ services:
       dockerfile: dockerfiles/Dockerfile.ci
       context: .
       target: ci
-      args:
-        - RUBY_VERSION
 
   cli:
     build:
       dockerfile: dockerfiles/Dockerfile.ci
       context: .
       target: cli
-      args:
-        - RUBY_VERSION=2.7
 
   cli-legacy:
     build:
       dockerfile: dockerfiles/Dockerfile.ci
       context: .
       target: cli-legacy
-      args:
-        - RUBY_VERSION=2.7
 
   docs:
     build:
@@ -45,7 +39,6 @@ services:
       dockerfile: Dockerfile.w3c
       args:
         BRANCH_NAME:
-        RUBY_VERSION:
     extra_hosts:
       - "maze-local:127.0.0.1"
     environment:
@@ -79,7 +72,6 @@ services:
       dockerfile: Dockerfile.w3c
       args:
         BRANCH_NAME:
-        RUBY_VERSION:
     extra_hosts:
       - "maze-local:127.0.0.1"
     environment:
@@ -115,7 +107,6 @@ services:
       dockerfile: Dockerfile.legacy
       args:
         BRANCH_NAME:
-        RUBY_VERSION:
     extra_hosts:
       - "maze-local:127.0.0.1"
     environment:
@@ -149,7 +140,6 @@ services:
       context: test/fixtures/ios-app
       args:
         BRANCH_NAME:
-        RUBY_VERSION:
     extra_hosts:
       - "maze-local:127.0.0.1"
     environment:
@@ -176,7 +166,6 @@ services:
       context: test/fixtures/cli
       args:
         BRANCH_NAME:
-        RUBY_VERSION:
     environment:
       MAZE_BUGSNAG_API_KEY:
 
@@ -185,7 +174,6 @@ services:
       context: test/fixtures/comparison
       args:
         BRANCH_NAME:
-        RUBY_VERSION:
     environment:
       MAZE_BUGSNAG_API_KEY:
 
@@ -194,7 +182,6 @@ services:
       context: test/fixtures/doc-server
       args:
         BRANCH_NAME:
-        RUBY_VERSION:
     environment:
       MAZE_BUGSNAG_API_KEY:
 
@@ -203,7 +190,6 @@ services:
       context: test/fixtures/exit-codes
       args:
         BRANCH_NAME:
-        RUBY_VERSION:
     environment:
       MAZE_BUGSNAG_API_KEY:
 
@@ -212,7 +198,6 @@ services:
       context: test/fixtures/framework
       args:
         BRANCH_NAME:
-        RUBY_VERSION:
     environment:
       MAZE_BUGSNAG_API_KEY:
 
@@ -221,7 +206,6 @@ services:
       context: test/fixtures/docker-app
       args:
         BRANCH_NAME:
-        RUBY_VERSION:
     environment:
       MAZE_BUGSNAG_API_KEY:
       NETWORK_NAME: "${BUILDKITE_JOB_ID:-core-maze-runner}"
@@ -233,7 +217,6 @@ services:
       context: test/fixtures/proxy
       args:
         BRANCH_NAME:
-        RUBY_VERSION:
     environment:
       MAZE_BUGSNAG_API_KEY:
 
@@ -242,7 +225,6 @@ services:
       context: test/fixtures/payload-helpers
       args:
         BRANCH_NAME:
-        RUBY_VERSION:
     environment:
       MAZE_BUGSNAG_API_KEY:
     volumes:
@@ -253,7 +235,6 @@ services:
       context: test/fixtures/http-response
       args:
         BRANCH_NAME:
-        RUBY_VERSION:
     environment:
       MAZE_BUGSNAG_API_KEY:
 
@@ -262,8 +243,6 @@ services:
       dockerfile: dockerfiles/Dockerfile.ci
       context: .
       target: unit-test
-      args:
-        RUBY_VERSION:
 
   browser-tests:
     build:
@@ -271,7 +250,6 @@ services:
       dockerfile: Dockerfile.w3c
       args:
         BRANCH_NAME:
-        RUBY_VERSION:
     environment:
       BUILDKITE:
       BROWSER_STACK_USERNAME:
@@ -293,7 +271,6 @@ services:
       dockerfile: Dockerfile.legacy
       args:
         BRANCH_NAME:
-        RUBY_VERSION:
     environment:
       BUILDKITE:
       BROWSER_STACK_USERNAME:
@@ -312,7 +289,6 @@ services:
       dockerfile: Dockerfile.w3c
       args:
         BRANCH_NAME:
-        RUBY_VERSION:
     environment:
       BITBAR_USERNAME:
       BITBAR_ACCESS_KEY:

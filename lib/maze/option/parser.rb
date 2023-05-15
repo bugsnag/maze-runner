@@ -31,12 +31,12 @@ module Maze
                 type: :boolean,
                 default: false
 
-            opt Option::ENABLE_RETRIES,
+            opt Option::RETRIES,
                 'Enables retrying failed scenarios when tagged',
                 type: :boolean,
                 default: true
 
-            opt Option::ENABLE_BUGSNAG,
+            opt Option::BUGSNAG,
                 'Enables reporting to Bugsnag on scenario failure (requires MAZE_BUGSNAG_API_KEY)',
                 type: :boolean,
                 default: true

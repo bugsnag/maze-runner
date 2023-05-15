@@ -58,7 +58,7 @@ module Maze
     AWS_PUBLIC_IP = 'aws-public-ip'
     ASPECTO_REPEATER_API_KEY = 'aspecto-repeater-api-key'
     BUGSNAG_REPEATER_API_KEY = 'repeater-api-key'
-    ENABLE_BUGSNAG = 'bugsnag'
-    ENABLE_RETRIES = 'retries'
+    BUGSNAG = 'bugsnag'
+    RETRIES = 'retries'
   end
 end

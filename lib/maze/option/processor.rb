@@ -19,8 +19,8 @@ module Maze
 
           # General options
           config.aws_public_ip = options[Maze::Option::AWS_PUBLIC_IP]
-          config.enable_retries = options[Maze::Option::ENABLE_RETRIES]
-          config.enable_bugsnag = options[Maze::Option::ENABLE_BUGSNAG]
+          config.enable_retries = options[Maze::Option::RETRIES]
+          config.enable_bugsnag = options[Maze::Option::BUGSNAG]
           config.tms_uri = options[Maze::Option::TMS_URI]
           config.tms_token = options[Maze::Option::TMS_TOKEN]
           config.aspecto_repeater_api_key = options[Maze::Option::ASPECTO_REPEATER_API_KEY]

@@ -1,3 +1,16 @@
+# 8.0.0 - TBD
+
+## Enhancements
+
+- Command line options reviewed for consistency [533](https://github.com/bugsnag/maze-runner/pull/533)
+
+
+<!---
+
+END OF v8 INTEGRATION
+
+--->
+
 # 7.30.1 - 2023/05/13
 
 ## Fixes

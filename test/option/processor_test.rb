@@ -92,9 +92,37 @@ class ProcessorTest < Test::Unit::TestCase
 
     assert_true config.file_log
     assert_true config.start_tunnel
+    assert_true config.enable_bugsnag
+    assert_true config.enable_retries
     assert_false config.log_requests
     assert_false config.always_log
     assert_nil config.bugsnag_repeater_api_key
+  end
+
+  def test_overriden_defaults
+    args = %w[--no-bugsnag --no-retries --no-file-log --no-tunnel --log-requests --always-log --bind-address=1.2.3.4 \
+              --port=1234]
+    options = Maze::Option::Parser.parse args
+    config = Maze::Configuration.new
+    Maze::Option::Processor.populate config, options
+
+    assert_equal '1.2.3.4', config.bind_address
+    assert_equal 1234, config.port
+
+    assert_equal nil, config.document_server_root
+    assert_equal nil, config.document_server_bind_address
+    assert_equal 9340, config.document_server_port
+
+    assert_equal :id, config.locator
+    assert_nil config.capabilities
+
+    assert_false config.file_log
+    assert_false config.start_tunnel
+    assert_false config.enable_bugsnag
+    assert_false config.enable_retries
+
+    assert_true config.log_requests
+    assert_true config.always_log
   end
 
   def test_filename_options

@@ -29,24 +29,29 @@ module Maze
             opt Option::AWS_PUBLIC_IP,
                 'Intended for use on Buildkite with the Elastic CI Stack for CI.  Enables awareness of being run with a public IP address.',
                 type: :boolean,
+                short: :none,
                 default: false
 
-            opt Option::ENABLE_RETRIES,
+            opt Option::RETRIES,
                 'Enables retrying failed scenarios when tagged',
                 type: :boolean,
+                short: :none,
                 default: true
 
-            opt Option::ENABLE_BUGSNAG,
+            opt Option::BUGSNAG,
                 'Enables reporting to Bugsnag on scenario failure (requires MAZE_BUGSNAG_API_KEY)',
                 type: :boolean,
+                short: :none,
                 default: true
 
             opt Option::ASPECTO_REPEATER_API_KEY,
                 'Enables forwarding of all received POST requests to Aspecto, using the API key provided.  MAZE_ASPECTO_REPEATER_API_KEY may also be set.',
+                short: :none,
                 type: :string
 
             opt Option::BUGSNAG_REPEATER_API_KEY,
                 'Enables forwarding of all received POST requests to Bugsnag, using the API key provided.  MAZE_REPEATER_API_KEY may also be set.',
+                short: :none,
                 type: :string
 
             text ''
@@ -54,12 +59,15 @@ module Maze
 
             opt Option::BIND_ADDRESS,
                 'Mock server bind address',
+                short: :none,
                 type: :string
             opt Option::PORT,
                 'Mock server port',
+                short: :none,
                 default: 9339
             opt Option::NULL_PORT,
                 'Terminating connection port',
+                short: :none,
                 default: 9341
 
             text ''
@@ -67,12 +75,15 @@ module Maze
 
             opt Option::DS_ROOT,
                 'Document server root',
+                short: :none,
                 type: :string
             opt Option::DS_BIND_ADDRESS,
                 'Document server bind address',
+                short: :none,
                 type: :string
             opt Option::DS_PORT,
                 'Document server port',
+                short: :none,
                 default: 9340
 
             text ''
@@ -80,16 +91,20 @@ module Maze
 
             opt Option::FARM,
                 'Device farm to use: "bs" (BrowserStack) or "local"',
+                short: :none,
                 type: :string
             opt Option::APP,
                 'The app to be installed and run against.  Assumed to be contained in a file if prefixed with @.',
+                short: :none,
                 type: :string
             opt Option::A11Y_LOCATOR,
                 'Locate elements by accessibility id rather than id',
+                short: :none,
                 type: :boolean,
                 default: false
             opt Option::CAPABILITIES,
                 'Additional desired Appium capabilities as a JSON string',
+                short: :none,
                 default: '{}'
 
             text ''
@@ -106,49 +121,61 @@ module Maze
                 type: :string
             opt Option::USERNAME,
                 'Device farm username. Consumes env var from environment based on farm set',
+                short: :none,
                 type: :string
             opt Option::ACCESS_KEY,
                 'Device farm access key. Consumes env var from environment based on farm set',
+                short: :none,
                 type: :string
             opt Option::APPIUM_VERSION,
                 'The Appium version to use',
+                short: :none,
                 type: :string
             opt Option::LIST_DEVICES,
                 'Lists the devices available for the configured device farm, or all devices if none are specified',
+                short: :none,
                 default: false
             opt Option::APP_BUNDLE_ID,
                 'The bundle identifier of the test application',
+                short: :none,
                 type: :string
             opt Option::TUNNEL,
                 'Start the device farm secure tunnel',
+                short: :none,
                 default: true
             opt Option::APPIUM_SERVER,
                 "Appium server URL.  Defaults are: \n" +
                 "  --farm=local - MAZE_APPIUM_SERVER or http://localhost:4723/wd/hub\n" +
                 "  --farm=bb - MAZE_APPIUM_SERVER or https://us-west-mobile-hub.bitbar.com/wd/hub\n" +
                 'Not used for --farm=bs',
+                short: :none,
                 type: :string
             opt Option::SELENIUM_SERVER,
                 "Selenium server URL. Only used for --farm=bb, defaulting to MAZE_SELENIUM_SERVER or https://us-west-desktop-hub.bitbar.com/wd/hub",
+                short: :none,
                 type: :string
 
             # SmartBear-only options
             opt Option::SB_LOCAL,
                 '(SB only) Path to the SBSecureTunnel binary. MAZE_SB_LOCAL env var or "/SBSecureTunnel" by default',
+                short: :none,
                 type: :string
 
             # BrowserStack-only options
             opt Option::BS_LOCAL,
                 '(BS only) Path to the BrowserStackLocal binary. MAZE_BS_LOCAL env var or "/BrowserStackLocal" by default',
+                short: :none,
                 type: :string
 
             # TMS options
             opt Option::TMS_URI,
                 'URI of the test management server root.  MAZE_TMS_URI env var',
+                short: :none,
                 type: :string
 
             opt Option::TMS_TOKEN,
                 'Token used to access the test management server.  MAZE_TMS_TOKEN env var',
+                short: :none,
                 type: :string
 
             text ''
@@ -156,21 +183,27 @@ module Maze
 
             opt Option::OS,
                 'OS type to use ("ios", "android")',
+                short: :none,
                 type: :string
             opt Option::OS_VERSION,
                 'The intended OS version when running on a local device',
+                short: :none,
                 type: :string
             opt Option::START_APPIUM,
                 'Whether a local Appium server should be start.  Only used for --farm=local.',
+                short: :none,
                 default: true
             opt Option::APPIUM_LOGFILE,
                 'The file local appium server output is logged to, defaulting to "appium_server.log"',
+                short: :none,
                 default: 'appium_server.log'
             opt Option::APPLE_TEAM_ID,
                 'Apple Team Id, required for local iOS testing. MAZE_APPLE_TEAM_ID env var by default',
+                short: :none,
                 type: :string
             opt Option::UDID,
                 'Apple UDID, required for local iOS testing. MAZE_UDID env var by default',
+                short: :none,
                 type: :string
 
             text ''
@@ -178,16 +211,19 @@ module Maze
 
             opt Option::FILE_LOG,
                 "Writes lists of received requests to the maze_output folder for all scenarios",
+                short: :none,
                 type: :boolean,
                 default: true
 
             opt Option::LOG_REQUESTS,
                 "Log lists of received requests to the console in the event of scenario failure.  Defaults to true if the BUILDKITE environment variable is set",
+                short: :none,
                 type: :boolean,
                 default: false
 
             opt Option::ALWAYS_LOG,
                 "Always log all received requests at the end of a scenario, whether is passes or fails",
+                short: :none,
                 type: :boolean,
                 default: false
 

@@ -38,9 +38,9 @@ COPY Gemfile* bugsnag-maze-runner.gemspec ./
 
 RUN rm Gemfile.lock && USE_LEGACY_DRIVER=1 bundle install
 
-FROM ci-legacy as cli-legacy
+FROM ci-ruby-2 as cli-legacy
 ENTRYPOINT ["bundle", "exec", "maze-runner"]
 
-FROM ci-legacy as unit-test-ruby-2
+FROM ci-ruby-2 as unit-test-ruby-2
 COPY test/ test/
 COPY Rakefile .

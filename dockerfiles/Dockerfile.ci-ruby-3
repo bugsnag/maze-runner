@@ -38,9 +38,9 @@ COPY Gemfile* bugsnag-maze-runner.gemspec ./
 
 RUN bundle install
 
-FROM ci as cli
+FROM ci-ruby-3 as cli
 ENTRYPOINT ["bundle", "exec", "maze-runner"]
 
-FROM ci as unit-test-ruby-3
+FROM ci-ruby-3 as unit-test-ruby-3
 COPY test/ test/
 COPY Rakefile .

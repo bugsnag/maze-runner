@@ -34,13 +34,13 @@ steps:
     plugins:
       - docker-compose#v4.7.0:
           build:
-            - ci-ruby-2.7
+            - ci-ruby-2
           image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
           cache-from:
-            - ci-ruby-2.7:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-2.7
+            - ci-ruby-2:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-2
       - docker-compose#v4.7.0:
           push:
-            - ci-ruby-2.7:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-2.7
+            - ci-ruby-2:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-2
     env:
       RUBY_VERSION: "2.7"
 
@@ -65,12 +65,10 @@ steps:
     depends_on: 'ci-image-ruby-2-7'
     plugins:
       docker-compose#v4.7.0:
-        run: unit-test
+        run: unit-test-ruby-2
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
         cache-from:
-          - ci-ruby-2.7:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-2.7
-    env:
-      RUBY_VERSION: "2.7"
+          - ci-ruby-2:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-2
     command: 'bundle exec rake'
 
   - label: 'Unit tests with Ruby 3'
@@ -78,12 +76,10 @@ steps:
     depends_on: 'ci-image-ruby-3'
     plugins:
       docker-compose#v4.7.0:
-        run: unit-test
+        run: unit-test-ruby-3
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
         cache-from:
           - ci-ruby-3:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-3
-    env:
-      RUBY_VERSION: "3"
     command: 'bundle exec rake'
 
   - label: ':docker: Push W3C CLI image for branch'

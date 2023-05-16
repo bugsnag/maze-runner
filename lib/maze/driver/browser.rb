@@ -30,6 +30,13 @@ module Maze
         @driver.navigate.refresh
       end
 
+      # Clicks a given element
+      #
+      # @param element_id [String] the element to click
+      def click_element(element_id)
+        find_element(id: element_id).click
+      end
+
       # Quits the driver
       def driver_quit
         @driver.quit

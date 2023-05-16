@@ -6,21 +6,24 @@
   </head>
   <body>
     <h1>Hello World</h1>
+    <button id="the-button" onclick="notify()">Just a button for testing clicks</button>
     <script type="text/javascript">
-      const parameters = new URLSearchParams(window.location.search)
-      const mazeAddress = parameters.get('maze_address')
+      function notify() {
+        const parameters = new URLSearchParams(window.location.search)
+        const mazeAddress = parameters.get('maze_address')
 
-      console.log("Maze Runner address is " + mazeAddress);
-      url =
-      fetch(mazeAddress + "/notify", {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          test : "browser"
-        })
-      });
+        console.log("Maze Runner address is " + mazeAddress);
+        url =
+        fetch(mazeAddress + "/notify", {
+          method: 'POST', // *GET, POST, PUT, DELETE, etc.
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            test : "browser"
+          })
+        });
+      }
     </script>
   </body>
 </html>

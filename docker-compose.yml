@@ -261,13 +261,13 @@ services:
     build:
       dockerfile: dockerfiles/Dockerfile.ci-ruby-2
       context: .
-      target: unit-test
+      target: unit-test-ruby-2
 
   unit-test-ruby-3:
     build:
       dockerfile: dockerfiles/Dockerfile.ci-ruby-3
       context: .
-      target: unit-test
+      target: unit-test-ruby-3
 
   browser-tests:
     build:

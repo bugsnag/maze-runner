@@ -126,6 +126,7 @@ steps:
           run: http-response-tests
     env:
       RUBY_VERSION: "2.7"
+      USE_LEGACY_DRIVER: "1"
     command: 'bundle exec maze-runner -e features/fixtures'
 
   - label: 'No-device tests with Ruby 2.7 - batch 2'
@@ -146,6 +147,7 @@ steps:
             - test/fixtures/payload-helpers/maze_output/*
     env:
       RUBY_VERSION: "2.7"
+      USE_LEGACY_DRIVER: "1"
     command: 'bundle exec maze-runner -e features/fixtures'
 
   - label: 'No-device tests with Ruby 3 - batch 1'

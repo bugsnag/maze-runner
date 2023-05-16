@@ -181,6 +181,7 @@ services:
         RUBY_VERSION:
     environment:
       MAZE_BUGSNAG_API_KEY:
+      USE_LEGACY_DRIVER:
 
   comparison-tests:
     build:
@@ -190,6 +191,7 @@ services:
         RUBY_VERSION:
     environment:
       MAZE_BUGSNAG_API_KEY:
+      USE_LEGACY_DRIVER:
 
   doc-server-tests:
     build:
@@ -199,6 +201,7 @@ services:
         RUBY_VERSION:
     environment:
       MAZE_BUGSNAG_API_KEY:
+      USE_LEGACY_DRIVER:
 
   exit-codes-tests:
     build:
@@ -208,6 +211,7 @@ services:
         RUBY_VERSION:
     environment:
       MAZE_BUGSNAG_API_KEY:
+      USE_LEGACY_DRIVER:
 
   framework-tests:
     build:
@@ -217,6 +221,7 @@ services:
         RUBY_VERSION:
     environment:
       MAZE_BUGSNAG_API_KEY:
+      USE_LEGACY_DRIVER:
 
   docker-tests:
     build:
@@ -226,6 +231,7 @@ services:
         RUBY_VERSION:
     environment:
       MAZE_BUGSNAG_API_KEY:
+      USE_LEGACY_DRIVER:
       NETWORK_NAME: "${BUILDKITE_JOB_ID:-core-maze-runner}"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -238,6 +244,7 @@ services:
         RUBY_VERSION:
     environment:
       MAZE_BUGSNAG_API_KEY:
+      USE_LEGACY_DRIVER:
 
   payload-helper-tests:
     build:
@@ -247,6 +254,7 @@ services:
         RUBY_VERSION:
     environment:
       MAZE_BUGSNAG_API_KEY:
+      USE_LEGACY_DRIVER:
     volumes:
       - ./test/fixtures/payload-helpers/maze_output:/app/maze_output
 
@@ -258,6 +266,7 @@ services:
         RUBY_VERSION:
     environment:
       MAZE_BUGSNAG_API_KEY:
+      USE_LEGACY_DRIVER:
 
   unit-test-ruby-2:
     build:

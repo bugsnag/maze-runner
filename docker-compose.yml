@@ -8,29 +8,29 @@ services:
     volumes:
       - ./:/scan
 
-  ci:
+  ci-ruby-3:
     build:
-      dockerfile: dockerfiles/Dockerfile.ci
+      dockerfile: dockerfiles/Dockerfile.ci-ruby-3
       context: .
-      target: ci
-      args:
-        - RUBY_VERSION
+      target: ci-ruby-3
+
+  ci-ruby-2.7:
+    build:
+      dockerfile: dockerfiles/Dockerfile.ci-ruby-2
+      context: .
+      target: ci-ruby-2
 
   cli:
     build:
-      dockerfile: dockerfiles/Dockerfile.ci
+      dockerfile: dockerfiles/Dockerfile.ci-ruby-3
       context: .
       target: cli
-      args:
-        - RUBY_VERSION=2.7
 
   cli-legacy:
     build:
-      dockerfile: dockerfiles/Dockerfile.ci
+      dockerfile: dockerfiles/Dockerfile.ci-ruby-2
       context: .
       target: cli-legacy
-      args:
-        - RUBY_VERSION=2.7
 
   docs:
     build:

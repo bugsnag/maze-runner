@@ -37,10 +37,10 @@ steps:
             - ci-ruby-2.7
           image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
           cache-from:
-            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-2.7
+            - ci-ruby-2.7:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-2.7
       - docker-compose#v4.7.0:
           push:
-            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-2.7
+            - ci-ruby-2.7:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-2.7
     env:
       RUBY_VERSION: "2.7"
 
@@ -53,10 +53,10 @@ steps:
             - ci-ruby-3
           image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
           cache-from:
-            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-3
+            - ci-ruby-3:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-3
       - docker-compose#v4.7.0:
           push:
-            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-3
+            - ci-ruby-3:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-3
     env:
       RUBY_VERSION: "3"
 
@@ -68,7 +68,7 @@ steps:
         run: unit-test
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
         cache-from:
-          - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-2.7
+          - ci-ruby-2.7:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-2.7
     env:
       RUBY_VERSION: "2.7"
     command: 'bundle exec rake'
@@ -81,12 +81,12 @@ steps:
         run: unit-test
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
         cache-from:
-          - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-3
+          - ci-ruby-3:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-3
     env:
       RUBY_VERSION: "3"
     command: 'bundle exec rake'
 
-  - label: ':docker: Push W3C Docker image for branch'
+  - label: ':docker: Push W3C CLI image for branch'
     key: push-branch-cli
     timeout_in_minutes: 30
     depends_on: "ci-image-ruby-2-7"
@@ -100,7 +100,7 @@ steps:
           push:
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
 
-  - label: ':docker: Push Legacy Docker image for branch'
+  - label: ':docker: Push Legacy CLI image for branch'
     key: push-branch-cli-legacy
     timeout_in_minutes: 30
     depends_on: "ci-image-ruby-2-7"

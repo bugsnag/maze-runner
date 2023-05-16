@@ -3,6 +3,31 @@
 require 'logger'
 require 'singleton'
 
+# Monkey patch a 'trace' log level into the standard Logger
+class Logger
+  SEV_LABEL = {
+    -1 => 'TRACE',
+    0 => 'DEBUG',
+    1 => 'INFO',
+    2 => 'WARN',
+    3 => 'ERROR',
+    4 => 'FATAL',
+    5 => 'ANY'
+  }
+
+  module Severity
+    TRACE=-1
+  end
+
+  def trace(name = nil, &block)
+    add(TRACE, nil, name, &block)
+  end
+
+  def trace?
+    @level <= TRACE
+  end
+end
+
 # Logger classes
 module Maze
   # A logger, with level configured according to the environment
@@ -12,7 +37,9 @@ module Maze
     attr_accessor :datetime_format
 
     def initialize
-      if ENV['VERBOSE'] || ENV['DEBUG']
+      if ENV['TRACE']
+        super(STDOUT, level: Logger::TRACE)
+      elsif ENV['DEBUG']
         super(STDOUT, level: Logger::DEBUG)
       elsif ENV['QUIET']
         super(STDOUT, level: Logger::ERROR)

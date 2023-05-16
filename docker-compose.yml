@@ -19,6 +19,8 @@ services:
       dockerfile: dockerfiles/Dockerfile.ci-ruby-2
       context: .
       target: ci-ruby-2
+    environment:
+      USE_LEGACY_DRIVER: 1
 
   cli:
     build:
@@ -262,6 +264,8 @@ services:
       dockerfile: dockerfiles/Dockerfile.ci-ruby-2
       context: .
       target: unit-test-ruby-2
+    environment:
+      USE_LEGACY_DRIVER: 1
 
   unit-test-ruby-3:
     build:

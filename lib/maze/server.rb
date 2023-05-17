@@ -261,6 +261,7 @@ module Maze
         builds.clear
         uploads.clear
         sourcemaps.clear
+        p_values.clear
         traces.clear
         logs.clear
         invalid_requests.clear

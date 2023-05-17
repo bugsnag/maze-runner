@@ -15,14 +15,14 @@ module Maze
       private
 
       def add_request(request)
-        if pvalue_request? request
-          Server.pvalues.add request
+        if p_value_request? request
+          Server.p_values.add request
         else
           Server.traces.add request
         end
       end
 
-      def pvalue_request?(request)
+      def p_value_request?(request)
         body = request[:body]
         body.keys.eql?(['resourceSpans']) && body['resourceSpans'].empty?
       end

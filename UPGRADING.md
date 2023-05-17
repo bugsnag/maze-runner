@@ -7,6 +7,8 @@ A couple of command line options have been renamed for consistency:
 `--enable-bugsnag` becomes `--bugsnag` (and `--no-bugsnag`)
 `--enable-retries` becomes `--retries` (and `--no-retries`)
 
+### Request lists
+
 ## v6 to v7
 
 Support for Sauce Labs has been removed as we are no longer able to test it.

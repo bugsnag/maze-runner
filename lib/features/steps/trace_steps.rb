@@ -7,11 +7,11 @@ When('I wait for {int} span(s)') do |span_count|
   assert_received_spans span_count, Maze::Server.list_for('traces')
 end
 
-When('I receive and discard the initial p-value request') do
+When('I receive and discard the initial p_value') do
   steps %Q{
-    And I wait to receive at least 1 trace
-    And the trace payload field "resourceSpans" is an array with 0 elements
-    And I discard the oldest trace
+    And I wait to receive at least 1 p_value
+    And the p_value payload field "resourceSpans" is an array with 0 elements
+    And I discard the oldest p_value
   }
 end
 

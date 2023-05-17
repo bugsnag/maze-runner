@@ -9,6 +9,15 @@ A couple of command line options have been renamed for consistency:
 `--enable-bugsnag` becomes `--bugsnag` (and `--no-bugsnag`)
 `--enable-retries` becomes `--retries` (and `--no-retries`)
 
+### Request lists
+
+Both the p-value and regular trace requests continue to be received by the `/traces` endpoint, but the p-value requests are now stored in their own `RequestList`.  
+
+The following Cucumber steps change as a result:
+- `I receive and discard the initial p-value request` renamed to `I receive and discard the initial p_value`
+- `I wait to receive {int} {word}` no accepts a `p_value` as the `word` parameter.
+- Similarly for `I discard the oldest {word}`.
+
 ### Logging
 
 The `VERBOSE` environment variable no longer has any effect on the log level.  Use `TRACE` or `DEBUG` for the two log levels.

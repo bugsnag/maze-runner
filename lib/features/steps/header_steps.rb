@@ -27,7 +27,7 @@ end
 # @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input header_name [String] The header to test
 # @step_input header_value [String] The string it should match
-Then('the {request_type} (sampling request) {string} header equals {string}') do |request_type, header_name, header_value|
+Then('the {request_type} {string} header equals {string}') do |request_type, header_name, header_value|
   Maze.check.not_nil(Maze::Server.list_for(request_type).current[:request][header_name],
                      "The #{request_type} '#{header_name}' header wasn't present in the request")
   Maze.check.equal(header_value, Maze::Server.list_for(request_type).current[:request][header_name])

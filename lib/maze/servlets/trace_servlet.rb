@@ -11,6 +11,21 @@ module Maze
 
         header['Access-Control-Expose-Headers'] = 'Bugsnag-Sampling-Probability'
       end
+
+      private
+
+      def add_request(request)
+        if pvalue_request? request
+          Server.pvalues.add request
+        else
+          Server.traces.add request
+        end
+      end
+
+      def pvalue_request?(request)
+        body = request[:body]
+        body.keys.eql?(['resourceSpans']) && body['resourceSpans'].empty?
+      end
     end
   end
 end

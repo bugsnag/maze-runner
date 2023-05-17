@@ -85,6 +85,8 @@ module Maze
           logs
         when 'metric', 'metrics'
           metrics
+        when 'pvalue', 'pvalues'
+          pvalues
         when 'trace', 'traces'
           traces
         when 'upload', 'uploads'
@@ -107,14 +109,21 @@ module Maze
 
       # A list of session requests received
       #
-      # @return [RequestList] Received error requests
+      # @return [RequestList] Received session requests
       def sessions
         @sessions ||= RequestList.new
       end
 
+      # A list of p-value requests received
+      #
+      # @return [RequestList] Received pvalue requests
+      def pvalues
+        @pvalues ||= RequestList.new
+      end
+
       # A list of trace requests received
       #
-      # @return [RequestList] Received error requests
+      # @return [RequestList] Received trace requests
       def traces
         @traces ||= RequestList.new
       end

@@ -7,14 +7,6 @@ When('I wait for {int} span(s)') do |span_count|
   assert_received_spans span_count, Maze::Server.list_for('traces')
 end
 
-When('I receive and discard the initial p_value') do
-  steps %Q{
-    And I wait to receive at least 1 p_value
-    And the p_value payload field "resourceSpans" is an array with 0 elements
-    And I discard the oldest p_value
-  }
-end
-
 Then('I should have received no spans') do
   sleep Maze.config.receive_no_requests_wait
   Maze.check.equal spans_from_request_list(Maze::Server.list_for('traces')).size, 0
@@ -88,7 +80,7 @@ Then('the trace payload field {string} boolean attribute {string} is false') do 
 end
 
 # @!group Span steps
-Then('a span {word} equals {string}') do |attribute, expected|
+Then('a span {request_type} equals {string}') do |attribute, expected|
   spans = spans_from_request_list(Maze::Server.list_for('traces'))
   selected_attributes = spans.map { |span| span[attribute] }
   Maze.check.includes selected_attributes, expected

@@ -15,7 +15,7 @@ end
 #
 # @step_input endpoint [String] The endpoint to set
 # @step_input name [String] The environment variable
-When('I store the {word} endpoint in the environment variable {string}') do |endpoint, name|
+When('I store the {request_type} endpoint in the environment variable {string}') do |endpoint, name|
   steps %(
     When I set environment variable "#{name}" to "http://maze-runner:#{Maze.config.port}/#{endpoint}"
   )
@@ -41,7 +41,7 @@ end
 #
 # @step_input script_path [String] Path to the script to be run
 # @step_input command [String] The command to run the script with, e.g. 'ruby'
-When('I run the script {string} using {word} synchronously') do |script_path, command|
+When('I run the script {string} using {request_type} synchronously') do |script_path, command|
   Maze::Runner.run_script(script_path, blocking: true, command: command)
 end
 

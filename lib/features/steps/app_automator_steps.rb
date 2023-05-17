@@ -73,7 +73,7 @@ end
 # @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input field_path [String] The field to test
 # @step_input platform_values [DataTable] A table of acceptable values for each platform
-Then('the {word} payload field {string} equals the platform-dependent string:') do |request_type, field_path, platform_values|
+Then('the {request_type} payload field {string} equals the platform-dependent string:') do |request_type, field_path, platform_values|
   test_string_platform_values(request_type, field_path, platform_values)
 end
 
@@ -100,7 +100,7 @@ end
 # @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input field_path [String] The field to test
 # @step_input platform_values [DataTable] A table of acceptable values for each platform
-Then('the {word} payload field {string} equals the platform-dependent numeric:') do |request_type, field_path, platform_values|
+Then('the {request_type} payload field {string} equals the platform-dependent numeric:') do |request_type, field_path, platform_values|
   test_numeric_platform_values(request_type, field_path, platform_values)
 end
 
@@ -127,7 +127,7 @@ end
 # @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input field_path [String] The field to test
 # @step_input platform_values [DataTable] A table of acceptable values for each platform
-Then('the {word} payload field {string} equals the platform-dependent boolean:') do |request_type, field_path, platform_values|
+Then('the {request_type} payload field {string} equals the platform-dependent boolean:') do |request_type, field_path, platform_values|
   test_boolean_platform_values(request_type, field_path, platform_values)
 end
 

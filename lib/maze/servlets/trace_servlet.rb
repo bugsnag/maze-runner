@@ -15,14 +15,14 @@ module Maze
       private
 
       def add_request(request)
-        if p_value_request? request
-          Server.p_values.add request
+        if sampling_request? request
+          Server.sampling_requests.add request
         else
           Server.traces.add request
         end
       end
 
-      def p_value_request?(request)
+      def sampling_request?(request)
         body = request[:body]
         body.keys.eql?(['resourceSpans']) && body['resourceSpans'].empty?
       end

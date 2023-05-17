@@ -85,8 +85,8 @@ module Maze
           logs
         when 'metric', 'metrics'
           metrics
-        when 'p_value', 'p_values'
-          p_values
+        when 'sampling request', 'sampling requests'
+          sampling_requests
         when 'trace', 'traces'
           traces
         when 'upload', 'uploads'
@@ -116,9 +116,9 @@ module Maze
 
       # A list of p-value requests received
       #
-      # @return [RequestList] Received p-value requests
-      def p_values
-        @p_values ||= RequestList.new
+      # @return [RequestList] Received sampling requests
+      def sampling_requests
+        @sampling_requests ||= RequestList.new
       end
 
       # A list of trace requests received
@@ -261,7 +261,7 @@ module Maze
         builds.clear
         uploads.clear
         sourcemaps.clear
-        p_values.clear
+        sampling_requests.clear
         traces.clear
         logs.clear
         invalid_requests.clear

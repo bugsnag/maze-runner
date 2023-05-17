@@ -44,7 +44,7 @@ module Maze
           all_devices += query_api(path, query)['data']
         end
 
-        $logger.debug "All available devices in group(s) #{device_group_ids}: #{JSON.pretty_generate(all_devices)}"
+        $logger.trace "All available devices in group(s) #{device_group_ids}: #{JSON.pretty_generate(all_devices)}"
         filtered_devices = all_devices.reject { |device| device['locked'] }
 
         # Only send gauges to DataDog for single device groups
@@ -64,7 +64,7 @@ module Maze
         if all_devices.size == 0
           Maze::Helper.error_exit "No devices found with name '#{device_name}'"
         else
-          $logger.debug "All available devices with name #{device_name}: #{JSON.pretty_generate(all_devices)}"
+          $logger.trace "All available devices with name #{device_name}: #{JSON.pretty_generate(all_devices)}"
           filtered_devices = all_devices.reject { |device| device['locked'] }
           if filtered_devices.size == 0
             Maze::Helper.error_exit "None of the #{all_devices.size} devices with name '#{device_name}' are currently available"

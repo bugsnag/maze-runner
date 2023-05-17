@@ -182,7 +182,7 @@ module Maze
               end
 
               exit_status = wait_thr.value.to_i
-              $logger.debug "Exit status: #{exit_status}"
+              $logger.trace "Exit status: #{exit_status}"
 
               output.each { |line| $logger.warn('SBSecureTunnel') {line.chomp} } unless exit_status == 0
 

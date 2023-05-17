@@ -145,9 +145,9 @@ module Maze
       private
 
       def log_request(request)
-        $logger.debug "#{request.request_method} request received"
-        $logger.debug "URI: #{request.unparsed_uri}"
-        $logger.debug "HEADERS: #{request.raw_header}"
+        $logger.trace "#{request.request_method} request received"
+        $logger.trace "URI: #{request.unparsed_uri}"
+        $logger.trace "HEADERS: #{request.raw_header}"
         return if request.body.nil?
 
         case request['Content-Type']
@@ -156,12 +156,12 @@ module Maze
         when %r{^multipart/form-data; boundary=([^;]+)}
           boundary = WEBrick::HTTPUtils.dequote(Regexp.last_match(1))
           body = WEBrick::HTTPUtils.parse_form_data(request.body, boundary)
-          $logger.debug 'BODY:'
-          LogUtil.log_hash(Logger::Severity::DEBUG, body)
+          $logger.trace 'BODY:'
+          LogUtil.log_hash(Logger::Severity::TRACE, body)
         when %r{^application/json$}
-          $logger.debug "BODY: #{JSON.pretty_generate(JSON.parse(request.body))}"
+          $logger.trace "BODY: #{JSON.pretty_generate(JSON.parse(request.body))}"
         else
-          $logger.debug "BODY: #{request.body}"
+          $logger.trace "BODY: #{request.body}"
         end
       end
 
@@ -182,7 +182,7 @@ module Maze
         # Both digest types are stored whatever
         sha1 = Digest::SHA1.hexdigest(request.body)
         simple = request.body.bytesize
-        $logger.debug "DIGESTS computed: sha1=#{sha1} simple=#{simple}"
+        $logger.trace "DIGESTS computed: sha1=#{sha1} simple=#{simple}"
 
         # Check digests match
         case parts[0]

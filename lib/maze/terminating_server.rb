@@ -107,7 +107,7 @@ module Maze
         while (request = socket.gets) && (request.chomp.length > 0)
           key, val = request.chomp.split(': ')
           headers[key] = val
-          $logger.debug "Received #{headers.size} headers"
+          $logger.trace "Received #{headers.size} headers"
         end
         headers
       end

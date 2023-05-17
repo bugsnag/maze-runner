@@ -56,6 +56,18 @@ Then('I wait to receive {int} {word}') do |request_count, request_type|
   list.sort_by_sent_at! request_count
 end
 
+# Continually checks to see if the required amount of requests have been received,
+# timing out according to @see Maze.config.receive_requests_wait.
+# If all expected requests are received and have the Bugsnag-Sent-At header, they
+# will be sorted by the header.
+#
+# @step_input request_count [Integer] The amount of requests expected
+Then('I wait to receive {int} sampling request(s)') do |request_count|
+  list = Maze::Server.p_values
+  assert_received_requests request_count, list, 'sampling requests'
+  list.sort_by_sent_at! request_count
+end
+
 # Continually checks to see if at least the number requests given has been received,
 # timing out according to @see Maze.config.receive_requests_wait.
 #
@@ -110,6 +122,14 @@ Then('I discard the oldest {word}') do |request_type|
   raise "No #{request_type} to discard" if Maze::Server.list_for(request_type).current.nil?
 
   Maze::Server.list_for(request_type).next
+end
+
+# Moves to the next sampling request
+#
+Then('I discard the oldest sampling request') do |request_type|
+  raise "No sampling requests to discard" if Maze::Server.p_values.current.nil?
+
+  Maze::Server.p_values.next
 end
 
 Then('the received errors match:') do |table|

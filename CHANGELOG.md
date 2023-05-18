@@ -1,3 +1,9 @@
+# 7.30.2 - 2023/05/18
+
+## Fixes
+
+- Only enforce Bugsnag integrity header on session, error and trace requests [539](https://github.com/bugsnag/maze-runner/pull/539)
+
 # 7.30.1 - 2023/05/13
 
 ## Fixes

@@ -6,6 +6,7 @@
 - Upgrade Docker image to Ruby 3 [534](https://github.com/bugsnag/maze-runner/pull/534)
 - Update logger to provide a real TRACE level [536](https://github.com/bugsnag/maze-runner/pull/536)
 - Filter sampling requests into their own `RequestList` [537](https://github.com/bugsnag/maze-runner/pull/537)
+- Shorten BrowserStack Android device names for consistency [538](https://github.com/bugsnag/maze-runner/pull/538)
 
 
 <!---

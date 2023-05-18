@@ -19,6 +19,12 @@ With this change, the step `I receive and discard the initial p-value request` i
 
 The `VERBOSE` environment variable no longer has any effect on the log level.  Use `TRACE` or `DEBUG` for the two log levels.
 
+### Device names
+
+The names for each Android device on BrowserStack have been shortened, e.g. ANDROID_10_0 becomes ANDROID_10.  This is for consistency with BrowserStack iOS devices and BitBar device groups.  Run `bundle exec maze-runner --farm=bs --list-devices` for a full list of options.
+
+### 
+
 ## v6 to v7
 
 Support for Sauce Labs has been removed as we are no longer able to test it.

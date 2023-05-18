@@ -37,7 +37,6 @@ module Maze
       def initialize(server, request_type, schema=nil)
         super server
         @request_type = request_type
-        @requests = Server.list_for request_type
         @schema = JSONSchemer.schema(schema) unless schema.nil?
         @aspecto_repeater = Maze::Repeaters::AspectoRepeater.new(@request_type)
         @bugsnag_repeater = Maze::Repeaters::BugsnagRepeater.new(@request_type)
@@ -88,7 +87,7 @@ module Maze
           schema_errors = @schema.validate(hash[:body])
           hash[:schema_errors] = schema_errors.to_a
         end
-        @requests.add(hash)
+        add_request(hash)
 
         # For the response, delaying if configured to do so
         response_delay_ms = Server.response_delay_ms
@@ -143,6 +142,10 @@ module Maze
       end
 
       private
+
+      def add_request(request)
+        Server.list_for(@request_type).add(request)
+      end
 
       def log_request(request)
         $logger.trace "#{request.request_method} request received"

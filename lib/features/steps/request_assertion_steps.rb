@@ -34,12 +34,12 @@ def assert_received_requests(request_count, list, list_name, precise = true)
 end
 
 #
-# Error request assertions
+# Request assertions
 #
 # Shortcut to waiting to receive a single request of the given type
 #
 # @step_input request_type [String] The type of request (error, session, build, etc)
-Then('I wait to receive a(n) {word}') do |request_type|
+Then('I wait to receive a(n) {request_type}') do |request_type|
   step "I wait to receive 1 #{request_type}"
 end
 
@@ -50,7 +50,7 @@ end
 #
 # @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input request_count [Integer] The amount of requests expected
-Then('I wait to receive {int} {word}') do |request_count, request_type|
+Then('I wait to receive {int} {request_type}') do |request_count, request_type|
   list = Maze::Server.list_for(request_type)
   assert_received_requests request_count, list, request_type
   list.sort_by_sent_at! request_count
@@ -63,7 +63,7 @@ end
 #
 # @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input request_count [Integer] The amount of requests expected
-Then('I wait to receive at least {int} {word}') do |request_count, request_type|
+Then('I wait to receive at least {int} {request_type}') do |request_count, request_type|
   list = Maze::Server.list_for(request_type)
   assert_received_requests request_count, list, request_type, false
 end
@@ -72,7 +72,7 @@ end
 #
 # @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input field_path [String] The field to sort by
-Then('I sort the {word} by the payload field {string}') do |request_type, field_path|
+Then('I sort the {request_type} by the payload field {string}') do |request_type, field_path|
   list = Maze::Server.list_for(request_type)
   list.sort_by! field_path
 end
@@ -82,7 +82,7 @@ end
 #
 # @step_input min_received [Integer] The minimum amount of requests required to pass
 # @step_input request_type [String] The type of request (error, session, build, etc)
-Then('I have received at least {int} {word}') do |min_received, request_type|
+Then('I have received at least {int} {request_type}') do |min_received, request_type|
   list = Maze::Server.list_for(request_type)
   Maze.check.operator(list.size_remaining, :>=, min_received, "Actually received #{list.size_remaining} #{request_type} requests")
 end
@@ -91,7 +91,7 @@ end
 #
 # @step_input request_type [String] The type of request ('error', 'session', build, etc), or 'requests' to assert on all
 #   request types.
-Then('I should receive no {word}') do |request_type|
+Then('I should receive no {request_type}') do |request_type|
   sleep Maze.config.receive_no_requests_wait
   if request_type == 'requests'
     # Assert that the test Server hasn't received any requests at all.
@@ -106,7 +106,7 @@ end
 # Moves to the next request
 #
 # @step_input request_type [String] The type of request (error, session, build, etc)
-Then('I discard the oldest {word}') do |request_type|
+Then('I discard the oldest {request_type}') do |request_type|
   raise "No #{request_type} to discard" if Maze::Server.list_for(request_type).current.nil?
 
   Maze::Server.list_for(request_type).next

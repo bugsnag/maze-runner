@@ -9,6 +9,12 @@ A couple of command line options have been renamed for consistency:
 `--enable-bugsnag` becomes `--bugsnag` (and `--no-bugsnag`)
 `--enable-retries` becomes `--retries` (and `--no-retries`)
 
+### Request lists
+
+Both the sampling and regular trace requests continue to be received by the `/traces` endpoint, but the sampling requests are now stored in their own `RequestList`.  This list can be accessed in the same way as `sessions`, `errors`, etc by using `sampling request(s)` as the step argument.
+
+With this change, the step `I receive and discard the initial p-value request` is no longer needed and has been removed.
+
 ### Logging
 
 The `VERBOSE` environment variable no longer has any effect on the log level.  Use `TRACE` or `DEBUG` for the two log levels.

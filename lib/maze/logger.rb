@@ -5,6 +5,7 @@ require 'singleton'
 
 # Monkey patch a 'trace' log level into the standard Logger
 class Logger
+  remove_const(:SEV_LABEL)
   SEV_LABEL = {
     -1 => 'TRACE',
     0 => 'DEBUG',

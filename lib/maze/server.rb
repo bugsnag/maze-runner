@@ -114,7 +114,7 @@ module Maze
         @sessions ||= RequestList.new
       end
 
-      # A list of p-value requests received
+      # A list of sampling requests received
       #
       # @return [RequestList] Received sampling requests
       def sampling_requests

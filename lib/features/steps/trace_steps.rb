@@ -80,7 +80,7 @@ Then('the trace payload field {string} boolean attribute {string} is false') do 
 end
 
 # @!group Span steps
-Then('a span {request_type} equals {string}') do |attribute, expected|
+Then('a span {word} equals {string}') do |attribute, expected|
   spans = spans_from_request_list(Maze::Server.list_for('traces'))
   selected_attributes = spans.map { |span| span[attribute] }
   Maze.check.includes selected_attributes, expected

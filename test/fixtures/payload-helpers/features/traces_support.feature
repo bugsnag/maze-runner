@@ -3,9 +3,9 @@ Feature: Testing support on traces endpoint
     Scenario: The traces endpoint can accept json payloads
         # A sampling trace
         When I send a "sampling-trace"-type request
-        Then I wait to receive a p_value
+        Then I wait to receive a sampling request
         And The HTTP response header "Bugsnag-Sampling-Probability" equals "1"
-        And I discard the oldest p_value
+        And I discard the oldest sampling request
 
         # A mobile trace
         Then I send a "trace"-type request

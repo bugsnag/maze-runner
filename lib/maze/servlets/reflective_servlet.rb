@@ -17,6 +17,7 @@ module Maze
       def do_GET(request, response)
         delay_ms = request.query['delay_ms']
         status = request.query['status']
+        $logger.error "REFLECTIVE SERVLET GET REQUEST RECEIVED. STATUS: #{status}"
         reflect response, delay_ms, status
       end
 
@@ -62,8 +63,9 @@ module Maze
       # @param response [HTTPResponse] The response to return
       def do_OPTIONS(request, response)
         super
-
+        response.header['Access-Control-Allow-Origin'] = '*'
         response.header['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
+        response.status = Server.status_code('OPTIONS')
       end
     end
   end

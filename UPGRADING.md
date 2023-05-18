@@ -19,6 +19,15 @@ With this change, the step `I receive and discard the initial p-value request` i
 
 The `VERBOSE` environment variable no longer has any effect on the log level.  Use `TRACE` or `DEBUG` for the two log levels.
 
+### Cucumber steps
+
+The following Cucumber steps have been reworded:
+
+Removed step | Replacement
+---|---|
+`the {request_type} {string} header is not null` | `the {request_type} {string} header is present`
+`the {request_type} {string} header is null` | `the {request_type} {string} header is not present`
+
 ## v6 to v7
 
 Support for Sauce Labs has been removed as we are no longer able to test it.

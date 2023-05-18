@@ -6,20 +6,24 @@
 #
 # @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input header_name [String] The header to test
-Then('the {request_type} {string} header is not null') do |request_type, header_name|
+Then('the {request_type} {string} header is present') do |request_type, header_name|
   Maze.check.not_nil(Maze::Server.list_for(request_type).current[:request][header_name],
                      "The #{request_type} '#{header_name}' header should not be null")
+
+  request = Maze::Server.list_for(request_type).current[:request]
+  Maze.check.true(request.header.key?(header_name.downcase),
+                  "The #{request_type} '#{header_name}' header should be present")
 end
 
 # Tests that a request header is null
 #
 # @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input header_name [String] The header to test
-Then('the {request_type} {string} header is null') do |request_type, header_name|
+Then('the {request_type} {string} header is not present') do |request_type, header_name|
   request = Maze::Server.list_for(request_type).current[:request]
 
-  Maze.check.nil(request[header_name],
-                 "The #{request_type} '#{header_name}' header should be null")
+  Maze.check.false(request.header.key?(header_name.downcase),
+                   "The #{request_type} '#{header_name}' header should not be present")
 end
 
 # Tests that request header equals a string

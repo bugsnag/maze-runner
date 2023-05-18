@@ -170,8 +170,9 @@ module Maze
       # if configuration says so.
       def check_digest(request)
         header = request['Bugsnag-Integrity']
-        if header.nil? && Maze.config.enforce_bugsnag_integrity
-          raise 'Bugsnag-Integrity header must be present according to Maze.config.enforce_bugsnag_integrity'
+
+        if header.nil? && Maze.config.enforce_bugsnag_integrity && %i[sessions errors traces].include?(@request_type)
+          raise "Bugsnag-Integrity header must be present for #{@request_type} according to Maze.config.enforce_bugsnag_integrity"
         end
         return if header.nil?
 

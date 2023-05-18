@@ -15,7 +15,7 @@ Each scenario folder is organised into a `passed` or `failed` folder immediately
 
 ## Logging
 
-Maze Runner contains a Ruby logger connected to `STDOUT` that will attempt to log several events that occur during the testing life-cycle.  By default, the logger is set to report `INFO` level events or higher, but will log `DEBUG` level events if the `VERBOSE` or `DEBUG` flags are set.  If the `QUIET` flag is set it will instead log at the `ERROR` level and above.
+Maze Runner contains a Ruby logger connected to `STDOUT` that will attempt to log events occurring during the testing life-cycle.  By default, the logger is set to report `INFO` level events or higher, but will log `DEBUG` AND `TRACE` level events if the corresponding environment variables are set.  If the `QUIET` flag is set it will log only at the `ERROR` level and above.
 
 ### Customising the logger
 

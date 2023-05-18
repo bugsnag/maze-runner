@@ -2,10 +2,16 @@
 
 ## v7 to v8
 
+### Command line options
+
 A couple of command line options have been renamed for consistency:
 
 `--enable-bugsnag` becomes `--bugsnag` (and `--no-bugsnag`)
 `--enable-retries` becomes `--retries` (and `--no-retries`)
+
+### Logging
+
+The `VERBOSE` environment variable no longer has any effect on the log level.  Use `TRACE` or `DEBUG` for the two log levels.
 
 ## v6 to v7
 

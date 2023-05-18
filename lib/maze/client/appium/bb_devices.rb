@@ -17,7 +17,7 @@ module Maze
             device_group_ids = api_client.get_device_group_ids(device_or_group_names)
             if device_group_ids
               # Device group found - find a free device in it
-              $logger.debug "Got group ids #{device_group_ids} for #{device_or_group_names}"
+              $logger.trace "Got group ids #{device_group_ids} for #{device_or_group_names}"
               group_count, device = api_client.find_device_in_groups(device_group_ids)
               if device.nil?
                 # TODO: Retry rather than fail, see PLAT-7377

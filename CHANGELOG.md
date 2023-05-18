@@ -4,6 +4,7 @@
 
 - Command line options reviewed for consistency [533](https://github.com/bugsnag/maze-runner/pull/533)
 - Upgrade Docker image to Ruby 3 [534](https://github.com/bugsnag/maze-runner/pull/534)
+- Update logger to provide a real TRACE level [536](https://github.com/bugsnag/maze-runner/pull/536)
 
 
 <!---

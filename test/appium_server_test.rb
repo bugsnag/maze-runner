@@ -2,6 +2,7 @@
 
 require 'test_helper'
 require 'pty'
+require 'set'
 require_relative '../lib/maze/appium_server.rb'
 
 class AppiumServerTest < Test::Unit::TestCase
@@ -86,7 +87,7 @@ class AppiumServerTest < Test::Unit::TestCase
     pid = 12345
 
     # Corresponds to the debug call
-    $logger.expects(:debug).with("Appium:#{pid}").once
+    $logger.expects(:trace).with("Appium:#{pid}").once
 
     # Expect Thread.new to be called, and allow block to process expect the mock alive? to be called
     Thread.expects(:new).returns(thread_mock).yields
@@ -190,7 +191,7 @@ class AppiumServerTest < Test::Unit::TestCase
     Maze::AppiumServer.instance_variable_set(:@appium_thread, thread_mock)
 
     thread_mock.expects(:join)
-    $logger.expects(:debug).with("Appium:#{pid}")
+    $logger.expects(:trace).with("Appium:#{pid}")
     Process.expects(:kill).with('INT', pid)
 
     Maze::AppiumServer.stop

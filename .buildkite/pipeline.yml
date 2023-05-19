@@ -202,7 +202,7 @@ steps:
         command:
           - "--app=build/outputs/apk/release/app-release.apk"
           - "--farm=bs"
-          - "--device=ANDROID_8_1"
+          - "--device=ANDROID_8"
           - "--fail-fast"
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
         cache-from:
@@ -229,7 +229,7 @@ steps:
         command:
           - "--app=build/outputs/apk/release/app-release.apk"
           - "--farm=bs"
-          - "--device=ANDROID_13_0"
+          - "--device=ANDROID_13"
           - "--fail-fast"
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
         cache-from:

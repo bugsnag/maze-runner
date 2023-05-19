@@ -7,6 +7,7 @@ module Maze
           capabilities = ::Selenium::WebDriver::Remote::Capabilities.new
           capabilities['bitbar_apiKey'] = config.access_key
           browsers = YAML.safe_load(File.read("#{__dir__}/bb_browsers.yml"))
+          capabilities.merge! dashboard_capabilities
           capabilities.merge! browsers[config.browser]
           capabilities.merge! JSON.parse(config.capabilities_option)
           config.capabilities = capabilities

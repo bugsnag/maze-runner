@@ -1,4 +1,12 @@
+# 7.32.0 - TBD
+
+## Enhancements
+
+- Set BitBar dashboard project and test run for browser tests [542](https://github.com/bugsnag/maze-runner/pull/542)
+
 # 7.31.0 - 2023/05/19
+
+## Enhancements
 
 - Add `Maze.config.receive_requests_slow_threshold` to warn for slow receipt of requests [541](https://github.com/bugsnag/maze-runner/pull/541)
 

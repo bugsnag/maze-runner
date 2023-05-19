@@ -8,6 +8,7 @@ module Maze
     def initialize
       self.receive_no_requests_wait = 30
       self.receive_requests_wait = 30
+      self.receive_requests_slow_threshold = 10
       self.enforce_bugsnag_integrity = true
       self.captured_invalid_requests = Set[:errors, :sessions, :builds, :uploads, :sourcemaps]
       @legacy_driver = false
@@ -48,6 +49,9 @@ module Maze
 
     # Maximum time in seconds to wait in the `I wait to receive {int} error(s)/session(s)/build(s)` steps
     attr_accessor :receive_requests_wait
+
+    # Time after which requests are deemed to be slow to be received and a warning is logged for
+    attr_accessor :receive_requests_slow_threshold
 
     # Whether presence of the Bugsnag-Integrity header should be enforced
     attr_accessor :enforce_bugsnag_integrity

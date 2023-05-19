@@ -19,10 +19,12 @@ def assert_received_requests(request_count, list, list_name, precise = true)
   received = wait.until do
 
     count_now = list.size_remaining
-    if count_now > last_count
-      $logger.info "Received #{count_now - last_count} requests after #{Time.now - start_time}"
+    elapsed = Time.now - start_time
+    if elapsed > Maze.config.receive_requests_slow_threshold
+      if count_now > last_count
+        $logger.warn "Received #{count_now - last_count} request(s) after #{elapsed.round(1)}s"
+      end
     end
-
     count_now >= request_count
   end
 

@@ -1,3 +1,7 @@
+# 7.31.0 - 2023/05/19
+
+- Add `Maze.config.receive_requests_slow_threshold` to warn for slow receipt of requests [531](https://github.com/bugsnag/maze-runner/pull/531)
+
 # 7.30.2 - 2023/05/18
 
 ## Fixes

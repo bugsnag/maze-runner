@@ -89,18 +89,11 @@ end
 
 # Assert that the test Server hasn't received any requests - of a specific, or any, type.
 #
-# @step_input request_type [String] The type of request ('error', 'session', build, etc), or 'requests' to assert on all
-#   request types.
+# @step_input request_type [String] The type of request ('error', 'session', 'trace', sampling request', etc)
 Then('I should receive no {request_type}') do |request_type|
   sleep Maze.config.receive_no_requests_wait
-  if request_type == 'requests'
-    # Assert that the test Server hasn't received any requests at all.
-    Maze.check.equal(0, Maze::Server.errors.size_remaining, "#{Maze::Server.errors.size_remaining} errors received")
-    Maze.check.equal(0, Maze::Server.sessions.size_remaining, "#{Maze::Server.sessions.size_remaining} sessions received")
-  else
-    list = Maze::Server.list_for(request_type)
-    Maze.check.equal(0, list.size_remaining, "#{list.size_remaining} #{request_type} received")
-  end
+  list = Maze::Server.list_for(request_type)
+  Maze.check.equal(0, list.size_remaining, "#{list.size_remaining} #{request_type} received")
 end
 
 # Moves to the next request

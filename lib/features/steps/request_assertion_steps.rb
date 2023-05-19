@@ -25,6 +25,7 @@ def assert_received_requests(request_count, list, list_name, precise = true)
         $logger.warn "Received #{count_now - last_count} request(s) after #{elapsed.round(1)}s"
       end
     end
+    last_count = count_now
     count_now >= request_count
   end
 

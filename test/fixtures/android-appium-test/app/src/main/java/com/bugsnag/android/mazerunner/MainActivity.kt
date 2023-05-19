@@ -4,6 +4,8 @@ import android.os.Build
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Button
@@ -14,6 +16,7 @@ import java.lang.Exception
 import java.lang.Thread
 import java.net.URL
 import kotlin.concurrent.thread
+import kotlin.random.Random
 import org.json.JSONObject
 import org.json.JSONTokener
 
@@ -33,7 +36,12 @@ class MainActivity : AppCompatActivity() {
 
             val metadata = findViewById<EditText>(R.id.metadata).text.toString()
             val text = if (metadata == "") "HandledException!" else metadata
-            Bugsnag.notify(Exception(text))
+
+            // Add a random delay to test the warning of slow messages
+            val delay = Random.nextLong(0, 5000)
+            Handler(Looper.getMainLooper()).postDelayed({
+                Bugsnag.notify(Exception(text))
+            }, delay)
         }
 
         // Run command button

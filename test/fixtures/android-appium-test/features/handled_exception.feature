@@ -3,7 +3,9 @@ Feature: Android support
 Scenario: Test Handled Android Exception
   Given the element "trigger_error" is present
   When I click the element "trigger_error"
-  Then I wait to receive an error
+  And I click the element "trigger_error"
+  And I click the element "trigger_error"
+  Then I wait to receive 3 errors
   And the error Bugsnag-Integrity header is valid
   And the error is valid for the error reporting API version "4.0" for the "Android Bugsnag Notifier" notifier
   And the exception "errorClass" equals "java.lang.Exception"

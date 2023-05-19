@@ -60,6 +60,7 @@ module Maze
         end
 
         def stop_session
+          $logger.info 'BitBarClient.stop_session'
           super
           if Maze::Client::BitBarClientUtils.use_local_tunnel?
             Maze::Client::BitBarClientUtils.stop_local_tunnel

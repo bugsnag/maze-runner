@@ -122,6 +122,8 @@ module Maze
         end
 
         def stop_session
+          $logger.info 'BaseClient.stop_session'
+          $logger.info "Maze.driver.nil? #{Maze.driver.nil?}"
           Maze.driver&.driver_quit
           Maze::AppiumServer.stop if Maze::AppiumServer.running
         end

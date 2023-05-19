@@ -227,5 +227,6 @@ AfterAll do
 end
 
 at_exit do
+  $logger.info 'at_exit called'
   Maze.internal_hooks.at_exit
 end

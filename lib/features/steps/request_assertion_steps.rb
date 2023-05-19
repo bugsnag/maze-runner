@@ -10,9 +10,24 @@ require_relative '../../maze/wait'
 
 def assert_received_requests(request_count, list, list_name, precise = true)
   timeout = Maze.config.receive_requests_wait
-  wait = Maze::Wait.new(timeout: timeout)
+  # Interval set to 0.5s to make it more likely to detect erroneous extra requests,
+  # without impacting overall speed too much
+  wait = Maze::Wait.new(interval: 0.5, timeout: timeout)
 
-  received = wait.until { list.size_remaining >= request_count }
+  last_count = 0
+  start_time = Time.now
+  received = wait.until do
+
+    count_now = list.size_remaining
+    elapsed = Time.now - start_time
+    if elapsed > Maze.config.receive_requests_slow_threshold
+      if count_now > last_count
+        $logger.warn "Received #{count_now - last_count} request(s) after #{elapsed.round(1)}s"
+      end
+    end
+    last_count = count_now
+    count_now >= request_count
+  end
 
   unless received
     raise Test::Unit::AssertionFailedError.new <<-MESSAGE

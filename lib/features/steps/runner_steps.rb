@@ -267,7 +267,7 @@ Then('I wait for the shell to output {string} to stdout') do |expected_line|
   success = wait.until do
     current_shell.stdout_lines.any? do |raw_line|
       # Remove inconsequential escape codes
-      line = raw_line.slice "\e[?25h" # Make cursor visible
+      line = raw_line.sub "\e[?25h", '' # Make cursor visible
       line == expected_line
     end
   end

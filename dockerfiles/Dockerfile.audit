@@ -1,0 +1,15 @@
+FROM licensefinder/license_finder:6.15.0
+
+# Workaround for expired nodesource certificate: https://github.com/nodesource/distributions/issues/1266
+# TODO  Remove this in due course.
+RUN curl -s http://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
+RUN sh -c "echo deb http://deb.nodesource.com/node_14.x focal main > /etc/apt/sources.list.d/nodesource.list"
+
+RUN apt-get update && \
+    apt-get install -y \
+      # Needed by curb (a dependency of Cucumber)
+      libcurl4-openssl-dev
+
+WORKDIR /scan
+
+CMD /scan/scripts/license_finder.sh

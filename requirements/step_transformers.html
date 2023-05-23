@@ -6827,7 +6827,7 @@ timing out after Maze.config.receive_requests_wait seconds.</p>
   <span class='id identifier rubyid_wait'>wait</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Wait</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>timeout:</span> <span class='const'>Maze</span><span class='period'>.</span><span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_receive_requests_wait'>receive_requests_wait</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_shell'>shell</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Runner</span><span class='period'>.</span><span class='id identifier rubyid_interactive_session'>interactive_session</span>
 
-  <span class='id identifier rubyid_success'>success</span> <span class='op'>=</span> <span class='id identifier rubyid_wait'>wait</span><span class='period'>.</span><span class='id identifier rubyid_until'>until</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_shell'>shell</span><span class='period'>.</span><span class='id identifier rubyid_current_buffer'>current_buffer</span> <span class='op'>==</span> <span class='id identifier rubyid_expected_prompt'>expected_prompt</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_success'>success</span> <span class='op'>=</span> <span class='id identifier rubyid_wait'>wait</span><span class='period'>.</span><span class='id identifier rubyid_until'>until</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_expected_prompt'>expected_prompt</span> <span class='op'>==</span> <span class='id identifier rubyid_sanitized'><span class='object_link'><a href="../top-level-namespace.html#sanitized-instance_method" title="#sanitized (method)">sanitized</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_shell'>shell</span><span class='period'>.</span><span class='id identifier rubyid_current_buffer'>current_buffer</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
 
   <span class='const'>Maze</span><span class='period'>.</span><span class='id identifier rubyid_check'>check</span><span class='period'>.</span><span class='id identifier rubyid_true'>true</span><span class='lparen'>(</span><span class='id identifier rubyid_success'>success</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The current output line \&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_shell'>shell</span><span class='period'>.</span><span class='id identifier rubyid_current_buffer'>current_buffer</span><span class='embexpr_end'>}</span><span class='tstring_content'>\&quot; did not match \&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_expected_prompt'>expected_prompt</span><span class='embexpr_end'>}</span><span class='tstring_content'>\&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -7010,7 +7010,10 @@ timing out after Maze.config.receive_requests_wait seconds.</p>
 269
 270
 271
-272</pre>
+272
+273
+274
+275</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I wait for the shell to output {string} to stdout</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_expected_line'>expected_line</span><span class='op'>|</span>
@@ -7018,7 +7021,10 @@ timing out after Maze.config.receive_requests_wait seconds.</p>
   <span class='id identifier rubyid_current_shell'>current_shell</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Runner</span><span class='period'>.</span><span class='id identifier rubyid_interactive_session'>interactive_session</span>
 
   <span class='id identifier rubyid_success'>success</span> <span class='op'>=</span> <span class='id identifier rubyid_wait'>wait</span><span class='period'>.</span><span class='id identifier rubyid_until'>until</span> <span class='kw'>do</span>
-    <span class='id identifier rubyid_current_shell'>current_shell</span><span class='period'>.</span><span class='id identifier rubyid_stdout_lines'>stdout_lines</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_line'>line</span><span class='op'>|</span> <span class='id identifier rubyid_line'>line</span> <span class='op'>==</span> <span class='id identifier rubyid_expected_line'>expected_line</span> <span class='rbrace'>}</span>
+    <span class='id identifier rubyid_current_shell'>current_shell</span><span class='period'>.</span><span class='id identifier rubyid_stdout_lines'>stdout_lines</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_line'>line</span><span class='op'>|</span>
+      <span class='comment'># Remove inconsequential escape codes
+</span>      <span class='id identifier rubyid_expected_line'>expected_line</span> <span class='op'>==</span> <span class='id identifier rubyid_sanitized'><span class='object_link'><a href="../top-level-namespace.html#sanitized-instance_method" title="#sanitized (method)">sanitized</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_line'>line</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
   <span class='kw'>end</span>
 
   <span class='const'>Maze</span><span class='period'>.</span><span class='id identifier rubyid_check'>check</span><span class='period'>.</span><span class='id identifier rubyid_true'>true</span><span class='lparen'>(</span><span class='id identifier rubyid_success'>success</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>No output lines from </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_current_shell'>current_shell</span><span class='period'>.</span><span class='id identifier rubyid_stdout_lines'>stdout_lines</span><span class='embexpr_end'>}</span><span class='tstring_content'> matched </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_expected_line'>expected_line</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -7063,7 +7069,7 @@ timing out after Maze.config.receive_requests_wait seconds.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:277</div>
+      <div class="file">lib/features/steps/runner_steps.rb:284</div>
     </div>
     
     <!-- Comments -->
@@ -7102,11 +7108,11 @@ timing out after Maze.config.receive_requests_wait seconds.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">277
-278
-279
-280
-281</pre>
+            <pre class="lines">284
+285
+286
+287
+288</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the shell has output a match for the regex {string} to stdout</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_regex_matcher'>regex_matcher</span><span class='op'>|</span>
@@ -7154,7 +7160,7 @@ timing out after Maze.config.receive_requests_wait seconds.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:286</div>
+      <div class="file">lib/features/steps/runner_steps.rb:293</div>
     </div>
     
     <!-- Comments -->
@@ -7193,16 +7199,16 @@ timing out after Maze.config.receive_requests_wait seconds.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">286
-287
-288
-289
-290
-291
-292
-293
+            <pre class="lines">293
 294
-295</pre>
+295
+296
+297
+298
+299
+300
+301
+302</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I wait for the shell to output a match for the regex {string} to stdout</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_regex_matcher'>regex_matcher</span><span class='op'>|</span>
@@ -7255,7 +7261,7 @@ timing out after Maze.config.receive_requests_wait seconds.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:301</div>
+      <div class="file">lib/features/steps/runner_steps.rb:308</div>
     </div>
     
     <!-- Comments -->
@@ -7295,20 +7301,20 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">301
-302
-303
-304
-305
-306
-307
-308
+            <pre class="lines">308
 309
 310
 311
 312
 313
-314</pre>
+314
+315
+316
+317
+318
+319
+320
+321</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I wait for the interactive shell to output the following lines in stdout</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_expected_lines'>expected_lines</span><span class='op'>|</span>
@@ -7365,7 +7371,7 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:319</div>
+      <div class="file">lib/features/steps/runner_steps.rb:326</div>
     </div>
     
     <!-- Comments -->
@@ -7404,11 +7410,11 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">319
-320
-321
-322
-323</pre>
+            <pre class="lines">326
+327
+328
+329
+330</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the shell has output {string} to stderr</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_expected_err'>expected_err</span><span class='op'>|</span>
@@ -7456,7 +7462,7 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:328</div>
+      <div class="file">lib/features/steps/runner_steps.rb:335</div>
     </div>
     
     <!-- Comments -->
@@ -7495,16 +7501,16 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">328
-329
-330
-331
-332
-333
-334
-335
+            <pre class="lines">335
 336
-337</pre>
+337
+338
+339
+340
+341
+342
+343
+344</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I wait for the shell to output {string} to stderr</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_expected_line'>expected_line</span><span class='op'>|</span>
@@ -7557,7 +7563,7 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:340</div>
+      <div class="file">lib/features/steps/runner_steps.rb:347</div>
     </div>
     
     <!-- Comments -->
@@ -7581,19 +7587,19 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">340
-341
-342
-343
-344
-345
-346
-347
+            <pre class="lines">347
 348
 349
 350
 351
-352</pre>
+352
+353
+354
+355
+356
+357
+358
+359</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the last interactive command exited successfully</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
@@ -7649,7 +7655,7 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:357</div>
+      <div class="file">lib/features/steps/runner_steps.rb:364</div>
     </div>
     
     <!-- Comments -->
@@ -7688,19 +7694,19 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">357
-358
-359
-360
-361
-362
-363
-364
+            <pre class="lines">364
 365
 366
 367
 368
-369</pre>
+369
+370
+371
+372
+373
+374
+375
+376</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the last interactive command exit code is {int}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_exit_code'>exit_code</span><span class='op'>|</span>
@@ -7756,7 +7762,7 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:372</div>
+      <div class="file">lib/features/steps/runner_steps.rb:379</div>
     </div>
     
     <!-- Comments -->
@@ -7780,19 +7786,19 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">372
-373
-374
-375
-376
-377
-378
-379
+            <pre class="lines">379
 380
 381
 382
 383
-384</pre>
+384
+385
+386
+387
+388
+389
+390
+391</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the last interactive command exited with an error code</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
@@ -7848,7 +7854,7 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:390</div>
+      <div class="file">lib/features/steps/runner_steps.rb:397</div>
     </div>
     
     <!-- Comments -->
@@ -7898,13 +7904,13 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">390
-391
-392
-393
-394
-395
-396</pre>
+            <pre class="lines">397
+398
+399
+400
+401
+402
+403</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the interactive file {string} contains {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_filename'>filename</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_line'>expected_line</span><span class='op'>|</span>
@@ -7954,7 +7960,7 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:402</div>
+      <div class="file">lib/features/steps/runner_steps.rb:409</div>
     </div>
     
     <!-- Comments -->
@@ -8004,13 +8010,13 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">402
-403
-404
-405
-406
-407
-408</pre>
+            <pre class="lines">409
+410
+411
+412
+413
+414
+415</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the interactive file {string} does not contain {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_filename'>filename</span><span class='comma'>,</span> <span class='id identifier rubyid_excluded_line'>excluded_line</span><span class='op'>|</span>
@@ -8060,7 +8066,7 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:414</div>
+      <div class="file">lib/features/steps/runner_steps.rb:421</div>
     </div>
     
     <!-- Comments -->
@@ -8110,11 +8116,11 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">414
-415
-416
-417
-418</pre>
+            <pre class="lines">421
+422
+423
+424
+425</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the interactive file {string} contains:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_filename'>filename</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_lines'>expected_lines</span><span class='op'>|</span>
@@ -8162,7 +8168,7 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/runner_steps.rb:424</div>
+      <div class="file">lib/features/steps/runner_steps.rb:431</div>
     </div>
     
     <!-- Comments -->
@@ -8212,11 +8218,11 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">424
-425
-426
-427
-428</pre>
+            <pre class="lines">431
+432
+433
+434
+435</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the interactive file {string} does not contain:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_filename'>filename</span><span class='comma'>,</span> <span class='id identifier rubyid_excluded_lines'>excluded_lines</span><span class='op'>|</span>
@@ -24710,7 +24716,7 @@ request types.</p>
 </div>
 
       <div id="footer">
-  Generated on Fri May 19 11:07:39 2023 by
+  Generated on Tue May 23 16:02:41 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.34 (ruby-2.7.8).
 </div>

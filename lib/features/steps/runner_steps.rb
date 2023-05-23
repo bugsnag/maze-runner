@@ -243,7 +243,7 @@ Then('I wait for the shell prompt {string}') do |expected_prompt|
   wait = Maze::Wait.new(timeout: Maze.config.receive_requests_wait)
   shell = Maze::Runner.interactive_session
 
-  success = wait.until { shell.current_buffer == expected_prompt }
+  success = wait.until { expected_prompt == sanitized(shell.current_buffer) }
 
   Maze.check.true(success, "The current output line \"#{shell.current_buffer}\" did not match \"#{expected_prompt}\"")
 end
@@ -265,14 +265,17 @@ Then('I wait for the shell to output {string} to stdout') do |expected_line|
   current_shell = Maze::Runner.interactive_session
 
   success = wait.until do
-    current_shell.stdout_lines.any? do |raw_line|
+    current_shell.stdout_lines.any? do |line|
       # Remove inconsequential escape codes
-      line = raw_line.sub "\e[?25h", '' # Make cursor visible
-      line == expected_line
+      expected_line == sanitized(line)
     end
   end
 
   Maze.check.true(success, "No output lines from #{current_shell.stdout_lines} matched #{expected_line}")
+end
+
+def sanitized(line)
+  line.sub "\e[?25h", '' # Make cursor visible
 end
 
 # Verify a string using a regex in the stdout logs

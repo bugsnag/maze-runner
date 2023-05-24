@@ -1,3 +1,9 @@
+# 7.32.1 - TBD
+
+## Fixes
+
+- Output received traces to stdout when a scenario fails [5xx](https://github.com/bugsnag/maze-runner/pull/5xx)
+
 # 7.32.0 - 2023/05/19
 
 ## Enhancements

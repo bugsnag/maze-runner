@@ -1,8 +1,12 @@
-# TBD
+# 7.32.1 - 2023/05/25
 
 ## Enhancements
 
 - Add iOS 16 and an up to date Android device browsers to the available BS devices [544](https://github.com/bugsnag/maze-runner/pull/544)
+
+## Fixes
+
+- Output received traces to stdout when a scenario fails [543](https://github.com/bugsnag/maze-runner/pull/543)
 
 # 7.32.0 - 2023/05/19
 

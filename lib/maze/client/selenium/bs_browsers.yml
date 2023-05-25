@@ -166,6 +166,13 @@ android_s8:
   osVersion: "7.0"
   realMobile: true
 
+android_pixel_7:
+  browserName: "Android Browser"
+  device: "Google Pixel 7"
+  os: "android"
+  osVersion: "13.0"
+  realMobile: true
+
 firefox_30:
   browserName: "firefox"
   browserVersion: "30"

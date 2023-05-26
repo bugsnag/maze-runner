@@ -15,7 +15,25 @@ END OF v8 INTEGRATION
 
 --->
 
+# 7.33.0 - 2023/05/25
+
+## Enhancements
+
+- Add iOS 16 and an up to date Android device browsers to the available BS devices [544](https://github.com/bugsnag/maze-runner/pull/544)
+
+## Fixes
+
+- Output received traces to stdout when a scenario fails [543](https://github.com/bugsnag/maze-runner/pull/543)
+
+# 7.32.0 - 2023/05/19
+
+## Enhancements
+
+- Set BitBar dashboard project and test run for browser tests [542](https://github.com/bugsnag/maze-runner/pull/542)
+
 # 7.31.0 - 2023/05/19
+
+## Enhancements
 
 - Add `Maze.config.receive_requests_slow_threshold` to warn for slow receipt of requests [541](https://github.com/bugsnag/maze-runner/pull/541)
 

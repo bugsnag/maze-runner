@@ -170,6 +170,49 @@ module Maze
           File.delete(BB_KILL_FILE) if File.exist?(BB_KILL_FILE)
         end
 
+        # Determines capabilities used to organise sessions in the BitBar dashboard.
+        #
+        # @return [Hash] A hash containing the capabilities.
+        def dashboard_capabilities
+
+          # Determine project name
+          if ENV['BUILDKITE']
+            $logger.info 'Using BUILDKITE_PIPELINE_SLUG for BitBar project name'
+            project = ENV['BUILDKITE_PIPELINE_SLUG']
+          else
+            # Attempt to use the current git repo
+            output, status = Maze::Runner.run_command('git rev-parse --show-toplevel')
+            if status == 0
+              project = File.basename(output[0].strip)
+            else
+              $logger.warn 'Unable to determine project name, consider running Maze Runner from within a Git repository'
+              project = 'Unknown'
+            end
+          end
+
+          # Test run
+          if ENV['BUILDKITE']
+            bk_retry = ENV['BUILDKITE_RETRY_COUNT']
+            retry_string = if !bk_retry.nil? && bk_retry.to_i > 1
+                             " (#{bk_retry})"
+                           else
+                             ''
+                           end
+            test_run = "#{ENV['BUILDKITE_BUILD_NUMBER']} - #{ENV['BUILDKITE_LABEL']}#{retry_string}"
+          else
+            test_run = Maze.run_uuid
+          end
+
+          $logger.info "BitBar project name: #{project}"
+          $logger.info "BitBar test run: #{test_run}"
+          {
+            'bitbar:options' => {
+              bitbar_project: project,
+              bitbar_testrun: test_run
+            }
+          }
+        end
+
         private
 
         def start_tunnel_thread(cmd)

@@ -96,77 +96,77 @@ safari_16:
   os: "OS X"
   osVersion: "Ventura"
 
-iphone_6s:
+ios_9:
   browserName: "iphone"
   device: "iPhone 6S"
   os: "ios"
   osVersion: "9.0"
   realMobile: true
 
-iphone_7:
+ios_10:
   browserName: "iphone"
   device: "iPhone 7"
   os: "ios"
   osVersion: "10.3"
   realMobile: true
 
-iphone_x:
+ios_11:
   browserName: "iphone"
   device: "iPhone X"
   os: "ios"
   osVersion: "11"
   realMobile: true
 
-iphone_xs:
+ios_12:
   browserName: "iphone"
   device: "iPhone XS"
   os: "ios"
   osVersion: "12"
   realMobile: true
 
-iphone_13:
+ios_15:
   browserName: "iphone"
   device: "iPhone 13"
   os: "ios"
   osVersion: "15.4"
   realMobile: true
 
-iphone_14:
+ios_16:
   browserName: "iphone"
   device: "iPhone 14"
   os: "ios"
   osVersion: "16"
   realMobile: true
 
-android_nexus5:
+android_4:
   browserName: "Android Browser"
   device: "Google Nexus 5"
   os: "android"
   osVersion: "4.4"
   realMobile: true
 
-android_s6:
+android_5:
   browserName: "Android Browser"
   device: "Samsung Galaxy S6"
   os: "android"
   osVersion: "5.0"
   realMobile: true
 
-android_s7:
+android_6:
   browserName: "Android Browser"
   device: "Samsung Galaxy S7"
   os: "android"
   osVersion: "6.0"
   realMobile: true
 
-android_s8:
+android_7:
   browserName: "Android Browser"
   device: "Samsung Galaxy S8 Plus"
   os: "android"
   osVersion: "7.0"
   realMobile: true
 
-android_pixel_7:
+android_13:
   browserName: "Android Browser"
   device: "Google Pixel 7"
   os: "android"

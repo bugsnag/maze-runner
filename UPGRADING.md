@@ -23,6 +23,8 @@ The `VERBOSE` environment variable no longer has any effect on the log level.  U
 
 The names for each Android device on BrowserStack have been shortened, e.g. ANDROID_10_0 becomes ANDROID_10.  This is for consistency with BrowserStack iOS devices and BitBar device groups.  Run `bundle exec maze-runner --farm=bs --list-devices` for a full list of options.
 
+In addition, browsers running on mobile devices are now named after the OS and version, e.g. `android_nexus5` becomes `android_4`.  This should make the desired device/browser combination more obvious in future.
+
 ### Cucumber steps
 
 The following Cucumber steps have been reworded:

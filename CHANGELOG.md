@@ -8,6 +8,7 @@
 - Filter sampling requests into their own `RequestList` [537](https://github.com/bugsnag/maze-runner/pull/537)
 - Shorten BrowserStack Android device names for consistency [538](https://github.com/bugsnag/maze-runner/pull/538)
 - Reword header to `is present` rather than `is null` [540](https://github.com/bugsnag/maze-runner/pull/540)
+- Rename BrowserStack mobile browsers to OS and version format [545](https://github.com/bugsnag/maze-runner/pull/545)
 
 <!---
 

@@ -25,6 +25,20 @@ The names for each Android device on BrowserStack have been shortened, e.g. ANDR
 
 In addition, browsers running on mobile devices are now named after the OS and version, e.g. `android_nexus5` becomes `android_4`.  This should make the desired device/browser combination more obvious in future.
 
+Changed names:
+
+- iphone_6s       -> ios_9
+- iphone_7        -> ios_10
+- iphone_x        -> ios_11
+- iphone_xs       -> ios_12
+- iphone_13       -> ios_15
+- iphone_14       -> ios_16
+- android_nexus5  -> android_4
+- android_s6      -> android_5
+- android_s7      -> android_6
+- android_s8      -> android_7
+- android_pixel_7 -> android_13
+
 ### Cucumber steps
 
 The following Cucumber steps have been reworded:

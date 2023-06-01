@@ -1,3 +1,10 @@
+# 7.34.0 - TBD
+
+## Enhancements
+
+- Add standalone `purge-projects` executable [546](https://github.com/bugsnag/maze-runner/pull/546)
+
+
 # 7.33.0 - 2023/05/25
 
 ## Enhancements

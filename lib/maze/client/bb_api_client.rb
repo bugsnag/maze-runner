@@ -111,44 +111,39 @@ module Maze
       end
 
       def delete_project (id)
-        response = delete_query_api "projects/#{id}"
+        response = query_api "projects/#{id}"
       end
 
       private
 
       # Queries the BitBar REST API
-      def query_api(path, query=nil, uri=USER_SPECIFIC_URI)
+      def query_api(path, query=nil, uri=USER_SPECIFIC_URI, method="get")
         if query
           encoded_query = URI.encode_www_form(query)
           uri = URI("#{uri}/#{path}?#{encoded_query}")
         else
           uri = URI("#{uri}/#{path}")
         end
-        request = Net::HTTP::Get.new(uri)
-        request.basic_auth(@access_key, '')
-        res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
-          http.request(request)
-        end
 
-        JSON.parse(res.body)
-      end
+        if method == "get"
+          request = Net::HTTP::Get.new(uri)
+          request.basic_auth(@access_key, '')
+          res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+            http.request(request)
+          end
 
-      # Queries the BitBar REST API with the DELETE method
-      def delete_query_api(path, query=nil, uri=USER_SPECIFIC_URI)
-        if query
-          encoded_query = URI.encode_www_form(query)
-          uri = URI("#{uri}/#{path}?#{encoded_query}")
-        else
-          uri = URI("#{uri}/#{path}")
+          return JSON.parse(res.body)
+        elsif method == "delete"
+          request = Net::HTTP::Delete.new(uri)
+          request.basic_auth(@access_key, '')
+          res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+            http.request(request)
+          end
+
+          return res
         end
-        request = Net::HTTP::Delete.new(uri)
-        request.basic_auth(@access_key, '')
-        res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
-          http.request(request)
-        end
-        res
       end
-    end
+    end 
   end
 end
 

@@ -38,7 +38,7 @@ class PurgeProjectEntry
       end
     end
 
-    $logger.info "Getting list of orphaned project from BitBar"
+    $logger.info "Getting list of anonymous project from BitBar"
 
     api_client = Maze::Client::BitBarApiClient.new(api_key)
 

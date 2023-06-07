@@ -12,7 +12,7 @@ require 'net/http'
 class PurgeProjectEntry
   def start(args)
     p = Optimist::Parser.new do
-      text 'Purge orphaned projects from BitBar'
+      text 'Purge anonymous projects from BitBar'
       text ''
       text 'Requires BITBAR_API_KEY'
       text ''

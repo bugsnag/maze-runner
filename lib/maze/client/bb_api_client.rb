@@ -88,23 +88,60 @@ module Maze
         end
       end
 
+      def get_projects(pattern)
+        query = {
+          'limit': "1000"
+        }
+
+        project_data = query_api('projects', query)
+
+        begin
+          projects = Hash.new
+          project_data['data'].each do |child|
+            if child['name'].match(pattern)
+              projects[child['name']] = child['id']
+            end
+          end
+        rescue StandardError => e
+          $logger.error "Error getting projects from BitBar"
+          $logger.error e
+          raise
+        end
+        projects
+      end
+
+      def delete_project (id)
+        response = query_api "projects/#{id}"
+      end
+
       private
 
       # Queries the BitBar REST API
-      def query_api(path, query=nil, uri=USER_SPECIFIC_URI)
+      def query_api(path, query=nil, uri=USER_SPECIFIC_URI, method="get")
         if query
           encoded_query = URI.encode_www_form(query)
           uri = URI("#{uri}/#{path}?#{encoded_query}")
         else
           uri = URI("#{uri}/#{path}")
         end
-        request = Net::HTTP::Get.new(uri)
-        request.basic_auth(@access_key, '')
-        res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
-          http.request(request)
-        end
 
-        JSON.parse(res.body)
+        if method == "get"
+          request = Net::HTTP::Get.new(uri)
+          request.basic_auth(@access_key, '')
+          res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+            http.request(request)
+          end
+
+          return JSON.parse(res.body)
+        elsif method == "delete"
+          request = Net::HTTP::Delete.new(uri)
+          request.basic_auth(@access_key, '')
+          res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+            http.request(request)
+          end
+
+          return res
+        end
       end
     end
   end

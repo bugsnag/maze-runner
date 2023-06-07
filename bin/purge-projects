@@ -10,7 +10,7 @@ require 'uri'
 require 'net/http'
 
 class PurgeProjectEntry
-  def start(args)
+  def start(_args)
     p = Optimist::Parser.new do
       text 'Purge anonymous projects from BitBar'
       text ''

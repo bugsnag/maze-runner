@@ -143,7 +143,7 @@ module Maze
           return res
         end
       end
-    end 
+    end
   end
 end
 

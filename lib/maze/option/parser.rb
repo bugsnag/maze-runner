@@ -22,6 +22,9 @@ module Maze
                 'Print this help.'
             opt :version,
                 'Display Maze Runner and Cucumber versions'
+            opt :expand,
+                'Output for Scenario Outlines is expanded by default, suppress using --no-expand',
+            short: :none
 
             text ''
             text 'General options:'

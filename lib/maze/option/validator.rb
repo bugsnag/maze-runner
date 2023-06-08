@@ -89,13 +89,9 @@ module Maze
       def validate_bitbar(options, errors)
         browser = options[Option::BROWSER]
         device = options[Option::DEVICE]
-
-        if ENV['BUILDKITE'] && browser
-          errors << "--#{Option::TMS_URI} must be specified when running on Buildkite" if options[Option::TMS_URI].nil?
-        else
-          errors << "--#{Option::USERNAME} must be specified" if options[Option::USERNAME].nil?
-          errors << "--#{Option::ACCESS_KEY} must be specified" if options[Option::ACCESS_KEY].nil?
-        end
+        
+        errors << "--#{Option::USERNAME} must be specified" if options[Option::USERNAME].nil?
+        errors << "--#{Option::ACCESS_KEY} must be specified" if options[Option::ACCESS_KEY].nil?
 
         # Device
         if browser.nil? && device.empty?

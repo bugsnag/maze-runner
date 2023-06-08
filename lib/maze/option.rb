@@ -39,10 +39,6 @@ module Maze
     # BrowserStack-only options
     BS_LOCAL = 'bs-local'
 
-    # BitBar-only options
-    TMS_URI = 'tms-uri'
-    TMS_TOKEN = 'tms-token'
-
     # Local-only options
     APPIUM_LOGFILE = 'appium-logfile'
     APPLE_TEAM_ID = 'apple-team-id'

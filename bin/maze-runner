@@ -117,6 +117,15 @@ class MazeRunnerEntry
       @args << '--strict-undefined' << '--strict-pending' << '--no-strict-flaky'
     end
 
+    # Expand by default
+    if @args.include?('--no-expand')
+      # Just remove it
+      @args = @args - ["--no-expand"]
+    else
+      # Expand
+      @args << "--expand"
+    end
+
     # Load internal steps and helper functions
     load_dir = File.expand_path(File.dirname(File.dirname(__FILE__))).freeze
     paths = Dir.glob("#{load_dir}/lib/features/**/*.rb")

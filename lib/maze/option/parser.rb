@@ -170,17 +170,6 @@ module Maze
                 short: :none,
                 type: :string
 
-            # TMS options
-            opt Option::TMS_URI,
-                'URI of the test management server root.  MAZE_TMS_URI env var',
-                short: :none,
-                type: :string
-
-            opt Option::TMS_TOKEN,
-                'Token used to access the test management server.  MAZE_TMS_TOKEN env var',
-                short: :none,
-                type: :string
-
             text ''
             text 'Local device options:'
 
@@ -270,7 +259,6 @@ module Maze
           when 'bb'
             options[Option::USERNAME] ||= ENV['BITBAR_USERNAME']
             options[Option::ACCESS_KEY] ||= ENV['BITBAR_ACCESS_KEY']
-            options[Option::TMS_URI] ||= ENV['MAZE_TMS_URI']
             options[Option::APPIUM_SERVER] ||= ENV['MAZE_APPIUM_SERVER'] || 'https://us-west-mobile-hub.bitbar.com/wd/hub'
             options[Option::SELENIUM_SERVER] ||= ENV['MAZE_SELENIUM_SERVER'] || 'https://us-west-desktop-hub.bitbar.com/wd/hub'
           end
@@ -278,8 +266,6 @@ module Maze
           options[Option::ASPECTO_REPEATER_API_KEY] ||= ENV['MAZE_ASPECTO_REPEATER_API_KEY']
           options[Option::BUGSNAG_REPEATER_API_KEY] ||= ENV['MAZE_REPEATER_API_KEY']
           options[Option::SB_LOCAL] ||= ENV['MAZE_SB_LOCAL'] || '/SBSecureTunnel'
-          options[Option::TMS_URI] ||= ENV['MAZE_TMS_URI']
-          options[Option::TMS_TOKEN] ||= ENV['MAZE_TMS_TOKEN']
           options[Option::BS_LOCAL] ||= ENV['MAZE_BS_LOCAL'] || '/BrowserStackLocal'
           options[Option::APPIUM_SERVER] ||= ENV['MAZE_APPIUM_SERVER'] || 'http://localhost:4723/wd/hub'
           options[Option::APPLE_TEAM_ID] ||= ENV['MAZE_APPLE_TEAM_ID']

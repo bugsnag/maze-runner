@@ -68,7 +68,6 @@ services:
       BROWSER_STACK_DEVICES_USERNAME:
       BROWSER_STACK_DEVICES_ACCESS_KEY:
       MAZE_BUGSNAG_API_KEY:
-      MAZE_TMS_URI:
     env_file: $DOCKER_ENV_FILE
     volumes:
       - ./test/fixtures/android-appium-test/app/build:/app/build
@@ -101,7 +100,6 @@ services:
       BITBAR_USERNAME:
       BITBAR_ACCESS_KEY:
       MAZE_BUGSNAG_API_KEY:
-      MAZE_TMS_URI:
     env_file: $DOCKER_ENV_FILE
     ports:
       - "9000-9499:9339"
@@ -138,7 +136,6 @@ services:
       BROWSER_STACK_DEVICES_USERNAME:
       BROWSER_STACK_DEVICES_ACCESS_KEY:
       MAZE_BUGSNAG_API_KEY:
-      MAZE_TMS_URI:
       USE_LEGACY_DRIVER: 1
     env_file: $DOCKER_ENV_FILE
     volumes:
@@ -166,7 +163,6 @@ services:
       BROWSER_STACK_DEVICES_USERNAME:
       BROWSER_STACK_DEVICES_ACCESS_KEY:
       MAZE_BUGSNAG_API_KEY:
-      MAZE_TMS_URI:
       BITBAR_USERNAME:
       BITBAR_ACCESS_KEY:
     env_file: $DOCKER_ENV_FILE
@@ -295,8 +291,6 @@ services:
       BROWSER_STACK_ACCESS_KEY:
       BROWSER_STACK_BROWSERS_USERNAME:
       BROWSER_STACK_BROWSERS_ACCESS_KEY:
-      MAZE_TMS_URI:
-      MAZE_TMS_TOKEN:
     env_file:
       - ${DOCKER_ENV_FILE:-test/browser/features/fixtures/null_env}
     ports:
@@ -317,8 +311,6 @@ services:
       BROWSER_STACK_ACCESS_KEY:
       BROWSER_STACK_BROWSERS_USERNAME:
       BROWSER_STACK_BROWSERS_ACCESS_KEY:
-      MAZE_TMS_URI:
-      MAZE_TMS_TOKEN:
       USE_LEGACY_DRIVER: 1
     env_file:
       - ${DOCKER_ENV_FILE:-test/browser/features/fixtures/null_env}
@@ -338,8 +330,6 @@ services:
       BUILDKITE_LABEL:
       BUILDKITE_PIPELINE_SLUG:
       BUILDKITE_RETRY_COUNT:
-      MAZE_TMS_URI:
-      MAZE_TMS_TOKEN:
     env_file:
       - ${DOCKER_ENV_FILE:-test/browser/features/fixtures/null_env}
     ports:

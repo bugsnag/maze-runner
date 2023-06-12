@@ -22,7 +22,7 @@ end
 #
 # @step_input http_verb [String] The type of request this code will be used for
 # @step_input status_code [Integer] The status code to return
-When('I set the HTTP status code for {string} requests to {int}') do |http_verb, status_code|
+When('I set the HTTP status code for {string} requests to {string}') do |http_verb, status_code|
   raise("Invalid HTTP verb: #{http_verb}") unless Maze::Server::ALLOWED_HTTP_VERBS.include?(http_verb)
   Maze::Server.set_status_code_generator(Maze::Generator.new([status_code].cycle), http_verb)
 end
@@ -31,7 +31,7 @@ end
 #
 # @step_input http_verb [String] The type of request this code will be used for
 # @step_input status_code [Integer] The status code to return
-When('I set the HTTP status code for the next {string} request to {int}') do |http_verb, status_code|
+When('I set the HTTP status code for the next {string} request to {string}') do |http_verb, status_code|
   raise("Invalid HTTP verb: #{http_verb}") unless Maze::Server::ALLOWED_HTTP_VERBS.include?(http_verb)
   Maze::Server.set_status_code_generator(create_defaulting_generator([status_code], Maze::Server::DEFAULT_STATUS_CODE), http_verb)
 end
@@ -39,14 +39,14 @@ end
 # Sets the HTTP status code to be used for all subsequent POST requests
 #
 # @step_input status_code [Integer] The status code to return
-When('I set the HTTP status code to {int}') do |status_code|
+When('I set the HTTP status code to {string}') do |status_code|
   step %{I set the HTTP status code for "POST" requests to #{status_code}}
 end
 
 # Sets the HTTP status code to be used for the next POST request
 #
 # @step_input status_code [Integer] The status code to return
-When('I set the HTTP status code for the next request to {int}') do |status_code|
+When('I set the HTTP status code for the next request to {string}') do |status_code|
   step %{I set the HTTP status code for the next "POST" request to #{status_code}}
 end
 
@@ -82,14 +82,14 @@ end
 # Sets the response delay to be used for all subsequent requests
 #
 # @step_input response_delay_ms [Integer] The delay in milliseconds
-When('I set the response delay to {int} milliseconds') do |response_delay_ms|
+When('I set the response delay to {string} milliseconds') do |response_delay_ms|
   Maze::Server.set_response_delay_generator(Maze::Generator.new [response_delay_ms].cycle)
 end
 
 # Sets the response delay to be used for the next request
 #
 # @step_input delay [Integer] The delay in milliseconds
-When('I set the response delay for the next request to {int} milliseconds') do |delay|
+When('I set the response delay for the next request to {string} milliseconds') do |delay|
   Maze::Server.set_response_delay_generator(create_defaulting_generator([delay], Maze::Server::DEFAULT_RESPONSE_DELAY))
 end
 

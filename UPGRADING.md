@@ -47,6 +47,12 @@ Removed step | Replacement
 ---|---|
 `the {request_type} {string} header is not null` | `the {request_type} {string} header is present`
 `the {request_type} {string} header is null` | `the {request_type} {string} header is not present`
+`I set the HTTP status code for {string} requests to {int}` | `I set the HTTP status code for {string} requests to {string}`
+`I set the HTTP status code for the next {string} request to {int}` | `I set the HTTP status code for the next {string} request to {string}`
+`I set the HTTP status code to {int}` | `I set the HTTP status code to {string}`
+`I set the HTTP status code for the next request to {int}` | `I set the HTTP status code for the next request to {string}`
+`I set the response delay to {int} milliseconds` | `I set the response delay to {string} milliseconds`
+`I set the response delay for the next request to {int} milliseconds` | `I set the response delay for the next request to {string} milliseconds`
 
 ## v6 to v7
 

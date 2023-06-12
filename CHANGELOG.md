@@ -10,6 +10,7 @@
 - Reword header to `is present` rather than `is null` [540](https://github.com/bugsnag/maze-runner/pull/540)
 - Rename BrowserStack mobile browsers to OS and version format [545](https://github.com/bugsnag/maze-runner/pull/545)
 - Set `--expand` Cucumber option by default [548](https://github.com/bugsnag/maze-runner/pull/548)
+- Add step `I set the device orientation to {orientation}` [551](https://github.com/bugsnag/maze-runner/pull/551)
 
 <!---
 

@@ -4,3 +4,10 @@ ParameterType(
   type:        String,
   transformer: ->(s) { s }
 )
+
+ParameterType(
+  name:        'orientation',
+  regexp:      /portrait|landscape/,
+  type:        String,
+  transformer: ->(s) { s.to_sym }
+)

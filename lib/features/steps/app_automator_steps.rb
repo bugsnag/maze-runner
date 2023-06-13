@@ -58,6 +58,12 @@ When('I send the keys {string} to the element {string}') do |keys, element_id|
   Maze.driver.send_keys_to_element(element_id, keys)
 end
 
+# Set the device orientation to either portrait or landscape
+# Requires a running Appium driver
+When('I set the device orientation to {orientation}') do |orientation|
+  Maze.driver.set_rotation orientation
+end
+
 # Tests that the given payload value is correct for the target BrowserStack platform.
 # This step will assume the expected and payload values are strings.
 # If the step is invoked when a remote BrowserStack device is not in use this step will fail.
@@ -73,7 +79,7 @@ end
 # @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input field_path [String] The field to test
 # @step_input platform_values [DataTable] A table of acceptable values for each platform
-Then('the {word} payload field {string} equals the platform-dependent string:') do |request_type, field_path, platform_values|
+Then('the {request_type} payload field {string} equals the platform-dependent string:') do |request_type, field_path, platform_values|
   test_string_platform_values(request_type, field_path, platform_values)
 end
 
@@ -100,7 +106,7 @@ end
 # @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input field_path [String] The field to test
 # @step_input platform_values [DataTable] A table of acceptable values for each platform
-Then('the {word} payload field {string} equals the platform-dependent numeric:') do |request_type, field_path, platform_values|
+Then('the {request_type} payload field {string} equals the platform-dependent numeric:') do |request_type, field_path, platform_values|
   test_numeric_platform_values(request_type, field_path, platform_values)
 end
 
@@ -127,7 +133,7 @@ end
 # @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input field_path [String] The field to test
 # @step_input platform_values [DataTable] A table of acceptable values for each platform
-Then('the {word} payload field {string} equals the platform-dependent boolean:') do |request_type, field_path, platform_values|
+Then('the {request_type} payload field {string} equals the platform-dependent boolean:') do |request_type, field_path, platform_values|
   test_boolean_platform_values(request_type, field_path, platform_values)
 end
 

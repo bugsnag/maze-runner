@@ -1,0 +1,46 @@
+# Ruby image are based on Debian
+FROM ruby:3-bullseye as ci-ruby-3
+
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
+    apt-get install -y apt-utils wget unzip bash bundler \
+                       # Needed for symbolication
+                       llvm-11 \
+                       # Needed to install docker compose
+                       ca-certificates \
+                       curl \
+                       gnupg \
+                       lsb-release
+
+# https://docs.docker.com/engine/install/ubuntu/#set-up-the-repository
+RUN mkdir -p /etc/apt/keyrings
+RUN curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+RUN echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+# install docker & docker compose
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+
+RUN ruby -v
+
+RUN wget -q https://storage.googleapis.com/bugsnag-public-test-dependencies/BrowserStackLocal-linux-x64-v8_4.zip \
+  && unzip BrowserStackLocal-linux-x64-v8_4.zip \
+  && rm BrowserStackLocal-linux-x64-v8_4.zip
+
+RUN wget -q https://sbsecuretunnel.s3.amazonaws.com/cli/linux/SBSecureTunnel \
+  && chmod +x SBSecureTunnel
+
+WORKDIR /app/
+
+COPY bin/ bin/
+COPY lib/ lib/
+COPY Gemfile* bugsnag-maze-runner.gemspec ./
+
+RUN bundle install
+
+FROM ci-ruby-3 as cli
+ENTRYPOINT ["bundle", "exec", "maze-runner"]
+
+FROM ci-ruby-3 as unit-test-ruby-3
+COPY test/ test/
+COPY Rakefile .

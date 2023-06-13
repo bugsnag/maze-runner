@@ -1,5 +1,54 @@
 # Upgrading Guide
 
+## v7 to v8
+
+### Command line options
+
+A couple of command line options have been renamed for consistency:
+
+`--enable-bugsnag` becomes `--bugsnag` (and `--no-bugsnag`)
+`--enable-retries` becomes `--retries` (and `--no-retries`)
+
+### Request lists
+
+Both the sampling and regular trace requests continue to be received by the `/traces` endpoint, but the sampling requests are now stored in their own `RequestList`.  This list can be accessed in the same way as `sessions`, `errors`, etc by using `sampling request(s)` as the step argument.
+
+With this change, the step `I receive and discard the initial p-value request` is no longer needed and has been removed.
+
+### Logging
+
+The `VERBOSE` environment variable no longer has any effect on the log level.  Use `TRACE` or `DEBUG` for the two log levels.
+
+### Device names
+
+The names for each Android device on BrowserStack have been shortened, e.g. ANDROID_10_0 becomes ANDROID_10.  This is for consistency with BrowserStack iOS devices and BitBar device groups.  Run `bundle exec maze-runner --farm=bs --list-devices` for a full list of options.
+
+In addition, browsers running on mobile devices are now named after the OS and version, e.g. `android_nexus5` becomes `android_4`.  This should make the desired device/browser combination more obvious in future.
+
+Changed names:
+
+- iphone_6s       -> ios_9
+- iphone_7        -> ios_10
+- iphone_x        -> ios_11
+- iphone_xs       -> ios_12
+- iphone_13       -> ios_15
+- iphone_14       -> ios_16
+- android_nexus5  -> android_4
+- android_s6      -> android_5
+- android_s7      -> android_6
+- android_s8      -> android_7
+- android_pixel_7 -> android_13
+
+### Cucumber steps
+
+The following Cucumber steps have been reworded:
+
+Removed step | Replacement
+---|---|
+`the {request_type} {string} header is not null` | `the {request_type} {string} header is present`
+`the {request_type} {string} header is null` | `the {request_type} {string} header is not present`
+`I set the HTTP status code for the next {string} requests to {string}` | `I set the HTTP status code for the next {string} request(s) to {int_array}`
+
 ## v6 to v7
 
 Support for Sauce Labs has been removed as we are no longer able to test it.

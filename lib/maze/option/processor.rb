@@ -19,10 +19,8 @@ module Maze
 
           # General options
           config.aws_public_ip = options[Maze::Option::AWS_PUBLIC_IP]
-          config.enable_retries = options[Maze::Option::ENABLE_RETRIES]
-          config.enable_bugsnag = options[Maze::Option::ENABLE_BUGSNAG]
-          config.tms_uri = options[Maze::Option::TMS_URI]
-          config.tms_token = options[Maze::Option::TMS_TOKEN]
+          config.enable_retries = options[Maze::Option::RETRIES]
+          config.enable_bugsnag = options[Maze::Option::BUGSNAG]
           config.aspecto_repeater_api_key = options[Maze::Option::ASPECTO_REPEATER_API_KEY]
           config.bugsnag_repeater_api_key = options[Maze::Option::BUGSNAG_REPEATER_API_KEY]
 
@@ -80,7 +78,6 @@ module Maze
           when :bb then
             config.username = options[Maze::Option::USERNAME]
             config.access_key = options[Maze::Option::ACCESS_KEY]
-            config.tms_uri = options[Maze::Option::TMS_URI]
             config.appium_version = options[Maze::Option::APPIUM_VERSION]
             device_option = options[Maze::Option::DEVICE]
             if device_option.nil? || device_option.empty?

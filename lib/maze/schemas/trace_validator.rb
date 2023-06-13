@@ -25,8 +25,6 @@ module Maze
       # Runs the validation against the trace given
       def validate
         @success = true
-        # Shortcut the validation if the body is empty for initial P gathering reasons
-        return if @body.keys.eql?(['resourceSpans']) && @body['resourceSpans'].empty?
 
         regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.spanId', '^[A-Fa-f0-9]{16}$')
         regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.traceId', '^[A-Fa-f0-9]{32}$')

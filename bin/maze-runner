@@ -84,7 +84,6 @@ require_relative '../lib/maze/driver/appium'
 require_relative '../lib/maze/driver/browser'
 
 require_relative '../lib/maze/plugins/bugsnag_reporting_plugin'
-require_relative '../lib/maze/plugins/cucumber_report_plugin'
 require_relative '../lib/maze/plugins/error_code_plugin'
 require_relative '../lib/maze/plugins/global_retry_plugin'
 require_relative '../lib/maze/plugins/datadog_metrics_plugin'
@@ -115,6 +114,15 @@ class MazeRunnerEntry
     regex = /--(no-)?strict(-(undefined|pending|flaky))?/
     if @args.all? { |arg| regex.match(arg).nil? }
       @args << '--strict-undefined' << '--strict-pending' << '--no-strict-flaky'
+    end
+
+    # Expand by default
+    if @args.include?('--no-expand')
+      # Just remove it
+      @args = @args - ["--no-expand"]
+    else
+      # Expand
+      @args << "--expand"
     end
 
     # Load internal steps and helper functions

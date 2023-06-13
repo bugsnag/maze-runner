@@ -37,7 +37,6 @@ module Maze
       def initialize(server, request_type, schema=nil)
         super server
         @request_type = request_type
-        @requests = Server.list_for request_type
         @schema = JSONSchemer.schema(schema) unless schema.nil?
         @aspecto_repeater = Maze::Repeaters::AspectoRepeater.new(@request_type)
         @bugsnag_repeater = Maze::Repeaters::BugsnagRepeater.new(@request_type)
@@ -88,7 +87,7 @@ module Maze
           schema_errors = @schema.validate(hash[:body])
           hash[:schema_errors] = schema_errors.to_a
         end
-        @requests.add(hash)
+        add_request(hash)
 
         # For the response, delaying if configured to do so
         response_delay_ms = Server.response_delay_ms
@@ -144,10 +143,14 @@ module Maze
 
       private
 
+      def add_request(request)
+        Server.list_for(@request_type).add(request)
+      end
+
       def log_request(request)
-        $logger.debug "#{request.request_method} request received"
-        $logger.debug "URI: #{request.unparsed_uri}"
-        $logger.debug "HEADERS: #{request.raw_header}"
+        $logger.trace "#{request.request_method} request received"
+        $logger.trace "URI: #{request.unparsed_uri}"
+        $logger.trace "HEADERS: #{request.raw_header}"
         return if request.body.nil?
 
         case request['Content-Type']
@@ -156,12 +159,12 @@ module Maze
         when %r{^multipart/form-data; boundary=([^;]+)}
           boundary = WEBrick::HTTPUtils.dequote(Regexp.last_match(1))
           body = WEBrick::HTTPUtils.parse_form_data(request.body, boundary)
-          $logger.debug 'BODY:'
-          LogUtil.log_hash(Logger::Severity::DEBUG, body)
+          $logger.trace 'BODY:'
+          LogUtil.log_hash(Logger::Severity::TRACE, body)
         when %r{^application/json$}
-          $logger.debug "BODY: #{JSON.pretty_generate(JSON.parse(request.body))}"
+          $logger.trace "BODY: #{JSON.pretty_generate(JSON.parse(request.body))}"
         else
-          $logger.debug "BODY: #{request.body}"
+          $logger.trace "BODY: #{request.body}"
         end
       end
 
@@ -183,7 +186,7 @@ module Maze
         # Both digest types are stored whatever
         sha1 = Digest::SHA1.hexdigest(request.body)
         simple = request.body.bytesize
-        $logger.debug "DIGESTS computed: sha1=#{sha1} simple=#{simple}"
+        $logger.trace "DIGESTS computed: sha1=#{sha1} simple=#{simple}"
 
         # Check digests match
         case parts[0]

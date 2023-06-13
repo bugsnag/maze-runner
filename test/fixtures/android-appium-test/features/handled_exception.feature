@@ -5,7 +5,9 @@ Scenario: Test Handled Android Exception
   When I click the element "trigger_error"
   And I click the element "trigger_error"
   And I click the element "trigger_error"
+  And I set the device orientation to landscape
   Then I wait to receive 3 errors
+  And I set the device orientation to portrait
   And the error Bugsnag-Integrity header is valid
   And the error is valid for the error reporting API version "4.0" for the "Android Bugsnag Notifier" notifier
   And the exception "errorClass" equals "java.lang.Exception"

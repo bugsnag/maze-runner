@@ -1,3 +1,18 @@
+# 8.0.0 - 2023/06/13
+
+## Enhancements
+
+- Command line options reviewed for consistency [533](https://github.com/bugsnag/maze-runner/pull/533)
+- Upgrade Docker image to Ruby 3 [534](https://github.com/bugsnag/maze-runner/pull/534)
+- Update logger to provide a real TRACE level [536](https://github.com/bugsnag/maze-runner/pull/536)
+- Filter sampling requests into their own `RequestList` [537](https://github.com/bugsnag/maze-runner/pull/537)
+- Shorten BrowserStack Android device names for consistency [538](https://github.com/bugsnag/maze-runner/pull/538)
+- Reword header to `is present` rather than `is null` [540](https://github.com/bugsnag/maze-runner/pull/540)
+- Rename BrowserStack mobile browsers to OS and version format [545](https://github.com/bugsnag/maze-runner/pull/545)
+- Set `--expand` Cucumber option by default [548](https://github.com/bugsnag/maze-runner/pull/548)
+- Add step `I set the device orientation to {orientation}` [551](https://github.com/bugsnag/maze-runner/pull/551)
+- Avoid the need for quotes around integer lists [550](https://github.com/bugsnag/maze-runner/pull/550) [552](https://github.com/bugsnag/maze-runner/pull/552)
+
 # 7.34.0 - 2023/06/13
 
 ## Enhancements

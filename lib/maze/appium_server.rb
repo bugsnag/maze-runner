@@ -44,7 +44,7 @@ module Maze
         @appium_thread = Thread.new do
           PTY.spawn(command) do |stdout, _stdin, pid|
             @pid = pid
-            $logger.debug("Appium:#{@pid}") { 'Appium server started' }
+            $logger.trace("Appium:#{@pid}") { 'Appium server started' }
             stdout.each do |line|
               log_line(line)
             end
@@ -66,7 +66,7 @@ module Maze
       def stop
         return unless running
 
-        $logger.debug("Appium:#{@pid}") { 'Stopping appium server' }
+        $logger.trace("Appium:#{@pid}") { 'Stopping appium server' }
         Process.kill('INT', @pid)
         @pid = nil
         @appium_thread.join

@@ -20,7 +20,7 @@ module Maze
                    "/sdcard/Android/data/#{@driver.app_id}/files/#{filename}"
                  end
 
-          $logger.debug "Pushing file to '#{path}' with contents: #{contents}"
+          $logger.trace "Pushing file to '#{path}' with contents: #{contents}"
           @driver.push_file(path, contents)
         end
       end

@@ -63,66 +63,6 @@ module Maze
           app_uuid
         end
 
-        # Requests an unused account id from the test-management-service
-        # @param tms_uri [String] The URI of the test-management-service
-        #
-        # @returns
-        def account_credentials(tms_uri)
-          interval_seconds = 10
-
-          credentials = Maze::Wait.new(interval: interval_seconds, timeout: 1800).until do
-            output = request_account_index(tms_uri)
-            case output.code
-            when '200'
-              body = JSON.parse(output.body, {symbolize_names: true})
-              @account_id = account_id = body[:id]
-              $logger.info "Using account #{account_id}, expiring at #{body[:expiry]}"
-              {
-                username: ENV["#{BB_USER_PREFIX}#{account_id}"],
-                access_key: ENV["#{BB_KEY_PREFIX}#{account_id}"]
-              }
-            when '409'
-              # All accounts are in use, wait for one to become available
-              $logger.info("All accounts are currently in use, retrying in #{interval_seconds}s")
-              false
-            else
-              # Something has gone wrong, throw an error
-              $logger.error "Unexpected status code (#{output.code}) received from test-management server: #{output.body}"
-              raise
-            end
-          end
-
-          return credentials if credentials
-
-          raise "Could not fetch BitBar credentials in time"
-        end
-
-        # Makes the HTTP call to acquire an account id
-        # @param tms_uri [String] The URI of the test-management-service
-        #
-        # @returns
-        def request_account_index(tms_uri)
-          uri = URI("#{tms_uri}/account/request")
-          request = Net::HTTP::Get.new(uri)
-          request['Authorization'] = Maze.config.tms_token
-          res = Net::HTTP.start(uri.hostname, uri.port) do |http|
-            http.request(request)
-          end
-          res
-        end
-
-        # Informs the test-management-service that in-use account id is no longer in use
-        # @param tms_uri [String] The URI of the test-management-service
-        def release_account(tms_uri)
-          $logger.info "Release account #{@account_id}"
-          uri = URI("#{tms_uri}/account/release?account_id=#{@account_id}")
-          request = Net::HTTP::Get.new(uri)
-          request['Authorization'] = Maze.config.tms_token
-          res = Net::HTTP.start(uri.hostname, uri.port) do |http|
-            http.request(request)
-          end
-        end
-
         def use_local_tunnel?
           Maze.config.start_tunnel && !Maze.config.aws_public_ip
         end
@@ -225,7 +165,7 @@ module Maze
               end
 
               exit_status = wait_thr.value.to_i
-              $logger.debug "Exit status: #{exit_status}"
+              $logger.trace "Exit status: #{exit_status}"
 
               output.each { |line| $logger.warn('SBSecureTunnel') {line.chomp} } unless exit_status == 0
 

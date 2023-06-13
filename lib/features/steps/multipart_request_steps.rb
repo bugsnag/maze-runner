@@ -22,7 +22,7 @@ end
 # Verifies that any type of request contains multipart form-data
 #
 # @step_input request_type [String] The type of request (error, session, build, etc)
-Then('the {word} request is valid multipart form-data') do |request_type|
+Then('the {request_type} request is valid multipart form-data') do |request_type|
   list = Maze::Server.list_for request_type
   valid_multipart_form_data?(list.current)
 end
@@ -30,7 +30,7 @@ end
 # Verifies all requests of a given type contain multipart form-data
 #
 # @step_input request_type [String] The type of request (error, session, build, etc)
-Then('all {word} requests are valid multipart form-data') do |request_type|
+Then('all {request_type} requests are valid multipart form-data') do |request_type|
   list = Maze::Server.list_for request_type
   list.all.all? { |request| valid_multipart_form_data?(request) }
 end
@@ -39,7 +39,7 @@ end
 #
 # @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input part_count [Integer] The number of expected fields
-Then('the {word} multipart request has {int} fields') do |request_type, part_count|
+Then('the {request_type} multipart request has {int} fields') do |request_type, part_count|
   list = Maze::Server.list_for request_type
   parts = list.current[:body]
   Maze.check.equal(part_count, parts.size)
@@ -48,7 +48,7 @@ end
 # Tests a given type of multipart request has at least one field.
 #
 # @step_input request_type [String] The type of request (error, session, build, etc)
-Then('the {word} multipart request has a non-empty body') do |request_type|
+Then('the {request_type} multipart request has a non-empty body') do |request_type|
   list = Maze::Server.list_for request_type
   parts = list.current[:body]
   Maze.check.true(parts.size.positive?, "Multipart request payload contained #{parts.size} fields")
@@ -73,7 +73,7 @@ end
 #
 # @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input json_path [String] Path to a JSON file relative to maze-runner root
-Then('the {word} multipart body does not match the JSON file in {string}') do |request_type, json_path|
+Then('the {request_type} multipart body does not match the JSON file in {string}') do |request_type, json_path|
   Maze.check.true(File.exist?(json_path), "'#{json_path}' does not exist")
   payload_list = Maze::Server.list_for request_type
   raw_payload_value = payload_list.current[:body]
@@ -88,7 +88,7 @@ end
 #
 # @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input json_path [String] Path to a JSON file relative to maze-runner root
-Then('the {word} multipart body matches the JSON file in {string}') do |request_type, json_path|
+Then('the {request_type} multipart body matches the JSON file in {string}') do |request_type, json_path|
   Maze.check.true(File.exist?(json_path), "'#{json_path}' does not exist")
   payload_list = Maze::Server.list_for request_type
   raw_payload_value = payload_list.current[:body]
@@ -104,7 +104,7 @@ end
 # @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input field_path [String] Path to the tested element
 # @step_input json_path [String] Path to a JSON file relative to maze-runner root
-Then('the {word} multipart field {string} matches the JSON file in {string}') do |request_type, field_path, json_path|
+Then('the {request_type} multipart field {string} matches the JSON file in {string}') do |request_type, field_path, json_path|
   Maze.check.true(File.exist?(json_path), "'#{json_path}' does not exist")
   payload_list = Maze::Server.list_for request_type
   payload_value = JSON.parse(payload_list.current[:body][field_path].to_s)
@@ -117,7 +117,7 @@ end
 #
 # @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input part_key [String] The key to the multipart element
-Then('the field {string} for multipart {word} is not null') do |part_key, request_type|
+Then('the field {string} for multipart {request_type} is not null') do |part_key, request_type|
   parts = Maze::Server.list_for(request_type).current[:body]
   Maze.check.not_nil(parts[part_key], "The field '#{part_key}' should not be null")
 end
@@ -126,7 +126,7 @@ end
 #
 # @step_input part_key [String] The key to the multipart element
 # @step_input request_type [String] The type of request (error, session, build, etc)
-Then('the field {string} for multipart {word} is null') do |part_key, request_type|
+Then('the field {string} for multipart {request_type} is null') do |part_key, request_type|
   parts = Maze::Server.list_for(request_type).current[:body]
   Maze.check.nil(parts[part_key], "The field '#{part_key}' should be null")
 end
@@ -136,7 +136,7 @@ end
 # @step_input part_key [String] The key to the multipart element
 # @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input expected_value [String] The string to match against
-Then('the field {string} for multipart {word} equals {string}') do |part_key, request_type, expected_value|
+Then('the field {string} for multipart {request_type} equals {string}') do |part_key, request_type, expected_value|
   parts = Maze::Server.list_for(request_type).current[:body]
   Maze.check.equal(parts[part_key], expected_value)
 end

@@ -80,7 +80,7 @@ module Maze
       end
       
       def log(message = '')
-        $logger.debug message
+        $logger.trace message
       end
     end
   end

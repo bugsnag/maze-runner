@@ -4,6 +4,8 @@ Feature: Testing helper methods respond correctly
         When I send a "payload"-type request
         Then I wait to receive an error
         And the error is valid for the error reporting API version "4.0" for the "Maze-runner" notifier
+        And the error "Content-Type" header is present
+        And the error "Made-Up" header is not present
 
     Scenario: The request body matches an expected session payload
         When I send a "session"-type request

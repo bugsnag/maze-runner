@@ -85,6 +85,8 @@ module Maze
           logs
         when 'metric', 'metrics'
           metrics
+        when 'sampling request', 'sampling requests'
+          sampling_requests
         when 'trace', 'traces'
           traces
         when 'upload', 'uploads'
@@ -107,14 +109,21 @@ module Maze
 
       # A list of session requests received
       #
-      # @return [RequestList] Received error requests
+      # @return [RequestList] Received session requests
       def sessions
         @sessions ||= RequestList.new
       end
 
+      # A list of sampling requests received
+      #
+      # @return [RequestList] Received sampling requests
+      def sampling_requests
+        @sampling_requests ||= RequestList.new
+      end
+
       # A list of trace requests received
       #
-      # @return [RequestList] Received error requests
+      # @return [RequestList] Received trace requests
       def traces
         @traces ||= RequestList.new
       end
@@ -195,7 +204,7 @@ module Maze
 
             # Mount a block to respond to all requests with status:200
             server.mount_proc '/' do |_request, response|
-              $logger.debug 'Received request on server root, responding with 200'
+              $logger.trace 'Received request on server root, responding with 200'
               response.header['Access-Control-Allow-Origin'] = '*'
               response.body = 'Maze runner received request'
               response.status = 200
@@ -252,6 +261,7 @@ module Maze
         builds.clear
         uploads.clear
         sourcemaps.clear
+        sampling_requests.clear
         traces.clear
         logs.clear
         invalid_requests.clear

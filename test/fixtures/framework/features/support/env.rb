@@ -9,3 +9,4 @@ Maze.hooks.before do |scenario|
   Maze::Runner.environment['TEST_KEY'] = 'TEST_VALUE' if scenario.name == 'Set variable'
   $first_attempt = true unless Maze::RetryHandler.retried_previously? scenario
 end
+

@@ -39,10 +39,6 @@ module Maze
     # BrowserStack-only options
     BS_LOCAL = 'bs-local'
 
-    # BitBar-only options
-    TMS_URI = 'tms-uri'
-    TMS_TOKEN = 'tms-token'
-
     # Local-only options
     APPIUM_LOGFILE = 'appium-logfile'
     APPLE_TEAM_ID = 'apple-team-id'
@@ -58,7 +54,7 @@ module Maze
     AWS_PUBLIC_IP = 'aws-public-ip'
     ASPECTO_REPEATER_API_KEY = 'aspecto-repeater-api-key'
     BUGSNAG_REPEATER_API_KEY = 'repeater-api-key'
-    ENABLE_BUGSNAG = 'enable-bugsnag'
-    ENABLE_RETRIES = 'enable-retries'
+    BUGSNAG = 'bugsnag'
+    RETRIES = 'retries'
   end
 end

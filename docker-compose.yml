@@ -8,29 +8,31 @@ services:
     volumes:
       - ./:/scan
 
-  ci:
+  ci-ruby-3:
     build:
-      dockerfile: dockerfiles/Dockerfile.ci
+      dockerfile: dockerfiles/Dockerfile.ci-ruby-3
       context: .
-      target: ci
-      args:
-        - RUBY_VERSION
+      target: ci-ruby-3
+
+  ci-ruby-2:
+    build:
+      dockerfile: dockerfiles/Dockerfile.ci-ruby-2
+      context: .
+      target: ci-ruby-2
+    environment:
+      USE_LEGACY_DRIVER: 1
 
   cli:
     build:
-      dockerfile: dockerfiles/Dockerfile.ci
+      dockerfile: dockerfiles/Dockerfile.ci-ruby-3
       context: .
       target: cli
-      args:
-        - RUBY_VERSION=2.7
 
   cli-legacy:
     build:
-      dockerfile: dockerfiles/Dockerfile.ci
+      dockerfile: dockerfiles/Dockerfile.ci-ruby-2
       context: .
       target: cli-legacy
-      args:
-        - RUBY_VERSION=2.7
 
   docs:
     build:
@@ -66,7 +68,6 @@ services:
       BROWSER_STACK_DEVICES_USERNAME:
       BROWSER_STACK_DEVICES_ACCESS_KEY:
       MAZE_BUGSNAG_API_KEY:
-      MAZE_TMS_URI:
     env_file: $DOCKER_ENV_FILE
     volumes:
       - ./test/fixtures/android-appium-test/app/build:/app/build
@@ -99,7 +100,6 @@ services:
       BITBAR_USERNAME:
       BITBAR_ACCESS_KEY:
       MAZE_BUGSNAG_API_KEY:
-      MAZE_TMS_URI:
     env_file: $DOCKER_ENV_FILE
     ports:
       - "9000-9499:9339"
@@ -136,7 +136,6 @@ services:
       BROWSER_STACK_DEVICES_USERNAME:
       BROWSER_STACK_DEVICES_ACCESS_KEY:
       MAZE_BUGSNAG_API_KEY:
-      MAZE_TMS_URI:
       USE_LEGACY_DRIVER: 1
     env_file: $DOCKER_ENV_FILE
     volumes:
@@ -164,7 +163,6 @@ services:
       BROWSER_STACK_DEVICES_USERNAME:
       BROWSER_STACK_DEVICES_ACCESS_KEY:
       MAZE_BUGSNAG_API_KEY:
-      MAZE_TMS_URI:
       BITBAR_USERNAME:
       BITBAR_ACCESS_KEY:
     env_file: $DOCKER_ENV_FILE
@@ -179,6 +177,7 @@ services:
         RUBY_VERSION:
     environment:
       MAZE_BUGSNAG_API_KEY:
+      USE_LEGACY_DRIVER:
 
   comparison-tests:
     build:
@@ -188,6 +187,7 @@ services:
         RUBY_VERSION:
     environment:
       MAZE_BUGSNAG_API_KEY:
+      USE_LEGACY_DRIVER:
 
   doc-server-tests:
     build:
@@ -197,6 +197,7 @@ services:
         RUBY_VERSION:
     environment:
       MAZE_BUGSNAG_API_KEY:
+      USE_LEGACY_DRIVER:
 
   exit-codes-tests:
     build:
@@ -206,6 +207,7 @@ services:
         RUBY_VERSION:
     environment:
       MAZE_BUGSNAG_API_KEY:
+      USE_LEGACY_DRIVER:
 
   framework-tests:
     build:
@@ -215,6 +217,7 @@ services:
         RUBY_VERSION:
     environment:
       MAZE_BUGSNAG_API_KEY:
+      USE_LEGACY_DRIVER:
 
   docker-tests:
     build:
@@ -224,6 +227,7 @@ services:
         RUBY_VERSION:
     environment:
       MAZE_BUGSNAG_API_KEY:
+      USE_LEGACY_DRIVER:
       NETWORK_NAME: "${BUILDKITE_JOB_ID:-core-maze-runner}"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -236,6 +240,7 @@ services:
         RUBY_VERSION:
     environment:
       MAZE_BUGSNAG_API_KEY:
+      USE_LEGACY_DRIVER:
 
   payload-helper-tests:
     build:
@@ -245,6 +250,7 @@ services:
         RUBY_VERSION:
     environment:
       MAZE_BUGSNAG_API_KEY:
+      USE_LEGACY_DRIVER:
     volumes:
       - ./test/fixtures/payload-helpers/maze_output:/app/maze_output
 
@@ -256,14 +262,21 @@ services:
         RUBY_VERSION:
     environment:
       MAZE_BUGSNAG_API_KEY:
+      USE_LEGACY_DRIVER:
 
-  unit-test:
+  unit-test-ruby-2:
     build:
-      dockerfile: dockerfiles/Dockerfile.ci
+      dockerfile: dockerfiles/Dockerfile.ci-ruby-2
       context: .
-      target: unit-test
-      args:
-        RUBY_VERSION:
+      target: unit-test-ruby-2
+    environment:
+      USE_LEGACY_DRIVER: 1
+
+  unit-test-ruby-3:
+    build:
+      dockerfile: dockerfiles/Dockerfile.ci-ruby-3
+      context: .
+      target: unit-test-ruby-3
 
   browser-tests:
     build:
@@ -278,8 +291,6 @@ services:
       BROWSER_STACK_ACCESS_KEY:
       BROWSER_STACK_BROWSERS_USERNAME:
       BROWSER_STACK_BROWSERS_ACCESS_KEY:
-      MAZE_TMS_URI:
-      MAZE_TMS_TOKEN:
     env_file:
       - ${DOCKER_ENV_FILE:-test/browser/features/fixtures/null_env}
     ports:
@@ -300,8 +311,6 @@ services:
       BROWSER_STACK_ACCESS_KEY:
       BROWSER_STACK_BROWSERS_USERNAME:
       BROWSER_STACK_BROWSERS_ACCESS_KEY:
-      MAZE_TMS_URI:
-      MAZE_TMS_TOKEN:
       USE_LEGACY_DRIVER: 1
     env_file:
       - ${DOCKER_ENV_FILE:-test/browser/features/fixtures/null_env}
@@ -321,8 +330,6 @@ services:
       BUILDKITE_LABEL:
       BUILDKITE_PIPELINE_SLUG:
       BUILDKITE_RETRY_COUNT:
-      MAZE_TMS_URI:
-      MAZE_TMS_TOKEN:
     env_file:
       - ${DOCKER_ENV_FILE:-test/browser/features/fixtures/null_env}
     ports:

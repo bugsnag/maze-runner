@@ -1,0 +1,66 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require_relative '../lib/maze'
+require_relative '../lib/maze/client/bb_api_client'
+require_relative '../lib/maze/logger'
+require_relative '../lib/maze/helper'
+require 'optimist'
+require 'uri'
+require 'net/http'
+
+class PurgeProjectEntry
+  def start(_args)
+    p = Optimist::Parser.new do
+      text 'Purge anonymous projects from BitBar'
+      text ''
+      text 'Requires BITBAR_API_KEY'
+      text ''
+      text 'Usage [OPTIONS]'
+      text ''
+      opt :help,
+          'Print this help.'
+      opt :api_key,
+          "BitBar API Key",
+          :type => :string
+    end
+
+    opts = Optimist::with_standard_exception_handling p do
+      p.parse ARGV
+    end
+
+    api_key = opts[:api_key] || ENV['BITBAR_API_KEY']
+
+    if api_key.nil?
+      $logger.warn "API KEY has not been provided or BITBAR_API_KEY has not been set"
+      Optimist::with_standard_exception_handling p do
+        raise Optimist::HelpNeeded
+      end
+    end
+
+    $logger.info "Getting list of anonymous project from BitBar"
+
+    api_client = Maze::Client::BitBarApiClient.new(api_key)
+
+    project_list = api_client.get_projects /Project \d+/
+
+    if project_list.nil?
+      $logger.info "No projects to process"
+    else
+      $logger.info "#{project_list.count} projects to process"
+
+      project_list.each do |name, id|
+        $logger.info "Processing #{name}"
+        res = api_client.delete_project id
+        if res.code == "204"
+          $logger.info "#{name} deleted"
+        else
+          $logger.warn "Failed to delete #{name}"
+          raise res.body
+        end
+      end
+    end
+  end
+end
+
+PurgeProjectEntry.new.start(ARGV)

@@ -20,7 +20,7 @@ end
 # Sets the HTTP status code to be used for the next set of requests for a given connection type
 #
 # @step_input http_verb [String] The type of request this code will be used for
-# @step_input status_codes [String] A comma separated list of status codes to return
+# @step_input status_codes [String] One or more status codes to return, separated by commas
 When('I set the HTTP status code for the next {string} request(s) to {int_array}') do |http_verb, status_codes|
   raise("Invalid HTTP verb: #{http_verb}") unless Maze::Server::ALLOWED_HTTP_VERBS.include?(http_verb)
   Maze::Server.set_status_code_generator(create_defaulting_generator(status_codes, Maze::Server::DEFAULT_STATUS_CODE), http_verb)
@@ -35,7 +35,7 @@ end
 
 # Sets the HTTP status code to be used for the next set of POST requests
 #
-# @step_input status_codes [String] A comma separated list of status codes to return
+# @step_input status_codes [String] One or more status codes to return, separated by commas
 When('I set the HTTP status code for the next request(s) to {int_array}') do |status_codes|
   step %{I set the HTTP status code for the next "POST" requests to #{status_codes.join ','}}
 end

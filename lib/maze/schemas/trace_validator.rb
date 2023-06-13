@@ -5,6 +5,9 @@ require_relative '../helper'
 module Maze
   module Schemas
 
+    HEX_STRING_16 = '^[A-Fa-f0-9]{16}$'
+    HEX_STRING_32 = '^[A-Fa-f0-9]{32}$'
+
     # Contains a set of pre-defined validations for ensuring traces are correct
     class TraceValidator
 
@@ -16,8 +19,9 @@ module Maze
       # Creates the validator
       #
       #   @param body [Hash] The body of the trace to validate
-      def initialize(body)
-        @body = body
+      def initialize(request)
+        @headers = request[:request][:header]
+        @body = request[:body]
         @success = nil
         @errors = []
       end
@@ -25,9 +29,9 @@ module Maze
       # Runs the validation against the trace given
       def validate
         @success = true
-
-        regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.spanId', '^[A-Fa-f0-9]{16}$')
-        regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.traceId', '^[A-Fa-f0-9]{32}$')
+        validate_headers
+        regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.spanId', HEX_STRING_16)
+        regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.traceId', HEX_STRING_32)
         element_int_in_range('resourceSpans.0.scopeSpans.0.spans.0.kind', 0..5)
         regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.startTimeUnixNano', '^[0-9]+$')
         regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.endTimeUnixNano', '^[0-9]+$')
@@ -38,6 +42,45 @@ module Maze
           'resourceSpans.0.scopeSpans.0.spans.0.endTimeUnixNano',
           'resourceSpans.0.scopeSpans.0.spans.0.startTimeUnixNano'
         )
+      end
+
+
+      def check(date)
+        Date.iso8601(date)
+      rescue Date::Error
+      end
+
+      # Checks that the required headers are present and correct
+      def validate_headers
+
+        regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.traceId', '^[A-Fa-f0-9]{32}$')
+
+        # API key
+        api_key = @headers['bugsnag-api-key']
+        expected = Regexp.new(HEX_STRING_32)
+        unless expected.match(api_key)
+          @success = false
+          @errors << "bugsnag-api-key header was expected to match the regex '#{HEX_STRING_32}', but was '#{value}'"
+        end
+
+        # Bugsnag-Sent-at
+        date = @headers['bugsnag-sent-at']
+        begin
+          Date.iso8601(date)
+        rescue Date::Error
+          @success = false
+          @errors << "bugsnag-sent-at header was expected to be an IOS 8601 date, but was '#{date}'"
+        end
+
+        # Bugsnag-Span-Sampling
+        # of the format x:y where x is a decimal between 0 and 1 (inclusive) and y is the number of spans in the batch (if possible at this stage - we could weaken this if necessary)
+      end
+
+      def validate_date(date)
+        Date.iso8601(date)
+      rescue Date::Error
+        @errors << "'#{date}' is not a valid ISO 8601 date string"
+        false
       end
 
       def regex_comparison(path, regex)

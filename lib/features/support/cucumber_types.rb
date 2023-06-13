@@ -6,6 +6,13 @@ ParameterType(
 )
 
 ParameterType(
+  name:        'orientation',
+  regexp:      /portrait|landscape/,
+  type:        String,
+  transformer: ->(s) { s.to_sym }
+)
+
+ParameterType(
   name:        'int_array',
   regexp:      /\d+(?:, ?\d+)+/,
   type:        String,

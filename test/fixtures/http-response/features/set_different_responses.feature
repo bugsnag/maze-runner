@@ -36,7 +36,7 @@ Feature: Setting different response codes
         And the error payload field "second_code" equals "200"
 
     Scenario: Server response code can be set for multiple requests
-        Given I set the HTTP status code for the next requests to "501,502"
+        Given I set the HTTP status code for the next requests to 501,502
         When I run the script "features/scripts/send_four_requests.rb" using ruby synchronously
         And I wait to receive 4 errors
         Then the error payload field "req" equals "first!"
@@ -84,7 +84,7 @@ Feature: Setting different response codes
         And the error payload field "second_post_code" equals "200"
 
     Scenario: A list of codes without a verb defaults to POST requests
-        Given I set the HTTP status code for the next requests to "501,502"
+        Given I set the HTTP status code for the next requests to 501,502
         And I run the script "features/scripts/send_verbed_requests.rb" using ruby synchronously
         And I wait to receive 3 errors
         Then the error payload field "first_options_code" equals "200"

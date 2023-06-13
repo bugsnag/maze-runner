@@ -11,7 +11,7 @@
 - Rename BrowserStack mobile browsers to OS and version format [545](https://github.com/bugsnag/maze-runner/pull/545)
 - Set `--expand` Cucumber option by default [548](https://github.com/bugsnag/maze-runner/pull/548)
 - Add step `I set the device orientation to {orientation}` [551](https://github.com/bugsnag/maze-runner/pull/551)
-- Avoid the need for quotes around integer lists [550](https://github.com/bugsnag/maze-runner/pull/550)
+- Avoid the need for quotes around integer lists [550](https://github.com/bugsnag/maze-runner/pull/550) [552](https://github.com/bugsnag/maze-runner/pull/552)
 
 <!---
 

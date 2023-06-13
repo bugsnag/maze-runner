@@ -14,7 +14,7 @@ ParameterType(
 
 ParameterType(
   name:        'int_array',
-  regexp:      /\d+(?:, ?\d+)+/,
+  regexp:      /\d+(?:, ?\d+)*/,
   type:        String,
   transformer: ->(s) { s.split(',').map(&:strip).map(&:to_i) }
 )

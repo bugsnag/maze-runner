@@ -13,6 +13,10 @@
 - Add step `I set the device orientation to {orientation}` [551](https://github.com/bugsnag/maze-runner/pull/551)
 - Avoid the need for quotes around integer lists [550](https://github.com/bugsnag/maze-runner/pull/550)
 
+## Fixes 
+
+- Allow singleton integer lists [552](https://github.com/bugsnag/maze-runner/pull/552)
+
 <!---
 
 END OF v8 INTEGRATION

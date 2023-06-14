@@ -16,7 +16,7 @@ end
 Then(/^the error is a valid browser payload for the error reporting API$/) do
   if !/^ie_(8|9|10)$/.match(Maze.config.browser)
     steps %(
-      Then the error "Bugsnag-API-Key" header is not null
+      Then the error "Bugsnag-API-Key" header is present
       And the error "Content-Type" header equals one of:
         | application/json |
         | application/json; charset=UTF-8 |
@@ -48,7 +48,7 @@ end
 Then('the session is a valid browser payload for the session tracking API') do
   if !/^ie_(8|9|10)$/.match(Maze.config.browser)
     steps %(
-      Then the session "Bugsnag-API-Key" header is not null
+      Then the session "Bugsnag-API-Key" header is present
       And the session "Content-Type" header equals one of:
         | application/json |
         | application/json; charset=UTF-8 |

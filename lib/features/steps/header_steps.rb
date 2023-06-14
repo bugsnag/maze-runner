@@ -2,7 +2,7 @@
 
 # @!group Header steps
 
-# Tests that a request header is not null
+# Tests that a request header is present
 #
 # @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input header_name [String] The header to test
@@ -15,7 +15,7 @@ Then('the {request_type} {string} header is present') do |request_type, header_n
                   "The #{request_type} '#{header_name}' header should be present")
 end
 
-# Tests that a request header is null
+# Tests that a request header is not present
 #
 # @step_input request_type [String] The type of request (error, session, build, etc)
 # @step_input header_name [String] The header to test

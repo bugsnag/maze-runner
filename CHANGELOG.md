@@ -1,3 +1,9 @@
+# 8.0.1 - 2023/06/14
+
+## Fixes
+
+- Correct implementation of `the error is a valid browser payload for the error reporting API` [555](https://github.com/bugsnag/maze-runner/pull/555)
+
 # 8.0.0 - 2023/06/13
 
 ## Enhancements

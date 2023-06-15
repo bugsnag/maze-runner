@@ -1,3 +1,9 @@
+# 8.0.2 - 2023/06/15
+
+## Fixes
+
+- Correct capability for Chrome 43 on BitBar [556](https://github.com/bugsnag/maze-runner/pull/556)
+
 # 8.0.1 - 2023/06/14
 
 ## Fixes

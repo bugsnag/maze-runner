@@ -27,7 +27,7 @@ chrome_72:
   resolution: '1920x1080'
 
 chrome_43:
-  platform': 'Windows'
+  platform: 'Windows'
   osVersion: '10'
   browserName: 'chrome'
   version: '43'

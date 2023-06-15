@@ -22,8 +22,13 @@ module Maze
                                when 'ios'
                                  Maze.driver.session_capabilities['CFBundleIdentifier'] # Present on BS and locally
                                end
+
           # Ensure the device is unlocked
-          Maze.driver.unlock
+          begin
+            Maze.driver.unlock
+          rescue => e
+            $logger.warn "Failed to unlock device: #{e}"
+          end
 
           log_run_intro
         end

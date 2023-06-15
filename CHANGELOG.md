@@ -3,6 +3,7 @@
 ## Fixes
 
 - Correct capability for Chrome 43 on BitBar [556](https://github.com/bugsnag/maze-runner/pull/556)
+- Prevent `Maze.driver.unlock` from raising an error [557](https://github.com/bugsnag/maze-runner/pull/557)
 
 # 8.0.1 - 2023/06/14
 

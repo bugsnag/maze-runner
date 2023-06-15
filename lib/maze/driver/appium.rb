@@ -132,6 +132,8 @@ module Maze
       # Unlocks the device
       def unlock
         @driver.unlock
+      rescue StandardError => e
+        $logger.warn "Failed to unlock device: #{e}"
       end
 
       # Sends keys to a given element

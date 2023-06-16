@@ -64,7 +64,7 @@ module Maze
             end
             file.puts
 
-            file.puts "Digests:"
+            file.puts "Request digests:"
             file.puts JSON.pretty_generate(request[:digests])
             file.puts
 

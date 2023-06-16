@@ -26,6 +26,8 @@ module Maze
         File.open(filepath, 'w+') do |file|
           list.each do |request|
             file.puts "=== Request #{counter} of #{list.size} ==="
+            file.puts
+
             if request[:invalid]
               invalid_request = true
               uri = request[:request][:request_uri]
@@ -37,13 +39,18 @@ module Maze
               headers = request[:request].header
               body = request[:body]
             end
+
             file.puts "URI: #{uri}"
-            file.puts "HEADERS:"
+            file.puts
+
+            # Request
+            file.puts "Request:"
             headers.each do |key, values|
               file.puts "  #{key}: #{values.map {|v| "'#{v}'"}.join(' ')}"
             end
             file.puts
-            file.puts "BODY:"
+
+            file.puts "Request body:"
             if !invalid_request && headers["content-type"].first == 'application/json'
               file.puts JSON.pretty_generate(body)
             else
@@ -55,6 +62,22 @@ module Maze
               file.puts request[:reason]
               file.puts
             end
+            file.puts
+
+            file.puts "Request digests:"
+            file.puts JSON.pretty_generate(request[:digests])
+            file.puts
+
+            # Response
+            response = request[:response]
+            file.puts "Response headers:"
+            file.puts JSON.pretty_generate(response.header)
+            file.puts
+
+            file.puts "Response body: #{response.body}"
+            file.puts
+            file.puts
+
             counter += 1
           end
         end

@@ -22,7 +22,8 @@ module Maze
       def do_POST(request, response)
         hash = {
           body: JSON.parse(request.body),
-          request: request
+          request: request,
+          response: response
         }
         @requests.add(hash)
 
@@ -34,6 +35,7 @@ module Maze
         Server.invalid_requests.add({
           reason: msg,
           request: request,
+          response: response,
           body: request.body
         })
       rescue StandardError => e
@@ -45,7 +47,8 @@ module Maze
             request_uri: request.request_uri,
             header: request.header.to_h,
             body: request.inspect
-          }
+          },
+          response: response
         })
       end
 

@@ -62,7 +62,7 @@ module Maze
         @bugsnag_repeater.repeat request
 
         # Turn the WEBrick HttpRequest into our internal HttpRequest delegate
-        request = HttpRequest.new(request)
+        request = Maze::HttpRequest.new(request)
 
         content_type = request['Content-Type']
         if %r{^multipart/form-data; boundary=([^;]+)}.match(content_type)
@@ -70,7 +70,8 @@ module Maze
           body = WEBrick::HTTPUtils.parse_form_data(request.body, boundary)
           hash = {
             body: body,
-            request: request
+            request: request,
+            response: response
           }
         else
           # "content-type" is assumed to be JSON (which mimics the behaviour of
@@ -80,6 +81,7 @@ module Maze
           hash = {
             body: JSON.parse(request.body),
             request: request,
+            response: response,
             digests: digests
           }
         end

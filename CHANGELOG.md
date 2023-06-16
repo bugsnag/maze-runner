@@ -1,3 +1,9 @@
+# 8.1.0 - 2023/06/16
+
+## Enhancements
+
+- Fixes and enhancements to logging of received requests [558](https://github.com/bugsnag/maze-runner/pull/558)
+
 # 8.0.2 - 2023/06/15
 
 ## Fixes

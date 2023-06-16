@@ -79,7 +79,8 @@ module Maze
             log_hash_by_field severity, data
           end
         rescue Encoding::UndefinedConversionError
-          log_hash_by_field severity, data
+          # Just give up, we don't want to risk a further error trying to log garbage
+          $logger.error 'Unable to log hash as JSON'
         end
       end
 

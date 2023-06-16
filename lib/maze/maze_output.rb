@@ -71,7 +71,7 @@ module Maze
             # Response
             response = request[:response]
             file.puts "Response headers:"
-            file.puts JSON.pretty_generate(request[:digests])
+            file.puts JSON.pretty_generate(response.header)
             file.puts
 
             file.puts "Response body: #{response.body}"

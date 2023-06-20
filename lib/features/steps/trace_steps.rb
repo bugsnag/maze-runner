@@ -261,12 +261,12 @@ def get_attribute_value(field, attribute, attr_type)
 end
 
 def check_attribute_equal(field, attribute, attr_type, expected)
-  value = get_attribute_value field, attribute, attr_type
-  Maze.check.equal value, expected
+  actual = get_attribute_value field, attribute, attr_type
+  Maze.check.equal(expected, actual)
 end
 
 def assert_attribute(field, key, expected)
   list = Maze::Server.traces
   attributes = Maze::Helper.read_key_path(list.current[:body], "#{field}.attributes")
-  Maze.check.equal attributes.find { |a| a['key'] == key }, { 'key' => key, 'value' => expected }
+  Maze.check.equal({ 'key' => key, 'value' => expected }, attributes.find { |a| a['key'] == key })
 end

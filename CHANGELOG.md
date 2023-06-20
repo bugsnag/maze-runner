@@ -1,3 +1,9 @@
+# TBD
+
+## Fixes
+
+- Fix order of assertion parameters [559](https://github.com/bugsnag/maze-runner/pull/559)
+
 # 8.1.0 - 2023/06/16
 
 ## Enhancements

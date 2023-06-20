@@ -1,8 +1,9 @@
-# TBD
+# 8.1.1 - 2023/06/20
 
 ## Fixes
 
 - Fix order of assertion parameters [559](https://github.com/bugsnag/maze-runner/pull/559)
+- Do not reset driver with Appium 1.15/1.16 [560](https://github.com/bugsnag/maze-runner/pull/560)
 
 # 8.1.0 - 2023/06/16
 

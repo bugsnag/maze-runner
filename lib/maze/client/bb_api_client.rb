@@ -111,7 +111,7 @@ module Maze
       end
 
       def delete_project (id)
-        response = query_api "projects/#{id}"
+        response = query_api "projects/#{id}", nil, USER_SPECIFIC_URI, "delete"
       end
 
       private

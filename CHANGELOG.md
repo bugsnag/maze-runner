@@ -3,6 +3,7 @@
 ## Fixes
 
 - Fix order of assertion parameters [559](https://github.com/bugsnag/maze-runner/pull/559)
+- Fix delete project function in `purge-projects` command [560](https://github.com/bugsnag/maze-runner/pull/560)
 
 # 8.1.0 - 2023/06/16
 

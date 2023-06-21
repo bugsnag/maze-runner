@@ -22,10 +22,14 @@ module Maze
         elsif [:bb, :bs, :local].include? Maze.config.farm
           write_device_logs(scenario) if scenario.failed?
 
-          # appium_lib 12 says that reset is deprecated and activate_app/terminate_app should be used
-          # instead.  However, they do not clear out app data, which we need between scenarios.
-          # install_app/remove_app might also be an option to consider.
-          Maze.driver.reset
+          # TODO: PLAT-10300 - Review our general approach to resetting the app between scenarios
+          re = Regexp.new('^1\.1[56]\.\d$')
+          if re.match? Maze.config.appium_version
+            Maze.driver.close_app
+            Maze.driver.launch_app
+          else
+            Maze.driver.reset
+          end
         end
       end
 

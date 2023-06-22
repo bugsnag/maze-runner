@@ -707,19 +707,19 @@
       <pre class="lines">
 
 
-268
-269
-270
-271
-272</pre>
+276
+277
+278
+279
+280</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/steps/trace_steps.rb', line 268</span>
+      <pre class="code"><span class="info file"># File 'lib/features/steps/trace_steps.rb', line 276</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_assert_attribute'>assert_attribute</span><span class='lparen'>(</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_expected'>expected</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_list'>list</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_traces'>traces</span>
   <span class='id identifier rubyid_attributes'>attributes</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Helper</span><span class='period'>.</span><span class='id identifier rubyid_read_key_path'>read_key_path</span><span class='lparen'>(</span><span class='id identifier rubyid_list'>list</span><span class='period'>.</span><span class='id identifier rubyid_current'>current</span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_field'>field</span><span class='embexpr_end'>}</span><span class='tstring_content'>.attributes</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-  <span class='const'>Maze</span><span class='period'>.</span><span class='id identifier rubyid_check'>check</span><span class='period'>.</span><span class='id identifier rubyid_equal'>equal</span><span class='lparen'>(</span><span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>key</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>value</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_expected'>expected</span> <span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_attributes'>attributes</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_a'>a</span><span class='op'>|</span> <span class='id identifier rubyid_a'>a</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>key</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='id identifier rubyid_key'>key</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='const'>Maze</span><span class='period'>.</span><span class='id identifier rubyid_check'>check</span><span class='period'>.</span><span class='id identifier rubyid_equal'>equal</span> <span class='id identifier rubyid_attributes'>attributes</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_a'>a</span><span class='op'>|</span> <span class='id identifier rubyid_a'>a</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>key</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='id identifier rubyid_key'>key</span> <span class='rbrace'>}</span><span class='comma'>,</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>key</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>value</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_expected'>expected</span> <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -741,19 +741,19 @@
       <pre class="lines">
 
 
+219
+220
+221
+222
+223
+224
 225
 226
 227
-228
-229
-230
-231
-232
-233
-234</pre>
+228</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/steps/app_automator_steps.rb', line 225</span>
+      <pre class="code"><span class="info file"># File 'lib/features/steps/app_automator_steps.rb', line 219</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_assert_equal_with_nullability'>assert_equal_with_nullability</span><span class='lparen'>(</span><span class='id identifier rubyid_expected_value'>expected_value</span><span class='comma'>,</span> <span class='id identifier rubyid_payload_value'>payload_value</span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_expected_value'>expected_value</span>
@@ -887,14 +887,6 @@
       <pre class="lines">
 
 
-230
-231
-232
-233
-234
-235
-236
-237
 238
 239
 240
@@ -910,10 +902,18 @@
 250
 251
 252
-253</pre>
+253
+254
+255
+256
+257
+258
+259
+260
+261</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/steps/trace_steps.rb', line 230</span>
+      <pre class="code"><span class="info file"># File 'lib/features/steps/trace_steps.rb', line 238</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_assert_received_spans'>assert_received_spans</span><span class='lparen'>(</span><span class='id identifier rubyid_span_count'>span_count</span><span class='comma'>,</span> <span class='id identifier rubyid_list'>list</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_timeout'>timeout</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='period'>.</span><span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_receive_requests_wait'>receive_requests_wait</span>
@@ -981,14 +981,6 @@
       <pre class="lines">
 
 
-206
-207
-208
-209
-210
-211
-212
-213
 214
 215
 216
@@ -1003,10 +995,18 @@
 225
 226
 227
-228</pre>
+228
+229
+230
+231
+232
+233
+234
+235
+236</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/steps/trace_steps.rb', line 206</span>
+      <pre class="code"><span class="info file"># File 'lib/features/steps/trace_steps.rb', line 214</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_attribute_value_matches?'>attribute_value_matches?</span><span class='lparen'>(</span><span class='id identifier rubyid_attribute_value'>attribute_value</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_type'>expected_type</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_value'>expected_value</span><span class='rparen'>)</span>
   <span class='comment'># Check that the required value type key is present
@@ -1051,17 +1051,17 @@
       <pre class="lines">
 
 
-263
-264
-265
-266</pre>
+271
+272
+273
+274</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/steps/trace_steps.rb', line 263</span>
+      <pre class="code"><span class="info file"># File 'lib/features/steps/trace_steps.rb', line 271</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_check_attribute_equal'>check_attribute_equal</span><span class='lparen'>(</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_attribute'>attribute</span><span class='comma'>,</span> <span class='id identifier rubyid_attr_type'>attr_type</span><span class='comma'>,</span> <span class='id identifier rubyid_expected'>expected</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_actual'>actual</span> <span class='op'>=</span> <span class='id identifier rubyid_get_attribute_value'><span class='object_link'><a href="#get_attribute_value-instance_method" title="#get_attribute_value (method)">get_attribute_value</a></span></span> <span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_attribute'>attribute</span><span class='comma'>,</span> <span class='id identifier rubyid_attr_type'>attr_type</span>
-  <span class='const'>Maze</span><span class='period'>.</span><span class='id identifier rubyid_check'>check</span><span class='period'>.</span><span class='id identifier rubyid_equal'>equal</span><span class='lparen'>(</span><span class='id identifier rubyid_expected'>expected</span><span class='comma'>,</span> <span class='id identifier rubyid_actual'>actual</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='id identifier rubyid_get_attribute_value'><span class='object_link'><a href="#get_attribute_value-instance_method" title="#get_attribute_value (method)">get_attribute_value</a></span></span> <span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_attribute'>attribute</span><span class='comma'>,</span> <span class='id identifier rubyid_attr_type'>attr_type</span>
+  <span class='const'>Maze</span><span class='period'>.</span><span class='id identifier rubyid_check'>check</span><span class='period'>.</span><span class='id identifier rubyid_equal'>equal</span> <span class='id identifier rubyid_value'>value</span><span class='comma'>,</span> <span class='id identifier rubyid_expected'>expected</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1083,21 +1083,21 @@
       <pre class="lines">
 
 
-79
-80
-81
-82
-83
-84
-85
-86
-87
-88
-89
-90</pre>
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/steps/network_steps.rb', line 79</span>
+      <pre class="code"><span class="info file"># File 'lib/features/steps/network_steps.rb', line 96</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_defaulting_generator'>create_defaulting_generator</span><span class='lparen'>(</span><span class='id identifier rubyid_codes'>codes</span><span class='comma'>,</span> <span class='id identifier rubyid_default'>default</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_enumerator'>enumerator</span> <span class='op'>=</span> <span class='const'>Enumerator</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_yielder'>yielder</span><span class='op'>|</span>
@@ -1131,16 +1131,16 @@
       <pre class="lines">
 
 
-255
-256
-257
-258
-259
-260
-261</pre>
+263
+264
+265
+266
+267
+268
+269</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/steps/trace_steps.rb', line 255</span>
+      <pre class="code"><span class="info file"># File 'lib/features/steps/trace_steps.rb', line 263</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_attribute_value'>get_attribute_value</span><span class='lparen'>(</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_attribute'>attribute</span><span class='comma'>,</span> <span class='id identifier rubyid_attr_type'>attr_type</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_list'>list</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_list_for'>list_for</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>trace</span><span class='tstring_end'>&#39;</span></span>
@@ -1169,16 +1169,16 @@
       <pre class="lines">
 
 
-174
-175
-176
-177
-178
-179
-180</pre>
+168
+169
+170
+171
+172
+173
+174</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/steps/app_automator_steps.rb', line 174</span>
+      <pre class="code"><span class="info file"># File 'lib/features/steps/app_automator_steps.rb', line 168</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_expected_platform_value'>get_expected_platform_value</span><span class='lparen'>(</span><span class='id identifier rubyid_platform_values'>platform_values</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_os'>os</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Helper</span><span class='period'>.</span><span class='id identifier rubyid_get_current_platform'>get_current_platform</span>
@@ -1283,8 +1283,6 @@
       <pre class="lines">
 
 
-170
-171
 172
 173
 174
@@ -1297,20 +1295,10 @@
 181
 182
 183
-184
-185
-186
-187
-188
-189
-190
-191
-192
-193
-194</pre>
+184</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/support/internal_hooks.rb', line 170</span>
+      <pre class="code"><span class="info file"># File 'lib/features/support/internal_hooks.rb', line 172</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_output_received_requests'>output_received_requests</span><span class='lparen'>(</span><span class='id identifier rubyid_request_type'>request_type</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_request_queue'>request_queue</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_list_for'>list_for</span><span class='lparen'>(</span><span class='id identifier rubyid_request_type'>request_type</span><span class='rparen'>)</span>
@@ -1321,19 +1309,7 @@
     <span class='gvar'>$logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_count'>count</span><span class='embexpr_end'>}</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_request_type'>request_type</span><span class='embexpr_end'>}</span><span class='tstring_content'> were received:</span><span class='tstring_end'>&quot;</span></span>
     <span class='id identifier rubyid_request_queue'>request_queue</span><span class='period'>.</span><span class='id identifier rubyid_all'>all</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span><span class='period'>.</span><span class='id identifier rubyid_with_index'>with_index</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request'>request</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='op'>|</span>
       <span class='gvar'>$stdout</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>--- </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_request_type'>request_type</span><span class='embexpr_end'>}</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_content'> of </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_count'>count</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
-
-      <span class='gvar'>$logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Request body:</span><span class='tstring_end'>&#39;</span></span>
-      <span class='const'>Maze</span><span class='op'>::</span><span class='const'>LogUtil</span><span class='period'>.</span><span class='id identifier rubyid_log_hash'>log_hash</span><span class='lparen'>(</span><span class='const'>Logger</span><span class='op'>::</span><span class='const'>Severity</span><span class='op'>::</span><span class='const'>INFO</span><span class='comma'>,</span> <span class='id identifier rubyid_request'>request</span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='rparen'>)</span>
-
-      <span class='gvar'>$logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Request headers:</span><span class='tstring_end'>&#39;</span></span>
-      <span class='const'>Maze</span><span class='op'>::</span><span class='const'>LogUtil</span><span class='period'>.</span><span class='id identifier rubyid_log_hash'>log_hash</span><span class='lparen'>(</span><span class='const'>Logger</span><span class='op'>::</span><span class='const'>Severity</span><span class='op'>::</span><span class='const'>INFO</span><span class='comma'>,</span> <span class='id identifier rubyid_request'>request</span><span class='lbracket'>[</span><span class='symbol'>:request</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_header'>header</span><span class='rparen'>)</span>
-
-      <span class='gvar'>$logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Request digests:</span><span class='tstring_end'>&#39;</span></span>
-      <span class='const'>Maze</span><span class='op'>::</span><span class='const'>LogUtil</span><span class='period'>.</span><span class='id identifier rubyid_log_hash'>log_hash</span><span class='lparen'>(</span><span class='const'>Logger</span><span class='op'>::</span><span class='const'>Severity</span><span class='op'>::</span><span class='const'>INFO</span><span class='comma'>,</span> <span class='id identifier rubyid_request'>request</span><span class='lbracket'>[</span><span class='symbol'>:digests</span><span class='rbracket'>]</span><span class='rparen'>)</span>
-
-      <span class='gvar'>$logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Response body: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_request'>request</span><span class='lbracket'>[</span><span class='symbol'>:response</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
-      <span class='gvar'>$logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Response headers:</span><span class='tstring_end'>&#39;</span></span>
-      <span class='const'>Maze</span><span class='op'>::</span><span class='const'>LogUtil</span><span class='period'>.</span><span class='id identifier rubyid_log_hash'>log_hash</span><span class='lparen'>(</span><span class='const'>Logger</span><span class='op'>::</span><span class='const'>Severity</span><span class='op'>::</span><span class='const'>INFO</span><span class='comma'>,</span> <span class='id identifier rubyid_request'>request</span><span class='lbracket'>[</span><span class='symbol'>:response</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_header'>header</span><span class='rparen'>)</span>
+      <span class='const'>Maze</span><span class='op'>::</span><span class='const'>LogUtil</span><span class='period'>.</span><span class='id identifier rubyid_log_hash'>log_hash</span><span class='lparen'>(</span><span class='const'>Logger</span><span class='op'>::</span><span class='const'>Severity</span><span class='op'>::</span><span class='const'>INFO</span><span class='comma'>,</span> <span class='id identifier rubyid_request'>request</span><span class='rparen'>)</span>
     <span class='kw'>end</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -1472,12 +1448,12 @@ Used to convert a multipart/form-data request into a JSON comparable hash</p>
       <pre class="lines">
 
 
-182
-183
-184</pre>
+176
+177
+178</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/steps/app_automator_steps.rb', line 182</span>
+      <pre class="code"><span class="info file"># File 'lib/features/steps/app_automator_steps.rb', line 176</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_should_skip_platform_check'>should_skip_platform_check</span><span class='lparen'>(</span><span class='id identifier rubyid_expected_value'>expected_value</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_expected_value'>expected_value</span><span class='period'>.</span><span class='id identifier rubyid_eql?'>eql?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>@skip</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
@@ -1502,16 +1478,16 @@ Used to convert a multipart/form-data request into a JSON comparable hash</p>
       <pre class="lines">
 
 
-198
-199
-200
-201
-202
-203
-204</pre>
+206
+207
+208
+209
+210
+211
+212</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/steps/trace_steps.rb', line 198</span>
+      <pre class="code"><span class="info file"># File 'lib/features/steps/trace_steps.rb', line 206</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_spans_from_request_list'>spans_from_request_list</span> <span class='id identifier rubyid_list'>list</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_list'>list</span><span class='period'>.</span><span class='id identifier rubyid_remaining'>remaining</span>
@@ -1540,6 +1516,12 @@ Used to convert a multipart/form-data request into a JSON comparable hash</p>
       <pre class="lines">
 
 
+189
+190
+191
+192
+193
+194
 195
 196
 197
@@ -1549,16 +1531,10 @@ Used to convert a multipart/form-data request into a JSON comparable hash</p>
 201
 202
 203
-204
-205
-206
-207
-208
-209
-210</pre>
+204</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/steps/app_automator_steps.rb', line 195</span>
+      <pre class="code"><span class="info file"># File 'lib/features/steps/app_automator_steps.rb', line 189</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_test_boolean_platform_values'>test_boolean_platform_values</span><span class='lparen'>(</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_expected_value'>expected_value</span> <span class='op'>=</span> <span class='id identifier rubyid_get_expected_platform_value'><span class='object_link'><a href="#get_expected_platform_value-instance_method" title="#get_expected_platform_value (method)">get_expected_platform_value</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_platform_values'>platform_values</span><span class='rparen'>)</span>
@@ -1596,21 +1572,21 @@ Used to convert a multipart/form-data request into a JSON comparable hash</p>
       <pre class="lines">
 
 
+206
+207
+208
+209
+210
+211
 212
 213
 214
 215
 216
-217
-218
-219
-220
-221
-222
-223</pre>
+217</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/steps/app_automator_steps.rb', line 212</span>
+      <pre class="code"><span class="info file"># File 'lib/features/steps/app_automator_steps.rb', line 206</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_test_numeric_platform_values'>test_numeric_platform_values</span><span class='lparen'>(</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_expected_value'>expected_value</span> <span class='op'>=</span> <span class='id identifier rubyid_get_expected_platform_value'><span class='object_link'><a href="#get_expected_platform_value-instance_method" title="#get_expected_platform_value (method)">get_expected_platform_value</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_platform_values'>platform_values</span><span class='rparen'>)</span>
@@ -1644,17 +1620,17 @@ Used to convert a multipart/form-data request into a JSON comparable hash</p>
       <pre class="lines">
 
 
+180
+181
+182
+183
+184
+185
 186
-187
-188
-189
-190
-191
-192
-193</pre>
+187</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/features/steps/app_automator_steps.rb', line 186</span>
+      <pre class="code"><span class="info file"># File 'lib/features/steps/app_automator_steps.rb', line 180</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_test_string_platform_values'>test_string_platform_values</span><span class='lparen'>(</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_expected_value'>expected_value</span> <span class='op'>=</span> <span class='id identifier rubyid_get_expected_platform_value'><span class='object_link'><a href="#get_expected_platform_value-instance_method" title="#get_expected_platform_value (method)">get_expected_platform_value</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_platform_values'>platform_values</span><span class='rparen'>)</span>
@@ -2070,7 +2046,7 @@ for a multipart/form-data request</p>
 </div>
 
       <div id="footer">
-  Generated on Wed Jun 21 10:46:11 2023 by
+  Generated on Thu Jun 22 09:04:41 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.34 (ruby-2.7.8).
 </div>

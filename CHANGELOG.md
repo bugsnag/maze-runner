@@ -1,3 +1,9 @@
+# 7.33.1 - 2023/06/22
+
+## Fixes
+
+- Sensible timeout for BitBar Appium sessions [563](https://github.com/bugsnag/maze-runner/pull/563)
+
 # 7.33.0 - 2023/05/25
 
 ## Enhancements

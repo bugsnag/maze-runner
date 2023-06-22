@@ -1,3 +1,9 @@
+# 8.1.1 - 2023/06/22
+
+## Fixes
+
+- Sensible timeout for BitBar Appium sessions [564](https://github.com/bugsnag/maze-runner/pull/564)
+
 # 8.1.0 - 2023/06/21
 
 ## Enhancements

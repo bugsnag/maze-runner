@@ -1,3 +1,9 @@
+# 8.1.1 - 2023/06/22
+
+## Fixes
+
+- Sensible timeout for BitBar Appium sessions [564](https://github.com/bugsnag/maze-runner/pull/564)
+
 # 8.1.0 - 2023/06/21
 
 ## Enhancements
@@ -37,11 +43,6 @@
 - Set `--expand` Cucumber option by default [548](https://github.com/bugsnag/maze-runner/pull/548)
 - Add step `I set the device orientation to {orientation}` [551](https://github.com/bugsnag/maze-runner/pull/551)
 - Avoid the need for quotes around integer lists [550](https://github.com/bugsnag/maze-runner/pull/550) [552](https://github.com/bugsnag/maze-runner/pull/552)
-
-# 7.34.0 - 2023/06/13
-
-## Enhancements
-
 - Add standalone `purge-projects` executable [546](https://github.com/bugsnag/maze-runner/pull/546)
 
 # 7.33.0 - 2023/05/25

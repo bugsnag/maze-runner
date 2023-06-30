@@ -97,8 +97,9 @@ module Maze
           $logger.info "Waiting #{response_delay_ms} milliseconds before responding"
           sleep response_delay_ms / 1000.0
         end
+
         set_response_header response.header
-        response.status = Server.status_code('POST')
+        response.status = post_status_code
       rescue JSON::ParserError => e
         msg = "Unable to parse request as JSON: #{e.message}"
         if Maze.config.captured_invalid_requests.include? @request_type
@@ -125,6 +126,14 @@ module Maze
           })
         else
           $logger.warn "Invalid request: #{e.message}"
+        end
+      end
+
+      def post_status_code
+        if [:errors, :session, :builds, :uploads, :sourcemaps].include? @request_type
+          Server.status_code('POST')
+        else
+          200
         end
       end
 

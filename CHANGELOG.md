@@ -2,7 +2,7 @@
 
 ## Fixes
 
-- Only set HTTP response code for specific request types [564](https://github.com/bugsnag/maze-runner/pull/564)
+- Only set HTTP response code for specific request types [565](https://github.com/bugsnag/maze-runner/pull/565)
 
 # 8.1.1 - 2023/06/22
 

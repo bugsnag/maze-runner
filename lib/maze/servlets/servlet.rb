@@ -130,7 +130,7 @@ module Maze
       end
 
       def post_status_code
-        if [:errors, :session, :builds, :uploads, :sourcemaps].include? @request_type
+        if [:errors, :session, :builds, :uploads, :sourcemaps, :traces].include? @request_type
           Server.status_code('POST')
         else
           200

@@ -1,3 +1,9 @@
+# 8.1.3 - 2023/07/03
+
+## Fixes
+
+- Include traces in request types to set the HTTP response code for [566](https://github.com/bugsnag/maze-runner/pull/566)
+
 # 8.1.2 - 2023/06/30
 
 ## Fixes

@@ -1,3 +1,9 @@
+# 8.1.4 - 2023/07/05
+
+## Fixes
+
+- Correct logic for HTTP response codes to session requests [567](https://github.com/bugsnag/maze-runner/pull/567)
+
 # 8.1.3 - 2023/07/03
 
 ## Fixes

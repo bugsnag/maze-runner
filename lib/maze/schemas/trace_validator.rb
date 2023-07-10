@@ -20,7 +20,7 @@ module Maze
       #
       #   @param body [Hash] The body of the trace to validate
       def initialize(request)
-        @headers = request[:request][:header]
+        @headers = request[:request].header
         @body = request[:body]
         @success = nil
         @errors = []
@@ -44,32 +44,41 @@ module Maze
         )
       end
 
-
       def check(date)
         Date.iso8601(date)
       rescue Date::Error
       end
 
+      def validate_header(name)
+        value = @headers[name]
+        if value.nil? || value.size > 1
+          @errors << "Expected exactly one value for header #{name}, received #{value}"
+        else
+          yield value[0]
+        end
+      end
+
       # Checks that the required headers are present and correct
       def validate_headers
-
         regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.traceId', '^[A-Fa-f0-9]{32}$')
 
         # API key
-        api_key = @headers['bugsnag-api-key']
-        expected = Regexp.new(HEX_STRING_32)
-        unless expected.match(api_key)
-          @success = false
-          @errors << "bugsnag-api-key header was expected to match the regex '#{HEX_STRING_32}', but was '#{value}'"
+        validate_header('bugsnag-api-key') do |api_key|
+          expected = Regexp.new(HEX_STRING_32)
+          unless expected.match(api_key)
+            @success = false
+            @errors << "bugsnag-api-key header was expected to match the regex '#{HEX_STRING_32}', but was '#{value}'"
+          end
         end
 
         # Bugsnag-Sent-at
-        date = @headers['bugsnag-sent-at']
-        begin
-          Date.iso8601(date)
-        rescue Date::Error
-          @success = false
-          @errors << "bugsnag-sent-at header was expected to be an IOS 8601 date, but was '#{date}'"
+        validate_header('bugsnag-sent-at') do |date|
+          begin
+            Date.iso8601(date)
+          rescue Date::Error
+            @success = false
+            @errors << "bugsnag-sent-at header was expected to be an IOS 8601 date, but was '#{date}'"
+          end
         end
 
         # Bugsnag-Span-Sampling

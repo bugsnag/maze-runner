@@ -67,7 +67,7 @@ module Maze
           expected = Regexp.new(HEX_STRING_32)
           unless expected.match(api_key)
             @success = false
-            @errors << "bugsnag-api-key header was expected to match the regex '#{HEX_STRING_32}', but was '#{value}'"
+            @errors << "bugsnag-api-key header was expected to match the regex '#{HEX_STRING_32}', but was '#{api_key}'"
           end
         end
 

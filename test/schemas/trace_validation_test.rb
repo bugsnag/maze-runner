@@ -2,6 +2,17 @@ require 'test_helper'
 require_relative '../../lib/maze/schemas/trace_validator'
 
 class TraceValidationTest < Test::Unit::TestCase
+  def set_valid_headers(hash)
+
+  end
+
+  def create_request(body)
+    {
+      :header
+      :body => body
+    }
+  end
+
   def test_initial_conditions
     validator = Maze::Schemas::TraceValidator.new({})
     assert_nil(validator.success)

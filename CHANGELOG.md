@@ -1,4 +1,6 @@
-# 8.1.5 - TBD
+# 8.2.0 - 2023/07/18
+
+## Enhancements
 
 - Add additional sourcemap endpoints [570](https://github.com/bugsnag/maze-runner/pull/570)
 

@@ -8,7 +8,7 @@ require_relative '../../maze/wait'
 
 # @!group Request assertion steps
 
-def assert_received_requests(request_count, list, list_name, precise = true)
+def assert_received_requests(request_count, list, list_name, precise = true, maximum = nil)
   timeout = Maze.config.receive_requests_wait
   # Interval set to 0.5s to make it more likely to detect erroneous extra requests,
   # without impacting overall speed too much
@@ -45,6 +45,7 @@ def assert_received_requests(request_count, list, list_name, precise = true)
     Maze.check.equal(request_count, list.size_remaining, "#{list.size_remaining} #{list_name} received")
   else
     Maze.check.operator(request_count, :<=, list.size_remaining, "#{list.size_remaining} #{list_name} received")
+    Maze.check.operator(maximum, :>=, list.size_remaining, "#{list.size_remaining} #{list_name} received") unless maximum.nil?
   end
 end
 
@@ -100,6 +101,16 @@ end
 Then('I have received at least {int} {request_type}') do |min_received, request_type|
   list = Maze::Server.list_for(request_type)
   Maze.check.operator(list.size_remaining, :>=, min_received, "Actually received #{list.size_remaining} #{request_type} requests")
+end
+
+# Verify that an amount of requests within a range have been received
+#
+# @step_input min_received [Integer] The minimum amount of requests required to pass
+# @step_input max_received [Integer] The maximum amount of requests before failure
+# @step_input request_type [String] The type of request (error, session, build, etc)
+Then('I wait to receive between {int} and {int} {request_type}') do |min_received, max_received, request_type|
+  list = Maze::Server.list_for(request_type)
+  assert_received_requests min_received, list, request_type, false, max_received
 end
 
 # Assert that the test Server hasn't received any requests - of a specific, or any, type.

@@ -94,6 +94,8 @@ end
 
 # Before each scenario
 Before do |scenario|
+  Maze.scenario = Maze::Api::Cucumber::Scenario.new(scenario)
+
   # Default to no dynamic try
   Maze.dynamic_retry = false
 
@@ -193,14 +195,20 @@ def output_received_requests(request_type)
   end
 end
 
-# Check for invalid requests after each scenario.  This is its own hook as failing a scenario raises an exception
-# and we need the logic in the other After hook to be performed.
+# Check for invalid requests after each scenario.  This is its own hook as failing a scenario (which
+# Maze.scenario.complete may invoke) raises an exception and we need the logic in the other After hook to be performed.
+#
 # Furthermore, this hook should appear after the general hook as they are executed in reverse order by Cucumber.
 After do |scenario|
+  # Call any pre_complete hooks registered by the client
+  Maze.hooks.call_pre_complete scenario
+
   unless Maze::Server.invalid_requests.size_all == 0
     msg = "#{Maze::Server.invalid_requests.size_all} invalid request(s) received during scenario"
-    scenario.fail msg
+    Maze.scenario.mark_as_failed msg
   end
+
+  Maze.scenario.complete
 end
 
 # Test all requests against schemas or extra validation rules.  These will only run if the schema/validation is

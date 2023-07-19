@@ -11,7 +11,7 @@ module Maze
 
   class << self
     attr_accessor :check, :driver, :internal_hooks, :mode, :start_time, :dynamic_retry, :public_address,
-                  :public_document_server_address, :run_uuid
+                  :public_document_server_address, :run_uuid, :scenario
 
     def config
       @config ||= Maze::Configuration.new

@@ -256,6 +256,7 @@ module Maze
         set_sampling_probability_generator(Maze::Generator.new [DEFAULT_SAMPLING_PROBABILITY].cycle)
 
         # Clear request lists
+        commands.clear
         errors.clear
         sessions.clear
         builds.clear

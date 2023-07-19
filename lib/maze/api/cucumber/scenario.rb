@@ -17,7 +17,6 @@ module Maze
         end
 
         def complete
-          $logger.info 'Completing scenario'
           @scenario.fail(@fail_override_reason) if @fail_override
         end
       end

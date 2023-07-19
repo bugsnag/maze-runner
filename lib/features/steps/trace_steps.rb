@@ -3,8 +3,25 @@
 # Waits for a given number of spans to be received, which may be spread across one or more trace requests.
 #
 # @step_input span_count [Integer] The number of spans to wait for
-When('I wait for {int} span(s)') do |span_count|
-  assert_received_spans span_count, Maze::Server.list_for('traces')
+Then('I wait to receive {int} span(s)') do |span_count|
+  assert_received_span_count Maze::Server.list_for('traces'), span_count
+end
+
+# Waits for a minimum number of spans to be received, which may be spread across one or more trace requests.
+# If more spans than requested are received, this step will still pass.
+#
+# @step_input span_min [Integer] The minimum number of spans to wait for
+Then('I wait to receive at least {int} span(s)') do |span_min|
+  assert_received_minimum_span_count Maze::Server.list_for('traces'), span_min
+end
+
+# Waits for a minimum number of spans to be received, which may be spread across one or more trace requests.
+# If more spans than the maximum requested number of spans are received, this step will fail.
+#
+# @step_input span_min [Integer] The minimum number of spans to wait for
+# @step_input span_max [Integer] The maximum number of spans to receive before failure
+Then('I wait to receive between {int} and {int} span(s)') do |span_min, span_max|
+  assert_received_ranged_span_count Maze::Server.list_for('traces'), span_min, span_max
 end
 
 Then('I should have received no spans') do
@@ -227,16 +244,28 @@ def attribute_value_matches?(attribute_value, expected_type, expected_value)
   end
 end
 
-def assert_received_spans(span_count, list)
+def assert_received_span_count(list, count)
+  assert_received_spans(list, count, count)
+end
+
+def assert_received_minimum_span_count(list, minimum)
+  assert_received_spans(list, minimum)
+end
+
+def assert_received_ranged_span_count(list, minimum, maximum)
+  assert_received_spans(list, minimum, maximum)
+end
+
+def assert_received_spans(list, min_received, max_received = nil)
   timeout = Maze.config.receive_requests_wait
   wait = Maze::Wait.new(timeout: timeout)
 
-  received = wait.until { spans_from_request_list(list).size >= span_count }
+  received = wait.until { spans_from_request_list(list).size >= min_received }
   received_count = spans_from_request_list(list).size
 
   unless received
     raise Test::Unit::AssertionFailedError.new <<-MESSAGE
-    Expected #{span_count} spans but received #{received_count} within the #{timeout}s timeout.
+    Expected #{min_received} spans but received #{received_count} within the #{timeout}s timeout.
     This could indicate that:
     - Bugsnag crashed with a fatal error.
     - Bugsnag did not make the requests that it should have done.
@@ -246,7 +275,7 @@ def assert_received_spans(span_count, list)
     MESSAGE
   end
 
-  Maze.check.operator(span_count, :<=, received_count, "#{received_count} spans received")
+  Maze.check.operator(max_received, :>=, received_count, "#{received_count} spans received") if max_received
 
   Maze::Schemas::Validator.verify_against_schema(list, 'trace')
   Maze::Schemas::Validator.validate_payload_elements(list, 'trace')

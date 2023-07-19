@@ -215,9 +215,12 @@ module Maze
             server.mount '/sessions', Servlets::Servlet, :sessions
             server.mount '/builds', Servlets::Servlet, :builds
             server.mount '/uploads', Servlets::Servlet, :uploads
-            server.mount '/sourcemap', Servlets::Servlet, :sourcemaps
             server.mount '/traces', Servlets::TraceServlet, :traces, Maze::Schemas::TRACE_SCHEMA
+            server.mount '/sourcemap', Servlets::Servlet, :sourcemaps
             server.mount '/react-native-source-map', Servlets::Servlet, :sourcemaps
+            server.mount '/dart-symbol', Servlets::Servlet, :sourcemaps
+            server.mount '/ndk-symbol', Servlets::Servlet, :sourcemaps
+            server.mount '/proguard', Servlets::Servlet, :sourcemaps
             server.mount '/command', Servlets::CommandServlet
             server.mount '/logs', Servlets::LogServlet
             server.mount '/metrics', Servlets::Servlet, :metrics

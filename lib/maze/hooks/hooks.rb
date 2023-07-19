@@ -9,6 +9,7 @@ module Maze
       def initialize
         @before_all = []
         @before = []
+        @pre_complete = []
         @after = []
       end
 
@@ -22,7 +23,13 @@ module Maze
         @before << block
       end
 
-      # Register blocks to be called from a Cucumber After hook (before MazeRunner does everything it needs to)
+      # Register blocks to be called from a Cucumber After hook (before the scenario is completed)
+      def pre_complete(&block)
+        @pre_complete << block
+      end
+
+      # Register blocks to be called from a Cucumber After hook (after the scenario is completed but before MazeRunner
+      # does everything it needs to between scenarios)
       def after(&block)
         @after << block
       end
@@ -38,6 +45,12 @@ module Maze
         @before.each { |block| block.call(scenario) }
       end
 
+      # For MazeRunner use only, call the registered pre-complete blocks
+      # @param scenario The current Cucumber scenario
+      def call_pre_complete(scenario)
+        @pre_complete.each { |block| block.call(scenario) }
+      end
+
       # For MazeRunner use only, call the registered After blocks
       # @param scenario The current Cucumber scenario
       def call_after(scenario)
@@ -50,7 +63,7 @@ module Maze
       def before_all; end
 
       def before(_scenario); end
-
+      def pre_complete(_scenario); end
       def after(_scenario); end
 
       def after_all; end

@@ -228,7 +228,6 @@ services:
     environment:
       MAZE_BUGSNAG_API_KEY:
       USE_LEGACY_DRIVER:
-      NETWORK_NAME: "${BUILDKITE_JOB_ID:-core-maze-runner}"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 

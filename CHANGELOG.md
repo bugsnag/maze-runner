@@ -1,7 +1,8 @@
-# 8.2.0 - 2023/07/18
+# 8.2.0 - 2023/07/19
 
 ## Enhancements
 
+- Add mechanism to allow hooks before scenario has completed in full [569](https://github.com/bugsnag/maze-runner/pull/569)
 - Add additional sourcemap endpoints [570](https://github.com/bugsnag/maze-runner/pull/570)
 
 # 8.1.4 - 2023/07/05

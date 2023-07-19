@@ -11,4 +11,3 @@ http = Net::HTTP.new('localhost', '9339')
   request.body = "{\"count\":#{i}}"
   http.request(request)
 end
-

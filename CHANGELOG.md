@@ -1,3 +1,9 @@
+# 8.3.0 - TBD
+
+## Enhancements
+
+- Add received span steps to allow greater flexibility in performance tests [571](https://github.com/bugsnag/maze-runner/pull/571)
+
 # 8.2.0 - 2023/07/19
 
 ## Enhancements

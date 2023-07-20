@@ -7,6 +7,7 @@ module Maze
 
     HEX_STRING_16 = '^[A-Fa-f0-9]{16}$'
     HEX_STRING_32 = '^[A-Fa-f0-9]{32}$'
+    SAMPLING_HEADER = '^(1|0(\.[0-9]+)?):[0-9]+$'
 
     # Contains a set of pre-defined validations for ensuring traces are correct
     class TraceValidator
@@ -18,17 +19,16 @@ module Maze
 
       # Creates the validator
       #
-      #   @param body [Hash] The body of the trace to validate
+      #   @param request [Hash] The trace request to validate
       def initialize(request)
         @headers = request[:request].header
         @body = request[:body]
-        @success = nil
+        @success = true
         @errors = []
       end
 
       # Runs the validation against the trace given
       def validate
-        @success = true
         validate_headers
         regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.spanId', HEX_STRING_16)
         regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.traceId', HEX_STRING_32)
@@ -52,7 +52,7 @@ module Maze
       def validate_header(name)
         value = @headers[name]
         if value.nil? || value.size > 1
-          @errors << "Expected exactly one value for header #{name}, received #{value}"
+          @errors << "Expected exactly one value for header #{name}, received #{value || 'nil'}"
         else
           yield value[0]
         end
@@ -60,8 +60,6 @@ module Maze
 
       # Checks that the required headers are present and correct
       def validate_headers
-        regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.traceId', '^[A-Fa-f0-9]{32}$')
-
         # API key
         validate_header('bugsnag-api-key') do |api_key|
           expected = Regexp.new(HEX_STRING_32)
@@ -83,6 +81,15 @@ module Maze
 
         # Bugsnag-Span-Sampling
         # of the format x:y where x is a decimal between 0 and 1 (inclusive) and y is the number of spans in the batch (if possible at this stage - we could weaken this if necessary)
+        validate_header('bugsnag-span-sampling') do |sampling|
+          begin
+            expected = Regexp.new(SAMPLING_HEADER)
+            unless expected.match(sampling)
+              @success = false
+              @errors << "bugsnag-span-sampling header was expected to match the regex '#{SAMPLING_HEADER}', but was '#{sampling}'"
+            end
+          end
+        end
       end
 
       def validate_date(date)

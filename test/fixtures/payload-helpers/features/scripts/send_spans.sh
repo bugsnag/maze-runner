@@ -49,6 +49,7 @@ payload = {
   'headers' => {
     'Bugsnag-Api-Key' => ENV['TEST_API_KEY'],
     'Bugsnag-Payload-Version' => '1.0',
+    'Bugsnag-Span-Sampling' => '1:1',
     'Bugsnag-Sent-At' => Time.now().iso8601(3)
   },
   'body' => {

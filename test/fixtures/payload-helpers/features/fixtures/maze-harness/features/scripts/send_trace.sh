@@ -11,7 +11,11 @@ request['Content-Type'] = 'application/json'
 
 templates = {
   'valid' => {
-    'headers' => {},
+    'headers' => {
+      'Bugsnag-Api-Key' => '12312312312312312313212312312312',
+      'Bugsnag-Sent-At' => Time.now().iso8601(3),
+      'Bugsnag-Span-Sampling' => '1:1'
+    },
     'body' => {
       "resourceSpans":[
         {

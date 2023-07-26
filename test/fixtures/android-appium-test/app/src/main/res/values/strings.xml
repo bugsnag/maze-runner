@@ -1,5 +1,0 @@
-<resources>
-    <string name="app_name">mazerunner</string>
-    <string name="error_button">Trigger Error</string>
-    <string name="run_command">Run Command</string>
-</resources>

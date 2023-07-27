@@ -28,12 +28,14 @@ class TraceValidationTest < Test::Unit::TestCase
     assert_not_nil(regex.match('1.0:1'))
     assert_not_nil(regex.match('0:10'))
     assert_not_nil(regex.match('1:1'))
+    assert_not_nil(regex.match('1:1;1:2;0.3:5'))
 
     assert_nil(regex.match('1,1'))
     assert_nil(regex.match('0..0:1'))
     assert_nil(regex.match('0.0:1.0'))
     assert_nil(regex.match('1.1:1'))
     assert_nil(regex.match('.0:3'))
+    assert_nil(regex.match('1:1;;1:2'))
   end
   
   def test_valid_headers
@@ -71,7 +73,7 @@ class TraceValidationTest < Test::Unit::TestCase
     validator.validate_headers
     assert_false(validator.success)
     assert_equal(1, validator.errors.size, format_errors(validator.errors))
-    assert_equal("bugsnag-span-sampling header was expected to match the regex '^(1(.0)?|0(\\.[0-9]+)?):[0-9]+$', but was '2:2'", validator.errors.first)
+    assert_equal("bugsnag-span-sampling header was expected to match the regex '^((1(.0)?|0(\\.[0-9]+)?):[0-9]+)(;((1(.0)?|0(\\.[0-9]+)?):[0-9]+))*$', but was '2:2'", validator.errors.first)
   end
 
   def test_regex_success

@@ -7,7 +7,8 @@ module Maze
 
     HEX_STRING_16 = '^[A-Fa-f0-9]{16}$'
     HEX_STRING_32 = '^[A-Fa-f0-9]{32}$'
-    SAMPLING_HEADER = '^(1(.0)?|0(\.[0-9]+)?):[0-9]+$'
+    SAMPLING_HEADER_ENTRY = '((1(.0)?|0(\.[0-9]+)?):[0-9]+)'
+    SAMPLING_HEADER = "^#{SAMPLING_HEADER_ENTRY}(;#{SAMPLING_HEADER_ENTRY})*$"
 
     # Contains a set of pre-defined validations for ensuring traces are correct
     class TraceValidator

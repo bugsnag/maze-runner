@@ -24,7 +24,7 @@ module Maze
       def initialize(request)
         @headers = request[:request].header
         @body = request[:body]
-        @success = true
+        @success = nil
         @errors = []
       end
 
@@ -91,13 +91,6 @@ module Maze
             end
           end
         end
-      end
-
-      def validate_date(date)
-        Date.iso8601(date)
-      rescue Date::Error
-        @errors << "'#{date}' is not a valid ISO 8601 date string"
-        false
       end
 
       def regex_comparison(path, regex)

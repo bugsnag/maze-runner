@@ -42,7 +42,7 @@ class TraceValidationTest < Test::Unit::TestCase
     request = create_basic_request({ 'value' => 'abc123' })
     validator = Maze::Schemas::TraceValidator.new(request)
     validator.validate_headers
-    assert_true(validator.success)
+    assert_nil(validator.success)
     assert_equal(0, validator.errors.size, format_errors(validator.errors))
   end
 
@@ -79,7 +79,7 @@ class TraceValidationTest < Test::Unit::TestCase
   def test_regex_success
     validator = Maze::Schemas::TraceValidator.new(create_basic_request({ 'value' => 'abc123' }))
     validator.regex_comparison('value', '[abc123]{6}')
-    assert_true(validator.success)
+    assert_nil(validator.success)
     assert(validator.errors.empty?)
   end
 
@@ -103,7 +103,7 @@ class TraceValidationTest < Test::Unit::TestCase
       'value' => 2
     }))
     validator.element_int_in_range('value', 1..3)
-    assert_true(validator.success)
+    assert_nil(validator.success)
     assert(validator.errors.empty?)
   end
 
@@ -141,7 +141,7 @@ class TraceValidationTest < Test::Unit::TestCase
       ]
     }))
     validator.element_contains('value', 'correct')
-    assert_true(validator.success)
+    assert_nil(validator.success)
     assert(validator.errors.empty?)
   end
 
@@ -194,7 +194,7 @@ class TraceValidationTest < Test::Unit::TestCase
       ]
     }))
     validator.element_contains('value', 'correct', 'stringValue', ['good', 'done'])
-    assert_true(validator.success)
+    assert_nil(validator.success)
     assert(validator.errors.empty?)
   end
 
@@ -251,7 +251,7 @@ class TraceValidationTest < Test::Unit::TestCase
       'larger' => 5
     }))
     validator.element_a_greater_or_equal_element_b('larger', 'smaller')
-    assert_true(validator.success)
+    assert_nil(validator.success)
     assert(validator.errors.empty?)
   end
 
@@ -262,7 +262,7 @@ class TraceValidationTest < Test::Unit::TestCase
       'larger' => 5
     }))
     validator.element_a_greater_or_equal_element_b('smaller', 'unit')
-    assert_true(validator.success)
+    assert_nil(validator.success)
     assert(validator.errors.empty?)
   end
 

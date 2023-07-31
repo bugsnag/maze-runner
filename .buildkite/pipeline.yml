@@ -16,17 +16,29 @@ steps:
       bundle exec maze-runner
       --no-log-requests
 
-  - label: 'Build Appium test fixture'
+  - label: 'Build Android Performance test fixture'
     timeout_in_minutes: 30
-    key: appium-test-fixture
+    key: android-test-fixture
     agents:
       queue: 'macos-12-arm'
     command:
-      - cd test/fixtures/android-appium-test
-      - ./gradlew assembleRelease
+      - cd bugsnag-android-performance
+      - make test-fixture
     plugins:
-      artifacts#v1.5.0:
-        upload: "test/fixtures/android-appium-test/app/build/outputs/apk/release/app-release.apk"
+      artifacts#v1.9.0:
+        upload: "bugsnag-android-performance/build/test-fixture.apk"
+
+  - label: 'Build Cocoa test fixture'
+    timeout_in_minutes: 30
+    key: cocoa-test-fixture
+    agents:
+      queue: 'macos-12-arm'
+    command:
+      - cd bugsnag-cocoa
+      - make test-fixture
+    plugins:
+      artifacts#v1.9.0:
+        upload: "bugsnag-cocoa/features/fixtures/ios/output/Fixture.ipa"
 
   - label: ':docker: Build CI image for Ruby 2'
     timeout_in_minutes: 30
@@ -194,7 +206,7 @@ steps:
       - "appium-test-fixture"
       - "push-branch-cli-legacy"
     plugins:
-      artifacts#v1.5.0:
+      artifacts#v1.9.0:
         download: "test/fixtures/android-appium-test/app/build/outputs/apk/release/app-release.apk"
       docker-compose#v4.7.0:
         pull: android-appium-test-legacy
@@ -221,7 +233,7 @@ steps:
       - "appium-test-fixture"
       - "push-branch-cli"
     plugins:
-      artifacts#v1.5.0:
+      artifacts#v1.9.0:
         download: "test/fixtures/android-appium-test/app/build/outputs/apk/release/app-release.apk"
       docker-compose#v4.7.0:
         pull: android-appium-test

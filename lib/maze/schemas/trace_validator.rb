@@ -30,6 +30,8 @@ module Maze
 
       # Runs the validation against the trace given
       def validate
+        @success = true
+
         validate_headers
         regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.spanId', HEX_STRING_16)
         regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.traceId', HEX_STRING_32)

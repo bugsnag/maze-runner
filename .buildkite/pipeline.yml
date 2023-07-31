@@ -35,10 +35,10 @@ steps:
       queue: 'macos-12-arm'
     command:
       - cd bugsnag-cocoa
-      - make test-fixture
+      - make test-fixtures
     plugins:
       artifacts#v1.9.0:
-        upload: "bugsnag-cocoa/features/fixtures/ios/output/Fixture.ipa"
+        upload: "bugsnag-cocoa/features/fixtures/ios/output/iOSTestApp.ipa"
 
   - label: ':docker: Build CI image for Ruby 2'
     timeout_in_minutes: 30

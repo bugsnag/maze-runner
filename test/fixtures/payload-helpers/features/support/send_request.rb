@@ -81,7 +81,8 @@ def send_request(request_type, mock_api_port = 9339)
       'headers' => {
         'Bugsnag-Api-Key' => $api_key,
         'Bugsnag-Payload-Version' => '1.0',
-        'Bugsnag-Sent-At' => Time.now().iso8601(3)
+        'Bugsnag-Sent-At' => Time.now().iso8601(3),
+        'Bugsnag-Span-Sampling' => '1:1'
       },
       'body' => {
         "resourceSpans": []
@@ -91,7 +92,8 @@ def send_request(request_type, mock_api_port = 9339)
       'headers' => {
         'Bugsnag-Api-Key' => $api_key,
         'Bugsnag-Payload-Version' => '1.0',
-        'Bugsnag-Sent-At' => Time.now().iso8601(3)
+        'Bugsnag-Sent-At' => Time.now().iso8601(3),
+        'Bugsnag-Span-Sampling' => '1:1'
       },
       'body' => {
         "resourceSpans":[
@@ -289,7 +291,8 @@ def send_request(request_type, mock_api_port = 9339)
       'headers' => {
         'Bugsnag-Api-Key' => $api_key,
         'Bugsnag-Payload-Version' => '1.0',
-        'Bugsnag-Sent-At' => Time.now().iso8601(3)
+        'Bugsnag-Sent-At' => Time.now().iso8601(3),
+        'Bugsnag-Span-Sampling' => '1:1'
       },
       'body' => {
         "resourceSpans": [

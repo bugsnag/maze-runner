@@ -49,7 +49,7 @@ module Maze
 
           if validator_class
             validators = list.all.map do |request|
-              validator = validator_class.new(request[:body])
+              validator = validator_class.new(request)
               validator.validate
               validator
             end

@@ -47,11 +47,6 @@ module Maze
         )
       end
 
-      def check(date)
-        Date.iso8601(date)
-      rescue Date::Error
-      end
-
       def validate_header(name)
         value = @headers[name]
         if value.nil? || value.size > 1

@@ -210,8 +210,8 @@ steps:
         download: "bugsnag-android-performance/build/test-fixture.apk"
         upload: "bugsnag-android-performance/maze_output/**/*"
       docker-compose#v4.7.0:
-        pull: appium-test-legacy
-        run: appium-test-legacy
+        pull: appium-test-bs-legacy
+        run: appium-test-bs-legacy
         volumes:
           - "./bugsnag-android-performance/build:/app/build"
           - "./bugsnag-android-performance/features:/app/features"
@@ -241,8 +241,12 @@ steps:
         download: "bugsnag-cocoa/features/fixtures/ios/output/iOSTestApp.ipa"
         upload: "bugsnag-cocoa/maze_output/**/*"
       docker-compose#v4.7.0:
-        pull: appium-test
-        run: appium-test
+        pull: appium-test-bs
+        run: appium-test-bs
+        volumes:
+          - "./bugsnag-cocoa/build:/app/build"
+          - "./bugsnag-cocoa/features:/app/features"
+          - "./bugsnag-cocoa/maze_output:/app/maze_output"
         command:
           - "--app=features/fixtures/ios/output/iOSTestApp.ipa"
           - "--farm=bs"
@@ -329,8 +333,12 @@ steps:
         download: "bugsnag-android-performance/build/test-fixture.apk"
         upload: "bugsnag-android-performance/maze_output/**/*"
       docker-compose#v4.7.0:
-        pull: appium-test-bitbar
-        run: appium-test-bitbar
+        pull: appium-test-bb
+        run: appium-test-bb
+        volumes:
+          - "./bugsnag-cocoa/build:/app/build"
+          - "./bugsnag-cocoa/features:/app/features"
+          - "./bugsnag-cocoa/maze_output:/app/maze_output"
         service-ports: true
         command:
           - "--app=build/test-fixture.apk"

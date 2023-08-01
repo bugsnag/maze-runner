@@ -59,7 +59,24 @@ services:
       args:
         DOCS_PUSH_TOKEN:
 
-  appium-test:
+  appium-test-bb:
+    build:
+      context: .
+      dockerfile: Dockerfile.w3c
+      args:
+        BRANCH_NAME:
+        RUBY_VERSION:
+    environment:
+      <<: *common-environment
+      BITBAR_USERNAME:
+      BITBAR_ACCESS_KEY:
+    env_file: $DOCKER_ENV_FILE
+    ports:
+      - "9000-9499:9339"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  appium-test-bs:
     build:
       context: .
       dockerfile: dockerfiles/Dockerfile.w3c
@@ -74,10 +91,10 @@ services:
       BROWSER_STACK_DEVICES_ACCESS_KEY:
     env_file: $DOCKER_ENV_FILE
 
-  appium-test-bitbar:
+  appium-test-bs-legacy:
     build:
       context: .
-      dockerfile: Dockerfile.w3c
+      dockerfile: dockerfiles/Dockerfile.legacy
       args:
         BRANCH_NAME:
         RUBY_VERSION:
@@ -88,23 +105,6 @@ services:
       BROWSER_STACK_DEVICES_USERNAME:
       BROWSER_STACK_DEVICES_ACCESS_KEY:
       USE_LEGACY_DRIVER: 1
-    env_file: $DOCKER_ENV_FILE
-    ports:
-      - "9000-9499:9339"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-
-  appium-test-legacy:
-    build:
-      context: .
-      dockerfile: dockerfiles/Dockerfile.legacy
-      args:
-        BRANCH_NAME:
-        RUBY_VERSION:
-    environment:
-      <<: *common-environment
-      BITBAR_USERNAME:
-      BITBAR_ACCESS_KEY:
     env_file: $DOCKER_ENV_FILE
 
   cli-tests:

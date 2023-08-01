@@ -62,7 +62,7 @@ services:
   appium-test-bb:
     build:
       context: .
-      dockerfile: Dockerfile.w3c
+      dockerfile: dockerfiles/Dockerfile.w3c
       args:
         BRANCH_NAME:
         RUBY_VERSION:

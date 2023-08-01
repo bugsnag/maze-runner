@@ -44,13 +44,13 @@ steps:
     timeout_in_minutes: 30
     key: "ci-image-ruby-2"
     plugins:
-      - docker-compose#v4.7.0:
+      - docker-compose#v4.14.0:
           build:
             - ci-ruby-2
           image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
           cache-from:
             - ci-ruby-2:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-2
-      - docker-compose#v4.7.0:
+      - docker-compose#v4.14.0:
           push:
             - ci-ruby-2:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-2
     env:
@@ -60,13 +60,13 @@ steps:
     timeout_in_minutes: 30
     key: "ci-image-ruby-3"
     plugins:
-      - docker-compose#v4.7.0:
+      - docker-compose#v4.14.0:
           build:
             - ci-ruby-3
           image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
           cache-from:
             - ci-ruby-3:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-3
-      - docker-compose#v4.7.0:
+      - docker-compose#v4.14.0:
           push:
             - ci-ruby-3:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-3
     env:
@@ -76,7 +76,7 @@ steps:
     timeout_in_minutes: 30
     depends_on: 'ci-image-ruby-2'
     plugins:
-      docker-compose#v4.7.0:
+      docker-compose#v4.14.0:
         run: unit-test-ruby-2
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
         cache-from:
@@ -87,7 +87,7 @@ steps:
     timeout_in_minutes: 30
     depends_on: 'ci-image-ruby-3'
     plugins:
-      docker-compose#v4.7.0:
+      docker-compose#v4.14.0:
         run: unit-test-ruby-3
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
         cache-from:
@@ -99,12 +99,12 @@ steps:
     timeout_in_minutes: 30
     depends_on: "ci-image-ruby-2"
     plugins:
-      - docker-compose#v4.7.0:
+      - docker-compose#v4.14.0:
           build: cli
           image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
           cache-from:
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
-      - docker-compose#v4.7.0:
+      - docker-compose#v4.14.0:
           push:
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
 
@@ -113,12 +113,12 @@ steps:
     timeout_in_minutes: 30
     depends_on: "ci-image-ruby-2"
     plugins:
-      - docker-compose#v4.7.0:
+      - docker-compose#v4.14.0:
           build: cli-legacy
           image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
           cache-from:
             - cli-legacy:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli-legacy
-      - docker-compose#v4.7.0:
+      - docker-compose#v4.14.0:
           push:
             - cli-legacy:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli-legacy
 
@@ -126,15 +126,15 @@ steps:
     timeout_in_minutes: 30
     depends_on: "ci-image-ruby-2"
     plugins:
-      - docker-compose#v4.7.0:
+      - docker-compose#v4.14.0:
           run: framework-tests
-      - docker-compose#v4.7.0:
+      - docker-compose#v4.14.0:
           run: comparison-tests
-      - docker-compose#v4.7.0:
+      - docker-compose#v4.14.0:
           run: proxy-tests
-      - docker-compose#v4.7.0:
+      - docker-compose#v4.14.0:
           run: cli-tests
-      - docker-compose#v4.7.0:
+      - docker-compose#v4.14.0:
           run: http-response-tests
     env:
       RUBY_VERSION: "2"
@@ -145,13 +145,13 @@ steps:
     timeout_in_minutes: 30
     depends_on: "ci-image-ruby-2"
     plugins:
-      - docker-compose#v4.7.0:
+      - docker-compose#v4.14.0:
           run: payload-helper-tests
-      - docker-compose#v4.7.0:
+      - docker-compose#v4.14.0:
           run: docker-tests
-      - docker-compose#v4.7.0:
+      - docker-compose#v4.14.0:
           run: doc-server-tests
-      - docker-compose#v4.7.0:
+      - docker-compose#v4.14.0:
           run: exit-codes-tests
       - artifacts#v1.9.0:
           upload:
@@ -166,15 +166,15 @@ steps:
     timeout_in_minutes: 30
     depends_on: "ci-image-ruby-3"
     plugins:
-      - docker-compose#v4.7.0:
+      - docker-compose#v4.14.0:
           run: framework-tests
-      - docker-compose#v4.7.0:
+      - docker-compose#v4.14.0:
           run: comparison-tests
-      - docker-compose#v4.7.0:
+      - docker-compose#v4.14.0:
           run: proxy-tests
-      - docker-compose#v4.7.0:
+      - docker-compose#v4.14.0:
           run: cli-tests
-      - docker-compose#v4.7.0:
+      - docker-compose#v4.14.0:
           run: http-response-tests
     env:
       RUBY_VERSION: "3"
@@ -184,13 +184,13 @@ steps:
     timeout_in_minutes: 30
     depends_on: "ci-image-ruby-3"
     plugins:
-      - docker-compose#v4.7.0:
+      - docker-compose#v4.14.0:
           run: payload-helper-tests
-      - docker-compose#v4.7.0:
+      - docker-compose#v4.14.0:
           run: docker-tests
-      - docker-compose#v4.7.0:
+      - docker-compose#v4.14.0:
           run: doc-server-tests
-      - docker-compose#v4.7.0:
+      - docker-compose#v4.14.0:
           run: exit-codes-tests
     env:
       RUBY_VERSION: "3"
@@ -209,7 +209,7 @@ steps:
       artifacts#v1.9.0:
         download: "bugsnag-android-performance/build/test-fixture.apk"
         upload: "bugsnag-android-performance/maze_output/**/*"
-      docker-compose#v4.7.0:
+      docker-compose#v4.14.0:
         pull: appium-test-bs-legacy
         run: appium-test-bs-legacy
         volumes:
@@ -240,7 +240,7 @@ steps:
       artifacts#v1.9.0:
         download: "bugsnag-cocoa/features/fixtures/ios/output/iOSTestApp.ipa"
         upload: "bugsnag-cocoa/maze_output/**/*"
-      docker-compose#v4.7.0:
+      docker-compose#v4.14.0:
         pull: appium-test-bs
         run: appium-test-bs
         volumes:
@@ -266,7 +266,7 @@ steps:
     depends_on: "push-branch-cli-legacy"
     timeout_in_minutes: 10
     plugins:
-      docker-compose#v4.7.0:
+      docker-compose#v4.14.0:
         run: browser-tests-legacy
         use-aliases: true
         verbose: true
@@ -282,7 +282,7 @@ steps:
     depends_on: "push-branch-cli"
     timeout_in_minutes: 10
     plugins:
-      docker-compose#v4.7.0:
+      docker-compose#v4.14.0:
         pull: browser-tests
         run: browser-tests
         use-aliases: true
@@ -305,7 +305,7 @@ steps:
     plugins:
       artifacts#v1.9.0:
         upload: "maze_output/failed/**/*"
-      docker-compose#v4.7.0:
+      docker-compose#v4.14.0:
         pull: browser-tests-bitbar
         run: browser-tests-bitbar
         service-ports: true
@@ -326,19 +326,19 @@ steps:
   - label: 'BitBar app-automate - Android'
     timeout_in_minutes: 20
     depends_on:
-      - "appium-test-fixture"
+      - "android-test-fixture"
       - "push-branch-cli"
     plugins:
       artifacts#v1.9.0:
         download: "bugsnag-android-performance/build/test-fixture.apk"
         upload: "bugsnag-android-performance/maze_output/**/*"
-      docker-compose#v4.7.0:
+      docker-compose#v4.14.0:
         pull: appium-test-bb
         run: appium-test-bb
         volumes:
-          - "./bugsnag-cocoa/build:/app/build"
-          - "./bugsnag-cocoa/features:/app/features"
-          - "./bugsnag-cocoa/maze_output:/app/maze_output"
+          - "./bugsnag-android-performance/build:/app/build"
+          - "./bugsnag-android-performance/features:/app/features"
+          - "./bugsnag-android-performance/maze_output:/app/maze_output"
         service-ports: true
         command:
           - "--app=build/test-fixture.apk"
@@ -360,7 +360,7 @@ steps:
   - label: 'Update docs'
     if: build.tag =~ /^v[2-9]\.[0-9]+\.[0-9]+\$/
     plugins:
-      docker-compose#v4.7.0:
+      docker-compose#v4.14.0:
         run: docs
     command: 'bundle exec rake docs:build_and_publish'
 
@@ -368,7 +368,7 @@ steps:
   - label: 'Push Docker image for tag'
     if: build.tag =~ /^v[2-9]\.[0-9]+\.[0-9]+\$/
     plugins:
-      - docker-compose#v4.7.0:
+      - docker-compose#v4.14.0:
           push:
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:${BUILDKITE_TAG}-cli
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-v8-cli

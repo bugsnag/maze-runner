@@ -1,0 +1,6 @@
+[submodule "bugsnag-cocoa"]
+	path = bugsnag-cocoa
+	url = https://github.com/bugsnag/bugsnag-cocoa.git
+[submodule "bugsnag-android-performance"]
+	path = bugsnag-android-performance
+	url = https://github.com/bugsnag/bugsnag-android-performance.git

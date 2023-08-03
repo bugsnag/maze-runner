@@ -1,4 +1,22 @@
 version: '3.6'
+
+x-common-environment: &common-environment
+  DEBUG:
+  BRANCH_NAME:
+  BUILDKITE:
+  BUILDKITE_BRANCH:
+  BUILDKITE_BUILD_CREATOR:
+  BUILDKITE_BUILD_NUMBER:
+  BUILDKITE_BUILD_URL:
+  BUILDKITE_LABEL:
+  BUILDKITE_MESSAGE:
+  BUILDKITE_PIPELINE_NAME:
+  BUILDKITE_PIPELINE_SLUG:
+  BUILDKITE_REPO:
+  BUILDKITE_RETRY_COUNT:
+  BUILDKITE_STEP_KEY:
+  MAZE_BUGSNAG_API_KEY:
+
 services:
 
   license_finder:
@@ -41,133 +59,53 @@ services:
       args:
         DOCS_PUSH_TOKEN:
 
-  android-appium-test:
+  appium-test-bb:
     build:
-      context: test/fixtures/android-appium-test
-      dockerfile: Dockerfile.w3c
+      context: .
+      dockerfile: dockerfiles/Dockerfile.w3c
       args:
         BRANCH_NAME:
         RUBY_VERSION:
-    extra_hosts:
-      - "maze-local:127.0.0.1"
     environment:
-      BRANCH_NAME:
-      BUILDKITE:
-      BUILDKITE_BRANCH:
-      BUILDKITE_BUILD_CREATOR:
-      BUILDKITE_BUILD_NUMBER:
-      BUILDKITE_BUILD_URL:
-      BUILDKITE_LABEL:
-      BUILDKITE_MESSAGE:
-      BUILDKITE_PIPELINE_NAME:
-      BUILDKITE_REPO:
-      BUILDKITE_RETRY_COUNT:
-      BUILDKITE_STEP_KEY:
-      BROWSER_STACK_USERNAME:
-      BROWSER_STACK_ACCESS_KEY:
-      BROWSER_STACK_DEVICES_USERNAME:
-      BROWSER_STACK_DEVICES_ACCESS_KEY:
-      MAZE_BUGSNAG_API_KEY:
-    env_file: $DOCKER_ENV_FILE
-    volumes:
-      - ./test/fixtures/android-appium-test/app/build:/app/build
-      - ./test/fixtures/android-appium-test/features:/app/features
-      - ./test/fixtures/android-appium-test/maze_output:/app/maze_output
-
-  android-appium-test-bitbar:
-    build:
-      context: test/fixtures/android-appium-test
-      dockerfile: Dockerfile.w3c
-      args:
-        BRANCH_NAME:
-        RUBY_VERSION:
-    extra_hosts:
-      - "maze-local:127.0.0.1"
-    environment:
-      BRANCH_NAME:
-      BUILDKITE:
-      BUILDKITE_BRANCH:
-      BUILDKITE_BUILD_CREATOR:
-      BUILDKITE_BUILD_NUMBER:
-      BUILDKITE_BUILD_URL:
-      BUILDKITE_LABEL:
-      BUILDKITE_MESSAGE:
-      BUILDKITE_PIPELINE_NAME:
-      BUILDKITE_PIPELINE_SLUG:
-      BUILDKITE_REPO:
-      BUILDKITE_RETRY_COUNT:
-      BUILDKITE_STEP_KEY:
+      <<: *common-environment
       BITBAR_USERNAME:
       BITBAR_ACCESS_KEY:
-      MAZE_BUGSNAG_API_KEY:
     env_file: $DOCKER_ENV_FILE
     ports:
       - "9000-9499:9339"
     volumes:
-      - ./test/fixtures/android-appium-test/app/build:/app/build
-      - ./test/fixtures/android-appium-test/features:/app/features
-      - ./test/fixtures/android-appium-test/maze_output:/app/maze_output
       - /var/run/docker.sock:/var/run/docker.sock
 
-  android-appium-test-legacy:
+  appium-test-bs:
     build:
-      context: test/fixtures/android-appium-test
-      dockerfile: Dockerfile.legacy
+      context: .
+      dockerfile: dockerfiles/Dockerfile.w3c
       args:
         BRANCH_NAME:
         RUBY_VERSION:
-    extra_hosts:
-      - "maze-local:127.0.0.1"
     environment:
-      BRANCH_NAME:
-      BUILDKITE:
-      BUILDKITE_BRANCH:
-      BUILDKITE_BUILD_CREATOR:
-      BUILDKITE_BUILD_NUMBER:
-      BUILDKITE_BUILD_URL:
-      BUILDKITE_LABEL:
-      BUILDKITE_MESSAGE:
-      BUILDKITE_PIPELINE_NAME:
-      BUILDKITE_REPO:
-      BUILDKITE_RETRY_COUNT:
-      BUILDKITE_STEP_KEY:
+      <<: *common-environment
       BROWSER_STACK_USERNAME:
       BROWSER_STACK_ACCESS_KEY:
       BROWSER_STACK_DEVICES_USERNAME:
       BROWSER_STACK_DEVICES_ACCESS_KEY:
-      MAZE_BUGSNAG_API_KEY:
+    env_file: $DOCKER_ENV_FILE
+
+  appium-test-bs-legacy:
+    build:
+      context: .
+      dockerfile: dockerfiles/Dockerfile.legacy
+      args:
+        BRANCH_NAME:
+        RUBY_VERSION:
+    environment:
+      <<: *common-environment
+      BROWSER_STACK_USERNAME:
+      BROWSER_STACK_ACCESS_KEY:
+      BROWSER_STACK_DEVICES_USERNAME:
+      BROWSER_STACK_DEVICES_ACCESS_KEY:
       USE_LEGACY_DRIVER: 1
     env_file: $DOCKER_ENV_FILE
-    volumes:
-      - ./test/fixtures/android-appium-test/app/build:/app/build
-      - ./test/fixtures/android-appium-test/features:/app/features
-      - ./test/fixtures/android-appium-test/maze_output:/app/maze_output
-
-  ios-appium-test:
-    build:
-      context: test/fixtures/ios-app
-      args:
-        BRANCH_NAME:
-        RUBY_VERSION:
-    extra_hosts:
-      - "maze-local:127.0.0.1"
-    environment:
-      BRANCH_NAME:
-      BUILDKITE_PIPELINE_NAME:
-      BUILDKITE_RETRY_COUNT:
-      BUILDKITE:
-      BUILDKITE_BUILD_NUMBER:
-      BUILDKITE_STEP_KEY:
-      BROWSER_STACK_USERNAME:
-      BROWSER_STACK_ACCESS_KEY:
-      BROWSER_STACK_DEVICES_USERNAME:
-      BROWSER_STACK_DEVICES_ACCESS_KEY:
-      MAZE_BUGSNAG_API_KEY:
-      BITBAR_USERNAME:
-      BITBAR_ACCESS_KEY:
-    env_file: $DOCKER_ENV_FILE
-    volumes:
-      - ./test/fixtures/ios-app/maze_output:/app/maze_output
 
   cli-tests:
     build:

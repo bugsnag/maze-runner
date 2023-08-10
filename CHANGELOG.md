@@ -4,6 +4,7 @@
 
 - Add received span steps to allow greater flexibility in performance tests [571](https://github.com/bugsnag/maze-runner/pull/571) [572](https://github.com/bugsnag/maze-runner/pull/572)
 - Check that required trace headers are present and valid [573](https://github.com/bugsnag/maze-runner/pull/573)
+- Create zip archive of `maze_output` folder [575](https://github.com/bugsnag/maze-runner/pull/575)
 
 # 8.2.0 - 2023/07/19
 

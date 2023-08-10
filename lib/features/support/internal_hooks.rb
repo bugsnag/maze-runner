@@ -30,12 +30,14 @@ BeforeAll do
   end
   $logger.info "Running in #{Maze.mode.to_s} mode"
 
-  # Clear out maze_output folder
+  # Clear out maze_output folder and zip
   maze_output = Dir.glob(File.join(Dir.pwd, 'maze_output', '*'))
   if Maze.config.file_log && !maze_output.empty?
     maze_output.each { |path| $logger.info "Clearing contents of #{path}" }
     FileUtils.rm_rf(maze_output)
   end
+  maze_output_zip = Dir.glob(File.join(Dir.pwd, 'maze_output.zip'))
+  FileUtils.rm_rf(maze_output_zip)
 
   # Record the local server starting time
   Maze.start_time = Time.now.strftime('%Y-%m-%d %H:%M:%S')
@@ -222,6 +224,14 @@ end
 
 # After all tests
 AfterAll do
+  maze_output = File.join(Dir.pwd, 'maze_output')
+  maze_output_zip = File.join(Dir.pwd, 'maze_output.zip')
+  # zip a folder with files and subfolders
+  Zip::File.open(maze_output_zip, Zip::File::CREATE) do |zipfile|
+    Dir["#{maze_output}/**/**"].each do |file|
+      zipfile.add(file.sub(Dir.pwd + '/', ''), file)
+    end
+  end
 
   metrics = Maze::MetricsProcessor.new(Maze::Server.metrics)
   metrics.process

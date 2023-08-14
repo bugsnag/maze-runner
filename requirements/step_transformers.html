@@ -67,7 +67,7 @@
   <div class="title">Step Definitions &amp; Transforms</div>
 
   <div class="summary">
-    <div>257<a href="#step_definitions">Step Definitions</a></div>
+    <div>261<a href="#step_definitions">Step Definitions</a></div>
     <div>3<a href="#step_transforms">Step Transforms</a></div>
     <div>0<a href="#undefined_steps">Undefined Steps</a></div>
   </div>
@@ -682,10 +682,10 @@
                         ">
   <a name="step_definition8-stepdefinition"></a>
   <div class="title">
-    <span class="pre">When</span>
-    <span class="name">'I wait for {int} span(s)'</span>
+    <span class="pre">Then</span>
+    <span class="name">'I wait to receive {int} span(s)'</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex='I+wait+for+%7Bint%7D+span(s)'" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex='I+wait+to+receive+%7Bint%7D+span(s)'" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -740,8 +740,8 @@
 8</pre>
           </td>
           <td>
-            <pre class="code"><span class='const'>When</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I wait for {int} span(s)</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_span_count'>span_count</span><span class='op'>|</span>
-  <span class='id identifier rubyid_assert_received_spans'><span class='object_link'><a href="../top-level-namespace.html#assert_received_spans-instance_method" title="#assert_received_spans (method)">assert_received_spans</a></span></span> <span class='id identifier rubyid_span_count'>span_count</span><span class='comma'>,</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_list_for'>list_for</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>traces</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I wait to receive {int} span(s)</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_span_count'>span_count</span><span class='op'>|</span>
+  <span class='id identifier rubyid_assert_received_span_count'><span class='object_link'><a href="../top-level-namespace.html#assert_received_span_count-instance_method" title="#assert_received_span_count (method)">assert_received_span_count</a></span></span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_list_for'>list_for</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>traces</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_span_count'>span_count</span>
 <span class='kw'>end</span></pre>
           </td>
         </tr>
@@ -770,6 +770,193 @@
   <a name="step_definition9-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
+    <span class="name">'I wait to receive at least {int} span(s)'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='I+wait+to+receive+at+least+%7Bint%7D+span(s)'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/trace_steps.rb:14</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Waits for a minimum number of spans to be received, which may be spread across one or more trace requests.
+If more spans than requested are received, this step will still pass.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>span_min [Integer] The minimum number of spans to wait for</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">14
+15
+16</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I wait to receive at least {int} span(s)</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_span_min'>span_min</span><span class='op'>|</span>
+  <span class='id identifier rubyid_assert_received_minimum_span_count'><span class='object_link'><a href="../top-level-namespace.html#assert_received_minimum_span_count-instance_method" title="#assert_received_minimum_span_count (method)">assert_received_minimum_span_count</a></span></span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_list_for'>list_for</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>traces</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_span_min'>span_min</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition10-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'I wait to receive between {int} and {int} span(s)'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='I+wait+to+receive+between+%7Bint%7D+and+%7Bint%7D+span(s)'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/trace_steps.rb:23</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Waits for a minimum number of spans to be received, which may be spread across one or more trace requests.
+If more spans than the maximum requested number of spans are received, this step will fail.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>span_min [Integer] The minimum number of spans to wait for</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>span_max [Integer] The maximum number of spans to receive before failure</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">23
+24
+25</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I wait to receive between {int} and {int} span(s)</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_span_min'>span_min</span><span class='comma'>,</span> <span class='id identifier rubyid_span_max'>span_max</span><span class='op'>|</span>
+  <span class='id identifier rubyid_assert_received_ranged_span_count'><span class='object_link'><a href="../top-level-namespace.html#assert_received_ranged_span_count-instance_method" title="#assert_received_ranged_span_count (method)">assert_received_ranged_span_count</a></span></span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_list_for'>list_for</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>traces</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_span_min'>span_min</span><span class='comma'>,</span> <span class='id identifier rubyid_span_max'>span_max</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition11-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
     <span class="name">'I should have received no spans'</span>
     <div style="float: right;">
       <a href="http://rubular.com/?regex='I+should+have+received+no+spans'" target="_blank">Rubular</a>
@@ -783,7 +970,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/trace_steps.rb:10</div>
+      <div class="file">lib/features/steps/trace_steps.rb:27</div>
     </div>
     
     <!-- Comments -->
@@ -797,10 +984,10 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">10
-11
-12
-13</pre>
+            <pre class="lines">27
+28
+29
+30</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I should have received no spans</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
@@ -831,7 +1018,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition10-stepdefinition"></a>
+  <a name="step_definition12-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the trace payload field {string} bool attribute {string} is true'</span>
@@ -847,7 +1034,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/trace_steps.rb:15</div>
+      <div class="file">lib/features/steps/trace_steps.rb:32</div>
     </div>
     
     <!-- Comments -->
@@ -861,9 +1048,9 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">15
-16
-17</pre>
+            <pre class="lines">32
+33
+34</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the trace payload field {string} bool attribute {string} is true</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_attribute'>attribute</span><span class='op'>|</span>
@@ -893,7 +1080,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition11-stepdefinition"></a>
+  <a name="step_definition13-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the trace payload field {string} bool attribute {string} is false'</span>
@@ -909,7 +1096,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/trace_steps.rb:19</div>
+      <div class="file">lib/features/steps/trace_steps.rb:36</div>
     </div>
     
     <!-- Comments -->
@@ -923,9 +1110,9 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">19
-20
-21</pre>
+            <pre class="lines">36
+37
+38</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the trace payload field {string} bool attribute {string} is false</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_attribute'>attribute</span><span class='op'>|</span>
@@ -955,7 +1142,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition12-stepdefinition"></a>
+  <a name="step_definition14-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the trace payload field {string} integer attribute {string} equals {int}'</span>
@@ -971,7 +1158,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/trace_steps.rb:23</div>
+      <div class="file">lib/features/steps/trace_steps.rb:40</div>
     </div>
     
     <!-- Comments -->
@@ -985,9 +1172,9 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">23
-24
-25</pre>
+            <pre class="lines">40
+41
+42</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the trace payload field {string} integer attribute {string} equals {int}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_attribute'>attribute</span><span class='comma'>,</span> <span class='id identifier rubyid_expected'>expected</span><span class='op'>|</span>
@@ -1017,7 +1204,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition13-stepdefinition"></a>
+  <a name="step_definition15-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the trace payload field {string} integer attribute {string} is greater than {int}'</span>
@@ -1033,7 +1220,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/trace_steps.rb:27</div>
+      <div class="file">lib/features/steps/trace_steps.rb:44</div>
     </div>
     
     <!-- Comments -->
@@ -1047,11 +1234,11 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">27
-28
-29
-30
-31</pre>
+            <pre class="lines">44
+45
+46
+47
+48</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the trace payload field {string} integer attribute {string} is greater than {int}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_attribute'>attribute</span><span class='comma'>,</span> <span class='id identifier rubyid_expected'>expected</span><span class='op'>|</span>
@@ -1083,7 +1270,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition14-stepdefinition"></a>
+  <a name="step_definition16-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the trace payload field {string} string attribute {string} equals {string}'</span>
@@ -1099,7 +1286,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/trace_steps.rb:33</div>
+      <div class="file">lib/features/steps/trace_steps.rb:50</div>
     </div>
     
     <!-- Comments -->
@@ -1113,9 +1300,9 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">33
-34
-35</pre>
+            <pre class="lines">50
+51
+52</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the trace payload field {string} string attribute {string} equals {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_attribute'>attribute</span><span class='comma'>,</span> <span class='id identifier rubyid_expected'>expected</span><span class='op'>|</span>
@@ -1145,7 +1332,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition15-stepdefinition"></a>
+  <a name="step_definition17-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the trace payload field {string} string attribute {string} equals the stored value {string}'</span>
@@ -1161,7 +1348,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/trace_steps.rb:37</div>
+      <div class="file">lib/features/steps/trace_steps.rb:54</div>
     </div>
     
     <!-- Comments -->
@@ -1175,12 +1362,12 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">37
-38
-39
-40
-41
-42</pre>
+            <pre class="lines">54
+55
+56
+57
+58
+59</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the trace payload field {string} string attribute {string} equals the stored value {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_attribute'>attribute</span><span class='comma'>,</span> <span class='id identifier rubyid_stored_key'>stored_key</span><span class='op'>|</span>
@@ -1213,7 +1400,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition16-stepdefinition"></a>
+  <a name="step_definition18-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the trace payload field {string} string attribute {string} matches the regex {string}'</span>
@@ -1229,7 +1416,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/trace_steps.rb:44</div>
+      <div class="file">lib/features/steps/trace_steps.rb:61</div>
     </div>
     
     <!-- Comments -->
@@ -1243,11 +1430,11 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">44
-45
-46
-47
-48</pre>
+            <pre class="lines">61
+62
+63
+64
+65</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the trace payload field {string} string attribute {string} matches the regex {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_attribute'>attribute</span><span class='comma'>,</span> <span class='id identifier rubyid_pattern'>pattern</span><span class='op'>|</span>
@@ -1279,7 +1466,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition17-stepdefinition"></a>
+  <a name="step_definition19-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the trace payload field {string} integer attribute {string} matches the regex {string}'</span>
@@ -1295,7 +1482,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/trace_steps.rb:50</div>
+      <div class="file">lib/features/steps/trace_steps.rb:67</div>
     </div>
     
     <!-- Comments -->
@@ -1309,14 +1496,14 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">50
-51
-52
-53
-54
-55
-56
-57</pre>
+            <pre class="lines">67
+68
+69
+70
+71
+72
+73
+74</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the trace payload field {string} integer attribute {string} matches the regex {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_attribute'>attribute</span><span class='comma'>,</span> <span class='id identifier rubyid_pattern'>pattern</span><span class='op'>|</span>
@@ -1351,7 +1538,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition18-stepdefinition"></a>
+  <a name="step_definition20-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the trace payload field {string} string attribute {string} exists'</span>
@@ -1367,7 +1554,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/trace_steps.rb:59</div>
+      <div class="file">lib/features/steps/trace_steps.rb:76</div>
     </div>
     
     <!-- Comments -->
@@ -1381,10 +1568,10 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">59
-60
-61
-62</pre>
+            <pre class="lines">76
+77
+78
+79</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the trace payload field {string} string attribute {string} exists</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_attribute'>attribute</span><span class='op'>|</span>
@@ -1415,7 +1602,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition19-stepdefinition"></a>
+  <a name="step_definition21-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the trace payload field {string} string attribute {string} is one of:'</span>
@@ -1431,7 +1618,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/trace_steps.rb:64</div>
+      <div class="file">lib/features/steps/trace_steps.rb:81</div>
     </div>
     
     <!-- Comments -->
@@ -1445,15 +1632,15 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">64
-65
-66
-67
-68
-69
-70
-71
-72</pre>
+            <pre class="lines">81
+82
+83
+84
+85
+86
+87
+88
+89</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the trace payload field {string} string attribute {string} is one of:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_possible_values'>possible_values</span><span class='op'>|</span>
@@ -1489,7 +1676,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition20-stepdefinition"></a>
+  <a name="step_definition22-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the trace payload field {string} boolean attribute {string} is true'</span>
@@ -1505,7 +1692,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/trace_steps.rb:74</div>
+      <div class="file">lib/features/steps/trace_steps.rb:91</div>
     </div>
     
     <!-- Comments -->
@@ -1519,9 +1706,9 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">74
-75
-76</pre>
+            <pre class="lines">91
+92
+93</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the trace payload field {string} boolean attribute {string} is true</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='op'>|</span>
@@ -1551,7 +1738,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition21-stepdefinition"></a>
+  <a name="step_definition23-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the trace payload field {string} boolean attribute {string} is false'</span>
@@ -1567,7 +1754,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/trace_steps.rb:78</div>
+      <div class="file">lib/features/steps/trace_steps.rb:95</div>
     </div>
     
     <!-- Comments -->
@@ -1581,9 +1768,9 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">78
-79
-80</pre>
+            <pre class="lines">95
+96
+97</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the trace payload field {string} boolean attribute {string} is false</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='op'>|</span>
@@ -1613,7 +1800,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition22-stepdefinition"></a>
+  <a name="step_definition24-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'a span {word} equals {string}'</span>
@@ -1629,7 +1816,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/trace_steps.rb:83</div>
+      <div class="file">lib/features/steps/trace_steps.rb:100</div>
     </div>
     
     <!-- Comments -->
@@ -1643,11 +1830,11 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">83
-84
-85
-86
-87</pre>
+            <pre class="lines">100
+101
+102
+103
+104</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>a span {word} equals {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_attribute'>attribute</span><span class='comma'>,</span> <span class='id identifier rubyid_expected'>expected</span><span class='op'>|</span>
@@ -1679,7 +1866,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition23-stepdefinition"></a>
+  <a name="step_definition25-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'every span field {string} equals {string}'</span>
@@ -1695,7 +1882,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/trace_steps.rb:89</div>
+      <div class="file">lib/features/steps/trace_steps.rb:106</div>
     </div>
     
     <!-- Comments -->
@@ -1709,11 +1896,11 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">89
-90
-91
-92
-93</pre>
+            <pre class="lines">106
+107
+108
+109
+110</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>every span field {string} equals {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_expected'>expected</span><span class='op'>|</span>
@@ -1745,7 +1932,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition24-stepdefinition"></a>
+  <a name="step_definition26-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'every span field {string} matches the regex {string}'</span>
@@ -1761,7 +1948,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/trace_steps.rb:95</div>
+      <div class="file">lib/features/steps/trace_steps.rb:112</div>
     </div>
     
     <!-- Comments -->
@@ -1775,10 +1962,10 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">95
-96
-97
-98</pre>
+            <pre class="lines">112
+113
+114
+115</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>every span field {string} matches the regex {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_pattern'>pattern</span><span class='op'>|</span>
@@ -1809,7 +1996,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition25-stepdefinition"></a>
+  <a name="step_definition27-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'every span string attribute {string} exists'</span>
@@ -1825,7 +2012,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/trace_steps.rb:100</div>
+      <div class="file">lib/features/steps/trace_steps.rb:117</div>
     </div>
     
     <!-- Comments -->
@@ -1839,10 +2026,10 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">100
-101
-102
-103</pre>
+            <pre class="lines">117
+118
+119
+120</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>every span string attribute {string} exists</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_attribute'>attribute</span><span class='op'>|</span>
@@ -1873,7 +2060,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition26-stepdefinition"></a>
+  <a name="step_definition28-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'every span string attribute {string} equals {string}'</span>
@@ -1889,7 +2076,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/trace_steps.rb:105</div>
+      <div class="file">lib/features/steps/trace_steps.rb:122</div>
     </div>
     
     <!-- Comments -->
@@ -1903,10 +2090,10 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">105
-106
-107
-108</pre>
+            <pre class="lines">122
+123
+124
+125</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>every span string attribute {string} equals {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_attribute'>attribute</span><span class='comma'>,</span> <span class='id identifier rubyid_expected'>expected</span><span class='op'>|</span>
@@ -1937,7 +2124,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition27-stepdefinition"></a>
+  <a name="step_definition29-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'every span string attribute {string} matches the regex {string}'</span>
@@ -1953,7 +2140,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/trace_steps.rb:110</div>
+      <div class="file">lib/features/steps/trace_steps.rb:127</div>
     </div>
     
     <!-- Comments -->
@@ -1967,10 +2154,10 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">110
-111
-112
-113</pre>
+            <pre class="lines">127
+128
+129
+130</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>every span string attribute {string} matches the regex {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_attribute'>attribute</span><span class='comma'>,</span> <span class='id identifier rubyid_pattern'>pattern</span><span class='op'>|</span>
@@ -2001,7 +2188,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition28-stepdefinition"></a>
+  <a name="step_definition30-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'every span integer attribute {string} is greater than {int}'</span>
@@ -2017,7 +2204,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/trace_steps.rb:115</div>
+      <div class="file">lib/features/steps/trace_steps.rb:132</div>
     </div>
     
     <!-- Comments -->
@@ -2031,10 +2218,10 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">115
-116
-117
-118</pre>
+            <pre class="lines">132
+133
+134
+135</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>every span integer attribute {string} is greater than {int}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_attribute'>attribute</span><span class='comma'>,</span> <span class='id identifier rubyid_expected'>expected</span><span class='op'>|</span>
@@ -2065,7 +2252,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition29-stepdefinition"></a>
+  <a name="step_definition31-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'every span bool attribute {string} is true'</span>
@@ -2081,7 +2268,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/trace_steps.rb:120</div>
+      <div class="file">lib/features/steps/trace_steps.rb:137</div>
     </div>
     
     <!-- Comments -->
@@ -2095,10 +2282,10 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">120
-121
-122
-123</pre>
+            <pre class="lines">137
+138
+139
+140</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>every span bool attribute {string} is true</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_attribute'>attribute</span><span class='op'>|</span>
@@ -2129,7 +2316,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition30-stepdefinition"></a>
+  <a name="step_definition32-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'a span string attribute {string} exists'</span>
@@ -2145,7 +2332,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/trace_steps.rb:125</div>
+      <div class="file">lib/features/steps/trace_steps.rb:142</div>
     </div>
     
     <!-- Comments -->
@@ -2159,11 +2346,11 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">125
-126
-127
-128
-129</pre>
+            <pre class="lines">142
+143
+144
+145
+146</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>a span string attribute {string} exists</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_attribute'>attribute</span><span class='op'>|</span>
@@ -2195,7 +2382,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition31-stepdefinition"></a>
+  <a name="step_definition33-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'a span string attribute {string} equals {string}'</span>
@@ -2211,7 +2398,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/trace_steps.rb:131</div>
+      <div class="file">lib/features/steps/trace_steps.rb:148</div>
     </div>
     
     <!-- Comments -->
@@ -2225,12 +2412,12 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">131
-132
-133
-134
-135
-136</pre>
+            <pre class="lines">148
+149
+150
+151
+152
+153</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>a span string attribute {string} equals {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_attribute'>attribute</span><span class='comma'>,</span> <span class='id identifier rubyid_expected'>expected</span><span class='op'>|</span>
@@ -2263,7 +2450,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition32-stepdefinition"></a>
+  <a name="step_definition34-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'a span field {string} equals {string}'</span>
@@ -2279,7 +2466,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/trace_steps.rb:138</div>
+      <div class="file">lib/features/steps/trace_steps.rb:155</div>
     </div>
     
     <!-- Comments -->
@@ -2293,11 +2480,11 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">138
-139
-140
-141
-142</pre>
+            <pre class="lines">155
+156
+157
+158
+159</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>a span field {string} equals {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_expected'>expected</span><span class='op'>|</span>
@@ -2329,7 +2516,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition33-stepdefinition"></a>
+  <a name="step_definition35-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'a span field {string} equals {int}'</span>
@@ -2345,7 +2532,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/trace_steps.rb:144</div>
+      <div class="file">lib/features/steps/trace_steps.rb:161</div>
     </div>
     
     <!-- Comments -->
@@ -2359,11 +2546,11 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">144
-145
-146
-147
-148</pre>
+            <pre class="lines">161
+162
+163
+164
+165</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>a span field {string} equals {int}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_expected'>expected</span><span class='op'>|</span>
@@ -2395,7 +2582,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition34-stepdefinition"></a>
+  <a name="step_definition36-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'a span field {string} matches the regex {string}'</span>
@@ -2411,7 +2598,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/trace_steps.rb:150</div>
+      <div class="file">lib/features/steps/trace_steps.rb:167</div>
     </div>
     
     <!-- Comments -->
@@ -2425,13 +2612,13 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">150
-151
-152
-153
-154
-155
-156</pre>
+            <pre class="lines">167
+168
+169
+170
+171
+172
+173</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>a span field {string} matches the regex {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_attribute'>attribute</span><span class='comma'>,</span> <span class='id identifier rubyid_pattern'>pattern</span><span class='op'>|</span>
@@ -2465,7 +2652,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition35-stepdefinition"></a>
+  <a name="step_definition37-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'a span named {string} contains the attributes:'</span>
@@ -2481,7 +2668,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/trace_steps.rb:158</div>
+      <div class="file">lib/features/steps/trace_steps.rb:175</div>
     </div>
     
     <!-- Comments -->
@@ -2495,29 +2682,29 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">158
-159
-160
-161
-162
-163
-164
-165
-166
-167
-168
-169
-170
-171
-172
-173
-174
-175
+            <pre class="lines">175
 176
 177
 178
 179
-180</pre>
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>a span named {string} contains the attributes:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_span_name'>span_name</span><span class='comma'>,</span> <span class='id identifier rubyid_table'>table</span><span class='op'>|</span>
@@ -2567,7 +2754,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition36-stepdefinition"></a>
+  <a name="step_definition38-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'a span named {string} has a parent named {string}'</span>
@@ -2583,7 +2770,7 @@
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/trace_steps.rb:182</div>
+      <div class="file">lib/features/steps/trace_steps.rb:199</div>
     </div>
     
     <!-- Comments -->
@@ -2597,21 +2784,21 @@
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">182
-183
-184
-185
-186
-187
-188
-189
-190
-191
-192
-193
-194
-195
-196</pre>
+            <pre class="lines">199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>a span named {string} has a parent named {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_child_name'>child_name</span><span class='comma'>,</span> <span class='id identifier rubyid_parent_name'>parent_name</span><span class='op'>|</span>
@@ -2653,7 +2840,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition37-stepdefinition"></a>
+  <a name="step_definition39-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} payload field {string} is stored as the value {string}'</span>
@@ -2766,7 +2953,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition38-stepdefinition"></a>
+  <a name="step_definition40-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} payload field {string} equals the stored value {string}'</span>
@@ -2883,7 +3070,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition39-stepdefinition"></a>
+  <a name="step_definition41-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} payload field {string} does not equal the stored value {string}'</span>
@@ -3000,7 +3187,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition40-stepdefinition"></a>
+  <a name="step_definition42-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} payload field {string} equals the stored value {string} ignoring case'</span>
@@ -3121,7 +3308,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition41-stepdefinition"></a>
+  <a name="step_definition43-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} payload field {string} does not equal the stored value {string} ignoring case'</span>
@@ -3242,7 +3429,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition42-stepdefinition"></a>
+  <a name="step_definition44-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} payload field {string} is a number'</span>
@@ -3344,7 +3531,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition43-stepdefinition"></a>
+  <a name="step_definition45-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} payload field {string} is an integer'</span>
@@ -3446,7 +3633,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition44-stepdefinition"></a>
+  <a name="step_definition46-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} payload field {string} is a date'</span>
@@ -3558,7 +3745,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition45-stepdefinition"></a>
+  <a name="step_definition47-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} payload field {string} is a UUID'</span>
@@ -3664,7 +3851,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition46-stepdefinition"></a>
+  <a name="step_definition48-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} {string} header is present'</span>
@@ -3772,7 +3959,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition47-stepdefinition"></a>
+  <a name="step_definition49-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} {string} header is not present'</span>
@@ -3876,7 +4063,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition48-stepdefinition"></a>
+  <a name="step_definition50-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} {string} header equals {string}'</span>
@@ -3989,7 +4176,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition49-stepdefinition"></a>
+  <a name="step_definition51-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} {string} header matches the regex {string}'</span>
@@ -4102,7 +4289,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition50-stepdefinition"></a>
+  <a name="step_definition52-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} {string} header equals one of:'</span>
@@ -4211,7 +4398,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition51-stepdefinition"></a>
+  <a name="step_definition53-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} {string} header is a timestamp'</span>
@@ -4311,7 +4498,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition52-stepdefinition"></a>
+  <a name="step_definition54-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'the {request_type} Bugsnag-Integrity header is valid'</span>
@@ -4400,7 +4587,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition53-stepdefinition"></a>
+  <a name="step_definition55-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I set environment variable {string} to {string}'</span>
@@ -4498,7 +4685,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition54-stepdefinition"></a>
+  <a name="step_definition56-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I store the {word} endpoint in the environment variable {string}'</span>
@@ -4600,7 +4787,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition55-stepdefinition"></a>
+  <a name="step_definition57-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I store the api key in the environment variable {string}'</span>
@@ -4691,7 +4878,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition56-stepdefinition"></a>
+  <a name="step_definition58-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I run the script {string} synchronously'</span>
@@ -4778,7 +4965,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition57-stepdefinition"></a>
+  <a name="step_definition59-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I run the script {string} using {word} synchronously'</span>
@@ -4876,7 +5063,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition58-stepdefinition"></a>
+  <a name="step_definition60-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I run the script {string}'</span>
@@ -4963,7 +5150,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition59-stepdefinition"></a>
+  <a name="step_definition61-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I start the service {string}'</span>
@@ -5050,7 +5237,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition60-stepdefinition"></a>
+  <a name="step_definition62-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I run the service {string} with the command {string}'</span>
@@ -5148,7 +5335,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition61-stepdefinition"></a>
+  <a name="step_definition63-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I run the service {string} interactively'</span>
@@ -5241,7 +5428,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition62-stepdefinition"></a>
+  <a name="step_definition64-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I run the service {string} with the command {string} interactively'</span>
@@ -5345,7 +5532,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition63-stepdefinition"></a>
+  <a name="step_definition65-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I run the service {string} with the command'</span>
@@ -5445,7 +5632,7 @@
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition64-stepdefinition"></a>
+  <a name="step_definition66-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I execute the command {string} in the service {string}'</span>
@@ -5546,7 +5733,7 @@ compose exec&#39;.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition65-stepdefinition"></a>
+  <a name="step_definition67-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I execute the command {string} in the service {string} in the background'</span>
@@ -5647,7 +5834,7 @@ compose exec --detach&#39;.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition66-stepdefinition"></a>
+  <a name="step_definition68-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the exit code of the last docker command was {int}'</span>
@@ -5743,7 +5930,7 @@ Will fail if no commands have been run.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition67-stepdefinition"></a>
+  <a name="step_definition69-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the last run docker command exited successfully'</span>
@@ -5816,7 +6003,7 @@ Will fail if no commands have been run</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition68-stepdefinition"></a>
+  <a name="step_definition70-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the last run docker command did not exit successfully'</span>
@@ -5897,7 +6084,7 @@ Will fail if no commands have been run</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition69-stepdefinition"></a>
+  <a name="step_definition71-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the last run docker command output {string}'</span>
@@ -6009,7 +6196,7 @@ Will fail if no commands have been run</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition70-stepdefinition"></a>
+  <a name="step_definition72-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I wait for {int} second(s)'</span>
@@ -6098,7 +6285,7 @@ Will fail if no commands have been run</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition71-stepdefinition"></a>
+  <a name="step_definition73-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I start a new shell'</span>
@@ -6176,7 +6363,7 @@ Will fail if no commands have been run</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition72-stepdefinition"></a>
+  <a name="step_definition74-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I stop the current shell'</span>
@@ -6256,7 +6443,7 @@ Will fail if no commands have been run</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition73-stepdefinition"></a>
+  <a name="step_definition75-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I input {string} interactively'</span>
@@ -6347,7 +6534,7 @@ Will fail if no commands have been run</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition74-stepdefinition"></a>
+  <a name="step_definition76-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I input a return interactively'</span>
@@ -6419,7 +6606,7 @@ Will fail if no commands have been run</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition75-stepdefinition"></a>
+  <a name="step_definition77-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the current stdout line is {string}'</span>
@@ -6508,7 +6695,7 @@ Will fail if no commands have been run</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition76-stepdefinition"></a>
+  <a name="step_definition78-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the current stdout line contains {string}'</span>
@@ -6597,7 +6784,7 @@ Will fail if no commands have been run</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition77-stepdefinition"></a>
+  <a name="step_definition79-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I wait for the current stdout line to match the regex {string}'</span>
@@ -6695,7 +6882,7 @@ Times out after Maze.config.receive_requests_wait seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition78-stepdefinition"></a>
+  <a name="step_definition80-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I wait for the shell prompt {string}'</span>
@@ -6793,7 +6980,7 @@ timing out after Maze.config.receive_requests_wait seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition79-stepdefinition"></a>
+  <a name="step_definition81-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the shell has output {string} to stdout'</span>
@@ -6884,7 +7071,7 @@ timing out after Maze.config.receive_requests_wait seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition80-stepdefinition"></a>
+  <a name="step_definition82-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I wait for the shell to output {string} to stdout'</span>
@@ -6991,7 +7178,7 @@ timing out after Maze.config.receive_requests_wait seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition81-stepdefinition"></a>
+  <a name="step_definition83-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the shell has output a match for the regex {string} to stdout'</span>
@@ -7082,7 +7269,7 @@ timing out after Maze.config.receive_requests_wait seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition82-stepdefinition"></a>
+  <a name="step_definition84-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I wait for the shell to output a match for the regex {string} to stdout'</span>
@@ -7183,7 +7370,7 @@ timing out after Maze.config.receive_requests_wait seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition83-stepdefinition"></a>
+  <a name="step_definition85-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I wait for the interactive shell to output the following lines in stdout'</span>
@@ -7293,7 +7480,7 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition84-stepdefinition"></a>
+  <a name="step_definition86-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the shell has output {string} to stderr'</span>
@@ -7384,7 +7571,7 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition85-stepdefinition"></a>
+  <a name="step_definition87-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I wait for the shell to output {string} to stderr'</span>
@@ -7485,7 +7672,7 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition86-stepdefinition"></a>
+  <a name="step_definition88-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the last interactive command exited successfully'</span>
@@ -7577,7 +7764,7 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition87-stepdefinition"></a>
+  <a name="step_definition89-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the last interactive command exit code is {int}'</span>
@@ -7684,7 +7871,7 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition88-stepdefinition"></a>
+  <a name="step_definition90-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the last interactive command exited with an error code'</span>
@@ -7776,7 +7963,7 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition89-stepdefinition"></a>
+  <a name="step_definition91-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the interactive file {string} contains {string}'</span>
@@ -7882,7 +8069,7 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition90-stepdefinition"></a>
+  <a name="step_definition92-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the interactive file {string} does not contain {string}'</span>
@@ -7988,7 +8175,7 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition91-stepdefinition"></a>
+  <a name="step_definition93-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the interactive file {string} contains:'</span>
@@ -8090,7 +8277,7 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition92-stepdefinition"></a>
+  <a name="step_definition94-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the interactive file {string} does not contain:'</span>
@@ -8192,7 +8379,7 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition93-stepdefinition"></a>
+  <a name="step_definition95-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">"I start Android emulator {string}"</span>
@@ -8287,7 +8474,7 @@ This step will time out after Maze.config.receive_requests_wait seconds.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition94-stepdefinition"></a>
+  <a name="step_definition96-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">"I clear the Android app data"</span>
@@ -8360,7 +8547,7 @@ Requires an ADB connection</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition95-stepdefinition"></a>
+  <a name="step_definition97-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">"I force stop the Android app"</span>
@@ -8433,7 +8620,7 @@ Requires an ADB connection</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition96-stepdefinition"></a>
+  <a name="step_definition98-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">"I install the {string} Android app from {string}"</span>
@@ -8540,7 +8727,7 @@ Requires an ADB connection</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition97-stepdefinition"></a>
+  <a name="step_definition99-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">"I start the {string} Android app using the {string} activity"</span>
@@ -8649,7 +8836,7 @@ Requires an ADB connection</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition98-stepdefinition"></a>
+  <a name="step_definition100-stepdefinition"></a>
   <div class="title">
     <span class="pre">Given</span>
     <span class="name">'I invoke the {string} lambda in {string}'</span>
@@ -8747,7 +8934,7 @@ Requires an ADB connection</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition99-stepdefinition"></a>
+  <a name="step_definition101-stepdefinition"></a>
   <div class="title">
     <span class="pre">Given</span>
     <span class="name">'I invoke the {string} lambda in {string} with the {string} event'</span>
@@ -8856,7 +9043,7 @@ Requires an ADB connection</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition100-stepdefinition"></a>
+  <a name="step_definition102-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the SAM exit code equals {int}'</span>
@@ -8943,7 +9130,7 @@ Requires an ADB connection</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition101-stepdefinition"></a>
+  <a name="step_definition103-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the lambda response is empty'</span>
@@ -9020,7 +9207,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition102-stepdefinition"></a>
+  <a name="step_definition104-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the lambda response {string} equals {string}'</span>
@@ -9126,7 +9313,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition103-stepdefinition"></a>
+  <a name="step_definition105-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the lambda response {string} contains {string}'</span>
@@ -9232,7 +9419,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition104-stepdefinition"></a>
+  <a name="step_definition106-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the lambda response {string} equals {int}'</span>
@@ -9338,7 +9525,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition105-stepdefinition"></a>
+  <a name="step_definition107-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the lambda response {string} is true'</span>
@@ -9433,7 +9620,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition106-stepdefinition"></a>
+  <a name="step_definition108-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the lambda response {string} is false'</span>
@@ -9528,7 +9715,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition107-stepdefinition"></a>
+  <a name="step_definition109-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the lambda response {string} is null'</span>
@@ -9623,7 +9810,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition108-stepdefinition"></a>
+  <a name="step_definition110-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the lambda response {string} is not null'</span>
@@ -9718,7 +9905,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition109-stepdefinition"></a>
+  <a name="step_definition111-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the lambda response {string} is greater than {int}'</span>
@@ -9824,7 +10011,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition110-stepdefinition"></a>
+  <a name="step_definition112-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the lambda response {string} is less than {int}'</span>
@@ -9930,7 +10117,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition111-stepdefinition"></a>
+  <a name="step_definition113-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the lambda response {string} starts with {string}'</span>
@@ -10044,7 +10231,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition112-stepdefinition"></a>
+  <a name="step_definition114-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the lambda response {string} ends with {string}'</span>
@@ -10158,7 +10345,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition113-stepdefinition"></a>
+  <a name="step_definition115-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the lambda response {string} is an array with {int} element(s)'</span>
@@ -10266,7 +10453,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition114-stepdefinition"></a>
+  <a name="step_definition116-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the lambda response {string} is a non-empty array'</span>
@@ -10363,7 +10550,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition115-stepdefinition"></a>
+  <a name="step_definition117-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the lambda response {string} matches the regex {string}'</span>
@@ -10471,7 +10658,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition116-stepdefinition"></a>
+  <a name="step_definition118-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I navigate to the URL {string}'</span>
@@ -10551,7 +10738,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition117-stepdefinition"></a>
+  <a name="step_definition119-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">/^the error is a valid browser payload for the error reporting API$/</span>
@@ -10669,7 +10856,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition118-stepdefinition"></a>
+  <a name="step_definition120-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the session is a valid browser payload for the session tracking API'</span>
@@ -10777,7 +10964,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition119-stepdefinition"></a>
+  <a name="step_definition121-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event device ID is valid'</span>
@@ -10849,7 +11036,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition120-stepdefinition"></a>
+  <a name="step_definition122-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event device ID is {string}'</span>
@@ -10921,7 +11108,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition121-stepdefinition"></a>
+  <a name="step_definition123-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I wait for the host {string} to open port {string}'</span>
@@ -11019,7 +11206,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition122-stepdefinition"></a>
+  <a name="step_definition124-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I set the HTTP status code for {string} requests to {int}'</span>
@@ -11119,7 +11306,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition123-stepdefinition"></a>
+  <a name="step_definition125-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I set the HTTP status code for the next {string} request(s) to {int_array}'</span>
@@ -11219,7 +11406,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition124-stepdefinition"></a>
+  <a name="step_definition126-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I set the HTTP status code to {int}'</span>
@@ -11306,7 +11493,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition125-stepdefinition"></a>
+  <a name="step_definition127-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I set the HTTP status code for the next request(s) to {int_array}'</span>
@@ -11393,7 +11580,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition126-stepdefinition"></a>
+  <a name="step_definition128-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I set the sampling probability to {string}'</span>
@@ -11480,7 +11667,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition127-stepdefinition"></a>
+  <a name="step_definition129-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I set the sampling probability for the next trace to {string}'</span>
@@ -11567,7 +11754,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition128-stepdefinition"></a>
+  <a name="step_definition130-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I set the sampling probability for the next traces to {string}'</span>
@@ -11656,7 +11843,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition129-stepdefinition"></a>
+  <a name="step_definition131-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I set the response delay to {int} milliseconds'</span>
@@ -11743,7 +11930,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition130-stepdefinition"></a>
+  <a name="step_definition132-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I set the response delay for the next request to {int} milliseconds'</span>
@@ -11830,7 +12017,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition131-stepdefinition"></a>
+  <a name="step_definition133-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I open the URL {string}'</span>
@@ -11925,7 +12112,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition132-stepdefinition"></a>
+  <a name="step_definition134-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I start the terminating server'</span>
@@ -11997,7 +12184,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition133-stepdefinition"></a>
+  <a name="step_definition135-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I set the terminated response message to {string}'</span>
@@ -12069,7 +12256,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition134-stepdefinition"></a>
+  <a name="step_definition136-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I set the terminating server data threshold to {int} bytes'</span>
@@ -12156,7 +12343,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition135-stepdefinition"></a>
+  <a name="step_definition137-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the terminating server has received {int} requests'</span>
@@ -12245,7 +12432,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition136-stepdefinition"></a>
+  <a name="step_definition138-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} payload body does not match the JSON fixture in {string}'</span>
@@ -12349,7 +12536,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition137-stepdefinition"></a>
+  <a name="step_definition139-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} payload body matches the JSON fixture in {string}'</span>
@@ -12455,7 +12642,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition138-stepdefinition"></a>
+  <a name="step_definition140-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type}(|a b) payload field {string} matches the JSON fixture in {string}'</span>
@@ -12576,7 +12763,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition139-stepdefinition"></a>
+  <a name="step_definition141-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} payload field {string} is true'</span>
@@ -12676,7 +12863,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition140-stepdefinition"></a>
+  <a name="step_definition142-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} payload field {string} is false'</span>
@@ -12776,7 +12963,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition141-stepdefinition"></a>
+  <a name="step_definition143-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} payload field {string} is null'</span>
@@ -12876,7 +13063,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition142-stepdefinition"></a>
+  <a name="step_definition144-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} payload field {string} is not null'</span>
@@ -12976,7 +13163,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition143-stepdefinition"></a>
+  <a name="step_definition145-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} payload field {string} equals {int}'</span>
@@ -13087,7 +13274,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition144-stepdefinition"></a>
+  <a name="step_definition146-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} payload field {string} equals {float}'</span>
@@ -13198,7 +13385,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition145-stepdefinition"></a>
+  <a name="step_definition147-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} payload field {string} equals {float} to {int} decimal place(s)'</span>
@@ -13324,7 +13511,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition146-stepdefinition"></a>
+  <a name="step_definition148-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} payload field {string} equals the environment variable {string}'</span>
@@ -13445,7 +13632,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition147-stepdefinition"></a>
+  <a name="step_definition149-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} payload field {string} is greater than {int}'</span>
@@ -13560,7 +13747,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition148-stepdefinition"></a>
+  <a name="step_definition150-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} payload field {string} is less than {int}'</span>
@@ -13677,7 +13864,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition149-stepdefinition"></a>
+  <a name="step_definition151-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} payload field {string} equals {string}'</span>
@@ -13788,7 +13975,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition150-stepdefinition"></a>
+  <a name="step_definition152-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} payload field {string} starts with {string}'</span>
@@ -13909,7 +14096,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition151-stepdefinition"></a>
+  <a name="step_definition153-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} payload field {string} ends with {string}'</span>
@@ -14030,7 +14217,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition152-stepdefinition"></a>
+  <a name="step_definition154-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} payload field {string} is an array with {int} elements'</span>
@@ -14145,7 +14332,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition153-stepdefinition"></a>
+  <a name="step_definition155-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} payload field {string} is a non-empty array'</span>
@@ -14249,7 +14436,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition154-stepdefinition"></a>
+  <a name="step_definition156-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} payload field {string} matches the regex {string}'</span>
@@ -14364,7 +14551,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition155-stepdefinition"></a>
+  <a name="step_definition157-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} payload field {string} is a parsable timestamp in seconds'</span>
@@ -14478,7 +14665,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition156-stepdefinition"></a>
+  <a name="step_definition158-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'each element in {request_type} payload field {string} has {string}'</span>
@@ -14599,7 +14786,7 @@ not respond but did run successfully</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition157-stepdefinition"></a>
+  <a name="step_definition159-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the build is valid for the Build API'</span>
@@ -14678,7 +14865,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition158-stepdefinition"></a>
+  <a name="step_definition160-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the build is valid for the Android Mapping API'</span>
@@ -14765,7 +14952,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition159-stepdefinition"></a>
+  <a name="step_definition161-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event has {int} breadcrumb(s)"</span>
@@ -14864,7 +15051,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition160-stepdefinition"></a>
+  <a name="step_definition162-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">"the event has no breadcrumbs"</span>
@@ -14950,7 +15137,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition161-stepdefinition"></a>
+  <a name="step_definition163-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event has a {string} breadcrumb named {string}'</span>
@@ -15058,7 +15245,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition162-stepdefinition"></a>
+  <a name="step_definition164-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event has a {string} breadcrumb with message {string}'</span>
@@ -15160,7 +15347,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition163-stepdefinition"></a>
+  <a name="step_definition165-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event does not have a {string} breadcrumb'</span>
@@ -15252,7 +15439,7 @@ Used for confirming filtering of breadcrumbs</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition164-stepdefinition"></a>
+  <a name="step_definition166-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event does not have a {string} breadcrumb with message {string}'</span>
@@ -15355,7 +15542,7 @@ Used for confirming filtering of breadcrumbs</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition165-stepdefinition"></a>
+  <a name="step_definition167-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event contains a breadcrumb matching the JSON fixture in {string}'</span>
@@ -15448,7 +15635,94 @@ Used for confirming filtering of breadcrumbs</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition166-stepdefinition"></a>
+  <a name="step_definition168-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">When</span>
+    <span class="name">'I wait for {int} span(s)'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='I+wait+for+%7Bint%7D+span(s)'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/deprecated_steps.rb:6</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Waits for a given number of spans to be received, which may be spread across one or more trace requests.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>span_count [Integer] The number of spans to wait for</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">6
+7
+8</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>When</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I wait for {int} span(s)</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_span_count'>span_count</span><span class='op'>|</span>
+  <span class='id identifier rubyid_assert_received_spans'><span class='object_link'><a href="../top-level-namespace.html#assert_received_spans-instance_method" title="#assert_received_spans (method)">assert_received_spans</a></span></span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_list_for'>list_for</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>traces</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_span_count'>span_count</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition169-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'event {int} has no feature flags'</span>
@@ -15537,7 +15811,7 @@ Used for confirming filtering of breadcrumbs</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition167-stepdefinition"></a>
+  <a name="step_definition170-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event has no feature flags'</span>
@@ -15613,7 +15887,7 @@ Used for confirming filtering of breadcrumbs</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition168-stepdefinition"></a>
+  <a name="step_definition171-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'event {int} contains the feature flag {string} with variant {string}'</span>
@@ -15750,7 +16024,7 @@ Used for confirming filtering of breadcrumbs</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition169-stepdefinition"></a>
+  <a name="step_definition172-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event contains the feature flag {string} with variant {string}'</span>
@@ -15852,7 +16126,7 @@ Used for confirming filtering of breadcrumbs</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition170-stepdefinition"></a>
+  <a name="step_definition173-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'event {int} contains the feature flag {string} with no variant'</span>
@@ -15980,7 +16254,7 @@ Used for confirming filtering of breadcrumbs</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition171-stepdefinition"></a>
+  <a name="step_definition174-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event contains the feature flag {string} with no variant'</span>
@@ -16071,7 +16345,7 @@ Used for confirming filtering of breadcrumbs</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition172-stepdefinition"></a>
+  <a name="step_definition175-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'event {int} contains the following feature flags:'</span>
@@ -16180,7 +16454,7 @@ values.  For flags with a variant leave the <code>variant</code> column blank.</
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition173-stepdefinition"></a>
+  <a name="step_definition176-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event contains the following feature flags:'</span>
@@ -16271,7 +16545,7 @@ values.  For flags with a variant leave the <code>variant</code> column blank.</
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition174-stepdefinition"></a>
+  <a name="step_definition177-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'event {int} does not contain the feature flag {string}'</span>
@@ -16387,7 +16661,7 @@ values.  For flags with a variant leave the <code>variant</code> column blank.</
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition175-stepdefinition"></a>
+  <a name="step_definition178-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event does not contain the feature flag {string}'</span>
@@ -16478,7 +16752,7 @@ values.  For flags with a variant leave the <code>variant</code> column blank.</
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition176-stepdefinition"></a>
+  <a name="step_definition179-stepdefinition"></a>
   <div class="title">
     <span class="pre">Given</span>
     <span class="name">'the element {string} is present'</span>
@@ -16568,7 +16842,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition177-stepdefinition"></a>
+  <a name="step_definition180-stepdefinition"></a>
   <div class="title">
     <span class="pre">Given</span>
     <span class="name">'the element {string} is present within {int} seconds'</span>
@@ -16669,7 +16943,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition178-stepdefinition"></a>
+  <a name="step_definition181-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I click the element {string}'</span>
@@ -16757,7 +17031,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition179-stepdefinition"></a>
+  <a name="step_definition182-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I send the app to the background'</span>
@@ -16830,7 +17104,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition180-stepdefinition"></a>
+  <a name="step_definition183-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I send the app to the background for {int} second(s)'</span>
@@ -16918,7 +17192,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition181-stepdefinition"></a>
+  <a name="step_definition184-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I clear the element {string}'</span>
@@ -17006,7 +17280,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition182-stepdefinition"></a>
+  <a name="step_definition185-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I send the keys {string} to the element {string}'</span>
@@ -17105,7 +17379,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition183-stepdefinition"></a>
+  <a name="step_definition186-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I set the device orientation to {orientation}'</span>
@@ -17178,7 +17452,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition184-stepdefinition"></a>
+  <a name="step_definition187-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} payload field {string} equals the platform-dependent string:'</span>
@@ -17297,7 +17571,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition185-stepdefinition"></a>
+  <a name="step_definition188-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} equals the platform-dependent string:'</span>
@@ -17395,7 +17669,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition186-stepdefinition"></a>
+  <a name="step_definition189-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} payload field {string} equals the platform-dependent numeric:'</span>
@@ -17514,7 +17788,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition187-stepdefinition"></a>
+  <a name="step_definition190-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} equals the platform-dependent numeric:'</span>
@@ -17612,7 +17886,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition188-stepdefinition"></a>
+  <a name="step_definition191-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} payload field {string} equals the platform-dependent boolean:'</span>
@@ -17731,7 +18005,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition189-stepdefinition"></a>
+  <a name="step_definition192-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} equals the platform-dependent boolean:'</span>
@@ -17829,7 +18103,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition190-stepdefinition"></a>
+  <a name="step_definition193-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the exception {string} equals the platform-dependent string:'</span>
@@ -17927,7 +18201,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition191-stepdefinition"></a>
+  <a name="step_definition194-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} of stack frame {int} equals the platform-dependent string:'</span>
@@ -18036,7 +18310,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition192-stepdefinition"></a>
+  <a name="step_definition195-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I clear and send the keys {string} to the element {string}'</span>
@@ -18135,7 +18409,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition193-stepdefinition"></a>
+  <a name="step_definition196-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I start the document server'</span>
@@ -18208,7 +18482,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition194-stepdefinition"></a>
+  <a name="step_definition197-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the error is valid for the error reporting API version {string} for the {string} notifier'</span>
@@ -18309,7 +18583,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition195-stepdefinition"></a>
+  <a name="step_definition198-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the error is valid for the error reporting API version {string}' \
@@ -18458,7 +18732,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition196-stepdefinition"></a>
+  <a name="step_definition199-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'event {int} is unhandled'</span>
@@ -18534,7 +18808,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition197-stepdefinition"></a>
+  <a name="step_definition200-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'event {int} is unhandled with the severity {string}'</span>
@@ -18610,7 +18884,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition198-stepdefinition"></a>
+  <a name="step_definition201-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'event {int} is handled'</span>
@@ -18686,7 +18960,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition199-stepdefinition"></a>
+  <a name="step_definition202-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'event {int} is handled with the severity {string}'</span>
@@ -18762,7 +19036,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition200-stepdefinition"></a>
+  <a name="step_definition203-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the error payload contains the payloadVersion {string}'</span>
@@ -18867,7 +19141,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition201-stepdefinition"></a>
+  <a name="step_definition204-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">/^the event "(.+)" is (true|false|null|not null)$/</span>
@@ -18965,7 +19239,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition202-stepdefinition"></a>
+  <a name="step_definition205-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} equals {string}'</span>
@@ -19063,7 +19337,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition203-stepdefinition"></a>
+  <a name="step_definition206-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} equals {float}'</span>
@@ -19161,7 +19435,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition204-stepdefinition"></a>
+  <a name="step_definition207-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} equals {float} to {int} decimal place(s)'</span>
@@ -19259,7 +19533,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition205-stepdefinition"></a>
+  <a name="step_definition208-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} equals {int}'</span>
@@ -19357,7 +19631,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition206-stepdefinition"></a>
+  <a name="step_definition209-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} starts with {string}'</span>
@@ -19455,7 +19729,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition207-stepdefinition"></a>
+  <a name="step_definition210-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} ends with {string}'</span>
@@ -19553,7 +19827,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition208-stepdefinition"></a>
+  <a name="step_definition211-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} matches {string}'</span>
@@ -19651,7 +19925,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition209-stepdefinition"></a>
+  <a name="step_definition212-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} is a timestamp'</span>
@@ -19738,7 +20012,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition210-stepdefinition"></a>
+  <a name="step_definition213-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} is a parsable timestamp in seconds'</span>
@@ -19825,7 +20099,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition211-stepdefinition"></a>
+  <a name="step_definition214-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} equals the environment variable {string}'</span>
@@ -19923,7 +20197,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition212-stepdefinition"></a>
+  <a name="step_definition215-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} matches the JSON fixture in {string}'</span>
@@ -20021,7 +20295,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition213-stepdefinition"></a>
+  <a name="step_definition216-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} string is empty'</span>
@@ -20085,7 +20359,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition214-stepdefinition"></a>
+  <a name="step_definition217-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} is greater than {int}'</span>
@@ -20151,7 +20425,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition215-stepdefinition"></a>
+  <a name="step_definition218-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the exception {string} starts with {string}'</span>
@@ -20249,7 +20523,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition216-stepdefinition"></a>
+  <a name="step_definition219-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the exception {string} ends with {string}'</span>
@@ -20347,7 +20621,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition217-stepdefinition"></a>
+  <a name="step_definition220-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the exception {string} equals {string}'</span>
@@ -20445,7 +20719,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition218-stepdefinition"></a>
+  <a name="step_definition221-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the exception {string} matches {string}'</span>
@@ -20543,7 +20817,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition219-stepdefinition"></a>
+  <a name="step_definition222-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} of stack frame {int} equals {int}'</span>
@@ -20654,7 +20928,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition220-stepdefinition"></a>
+  <a name="step_definition223-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} of stack frame {int} matches {string}'</span>
@@ -20765,7 +21039,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition221-stepdefinition"></a>
+  <a name="step_definition224-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} of stack frame {int} equals {string}'</span>
@@ -20876,7 +21150,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition222-stepdefinition"></a>
+  <a name="step_definition225-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} of stack frame {int} starts with {string}'</span>
@@ -20987,7 +21261,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition223-stepdefinition"></a>
+  <a name="step_definition226-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} of stack frame {int} ends with {string}'</span>
@@ -21098,7 +21372,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition224-stepdefinition"></a>
+  <a name="step_definition227-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">/^the "(.*)" of stack frame (\d*) is (true|false|null|not null)$/</span>
@@ -21209,7 +21483,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition225-stepdefinition"></a>
+  <a name="step_definition228-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the thread with name {string} contains the error reporting flag'</span>
@@ -21296,7 +21570,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition226-stepdefinition"></a>
+  <a name="step_definition229-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the thread with id {string} contains the error reporting flag'</span>
@@ -21383,7 +21657,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition227-stepdefinition"></a>
+  <a name="step_definition230-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} {string} query parameter equals {string}'</span>
@@ -21494,7 +21768,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition228-stepdefinition"></a>
+  <a name="step_definition231-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} {string} query parameter is not null'</span>
@@ -21594,7 +21868,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition229-stepdefinition"></a>
+  <a name="step_definition232-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} {string} query parameter is a timestamp'</span>
@@ -21694,7 +21968,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition230-stepdefinition"></a>
+  <a name="step_definition233-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the session is valid for the session reporting API version {string} for the {string} notifier'</span>
@@ -21819,7 +22093,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition231-stepdefinition"></a>
+  <a name="step_definition234-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the session is valid for the session reporting API version {string} for the React Native notifier'</span>
@@ -21945,7 +22219,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition232-stepdefinition"></a>
+  <a name="step_definition235-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">/^the session "(.+)" is (true|false|null|not null)$/</span>
@@ -22043,7 +22317,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition233-stepdefinition"></a>
+  <a name="step_definition236-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the session {string} equals {string}'</span>
@@ -22141,7 +22415,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition234-stepdefinition"></a>
+  <a name="step_definition237-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the session {string} is a timestamp'</span>
@@ -22228,7 +22502,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition235-stepdefinition"></a>
+  <a name="step_definition238-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">/^the sessionCount "(.+)" is (true|false|null|not null)$/</span>
@@ -22326,7 +22600,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition236-stepdefinition"></a>
+  <a name="step_definition239-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the sessionCount {string} equals {string}'</span>
@@ -22424,7 +22698,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition237-stepdefinition"></a>
+  <a name="step_definition240-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the sessionCount {string} equals {int}'</span>
@@ -22522,7 +22796,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition238-stepdefinition"></a>
+  <a name="step_definition241-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the sessionCount {string} is a timestamp'</span>
@@ -22609,7 +22883,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition239-stepdefinition"></a>
+  <a name="step_definition242-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the session payload has a valid sessions array'</span>
@@ -22701,7 +22975,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition240-stepdefinition"></a>
+  <a name="step_definition243-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} request is valid multipart form-data'</span>
@@ -22790,7 +23064,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition241-stepdefinition"></a>
+  <a name="step_definition244-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'all {request_type} requests are valid multipart form-data'</span>
@@ -22879,7 +23153,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition242-stepdefinition"></a>
+  <a name="step_definition245-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} multipart request has {int} fields'</span>
@@ -22981,7 +23255,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition243-stepdefinition"></a>
+  <a name="step_definition246-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} multipart request has a non-empty body'</span>
@@ -23072,7 +23346,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition244-stepdefinition"></a>
+  <a name="step_definition247-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} multipart body does not match the JSON file in {string}'</span>
@@ -23183,7 +23457,7 @@ JSON formatted multipart fields will be parsed into hashes.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition245-stepdefinition"></a>
+  <a name="step_definition248-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} multipart body matches the JSON file in {string}'</span>
@@ -23294,7 +23568,7 @@ JSON formatted multipart fields will be parsed into hashes.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition246-stepdefinition"></a>
+  <a name="step_definition249-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} multipart field {string} matches the JSON file in {string}'</span>
@@ -23414,7 +23688,7 @@ The field will be parsed into a hash.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition247-stepdefinition"></a>
+  <a name="step_definition250-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the field {string} for multipart {request_type} is not null'</span>
@@ -23514,7 +23788,7 @@ The field will be parsed into a hash.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition248-stepdefinition"></a>
+  <a name="step_definition251-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the field {string} for multipart {request_type} is null'</span>
@@ -23614,7 +23888,7 @@ The field will be parsed into a hash.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition249-stepdefinition"></a>
+  <a name="step_definition252-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the field {string} for multipart {request_type} equals {string}'</span>
@@ -23725,7 +23999,7 @@ The field will be parsed into a hash.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition250-stepdefinition"></a>
+  <a name="step_definition253-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I wait to receive a(n) {request_type}'</span>
@@ -23741,7 +24015,7 @@ The field will be parsed into a hash.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:57</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:58</div>
     </div>
     
     <!-- Comments -->
@@ -23782,9 +24056,9 @@ The field will be parsed into a hash.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">57
-58
-59</pre>
+            <pre class="lines">58
+59
+60</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I wait to receive a(n) {request_type}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='op'>|</span>
@@ -23814,7 +24088,7 @@ The field will be parsed into a hash.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition251-stepdefinition"></a>
+  <a name="step_definition254-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I wait to receive {int} {request_type}'</span>
@@ -23830,7 +24104,7 @@ The field will be parsed into a hash.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:68</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:69</div>
     </div>
     
     <!-- Comments -->
@@ -23883,11 +24157,11 @@ will be sorted by the header.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">68
-69
+            <pre class="lines">69
 70
 71
-72</pre>
+72
+73</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I wait to receive {int} {request_type}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_count'>request_count</span><span class='comma'>,</span> <span class='id identifier rubyid_request_type'>request_type</span><span class='op'>|</span>
@@ -23919,7 +24193,7 @@ will be sorted by the header.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition252-stepdefinition"></a>
+  <a name="step_definition255-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I wait to receive at least {int} {request_type}'</span>
@@ -23935,7 +24209,7 @@ will be sorted by the header.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:81</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:82</div>
     </div>
     
     <!-- Comments -->
@@ -23988,10 +24262,10 @@ timing out according to @see Maze.config.receive_requests_wait.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">81
-82
+            <pre class="lines">82
 83
-84</pre>
+84
+85</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I wait to receive at least {int} {request_type}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_count'>request_count</span><span class='comma'>,</span> <span class='id identifier rubyid_request_type'>request_type</span><span class='op'>|</span>
@@ -24022,7 +24296,7 @@ timing out according to @see Maze.config.receive_requests_wait.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition253-stepdefinition"></a>
+  <a name="step_definition256-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I sort the {request_type} by the payload field {string}'</span>
@@ -24038,7 +24312,7 @@ timing out according to @see Maze.config.receive_requests_wait.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:90</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:91</div>
     </div>
     
     <!-- Comments -->
@@ -24088,10 +24362,10 @@ timing out according to @see Maze.config.receive_requests_wait.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">90
-91
+            <pre class="lines">91
 92
-93</pre>
+93
+94</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I sort the {request_type} by the payload field {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='op'>|</span>
@@ -24122,7 +24396,7 @@ timing out according to @see Maze.config.receive_requests_wait.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition254-stepdefinition"></a>
+  <a name="step_definition257-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I have received at least {int} {request_type}'</span>
@@ -24138,7 +24412,7 @@ timing out according to @see Maze.config.receive_requests_wait.</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:100</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:101</div>
     </div>
     
     <!-- Comments -->
@@ -24189,10 +24463,10 @@ This step is only intended for use in stress tests</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">100
-101
+            <pre class="lines">101
 102
-103</pre>
+103
+104</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I have received at least {int} {request_type}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_min_received'>min_received</span><span class='comma'>,</span> <span class='id identifier rubyid_request_type'>request_type</span><span class='op'>|</span>
@@ -24223,7 +24497,118 @@ This step is only intended for use in stress tests</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition255-stepdefinition"></a>
+  <a name="step_definition258-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'I wait to receive between {int} and {int} {request_type}'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='I+wait+to+receive+between+%7Bint%7D+and+%7Bint%7D+%7Brequest_type%7D'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/request_assertion_steps.rb:111</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Verify that an amount of requests within a range have been received</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>min_received [Integer] The minimum amount of requests required to pass</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>max_received [Integer] The maximum amount of requests before failure</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>request_type [String] The type of request (error, session, build, etc)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">111
+112
+113
+114</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I wait to receive between {int} and {int} {request_type}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_min_received'>min_received</span><span class='comma'>,</span> <span class='id identifier rubyid_max_received'>max_received</span><span class='comma'>,</span> <span class='id identifier rubyid_request_type'>request_type</span><span class='op'>|</span>
+  <span class='id identifier rubyid_list'>list</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_list_for'>list_for</span><span class='lparen'>(</span><span class='id identifier rubyid_request_type'>request_type</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_assert_received_requests'><span class='object_link'><a href="../top-level-namespace.html#assert_received_requests-instance_method" title="#assert_received_requests (method)">assert_received_requests</a></span></span> <span class='id identifier rubyid_min_received'>min_received</span><span class='comma'>,</span> <span class='id identifier rubyid_list'>list</span><span class='comma'>,</span> <span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_max_received'>max_received</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition259-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I should receive no {request_type}'</span>
@@ -24239,7 +24624,7 @@ This step is only intended for use in stress tests</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:108</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:119</div>
     </div>
     
     <!-- Comments -->
@@ -24278,11 +24663,11 @@ This step is only intended for use in stress tests</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">108
-109
-110
-111
-112</pre>
+            <pre class="lines">119
+120
+121
+122
+123</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I should receive no {request_type}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='op'>|</span>
@@ -24314,7 +24699,7 @@ This step is only intended for use in stress tests</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition256-stepdefinition"></a>
+  <a name="step_definition260-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I discard the oldest {request_type}'</span>
@@ -24330,7 +24715,7 @@ This step is only intended for use in stress tests</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:117</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:128</div>
     </div>
     
     <!-- Comments -->
@@ -24369,11 +24754,11 @@ This step is only intended for use in stress tests</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">117
-118
-119
-120
-121</pre>
+            <pre class="lines">128
+129
+130
+131
+132</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I discard the oldest {request_type}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='op'>|</span>
@@ -24405,7 +24790,7 @@ This step is only intended for use in stress tests</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition257-stepdefinition"></a>
+  <a name="step_definition261-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the received errors match:'</span>
@@ -24421,7 +24806,7 @@ This step is only intended for use in stress tests</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:123</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:134</div>
     </div>
     
     <!-- Comments -->
@@ -24435,24 +24820,24 @@ This step is only intended for use in stress tests</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">123
-124
-125
-126
-127
-128
-129
-130
-131
-132
-133
-134
+            <pre class="lines">134
 135
 136
 137
 138
 139
-140</pre>
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the received errors match:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_table'>table</span><span class='op'>|</span>
@@ -24729,7 +25114,7 @@ This step is only intended for use in stress tests</p>
 </div>
 
       <div id="footer">
-  Generated on Wed Jul 19 17:04:02 2023 by
+  Generated on Mon Aug 14 16:05:35 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.34 (ruby-2.7.8).
 </div>

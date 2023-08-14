@@ -108,7 +108,6 @@ module Maze
             add_android 'Samsung Galaxy A8', '7.1', hash                      # ANDROID_7_1_SAMSUNG_GALAXY_A8
             add_android 'Samsung Galaxy Note 8', '7.1', hash                  # ANDROID_7_1_SAMSUNG_GALAXY_NOTE_8
             add_android 'Samsung Galaxy S8', '7.0', hash                      # ANDROID_7_0_SAMSUNG_GALAXY_S8
-            add_android 'Samsung Galaxy S8 Plus', '7.0', hash                 # ANDROID_7_0_SAMSUNG_GALAXY_S8_PLUS
 
             # Specific iOS devices
             add_ios 'iPhone 14 Plus', '16.0', hash                            # IOS_16_0_IPHONE_14_PLUS

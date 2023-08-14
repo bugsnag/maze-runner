@@ -6,6 +6,10 @@
 - Check that required trace headers are present and valid [573](https://github.com/bugsnag/maze-runner/pull/573)
 - Create zip archive of `maze_output` folder [575](https://github.com/bugsnag/maze-runner/pull/575)
 
+## Fixes
+
+- Replace deprecated BrowserStack Samsung Galaxy S8 Plus device with Samsung Galaxy S8 [576](https://github.com/bugsnag/maze-runner/pull/576)
+
 # 8.2.0 - 2023/07/19
 
 ## Enhancements

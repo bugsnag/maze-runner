@@ -302,7 +302,7 @@ steps:
   # BitBar tests
   #
 
-  - label: ':bitbar: Safari 16'
+  - label: ':bitbar: Safari 15'
     depends_on: "push-branch-cli"
     timeout_in_minutes: 10
     plugins:
@@ -316,7 +316,7 @@ steps:
         verbose: true
         command:
           - "--farm=bb"
-          - "--browser=safari_16"
+          - "--browser=safari_15"
           - "--aws-public-ip"
           - "--fail-fast"
           - "--no-tunnel"

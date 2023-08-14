@@ -161,7 +161,7 @@ android_6:
 
 android_7:
   browserName: "Android Browser"
-  device: "Samsung Galaxy S8 Plus"
+  device: "Samsung Galaxy S8"
   os: "android"
   osVersion: "7.0"
   realMobile: true

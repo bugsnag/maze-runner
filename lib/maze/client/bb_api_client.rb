@@ -13,8 +13,8 @@ module Maze
         query = {
           'filter': 'state_eq_running'
         }
-        running_device_sessions = query_api('devices-sessions', query)
-        running_device_sessions
+        running_device_sessions = query_api('device-sessions', query)
+        running_device_sessions['data'].size
       end
 
       # Get a list of all available device groups

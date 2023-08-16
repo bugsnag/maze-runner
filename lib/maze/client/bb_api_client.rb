@@ -14,7 +14,7 @@ module Maze
           'filter': 'state_eq_running'
         }
         running_device_sessions = query_api('devices-sessions', query)
-        running_device_sessions['data'].size
+        running_device_sessions
       end
 
       # Get a list of all available device groups

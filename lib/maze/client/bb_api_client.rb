@@ -9,6 +9,14 @@ module Maze
         @access_key = access_key
       end
 
+      def get_running_session_count
+        query = {
+          'filter': 'state_eq_running'
+        }
+        running_device_sessions = query_api('devices-sessions', query)
+        running_device_sessions['data'].size
+      end
+
       # Get a list of all available device groups
       def get_device_group_list
         query_api('device-groups')

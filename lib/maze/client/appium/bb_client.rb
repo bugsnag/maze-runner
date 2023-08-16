@@ -3,6 +3,9 @@ module Maze
     module Appium
       class BitBarClient < BaseClient
         def prepare_session
+          api_client = BitBarApiClient.new(Maze.config.access_key)
+          running_session_count = api_client.get_running_session_count
+          $logger.info("Current running session count is: #{running_session_count}")
           config = Maze.config
           config.app = Maze::Client::BitBarClientUtils.upload_app config.access_key,
                                                                   config.app

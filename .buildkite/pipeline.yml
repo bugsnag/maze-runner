@@ -437,7 +437,7 @@ steps:
       - "14"
       - "15"
 
-- label: ':bitbar: Android bitbar-run 2 {{matrix}}'
+  - label: ':bitbar: Android bitbar-run 2 {{matrix}}'
     timeout_in_minutes: 20
     depends_on:
       - "bitbar-concurrency-tests-1"

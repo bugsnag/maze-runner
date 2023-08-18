@@ -1,4 +1,8 @@
-# 8.3.1 - 2023/08/18
+# 8.4.0 - 2023/08/18
+
+## Enhancements
+
+- Allow `FileManager.write_app_file` target location to be overwritten for Android  [580](https://github.com/bugsnag/maze-runner/pull/580)
 
 ## Fixes
 

@@ -11,6 +11,7 @@ module Maze
       self.receive_requests_slow_threshold = 10
       self.enforce_bugsnag_integrity = true
       self.captured_invalid_requests = Set[:errors, :sessions, :builds, :uploads, :sourcemaps]
+      self.android_app_files_directory = nil
       @legacy_driver = false
     end
 
@@ -101,6 +102,9 @@ module Maze
 
     # Whether the device farm secure tunnel should be started
     attr_accessor :start_tunnel
+
+    # Folder to push app files to on Android
+    attr_accessor :android_app_files_directory
 
     #
     # Device farm specific configuration

@@ -234,7 +234,7 @@ AfterAll do
   end
 
   # Move the zip file to the maze_output folder
-  Fileutils.mv(maze_output_zip, maze_output)
+  FileUtils.mv(maze_output_zip, maze_output)
 
   metrics = Maze::MetricsProcessor.new(Maze::Server.metrics)
   metrics.process

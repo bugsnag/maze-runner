@@ -18,7 +18,8 @@ module Maze
                  when 'ios'
                    "@#{@driver.app_id}/Documents/#{filename}"
                  when 'android'
-                   Maze.config.android_app_files_directory || "/sdcard/Android/data/#{@driver.app_id}/files/#{filename}"
+                   directory = Maze.config.android_app_files_directory || "/sdcard/Android/data/#{@driver.app_id}/files"
+                   "#{directory}/#{filename}"
                  end
 
           $logger.trace "Pushing file to '#{path}' with contents: #{contents}"

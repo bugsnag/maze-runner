@@ -1,6 +1,6 @@
-# 8.4.0 - TBD
+# 8.3.1 - 2023/08/18
 
-## Enhancements
+## Fixes
 
 - Move the `maze_output.zip` file to the `maze_output` folder once created [579](https://github.com/bugsnag/maze-runner/pull/579)
 

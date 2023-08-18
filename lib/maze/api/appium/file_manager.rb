@@ -9,7 +9,8 @@ module Maze
         end
 
         # Creates a file with the given contents on the device (using Appium).  The file will be located in the app's
-        # Documents directory for iOS and /sdcard/Android/data/<app-id>/ for Android.
+        # documents directory for iOS. On Android, it will be /sdcard/Android/data/<app-id>/files unless
+        # Maze.config.android_app_files_directory has been set.
         # @param contents [String] Content of the file to be written
         # @param filename [String] Name (with no path) of the file to be written on the device
         def write_app_file(contents, filename)
@@ -17,7 +18,7 @@ module Maze
                  when 'ios'
                    "@#{@driver.app_id}/Documents/#{filename}"
                  when 'android'
-                   "/sdcard/Android/data/#{@driver.app_id}/files/#{filename}"
+                   Maze.config.android_app_files_directory || "/sdcard/Android/data/#{@driver.app_id}/files/#{filename}"
                  end
 
           $logger.trace "Pushing file to '#{path}' with contents: #{contents}"

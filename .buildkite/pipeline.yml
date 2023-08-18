@@ -157,7 +157,6 @@ steps:
           upload:
             - test/fixtures/payload-helpers/maze_output/**/*
             - test/fixtures/payload-helpers/maze_output/*
-            - test/fixtures/payload-helpers/maze_output.zip
     env:
       RUBY_VERSION: "2"
       USE_LEGACY_DRIVER: "1"
@@ -211,7 +210,6 @@ steps:
         download: "bugsnag-android-performance/build/test-fixture.apk"
         upload:
           - "bugsnag-android-performance/maze_output/**/*"
-          - "bugsnag-android-performance/maze_output.zip"
       docker-compose#v4.14.0:
         pull: appium-test-bs-legacy
         run: appium-test-bs-legacy

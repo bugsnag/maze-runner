@@ -18,6 +18,7 @@ module Maze
           Bugsnag-Payload-Version
           Bugsnag-Sent-At
           Bugsnag-Span-Sampling
+          Bugsnag-Uncompressed-Content-Length
           Content-Type
           Origin
         ].join(',')

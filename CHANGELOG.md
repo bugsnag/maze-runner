@@ -1,3 +1,9 @@
+# 8.4.1 - 2023/08/29
+
+## Fixes
+
+- Allow `Bugsnag-Uncompressed-Content-Length` in CORS header policy [581](https://github.com/bugsnag/maze-runner/pull/581)
+
 # 8.4.0 - 2023/08/18
 
 ## Enhancements

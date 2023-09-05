@@ -104,7 +104,7 @@ module Maze
               'platformName' => 'Android',
               'deviceName' => 'Android Phone',
               'bitbar:options' => {
-                'autoGrantPermissions' => true,
+                'appium:autoGrantPermissions' => true,
                 'device' => device,
               }
             }

@@ -1,3 +1,9 @@
+# 8.5.0 - 2023/09/05
+
+## Enhancements
+
+- Set `appium:` as the default prefix when running BitBar tests for appium 2.0 compatibility [582](https://github.com/bugsnag/maze-runner/pull/582)
+
 # 8.4.1 - 2023/08/29
 
 ## Fixes

@@ -50,7 +50,7 @@ module Maze
                                 else
                                   'UiAutomator2'
                                 end
-              make_android_hash(device_name, automation_name)
+              make_android_hash(device_name, automation_name, prefix)
             when 'ios'
               make_ios_hash(device_name, prefix)
             else
@@ -98,20 +98,20 @@ module Maze
             end
           end
 
-          def make_android_hash(device, automation_name)
+          def make_android_hash(device, automation_name, prefix='appium:')
             hash = {
               'automationName' => automation_name,
               'platformName' => 'Android',
               'deviceName' => 'Android Phone',
               'bitbar:options' => {
-                'autoGrantPermissions' => true,
+                "#{prefix}autoGrantPermissions" => true,
                 'device' => device,
               }
             }
             hash.freeze
           end
 
-          def make_ios_hash(device, prefix='')
+          def make_ios_hash(device, prefix='appium:')
             {
               'automationName' => 'XCUITest',
               'deviceName' => 'iPhone device',
@@ -124,7 +124,7 @@ module Maze
           end
 
           def caps_prefix(appium_version)
-            appium_version.nil? || (appium_version.to_i < 2) ? '' : 'appium:'
+            appium_version.nil? || (appium_version.to_i >= 2) ? 'appium:' : ''
           end
         end
       end

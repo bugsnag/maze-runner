@@ -43,11 +43,11 @@ Changed names:
 
 The following Cucumber steps have been reworded:
 
-Removed step | Replacement
----|---|
-`the {request_type} {string} header is not null` | `the {request_type} {string} header is present`
-`the {request_type} {string} header is null` | `the {request_type} {string} header is not present`
-`I set the HTTP status code for the next {string} requests to {string}` | `I set the HTTP status code for the next {string} request(s) to {int_array}`
+| Removed step                                                            | Replacement                                                                  |
+|-------------------------------------------------------------------------|------------------------------------------------------------------------------|
+| `the {request_type} {string} header is not null`                        | `the {request_type} {string} header is present`                              |
+| `the {request_type} {string} header is null`                            | `the {request_type} {string} header is not present`                          |
+| `I set the HTTP status code for the next {string} requests to {string}` | `I set the HTTP status code for the next {string} request(s) to {int_array}` |
 
 ## v6 to v7
 

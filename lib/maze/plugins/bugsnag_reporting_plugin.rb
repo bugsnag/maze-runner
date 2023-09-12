@@ -26,8 +26,15 @@ module Maze
 
           Bugsnag.notify(event.result.exception) do |bsg_event|
             unless @last_test_step.nil?
-              bsg_event.context = @last_test_step.location
-              bsg_event.grouping_hash = test_case.name + @last_test_step.location
+
+              repo = ENV['BUILDKITE_PIPELINE_SLUG']
+              bsg_event.context = if repo.nil?
+                                    @last_test_step.location
+                                  else
+                                    "#{repo}/#{@last_test_step.location}"
+                                  end
+              bsg_event.grouping_hash = @last_test_step.location
+
               bsg_event.add_metadata(:'scenario', {
                 'failing step': @last_test_step.to_s,
                 'failing step location': @last_test_step.location

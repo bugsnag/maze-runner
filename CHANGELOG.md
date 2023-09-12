@@ -1,3 +1,9 @@
+# 8.5.1 - TBD
+
+## Fixes
+
+- Improve grouping and presentation of BugSnagged errors [581](https://github.com/bugsnag/maze-runner/pull/581)
+
 # 8.5.0 - 2023/09/05
 
 ## Enhancements

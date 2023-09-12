@@ -31,7 +31,7 @@ module Maze
               bsg_event.context = if repo.nil?
                                     @last_test_step.location
                                   else
-                                    "#{slug}/#{@last_test_step.location}"
+                                    "#{repo}/#{@last_test_step.location}"
                                   end
               bsg_event.grouping_hash = @last_test_step.location
 

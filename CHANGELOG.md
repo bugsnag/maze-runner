@@ -1,8 +1,9 @@
-# 8.5.1 - TBD
+# 8.5.1 - 2023/09/14
 
 ## Fixes
 
-- Improve grouping and presentation of BugSnagged errors [581](https://github.com/bugsnag/maze-runner/pull/581)
+- Improve grouping and presentation of BugSnagged errors [583](https://github.com/bugsnag/maze-runner/pull/583)
+- Do not retry Appium session creation with BitBar devices [584](https://github.com/bugsnag/maze-runner/pull/584)
 
 # 8.5.0 - 2023/09/05
 

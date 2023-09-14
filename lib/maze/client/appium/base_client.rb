@@ -41,8 +41,12 @@ module Maze
           raise 'Method not implemented by this class'
         end
 
+        def retry_start_driver?
+          raise 'Method not implemented by this class'
+        end
+
         def start_driver(config)
-          retry_failure = config.device_list.nil? || config.device_list.empty?
+          retry_failure = retry_start_driver?
           driver = nil
           until Maze.driver
             begin
@@ -64,7 +68,6 @@ module Maze
                   result
                 rescue => start_error
                   $logger.error "Session creation failed: #{start_error}"
-                  raise start_error unless retry_failure
                   false
                 end
               end
@@ -72,13 +75,14 @@ module Maze
               if retry_failure
                 wait = Maze::Wait.new(interval: 10, timeout: 60)
                 success = wait.until(&start_driver_closure)
-
-                unless success
-                  $logger.error 'Appium driver failed to start after 6 attempts in 60 seconds'
-                  raise RuntimeError.new('Appium driver failed to start in 60 seconds')
-                end
               else
-                start_driver_closure.call
+                success = start_driver_closure.call
+              end
+
+              unless success
+                # TODO Bugsnag notify
+                $logger.error 'Failed to create Appium driver, exiting'
+                exit(::Maze::Api::ExitCode::SESSION_CREATION_FAILURE)
               end
 
               # Infer OS version if necessary when running locally

@@ -43,7 +43,10 @@ module Maze
       end
 
       def at_exit
-        @client&.stop_session
+        if @client
+          $logger.info 'Stopping the Appium session'
+          @client.stop_session
+        end
       end
 
       private

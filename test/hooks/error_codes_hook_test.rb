@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'test_helper'
+require_relative '../../lib/maze/api/exit_code'
 require_relative '../../lib/maze/errors'
 require_relative '../../lib/maze/hooks/error_code_hook'
 
@@ -41,7 +42,7 @@ class ErrorCodeHookTest < Test::Unit::TestCase
 
   def test_last_test_error_class_error_code
     Maze::Hooks::ErrorCodeHook.last_test_error_class = ::Selenium::WebDriver::Error::UnknownError
-    Maze::Hooks::ErrorCodeHook.expects(:exit).once.with(10)
+    Maze::Hooks::ErrorCodeHook.expects(:exit).once.with(Maze::Api::ExitCode::AUTOMATION_GENERIC_ERROR)
     Maze::Hooks::ErrorCodeHook.send :exit_hook
   end
 end

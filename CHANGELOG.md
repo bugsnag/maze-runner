@@ -1,9 +1,12 @@
-# 8.5.1 - 2023/09/TBD
+# 8.6.0 - 2023/09/15
+
+## Enhancements
+
+- Return specific exit code for Appium session creation failures [584](https://github.com/bugsnag/maze-runner/pull/584)
 
 ## Fixes
 
 - Improve grouping and presentation of BugSnagged errors [583](https://github.com/bugsnag/maze-runner/pull/583)
-- Do not retry Appium session creation with BitBar devices [584](https://github.com/bugsnag/maze-runner/pull/584)
 
 # 8.5.0 - 2023/09/05
 

@@ -24,27 +24,27 @@ module Maze
     ERROR_CODES = {
       ::Selenium::WebDriver::Error::UnknownError => {
         retry: true,
-        error_code: 10
+        error_code: Maze::Api::ExitCode::AUTOMATION_GENERIC_ERROR
       },
       ::Selenium::WebDriver::Error::WebDriverError => {
         retry: true,
-        error_code: 10
+        error_code: Maze::Api::ExitCode::AUTOMATION_GENERIC_ERROR
       },
       Maze::Error::AppiumElementNotFoundError => {
         retry: true,
-        error_code: 11
+        error_code: Maze::Api::ExitCode::AUTOMATION_ELEMENT_NOT_FOUND
       },
       ::Selenium::WebDriver::Error::NoSuchElementError => {
         retry: true,
-        error_code: 12
+        error_code: Maze::Api::ExitCode::AUTOMATION_ELEMENT_NOT_FOUND
       },
       ::Selenium::WebDriver::Error::TimeoutError => {
         retry: true,
-        error_code: 13
+        error_code: Maze::Api::ExitCode::AUTOMATION_TIMEOUT
       },
       ::Selenium::WebDriver::Error::StaleElementReferenceError => {
         retry: true,
-        error_code: 14
+        error_code: Maze::Api::ExitCode::AUTOMATION_STALE_ELEMENT
       },
     }.freeze
 

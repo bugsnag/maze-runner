@@ -50,6 +50,9 @@ module Maze
           driver = nil
           until Maze.driver
             begin
+
+
+              # Proc to start the driver
               start_driver_closure = Proc.new do
                 begin
                   config.capabilities = device_capabilities
@@ -72,6 +75,8 @@ module Maze
                 end
               end
 
+
+              # Invoke the proc, with or without retries
               if retry_failure
                 wait = Maze::Wait.new(interval: 10, timeout: 60)
                 success = wait.until(&start_driver_closure)

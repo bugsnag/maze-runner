@@ -2,8 +2,13 @@
 
 Maze Runner has a number of outputs:
 - The standard Cucumber console output
+- The command line exit code
 - `maze_output` directory container various files relating to each scenario
 - Logging generated using `$logger` in Ruby code
+
+## Exit Code
+
+A list of all possible exit codes can be found in [exit_code.rb](../lib/maze/api/exit_code.rb).
 
 ## `maze_output` folder
 
@@ -11,7 +16,7 @@ Maze Runner will generate a folder for each scenario containing:
 - A file for each request type (errors, sessions, traces, etc.) detailing all requests of that type received during the scenario.
 - For Appium tests on Android or iOS, the device log (`logcat` or `syslog`).  Due to the overhead of retrieving these, it will only be generated for failed scenarios.
 
-Each scenario folder is organised into a `passed` or `failed` folder immediately beneath `maze_runner`.
+Each scenario folder is organised into a `passed` or `failed` folder immediately beneath `maze_output`.   A zip archive of that whole folder will also be create and moved to appear at `maze_output/maze_output.zip`.
 
 ## Logging
 

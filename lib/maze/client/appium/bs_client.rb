@@ -15,6 +15,10 @@ module Maze
           end
         end
 
+        def retry_start_driver?
+          Maze.config.device_list.nil? || Maze.config.device_list.empty?
+        end
+
         def start_scenario
           unless Maze.config.legacy_driver?
             # Write Maze's address to file and push to the device

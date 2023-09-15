@@ -5,10 +5,10 @@ Scenario: A "Maze::Error::AppiumElementNotFoundError" results in exit code 11
     And I input "bundle exec maze-runner --port=9349 --fail-fast features/throw_a_maze_appiumelementnotfounderror.feature" interactively
     Then the last interactive command exit code is 11
 
-Scenario: A "Selenium::WebDriver::Error::TimeoutError" results in exit code 13
+Scenario: A "Selenium::WebDriver::Error::TimeoutError" results in exit code 12
     Given I set up the maze-harness console
     And I input "bundle exec maze-runner --port=9349 --fail-fast features/throw_a_webdriver_timeouterror.feature" interactively
-    Then the last interactive command exit code is 13
+    Then the last interactive command exit code is 12
 
 Scenario: A "Selenium::WebDriver::Error::UnknownError" results in exit code 10
     Given I set up the maze-harness console

@@ -56,6 +56,8 @@ module Maze
           super
           $logger.info "Appium driver started in #{(Time.now - time).to_i}s"
         rescue => error
+          Bugsnag.notify(error)
+
           $logger.warn "Appium driver failed to start in #{(Time.now - time).to_i}s"
           $logger.warn "#{error.class} occurred with message: #{error.message}"
           raise error

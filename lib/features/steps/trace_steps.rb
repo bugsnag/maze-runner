@@ -227,6 +227,8 @@ def attribute_value_matches?(attribute_value, expected_type, expected_value)
   end
 
   case expected_type
+  when 'regexStringValue'
+    attribute_value['stringValue'].match?(expected_value)
   when 'bytesValue', 'stringValue'
     expected_value.eql?(attribute_value[expected_type])
   when 'intValue'

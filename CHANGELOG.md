@@ -1,3 +1,9 @@
+# 8.6.1 - TBD
+
+## Fixes
+
+- Use `BITBAR_ACCESS_KEY` universally (only affects `purge-projects` entry point) [585](https://github.com/bugsnag/maze-runner/pull/585)
+
 # 8.6.0 - 2023/09/15
 
 ## Enhancements

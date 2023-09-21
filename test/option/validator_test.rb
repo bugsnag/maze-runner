@@ -16,7 +16,7 @@ class ValidatorTest < Test::Unit::TestCase
     ENV.delete('MAZE_BS_LOCAL')
     ENV.delete('BROWSER_STACK_USERNAME')
     ENV.delete('BROWSER_STACK_ACCESS_KEY')
-    ENV.delete('BITBAR_API_KEY')
+    ENV.delete('BITBAR_ACCESS_KEY')
 
     Maze::Helper.stubs(:expand_path).with('/BrowserStackLocal').returns('/BrowserStackLocal')
     Maze::Helper.stubs(:expand_path).with('my_app.apk').returns('my_app.apk')

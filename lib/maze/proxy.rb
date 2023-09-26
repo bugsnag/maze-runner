@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'bugsnag'
 require 'json'
 require 'singleton'
 require 'webrick'

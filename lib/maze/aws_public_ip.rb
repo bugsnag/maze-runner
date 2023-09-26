@@ -1,3 +1,5 @@
+require 'bugsnag'
+
 module Maze
   # Determines the public IP address and port when running on Buildkite with the Elastic CI Stack for AWS
   class AwsPublicIp

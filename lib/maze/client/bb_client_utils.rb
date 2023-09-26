@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'bugsnag'
 require 'open3'
 require 'fileutils'
 require 'json'

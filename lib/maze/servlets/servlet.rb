@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'bugsnag'
 require 'zlib'
 require 'stringio'
 require 'json_schemer'

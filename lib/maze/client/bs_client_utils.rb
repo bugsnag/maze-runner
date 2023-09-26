@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'bugsnag'
+
 module Maze
   module Client
     # Utils supporting the BrowserStack device farm integration

@@ -1,4 +1,5 @@
 require 'appium_lib'
+require 'bugsnag'
 require 'json'
 require 'open3'
 require 'securerandom'

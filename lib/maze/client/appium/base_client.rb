@@ -1,3 +1,4 @@
+require 'bugsnag'
 require 'json'
 
 module Maze

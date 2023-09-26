@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'bugsnag'
+
 module Maze
   module Servlets
 

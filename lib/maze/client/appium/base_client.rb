@@ -26,8 +26,9 @@ module Maze
           # Ensure the device is unlocked
           begin
             Maze.driver.unlock
-          rescue => e
-            $logger.warn "Failed to unlock device: #{e}"
+          rescue => error
+            Bugsnag.notify error
+            $logger.warn "Failed to unlock device: #{error}"
           end
 
           log_run_intro
@@ -69,8 +70,9 @@ module Maze
                     $logger.info "Running on device: #{udid}" unless udid.nil?
                   end
                   result
-                rescue => start_error
-                  $logger.error "Session creation failed: #{start_error}"
+                rescue => error
+                  Bugsnag.notify error
+                  $logger.error "Session creation failed: #{error}"
                   false
                 end
               end
@@ -85,7 +87,6 @@ module Maze
               end
 
               unless success
-                # TODO Bugsnag notify
                 $logger.error 'Failed to create Appium driver, exiting'
                 exit(::Maze::Api::ExitCode::SESSION_CREATION_FAILURE)
               end

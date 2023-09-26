@@ -33,6 +33,7 @@ module Maze
               end_connection(socket)
             }
           rescue StandardError => e
+            Bugsnag.notify e
             $logger.warn "Terminating server error: #{e.message}"
           end
 

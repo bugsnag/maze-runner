@@ -122,6 +122,7 @@ module Maze
           $logger.info "Selenium driver started in #{(Time.now - time).to_i}s"
           @driver = driver
         rescue => error
+          Bugsnag.notify error
           $logger.warn "Selenium driver failed to start in #{(Time.now - time).to_i}s"
           raise error
         end

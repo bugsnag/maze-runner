@@ -78,8 +78,9 @@ module Maze
           else
             log_hash_by_field severity, data
           end
-        rescue Encoding::UndefinedConversionError
+        rescue Encoding::UndefinedConversionError => error
           # Just give up, we don't want to risk a further error trying to log garbage
+          Bugsnag.notify error
           $logger.error 'Unable to log hash as JSON'
         end
       end

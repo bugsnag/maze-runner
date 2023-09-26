@@ -227,6 +227,7 @@ module Maze
             server.mount '/reflect', Servlets::ReflectiveServlet
             server.start
           rescue StandardError => e
+            Bugsnag.notify e
             $logger.warn "Failed to start mock server: #{e.message}"
           ensure
             server&.shutdown

@@ -35,7 +35,6 @@ module Maze
             Bugsnag.notify($!)
           end
         end
-
       end
     end
   end

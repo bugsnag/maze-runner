@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'bugsnag'
+
 module Maze
   module Servlets
 
@@ -30,6 +32,7 @@ module Maze
         response.header['Access-Control-Allow-Origin'] = '*'
         response.status = Server.status_code('POST')
       rescue JSON::ParserError => e
+        Bugsnag.notify e
         msg = "Unable to parse request as JSON: #{e.message}"
         $logger.error msg
         Server.invalid_requests.add({
@@ -39,6 +42,7 @@ module Maze
           body: request.body
         })
       rescue StandardError => e
+        Bugsnag.notify e
         $logger.error "Invalid request: #{e.message}"
         Server.invalid_requests.add({
           invalid: true,

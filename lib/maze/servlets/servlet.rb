@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'bugsnag'
 require 'zlib'
 require 'stringio'
 require 'json_schemer'
@@ -101,6 +102,7 @@ module Maze
         set_response_header response.header
         response.status = post_status_code
       rescue JSON::ParserError => e
+        Bugsnag.notify e
         msg = "Unable to parse request as JSON: #{e.message}"
         if Maze.config.captured_invalid_requests.include? @request_type
           $logger.error msg
@@ -113,6 +115,7 @@ module Maze
           $logger.warn msg
         end
       rescue StandardError => e
+        Bugsnag.notify e
         if Maze.config.captured_invalid_requests.include? @request_type
           $logger.error "Invalid request: #{e.message}"
           Server.invalid_requests.add({

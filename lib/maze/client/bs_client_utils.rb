@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'bugsnag'
+
 module Maze
   module Client
     # Utils supporting the BrowserStack device farm integration
@@ -42,9 +44,11 @@ module Maze
                   # Successful upload
                   break
                 end
-              rescue Net::ReadTimeout
+              rescue Net::ReadTimeout => error
+                Bugsnag.notify error
                 $logger.error "Upload failed due to ReadTimeout"
-              rescue JSON::ParserError
+              rescue JSON::ParserError => error
+                Bugsnag.notify error
                 $logger.error "Unexpected JSON response, received: #{body}"
               end
 

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'bugsnag'
 require 'socket'
 
 module Maze
@@ -33,6 +34,7 @@ module Maze
               end_connection(socket)
             }
           rescue StandardError => e
+            Bugsnag.notify e
             $logger.warn "Terminating server error: #{e.message}"
           end
 

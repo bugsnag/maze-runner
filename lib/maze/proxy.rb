@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'bugsnag'
 require 'json'
 require 'singleton'
 require 'webrick'
@@ -82,10 +83,11 @@ module Maze
             config[:ProxyAuthProc] = authenticator.method(:authenticate).to_proc
           end
 
-          # Crwate and start the proxy
+          # Create and start the proxy
           proxy = WEBrick::HTTPProxyServer.new config
           proxy.start
         rescue StandardError => e
+          Bugsnag.notify e
           $logger.warn "Failed to start proxy server: #{e.message}"
         ensure
           proxy&.shutdown

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'bugsnag'
 require 'open3'
 require 'fileutils'
 require 'json'
@@ -49,7 +50,8 @@ module Maze
                 $logger.error "Unexpected response body: #{response}"
                 raise 'App upload failed'
               end
-            rescue JSON::ParserError
+            rescue JSON::ParserError => error
+              Bugsnag.notify error
               $logger.error "Expected JSON response, received: #{res}"
               raise
             end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'bugsnag'
 require 'rack'
 
 module Maze
@@ -41,10 +42,12 @@ module Maze
 
         reflect response, delay_ms, status
       rescue JSON::ParserError => e
+        Bugsnag.notify e
         msg = "Unable to parse request as JSON: #{e.message}"
         $logger.error msg
         response.status = 418
       rescue StandardError => e
+        Bugsnag.notify e
         $logger.error "Invalid request: #{e.message}"
         response.status = 500
       end

@@ -103,8 +103,7 @@ module Maze
             end
           end
         rescue StandardError => e
-          $logger.error "Error getting projects from BitBar"
-          $logger.error e
+          $logger.error "Error getting projects from BitBar: #{e}"
           raise
         end
         projects

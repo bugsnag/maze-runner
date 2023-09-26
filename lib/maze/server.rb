@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'bugsnag'
 require 'json'
 require 'securerandom'
 require 'webrick'
@@ -227,6 +228,7 @@ module Maze
             server.mount '/reflect', Servlets::ReflectiveServlet
             server.start
           rescue StandardError => e
+            Bugsnag.notify e
             $logger.warn "Failed to start mock server: #{e.message}"
           ensure
             server&.shutdown

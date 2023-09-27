@@ -10,6 +10,7 @@ module Maze
 
         Bugsnag.configure do |config|
           config.api_key = ENV['MAZE_BUGSNAG_API_KEY']
+          config.app_version = Maze::VERSION
           config.discard_classes << 'Test::Unit::AssertionFailedError'
           config.add_metadata(:'test driver', {
             'driver type': Maze.driver.class,

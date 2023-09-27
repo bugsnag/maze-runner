@@ -102,9 +102,9 @@ module Maze
         set_response_header response.header
         response.status = post_status_code
       rescue JSON::ParserError => e
-        Bugsnag.notify e
         msg = "Unable to parse request as JSON: #{e.message}"
         if Maze.config.captured_invalid_requests.include? @request_type
+          Bugsnag.notify e
           $logger.error msg
           Server.invalid_requests.add({
             reason: msg,
@@ -115,9 +115,10 @@ module Maze
           $logger.warn msg
         end
       rescue StandardError => e
-        Bugsnag.notify e
+        msg = "Invalid #{@request_type} request: #{e.message}"
         if Maze.config.captured_invalid_requests.include? @request_type
-          $logger.error "Invalid request: #{e.message}"
+          Bugsnag.notify e
+          $logger.msg
           Server.invalid_requests.add({
             invalid: true,
             reason: e.message,
@@ -128,7 +129,7 @@ module Maze
             }
           })
         else
-          $logger.warn "Invalid request: #{e.message}"
+          $logger.warn msg
         end
       end
 

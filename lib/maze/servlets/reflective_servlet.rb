@@ -48,7 +48,7 @@ module Maze
         response.status = 418
       rescue StandardError => e
         Bugsnag.notify e
-        $logger.error "Invalid request: #{e.message}"
+        $logger.error "Invalid request to reflective servlet: #{e.message}"
         response.status = 500
       end
 

@@ -43,7 +43,7 @@ module Maze
         })
       rescue StandardError => e
         Bugsnag.notify e
-        $logger.error "Invalid request: #{e.message}"
+        $logger.error "Invalid log request: #{e.message}"
         Server.invalid_requests.add({
           invalid: true,
           reason: e.message,

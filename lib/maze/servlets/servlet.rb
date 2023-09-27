@@ -115,9 +115,9 @@ module Maze
           $logger.warn msg
         end
       rescue StandardError => e
-        Bugsnag.notify e
         if Maze.config.captured_invalid_requests.include? @request_type
-          $logger.error "Invalid request: #{e.message}"
+          Bugsnag.notify e
+          $logger.error "Invalid #{@request_type} request: #{e.message}"
           Server.invalid_requests.add({
             invalid: true,
             reason: e.message,
@@ -128,7 +128,7 @@ module Maze
             }
           })
         else
-          $logger.warn "Invalid request: #{e.message}"
+          $logger.warn "Invalid #{@request_type} request: #{e.message}"
         end
       end
 

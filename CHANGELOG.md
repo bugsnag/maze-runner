@@ -1,3 +1,9 @@
+# 8.7.1 - 2023/09/27
+
+## Fixes
+
+- Internal reporting and logging improvements [587](https://github.com/bugsnag/maze-runner/pull/587)
+
 # 8.7.0 - 2023/09/26
 
 ## Enhancements

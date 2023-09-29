@@ -320,8 +320,8 @@ steps:
           - "--no-tunnel"
     env:
       RUBY_VERSION: "2"
-    concurrency: 5
-    concurrency_group: 'bitbar-web'
+    concurrency: 25
+    concurrency_group: 'bitbar'
     concurrency_method: eager
 
   - label: ':bitbar: Android'
@@ -353,7 +353,7 @@ steps:
     env:
       RUBY_VERSION: "3"
     concurrency: 25
-    concurrency_group: 'bitbar-app'
+    concurrency_group: 'bitbar'
     concurrency_method: eager
 
   - wait

@@ -93,9 +93,9 @@ module Maze
 
           def make_android_hash(device)
             hash = {
+              'platformName' => 'Android',
               'appium:options' => {
                 'automationName' => 'UiAutomator2',
-                'platformName' => 'Android',
                 'deviceName' => 'Android Phone',
                 'autoGrantPermissions' => true
               },
@@ -108,10 +108,10 @@ module Maze
 
           def make_ios_hash(device)
             {
+              'platformName' => 'iOS',
               'appium:options' => {
                 'automationName' => 'XCUITest',
                 'deviceName' => 'iPhone device',
-                'platformName' => 'iOS',
                 'shouldTerminateApp' => 'true'
               },
               'bitbar:options' => {

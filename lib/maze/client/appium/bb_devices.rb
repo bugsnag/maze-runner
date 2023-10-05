@@ -41,16 +41,9 @@ module Maze
             Maze.config.os = platform
             Maze.config.os_version = platform_version.to_f.floor
 
-            prefix = caps_prefix(Maze.config.appium_version)
-
             case platform
             when 'android'
-              automation_name = if platform_version.start_with?('5')
-                                  'UiAutomator1'
-                                else
-                                  'UiAutomator2'
-                                end
-              make_android_hash(device_name, automation_name, prefix)
+              make_android_hash(device_name, prefix)
             when 'ios'
               make_ios_hash(device_name, prefix)
             else
@@ -98,9 +91,9 @@ module Maze
             end
           end
 
-          def make_android_hash(device, automation_name, prefix='appium:')
+          def make_android_hash(device, prefix='appium:')
             hash = {
-              'automationName' => automation_name,
+              'automationName' => 'UiAutomator2',
               'platformName' => 'Android',
               'deviceName' => 'Android Phone',
               'bitbar:options' => {

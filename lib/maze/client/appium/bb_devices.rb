@@ -43,9 +43,9 @@ module Maze
 
             case platform
             when 'android'
-              make_android_hash(device_name, prefix)
+              make_android_hash(device_name)
             when 'ios'
-              make_ios_hash(device_name, prefix)
+              make_ios_hash(device_name)
             else
               throw "Invalid device platform specified #{platform}"
             end
@@ -91,33 +91,33 @@ module Maze
             end
           end
 
-          def make_android_hash(device, prefix='appium:')
+          def make_android_hash(device)
             hash = {
-              'automationName' => 'UiAutomator2',
-              'platformName' => 'Android',
-              'deviceName' => 'Android Phone',
+              'appium:options' => {
+                'automationName' => 'UiAutomator2',
+                'platformName' => 'Android',
+                'deviceName' => 'Android Phone',
+                'autoGrantPermissions' => true
+              },
               'bitbar:options' => {
-                "#{prefix}autoGrantPermissions" => true,
                 'device' => device,
               }
             }
             hash.freeze
           end
 
-          def make_ios_hash(device, prefix='appium:')
+          def make_ios_hash(device)
             {
-              'automationName' => 'XCUITest',
-              'deviceName' => 'iPhone device',
-              'platformName' => 'iOS',
-              "#{prefix}shouldTerminateApp" => 'true',
+              'appium:options' => {
+                'automationName' => 'XCUITest',
+                'deviceName' => 'iPhone device',
+                'platformName' => 'iOS',
+                'shouldTerminateApp' => 'true'
+              },
               'bitbar:options' => {
                 'device' => device
               }
             }.freeze
-          end
-
-          def caps_prefix(appium_version)
-            appium_version.nil? || (appium_version.to_i >= 2) ? 'appium:' : ''
           end
         end
       end

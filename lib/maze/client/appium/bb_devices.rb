@@ -97,7 +97,8 @@ module Maze
               'deviceName' => 'Android Phone',
               'appium:options' => {
                 'automationName' => 'UiAutomator2',
-                'autoGrantPermissions' => true
+                'autoGrantPermissions' => true,
+                'uiautomator2ServerInstallTimeout' => 60000
               },
               'bitbar:options' => {
                 'device' => device,

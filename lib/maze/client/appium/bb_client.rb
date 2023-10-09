@@ -13,8 +13,20 @@ module Maze
           end
         end
 
-        def retry_start_driver?
-          false
+        def retry_interval(error)
+          # Retry interval depends on the error message
+          return nil if error.nil?
+
+          if error.message.include? 'no sessionId in returned payload'
+            # This will happen naturally due to a race condition in how we access devices
+            return 60
+          elsif error.message.include? 'You reached the account concurrency limit'
+            # In theory this shouldn't happen, but back off if it does
+            return 300
+          else
+            # No retries in unknown cases
+            nil
+          end
         end
 
         def start_scenario

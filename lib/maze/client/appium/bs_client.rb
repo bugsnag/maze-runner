@@ -15,8 +15,17 @@ module Maze
           end
         end
 
-        def retry_start_driver?
-          Maze.config.device_list.nil? || Maze.config.device_list.empty?
+        # On BrowserStack, wait 10 seconds before retrying if there is another device in the list
+        def retry_interval(error)
+          if Maze.config.device_list.nil? || config.device_list.empty?
+            $logger.error 'No further devices to try'
+            nil
+          else
+            config.device = config.device_list.first
+            config.device_list = config.device_list.drop(1)
+            $logger.warn "Retrying driver initialisation using next device: #{config.device}"
+            10
+          end
         end
 
         def start_scenario

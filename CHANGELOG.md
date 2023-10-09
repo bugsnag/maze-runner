@@ -1,3 +1,9 @@
+# 8.7.2 - 2023/10/09
+
+## Fixes
+
+- Increase `uiautomator2ServerInstallTimeout` to 60s on BitBar [590](https://github.com/bugsnag/maze-runner/pull/590)
+
 # 8.7.1 - 2023/09/27
 
 ## Fixes

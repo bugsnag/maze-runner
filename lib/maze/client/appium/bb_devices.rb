@@ -41,18 +41,11 @@ module Maze
             Maze.config.os = platform
             Maze.config.os_version = platform_version.to_f.floor
 
-            prefix = caps_prefix(Maze.config.appium_version)
-
             case platform
             when 'android'
-              automation_name = if platform_version.start_with?('5')
-                                  'UiAutomator1'
-                                else
-                                  'UiAutomator2'
-                                end
-              make_android_hash(device_name, automation_name, prefix)
+              make_android_hash(device_name)
             when 'ios'
-              make_ios_hash(device_name, prefix)
+              make_ios_hash(device_name)
             else
               throw "Invalid device platform specified #{platform}"
             end
@@ -98,33 +91,34 @@ module Maze
             end
           end
 
-          def make_android_hash(device, automation_name, prefix='appium:')
+          def make_android_hash(device)
             hash = {
-              'automationName' => automation_name,
               'platformName' => 'Android',
               'deviceName' => 'Android Phone',
+              'appium:options' => {
+                'automationName' => 'UiAutomator2',
+                'autoGrantPermissions' => true,
+                'uiautomator2ServerInstallTimeout' => 60000
+              },
               'bitbar:options' => {
-                "#{prefix}autoGrantPermissions" => true,
                 'device' => device,
               }
             }
             hash.freeze
           end
 
-          def make_ios_hash(device, prefix='appium:')
+          def make_ios_hash(device)
             {
-              'automationName' => 'XCUITest',
-              'deviceName' => 'iPhone device',
               'platformName' => 'iOS',
-              "#{prefix}shouldTerminateApp" => 'true',
+              'deviceName' => 'iPhone device',
+              'appium:options' => {
+                'automationName' => 'XCUITest',
+                'shouldTerminateApp' => 'true'
+              },
               'bitbar:options' => {
                 'device' => device
               }
             }.freeze
-          end
-
-          def caps_prefix(appium_version)
-            appium_version.nil? || (appium_version.to_i >= 2) ? 'appium:' : ''
           end
         end
       end

@@ -1,3 +1,9 @@
+# 8.7.3 - 2023/10/11
+
+## Enhancements
+
+- Add iOS 17 devices browsers to the available BS devices []()
+
 # 8.7.2 - 2023/10/09
 
 ## Fixes

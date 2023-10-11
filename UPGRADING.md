@@ -33,6 +33,7 @@ Changed names:
 - iphone_xs       -> ios_12
 - iphone_13       -> ios_15
 - iphone_14       -> ios_16
+- iphone_15       -> ios_17
 - android_nexus5  -> android_4
 - android_s6      -> android_5
 - android_s7      -> android_6

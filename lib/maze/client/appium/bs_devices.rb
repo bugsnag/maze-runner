@@ -79,6 +79,7 @@ module Maze
               'ANDROID_7' => make_android_hash('Google Pixel', '7.1'),
 
               # iOS devices
+              'IOS_17' => make_ios_hash('iPhone 15', '17'),
               'IOS_16' => make_ios_hash('iPhone 14', '16'),
               'IOS_15' => make_ios_hash('iPhone 11 Pro', '15'),
               'IOS_14' => make_ios_hash('iPhone 11', '14'),
@@ -110,6 +111,10 @@ module Maze
             add_android 'Samsung Galaxy S8', '7.0', hash                      # ANDROID_7_0_SAMSUNG_GALAXY_S8
 
             # Specific iOS devices
+            add_ios 'iPhone 15 Pro Max', '17.0', hash                         # IOS_17_0_IPHONE_15_PRO_MAX
+            add_ios 'iPhone 15 Pro', '17.0', hash                             # IOS_17_0_IPHONE_15_PRO
+            add_ios 'iPhone 15', '17.0', hash                                 # IOS_17_0_IPHONE_15
+
             add_ios 'iPhone 14 Plus', '16.0', hash                            # IOS_16_0_IPHONE_14_PLUS
             add_ios 'iPhone 14 Pro', '16.0', hash                             # IOS_16_0_IPHONE_14_PRO
             add_ios 'iPhone 14 Pro Max', '16.0', hash                         # IOS_16_0_IPHONE_14_PRO_MAX

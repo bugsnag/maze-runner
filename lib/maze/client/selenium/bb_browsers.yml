@@ -5,20 +5,6 @@ chrome_latest:
   version: 'latest'
   resolution: '1920x1080'
 
-chrome_108:
-  platform: 'Windows'
-  osVersion: '11'
-  browserName: 'chrome'
-  version: '108'
-  resolution: '1920x1080'
-
-chrome_107:
-  platform: 'Windows'
-  osVersion: '11'
-  browserName: 'chrome'
-  version: '107'
-  resolution: '1920x1080'
-
 chrome_72:
   platform: 'Windows'
   osVersion: '10'
@@ -38,48 +24,6 @@ firefox_latest:
   osVersion: '11'
   browserName: 'firefox'
   version: 'latest'
-  resolution: '1920x1080'
-
-firefox_107:
-  platform: 'Windows'
-  osVersion: '11'
-  browserName: 'firefox'
-  version: '107'
-  resolution: '1920x1080'
-
-firefox_106:
-  platform: 'Windows'
-  osVersion: '11'
-  browserName: 'firefox'
-  version: '106'
-  resolution: '1920x1080'
-
-firefox_105:
-  platform: 'Windows'
-  osVersion: '11'
-  browserName: 'firefox'
-  version: '105'
-  resolution: '1920x1080'
-
-firefox_104:
-  platform: 'Windows'
-  osVersion: '11'
-  browserName: 'firefox'
-  version: '104'
-  resolution: '1920x1080'
-
-firefox_103:
-  platform: 'Windows'
-  osVersion: '11'
-  browserName: 'firefox'
-  version: '103'
-  resolution: '1920x1080'
-
-firefox_102:
-  platform: 'Windows'
-  osVersion: '11'
-  browserName: 'firefox'
-  version: '102'
   resolution: '1920x1080'
 
 firefox_78:

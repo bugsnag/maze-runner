@@ -111,9 +111,8 @@ module Maze
             add_android 'Samsung Galaxy S8', '7.0', hash                      # ANDROID_7_0_SAMSUNG_GALAXY_S8
 
             # Specific iOS devices
-            add_ios 'iPhone 15 Pro Max', '17.0', hash                         # IOS_17_0_IPHONE_15_PRO_MAX
-            add_ios 'iPhone 15 Pro', '17.0', hash                             # IOS_17_0_IPHONE_15_PRO
             add_ios 'iPhone 15', '17.0', hash                                 # IOS_17_0_IPHONE_15
+            add_ios 'iPhone 12 Pro', '17.0', hash                             # IOS_17_0_IPHONE_12_PRO
 
             add_ios 'iPhone 14 Plus', '16.0', hash                            # IOS_16_0_IPHONE_14_PLUS
             add_ios 'iPhone 14 Pro', '16.0', hash                             # IOS_16_0_IPHONE_14_PRO

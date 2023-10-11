@@ -139,7 +139,6 @@ ios_16:
   realMobile: true
 
 ios_17:
-  browserName: "iphone"
   device: "iPhone 15"
   os: "ios"
   osVersion: "17"

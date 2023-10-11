@@ -2,7 +2,7 @@
 
 ## Enhancements
 
-- Add iOS 17 devices browsers to the available BS devices [592](https://github.com/bugsnag/maze-runner/pull/592)
+- Add iOS 17 to the available BS devices [592](https://github.com/bugsnag/maze-runner/pull/592)
 
 ## Fixes
 

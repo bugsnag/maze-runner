@@ -24,6 +24,7 @@ module Maze
     APP_BUNDLE_ID = 'app-bundle-id'
     APPIUM_VERSION = 'appium-version'
     BROWSER = 'browser'
+    BROWSER_VERSION = 'browser-version'
     DEVICE = 'device'
     LIST_DEVICES = 'list-devices'
     OS = 'os'

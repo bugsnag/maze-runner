@@ -74,6 +74,7 @@ class ParserTest < Test::Unit::TestCase
       --bs-local=ARG_BS_LOCAL
       --device=ARG_DEVICE
       --browser=ARG_BROWSER
+      --browser-version=ARG_BROWSER_VERSION
       --username=ARG_USERNAME
       --access-key=ARG_ACCESS_KEY
       --appium-version=ARG_APPIUM_VERSION
@@ -99,6 +100,7 @@ class ParserTest < Test::Unit::TestCase
     assert_equal('ARG_BS_LOCAL', options[Maze::Option::BS_LOCAL])
     assert_equal(['ARG_DEVICE'], options[Maze::Option::DEVICE])
     assert_equal('ARG_BROWSER', options[Maze::Option::BROWSER])
+    assert_equal('ARG_BROWSER_VERSION', options[Maze::Option::BROWSER_VERSION])
     assert_equal('ARG_USERNAME', options[Maze::Option::USERNAME])
     assert_equal('ARG_ACCESS_KEY', options[Maze::Option::ACCESS_KEY])
     assert_equal('ARG_APPIUM_VERSION', options[Maze::Option::APPIUM_VERSION])

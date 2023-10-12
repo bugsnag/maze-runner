@@ -83,6 +83,7 @@ module Maze
             if device_option.nil? || device_option.empty?
               # BitBar Web
               config.browser = options[Maze::Option::BROWSER]
+              config.browser_version = options[Maze::Option::BROWSER_VERSION]
             else
               # BitBar Devices
               if device_option.is_a?(Array)

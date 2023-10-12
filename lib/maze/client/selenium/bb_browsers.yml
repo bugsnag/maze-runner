@@ -1,3 +1,9 @@
+chrome:
+  platform: 'Windows'
+  osVersion: '11'
+  browserName: 'chrome'
+  resolution: '1920x1080'
+
 chrome_latest:
   platform: 'Windows'
   osVersion: '11'
@@ -19,6 +25,12 @@ chrome_43:
   version: '43'
   resolution: '1920x1080'
 
+firefox:
+  platform: 'Windows'
+  osVersion: '11'
+  browserName: 'firefox'
+  resolution: '1920x1080'
+
 firefox_latest:
   platform: 'Windows'
   osVersion: '11'
@@ -38,6 +50,12 @@ ie_11:
   osVersion: '10'
   browserName: 'internet explorer'
   version: '11'
+  resolution: '1920x1080'
+
+edge:
+  platform: 'Windows'
+  osVersion: '11'
+  browserName: 'MicrosoftEdge'
   resolution: '1920x1080'
 
 edge_latest:

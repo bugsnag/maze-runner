@@ -41,6 +41,35 @@ class ValidatorTest < Test::Unit::TestCase
     assert_equal "--repeater-api-key must be set to a 32-character hex value", errors[0]
   end
 
+  def test_bitbar_invalid_browser
+    args = %w[--farm=bb --username=user --access-key=key --browser=MADE_UP]
+
+    options = Maze::Option::Parser.parse args
+    errors = @validator.validate options
+
+    assert_equal 1, errors.length
+    assert_match 'Browser type \'MADE_UP\' unknown on BitBar.  Must be one of', errors[0]
+  end
+
+  def test_bitbar_missing_browser_version
+    args = %w[--farm=bb --username=user --access-key=key --browser=edge]
+
+    options = Maze::Option::Parser.parse args
+    errors = @validator.validate options
+
+    assert_equal 1, errors.length
+    assert_match "--browser-version must be specified for browser 'edge'", errors[0]
+  end
+
+  def test_bitbar_browser_version
+    args = %w[--farm=bb --username=user --access-key=key --browser=edge --browser-version=105]
+
+    options = Maze::Option::Parser.parse args
+    errors = @validator.validate options
+
+    assert_equal 0, errors.length
+  end
+
   def test_valid_browser_stack_options
     args = %w[--farm=bs --app=my_app.apk --username=user --access-key=key --device=ANDROID_11]
     File.stubs(:exist?).with('/BrowserStackLocal').returns(true)

@@ -1,3 +1,9 @@
+# 8.9.0 - 2023/10/12
+
+## Enhancements
+
+- Allow BB browser versions to be set via the command line [593](https://github.com/bugsnag/maze-runner/pull/593)
+
 # 8.8.0 - 2023/10/11
 
 ## Enhancements

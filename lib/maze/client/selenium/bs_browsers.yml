@@ -138,6 +138,12 @@ ios_16:
   osVersion: "16"
   realMobile: true
 
+ios_17:
+  device: "iPhone 15"
+  os: "ios"
+  osVersion: "17"
+  realMobile: true
+
 android_4:
   browserName: "Android Browser"
   device: "Google Nexus 5"

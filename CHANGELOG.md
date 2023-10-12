@@ -1,4 +1,8 @@
-# 8.7.2 - 2023/10/09
+# 8.8.0 - 2023/10/11
+
+## Enhancements
+
+- Add iOS 17 to the available BS devices [592](https://github.com/bugsnag/maze-runner/pull/592)
 
 ## Fixes
 

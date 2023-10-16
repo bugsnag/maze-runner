@@ -21,6 +21,8 @@ module Maze
           end
 
           selenium_url = Maze.config.selenium_server_url
+
+          $logger.trace "Starting Selenium driver with capabilities: #{config.capabilities.to_json}"
           Maze.driver = Maze::Driver::Browser.new :remote, selenium_url, config.capabilities
           Maze.driver.start_driver
         end

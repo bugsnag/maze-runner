@@ -4,6 +4,10 @@
 
 - Allow BB browser versions to be set via the command line [593](https://github.com/bugsnag/maze-runner/pull/593)
 
+## Fixes
+
+- Avoid shell interpretation of characters in file names in `Maze::MacosUtils.capture_screen` [594](https://github.com/bugsnag/maze-runner/pull/594)
+
 # 8.8.0 - 2023/10/11
 
 ## Enhancements

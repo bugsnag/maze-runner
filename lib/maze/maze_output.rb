@@ -97,8 +97,6 @@ module Maze
       end
     end
 
-    private
-
     # Determines the output folder for the scenario
     def output_folder
       folder1 = File.join(Dir.pwd, 'maze_output')

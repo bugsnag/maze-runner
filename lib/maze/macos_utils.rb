@@ -4,10 +4,10 @@ module Maze
   class MacosUtils
     class << self
       def capture_screen(scenario)
-        path = File.join(File.join(Dir.pwd, 'maze_output'), 'failed', Maze::Helper.to_friendly_filename(scenario.name))
-        FileUtils.makedirs(path)
+        path = Maze::MazeOutput.new(scenario).output_folder
+        FileUtils.makedirs(path) unless File.exist?(path)
 
-        system("/usr/sbin/screencapture #{path}/#{Maze::Helper.to_friendly_filename(scenario.name)}-screenshot.jpg")
+        system('/usr/sbin/screencapture', "#{path}/#{Maze::Helper.to_friendly_filename(scenario.name)}-screenshot.jpg")
       end
     end
   end

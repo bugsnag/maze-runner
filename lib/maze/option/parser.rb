@@ -122,6 +122,10 @@ module Maze
                 'Browser to use (an entry in <farm>_browsers.yml)',
                 short: :none,
                 type: :string
+            opt Option::BROWSER_VERSION,
+                'Browser version to use (applies to entries in <farm>_browsers.yml that do not include a version)',
+                short: :none,
+                type: :string
             opt Option::USERNAME,
                 'Device farm username. Consumes env var from environment based on farm set',
                 short: :none,

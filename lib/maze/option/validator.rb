@@ -99,7 +99,11 @@ module Maze
         elsif browser
           browsers = YAML.safe_load(File.read("#{__dir__}/../client/selenium/bb_browsers.yml"))
 
-          unless browsers.include? browser
+          if browsers.include? browser
+            if options[Option::BROWSER_VERSION].nil? && !browsers[browser].include?('version')
+              errors << "--#{Option::BROWSER_VERSION} must be specified for browser '#{browser}'"
+            end
+          else
             browser_list = browsers.keys.join ', '
             errors << "Browser type '#{browser}' unknown on BitBar.  Must be one of: #{browser_list}."
           end

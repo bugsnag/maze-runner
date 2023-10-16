@@ -1,22 +1,14 @@
+chrome:
+  platform: 'Windows'
+  osVersion: '11'
+  browserName: 'chrome'
+  resolution: '1920x1080'
+
 chrome_latest:
   platform: 'Windows'
   osVersion: '11'
   browserName: 'chrome'
   version: 'latest'
-  resolution: '1920x1080'
-
-chrome_108:
-  platform: 'Windows'
-  osVersion: '11'
-  browserName: 'chrome'
-  version: '108'
-  resolution: '1920x1080'
-
-chrome_107:
-  platform: 'Windows'
-  osVersion: '11'
-  browserName: 'chrome'
-  version: '107'
   resolution: '1920x1080'
 
 chrome_72:
@@ -33,53 +25,17 @@ chrome_43:
   version: '43'
   resolution: '1920x1080'
 
+firefox:
+  platform: 'Windows'
+  osVersion: '11'
+  browserName: 'firefox'
+  resolution: '1920x1080'
+
 firefox_latest:
   platform: 'Windows'
   osVersion: '11'
   browserName: 'firefox'
   version: 'latest'
-  resolution: '1920x1080'
-
-firefox_107:
-  platform: 'Windows'
-  osVersion: '11'
-  browserName: 'firefox'
-  version: '107'
-  resolution: '1920x1080'
-
-firefox_106:
-  platform: 'Windows'
-  osVersion: '11'
-  browserName: 'firefox'
-  version: '106'
-  resolution: '1920x1080'
-
-firefox_105:
-  platform: 'Windows'
-  osVersion: '11'
-  browserName: 'firefox'
-  version: '105'
-  resolution: '1920x1080'
-
-firefox_104:
-  platform: 'Windows'
-  osVersion: '11'
-  browserName: 'firefox'
-  version: '104'
-  resolution: '1920x1080'
-
-firefox_103:
-  platform: 'Windows'
-  osVersion: '11'
-  browserName: 'firefox'
-  version: '103'
-  resolution: '1920x1080'
-
-firefox_102:
-  platform: 'Windows'
-  osVersion: '11'
-  browserName: 'firefox'
-  version: '102'
   resolution: '1920x1080'
 
 firefox_78:
@@ -94,6 +50,12 @@ ie_11:
   osVersion: '10'
   browserName: 'internet explorer'
   version: '11'
+  resolution: '1920x1080'
+
+edge:
+  platform: 'Windows'
+  osVersion: '11'
+  browserName: 'MicrosoftEdge'
   resolution: '1920x1080'
 
 edge_latest:

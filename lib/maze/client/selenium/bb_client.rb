@@ -8,6 +8,7 @@ module Maze
           capabilities['bitbar_apiKey'] = config.access_key
           browsers = YAML.safe_load(File.read("#{__dir__}/bb_browsers.yml"))
           capabilities.merge! BitBarClientUtils.dashboard_capabilities
+          capabilities['version'] = config.browser_version unless config.browser_version.nil?
           capabilities.merge! browsers[config.browser]
           capabilities.merge! JSON.parse(config.capabilities_option)
           config.capabilities = capabilities
@@ -20,6 +21,8 @@ module Maze
           end
 
           selenium_url = Maze.config.selenium_server_url
+
+          $logger.trace "Starting Selenium driver with capabilities: #{config.capabilities.to_json}"
           Maze.driver = Maze::Driver::Browser.new :remote, selenium_url, config.capabilities
           Maze.driver.start_driver
         end

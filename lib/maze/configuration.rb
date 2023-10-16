@@ -134,6 +134,9 @@ module Maze
     # Test browser type
     attr_accessor :browser
 
+    # Test browser version
+    attr_accessor :browser_version
+
     # Appium version to use
     attr_accessor :appium_version
 

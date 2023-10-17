@@ -11,6 +11,7 @@ module Maze
           capabilities['version'] = config.browser_version unless config.browser_version.nil?
           capabilities.merge! browsers[config.browser]
           capabilities.merge! JSON.parse(config.capabilities_option)
+          capabilities['bitbar:options']['testTimeout'] = 3600
           config.capabilities = capabilities
 
           if Maze::Client::BitBarClientUtils.use_local_tunnel?

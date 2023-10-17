@@ -1,8 +1,10 @@
 # 8.9.0 - TBD
 
+
 ## Enhancements
 
 - Allow BB browser versions to be set via the command line [593](https://github.com/bugsnag/maze-runner/pull/593)
+- Set default test timeout on BitBar selenium runs to 3600 seconds [584](https://github.com/bugsnag/maze-runner/pull/594)
 
 ## Fixes
 

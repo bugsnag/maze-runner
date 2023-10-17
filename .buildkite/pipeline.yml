@@ -302,7 +302,7 @@ steps:
 
   - label: ':bitbar: Safari 15'
     depends_on: "push-branch-cli"
-    timeout_in_minutes: 10
+    timeout_in_minutes: 30
     plugins:
       artifacts#v1.9.0:
         upload: "maze_output/failed/**/*"

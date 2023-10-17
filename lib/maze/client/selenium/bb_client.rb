@@ -7,7 +7,7 @@ module Maze
           capabilities = ::Selenium::WebDriver::Remote::Capabilities.new
           capabilities['bitbar_apiKey'] = config.access_key
           capabilities['bitbar:options'] = {
-            'testTimeout' => 900
+            'testTimeout' => 30
           }
           browsers = YAML.safe_load(File.read("#{__dir__}/bb_browsers.yml"))
           capabilities.deep_merge! BitBarClientUtils.dashboard_capabilities

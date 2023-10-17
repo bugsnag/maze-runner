@@ -11,6 +11,15 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
                        gnupg \
                        lsb-release
 
+# Install libwebp 1.3.2
+RUN wget https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.3.2.tar.gz
+RUN tar -xzvf libwebp-1.3.2.tar.gz
+WORKDIR /libwebp-1.3.2/
+RUN ./configure
+RUN make
+RUN make install
+RUN ldconfig /usr/local/lib/
+RUN cwebp -version
 # https://docs.docker.com/engine/install/ubuntu/#set-up-the-repository
 RUN mkdir -p /etc/apt/keyrings
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
@@ -31,16 +40,3 @@ RUN wget -q https://sbsecuretunnel.s3.amazonaws.com/cli/linux/SBSecureTunnel \
   && chmod +x SBSecureTunnel
 
 WORKDIR /app/
-
-COPY bin/ bin/
-COPY lib/ lib/
-COPY Gemfile* bugsnag-maze-runner.gemspec ./
-
-RUN rm -f Gemfile.lock && USE_LEGACY_DRIVER=1 bundle install
-
-FROM ci-ruby-2 as cli-legacy
-ENTRYPOINT ["bundle", "exec", "maze-runner"]
-
-FROM ci-ruby-2 as unit-test-ruby-2
-COPY test/ test/
-COPY Rakefile .

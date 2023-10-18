@@ -315,6 +315,7 @@ steps:
         command:
           - "--farm=bb"
           - "--browser=edge"
+          - "--browser-version=latest"
           - "--aws-public-ip"
           - "--fail-fast"
           - "--no-tunnel"

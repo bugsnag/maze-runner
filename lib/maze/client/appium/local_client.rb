@@ -17,7 +17,10 @@ module Maze
                              'platformName' => 'Android',
                              'automationName' => 'UiAutomator2',
                              'autoGrantPermissions' => 'true',
-                             'noReset' => 'true'
+                             'noReset' => 'true',
+                             'app' => config.app,
+                             'os' => platform,
+                             'autoAcceptAlerts': 'true'
                            }
                          when 'ios'
                            {
@@ -29,22 +32,28 @@ module Maze
                              'udid' => config.device_id,
                              'noReset' => 'true',
                              'waitForQuiescence' => false,
-                             'newCommandTimeout' => 0
+                             'newCommandTimeout' => 0,
+                             'app' => config.app,
+                             'os' => platform,
+                             'autoAcceptAlerts': 'true'
                            }
                          when 'macos'
                            {
-                             'platformName' => 'Mac'
+                             'platformName' => 'mac',
+                             'automationName' => 'mac2',
+                             'appium:options' => {
+                               'appPath' => config.app,
+                               'bundleId' => config.app_bundle_id
+                             }
                            }
                          else
                            raise "Unsupported platform: #{config.os}"
                          end
-          common = {
-            'app' => config.app,
-            'os' => platform,
-            'autoAcceptAlerts': 'true'
-          }
-          capabilities.merge! common
           capabilities.merge! JSON.parse(config.capabilities_option)
+
+          $logger.info '******'
+          $logger.info capabilities
+
           capabilities
         end
 

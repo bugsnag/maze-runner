@@ -109,6 +109,7 @@ module Maze
               config.appium_server_url = options[Maze::Option::APPIUM_SERVER]
               config.start_appium = options[Maze::Option::START_APPIUM]
               config.appium_logfile = options[Maze::Option::APPIUM_LOGFILE]
+              config.app_bundle_id = options[Maze::Option::APP_BUNDLE_ID]
               if os == 'ios'
                 config.apple_team_id = options[Maze::Option::APPLE_TEAM_ID]
                 config.device_id = options[Maze::Option::UDID]

@@ -41,6 +41,7 @@ module Maze
         start_logger
 
         command = "appium -a #{address} -p #{port}"
+        $logger.info "Running: #{command}"
         @appium_thread = Thread.new do
           PTY.spawn(command) do |stdout, _stdin, pid|
             @pid = pid
@@ -51,8 +52,8 @@ module Maze
           end
         end
 
-        # Temporary sleep to allow appium to start
-        sleep 2
+        # Allow appium to start
+        sleep 10
       end
 
       # Checks whether the server is running, as indicated by the @pid and the appium thread being alive

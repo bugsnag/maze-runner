@@ -152,7 +152,7 @@ module Maze
                 default: true
             opt Option::APPIUM_SERVER,
                 "Appium server URL.  Defaults are: \n" +
-                "  --farm=local - MAZE_APPIUM_SERVER or http://localhost:4723/wd/hub\n" +
+                "  --farm=local - MAZE_APPIUM_SERVER or http://localhost:4723\n" +
                 "  --farm=bb - MAZE_APPIUM_SERVER or https://us-west-mobile-hub.bitbar.com/wd/hub\n" +
                 'Not used for --farm=bs',
                 short: :none,
@@ -271,7 +271,7 @@ module Maze
           options[Option::BUGSNAG_REPEATER_API_KEY] ||= ENV['MAZE_REPEATER_API_KEY']
           options[Option::SB_LOCAL] ||= ENV['MAZE_SB_LOCAL'] || '/SBSecureTunnel'
           options[Option::BS_LOCAL] ||= ENV['MAZE_BS_LOCAL'] || '/BrowserStackLocal'
-          options[Option::APPIUM_SERVER] ||= ENV['MAZE_APPIUM_SERVER'] || 'http://localhost:4723/wd/hub'
+          options[Option::APPIUM_SERVER] ||= ENV['MAZE_APPIUM_SERVER'] || 'http://localhost:4723'
           options[Option::APPLE_TEAM_ID] ||= ENV['MAZE_APPLE_TEAM_ID']
           options[Option::UDID] ||= ENV['MAZE_UDID']
           options

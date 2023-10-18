@@ -46,7 +46,7 @@ class ParserTest < Test::Unit::TestCase
     # Local-only options
     assert_nil(options[Maze::Option::OS])
     assert_nil(options[Maze::Option::OS_VERSION])
-    assert_equal('http://localhost:4723/wd/hub', options[Maze::Option::APPIUM_SERVER])
+    assert_equal('http://localhost:4723', options[Maze::Option::APPIUM_SERVER])
     assert_nil(options[Maze::Option::APPLE_TEAM_ID])
     assert_nil(options[Maze::Option::UDID])
 

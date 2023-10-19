@@ -1,23 +1,15 @@
-# 8.10.0 - TBD
-
-## Enhancements
-
-- Add the Buildkite job URL to the metadata reported to Bugsnag [597](https://github.com/bugsnag/maze-runner/pull/597)
-
-## Fixes
-
-- Upgrade APT packages used within the Docker images to fix several vulnerabilities reported by AWS ECR scanning [596](https://github.com/bugsnag/maze-runner/pull/596)
-
-# 8.9.0 - TBD
+# 8.9.0 - 2023/10/19
 
 ## Enhancements
 
 - Allow BB browser versions to be set via the command line [593](https://github.com/bugsnag/maze-runner/pull/593)
 - Set default test timeout on BitBar selenium runs to 900 seconds [595](https://github.com/bugsnag/maze-runner/pull/595)
+- Add the Buildkite job URL to the metadata reported to Bugsnag [597](https://github.com/bugsnag/maze-runner/pull/597)
 
 ## Fixes
 
 - Avoid shell interpretation of characters in file names in `Maze::MacosUtils.capture_screen` [594](https://github.com/bugsnag/maze-runner/pull/594)
+- Upgrade APT packages used within the Docker images to fix several vulnerabilities reported by AWS ECR scanning [596](https://github.com/bugsnag/maze-runner/pull/596)
 
 # 8.8.0 - 2023/10/11
 

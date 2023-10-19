@@ -1,3 +1,13 @@
+# 8.10.0 - TBD
+
+## Enhancements
+
+- Add the Buildkite job URL to the metadata reported to Bugsnag [597](https://github.com/bugsnag/maze-runner/pull/597)
+
+## Fixes
+
+- Upgrade APT packages used within the Docker images to fix several vulnerabilities reported by AWS ECR scanning [596](https://github.com/bugsnag/maze-runner/pull/596)
+
 # 8.9.0 - TBD
 
 ## Enhancements

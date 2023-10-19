@@ -1,7 +1,7 @@
 # Ruby image are based on Debian
 FROM ruby:2-bullseye as ci-ruby-2
 
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
+RUN apt-get update && apt-get upgrade -y && DEBIAN_FRONTEND=noninteractive \
     apt-get install -y apt-utils wget unzip bash bundler \
                        # Needed for symbolication
                        llvm-11 \

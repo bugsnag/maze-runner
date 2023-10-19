@@ -1,3 +1,9 @@
+# 8.9.1 - TBD
+
+## Fixes
+
+- Reinstate `retry_start_driver?` in `LocalClient` [598](https://github.com/bugsnag/maze-runner/pull/598)
+
 # 8.9.0 - 2023/10/19
 
 ## Enhancements

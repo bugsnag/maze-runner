@@ -48,6 +48,10 @@ module Maze
           capabilities
         end
 
+        def retry_start_driver?
+          false
+        end
+
         def log_run_intro
           # Nothing to do
         end

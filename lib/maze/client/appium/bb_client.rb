@@ -17,22 +17,22 @@ module Maze
           # Retry interval depends on the error message
           return nil if error.nil?
 
+          interval = nil
+          notify = true
+
           if error.message.include? 'no sessionId in returned payload'
             # This will happen naturally due to a race condition in how we access devices
             # Do not notify, but wait long enough for most ghost sessions on BitBar to terminate.
-            return 60
+            interval = 60
+            notify = false
           elsif error.message.include? 'You reached the account concurrency limit'
             # In theory this shouldn't happen, but back off if it does
-            Bugsnag.notify error
-            return 300
+            interval = 300
           elsif error.message.include? 'There are no devices available'
-            Bugsnag.notify error
-            return 120
-          else
-            # No retries in unknown cases
-            Bugsnag.notify error
-            nil
+            interval = 120
           end
+          Bugsnag.notify error if notify
+          interval
         end
 
         def start_scenario

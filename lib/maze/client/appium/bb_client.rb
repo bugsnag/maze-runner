@@ -29,9 +29,15 @@ module Maze
         end
 
         def device_capabilities
+          # Doubling up on capabilities in both the `appium:options` and `appium` sub dictionaries.
+            # See PLAT-11087
           config = Maze.config
           capabilities = {
             'appium:options' => {
+              'noReset' => true,
+              'newCommandTimeout' => 600
+            },
+            'appium' => {
               'noReset' => true,
               'newCommandTimeout' => 600
             },

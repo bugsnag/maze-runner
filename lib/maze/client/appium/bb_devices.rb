@@ -92,10 +92,17 @@ module Maze
           end
 
           def make_android_hash(device)
+            # Doubling up on capabilities in both the `appium:options` and `appium` sub dictionaries.
+            # See PLAT-11087
             hash = {
               'platformName' => 'Android',
               'deviceName' => 'Android Phone',
               'appium:options' => {
+                'automationName' => 'UiAutomator2',
+                'autoGrantPermissions' => true,
+                'uiautomator2ServerInstallTimeout' => 60000
+              },
+              'appium' => {
                 'automationName' => 'UiAutomator2',
                 'autoGrantPermissions' => true,
                 'uiautomator2ServerInstallTimeout' => 60000
@@ -108,10 +115,16 @@ module Maze
           end
 
           def make_ios_hash(device)
+            # Doubling up on capabilities in both the `appium:options` and `appium` sub dictionaries.
+            # See PLAT-11087
             {
               'platformName' => 'iOS',
               'deviceName' => 'iPhone device',
               'appium:options' => {
+                'automationName' => 'XCUITest',
+                'shouldTerminateApp' => 'true'
+              },
+              'appium' => {
                 'automationName' => 'XCUITest',
                 'shouldTerminateApp' => 'true'
               },

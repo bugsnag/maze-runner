@@ -75,7 +75,6 @@ module Maze
             begin
               Maze.driver = attempt_start_driver(config)
             rescue => error
-              Bugsnag.notify error
               $logger.error "Session creation failed: #{error}"
               start_error = error
             end
@@ -93,11 +92,10 @@ module Maze
                 Maze.config.os_version = version
               end
             else
-              interval = retry_interval(start_error)
+              interval = handle_error(start_error)
               if interval
-                $logger.warn
-                  sleep interval
-
+                $logger.warn "Failed to create Appium driver, retrying in #{interval} seconds"
+                sleep interval
               else
                 $logger.error 'Failed to create Appium driver, exiting'
                 exit(::Maze::Api::ExitCode::SESSION_CREATION_FAILURE)
@@ -106,7 +104,7 @@ module Maze
           end
         end
 
-        def retry_interval(error)
+        def handle_error(error)
           raise 'Method not implemented by this class'
         end
 

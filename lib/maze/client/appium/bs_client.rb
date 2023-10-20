@@ -16,7 +16,8 @@ module Maze
         end
 
         # On BrowserStack, wait 10 seconds before retrying if there is another device in the list
-        def retry_interval(error)
+        def handle_error(error)
+          Bugsnag.notify error unless error.nil?
           if Maze.config.device_list.nil? || config.device_list.empty?
             $logger.error 'No further devices to try'
             nil

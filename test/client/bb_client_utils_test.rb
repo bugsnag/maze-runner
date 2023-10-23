@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require_relative '../test_helper'
 require_relative '../../lib/maze'
 require_relative '../../lib/maze/client/bb_client_utils'
 require_relative '../../lib/maze/runner'

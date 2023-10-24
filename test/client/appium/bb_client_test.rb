@@ -1,3 +1,4 @@
+require 'bugsnag'
 require_relative '../../test_helper'
 require_relative '../../../lib/maze'
 require_relative '../../../lib/maze/api/exit_code'
@@ -33,6 +34,10 @@ module Maze
 
           # Driver creation
           expected_caps = {
+            'appium' => {
+              'noReset' => true,
+              'newCommandTimeout' => 600
+            },
             'appium:options' => {
               'noReset' => true,
               'newCommandTimeout' => 600
@@ -77,6 +82,7 @@ module Maze
           # Successful starting of the driver
           @mock_driver.expects(:session_id).twice.returns 'session_id'
           @mock_driver.expects(:session_capabilities).returns({ 'uuid' => 'uuid' })
+          Bugsnag.expects(:notify).never
 
           client = BitBarClient.new
           client.start_driver Maze.config
@@ -102,6 +108,7 @@ module Maze
           $logger.expects(:info).with('Created Appium session: session_id')
           @mock_driver.expects(:session_id).twice.returns 'session_id'
           @mock_driver.expects(:session_capabilities).returns({ 'uuid' => 'uuid' })
+          Bugsnag.expects(:notify).never
 
           client = BitBarClient.new
           client.start_driver Maze.config
@@ -129,6 +136,7 @@ module Maze
           $logger.expects(:error).with("Session creation failed: #{message_2}")
           Kernel.expects(:exit).with(::Maze::Api::ExitCode::SESSION_CREATION_FAILURE)
           $logger.expects(:error).with("Failed to create Appium driver, exiting")
+          Bugsnag.expects(:notify).twice
 
           client = BitBarClient.new
           client.start_driver Maze.config, 2

@@ -93,12 +93,12 @@ module Maze
               end
             else
               interval = handle_error(start_error)
-              if interval
+              if interval && attempts < max_attempts
                 $logger.warn "Failed to create Appium driver, retrying in #{interval} seconds"
                 Kernel::sleep interval
               else
                 $logger.error 'Failed to create Appium driver, exiting'
-                exit(::Maze::Api::ExitCode::SESSION_CREATION_FAILURE)
+                Kernel::exit(::Maze::Api::ExitCode::SESSION_CREATION_FAILURE)
               end
             end
           end

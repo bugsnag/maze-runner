@@ -1,5 +1,6 @@
 require_relative '../../test_helper'
 require_relative '../../../lib/maze'
+require_relative '../../../lib/maze/api/exit_code'
 require_relative '../../../lib/maze/configuration'
 require_relative '../../../lib/maze/driver/appium'
 require_relative '../../../lib/maze/client/bb_api_client'
@@ -13,11 +14,6 @@ module Maze
   module Client
     module Appium
       class BitBarClientTest < Test::Unit::TestCase
-
-        def add_retry_expectations(interval)
-          $logger.expects(:warn).with("Failed to create Appium driver, retrying in #{interval} seconds")
-          Kernel.expects(:sleep).with(interval)
-        end
 
         def add_attempt_expectations(attempts = 1)
           # Dashboard caps
@@ -96,7 +92,9 @@ module Maze
           message = 'no sessionId in returned payload'
           @mock_driver.expects(:start_driver).twice.raises(message).then.returns(true)
           $logger.expects(:error).with("Session creation failed: #{message}")
-          add_retry_expectations 60
+          interval = 60
+          $logger.expects(:warn).with("Failed to create Appium driver, retrying in #{interval} seconds")
+          Kernel.expects(:sleep).with(interval)
 
           #
           # Second attempt - success
@@ -107,6 +105,33 @@ module Maze
 
           client = BitBarClient.new
           client.start_driver Maze.config
+        end
+
+        def test_start_driver_failure
+
+          add_attempt_expectations 2
+          message_1 = 'You reached the account concurrency limit'
+          message_2 = 'There are no devices available'
+
+          #
+          # First attempt - failure
+          #
+          @mock_driver.expects(:start_driver).twice.raises(message_1).then.raises(message_2)
+          $logger.expects(:error).with("Session creation failed: #{message_1}")
+
+          interval = 300
+          $logger.expects(:warn).with("Failed to create Appium driver, retrying in #{interval} seconds")
+          Kernel.expects(:sleep).with(interval)
+
+          #
+          # Second attempt - also fails
+          #
+          $logger.expects(:error).with("Session creation failed: #{message_2}")
+          Kernel.expects(:exit).with(::Maze::Api::ExitCode::SESSION_CREATION_FAILURE)
+          $logger.expects(:error).with("Failed to create Appium driver, exiting")
+
+          client = BitBarClient.new
+          client.start_driver Maze.config, 2
         end
       end
     end

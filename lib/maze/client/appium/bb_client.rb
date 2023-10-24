@@ -30,7 +30,10 @@ module Maze
             interval = 300
           elsif error.message.include? 'There are no devices available'
             interval = 120
+          else
+            # Do not retry in any other case
           end
+
           Bugsnag.notify error if notify
           interval
         end

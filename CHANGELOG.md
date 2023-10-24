@@ -1,5 +1,9 @@
 # 8.9.1 - TBD
 
+## Enhancements
+
+- Add appium options in more than one place to work with older appium servers [599](https://github.com/bugsnag/maze-runner/pull/599)
+
 ## Fixes
 
 - Reinstate `retry_start_driver?` in `LocalClient` [598](https://github.com/bugsnag/maze-runner/pull/598)

@@ -65,11 +65,11 @@ module Maze
           driver
         end
 
-        def start_driver(config)
+        def start_driver(config, max_attempts = 5)
 
           attempts = 0
 
-          while attempts < 5 && Maze.driver.nil?
+          while attempts < max_attempts && Maze.driver.nil?
             attempts += 1
             start_error = nil
             begin
@@ -95,7 +95,7 @@ module Maze
               interval = handle_error(start_error)
               if interval
                 $logger.warn "Failed to create Appium driver, retrying in #{interval} seconds"
-                sleep interval
+                Kernel::sleep interval
               else
                 $logger.error 'Failed to create Appium driver, exiting'
                 exit(::Maze::Api::ExitCode::SESSION_CREATION_FAILURE)

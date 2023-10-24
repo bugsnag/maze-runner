@@ -14,22 +14,12 @@ module Maze
     module Appium
       class BitBarClientTest < Test::Unit::TestCase
 
-        def setup
-          logger_mock = mock('logger')
-          $logger = logger_mock
+        def add_retry_expectations(interval)
+          $logger.expects(:warn).with("Failed to create Appium driver, retrying in #{interval} seconds")
+          Kernel.expects(:sleep).with(interval)
         end
 
-        def test_start_driver_success
-          Maze.driver = nil
-
-          # Setup inputs
-          client = BitBarClient.new
-          Maze.config.app = 'app'
-          Maze.config.access_key = 'apiKey'
-          Maze.config.appium_server_url = 'appium server'
-          Maze.config.capabilities_option = '{"config":"capabilities"}'
-          Maze.config.locator = :id
-
+        def add_attempt_expectations(attempts = 1)
           # Dashboard caps
           dashboard_caps = {
             'bitbar:options' => {
@@ -37,13 +27,13 @@ module Maze
               bitbar_testrun: 'test_run'
             }
           }
-          Maze::Client::BitBarClientUtils.expects(:dashboard_capabilities).returns dashboard_caps
+          Maze::Client::BitBarClientUtils.expects(:dashboard_capabilities).times(attempts).returns dashboard_caps
 
           # Device caps
           device_caps = {
             'platformName' => 'iOS'
           }
-          Maze::Client::Appium::BitBarDevices.expects(:get_available_device).returns device_caps
+          Maze::Client::Appium::BitBarDevices.expects(:get_available_device).times(attempts).returns device_caps
 
           # Driver creation
           expected_caps = {
@@ -61,21 +51,61 @@ module Maze
             'platformName' => 'iOS',
             'config' => 'capabilities'
           }
-          mock_driver = mock('driver')
           Maze::Driver::Appium.expects(:new).with(Maze.config.appium_server_url,
                                                   expected_caps,
-                                                  Maze.config.locator).returns mock_driver
+                                                  Maze.config.locator).times(attempts).returns @mock_driver
+        end
 
-          # Starting of the driver
-          mock_driver.expects(:session_id).twice.returns 'session_id'
-          mock_driver.expects(:session_capabilities).returns({ 'uuid' => 'uuid' })
-          mock_driver.expects(:start_driver).returns true
+        def setup
           BitBarApiClient.stubs(:new)
+          $logger = mock('logger')
+          @mock_driver = mock('driver')
+
+          # Setup inputs
+          Maze.driver = nil
+          Maze.config.app = 'app'
+          Maze.config.access_key = 'apiKey'
+          Maze.config.appium_server_url = 'appium server'
+          Maze.config.capabilities_option = '{"config":"capabilities"}'
+          Maze.config.locator = :id
+        end
+
+        def test_start_driver_success
+
+          add_attempt_expectations
 
           # Logging
+          @mock_driver.expects(:start_driver).returns true
           $logger.expects(:info).with('Created Appium session: session_id')
 
+          # Successful starting of the driver
+          @mock_driver.expects(:session_id).twice.returns 'session_id'
+          @mock_driver.expects(:session_capabilities).returns({ 'uuid' => 'uuid' })
 
+          client = BitBarClient.new
+          client.start_driver Maze.config
+        end
+
+        def test_start_driver_recovers
+
+          add_attempt_expectations 2
+
+          #
+          # First attempt - failure
+          #
+          message = 'no sessionId in returned payload'
+          @mock_driver.expects(:start_driver).twice.raises(message).then.returns(true)
+          $logger.expects(:error).with("Session creation failed: #{message}")
+          add_retry_expectations 60
+
+          #
+          # Second attempt - success
+          #
+          $logger.expects(:info).with('Created Appium session: session_id')
+          @mock_driver.expects(:session_id).twice.returns 'session_id'
+          @mock_driver.expects(:session_capabilities).returns({ 'uuid' => 'uuid' })
+
+          client = BitBarClient.new
           client.start_driver Maze.config
         end
       end

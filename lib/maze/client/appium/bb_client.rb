@@ -13,8 +13,29 @@ module Maze
           end
         end
 
-        def retry_start_driver?
-          false
+        def handle_error(error)
+          # Retry interval depends on the error message
+          return nil if error.nil?
+
+          interval = nil
+          notify = true
+
+          if error.message.include? 'no sessionId in returned payload'
+            # This will happen naturally due to a race condition in how we access devices
+            # Do not notify, but wait long enough for most ghost sessions on BitBar to terminate.
+            interval = 60
+            notify = false
+          elsif error.message.include? 'You reached the account concurrency limit'
+            # In theory this shouldn't happen, but back off if it does
+            interval = 300
+          elsif error.message.include? 'There are no devices available'
+            interval = 120
+          else
+            # Do not retry in any other case
+          end
+
+          Bugsnag.notify error if notify
+          interval
         end
 
         def start_scenario

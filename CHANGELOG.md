@@ -1,8 +1,9 @@
-# 8.9.1 - TBD
+# 8.10.0 - 2023/10/25
 
 ## Enhancements
 
 - Add appium options in more than one place to work with older appium servers [599](https://github.com/bugsnag/maze-runner/pull/599)
+- Selectively retry creation of BitBar Appium sessions depending on the error encountered [600](https://github.com/bugsnag/maze-runner/pull/600)
 
 ## Fixes
 

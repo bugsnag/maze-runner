@@ -9,6 +9,7 @@ module Maze
 
         def initialize
           @session_ids = []
+          @start_attempts = 0
         end
 
         def start_session
@@ -47,51 +48,38 @@ module Maze
           raise 'Method not implemented by this class'
         end
 
-        def start_driver(config)
-          retry_failure = retry_start_driver?
-          driver = nil
-          until Maze.driver
+        def attempt_start_driver(config)
+          config.capabilities = device_capabilities
+          driver = Maze::Driver::Appium.new config.appium_server_url,
+                                            config.capabilities,
+                                            config.locator
+
+          result = driver.start_driver
+          if result
+            # Log details of this session
+            $logger.info "Created Appium session: #{driver.session_id}"
+            @session_ids << driver.session_id
+            udid = driver.session_capabilities['udid']
+            $logger.info "Running on device: #{udid}" unless udid.nil?
+          end
+          driver
+        end
+
+        def start_driver(config, max_attempts = 5)
+
+          attempts = 0
+
+          while attempts < max_attempts && Maze.driver.nil?
+            attempts += 1
+            start_error = nil
             begin
+              Maze.driver = attempt_start_driver(config)
+            rescue => error
+              $logger.error "Session creation failed: #{error}"
+              start_error = error
+            end
 
-
-              # Proc to start the driver
-              start_driver_closure = Proc.new do
-                begin
-                  config.capabilities = device_capabilities
-                  driver = Maze::Driver::Appium.new config.appium_server_url,
-                                                    config.capabilities,
-                                                    config.locator
-
-                  result = driver.start_driver
-                  if result
-                    # Log details of this session
-                    $logger.info "Created Appium session: #{driver.session_id}"
-                    @session_ids << driver.session_id
-                    udid = driver.session_capabilities['udid']
-                    $logger.info "Running on device: #{udid}" unless udid.nil?
-                  end
-                  result
-                rescue => error
-                  Bugsnag.notify error
-                  $logger.error "Session creation failed: #{error}"
-                  false
-                end
-              end
-
-
-              # Invoke the proc, with or without retries
-              if retry_failure
-                wait = Maze::Wait.new(interval: 10, timeout: 60)
-                success = wait.until(&start_driver_closure)
-              else
-                success = start_driver_closure.call
-              end
-
-              unless success
-                $logger.error 'Failed to create Appium driver, exiting'
-                exit(::Maze::Api::ExitCode::SESSION_CREATION_FAILURE)
-              end
-
+            if Maze.driver
               # Infer OS version if necessary when running locally
               if Maze.config.farm == :local && Maze.config.os_version.nil?
                 version = case Maze.config.os
@@ -103,21 +91,21 @@ module Maze
                 $logger.info "Inferred OS version to be #{version}"
                 Maze.config.os_version = version
               end
-
-              Maze.driver = driver
-            rescue ::Selenium::WebDriver::Error::UnknownError => original_exception
-              $logger.warn "Attempt to acquire #{config.device} device from farm #{config.farm} failed"
-              $logger.warn "Exception: #{original_exception.message}"
-              if config.device_list.empty?
-                $logger.error 'No further devices to try - raising original exception'
-                raise original_exception
+            else
+              interval = handle_error(start_error)
+              if interval && attempts < max_attempts
+                $logger.warn "Failed to create Appium driver, retrying in #{interval} seconds"
+                Kernel::sleep interval
               else
-                config.device = config.device_list.first
-                config.device_list = config.device_list.drop(1)
-                $logger.warn "Retrying driver initialisation using next device: #{config.device}"
+                $logger.error 'Failed to create Appium driver, exiting'
+                Kernel::exit(::Maze::Api::ExitCode::SESSION_CREATION_FAILURE)
               end
             end
           end
+        end
+
+        def handle_error(error)
+          raise 'Method not implemented by this class'
         end
 
         def start_scenario

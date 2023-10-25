@@ -1,3 +1,9 @@
+# 8.10.1 - 2023/10/25
+
+## Fixes
+
+- Correct error handling logic on BrowserStack [601](https://github.com/bugsnag/maze-runner/pull/601)
+
 # 8.10.0 - 2023/10/25
 
 ## Enhancements

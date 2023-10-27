@@ -1,3 +1,10 @@
+# 8.10.2 - 2023/10/27
+
+## Fixes
+
+- Fix crash when logging message for invalid requests [602](https://github.com/bugsnag/maze-runner/pull/602)
+- Fix crash when BUILDKITE_JOB_ID is not set [603](https://github.com/bugsnag/maze-runner/pull/603)
+
 # 8.10.1 - 2023/10/25
 
 ## Fixes

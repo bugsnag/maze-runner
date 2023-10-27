@@ -17,16 +17,22 @@ module Maze
             'device farm': Maze.config.farm,
             'capabilities': Maze.config.capabilities
           }) if Maze.driver
-          config.add_metadata(:'buildkite', {
-            'pipeline': ENV['BUILDKITE_PIPELINE_NAME'],
-            'repo': ENV['BUILDKITE_REPO'],
-            'build url': ENV['BUILDKITE_BUILD_URL'],
-            'job url': ENV['BUILDKITE_BUILD_URL'] + "#" + ENV['BUILDKITE_JOB_ID'],
-            'branch': ENV['BUILDKITE_BRANCH'],
-            'builder': ENV['BUILDKITE_BUILD_CREATOR'],
-            'message': ENV['BUILDKITE_MESSAGE'],
-            'step': ENV['BUILDKITE_LABEL']
-          }) if ENV['BUILDKITE']
+
+          if ENV['BUILDKITE']
+            metadata = {
+              'pipeline': ENV['BUILDKITE_PIPELINE_NAME'],
+              'repo': ENV['BUILDKITE_REPO'],
+              'build url': ENV['BUILDKITE_BUILD_URL'],
+              'branch': ENV['BUILDKITE_BRANCH'],
+              'builder': ENV['BUILDKITE_BUILD_CREATOR'],
+              'message': ENV['BUILDKITE_MESSAGE'],
+              'step': ENV['BUILDKITE_LABEL']
+            }
+            if ENV['BUILDKITE_JOB_ID']
+              metadata['job url'] = ENV['BUILDKITE_BUILD_URL'] + "#" + ENV['BUILDKITE_JOB_ID']
+            end
+          end
+          config.add_metadata(:'buildkite', metadata)
           config.project_root = Dir.pwd
         end
 

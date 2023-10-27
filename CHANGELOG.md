@@ -1,3 +1,9 @@
+# 8.10.2 - 2023/10/27
+
+## Fixes
+
+- Fix crash when logging message for invalid requests [602](https://github.com/bugsnag/maze-runner/pull/602)
+
 # 8.10.1 - 2023/10/25
 
 ## Fixes

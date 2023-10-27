@@ -118,7 +118,7 @@ module Maze
         msg = "Invalid #{@request_type} request: #{e.message}"
         if Maze.config.captured_invalid_requests.include? @request_type
           Bugsnag.notify e
-          $logger.msg
+          $logger.error msg
           Server.invalid_requests.add({
             invalid: true,
             reason: e.message,

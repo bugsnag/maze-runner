@@ -14,12 +14,13 @@ module Maze
       FileUtils.makedirs(path)
 
       request_types = %w[errors sessions builds uploads logs sourcemaps traces invalid]
+      request_types << 'sampling requests'
 
       request_types.each do |request_type|
         list = Maze::Server.list_for(request_type).all
         next if list.empty?
 
-        filename = "#{request_type}.log"
+        filename = "#{request_type.gsub(' ', '_')}.log"
         filepath = File.join(path, filename)
 
         counter = 1

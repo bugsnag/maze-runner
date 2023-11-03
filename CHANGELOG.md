@@ -1,3 +1,9 @@
+# 8.11.0 - 2023/11/15 
+
+## Enhancements
+
+- Write received sampling requests to `maze_output` folder [604](https://github.com/bugsnag/maze-runner/pull/604)
+
 # 8.10.2 - 2023/10/27
 
 ## Fixes

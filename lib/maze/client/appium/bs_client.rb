@@ -48,6 +48,7 @@ module Maze
             'deviceOrientation' => 'portrait',
             'noReset' => 'true',
             'bstack:options' => {}
+            # "appium:wdaConnectionTimeout": "300000"
           }
           device_caps = Maze::Client::Appium::BrowserStackDevices::DEVICE_HASH[config.device]
           capabilities.deep_merge! device_caps

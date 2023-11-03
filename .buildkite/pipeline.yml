@@ -232,6 +232,40 @@ steps:
     concurrency_group: 'browserstack-app'
     concurrency_method: eager
 
+  - label: ':browserstack: iOS 11 barebone tests'
+    depends_on:
+      - "ios-test-fixture"
+      - "push-branch-cli"
+    timeout_in_minutes: 60
+    agents:
+      queue: opensource
+    plugins:
+      artifacts#v1.9.0:
+        download: "bugsnag-cocoa/features/fixtures/ios/output/iOSTestApp.ipa"
+        upload: "bugsnag-cocoa/maze_output/**/*"
+      docker-compose#v3.7.0:
+        pull: appium-test-bs
+        run: appium-test-bs
+        volumes:
+          - "./bugsnag-cocoa/build:/app/build"
+          - "./bugsnag-cocoa/features:/app/features"
+          - "./bugsnag-cocoa/maze_output:/app/maze_output"
+        command:
+          - "--app=features/fixtures/ios/output/iOSTestApp.ipa"
+          - "--farm=bs"
+          - "--device=IOS_11_0_IPHONE_8_PLUS"
+          - "--appium-version=1.16.0"
+          - "features/barebone_tests.feature"
+    env:
+      RUBY_VERSION: "3"
+    concurrency: 5
+    concurrency_group: 'browserstack-app'
+    concurrency_method: eager
+    retry:
+      automatic:
+        - exit_status: -1  # Agent was lost
+          limit: 2
+
   - label: ':browserstack: iOS 15 - W3C'
     timeout_in_minutes: 20
     depends_on:

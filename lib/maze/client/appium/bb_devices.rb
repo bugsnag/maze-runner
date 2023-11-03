@@ -115,8 +115,9 @@ module Maze
             # See PLAT-11087
             options = {
               'automationName' => 'XCUITest',
-              'shouldTerminateApp' => 'true',
-              'waitForIdleTimeout' => 0
+              'shouldTerminateApp' => true,
+              'waitForIdleTimeout' => 0,
+              'waitForQuiescence' => false
             }
             {
               'platformName' => 'iOS',

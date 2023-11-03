@@ -53,15 +53,13 @@ module Maze
           # Doubling up on capabilities in both the `appium:options` and `appium` sub dictionaries.
           # See PLAT-11087
           config = Maze.config
+          options = {
+            'noReset' => true,
+            'newCommandTimeout' => 600
+          }
           capabilities = {
-            'appium:options' => {
-              'noReset' => true,
-              'newCommandTimeout' => 600
-            },
-            'appium' => {
-              'noReset' => true,
-              'newCommandTimeout' => 600
-            },
+            'appium:options' => options,
+            'appium' => options,
             'bitbar:options' => {
               # Some capabilities probably belong in the top level
               # of the hash, but BitBar picks them up from here.

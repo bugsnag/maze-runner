@@ -8,10 +8,18 @@ module Maze
       def before_all
         Maze::Plugins::DatadogMetricsPlugin.send_increment('appium.test_started')
         @client = Maze::Client::Appium.start
+      rescue => error
+        # Notify and re-raise for Cucumber to handle
+        Bugsnag.notify error
+        raise
       end
 
       def before(scenario)
         @client.start_scenario
+      rescue => error
+        # Notify and re-raise for Cucumber to handle
+        Bugsnag.notify error
+        raise
       end
 
       def after(scenario)
@@ -31,6 +39,10 @@ module Maze
             Maze.driver.reset
           end
         end
+      rescue => error
+        # Notify and re-raise for Cucumber to handle
+        Bugsnag.notify error
+        raise
       end
 
       def after_all
@@ -40,6 +52,10 @@ module Maze
         else
           Maze::Plugins::DatadogMetricsPlugin.send_increment('appium.test_failed')
         end
+      rescue => error
+        # Notify and re-raise for Cucumber to handle
+        Bugsnag.notify error
+        raise
       end
 
       def at_exit

@@ -5,10 +5,18 @@ module Maze
     class BrowserHooks < InternalHooks
       def before_all
         @client = Maze::Client::Selenium.start
+      rescue => error
+        # Notify and re-raise for Cucumber to handle
+        Bugsnag.notify error
+        raise
       end
 
       def after_all
         @client&.log_run_outro
+      rescue => error
+        # Notify and re-raise for Cucumber to handle
+        Bugsnag.notify error
+        raise
       end
 
       def at_exit

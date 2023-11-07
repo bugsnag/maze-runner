@@ -1,4 +1,10 @@
-# 8.11.0 - 2023/11/15 
+# 8.12.0 - 2023/11/07
+
+## Enhancements
+
+- Notify errors that occur in Appium or Browser hooks [605](https://github.com/bugsnag/maze-runner/pull/605)
+
+# 8.11.0 - 2023/11/03
 
 ## Enhancements
 

@@ -9,7 +9,7 @@ GIT
 PATH
   remote: .
   specs:
-    bugsnag-maze-runner (8.12.0)
+    bugsnag-maze-runner (8.12.1)
       appium_lib (~> 12.0.0)
       appium_lib_core (~> 5.4.0)
       bugsnag (~> 6.24)
@@ -125,11 +125,11 @@ GEM
     power_assert (2.0.3)
     props (1.2.0)
       iniparser (>= 0.1.0)
-    racc (1.7.1)
+    racc (1.7.3)
     rack (2.2.8)
     rake (12.3.3)
     redcarpet (3.6.0)
-    regexp_parser (2.8.1)
+    regexp_parser (2.8.2)
     rexml (3.2.5)
     rubyzip (2.3.2)
     selenium-webdriver (4.5.0)
@@ -158,7 +158,7 @@ GEM
     unf_ext (0.0.8.2)
     uri_template (0.7.0)
     webrick (1.7.0)
-    websocket (1.2.9)
+    websocket (1.2.10)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)

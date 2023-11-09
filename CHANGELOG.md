@@ -1,3 +1,9 @@
+# 8.12.1 - 2023/11/09
+
+## Fixes
+
+- Add appium options to the base capabilities dictionary [606](https://github.com/bugsnag/maze-runner/pull/606)
+
 # 8.12.0 - 2023/11/07
 
 ## Enhancements

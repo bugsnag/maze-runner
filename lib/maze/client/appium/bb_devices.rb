@@ -91,46 +91,44 @@ module Maze
           end
 
           def make_android_hash(device)
-            # Doubling up on capabilities in both the `appium:options` and `appium` sub dictionaries.
+            # Tripling up on capabilities in the `appium:options`, `appium` sub dictionaries and base dictionary.
             # See PLAT-11087
+            appium_options = {
+              'automationName' => 'UiAutomator2',
+              'autoGrantPermissions' => true,
+              'uiautomator2ServerInstallTimeout' => 60000
+            }
             hash = {
               'platformName' => 'Android',
               'deviceName' => 'Android Phone',
-              'appium:options' => {
-                'automationName' => 'UiAutomator2',
-                'autoGrantPermissions' => true,
-                'uiautomator2ServerInstallTimeout' => 60000
-              },
-              'appium' => {
-                'automationName' => 'UiAutomator2',
-                'autoGrantPermissions' => true,
-                'uiautomator2ServerInstallTimeout' => 60000
-              },
+              'appium:options' => appium_options,
+              'appium' => appium_options,
               'bitbar:options' => {
                 'device' => device,
               }
             }
+            hash.merge!(appium_options)
             hash.freeze
           end
 
           def make_ios_hash(device)
-            # Doubling up on capabilities in both the `appium:options` and `appium` sub dictionaries.
+            # Tripling up on capabilities in the `appium:options`, `appium` sub dictionaries and base dictionary.
             # See PLAT-11087
-            {
+            appium_options = {
+              'automationName' => 'XCUITest',
+              'shouldTerminateApp' => 'true'
+            }
+            hash = {
               'platformName' => 'iOS',
               'deviceName' => 'iPhone device',
-              'appium:options' => {
-                'automationName' => 'XCUITest',
-                'shouldTerminateApp' => 'true'
-              },
-              'appium' => {
-                'automationName' => 'XCUITest',
-                'shouldTerminateApp' => 'true'
-              },
+              'appium:options' => appium_options,
+              'appium' => appium_options,
               'bitbar:options' => {
                 'device' => device
               }
-            }.freeze
+            }
+            hash.merge!(appium_options)
+            hash.freeze
           end
         end
       end

@@ -1,3 +1,9 @@
+# 9.0.0 - TBD
+
+## Enhancements
+
+- Remove use of deprecated `Maze.driver.reset` in BitBar Appium tests [606](https://github.com/bugsnag/maze-runner/pull/606)
+
 # 8.12.1 - 2023/11/09
 
 ## Fixes

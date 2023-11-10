@@ -1,5 +1,11 @@
 # Upgrading Guide
 
+## v8 to v9
+
+### Clearing app data between test scenarios
+
+Use of the deprecated Appium `driver.reset` method has been removed and replaced with `terminate_app` and `activate_app` calls (when using BitBar only).  This means that responsibility for clearing app files between scenarios passes to the individual test fixtures (most of which already do it anyway).
+
 ## v7 to v8
 
 ### Command line options

@@ -30,13 +30,18 @@ module Maze
         elsif [:bb, :bs, :local].include? Maze.config.farm
           write_device_logs(scenario) if scenario.failed?
 
-          # TODO: PLAT-10300 - Review our general approach to resetting the app between scenarios
-          re = Regexp.new('^1\.1[56]\.\d$')
-          if re.match? Maze.config.appium_version
-            Maze.driver.close_app
-            Maze.driver.launch_app
+          # Cautiously only applying the new way of resetting the app to BitBar
+          if Maze.config.farm == :bb
+            Maze.driver.terminate_app Maze.driver.app_id
+            Maze.driver.activate_app Maze.driver.app_id
           else
-            Maze.driver.reset
+            re = Regexp.new('^1\.1[56]\.\d$')
+            if re.match? Maze.config.appium_version
+              Maze.driver.close_app
+              Maze.driver.launch_app
+            else
+              Maze.driver.reset
+            end
           end
         end
       rescue => error

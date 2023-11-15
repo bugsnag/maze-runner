@@ -4,8 +4,10 @@ require 'test_helper'
 require 'appium_lib'
 require_relative '../lib/maze/errors'
 require_relative '../lib/maze/retry_handler'
+require_relative '../lib/maze/api/exit_code'
 require_relative '../lib/maze/driver/appium'
 require_relative '../lib/maze/driver/browser'
+require_relative '../lib/maze/hooks/error_code_hook'
 
 # noinspection RubyNilAnalysis
 class RetryHandlerTest < Test::Unit::TestCase
@@ -148,7 +150,7 @@ class RetryHandlerTest < Test::Unit::TestCase
     assert_false(Maze::RetryHandler.send(:retry_on_driver_error?, event_no_error_mock))
   end
 
-  def test_should_retry_appium_driver_error
+  def test_should_retry_appium_driver_not_bb_error
     driver_mock = mock('driver')
     Maze.expects(:driver).times(3).returns(driver_mock)
     driver_mock.expects(:is_a?).with(Maze::Driver::Appium).returns(true)
@@ -165,12 +167,38 @@ class RetryHandlerTest < Test::Unit::TestCase
     event_mock = mock('event')
     event_mock.expects(:result).twice.returns(result_mock)
 
-    @logger_mock.expects('warn').with("Retrying test_case_mock due to driver error: #{error}")
+    @logger_mock.expects('warn').with("Retrying test_case_mock due to appium driver error: #{error}")
+    @config_mock.expects('farm').returns(:bs)
 
     assert_true(Maze::RetryHandler.should_retry?(test_case_mock, event_mock))
 
     global_retried = Maze::RetryHandler.send(:global_retried)
     assert_equal(global_retried[test_case_mock], 1)
+  end
+
+  def test_should_not_retry_appium_driver_bb_error
+    driver_mock = mock('driver')
+    Maze.expects(:driver).times(2).returns(driver_mock)
+    driver_mock.expects(:is_a?).with(Maze::Driver::Appium).returns(true)
+
+    test_case_mock = mock('test_case')
+
+    error = Selenium::WebDriver::Error::UnknownError.new
+
+    result_mock = mock('result')
+    result_mock.expects(:exception).once.returns(error)
+
+    event_mock = mock('event')
+    event_mock.expects(:result).once.returns(result_mock)
+
+    @config_mock.expects('farm').returns(:bb)
+
+    Maze::Hooks::ErrorCodeHook.expects(:exit_code=).with(Maze::Api::ExitCode::APPIUM_SESSION_FAILURE)
+
+    assert_false(Maze::RetryHandler.should_retry?(test_case_mock, event_mock))
+
+    global_retried = Maze::RetryHandler.send(:global_retried)
+    assert_equal(global_retried[test_case_mock], 0)
   end
 
   def test_should_retry_browser_driver_error
@@ -191,7 +219,7 @@ class RetryHandlerTest < Test::Unit::TestCase
     event_mock = mock('event')
     event_mock.expects(:result).twice.returns(result_mock)
 
-    @logger_mock.expects('warn').with("Retrying test_case_mock due to driver error: #{error}")
+    @logger_mock.expects('warn').with("Retrying test_case_mock due to selenium driver error: #{error}")
 
     assert_true(Maze::RetryHandler.should_retry?(test_case_mock, event_mock))
 

@@ -56,12 +56,14 @@ module Maze
                   $logger.info "Uploaded app ID: #{app_uuid}"
                   $logger.info 'You can use this ID to avoid uploading the same app more than once.'
                 else
-                  $logger.error "Unexpected response body: #{response}"
+                  error_string = "Unexpected response body: #{body}"
+                  $logger.error error_string
+                  last_error = RuntimeError.new(error_string)
                 end
               rescue JSON::ParserError => error
                 last_error = error
                 Bugsnag.notify error
-                $logger.error "Expected JSON response, received: #{res}"
+                $logger.error "Expected JSON response, received: #{response}"
               rescue => error
                 last_error = error
                 Bugsnag.notify error

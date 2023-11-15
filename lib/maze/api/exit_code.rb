@@ -11,6 +11,8 @@ module Maze
       APP_UPLOAD_FAILURE = 100
       TUNNEL_FAILURE = 101
       SESSION_CREATION_FAILURE = 102
+
+      APPIUM_SESSION_FAILURE = 200
     end
   end
 end

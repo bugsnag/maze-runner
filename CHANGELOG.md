@@ -1,8 +1,12 @@
-# TBD
+# 8.13.0 - 2023/11/17
 
 ## Enhancements
 
 - Modify retry logic for app upload failures and BitBar appium failures [608](https://github.com/bugsnag/maze-runner/pull/608)
+
+## Fixes
+
+- Work around Event Machine issues on ARM macOS [606](https://github.com/bugsnag/maze-runner/pull/609)
 
 # 8.12.1 - 2023/11/09
 

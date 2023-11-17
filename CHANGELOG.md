@@ -1,3 +1,9 @@
+# TBD
+
+## Enhancements
+
+- Modify retry logic for app upload failures and BitBar appium failures [608](https://github.com/bugsnag/maze-runner/pull/608)
+
 # 8.12.1 - 2023/11/09
 
 ## Fixes

@@ -73,8 +73,9 @@ class BitBarUtilsTest < Test::Unit::TestCase
                                     use_ssl: true)&.returns(response_mock)
 
     $logger.expects(:error).with("Unexpected response body: #{JSON.parse json_response}").once
-    assert_raise(RuntimeError, 'App upload failed') do
-      Maze::Client::BitBarClientUtils.upload_app API_KEY, APP_PATH
+    $logger.expects(:error).with("App upload to BitBar failed after 1 attempts").once
+    assert_raise(RuntimeError, 'Unexpected response body: #{JSON.parse json_response}') do
+      Maze::Client::BitBarClientUtils.upload_app API_KEY, APP_PATH, nil, 1
     end
   end
 
@@ -99,6 +100,66 @@ class BitBarUtilsTest < Test::Unit::TestCase
                                     use_ssl: true)&.returns(response_mock)
 
     $logger.expects(:error).with("Expected JSON response, received: #{response_mock}").once
+    $logger.expects(:error).with("App upload to BitBar failed after 1 attempts").once
+    assert_raise(JSON::ParserError) do
+      Maze::Client::BitBarClientUtils.upload_app API_KEY, APP_PATH, nil, 1
+    end
+  end
+
+  def test_upload_app_fail_then_retry
+    $logger.expects(:info).with("Uploading app: #{APP_PATH}").times(2)
+
+    File.expects(:new)&.with(APP_PATH, 'rb')&.returns('file').times(2)
+    Maze::Helper.expects(:expand_path).with(APP_PATH).returns(APP_PATH).once
+
+    post_mock = mock('request')
+    post_mock.expects(:basic_auth).with(API_KEY, '').times(2)
+    post_mock.expects(:set_form).with({ 'file' => 'file' }, 'multipart/form-data').times(2)
+
+    failed_json_response = 'gobbledygook'
+    failed_response_mock = mock('failed_response')
+    failed_response_mock.expects(:body).returns(failed_json_response).once
+
+    success_json_response = JSON.dump(id: APP_ID)
+    success_response_mock = mock('response')
+    success_response_mock.expects(:body).returns(success_json_response).once
+
+    uri = URI('https://cloud.bitbar.com/api/me/files')
+    Net::HTTP::Post.expects(:new)&.with(uri)&.returns(post_mock).times(2)
+    Net::HTTP.expects(:start)&.with('cloud.bitbar.com',
+                                    443,
+                                    use_ssl: true)&.times(2).returns(failed_response_mock).then.returns(success_response_mock)
+
+    $logger.expects(:error).with("Expected JSON response, received: #{failed_response_mock}").once
+    $logger.expects(:info).with("Uploaded app ID: #{APP_ID}").once
+    $logger.expects(:info).with('You can use this ID to avoid uploading the same app more than once.').once
+
+    id = Maze::Client::BitBarClientUtils.upload_app API_KEY, APP_PATH
+    assert_equal(APP_ID, id)
+  end
+
+  def test_upload_app_fail_with_retries
+    $logger.expects(:info).with("Uploading app: #{APP_PATH}").times(5)
+
+    File.expects(:new)&.with(APP_PATH, 'rb')&.returns('file').times(5)
+    Maze::Helper.expects(:expand_path).with(APP_PATH).returns(APP_PATH).once
+
+    post_mock = mock('request')
+    post_mock.expects(:basic_auth).with(API_KEY, '').times(5)
+    post_mock.expects(:set_form).with({ 'file' => 'file' }, 'multipart/form-data').times(5)
+
+    json_response = 'gobbledygook'
+    response_mock = mock('response')
+    response_mock.expects(:body).returns(json_response).times(5)
+
+    uri = URI('https://cloud.bitbar.com/api/me/files')
+    Net::HTTP::Post.expects(:new)&.with(uri)&.returns(post_mock).times(5)
+    Net::HTTP.expects(:start)&.with('cloud.bitbar.com',
+                                    443,
+                                    use_ssl: true)&.returns(response_mock).times(5)
+
+    $logger.expects(:error).with("Expected JSON response, received: #{response_mock}").times(5)
+    $logger.expects(:error).with("App upload to BitBar failed after 5 attempts").once
     assert_raise(JSON::ParserError) do
       Maze::Client::BitBarClientUtils.upload_app API_KEY, APP_PATH
     end

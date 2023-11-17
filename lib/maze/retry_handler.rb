@@ -20,10 +20,16 @@ module Maze
         return false if !Maze.config.enable_retries || retried_previously?(test_case)
 
         if retry_on_driver_error?(event)
-          $logger.warn "Retrying #{test_case.name} due to driver error: #{event.result.exception}"
           if Maze.driver.is_a?(Maze::Driver::Appium)
-            Maze.driver.restart
+            if Maze.config.farm.eql?(:bb)
+              Maze::Hooks::ErrorCodeHook.exit_code = Maze::Api::ExitCode::APPIUM_SESSION_FAILURE
+              return false
+            else
+              $logger.warn "Retrying #{test_case.name} due to appium driver error: #{event.result.exception}"
+              Maze.driver.restart
+            end
           elsif Maze.driver.is_a?(Maze::Driver::Browser)
+            $logger.warn "Retrying #{test_case.name} due to selenium driver error: #{event.result.exception}"
             Maze.driver.refresh
           end
         elsif retry_on_tag?(test_case)

@@ -19,41 +19,61 @@ module Maze
         # @param api_key [String] The BitBar API key
         # @param app [String] A path to the application file
         # @param app_id_file [String] the file to write the uploaded app url to BitBar
-        def upload_app(api_key, app, app_id_file=nil)
+        # @param max_attempts [Integer] the maximum number of attempts to upload the app
+        def upload_app(api_key, app, app_id_file=nil, max_attempts=5)
           uuid_regex = /\A[0-9]+\z/
 
           if uuid_regex.match? app
             $logger.info "Using pre-uploaded app with ID #{app}"
             app_uuid = app
           else
-            expanded_app = Maze::Helper.expand_path(app)
-            $logger.info "Uploading app: #{expanded_app}"
+            upload_proc = Proc.new do |app_path|
+              $logger.info "Uploading app: #{app_path}"
 
-            # Upload the app to BitBar
-            uri = URI('https://cloud.bitbar.com/api/me/files')
-            request = Net::HTTP::Post.new(uri)
-            request.basic_auth(api_key, '')
-            request.set_form({ 'file' => File.new(expanded_app, 'rb') }, 'multipart/form-data')
+              # Upload the app to BitBar
+              uri = URI('https://cloud.bitbar.com/api/me/files')
+              request = Net::HTTP::Post.new(uri)
+              request.basic_auth(api_key, '')
+              request.set_form({ 'file' => File.new(app_path, 'rb') }, 'multipart/form-data')
 
-            res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
-              http.request(request)
+              Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+                http.request(request)
+              end
             end
 
-            # Pull the UUID from the response
-            begin
-              response = JSON.parse res.body
-              if response.key?('id')
-                app_uuid = response['id'].to_s
-                $logger.info "Uploaded app ID: #{app_uuid}"
-                $logger.info 'You can use this ID to avoid uploading the same app more than once.'
-              else
-                $logger.error "Unexpected response body: #{response}"
-                raise 'App upload failed'
+            expanded_app = Maze::Helper.expand_path(app)
+
+            attempts = 0
+            app_uuid = nil
+            last_error = nil
+            while attempts < max_attempts && app_uuid.nil?
+              attempts += 1
+              begin
+                response = upload_proc.call(expanded_app)
+                body = JSON.parse(response.body)
+                if body.key?('id')
+                  app_uuid = body['id'].to_s
+                  $logger.info "Uploaded app ID: #{app_uuid}"
+                  $logger.info 'You can use this ID to avoid uploading the same app more than once.'
+                else
+                  error_string = "Unexpected response body: #{body}"
+                  $logger.error error_string
+                  last_error = RuntimeError.new(error_string)
+                end
+              rescue JSON::ParserError => error
+                last_error = error
+                Bugsnag.notify error
+                $logger.error "Expected JSON response, received: #{response}"
+              rescue => error
+                last_error = error
+                Bugsnag.notify error
+                $logger.error "Unexpected error uploading app: #{error}"
               end
-            rescue JSON::ParserError => error
-              Bugsnag.notify error
-              $logger.error "Expected JSON response, received: #{res}"
-              raise
+            end
+
+            if app_uuid.nil?
+              $logger.error "App upload to BitBar failed after #{attempts} attempts"
+              raise last_error
             end
           end
 

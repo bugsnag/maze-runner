@@ -1,3 +1,9 @@
+# 8.13.1 - 2023/11/20
+
+## Fixes
+
+- Increase `uiautomator2ServerLaunchTimeout` to 60s on BitBar [6XX](https://github.com/bugsnag/maze-runner/pull/6XX)
+
 # 8.13.0 - 2023/11/17
 
 ## Enhancements

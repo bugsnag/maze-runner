@@ -96,7 +96,8 @@ module Maze
             appium_options = {
               'automationName' => 'UiAutomator2',
               'autoGrantPermissions' => true,
-              'uiautomator2ServerInstallTimeout' => 60000
+              'uiautomator2ServerInstallTimeout' => 60000,
+              'uiautomator2ServerLaunchTimeout' => 60000
             }
             hash = {
               'platformName' => 'Android',

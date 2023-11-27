@@ -4,6 +4,22 @@
 
 - Remove use of deprecated `Maze.driver.reset` in BitBar Appium tests [606](https://github.com/bugsnag/maze-runner/pull/606)
 
+# 8.13.1 - 2023/11/20
+
+## Fixes
+
+- Increase `uiautomator2ServerLaunchTimeout` to 60s on BitBar [610](https://github.com/bugsnag/maze-runner/pull/610)
+
+# 8.13.0 - 2023/11/17
+
+## Enhancements
+
+- Modify retry logic for app upload failures and BitBar appium failures [608](https://github.com/bugsnag/maze-runner/pull/608)
+
+## Fixes
+
+- Work around Event Machine issues on ARM macOS [606](https://github.com/bugsnag/maze-runner/pull/609)
+
 # 8.12.1 - 2023/11/09
 
 ## Fixes

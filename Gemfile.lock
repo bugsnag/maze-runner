@@ -30,7 +30,7 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (7.1.1)
+    activesupport (7.1.2)
       base64
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
@@ -129,7 +129,7 @@ GEM
     mocha (1.13.0)
     multi_test (0.1.2)
     mutex_m (0.2.0)
-    nokogiri (1.15.4-x86_64-darwin)
+    nokogiri (1.15.5-x86_64-darwin)
       racc (~> 1.4)
     optimist (3.0.1)
     os (1.0.1)
@@ -167,7 +167,7 @@ GEM
       concurrent-ruby (~> 1.0)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.8.2)
+    unf_ext (0.0.9.1)
     uri_template (0.7.0)
     webrick (1.7.0)
     websocket (1.2.10)

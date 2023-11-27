@@ -1,6 +1,9 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+# Workaround for running on ARM macOS machines
+require 'em/pure_ruby'
+
 require 'cucumber/cli/main'
 
 require_relative '../lib/utils/deep_merge'

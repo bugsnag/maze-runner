@@ -1,3 +1,9 @@
+# 8.13.2 - 2023/11/29
+
+## Fixes
+
+- Set `autoAcceptAlerts` in iOS Appium tests [611](https://github.com/bugsnag/maze-runner/pull/611)
+
 # 8.13.1 - 2023/11/20
 
 ## Fixes

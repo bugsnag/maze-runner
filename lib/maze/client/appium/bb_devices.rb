@@ -117,7 +117,8 @@ module Maze
             # See PLAT-11087
             appium_options = {
               'automationName' => 'XCUITest',
-              'shouldTerminateApp' => 'true'
+              'shouldTerminateApp' => 'true',
+              'autoAcceptAlerts' => 'true'
             }
             hash = {
               'platformName' => 'iOS',

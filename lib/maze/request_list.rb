@@ -33,6 +33,13 @@ module Maze
       @requests[@current] if @requests.size > @current
     end
 
+    # Gets a specific element from the list.
+    #
+    # @param id the zero-based index of the element to return
+    def get(id)
+      @requests[id] if id < @requests.size
+    end
+
     # Peek at requests yet to be processed - i.e. from current onwards.  All requests are left visible in the list.
     # Returns an empty array if there are no requests outstanding.
     def remaining

@@ -1,3 +1,9 @@
+# 8.14.0 - 2023/11/30
+
+## Enhancements
+
+- Add  [612](https://github.com/bugsnag/maze-runner/pull/612)
+
 # 8.13.2 - 2023/11/29
 
 ## Fixes

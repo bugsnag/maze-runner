@@ -109,6 +109,7 @@ module Maze
       # Logs the given message and exits the program with a failure status
       def error_exit(message)
         $logger.error message
+        Bugsnag.notify(message)
         exit false
       end
 

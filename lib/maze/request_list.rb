@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'securerandom'
 
 module Maze
   # An abstraction for storing a list of requests (e.g. Errors, Sessions),

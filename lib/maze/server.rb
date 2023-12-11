@@ -2,7 +2,6 @@
 
 require 'bugsnag'
 require 'json'
-require 'securerandom'
 require 'webrick'
 require_relative './logger'
 require_relative './request_list'

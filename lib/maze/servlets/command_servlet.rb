@@ -45,12 +45,16 @@ module Maze
       end
 
       def return_command(uuid, response)
-        commands = Maze::Server.commands.all
-        index = @requests.find_index {|command| command[:uuid] == uuid }
+        commands = Maze::Server.commands
+        if uuid.empty?
+          index = -1
+        else
+          index = commands.all.find_index {|command| command[:uuid] == uuid }
+        end
         if index.nil?
           msg = "Request invalid - there is no command with a UUID of #{uuid} to follow on from"
-          $logger.error $msg
-          response.body = "Requested id=#{id} is invalid for a commands list of size #{size}"
+          $logger.error msg
+          response.body = msg
           response.status = 400
         else
           if index + 1 < commands.size_all

@@ -38,6 +38,11 @@ module Maze
       @requests[@current] if @requests.size > @current
     end
 
+    # The request at the given index
+    def get(index)
+      @requests[index] if @requests.size > index
+    end
+
     # Peek at requests yet to be processed - i.e. from current onwards.  All requests are left visible in the list.
     # Returns an empty array if there are no requests outstanding.
     def remaining

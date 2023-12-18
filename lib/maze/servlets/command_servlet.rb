@@ -17,7 +17,7 @@ module Maze
       # @param response [HTTPResponse] The response to return
       def do_GET(request, response)
 
-        if request.query.nil?
+        if request.query.empty?
           # Non-idempotent mode - return the "current" command
           commands = Maze::Server.commands
 
@@ -31,6 +31,9 @@ module Maze
             commands.next
           end
         else
+          $logger.info "request.query = #{request.query}"
+
+
           # Idempotent mode
           after_uuid = request.query['after']
           if after_uuid.nil?

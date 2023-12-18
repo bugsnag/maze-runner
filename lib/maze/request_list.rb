@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'securerandom'
 
 module Maze
   # An abstraction for storing a list of requests (e.g. Errors, Sessions),
@@ -24,13 +25,22 @@ module Maze
     #
     # @param request The new request, from which a clone is made
     def add(request)
-      @requests.append request.clone
+      clone = request.clone
+      # UUID primarily used for commands, but no harm to set on everything
+      clone[:uuid] = SecureRandom.uuid
+      clone[:run_uuid] = Maze.run_uuid
+      @requests.append clone
       @count += 1
     end
 
     # The current request
     def current
       @requests[@current] if @requests.size > @current
+    end
+
+    # The request at the given index
+    def get(index)
+      @requests[index] if @requests.size > index
     end
 
     # Peek at requests yet to be processed - i.e. from current onwards.  All requests are left visible in the list.

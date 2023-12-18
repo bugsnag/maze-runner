@@ -2,7 +2,6 @@
 
 require 'bugsnag'
 require 'json'
-require 'securerandom'
 require 'webrick'
 require_relative './logger'
 require_relative './request_list'
@@ -223,6 +222,7 @@ module Maze
             server.mount '/ndk-symbol', Servlets::Servlet, :sourcemaps
             server.mount '/proguard', Servlets::Servlet, :sourcemaps
             server.mount '/command', Servlets::CommandServlet
+            server.mount '/commands', Servlets::AllCommandsServlet
             server.mount '/logs', Servlets::LogServlet
             server.mount '/metrics', Servlets::Servlet, :metrics
             server.mount '/reflect', Servlets::ReflectiveServlet

@@ -7,6 +7,14 @@ require_relative '../lib/maze/request_list'
 # noinspection RubyNilAnalysis
 class RequestListTest < Test::Unit::TestCase
 
+  COMMAND_UUID = 'random'
+  RUN_UUID = 'run_uuid'
+
+  def setup
+    Maze.run_uuid = RUN_UUID
+    SecureRandom.stubs(:uuid).returns(COMMAND_UUID)
+  end
+
   def build_item(id)
     {
       id: id,
@@ -27,6 +35,13 @@ class RequestListTest < Test::Unit::TestCase
     }
   end
 
+  def after_add(hash)
+    after_add = hash.clone
+    after_add[:run_uuid] = RUN_UUID
+    after_add[:uuid] = COMMAND_UUID
+    after_add
+  end
+
   def test_fresh_state
     list = Maze::RequestList.new
     assert_nil list.current
@@ -45,14 +60,14 @@ class RequestListTest < Test::Unit::TestCase
 
     # Check current and state
     assert_equal 2, list.size_remaining
-    assert_equal item1, list.current
+    assert_equal after_add(item1), list.current
     assert_not_equal item2, list.current
-    assert_equal [item1, item2], list.all
+    assert_equal [item1, item2].map { |entry| after_add(entry) }, list.all
 
     # Next => item2
     list.next
-    assert_equal item2, list.current
-    assert_equal [item1, item2], list.all
+    assert_equal after_add(item2), list.current
+    assert_equal [item1, item2].map { |entry| after_add(entry) }, list.all
 
     # Next => nil
     list.next
@@ -73,14 +88,14 @@ class RequestListTest < Test::Unit::TestCase
     list.next
     list.next
 
-    assert_equal item3, list.current
+    assert_equal after_add(item3), list.current
 
     list.add item4
     list.add item5
-    assert_equal item3, list.current
+    assert_equal after_add(item3), list.current
 
     list.next
-    assert_equal item4, list.current
+    assert_equal after_add(item4), list.current
   end
 
   def test_clear
@@ -92,10 +107,10 @@ class RequestListTest < Test::Unit::TestCase
     list.add item1
     list.add item2
     list.add item3
-    assert_equal [item1, item2, item3], list.all
+    assert_equal [item1, item2, item3].map { |entry| after_add(entry) }, list.all
     list.next
     list.next
-    assert_equal item3, list.current
+    assert_equal after_add(after_add(item3)), list.current
 
     list.clear
     assert_equal [], list.all
@@ -103,7 +118,7 @@ class RequestListTest < Test::Unit::TestCase
 
     # Re-ddd something - checks internal pointer was reset
     list.add item1
-    assert_equal item1, list.current
+    assert_equal after_add(item1), list.current
   end
 
   def test_too_many_nexts
@@ -117,7 +132,7 @@ class RequestListTest < Test::Unit::TestCase
     assert_nil list.current
 
     list.add item2
-    assert_equal item2, list.current
+    assert_equal after_add(item2), list.current
   end
 
   def test_remaining
@@ -132,11 +147,11 @@ class RequestListTest < Test::Unit::TestCase
 
     list.next
     remaining = list.remaining
-    assert_equal [item2, item3], remaining
+    assert_equal [item2, item3].map { |entry| after_add(entry) }, remaining
 
     # Check that remaining does not change when inspected
     remaining = list.remaining
-    assert_equal [item2, item3], remaining
+    assert_equal [item2, item3].map { |entry| after_add(entry) }, remaining
   end
 
   def test_sort_by_all_requests
@@ -155,7 +170,7 @@ class RequestListTest < Test::Unit::TestCase
 
     list.sort_by_sent_at! 3
 
-    assert_equal [request2, request3, request1], list.remaining
+    assert_equal [request2, request3, request1].map { |entry| after_add(entry) }, list.remaining
   end
 
   def test_sort_by_missing_header
@@ -173,7 +188,7 @@ class RequestListTest < Test::Unit::TestCase
 
     list.sort_by_sent_at! 3
 
-    assert_equal [request1, request2, request3], list.remaining
+    assert_equal [request1, request2, request3].map { |entry| after_add(entry) }, list.remaining
   end
 
   def test_sort_by_remaining_requests
@@ -195,7 +210,7 @@ class RequestListTest < Test::Unit::TestCase
 
     list.sort_by_sent_at! 3
 
-    assert_equal [request3, request4, request2], list.remaining
+    assert_equal [request3, request4, request2].map { |entry| after_add(entry) }, list.remaining
   end
 
   def test_sort_by_with_subsequent_request
@@ -219,7 +234,7 @@ class RequestListTest < Test::Unit::TestCase
 
     list.sort_by_sent_at! 2
 
-    assert_equal [request3, request2, request4, request5], list.remaining
+    assert_equal [request3, request2, request4, request5].map { |entry| after_add(entry) }, list.remaining
   end
 
   def test_sort_by_key_path
@@ -239,10 +254,10 @@ class RequestListTest < Test::Unit::TestCase
     list.next
 
     list.sort_by! 'animals.0.name'
-    assert_equal request2, list.current
+    assert_equal after_add(request2), list.current
     list.next
-    assert_equal request3, list.current
+    assert_equal after_add(request3), list.current
     list.next
-    assert_equal request1, list.current
+    assert_equal after_add(request1), list.current
   end
 end

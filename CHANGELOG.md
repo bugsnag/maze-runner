@@ -1,3 +1,9 @@
+# 8.14.0 - 2023/12/18
+
+## Enhancements
+
+- Add idempotent command endpoints [613](https://github.com/bugsnag/maze-runner/pull/613)
+
 # 8.13.2 - 2023/11/29
 
 ## Fixes

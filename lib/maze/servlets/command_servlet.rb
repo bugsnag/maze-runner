@@ -40,14 +40,14 @@ module Maze
             response.body = "'after' is the only recognised query parameter"
             response.status = 400
           else
-            return_command(after_uuid, response)
+            command_after(after_uuid, response)
           end
         end
 
         response.header['Access-Control-Allow-Origin'] = '*'
       end
 
-      def return_command(uuid, response)
+      def command_after(uuid, response)
         commands = Maze::Server.commands
         if uuid.empty?
           index = -1

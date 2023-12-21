@@ -155,7 +155,7 @@ module Maze
           # Test run
           if ENV['BUILDKITE']
             bk_retry = ENV['BUILDKITE_RETRY_COUNT']
-            retry_string = if !bk_retry.nil? && bk_retry.to_i > 1
+            retry_string = if !bk_retry.nil? && bk_retry.to_i > 0
                              " (#{bk_retry})"
                            else
                              ''

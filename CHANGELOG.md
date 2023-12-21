@@ -1,3 +1,9 @@
+# 8.14.1 - 2023/12/21
+
+## Fixes
+
+- Use Buildkite retry count correctly in BitBar test run names [614](https://github.com/bugsnag/maze-runner/pull/614)
+
 # 8.14.0 - 2023/12/18
 
 ## Enhancements

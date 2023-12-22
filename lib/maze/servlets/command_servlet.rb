@@ -31,9 +31,6 @@ module Maze
             commands.next
           end
         else
-          $logger.info "request.query = #{request.query}"
-
-
           # Idempotent mode
           after_uuid = request.query['after']
           if after_uuid.nil?
@@ -87,5 +84,3 @@ module Maze
     end
   end
 end
-
-

@@ -21,7 +21,9 @@ module Maze
 
     # Generic device farm options
     ACCESS_KEY = 'access-key'
+    APP_ACTIVITY = 'app-activity'
     APP_BUNDLE_ID = 'app-bundle-id'
+    APP_PACKAGE = 'app-package'
     APPIUM_VERSION = 'appium-version'
     BROWSER = 'browser'
     BROWSER_VERSION = 'browser-version'

@@ -134,6 +134,14 @@ module Maze
                 'Device farm access key. Consumes env var from environment based on farm set',
                 short: :none,
                 type: :string
+            opt Option::APP_ACTIVITY,
+                'The appActivity to set in the Appium capabilities (for BitBar only)',
+                short: :none,
+                type: :string
+            opt Option::APP_PACKAGE,
+                'The appPackage to set in the Appium capabilities (for BitBar only)',
+                short: :none,
+                type: :string
             opt Option::APPIUM_VERSION,
                 'The Appium version to use',
                 short: :none,

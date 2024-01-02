@@ -137,6 +137,12 @@ module Maze
     # Test browser version
     attr_accessor :browser_version
 
+    # The appActivity to be set in the Appium capabilities
+    attr_accessor :app_activity
+
+    # The appPackage to be set in the Appium capabilities
+    attr_accessor :app_package
+
     # Appium version to use
     attr_accessor :appium_version
 

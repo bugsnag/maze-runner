@@ -41,6 +41,8 @@ class ParserTest < Test::Unit::TestCase
     assert_nil(options[Maze::Option::USERNAME])
     assert_nil(options[Maze::Option::ACCESS_KEY])
     assert_nil(options[Maze::Option::APPIUM_VERSION])
+    assert_nil(options[Maze::Option::APP_ACTIVITY])
+    assert_nil(options[Maze::Option::APP_PACKAGE])
     assert_true(options[Maze::Option::TUNNEL])
 
     # Local-only options
@@ -77,6 +79,8 @@ class ParserTest < Test::Unit::TestCase
       --browser-version=ARG_BROWSER_VERSION
       --username=ARG_USERNAME
       --access-key=ARG_ACCESS_KEY
+      --app-activity=ARG_APP_ACTIVITY
+      --app-package=ARG_APP_PACKAGE
       --appium-version=ARG_APPIUM_VERSION
       --os=ARG_OS
       --os-version=ARG_OS_VERSION
@@ -103,6 +107,8 @@ class ParserTest < Test::Unit::TestCase
     assert_equal('ARG_BROWSER_VERSION', options[Maze::Option::BROWSER_VERSION])
     assert_equal('ARG_USERNAME', options[Maze::Option::USERNAME])
     assert_equal('ARG_ACCESS_KEY', options[Maze::Option::ACCESS_KEY])
+    assert_equal('ARG_APP_ACTIVITY', options[Maze::Option::APP_ACTIVITY])
+    assert_equal('ARG_APP_PACKAGE', options[Maze::Option::APP_PACKAGE])
     assert_equal('ARG_APPIUM_VERSION', options[Maze::Option::APPIUM_VERSION])
     assert_false(options[Maze::Option::TUNNEL])
 

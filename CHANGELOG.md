@@ -1,3 +1,9 @@
+# 8.15.0 - 2024/01/03
+
+## Enhancements
+
+- Add `--app-package` and `--app-activity` options (used for BitBar Appium tests only) [616](https://github.com/bugsnag/maze-runner/pull/616)
+
 # 8.14.1 - 2023/12/21
 
 ## Fixes

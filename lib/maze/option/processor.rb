@@ -47,6 +47,8 @@ module Maze
                         end
           config.locator = options[Maze::Option::A11Y_LOCATOR] ? :accessibility_id : :id
           config.capabilities_option = options[Maze::Option::CAPABILITIES]
+          config.app_activity = options[Maze::Option::APP_ACTIVITY]
+          config.app_package = options[Maze::Option::APP_PACKAGE]
           config.legacy_driver = !ENV['USE_LEGACY_DRIVER'].nil?
           config.start_tunnel = options[Maze::Option::TUNNEL]
 

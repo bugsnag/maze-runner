@@ -37,7 +37,7 @@ module Maze
           else
             path = case Maze::Helper.get_current_platform
                   when 'ios'
-                    "@#{@driver_app_id}/Documents/#{filename}"
+                    "@#{@driver.app_id}/Documents/#{filename}"
                   when 'android'
                     dir = Maze.config.android_app_files_directory || "/sdcard/Android/data/#{@driver.app_id}/files"
                     "#{dir}/#{filename}"

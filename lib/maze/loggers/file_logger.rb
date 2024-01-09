@@ -5,12 +5,18 @@ require 'logger'
 module Maze
   # A logger to file, always logging at TRACE level
   class FileLogger < Logger
+
+    LOG_LOCATION = 'maze-runner.log'
+
     include Singleton
 
     attr_accessor :datetime_format
 
     def initialize
-      super('maze.log', level: ::Logger::TRACE)
+      # Remove the previous log file if it exists
+      File.delete(Maze::FileLogger::LOG_LOCATION) if File.exist?(Maze::FileLogger::LOG_LOCATION)
+
+      super(LOG_LOCATION, level: ::Logger::TRACE)
 
       @datetime_format = '%H:%M:%S'
 

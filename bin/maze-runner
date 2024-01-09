@@ -86,6 +86,7 @@ require_relative '../lib/maze/hooks/appium_hooks'
 require_relative '../lib/maze/hooks/browser_hooks'
 require_relative '../lib/maze/hooks/command_hooks'
 require_relative '../lib/maze/hooks/error_code_hook'
+require_relative '../lib/maze/hooks/logger_hooks'
 
 require_relative '../lib/maze/driver/appium'
 require_relative '../lib/maze/driver/browser'

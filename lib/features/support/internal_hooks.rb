@@ -113,6 +113,9 @@ Before do |scenario|
 
   # Call any blocks registered by the client
   Maze.hooks.call_before scenario
+
+  # Invoke the logger hook for the scenario
+  Maze::Hooks::LoggerHooks.before scenario
 end
 
 # General processing to be run after each scenario
@@ -121,6 +124,9 @@ After do |scenario|
   if Maze.config.os == "macos" && scenario.status == :failed
     Maze::MacosUtils.capture_screen(scenario)
   end
+
+  # Invoke the logger hook for the scenario
+  Maze::Hooks::LoggerHooks.after scenario
 
   # Call any blocks registered by the client
   Maze.hooks.call_after scenario
@@ -226,6 +232,9 @@ end
 
 # After all tests
 AfterAll do
+  # Ensure the logger output is in the correct location
+  Maze::Hooks::LoggerHooks.after_all
+
   maze_output = File.join(Dir.pwd, 'maze_output')
   maze_output_zip = File.join(Dir.pwd, 'maze_output.zip')
   # zip a folder with files and subfolders

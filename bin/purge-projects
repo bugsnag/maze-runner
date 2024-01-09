@@ -6,7 +6,7 @@ require 'em/pure_ruby'
 
 require_relative '../lib/maze'
 require_relative '../lib/maze/client/bb_api_client'
-require_relative '../lib/maze/logger'
+require_relative '../lib/maze/loggers/logger'
 require_relative '../lib/maze/helper'
 require 'optimist'
 require 'uri'

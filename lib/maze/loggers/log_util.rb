@@ -1,66 +1,6 @@
 # frozen_string_literal: true
 
-require 'bugsnag'
-require 'logger'
-require 'singleton'
-
-# Monkey patch a 'trace' log level into the standard Logger
-class Logger
-  remove_const(:SEV_LABEL)
-  SEV_LABEL = {
-    -1 => 'TRACE',
-    0 => 'DEBUG',
-    1 => 'INFO',
-    2 => 'WARN',
-    3 => 'ERROR',
-    4 => 'FATAL',
-    5 => 'ANY'
-  }
-
-  module Severity
-    TRACE=-1
-  end
-
-  def trace(name = nil, &block)
-    add(TRACE, nil, name, &block)
-  end
-
-  def trace?
-    @level <= TRACE
-  end
-end
-
-# Logger classes
 module Maze
-  # A logger, with level configured according to the environment
-  class Logger < Logger
-    include Singleton
-
-    attr_accessor :datetime_format
-
-    def initialize
-      if ENV['TRACE']
-        super(STDOUT, level: Logger::TRACE)
-      elsif ENV['DEBUG']
-        super(STDOUT, level: Logger::DEBUG)
-      elsif ENV['QUIET']
-        super(STDOUT, level: Logger::ERROR)
-      else
-        super(STDOUT, level: Logger::INFO)
-      end
-
-      @datetime_format = '%H:%M:%S'
-
-      @formatter = proc do |severity, time, _name, message|
-        formatted_time = time.strftime(@datetime_format)
-
-        "\e[2m[#{formatted_time}]\e[0m #{severity.rjust(5)}: #{message}\n"
-      end
-    end
-  end
-
-  $logger = Maze::Logger.instance
-
   # A collection of logging utilities
   class LogUtil
     class << self

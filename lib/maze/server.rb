@@ -3,7 +3,7 @@
 require 'bugsnag'
 require 'json'
 require 'webrick'
-require_relative './logger'
+require_relative 'loggers/logger'
 require_relative './request_list'
 
 module Maze

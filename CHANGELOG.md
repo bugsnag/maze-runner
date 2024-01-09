@@ -1,3 +1,9 @@
+# TBD
+
+## Enhancements
+
+- Add method to allow pulling of files via appium client [617](https://github.com/bugsnag/maze-runner/pull/617)
+
 # 8.15.0 - 2024/01/03
 
 ## Enhancements

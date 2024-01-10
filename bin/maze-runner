@@ -95,6 +95,7 @@ require_relative '../lib/maze/plugins/bugsnag_reporting_plugin'
 require_relative '../lib/maze/plugins/error_code_plugin'
 require_relative '../lib/maze/plugins/global_retry_plugin'
 require_relative '../lib/maze/plugins/datadog_metrics_plugin'
+require_relative '../lib/maze/plugins/logging_scenarios_plugin'
 
 # Require monkey-patches after everything else
 require_relative '../lib/utils/selenium_money_patch'

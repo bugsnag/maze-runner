@@ -92,6 +92,9 @@ InstallPlugin do |config|
   # Only add the retry plugin if --retry is not used on the command line
   config.filters << Maze::Plugins::GlobalRetryPlugin.new(config) if config.options[:retry].zero?
 
+  # Add step logging
+  config.filters << Maze::Plugins::LoggingScenariosPlugin.new(config)
+
   # TODO: Reporting of test failures as errors deactivated pending PLAT-10963
   #config.filters << Maze::Plugins::BugsnagReportingPlugin.new(config)
 end

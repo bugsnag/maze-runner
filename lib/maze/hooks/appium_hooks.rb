@@ -30,19 +30,11 @@ module Maze
         elsif [:bb, :bs, :local].include? Maze.config.farm
           write_device_logs(scenario) if scenario.failed?
 
-          # Cautiously only applying the new way of resetting the app to BitBar
-          if Maze.config.farm == :bb
-            Maze.driver.terminate_app Maze.driver.app_id
-            Maze.driver.activate_app Maze.driver.app_id
-          else
-            re = Regexp.new('^1\.1[56]\.\d$')
-            if re.match? Maze.config.appium_version
-              Maze.driver.close_app
-              Maze.driver.launch_app
-            else
-              Maze.driver.reset
-            end
-          end
+          # Reset the server to ensure that test fixtures cannot fetch
+          # commands from the previous scenario (in idempotent mode).
+          Maze.driver.terminate_app Maze.driver.app_id
+          Maze::Server.reset!
+          Maze.driver.activate_app Maze.driver.app_id
         end
       rescue => error
         # Notify and re-raise for Cucumber to handle

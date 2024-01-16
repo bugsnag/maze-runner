@@ -54,6 +54,7 @@ require_relative '../lib/maze/runner'
 require_relative '../lib/maze/terminating_server'
 
 require_relative '../lib/maze/servlets/base_servlet'
+require_relative '../lib/maze/servlets/all_commands_servlet'
 require_relative '../lib/maze/servlets/command_servlet'
 require_relative '../lib/maze/servlets/servlet'
 require_relative '../lib/maze/servlets/log_servlet'

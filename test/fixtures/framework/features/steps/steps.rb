@@ -24,3 +24,10 @@ Then('the Runner.environment entry for {string} is null') do |key|
   Maze.check.nil(Maze::Runner.environment[key])
 end
 
+When('I issue the command to {string} {string}') do |action, subject|
+  command = {
+    action: action,
+    subject: subject
+  }
+  Maze::Server.commands.add command
+end

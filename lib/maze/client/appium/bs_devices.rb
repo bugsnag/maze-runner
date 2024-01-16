@@ -50,6 +50,7 @@ module Maze
 
           def make_ios_hash(device, version)
             {
+              'appium:autoAcceptAlerts' => 'true',
               'platformName' => 'ios',
               'platformVersion' => version,
               'deviceName' => device

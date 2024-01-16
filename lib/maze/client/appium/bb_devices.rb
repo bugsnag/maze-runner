@@ -99,6 +99,8 @@ module Maze
               'uiautomator2ServerInstallTimeout' => 60000,
               'uiautomator2ServerLaunchTimeout' => 60000
             }
+            appium_options['appActivity'] = Maze.config.app_activity unless Maze.config.app_activity.nil?
+            appium_options['appPackage'] = Maze.config.app_package unless Maze.config.app_package.nil?
             hash = {
               'platformName' => 'Android',
               'deviceName' => 'Android Phone',
@@ -117,7 +119,8 @@ module Maze
             # See PLAT-11087
             appium_options = {
               'automationName' => 'XCUITest',
-              'shouldTerminateApp' => 'true'
+              'shouldTerminateApp' => 'true',
+              'autoAcceptAlerts' => 'true'
             }
             hash = {
               'platformName' => 'iOS',

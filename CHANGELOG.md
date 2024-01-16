@@ -2,7 +2,37 @@
 
 ## Enhancements
 
-- Remove use of deprecated `Maze.driver.reset` in BitBar Appium tests [606](https://github.com/bugsnag/maze-runner/pull/606)
+- Remove use of deprecated `Maze.driver.reset` in BitBar Appium tests [607](https://github.com/bugsnag/maze-runner/pull/607)
+
+# 8.16.0 - TBD
+
+## Enhancements
+
+- Add method to allow pulling of files via appium client [617](https://github.com/bugsnag/maze-runner/pull/617)
+
+# 8.15.0 - 2024/01/03
+
+## Enhancements
+
+- Add `--app-package` and `--app-activity` options (used for BitBar Appium tests only) [616](https://github.com/bugsnag/maze-runner/pull/616)
+
+# 8.14.1 - 2023/12/21
+
+## Fixes
+
+- Use Buildkite retry count correctly in BitBar test run names [614](https://github.com/bugsnag/maze-runner/pull/614)
+
+# 8.14.0 - 2023/12/18
+
+## Enhancements
+
+- Add idempotent command endpoints [613](https://github.com/bugsnag/maze-runner/pull/613)
+
+# 8.13.2 - 2023/11/29
+
+## Fixes
+
+- Set `autoAcceptAlerts` in iOS Appium tests [611](https://github.com/bugsnag/maze-runner/pull/611)
 
 # 8.13.1 - 2023/11/20
 

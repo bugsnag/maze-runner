@@ -9,6 +9,7 @@ require_relative '../lib/maze/schemas/trace_schema'
 require_relative '../lib/maze/repeaters/request_repeater'
 require_relative '../lib/maze/servlets/base_servlet'
 require_relative '../lib/maze/servlets/servlet'
+require_relative '../lib/maze/servlets/all_commands_servlet'
 require_relative '../lib/maze/servlets/command_servlet'
 require_relative '../lib/maze/servlets/log_servlet'
 require_relative '../lib/maze/servlets/trace_servlet'
@@ -50,6 +51,7 @@ module Maze
       mock_http_server.expects(:mount).with('/ndk-symbol', any_parameters).once
       mock_http_server.expects(:mount).with('/proguard', any_parameters).once
       mock_http_server.expects(:mount).with('/command', any_parameters).once
+      mock_http_server.expects(:mount).with('/commands', any_parameters).once
       mock_http_server.expects(:mount).with('/logs', any_parameters).once
       mock_http_server.expects(:mount).with('/reflect', any_parameters).once
 
@@ -101,6 +103,7 @@ module Maze
       mock_http_server.expects(:mount).with('/logs', any_parameters).once
       mock_http_server.expects(:mount).with('/reflect', any_parameters).once
       mock_http_server.expects(:mount).with('/command', any_parameters).once
+      mock_http_server.expects(:mount).with('/commands', any_parameters).once
       mock_http_server.expects(:start)
       mock_http_server.expects(:shutdown)
       WEBrick::HTTPServer.expects(:new).with(Port: PORT,

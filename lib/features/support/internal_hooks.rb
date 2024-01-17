@@ -193,17 +193,17 @@ def output_received_requests(request_type)
       $stdout.puts "--- #{request_type} #{number} of #{count}"
 
       $logger.info 'Request body:'
-      Maze::LogUtil.log_hash(Logger::Severity::INFO, request[:body])
+      Maze::Loggers::LogUtil.log_hash(Logger::Severity::INFO, request[:body])
 
       $logger.info 'Request headers:'
-      Maze::LogUtil.log_hash(Logger::Severity::INFO, request[:request].header)
+      Maze::Loggers::LogUtil.log_hash(Logger::Severity::INFO, request[:request].header)
 
       $logger.info 'Request digests:'
-      Maze::LogUtil.log_hash(Logger::Severity::INFO, request[:digests])
+      Maze::Loggers::LogUtil.log_hash(Logger::Severity::INFO, request[:digests])
 
       $logger.info "Response body: #{request[:response].body}"
       $logger.info 'Response headers:'
-      Maze::LogUtil.log_hash(Logger::Severity::INFO, request[:response].header)
+      Maze::Loggers::LogUtil.log_hash(Logger::Severity::INFO, request[:response].header)
     end
   end
 end

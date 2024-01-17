@@ -16,7 +16,7 @@ class LoggerTest < Test::Unit::TestCase
   def test_it_logs_messages
     io = StringIO.new
     
-    logger = Maze::Logger.instance
+    logger = Maze::Loggers::Logger.instance
     logger.level = Logger::DEBUG
     logger.reopen(io)
     
@@ -55,7 +55,7 @@ class LoggerTest < Test::Unit::TestCase
     file_io = StringIO.new
     stdout_io = StringIO.new
 
-    logger = Maze::Logger.instance
+    logger = Maze::Loggers::Logger.instance
     logger.stdout_logger.reopen(stdout_io)
     logger.file_logger.reopen(file_io)
 
@@ -92,7 +92,7 @@ class LoggerTest < Test::Unit::TestCase
   def test_the_datetime_format_can_be_changed
     io = StringIO.new
     
-    logger = Maze::Logger.instance
+    logger = Maze::Loggers::Logger.instance
     logger.level = Logger::DEBUG
     logger.reopen(io)
 
@@ -132,7 +132,7 @@ class LoggerTest < Test::Unit::TestCase
   def test_the_formater_can_be_changed
     io = StringIO.new
 
-    logger = Maze::Logger.instance
+    logger = Maze::Loggers::Logger.instance
     logger.level = Logger::DEBUG
     logger.reopen(io)
 
@@ -173,10 +173,10 @@ class LoggerTest < Test::Unit::TestCase
   private
 
   def reset_logger!
-    @initial_formatter ||= Maze::Logger.instance.formatter
-    @initial_datetime_format ||= Maze::Logger.instance.datetime_format
+    @initial_formatter ||= Maze::Loggers::Logger.instance.formatter
+    @initial_datetime_format ||= Maze::Loggers::Logger.instance.datetime_format
 
-    Maze::Logger.instance.formatter = @initial_formatter
-    Maze::Logger.instance.datetime_format = @initial_datetime_format
+    Maze::Loggers::Logger.instance.formatter = @initial_formatter
+    Maze::Loggers::Logger.instance.datetime_format = @initial_datetime_format
   end
 end

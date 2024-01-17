@@ -34,26 +34,28 @@ class Logger
 end
 
 module Maze
-  class Logger
-    include Singleton
+  module Loggers
+    class Logger
+      include Singleton
 
-    attr_accessor :stdout_logger, :file_logger
+      attr_accessor :stdout_logger, :file_logger
 
-    def initialize
-      @stdout_logger = Maze::STDOUTLogger.instance
-      @file_logger = Maze::FileLogger.instance
-    end
+      def initialize
+        @stdout_logger = Maze::STDOUTLogger.instance
+        @file_logger = Maze::FileLogger.instance
+      end
 
-    # Attempts to forward all method calls to both loggers
-    def method_missing(method, *args, &block)
-      if @stdout_logger.respond_to?(method) && @file_logger.respond_to?(method)
-        @stdout_logger.send(method, *args, &block)
-        @file_logger.send(method, *args, &block)
-      else
-        super
+      # Attempts to forward all method calls to both loggers
+      def method_missing(method, *args, &block)
+        if @stdout_logger.respond_to?(method) && @file_logger.respond_to?(method)
+          @stdout_logger.send(method, *args, &block)
+          @file_logger.send(method, *args, &block)
+        else
+          super
+        end
       end
     end
   end
 end
 
-$logger = Maze::Logger.instance
+$logger = Maze::Loggers::Logger.instance

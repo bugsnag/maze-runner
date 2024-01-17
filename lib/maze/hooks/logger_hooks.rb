@@ -7,12 +7,14 @@ module Maze
       class << self
         def before(scenario)
           location = "\"# #{scenario.location}\""
+          $logger.trace ''
           $logger.trace "\n--- Begin Scenario: #{scenario.name} #{location}"
         end
 
         def after(scenario)
           location = "\"# #{scenario.location}\""
           $logger.trace "--- End Scenario: #{scenario.name} #{location}"
+          $logger.trace ''
         end
 
         def after_all

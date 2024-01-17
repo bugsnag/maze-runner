@@ -1,4 +1,10 @@
-# 8.16.0 - 2024/01/17 
+# 8.17.0 - TBD
+
+## Enhancements
+
+- Split logging into STDOUT and File loggers, for more information during test runs [618](https://github.com/bugsnag/maze-runner/pull/618)
+
+# 8.16.0 - 2024/01/17
 
 ## Enhancements
 

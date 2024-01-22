@@ -19,7 +19,7 @@ module Maze
 
         def after_all
           if ENV['BUILDKITE']
-            FileUtils.mv("#{Dir.pwd}/#{Maze::FileLogger::LOG_LOCATION}", "#{Dir.pwd}/maze_output/maze-runner.log")
+            FileUtils.mv("#{Dir.pwd}/#{Maze::Loggers::FileLogger::LOG_LOCATION}", "#{Dir.pwd}/maze_output/maze-runner.log")
           end
         end
       end

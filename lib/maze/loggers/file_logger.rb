@@ -15,7 +15,7 @@ module Maze
 
       def initialize
         # Remove the previous log file if it exists
-        File.delete(Maze::FileLogger::LOG_LOCATION) if File.exist?(Maze::FileLogger::LOG_LOCATION)
+        File.delete(LOG_LOCATION) if File.exist?(LOG_LOCATION)
 
         super(LOG_LOCATION, level: ::Logger::TRACE)
 
@@ -24,7 +24,7 @@ module Maze
         @formatter = proc do |severity, time, _name, message|
           formatted_time = time.strftime(@datetime_format)
 
-          "[#{formatted_time}] #{severity.rjust(5)}: #{message}\n"
+          "\e[2m[#{formatted_time}]\e[0m #{severity.rjust(5)}: #{message}\n"
         end
       end
     end

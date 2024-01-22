@@ -41,8 +41,8 @@ module Maze
       attr_accessor :stdout_logger, :file_logger
 
       def initialize
-        @stdout_logger = Maze::STDOUTLogger.instance
-        @file_logger = Maze::FileLogger.instance
+        @stdout_logger = Maze::Loggers::STDOUTLogger.instance
+        @file_logger = Maze::Loggers::FileLogger.instance
       end
 
       # Attempts to forward all method calls to both loggers

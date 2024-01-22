@@ -129,7 +129,7 @@ class LoggerTest < Test::Unit::TestCase
     assert_equal(expected, io.readlines)
   end
 
-  def test_the_formater_can_be_changed
+  def test_the_formatter_can_be_changed
     io = StringIO.new
 
     logger = Maze::Loggers::Logger.instance

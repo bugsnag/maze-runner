@@ -92,6 +92,9 @@ InstallPlugin do |config|
   # Only add the retry plugin if --retry is not used on the command line
   config.filters << Maze::Plugins::GlobalRetryPlugin.new(config) if config.options[:retry].zero?
 
+  # Add step logging
+  config.filters << Maze::Plugins::LoggingScenariosPlugin.new(config)
+
   # TODO: Reporting of test failures as errors deactivated pending PLAT-10963
   #config.filters << Maze::Plugins::BugsnagReportingPlugin.new(config)
 end
@@ -113,6 +116,9 @@ Before do |scenario|
 
   # Call any blocks registered by the client
   Maze.hooks.call_before scenario
+
+  # Invoke the logger hook for the scenario
+  Maze::Hooks::LoggerHooks.before scenario
 end
 
 # General processing to be run after each scenario
@@ -121,6 +127,9 @@ After do |scenario|
   if Maze.config.os == "macos" && scenario.status == :failed
     Maze::MacosUtils.capture_screen(scenario)
   end
+
+  # Invoke the logger hook for the scenario
+  Maze::Hooks::LoggerHooks.after scenario
 
   # Call any blocks registered by the client
   Maze.hooks.call_after scenario
@@ -184,17 +193,17 @@ def output_received_requests(request_type)
       $stdout.puts "--- #{request_type} #{number} of #{count}"
 
       $logger.info 'Request body:'
-      Maze::LogUtil.log_hash(Logger::Severity::INFO, request[:body])
+      Maze::Loggers::LogUtil.log_hash(Logger::Severity::INFO, request[:body])
 
       $logger.info 'Request headers:'
-      Maze::LogUtil.log_hash(Logger::Severity::INFO, request[:request].header)
+      Maze::Loggers::LogUtil.log_hash(Logger::Severity::INFO, request[:request].header)
 
       $logger.info 'Request digests:'
-      Maze::LogUtil.log_hash(Logger::Severity::INFO, request[:digests])
+      Maze::Loggers::LogUtil.log_hash(Logger::Severity::INFO, request[:digests])
 
       $logger.info "Response body: #{request[:response].body}"
       $logger.info 'Response headers:'
-      Maze::LogUtil.log_hash(Logger::Severity::INFO, request[:response].header)
+      Maze::Loggers::LogUtil.log_hash(Logger::Severity::INFO, request[:response].header)
     end
   end
 end
@@ -226,6 +235,9 @@ end
 
 # After all tests
 AfterAll do
+  # Ensure the logger output is in the correct location
+  Maze::Hooks::LoggerHooks.after_all
+
   maze_output = File.join(Dir.pwd, 'maze_output')
   maze_output_zip = File.join(Dir.pwd, 'maze_output.zip')
   # zip a folder with files and subfolders

@@ -1,3 +1,9 @@
+# 8.17.1 - 2024/01/24
+
+## Fixes
+
+- Move appium session information to at_exit block to always run, even on maze-runner crash [623](https://github.com/bugsnag/maze-runner/pull/623)
+
 # 8.17.0 - 2024/01/24
 
 ## Enhancements

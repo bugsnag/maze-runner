@@ -3,7 +3,7 @@
 ## Enhancements
 
 - Split logging into STDOUT and File loggers, for more information during test runs [618](https://github.com/bugsnag/maze-runner/pull/618)
-- Retry BitBar device session creation for `Appium Settings app is not running` error [619](https://github.com/bugsnag/maze-runner/pull/619)
+- Retry BitBar device session creation for `Appium Settings app is not running` error [622](https://github.com/bugsnag/maze-runner/pull/622)
 
 # 8.16.0 - 2024/01/17
 

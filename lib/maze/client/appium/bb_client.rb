@@ -30,6 +30,8 @@ module Maze
             interval = 300
           elsif error.message.include? 'There are no devices available'
             interval = 120
+          elsif error.message.include? 'Appium Settings app is not running'
+            interval = 10
           else
             # Do not retry in any other case
           end

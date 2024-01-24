@@ -46,7 +46,6 @@ module Maze
       end
 
       def after_all
-        @client&.log_run_outro
         if $success
           Maze::Plugins::DatadogMetricsPlugin.send_increment('appium.test_succeeded')
         else
@@ -60,6 +59,7 @@ module Maze
 
       def at_exit
         if @client
+          @client.log_run_outro
           $logger.info 'Stopping the Appium session'
           @client.stop_session
         end

@@ -6,7 +6,7 @@ require 'em/pure_ruby'
 
 require_relative '../lib/maze'
 require_relative '../lib/maze/client/bs_client_utils'
-require_relative '../lib/maze/logger'
+require_relative '../lib/maze/loggers/logger'
 require 'net/http'
 require 'json'
 require 'uri'

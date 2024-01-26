@@ -30,6 +30,8 @@ module Maze
             interval = 300
           elsif error.message.include? 'There are no devices available'
             interval = 120
+          elsif error.message.include? 'Appium Settings app is not running'
+            interval = 10
           else
             # Do not retry in any other case
           end
@@ -73,7 +75,9 @@ module Maze
           }
           capabilities.deep_merge! BitBarClientUtils.dashboard_capabilities
           capabilities.deep_merge! BitBarDevices.get_available_device(config.device)
+          capabilities['bitbar:options']['appiumVersion'] = config.appium_version unless config.appium_version.nil?
           capabilities.deep_merge! JSON.parse(config.capabilities_option)
+
           capabilities
         end
 
@@ -87,7 +91,7 @@ module Maze
           $logger.info 'Appium session(s) created:'
           @session_ids.each do |id|
             link = api_client.get_device_session_ui_link(id)
-            $logger.info Maze::LogUtil.linkify(link, "BitBar session: #{id}") if link
+            $logger.info Maze::Loggers::LogUtil.linkify(link, "BitBar session: #{id}") if link
           end
         end
 

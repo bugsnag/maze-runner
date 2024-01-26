@@ -3,7 +3,7 @@ require 'bugsnag'
 require 'json'
 require 'open3'
 require 'securerandom'
-require_relative '../logger'
+require_relative '../loggers/logger'
 require_relative '../../maze'
 
 module Maze

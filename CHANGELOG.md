@@ -1,3 +1,7 @@
+# 9.1.0 - 2024/01/26
+
+- Forward port 8.17.0 to 8.18.0 to v9 fork [625](https://github.com/bugsnag/maze-runner/pull/625)
+
 # 9.0.0 - 2024/01/17
 
 ## Enhancements
@@ -5,7 +9,26 @@
 - Remove use of deprecated `Maze.driver.reset` in BitBar Appium tests [607](https://github.com/bugsnag/maze-runner/pull/607)
 - Clear request lists while the app is stopped [619](https://github.com/bugsnag/maze-runner/pull/619)
 
-# 8.16.0 - 2024/01/17 
+# 8.18.0 - 2024/01/26
+
+## Enhancements
+
+- Allow Appium version to be set on BitBar [624](https://github.com/bugsnag/maze-runner/pull/624)
+
+# 8.17.1 - 2024/01/24
+
+## Fixes
+
+- Move appium session information to at_exit block to always run, even on maze-runner crash [623](https://github.com/bugsnag/maze-runner/pull/623)
+
+# 8.17.0 - 2024/01/24
+
+## Enhancements
+
+- Split logging into STDOUT and File loggers, for more information during test runs [618](https://github.com/bugsnag/maze-runner/pull/618)
+- Retry BitBar device session creation for `Appium Settings app is not running` error [622](https://github.com/bugsnag/maze-runner/pull/622)
+
+# 8.16.0 - 2024/01/17
 
 ## Enhancements
 

@@ -75,7 +75,9 @@ module Maze
           }
           capabilities.deep_merge! BitBarClientUtils.dashboard_capabilities
           capabilities.deep_merge! BitBarDevices.get_available_device(config.device)
+          capabilities['bitbar:options']['appiumVersion'] = config.appium_version unless config.appium_version.nil?
           capabilities.deep_merge! JSON.parse(config.capabilities_option)
+
           capabilities
         end
 

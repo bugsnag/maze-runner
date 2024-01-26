@@ -1,3 +1,9 @@
+# 8.18.0 - 2024/01/26
+
+## Enhancements
+
+- Allow Appium version to be set on BitBar [624](https://github.com/bugsnag/maze-runner/pull/624)
+
 # 8.17.1 - 2024/01/24
 
 ## Fixes

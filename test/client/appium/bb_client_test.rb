@@ -49,6 +49,8 @@ module Maze
               'testTimeout' => 7200,
               :bitbar_project => 'project',
               :bitbar_testrun => 'test_run'},
+            'noReset' => true,
+            'newCommandTimeout' => 600,
             'platformName' => 'iOS',
             'config' => 'capabilities'
           }

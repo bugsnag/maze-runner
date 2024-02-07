@@ -2,7 +2,7 @@
 
 ## Fixes
 
-- Set capabilities for BitBar using Appium v1 [625](https://github.com/bugsnag/maze-runner/pull/625)
+- Set capabilities for BitBar using Appium v1 [627](https://github.com/bugsnag/maze-runner/pull/627)
 
 # 9.1.0 - 2024/01/26
 

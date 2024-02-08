@@ -1,3 +1,9 @@
+# TBD
+
+## Enhancements
+
+- Add exit code for app-hang errors occurring in appium
+
 # 8.19.0 - 2024/02/08
 
 ## Enhancements

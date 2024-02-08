@@ -26,7 +26,7 @@ module Maze
 
           Bugsnag.notify(event.result.exception) do |bsg_event|
 
-            bsg_event.api_key = ENV['MAZE_SCENARIO_BUGSNAG_KEY']
+            bsg_event.api_key = ENV['MAZE_SCENARIO_BUGSNAG_API_KEY']
 
             unless @last_test_step.nil?
 

@@ -1,3 +1,9 @@
+# 8.19.0 - 2024/02/08
+
+## Enhancements
+
+- Re-enable bugsnag reporting test failures when MAZE_SCENARIO_BUGSNAG_API_KEY environment variable is present [626](https://github.com/bugsnag/maze-runner/pull/626)
+
 # 8.18.0 - 2024/01/26
 
 ## Enhancements

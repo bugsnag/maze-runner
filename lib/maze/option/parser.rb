@@ -42,7 +42,7 @@ module Maze
                 default: true
 
             opt Option::BUGSNAG,
-                'Enables reporting to Bugsnag on scenario failure (requires MAZE_BUGSNAG_API_KEY for errors, MAZE_SCENARIO_BUGSNAG_KEY for test failures)',
+                'Enables reporting to Bugsnag on scenario failure (requires MAZE_BUGSNAG_API_KEY for errors, MAZE_SCENARIO_BUGSNAG_API_KEY for test failures)',
                 type: :boolean,
                 short: :none,
                 default: true

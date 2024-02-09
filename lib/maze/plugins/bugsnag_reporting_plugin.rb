@@ -25,6 +25,9 @@ module Maze
           next unless event.test_case.eql?(test_case) && event.result.failed?
 
           Bugsnag.notify(event.result.exception) do |bsg_event|
+
+            bsg_event.api_key = ENV['MAZE_SCENARIO_BUGSNAG_API_KEY']
+
             unless @last_test_step.nil?
 
               repo = ENV['BUILDKITE_PIPELINE_SLUG']

@@ -55,15 +55,13 @@ module Maze
           # Doubling up on capabilities in both the `appium:options` and `appium` sub dictionaries.
           # See PLAT-11087
           config = Maze.config
+          common_caps = {
+            'noReset' => true,
+            'newCommandTimeout' => 600
+          }
           capabilities = {
-            'appium:options' => {
-              'noReset' => true,
-              'newCommandTimeout' => 600
-            },
-            'appium' => {
-              'noReset' => true,
-              'newCommandTimeout' => 600
-            },
+            'appium:options' => common_caps,
+            'appium' => common_caps,
             'bitbar:options' => {
               # Some capabilities probably belong in the top level
               # of the hash, but BitBar picks them up from here.
@@ -73,6 +71,7 @@ module Maze
               'testTimeout' => 7200
             }
           }
+          capabilities.deep_merge! common_caps
           capabilities.deep_merge! BitBarClientUtils.dashboard_capabilities
           capabilities.deep_merge! BitBarDevices.get_available_device(config.device)
           capabilities['bitbar:options']['appiumVersion'] = config.appium_version unless config.appium_version.nil?

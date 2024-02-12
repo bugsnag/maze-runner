@@ -1,4 +1,12 @@
+# 9.1.1 - TBD
+
+## Fixes
+
+- Set capabilities for BitBar using Appium v1 [627](https://github.com/bugsnag/maze-runner/pull/627)
+
 # 9.1.0 - 2024/01/26
+
+## Enhancements
 
 - Forward port 8.17.0 to 8.18.0 to v9 fork [625](https://github.com/bugsnag/maze-runner/pull/625)
 

@@ -1,8 +1,8 @@
-# TBD
+# 8.20.0 - 2024/02/13
 
 ## Enhancements
 
-- Add exit code for app-hang errors occurring in appium
+- Add exit code for app-hang errors occurring in appium [628](https://github.com/bugsnag/maze-runner/pull/628)
 
 # 8.19.0 - 2024/02/08
 

@@ -1,8 +1,8 @@
-# 9.1.1 - TBD
+# 9.2.0 - TBD
 
-## Fixes
+## Enhancements
 
-- Set capabilities for BitBar using Appium v1 [627](https://github.com/bugsnag/maze-runner/pull/627)
+- Add additional symbol file upload endpoint [629](https://github.com/bugsnag/maze-runner/pull/629)
 
 # 9.1.0 - 2024/01/26
 

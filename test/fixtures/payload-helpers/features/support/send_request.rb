@@ -106,9 +106,9 @@ def send_request(request_type, mock_api_port = 9339)
                 "spans":[
                   {
                     "spanId":"7af51275a21aa300",
-                    "startTimeUnixNano": start_time,
+                    "startTimeUnixNano": "#{start_time}",
                     "traceId":"f8b18e12a2c1dca33362ac31772ed3b4",
-                    "endTimeUnixNano": end_time,
+                    "endTimeUnixNano": "#{end_time}",
                     "kind":1,
                     "attributes":[
                       {
@@ -146,9 +146,9 @@ def send_request(request_type, mock_api_port = 9339)
                   },
                   {
                     "spanId":"96775346bf426548",
-                    "startTimeUnixNano": start_time,
+                    "startTimeUnixNano": "#{start_time}",
                     "traceId":"4dea8da13b30db98f1c56bee0fdc734c",
-                    "endTimeUnixNano": end_time,
+                    "endTimeUnixNano": "#{end_time}",
                     "kind":"SPAN_KIND_INTERNAL",
                     "attributes":[
                       {
@@ -175,9 +175,9 @@ def send_request(request_type, mock_api_port = 9339)
                   {
                     "spanId":"96775346a21aa300",
                     "parentSpanId":"96775346bf426548",
-                    "startTimeUnixNano": start_time,
+                    "startTimeUnixNano": "#{start_time}",
                     "traceId":"4dea8da13b30db98f1c56bee0fdc734c",
-                    "endTimeUnixNano": end_time,
+                    "endTimeUnixNano": "#{end_time}",
                     "kind":"SPAN_KIND_INTERNAL",
                     "attributes":[
                       {
@@ -366,8 +366,8 @@ def send_request(request_type, mock_api_port = 9339)
                     "kind": 3,
                     "spanId": "91d2a550b5f30013",
                     "traceId": "b9aeacea86240cf4c07284e819d39ba8",
-                    "startTimeUnixNano": start_time,
-                    "endTimeUnixNano": end_time,
+                    "startTimeUnixNano": "#{start_time}",
+                    "endTimeUnixNano": "#{end_time}",
                     "attributes": [
                       {
                         "key": "browser.page.url",
@@ -379,9 +379,9 @@ def send_request(request_type, mock_api_port = 9339)
                   },
                   {
                     "spanId":"96775346bf426548",
-                    "startTimeUnixNano": start_time,
+                    "startTimeUnixNano": "#{start_time}",
                     "traceId":"4dea8da13b30db98f1c56bee0fdc734c",
-                    "endTimeUnixNano": end_time,
+                    "endTimeUnixNano": "#{end_time}",
                     "kind":"SPAN_KIND_INTERNAL",
                     "attributes":[
                       {

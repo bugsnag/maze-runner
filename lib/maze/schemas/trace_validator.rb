@@ -55,15 +55,21 @@ module Maze
 
       def validate_timestamp(path, tolerance)
         timestamp = Maze::Helper.read_key_path(@body, path)
-        unless timestamp.kind_of?(Integer) && timestamp > 0
+        unless timestamp.kind_of?(String)
           @success = false
-          @errors << "Timestamp was expected to be a positive integer, was '#{timestamp}'"
+          @errors << "Timestamp was expected to be a string, was '#{timestamp.class.name}'"
+          return
+        end
+        parsed_timestamp = timestamp.to_i
+        unless parsed_timestamp > 0
+          @success = false
+          @errors << "Timestamp was expected to be a positive integer, was '#{parsed_timestamp}'"
           return
         end
         time_in_nanos = Time.now.to_i * 1000000000
-        unless (time_in_nanos - timestamp).abs < tolerance
+        unless (time_in_nanos - parsed_timestamp).abs < tolerance
           @success = false
-          @errors << "Timestamp was expected to be within #{tolerance} nanoseconds of the current time (#{time_in_nanos}), was '#{timestamp}'"
+          @errors << "Timestamp was expected to be within #{tolerance} nanoseconds of the current time (#{time_in_nanos}), was '#{parsed_timestamp}'"
         end
       end
 

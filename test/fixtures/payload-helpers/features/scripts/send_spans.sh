@@ -13,7 +13,7 @@ end_time = start_time + (2 * 1000 * 1000 * 1000)
 
 sample_span = {
   "spanId":"7af51275a21aa300",
-  "startTimeUnixNano": start_time,
+  "startTimeUnixNano": "#{start_time}",
   "traceId":"f8b18e12a2c1dca33362ac31772ed3b4",
   "endTimeUnixNano": end_time,
   "kind":1,

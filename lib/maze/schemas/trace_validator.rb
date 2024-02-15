@@ -9,6 +9,7 @@ module Maze
     HEX_STRING_32 = '^[A-Fa-f0-9]{32}$'
     SAMPLING_HEADER_ENTRY = '((1(.0)?|0(\.[0-9]+)?):[0-9]+)'
     SAMPLING_HEADER = "^#{SAMPLING_HEADER_ENTRY}(;#{SAMPLING_HEADER_ENTRY})*$"
+    HOUR_TOLERANCE = 60 * 60 * 1000 * 1000 * 1000 # 1 hour in nanoseconds
 
     # Contains a set of pre-defined validations for ensuring traces are correct
     class TraceValidator
@@ -38,13 +39,32 @@ module Maze
         element_int_in_range('resourceSpans.0.scopeSpans.0.spans.0.kind', 0..5)
         regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.startTimeUnixNano', '^[0-9]+$')
         regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.endTimeUnixNano', '^[0-9]+$')
+        element_contains('resourceSpans.0.resource.attributes', 'service.version')
+        element_contains('resourceSpans.0.resource.attributes', 'device.id')
+        each_element_contains('resourceSpans.0.scopeSpans.0.spans', 'attributes', 'bugsnag.sampling.p')
         element_contains('resourceSpans.0.resource.attributes', 'deployment.environment')
         element_contains('resourceSpans.0.resource.attributes', 'telemetry.sdk.name')
         element_contains('resourceSpans.0.resource.attributes', 'telemetry.sdk.version')
+        validate_timestamp('resourceSpans.0.scopeSpans.0.spans.0.startTimeUnixNano', HOUR_TOLERANCE)
+        validate_timestamp('resourceSpans.0.scopeSpans.0.spans.0.endTimeUnixNano', HOUR_TOLERANCE)
         element_a_greater_or_equal_element_b(
           'resourceSpans.0.scopeSpans.0.spans.0.endTimeUnixNano',
           'resourceSpans.0.scopeSpans.0.spans.0.startTimeUnixNano'
         )
+      end
+
+      def validate_timestamp(path, tolerance)
+        timestamp = Maze::Helper.read_key_path(@body, path)
+        unless timestamp.kind_of?(Integer) && timestamp > 0
+          @success = false
+          @errors << "Timestamp was expected to be a positive integer, was '#{timestamp}'"
+          return
+        end
+        time_in_nanos = Time.now.to_i * 1000000000
+        unless (time_in_nanos - timestamp).abs < tolerance
+          @success = false
+          @errors << "Timestamp was expected to be within #{tolerance} nanoseconds of the current time (#{time_in_nanos}), was '#{timestamp}'"
+        end
       end
 
       def validate_header(name)
@@ -130,6 +150,18 @@ module Maze
             @success = false
             @errors << "Element '#{path}':'#{element}' did not contain a value of '#{value_type}' from '#{possible_values}'"
           end
+        end
+      end
+
+      def each_element_contains(container_path, attribute_path, key_value)
+        container = Maze::Helper.read_key_path(@body, container_path)
+        if container.nil? || !container.kind_of?(Array)
+          @success = false
+          @errors << "Element '#{container_path}' was expected to be an array, was '#{container}'"
+          return
+        end
+        container.each_with_index do |_item, index|
+          element_contains("#{container_path}.#{index}.#{attribute_path}", key_value)
         end
       end
 

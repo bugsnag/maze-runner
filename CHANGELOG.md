@@ -2,7 +2,7 @@
 
 ## Fixes
 
-- Fall back to `close_app` if `terminate_app` fails [630](https://github.com/bugsnag/maze-runner/pull/630)
+- Fall back to `close_app` if `terminate_app` fails [631](https://github.com/bugsnag/maze-runner/pull/631)
 
 # 9.2.0 - 2024/02/15
 

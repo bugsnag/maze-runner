@@ -1,4 +1,10 @@
-# 9.2.0 - TBD
+# 9.2.1 - 2024/02/16
+
+## Fixes
+
+- Fall back to `close_app` if `terminate_app` fails [630](https://github.com/bugsnag/maze-runner/pull/630)
+
+# 9.2.0 - 2024/02/15
 
 ## Enhancements
 

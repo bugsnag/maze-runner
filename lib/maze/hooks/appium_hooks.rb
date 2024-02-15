@@ -32,7 +32,12 @@ module Maze
 
           # Reset the server to ensure that test fixtures cannot fetch
           # commands from the previous scenario (in idempotent mode).
-          Maze.driver.terminate_app Maze.driver.app_id
+          begin
+            Maze.driver.terminate_app Maze.driver.app_id
+          rescue Selenium::WebDriver::Error::UnknownError
+            $logger.warn 'terminate_app failed, using the slower but more forceful close_app instead'
+            Maze.driver.close_app
+          end
           Maze::Server.reset!
           Maze.driver.activate_app Maze.driver.app_id
         end

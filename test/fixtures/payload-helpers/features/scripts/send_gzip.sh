@@ -108,9 +108,7 @@ payload = {
   }
 }
 
-compressed_body = Zlib::GzipWriter.new(StringIO.new)
-compressed_body.write(JSON.dump(payload['body']))
-compressed_body.close
+compressed_body = Zlib::GzipWriter.new(StringIO.new).write(JSON.dump(payload['body'])).close
 
 payload['headers'].each do |header, value|
   request[header] = value

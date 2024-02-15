@@ -321,6 +321,18 @@ def send_request(request_type, mock_api_port = 9339)
             "resource": {
               "attributes": [
                 {
+                  "key":"device.id",
+                  "value":{
+                    "stringValue":"cd5c48566a5ba0b8597dca328c392e1a7f98ce86"
+                  }
+                },
+                {
+                  "key":"service.version",
+                  "value":{
+                    "stringValue":"1.0"
+                  }
+                },
+                {
                   "key": "deployment.environment",
                   "value": {
                     "stringValue": "production"
@@ -370,6 +382,12 @@ def send_request(request_type, mock_api_port = 9339)
                     "endTimeUnixNano": "#{end_time}",
                     "attributes": [
                       {
+                        "key":"bugsnag.sampling.p",
+                        "value":{
+                          "doubleValue":1
+                        }
+                      },
+                      {
                         "key": "browser.page.url",
                         "value": {
                           "stringValue": "http://localhost:9340/manual-span/?ENDPOINT=http://localhost:9339/traces&LOGS=http://localhost:9339/logs&API_KEY=b3ad5c823d527e720d9beb4767efda18"
@@ -384,6 +402,12 @@ def send_request(request_type, mock_api_port = 9339)
                     "endTimeUnixNano": "#{end_time}",
                     "kind":"SPAN_KIND_INTERNAL",
                     "attributes":[
+                      {
+                        "key":"bugsnag.sampling.p",
+                        "value":{
+                          "doubleValue":1
+                        }
+                      },
                       {
                         "key":"test.next_payload_value",
                         "value":{

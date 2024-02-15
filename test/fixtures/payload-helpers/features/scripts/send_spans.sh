@@ -15,7 +15,7 @@ sample_span = {
   "spanId":"7af51275a21aa300",
   "startTimeUnixNano": "#{start_time}",
   "traceId":"f8b18e12a2c1dca33362ac31772ed3b4",
-  "endTimeUnixNano": end_time,
+  "endTimeUnixNano": "#{end_time}",
   "kind":1,
   "attributes":[
     {

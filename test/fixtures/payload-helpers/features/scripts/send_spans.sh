@@ -10,11 +10,17 @@ request['Content-Type'] = 'application/json'
 
 sample_span = {
   "spanId":"7af51275a21aa300",
-  "startTimeUnixNano":"1677082365052111104",
+  "startTimeUnixNano":1677082365052111104,
   "traceId":"f8b18e12a2c1dca33362ac31772ed3b4",
-  "endTimeUnixNano":"1677082367268691968",
+  "endTimeUnixNano":1677082367268691968,
   "kind":1,
   "attributes":[
+    {
+      "key":"bugsnag.sampling.p",
+      "value":{
+        "doubleValue":1
+      }
+    },
     {
       "key":"bugsnag.app_start.type",
       "value":{
@@ -62,6 +68,18 @@ payload = {
         ],
         'resource' => {
           'attributes' => [
+            {
+              "key":"service.version",
+              "value":{
+                "stringValue":"1.0.0"
+              }
+            },
+            {
+              "key":"device.id",
+              "value":{
+                "stringValue":"123456"
+              }
+            },
             {
               "key":"telemetry.sdk.name",
               "value":{

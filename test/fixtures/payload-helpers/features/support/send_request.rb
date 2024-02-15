@@ -103,11 +103,17 @@ def send_request(request_type, mock_api_port = 9339)
                 "spans":[
                   {
                     "spanId":"7af51275a21aa300",
-                    "startTimeUnixNano":"1677082365052111104",
+                    "startTimeUnixNano":1677082365052111104,
                     "traceId":"f8b18e12a2c1dca33362ac31772ed3b4",
-                    "endTimeUnixNano":"1677082367268691968",
+                    "endTimeUnixNano":1677082367268691968,
                     "kind":1,
                     "attributes":[
+                      {
+                        "key":"bugsnag.sampling.p",
+                        "value":{
+                          "doubleValue":1
+                        }
+                      },
                       {
                         "key":"bugsnag.app_start.type",
                         "value":{
@@ -137,11 +143,17 @@ def send_request(request_type, mock_api_port = 9339)
                   },
                   {
                     "spanId":"96775346bf426548",
-                    "startTimeUnixNano":"1677082367269565184",
+                    "startTimeUnixNano":1677082367269565184,
                     "traceId":"4dea8da13b30db98f1c56bee0fdc734c",
-                    "endTimeUnixNano":"1677082367269576192",
+                    "endTimeUnixNano":1677082367269576192,
                     "kind":"SPAN_KIND_INTERNAL",
                     "attributes":[
+                      {
+                        "key":"bugsnag.sampling.p",
+                        "value":{
+                          "doubleValue":1
+                        }
+                      },
                       {
                         "key":"bugsnag.app.in_foreground",
                         "value":{
@@ -160,11 +172,17 @@ def send_request(request_type, mock_api_port = 9339)
                   {
                     "spanId":"96775346a21aa300",
                     "parentSpanId":"96775346bf426548",
-                    "startTimeUnixNano":"1677082367269565184",
+                    "startTimeUnixNano":1677082367269565184,
                     "traceId":"4dea8da13b30db98f1c56bee0fdc734c",
-                    "endTimeUnixNano":"1677082367269576192",
+                    "endTimeUnixNano":1677082367269576192,
                     "kind":"SPAN_KIND_INTERNAL",
                     "attributes":[
+                      {
+                        "key":"bugsnag.sampling.p",
+                        "value":{
+                          "doubleValue":1
+                        }
+                      },
                       {
                         "key":"test.bool_value",
                         "value":{
@@ -345,8 +363,8 @@ def send_request(request_type, mock_api_port = 9339)
                     "kind": 3,
                     "spanId": "91d2a550b5f30013",
                     "traceId": "b9aeacea86240cf4c07284e819d39ba8",
-                    "startTimeUnixNano": "1678294830942000000",
-                    "endTimeUnixNano": "1678294830942000000",
+                    "startTimeUnixNano": 1678294830942000000,
+                    "endTimeUnixNano": 1678294830942000000,
                     "attributes": [
                       {
                         "key": "browser.page.url",
@@ -358,9 +376,9 @@ def send_request(request_type, mock_api_port = 9339)
                   },
                   {
                     "spanId":"96775346bf426548",
-                    "startTimeUnixNano":"1677082367269565184",
+                    "startTimeUnixNano":1677082367269565184,
                     "traceId":"4dea8da13b30db98f1c56bee0fdc734c",
-                    "endTimeUnixNano":"1677082367269576192",
+                    "endTimeUnixNano":1677082367269576192,
                     "kind":"SPAN_KIND_INTERNAL",
                     "attributes":[
                       {

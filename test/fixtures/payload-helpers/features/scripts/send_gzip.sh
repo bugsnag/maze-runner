@@ -108,12 +108,13 @@ payload = {
   }
 }
 
-compressed_body = Zlib::GzipWriter.new(StringIO.new).write(JSON.dump(payload['body'])).close
+zlib_stream = Zlib::GzipWriter.new(StringIO.new)
+zlib_stream.write(JSON.dump(payload['body']))
 
 payload['headers'].each do |header, value|
   request[header] = value
 end
 
-request.body = compressed_body.string
+request.body = zlib_stream.close.string
 
 http.request(request)

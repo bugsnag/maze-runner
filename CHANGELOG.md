@@ -9,6 +9,7 @@
 ## Enhancements
 
 - Add additional symbol file upload endpoint [629](https://github.com/bugsnag/maze-runner/pull/629)
+- Add new span validation steps [630](https://github.com/bugsnag/maze-runner/pull/630)
 
 # 9.1.0 - 2024/01/26
 

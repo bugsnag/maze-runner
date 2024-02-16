@@ -5,6 +5,7 @@ require 'json'
 require 'time'
 require 'zlib'
 require 'digest'
+require 'stringio'
 
 http = Net::HTTP.new('localhost', ENV['MOCK_API_PORT'])
 request = Net::HTTP::Post.new('/traces')

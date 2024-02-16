@@ -4,6 +4,7 @@ require 'net/http'
 require 'json'
 require 'time'
 require 'zlib'
+require 'digest'
 
 http = Net::HTTP.new('localhost', ENV['MOCK_API_PORT'])
 request = Net::HTTP::Post.new('/traces')
@@ -14,11 +15,11 @@ end_time = start_time + (2 * 1000 * 1000 * 1000)
 
 payload = {
   'headers' => {
-    'Bugsnag-Api-Key' => ENV['TEST_API_KEY'],
+    'Bugsnag-Api-Key' => '12312312312312312312312312312312',
     'Bugsnag-Payload-Version' => '1.0',
     'Bugsnag-Span-Sampling' => '1:1',
     'Bugsnag-Sent-At' => Time.now().iso8601(3),
-    'Bugsnag-Integrity' => 'sha1 bd1cbbd2ab9b05a96cbb83a6bcac829ff255a9fe'
+    'Content-Encoding' => 'gzip'
   },
   'body' => {
     'resourceSpans' => [
@@ -115,6 +116,12 @@ payload['headers'].each do |header, value|
   request[header] = value
 end
 
-request.body = zlib_stream.close.string
+body = zlib_stream.close.string
+
+integrity_sha1 = Digest::SHA1.hexdigest(JSON.dump(payload['body']))
+
+request['Bugsnag-Integrity'] = "sha1 #{integrity_sha1}"
+
+request.body = body
 
 http.request(request)

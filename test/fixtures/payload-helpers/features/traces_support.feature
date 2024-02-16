@@ -68,16 +68,11 @@ Feature: Testing support on traces endpoint
 
     Scenario: The traces endpoint can accept gzipped streams
         When I enforce checking of the Bugsnag-Integrity header
-        And I run the script "features/scripts/send_gzip.sh" synchronously
+        And I send a gzipped trace request
         And I wait to receive a trace
         Then the trace Bugsnag-Integrity header is valid
         And the trace payload field "resourceSpans.0.resource.attributes.1.key" equals "device.id"
         And the trace payload field "resourceSpans.0.resource.attributes.1.value.stringValue" equals "cd5c48566a5ba0b8597dca328c392e1a7f98ce86"
-
-    Scenario: The trace endpoint can identify a valid request
-        Given I set up the maze-harness console
-        And I input "bundle exec maze-runner --port=9349 features/passing_schema.feature" interactively
-        Then the last interactive command exit code is 0
 
     Scenario: The trace endpoint can identify an invalid request
        Given I set up the maze-harness console

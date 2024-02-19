@@ -8,13 +8,22 @@ http = Net::HTTP.new('localhost', ENV['MOCK_API_PORT'])
 request = Net::HTTP::Post.new('/traces')
 request['Content-Type'] = 'application/json'
 
+start_time = Time.now.to_i * 1000 * 1000 * 1000
+end_time = start_time + (2 * 1000 * 1000 * 1000)
+
 sample_span = {
   "spanId":"7af51275a21aa300",
-  "startTimeUnixNano":"1677082365052111104",
+  "startTimeUnixNano": "#{start_time}",
   "traceId":"f8b18e12a2c1dca33362ac31772ed3b4",
-  "endTimeUnixNano":"1677082367268691968",
+  "endTimeUnixNano": "#{end_time}",
   "kind":1,
   "attributes":[
+    {
+      "key":"bugsnag.sampling.p",
+      "value":{
+        "doubleValue":1
+      }
+    },
     {
       "key":"bugsnag.app_start.type",
       "value":{
@@ -62,6 +71,18 @@ payload = {
         ],
         'resource' => {
           'attributes' => [
+            {
+              "key":"service.version",
+              "value":{
+                "stringValue":"1.0.0"
+              }
+            },
+            {
+              "key":"device.id",
+              "value":{
+                "stringValue":"123456"
+              }
+            },
             {
               "key":"telemetry.sdk.name",
               "value":{

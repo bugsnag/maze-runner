@@ -1,3 +1,9 @@
+# 9.3.0 - TBD
+
+# Enhancements
+
+- Add new span validation steps [630](https://github.com/bugsnag/maze-runner/pull/630)
+
 # 9.2.1 - 2024/02/16
 
 ## Fixes

@@ -18,10 +18,12 @@ module Maze
           start_driver(Maze.config)
 
           # Set bundle/app id for later use
+          pp "Current platform is #{Maze::Helper.get_current_platform}"
           Maze.driver.app_id = case Maze::Helper.get_current_platform
                                when 'android'
                                  Maze.driver.session_capabilities['appPackage']
                                when 'ios'
+                                 pp Maze.driver.session_capabilities
                                  Maze.driver.session_capabilities['CFBundleIdentifier'] # Present on BS and locally
                                end
 

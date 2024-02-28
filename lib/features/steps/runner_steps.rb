@@ -396,7 +396,7 @@ end
 # @step_input expected_line [String] The line expected in the file
 Then('the interactive file {string} contains {string}') do |filename, expected_line|
   steps %(
-    When I input "fgrep '#{expected_line.gsub(/"/, '\"').gsub("\\", "\\\\\\\\")}' #{filename}" interactively
+    When I input "fgrep '#{expected_line.gsub(/"/, '\"')}' #{filename}" interactively
     And I wait for the current stdout line to match the regex "[#>$]\\s?"
     Then the last interactive command exited successfully
   )
@@ -408,7 +408,7 @@ end
 # @step_input excluded_line [String] The line that should not be present be in the file
 Then('the interactive file {string} does not contain {string}') do |filename, excluded_line|
   steps %(
-    When I input "fgrep '#{excluded_line.gsub(/"/, '\"').gsub("\\", "\\\\\\\\")}' #{filename}" interactively
+    When I input "fgrep '#{excluded_line.gsub(/"/, '\"')}' #{filename}" interactively
     And I wait for the current stdout line to match the regex "[#>$]\\s?"
     Then the last interactive command exited with an error code
   )

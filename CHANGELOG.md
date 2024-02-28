@@ -1,8 +1,12 @@
-# 9.3.0 - TBD
+# 9.3.0 - 2024/02/28
 
 ## Enhancements
 
-- Add new span validation steps [630](https://github.com/bugsnag/maze-runner/pull/630)
+- Add new span validation steps [632](https://github.com/bugsnag/maze-runner/pull/632)
+
+## Fixes
+
+- Add CodeQL fixes []
 
 ## Fixes
 

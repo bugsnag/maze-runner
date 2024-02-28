@@ -2,11 +2,11 @@
 
 ## Enhancements
 
-- Add new span validation steps [632](https://github.com/bugsnag/maze-runner/pull/632)
+- Add new span validation steps [630](https://github.com/bugsnag/maze-runner/pull/630)
 
 ## Fixes
 
-- Add CodeQL fixes []
+- Add CodeQL fixes [632](https://github.com/bugsnag/maze-runner/pull/632)
 
 ## Fixes
 

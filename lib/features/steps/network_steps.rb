@@ -95,7 +95,7 @@ end
 # @step_input url [String] The URL to open.
 When('I open the URL {string}') do |url|
   begin
-    URI.open(url, &:read)
+    URI(url).open(&:read)
   rescue OpenURI::HTTPError
     $logger.debug $!.inspect
   end

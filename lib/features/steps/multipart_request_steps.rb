@@ -78,7 +78,7 @@ Then('the {request_type} multipart body does not match the JSON file in {string}
   payload_list = Maze::Server.list_for request_type
   raw_payload_value = payload_list.current[:body]
   payload_value = parse_multipart_body(raw_payload_value)
-  expected_value = JSON.parse(open(json_path, &:read))
+  expected_value = JSON.parse(File.open(json_path, &:read))
   result = Maze::Compare.value(expected_value, payload_value)
   Maze.check.false(result.equal?, "Payload:\n#{payload_value}\nExpected:#{expected_value}")
 end
@@ -93,7 +93,7 @@ Then('the {request_type} multipart body matches the JSON file in {string}') do |
   payload_list = Maze::Server.list_for request_type
   raw_payload_value = payload_list.current[:body]
   payload_value = parse_multipart_body(raw_payload_value)
-  expected_value = JSON.parse(open(json_path, &:read))
+  expected_value = JSON.parse(File.open(json_path, &:read))
   result = Maze::Compare.value(expected_value, payload_value)
   Maze.check.true(result.equal?, "The payload field '#{result.keypath}' does not match the fixture:\n #{result.reasons.join('\n')}")
 end
@@ -108,7 +108,7 @@ Then('the {request_type} multipart field {string} matches the JSON file in {stri
   Maze.check.true(File.exist?(json_path), "'#{json_path}' does not exist")
   payload_list = Maze::Server.list_for request_type
   payload_value = JSON.parse(payload_list.current[:body][field_path].to_s)
-  expected_value = JSON.parse(open(json_path, &:read))
+  expected_value = JSON.parse(File.open(json_path, &:read))
   result = Maze::Compare.value(expected_value, payload_value)
   Maze.check.true(result.equal?, "The multipart field '#{result.keypath}' does not match the fixture:\n #{result.reasons.join('\n')}")
 end

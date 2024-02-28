@@ -8,7 +8,7 @@
 # @step_input fixture_path [String] Path to a JSON fixture
 Then('the {request_type} payload body does not match the JSON fixture in {string}') do |request_type, fixture_path|
   payload_value = Maze::Server.list_for(request_type).current[:body]
-  expected_value = JSON.parse(open(fixture_path, &:read))
+  expected_value = JSON.parse(File.open(fixture_path, &:read))
   result = Maze::Compare.value(expected_value, payload_value)
   Maze.check.false(result.equal?, "Payload:\n#{payload_value}\nExpected:#{expected_value}")
 end
@@ -19,7 +19,7 @@ end
 # @step_input fixture_path [String] Path to a JSON fixture
 Then('the {request_type} payload body matches the JSON fixture in {string}') do |request_type, fixture_path|
   payload_value = Maze::Server.list_for(request_type).current[:body]
-  expected_value = JSON.parse(open(fixture_path, &:read))
+  expected_value = JSON.parse(File.open(fixture_path, &:read))
   result = Maze::Compare.value(expected_value, payload_value)
   Maze.check.true(result.equal?,
                   "The payload field '#{result.keypath}' does not match the fixture:\n #{result.reasons.join('\n')}")
@@ -34,7 +34,7 @@ Then('the {request_type}(|a b) payload field {string} matches the JSON fixture i
 do |request_type, field_path, fixture_path|
   list = Maze::Server.list_for(request_type)
   payload_value = Maze::Helper.read_key_path(list.current[:body], field_path)
-  expected_value = JSON.parse(open(fixture_path, &:read))
+  expected_value = JSON.parse(File.open(fixture_path, &:read))
   result = Maze::Compare.value(expected_value, payload_value)
   Maze.check.true(result.equal?,
                   "The payload field '#{result.keypath}' does not match the fixture:\n #{result.reasons.join('\n')}")

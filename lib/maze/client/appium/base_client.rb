@@ -25,6 +25,8 @@ module Maze
                                  Maze.driver.session_capabilities['CFBundleIdentifier'] # Present on BS and locally
                                end
 
+          pp "App id is set to #{Maze.driver.app_id}"
+
           # Ensure the device is unlocked
           begin
             Maze.driver.unlock

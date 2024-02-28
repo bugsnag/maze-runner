@@ -1,8 +1,12 @@
 # 9.3.0 - TBD
 
-# Enhancements
+## Enhancements
 
 - Add new span validation steps [630](https://github.com/bugsnag/maze-runner/pull/630)
+
+## Fixes
+
+- Ensure app_id is set correctly on BrowserStack test runs [633](https://github.com/bugsnag/maze-runner/pull/633)
 
 # 9.2.1 - 2024/02/16
 

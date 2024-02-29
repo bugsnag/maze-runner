@@ -1,3 +1,9 @@
+# 8.20.1 - 2024/02/29
+
+## Fixes
+
+- Ensure app_id is set correctly on BrowserStack test runs [634](https://github.com/bugsnag/maze-runner/pull/634)
+
 # 8.20.0 - 2024/02/16
 
 ## Enhancements

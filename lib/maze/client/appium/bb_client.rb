@@ -32,6 +32,8 @@ module Maze
             interval = 120
           elsif error.message.include? 'Appium Settings app is not running'
             interval = 10
+          elsif error.message.include? 'Could not proxy command to the remote server'
+            interval = 10
           else
             # Do not retry in any other case
           end

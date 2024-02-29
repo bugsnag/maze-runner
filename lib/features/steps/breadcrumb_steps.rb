@@ -74,7 +74,7 @@ end
 # @step_input json_fixture [String] A path to the JSON fixture to compare against
 Then('the event contains a breadcrumb matching the JSON fixture in {string}') do |json_fixture|
   breadcrumbs = Maze::Helper.read_key_path(Maze::Server.errors.current[:body], 'events.0.breadcrumbs')
-  expected = JSON.parse(open(json_fixture, &:read))
+  expected = JSON.parse(File.open(json_fixture, &:read))
   match = breadcrumbs.any? { |breadcrumb| Maze::Compare.value(expected, breadcrumb).equal? }
   Maze.check.true(match, 'No breadcrumbs in the event matched the given breadcrumb')
 end

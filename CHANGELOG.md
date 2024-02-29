@@ -7,9 +7,6 @@
 ## Fixes
 
 - Add CodeQL fixes [632](https://github.com/bugsnag/maze-runner/pull/632)
-
-## Fixes
-
 - Ensure app_id is set correctly on BrowserStack test runs [633](https://github.com/bugsnag/maze-runner/pull/633)
 
 # 9.2.1 - 2024/02/16

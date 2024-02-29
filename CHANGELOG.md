@@ -3,6 +3,7 @@
 ## Fixes
 
 - Ensure app_id is set correctly on BrowserStack test runs [634](https://github.com/bugsnag/maze-runner/pull/634)
+- Add missing retry logic for appium downstream proxy error [635](https://github.com/bugsnag/maze-runner/pull/635)
 
 # 8.20.0 - 2024/02/16
 

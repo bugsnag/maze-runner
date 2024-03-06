@@ -126,12 +126,6 @@ templates = {
                 }
               },
               {
-                "key":"service.version",
-                "value":{
-                  "stringValue":"1.0"
-                }
-              },
-              {
                 "key":"telemetry.sdk.name",
                 "value":{
                   "stringValue":"bugsnag.performance.cocoa"

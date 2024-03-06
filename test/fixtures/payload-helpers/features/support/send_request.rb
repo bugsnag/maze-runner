@@ -267,12 +267,6 @@ def send_request(request_type, mock_api_port = 9339)
                   }
                 },
                 {
-                  "key":"service.version",
-                  "value":{
-                    "stringValue":"1.0"
-                  }
-                },
-                {
                   "key":"telemetry.sdk.name",
                   "value":{
                     "stringValue":"bugsnag.performance.cocoa"
@@ -324,12 +318,6 @@ def send_request(request_type, mock_api_port = 9339)
                   "key":"device.id",
                   "value":{
                     "stringValue":"cd5c48566a5ba0b8597dca328c392e1a7f98ce86"
-                  }
-                },
-                {
-                  "key":"service.version",
-                  "value":{
-                    "stringValue":"1.0"
                   }
                 },
                 {

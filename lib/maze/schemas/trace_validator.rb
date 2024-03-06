@@ -39,7 +39,6 @@ module Maze
         element_int_in_range('resourceSpans.0.scopeSpans.0.spans.0.kind', 0..5)
         regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.startTimeUnixNano', '^[0-9]+$')
         regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.endTimeUnixNano', '^[0-9]+$')
-        element_contains('resourceSpans.0.resource.attributes', 'service.version')
         element_contains('resourceSpans.0.resource.attributes', 'device.id')
         each_element_contains('resourceSpans.0.scopeSpans.0.spans', 'attributes', 'bugsnag.sampling.p')
         element_contains('resourceSpans.0.resource.attributes', 'deployment.environment')

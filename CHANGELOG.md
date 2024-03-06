@@ -1,3 +1,9 @@
+# 9.3.1 - 2024/03/06
+
+## Fixes
+
+- Remove blanket check on `service.version` in trace requests [637](https://github.com/bugsnag/maze-runner/pull/637)
+
 # 9.3.0 - 2024/02/28
 
 ## Enhancements

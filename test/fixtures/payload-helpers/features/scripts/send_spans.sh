@@ -72,12 +72,6 @@ payload = {
         'resource' => {
           'attributes' => [
             {
-              "key":"service.version",
-              "value":{
-                "stringValue":"1.0.0"
-              }
-            },
-            {
               "key":"device.id",
               "value":{
                 "stringValue":"123456"

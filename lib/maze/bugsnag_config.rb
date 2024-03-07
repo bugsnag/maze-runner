@@ -11,7 +11,6 @@ module Maze
         Bugsnag.configure do |config|
           config.api_key = ENV['MAZE_BUGSNAG_API_KEY']
           config.app_version = Maze::VERSION
-          config.discard_classes << 'Test::Unit::AssertionFailedError'
           config.add_metadata(:'test driver', {
             'driver type': Maze.driver.class,
             'device farm': Maze.config.farm,
@@ -32,6 +31,7 @@ module Maze
               metadata['job url'] = ENV['BUILDKITE_BUILD_URL'] + "#" + ENV['BUILDKITE_JOB_ID']
             end
           end
+          config.middleware.use(AssertErrorMiddleware)
           config.add_metadata(:'buildkite', metadata)
           config.project_root = Dir.pwd
         end
@@ -43,6 +43,28 @@ module Maze
             Bugsnag.notify($!)
           end
         end
+      end
+    end
+
+    class AssertErrorMiddleware
+      IGNORE_CLASS_NAME = 'Test::Unit::AssertionFailedError'
+
+      # @param middleware [#call] The next middleware to call
+      def initialize(middleware)
+        @middleware = middleware
+      end
+
+      def call(report)
+        # Only ignore automated notifies with assertion errors
+        automated = report.unhandled
+
+        class_match = report.raw_exceptions.any? do |ex|
+          ex.class.name.eql?(IGNORE_CLASS_NAME)
+        end
+
+        report.ignore! if automated && class_match
+
+        @middleware.call(report)
       end
     end
   end

@@ -1,3 +1,9 @@
+# 9.4.0 - 2024/03/07
+
+## Enhancements
+
+- Forward port 8.19.0 to 8.20.1 to v9 [638](https://github.com/bugsnag/maze-runner/pull/638)
+
 # 9.3.1 - 2024/03/06
 
 ## Fixes
@@ -40,6 +46,25 @@
 
 - Remove use of deprecated `Maze.driver.reset` in BitBar Appium tests [607](https://github.com/bugsnag/maze-runner/pull/607)
 - Clear request lists while the app is stopped [619](https://github.com/bugsnag/maze-runner/pull/619)
+
+# 8.20.1 - 2024/02/29
+
+## Fixes
+
+- Ensure app_id is set correctly on BrowserStack test runs [634](https://github.com/bugsnag/maze-runner/pull/634)
+- Add missing retry logic for appium downstream proxy error [635](https://github.com/bugsnag/maze-runner/pull/635)
+
+# 8.20.0 - 2024/02/16
+
+## Enhancements
+
+- Add exit code for app-hang errors occurring in appium [628](https://github.com/bugsnag/maze-runner/pull/628)
+
+# 8.19.0 - 2024/02/08
+
+## Enhancements
+
+- Re-enable bugsnag reporting test failures when MAZE_SCENARIO_BUGSNAG_API_KEY environment variable is present [626](https://github.com/bugsnag/maze-runner/pull/626)
 
 # 8.18.0 - 2024/01/26
 

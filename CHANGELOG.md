@@ -2,7 +2,7 @@
 
 ## Enhancements
 
-- Forward port 8.19.0 to 8.20.1 to v9 [625](https://github.com/bugsnag/maze-runner/pull/625)
+- Forward port 8.19.0 to 8.20.1 to v9 [638](https://github.com/bugsnag/maze-runner/pull/638)
 
 # 9.3.1 - 2024/03/06
 

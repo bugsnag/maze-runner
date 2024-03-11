@@ -93,6 +93,8 @@ module Maze
           uploads
         when 'sourcemap', 'sourcemaps'
           sourcemaps
+        when 'reflection', 'reflections'
+          reflections
         when 'invalid', 'invalid requests'
           invalid_requests
         else
@@ -161,6 +163,13 @@ module Maze
       # @return [RequestList] Received metric requests
       def metrics
         @metrics ||= RequestList.new
+      end
+
+      # A list of reflection requests received
+      #
+      # @return [RequestList] Received reflection requests
+      def reflections
+        @reflections ||= RequestList.new
       end
 
       # A list of commands for a test fixture to perform.  Strictly speaking these are responses to HTTP
@@ -272,6 +281,7 @@ module Maze
         traces.clear
         logs.clear
         invalid_requests.clear
+        reflections.clear
       end
     end
   end

@@ -13,7 +13,7 @@ module Maze
       path = output_folder
       FileUtils.makedirs(path)
 
-      request_types = %w[errors sessions builds uploads logs sourcemaps traces invalid]
+      request_types = %w[errors sessions builds uploads logs sourcemaps traces invalid reflections]
       request_types << 'sampling requests'
 
       request_types.each do |request_type|
@@ -50,6 +50,11 @@ module Maze
               file.puts "  #{key}: #{values.map {|v| "'#{v}'"}.join(' ')}"
             end
             file.puts
+
+            if request.include?(:query)
+              file.puts "Query:"
+              file.puts JSON.pretty_generate(request[:query])
+            end
 
             file.puts "Request body:"
             if !invalid_request && headers["content-type"].first == 'application/json'

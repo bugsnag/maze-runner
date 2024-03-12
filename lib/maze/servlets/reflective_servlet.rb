@@ -11,6 +11,8 @@ module Maze
     # for POST requests they are expected to be given as JSON fields.
     class ReflectiveServlet < BaseServlet
 
+      REFLECTION_REQUEST_TYPE = 'reflection'
+
       # Accepts a GET request to provide a reflective response to.
       #
       # @param request [HTTPRequest] The incoming GET request
@@ -18,6 +20,16 @@ module Maze
       def do_GET(request, response)
         delay_ms = request.query['delay_ms']
         status = request.query['status']
+
+        logged_request = {
+          body: {},
+          query: Rack::Utils.parse_nested_query(request.query_string),
+          request: request,
+          response: response,
+          method: 'GET'
+        }
+        Server.list_for(REFLECTION_REQUEST_TYPE).add(logged_request)
+
         reflect response, delay_ms, status
       end
 
@@ -36,9 +48,19 @@ module Maze
           status = body['status']
         else
           query = Rack::Utils.parse_nested_query(request.query_string)
+          body = {}
           delay_ms = query['delay_ms']
           status = query['status']
         end
+
+        logged_request = {
+          body: body,
+          request: request,
+          response: response,
+          method: 'POST'
+        }
+        logged_request[:query] = query if query
+        Server.list_for(REFLECTION_REQUEST_TYPE).add(logged_request)
 
         reflect response, delay_ms, status
       rescue JSON::ParserError => e

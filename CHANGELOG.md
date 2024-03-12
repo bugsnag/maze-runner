@@ -1,3 +1,9 @@
+# 9.5.0 - 2024/03/12
+
+## Enhancements
+
+- Update reflective server to store and output received requests [639](https://github.com/bugsnag/maze-runner/pull/639)
+
 # 9.4.0 - 2024/03/07
 
 ## Enhancements

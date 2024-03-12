@@ -34,6 +34,13 @@ When('I send a span request with {int} span(s)') do |span_count|
   }
 end
 
+When('I send a reflect query request') do
+  steps %Q{
+    And I set environment variable "MOCK_API_PORT" to "9339"
+    And I run the script "features/scripts/send_query.sh" synchronously
+  }
+end
+
 When('The HTTP response header {string} equals {string}') do |header, value|
   Maze.check.equal value, $http_response[header]
 end

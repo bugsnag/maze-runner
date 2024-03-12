@@ -93,7 +93,7 @@ module Maze
           uploads
         when 'sourcemap', 'sourcemaps'
           sourcemaps
-        when 'reflection', 'reflections'
+        when 'reflect', 'reflects', 'reflection', 'reflections'
           reflections
         when 'invalid', 'invalid requests'
           invalid_requests

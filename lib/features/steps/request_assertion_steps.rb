@@ -149,3 +149,17 @@ Then('the received errors match:') do |table|
   end
   Maze.check.equal(requests.size, match_count, 'Unexpected number of requests matched the received payloads')
 end
+
+# Verifies that a request was sent via a given method.
+# Currently only supported with the reflective servlet.
+#
+# @step_input request_type [String] The type of request (error, session, build, etc)
+# @step_input method [String] The request method expected (GET, POST, etc)
+Then('the {request_type} request method equals {string}') do |request_type, method|
+  list = Maze::Server.list_for(request_type)
+  payload = list.current
+  if payload[:method].nil?
+    raise Test::Unit::AssertionFailedError.new("#{request_type} request had no receipt method listed")
+  end
+  Maze.check.equal(method, payload[:method], "Expected #{request_type} request method to be #{method}")
+end

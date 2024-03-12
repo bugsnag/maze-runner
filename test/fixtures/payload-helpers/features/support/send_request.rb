@@ -14,6 +14,8 @@ def send_request(request_type, mock_api_port = 9339)
                '/metrics'
              elsif request_type == 'trace' || request_type == 'browser-trace' || request_type == 'sampling-trace'
                '/traces'
+             elsif request_type == 'reflect'
+               '/reflect'
              else
                '/notify'
              end
@@ -24,6 +26,14 @@ def send_request(request_type, mock_api_port = 9339)
   end_time = start_time + (2 * 1000 * 1000 * 1000)
 
   templates = {
+    'reflect' => {
+      'headers' => {
+        'some-header' => 'is-here'
+      },
+      'body' => {
+        'foo' => 'bar'
+      }
+    },
     'metric-age' => {
       'headers' => {},
       'body' => {

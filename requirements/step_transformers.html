@@ -67,7 +67,7 @@
   <div class="title">Step Definitions &amp; Transforms</div>
 
   <div class="summary">
-    <div>261<a href="#step_definitions">Step Definitions</a></div>
+    <div>262<a href="#step_definitions">Step Definitions</a></div>
     <div>3<a href="#step_transforms">Step Transforms</a></div>
     <div>0<a href="#undefined_steps">Undefined Steps</a></div>
   </div>
@@ -24877,6 +24877,115 @@ This step is only intended for use in stress tests</p>
 
 </div>
 
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition262-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the {request_type} request method equals {string}'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+%7Brequest_type%7D+request+method+equals+%7Bstring%7D'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/request_assertion_steps.rb:158</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Verifies that a request was sent via a given method.
+Currently only supported with the reflective servlet.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>request_type [String] The type of request (error, session, build, etc)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>method [String] The request method expected (GET, POST, etc)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">158
+159
+160
+161
+162
+163
+164
+165</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {request_type} request method equals {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_method'>method</span><span class='op'>|</span>
+  <span class='id identifier rubyid_list'>list</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_list_for'>list_for</span><span class='lparen'>(</span><span class='id identifier rubyid_request_type'>request_type</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_payload'>payload</span> <span class='op'>=</span> <span class='id identifier rubyid_list'>list</span><span class='period'>.</span><span class='id identifier rubyid_current'>current</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_payload'>payload</span><span class='lbracket'>[</span><span class='symbol'>:method</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Test</span><span class='op'>::</span><span class='const'>Unit</span><span class='op'>::</span><span class='const'>AssertionFailedError</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_request_type'>request_type</span><span class='embexpr_end'>}</span><span class='tstring_content'> request had no receipt method listed</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+  <span class='const'>Maze</span><span class='period'>.</span><span class='id identifier rubyid_check'>check</span><span class='period'>.</span><span class='id identifier rubyid_equal'>equal</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='id identifier rubyid_payload'>payload</span><span class='lbracket'>[</span><span class='symbol'>:method</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Expected </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_request_type'>request_type</span><span class='embexpr_end'>}</span><span class='tstring_content'> request method to be </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_method'>method</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
 <div class="title">
   
      <a class="control" id="steptransform">[Collapse All]</a>
@@ -24897,9 +25006,9 @@ This step is only intended for use in stress tests</p>
   <a name="step_transform1-steptransform"></a>
   <div class="title">
     <span class="pre">ParameterType</span>
-    <span class="name">errors?|sessions?|builds?|logs?|metrics?|sampling requests?|traces?|uploads?|sourcemaps?|invalid requests?</span>
+    <span class="name">errors?|sessions?|builds?|logs?|metrics?|sampling requests?|traces?|uploads?|sourcemaps?|reflects?|reflections?|invalid requests?</span>
     <div style="float: right;">
-      <a href="http://rubular.com/?regex=errors%3F%7Csessions%3F%7Cbuilds%3F%7Clogs%3F%7Cmetrics%3F%7Csampling+requests%3F%7Ctraces%3F%7Cuploads%3F%7Csourcemaps%3F%7Cinvalid+requests%3F" target="_blank">Rubular</a>
+      <a href="http://rubular.com/?regex=errors%3F%7Csessions%3F%7Cbuilds%3F%7Clogs%3F%7Cmetrics%3F%7Csampling+requests%3F%7Ctraces%3F%7Cuploads%3F%7Csourcemaps%3F%7Creflects%3F%7Creflections%3F%7Cinvalid+requests%3F" target="_blank">Rubular</a>
       
       | UNUSED
       <a class="stepdef" href="#">[Collapse]</a>
@@ -24934,7 +25043,7 @@ This step is only intended for use in stress tests</p>
           <td>
             <pre class="code"><span class='const'>ParameterType</span><span class='lparen'>(</span>
   <span class='label'>name:</span>        <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>request_type</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-  <span class='label'>regexp:</span>      <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>errors?|sessions?|builds?|logs?|metrics?|sampling requests?|traces?|uploads?|sourcemaps?|invalid requests?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span>
+  <span class='label'>regexp:</span>      <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>errors?|sessions?|builds?|logs?|metrics?|sampling requests?|traces?|uploads?|sourcemaps?|reflects?|reflections?|invalid requests?</span><span class='regexp_end'>/</span></span><span class='comma'>,</span>
   <span class='label'>type:</span>        <span class='const'>String</span><span class='comma'>,</span>
   <span class='label'>transformer:</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='rparen'>)</span> <span class='tlambeg'>{</span> <span class='id identifier rubyid_s'>s</span> <span class='rbrace'>}</span>
 <span class='rparen'>)</span></pre>
@@ -25114,7 +25223,7 @@ This step is only intended for use in stress tests</p>
 </div>
 
       <div id="footer">
-  Generated on Thu Mar  7 16:02:40 2024 by
+  Generated on Tue Mar 12 15:40:25 2024 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.34 (ruby-2.7.8).
 </div>

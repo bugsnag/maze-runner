@@ -1,3 +1,9 @@
+# TBD
+
+## Enhancements
+
+- Add bugsnag middleware to group ambiguous errors differently [640](https://github.com/bugsnag/maze-runner/pull/640)
+
 # 9.5.0 - 2024/03/12
 
 ## Enhancements

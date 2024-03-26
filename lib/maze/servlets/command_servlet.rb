@@ -63,6 +63,8 @@ module Maze
         end
         if index.nil?
           # If the UUID given matches the last UUID sent by the server, we can assume the fixture has failed to reset
+          pp "Current UUID: #{@last_uuid}"
+          pp "Given UUID: #{uuid}"
           if uuid.eql?(@last_uuid)
 
             pp "SENDING CURRENT UUID DUE TO MATCH"

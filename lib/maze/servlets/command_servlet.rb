@@ -11,8 +11,6 @@ module Maze
 
       NOOP_COMMAND = '{"action": "noop", "message": "No commands queued"}'
 
-      attr_reader :last_uuid
-
       # Serves the next command, if these is one.
       #
       # @param request [HTTPRequest] The incoming GET request
@@ -45,8 +43,8 @@ module Maze
           response.status = 200
         else
           command = commands.current
-          @last_uuid = command[:uuid]
-          pp "LAST UUID: #{@last_uuid}"
+          Server.last_command_uuid = command[:uuid]
+          pp "LAST UUID: #{Server.last_command_uuid}"
           response.body = JSON.pretty_generate(command)
           response.status = 200
           commands.next
@@ -63,9 +61,9 @@ module Maze
         end
         if index.nil?
           # If the UUID given matches the last UUID sent by the server, we can assume the fixture has failed to reset
-          pp "Current UUID: #{@last_uuid}"
+          pp "Current UUID: #{Server.last_command_uuid}"
           pp "Given UUID: #{uuid}"
-          if uuid.eql?(@last_uuid)
+          if uuid.eql?(Server.last_command_uuid)
 
             pp "SENDING CURRENT UUID DUE TO MATCH"
 
@@ -81,8 +79,8 @@ module Maze
             pp "SENDING NEXT COMMAND IDEMPOTENT STYLE"
             # Respond with the next command in the queue
             command = commands.get(index + 1)
-            @last_uuid = command[:uuid]
-            pp "LAST UUID: #{@last_uuid}"
+            Server.last_command_uuid = command[:uuid]
+            pp "LAST UUID: #{Server.last_command_uuid}"
             command_json = JSON.pretty_generate(command)
             response.body = command_json
             response.status = 200

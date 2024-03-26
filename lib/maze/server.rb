@@ -15,6 +15,12 @@ module Maze
     DEFAULT_STATUS_CODE = 200
 
     class << self
+
+      # Records the previous command UUID sent to the test fixture
+      #
+      # @return [String] The UUID of the last command sent
+      attr_accessor :last_command_uuid
+
       # Sets the response delay generator.
       #
       # @param generator [Maze::Generator] The new generator

@@ -76,9 +76,11 @@ module Maze
           end
         else
           if index + 1 < commands.size_all
+            pp "SENDING NEXT COMMAND IDEMPOTENT STYLE"
             # Respond with the next command in the queue
             command = commands.get(index + 1)
             @last_uuid = command[:uuid]
+            pp "LAST UUID: #{@last_uuid}"
             command_json = JSON.pretty_generate(command)
             response.body = command_json
             response.status = 200

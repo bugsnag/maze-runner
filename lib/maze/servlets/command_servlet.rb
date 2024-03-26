@@ -37,6 +37,7 @@ module Maze
       end
 
       def send_current_command(response)
+        pp "SENDING CURRENT COMMAND"
         commands = Maze::Server.commands
 
         if commands.size_remaining == 0
@@ -45,6 +46,7 @@ module Maze
         else
           command = commands.current
           @last_uuid = command[:uuid]
+          pp "LAST UUID: #{@last_uuid}"
           response.body = JSON.pretty_generate(command)
           response.status = 200
           commands.next
@@ -52,6 +54,7 @@ module Maze
       end
 
       def command_after(uuid, response)
+        pp "GIVEN UUID: #{uuid}"
         commands = Maze::Server.commands
         if uuid.empty?
           index = -1
@@ -61,6 +64,9 @@ module Maze
         if index.nil?
           # If the UUID given matches the last UUID sent by the server, we can assume the fixture has failed to reset
           if uuid.eql?(@last_uuid)
+
+            pp "SENDING CURRENT UUID DUE TO MATCH"
+
             send_current_command(response)
           else
             msg = "Request invalid - there is no command with a UUID of #{uuid} to follow on from"

@@ -84,6 +84,7 @@ module Maze
               'IOS_16' => make_ios_hash('iPhone 14', '16'),
               'IOS_15' => make_ios_hash('iPhone 11 Pro', '15'),
               'IOS_14' => make_ios_hash('iPhone 11', '14'),
+              'IOS_13' => make_ios_hash('iPhone 11', '13'),
               'IOS_12' => make_ios_hash('iPhone 8', '12'),
             }
 

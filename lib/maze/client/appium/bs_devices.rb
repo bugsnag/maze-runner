@@ -84,10 +84,7 @@ module Maze
               'IOS_16' => make_ios_hash('iPhone 14', '16'),
               'IOS_15' => make_ios_hash('iPhone 11 Pro', '15'),
               'IOS_14' => make_ios_hash('iPhone 11', '14'),
-              'IOS_13' => make_ios_hash('iPhone 8', '13'),
               'IOS_12' => make_ios_hash('iPhone 8', '12'),
-              'IOS_11' => make_ios_hash('iPhone 8', '11'),
-              'IOS_10' => make_ios_hash('iPhone 7', '10')
             }
 
             # Specific Android devices
@@ -100,10 +97,8 @@ module Maze
 
             add_android 'Google Pixel 2', '9.0', hash                         # ANDROID_9_0_GOOGLE_PIXEL_2
             add_android 'Samsung Galaxy Note 9', '8.1', hash                  # ANDROID_8_1_SAMSUNG_GALAXY_NOTE_9
-            add_android 'Samsung Galaxy J7 Prime', '8.1', hash                # ANDROID_8_1_SAMSUNG_GALAXY_J7_PRIME
             add_android 'Samsung Galaxy Tab S4', '8.1', hash                  # ANDROID_8_1_SAMSUNG_GALAXY_TAB_S4
             add_android 'Samsung Galaxy Tab S3', '8.0', hash                  # ANDROID_8_0_SAMSUNG_GALAXY_TAB_S3
-            add_android 'Google Pixel 2', '8.0', hash                         # ANDROID_8_0_GOOGLE_PIXEL_2
             add_android 'Samsung Galaxy S9', '8.0', hash                      # ANDROID_8_0_SAMSUNG_GALAXY_S9
             add_android 'Samsung Galaxy S9 Plus', '8.0', hash                 # ANDROID_8_0_SAMSUNG_GALAXY_S9_PLUS
 
@@ -118,18 +113,6 @@ module Maze
             add_ios 'iPhone 14 Plus', '16.0', hash                            # IOS_16_0_IPHONE_14_PLUS
             add_ios 'iPhone 14 Pro', '16.0', hash                             # IOS_16_0_IPHONE_14_PRO
             add_ios 'iPhone 14 Pro Max', '16.0', hash                         # IOS_16_0_IPHONE_14_PRO_MAX
-
-            add_ios 'iPhone 8 Plus', '11.0', hash                             # IOS_11_0_IPHONE_8_PLUS
-            add_ios 'iPhone X', '11.0', hash                                  # IOS_11_0_IPHONE_X
-            add_ios 'iPhone SE', '11.0', hash                                 # IOS_11_0_IPHONE_SE
-            add_ios 'iPhone 6', '11.0', hash                                  # IOS_11_0_IPHONE_6
-            add_ios 'iPhone 6S', '11.0', hash                                 # IOS_11_0_IPHONE_6S
-            add_ios 'iPhone 6S Plus', '11.0', hash                            # IOS_11_0_IPHONE_6S_PLUS
-            add_ios 'iPad 5th', '11.0', hash                                  # IOS_11_0_IPAD_5TH
-            add_ios 'iPad Mini 4', '11.0', hash                               # IOS_11_0_IPAD_MINI_4
-            add_ios 'iPad Pro 9.7 2016', '11.0', hash                         # IOS_11_0_IPAD_PRO_9_7_2016
-            add_ios 'iPad 6th', '11.0', hash                                  # IOS_11_0_IPAD_6TH
-            add_ios 'iPad Pro 12.9', '11.0', hash                             # IOS_11_0_IPAD_PRO_12_9
 
             hash
           end

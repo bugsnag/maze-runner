@@ -1,8 +1,12 @@
-# TBD
+# 9.6.0 - 2024/03/28
 
 ## Enhancements
 
 - Add bugsnag middleware to group ambiguous errors differently [640](https://github.com/bugsnag/maze-runner/pull/640)
+
+## Removals
+
+- Remove various unsupported BrowserStack devices [641](https://github.com/bugsnag/maze-runner/pull/641)
 
 # 9.5.0 - 2024/03/12
 

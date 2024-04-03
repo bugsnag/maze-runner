@@ -193,6 +193,18 @@ services:
     volumes:
       - ./test/fixtures/payload-helpers/maze_output:/app/maze_output
 
+  command-workflow-tests:
+    build:
+      context: test/fixtures/command-workflow
+      args:
+        BRANCH_NAME:
+        RUBY_VERSION:
+    environment:
+      MAZE_BUGSNAG_API_KEY:
+      USE_LEGACY_DRIVER:
+    volumes:
+      - ./test/fixtures/command-workflow/maze_output:/app/maze_output
+
   http-response-tests:
     build:
       context: test/fixtures/http-response

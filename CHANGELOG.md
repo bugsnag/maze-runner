@@ -1,3 +1,9 @@
+# # 8.20.2 - 2024/04/03
+
+## Removals
+
+- Remove various unsupported BrowserStack devices [642](https://github.com/bugsnag/maze-runner/pull/642)
+
 # 8.20.1 - 2024/02/29
 
 ## Fixes

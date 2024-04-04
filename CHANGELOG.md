@@ -1,4 +1,8 @@
-# TBD
+# 9.7.0 - 2024/04/08
+
+## Enhancements
+
+- Allow command servlet to respond appropriately when given UUID from previous test [643](https://github.com/bugsnag/maze-runner/pull/643)
 
 ## Fixes
 

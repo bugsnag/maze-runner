@@ -21,15 +21,23 @@ Feature: Tests the command servlet works as expected
     And I wait to receive an error
     Then the error payload field "command_response.message" equals "second"
     And the error payload field "command_response.uuid" equals "2"
+    Then I run the "bounce_idempotent_command" test script with UUID "2"
+    And I wait to receive an error
+    Then the error payload field "command_response.message" equals "third"
+    And the error payload field "command_response.uuid" equals "3"
+    Then I run the "bounce_idempotent_command" test script with UUID "1"
+    And I wait to receive an error
+    Then the error payload field "command_response.message" equals "second"
+    And the error payload field "command_response.uuid" equals "2"
 
-  Scenario: An error is sent when no commands are added
+  Scenario: A noop is sent when no commands are added
     When I run the "bounce_command" test script
     And I wait to receive an error
     Then the error payload field "command_response.message" equals "No commands queued"
     And the error payload field "command_response.action" equals "noop"
     And the error payload field "command_status" equals 200
 
-  Scenario: An error is sent when commands run out
+  Scenario: An noop is sent when commands run out
     Given I add a command with message "first"
     And I run the "bounce_command" test script
     And I wait to receive an error

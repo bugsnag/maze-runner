@@ -154,6 +154,8 @@ steps:
           run: doc-server-tests
       - docker-compose#v4.14.0:
           run: exit-codes-tests
+      - docker-compose#v4.14.0:
+          run: command-workflow-tests
       - artifacts#v1.9.0:
           upload:
             - test/fixtures/payload-helpers/maze_output/**/*
@@ -193,6 +195,8 @@ steps:
           run: doc-server-tests
       - docker-compose#v4.14.0:
           run: exit-codes-tests
+      - docker-compose#v4.14.0:
+          run: command-workflow-tests
     env:
       RUBY_VERSION: "3"
     command: 'bundle exec maze-runner -e features/fixtures'

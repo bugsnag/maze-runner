@@ -19,17 +19,7 @@ module Maze
 
         if request.query.empty?
           # Non-idempotent mode - return the "current" command
-          commands = Maze::Server.commands
-
-          if commands.size_remaining == 0
-            response.body = NOOP_COMMAND
-            response.status = 200
-          else
-            command = commands.current
-            response.body = JSON.pretty_generate(command)
-            response.status = 200
-            commands.next
-          end
+          send_current_command(response)
         else
           # Idempotent mode
           after_uuid = request.query['after']
@@ -44,6 +34,21 @@ module Maze
         response.header['Access-Control-Allow-Origin'] = '*'
       end
 
+      def send_current_command(response)
+        commands = Maze::Server.commands
+
+        if commands.size_remaining == 0
+          response.body = NOOP_COMMAND
+          response.status = 200
+        else
+          command = commands.current
+          Server.last_command_uuid = command[:uuid]
+          response.body = JSON.pretty_generate(command)
+          response.status = 200
+          commands.next
+        end
+      end
+
       def command_after(uuid, response)
         commands = Maze::Server.commands
         if uuid.empty?
@@ -52,14 +57,20 @@ module Maze
           index = commands.all.find_index {|command| command[:uuid] == uuid }
         end
         if index.nil?
-          msg = "Request invalid - there is no command with a UUID of #{uuid} to follow on from"
-          $logger.error msg
-          response.body = msg
-          response.status = 400
+          # If the UUID given matches the last UUID sent by the server, we can assume the fixture has failed to reset
+          if uuid.eql?(Server.last_command_uuid)
+            send_current_command(response)
+          else
+            msg = "Request invalid - there is no command with a UUID of #{uuid} to follow on from"
+            $logger.error msg
+            response.body = msg
+            response.status = 400
+          end
         else
           if index + 1 < commands.size_all
             # Respond with the next command in the queue
             command = commands.get(index + 1)
+            Server.last_command_uuid = command[:uuid]
             command_json = JSON.pretty_generate(command)
             response.body = command_json
             response.status = 200

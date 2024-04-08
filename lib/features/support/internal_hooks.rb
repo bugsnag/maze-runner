@@ -238,17 +238,21 @@ AfterAll do
   # Ensure the logger output is in the correct location
   Maze::Hooks::LoggerHooks.after_all
 
-  maze_output = File.join(Dir.pwd, 'maze_output')
-  maze_output_zip = File.join(Dir.pwd, 'maze_output.zip')
-  # zip a folder with files and subfolders
-  Zip::File.open(maze_output_zip, Zip::File::CREATE) do |zipfile|
-    Dir["#{maze_output}/**/**"].each do |file|
-      zipfile.add(file.sub(Dir.pwd + '/', ''), file)
+  if Maze.config.file_log
+    # create a zip file from the maze_output directory
+    maze_output = File.join(Dir.pwd, 'maze_output')
+    maze_output_zip = File.join(Dir.pwd, 'maze_output.zip')
+    
+    # zip a folder with files and subfolders
+    Zip::File.open(maze_output_zip, Zip::File::CREATE) do |zipfile|
+      Dir["#{maze_output}/**/**"].each do |file|
+        zipfile.add(file.sub(Dir.pwd + '/', ''), file)
+      end
     end
-  end
 
-  # Move the zip file to the maze_output folder
-  FileUtils.mv(maze_output_zip, maze_output)
+    # Move the zip file to the maze_output folder
+    FileUtils.mv(maze_output_zip, maze_output)
+  end
 
   metrics = Maze::MetricsProcessor.new(Maze::Server.metrics)
   metrics.process

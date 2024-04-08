@@ -1,3 +1,9 @@
+# TBD
+
+## Fixes
+
+- Only zip maze_output if file_log is on [#644](https://github.com/bugsnag/maze-runner/pull/644)
+
 # 9.6.0 - 2024/04/03
 
 ## Enhancements

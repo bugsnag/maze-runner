@@ -21,10 +21,12 @@ Feature: Tests the command servlet works as expected
     And I wait to receive an error
     Then the error payload field "command_response.message" equals "second"
     And the error payload field "command_response.uuid" equals "2"
+    And I discard the oldest error
     Then I run the "bounce_idempotent_command" test script with UUID "2"
     And I wait to receive an error
     Then the error payload field "command_response.message" equals "third"
     And the error payload field "command_response.uuid" equals "3"
+    And I discard the oldest error
     Then I run the "bounce_idempotent_command" test script with UUID "1"
     And I wait to receive an error
     Then the error payload field "command_response.message" equals "second"

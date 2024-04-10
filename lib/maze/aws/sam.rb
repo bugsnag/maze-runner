@@ -50,6 +50,7 @@ module Maze
           command = "sam local invoke #{Shellwords.escape(lambda)}"
           command += " --event #{Shellwords.escape(event)}" unless event.nil?
           command += " --docker-network #{Shellwords.escape(ENV['NETWORK_NAME'])}" if ENV.key?('NETWORK_NAME')
+          command += " --container-host #{Shellwords.escape(ENV['CONTAINER_HOST'])}" if ENV.key?('CONTAINER_HOST')
 
           command
         end

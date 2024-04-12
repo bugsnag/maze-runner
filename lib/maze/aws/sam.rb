@@ -63,7 +63,7 @@ module Maze
         def build_invoke_command(lambda, event, basedir = nil)
           command = "sam local invoke #{Shellwords.escape(lambda)}"
           command += " --event #{Shellwords.escape(event)}" unless event.nil?
-          command += " --container-host #{current_ip)}"
+          command += " --container-host #{current_ip}"
           command += " --docker-network #{Shellwords.escape(ENV['NETWORK_NAME'])}" if ENV.key?('NETWORK_NAME')
           command += " --docker-volume-basedir #{basedir}" unless basedir.nil?
           pp command

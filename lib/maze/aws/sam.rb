@@ -51,7 +51,8 @@ module Maze
           command += " --event #{Shellwords.escape(event)}" unless event.nil?
           command += " --docker-network #{Shellwords.escape(ENV['NETWORK_NAME'])}" if ENV.key?('NETWORK_NAME')
           command += " --container-host #{Shellwords.escape(ENV['CONTAINER_HOST'])}" if ENV.key?('CONTAINER_HOST')
-
+          command += " --docker-volume-basedir #{Shellwords.escape(ENV['VOLUME_BASEDIR'])}" if ENV.key?('VOLUME_BASEDIR')
+          pp command
           command
         end
 

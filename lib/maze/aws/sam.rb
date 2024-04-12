@@ -2,6 +2,7 @@
 
 require 'json'
 require 'shellwords'
+require 'os'
 
 module Maze
   module Aws

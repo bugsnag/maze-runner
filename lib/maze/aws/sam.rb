@@ -23,7 +23,13 @@ module Maze
         #
         # @return [void]
         def invoke(directory, lambda, event = nil)
-          command = build_invoke_command(lambda, event)
+          if ENV.key?('VOLUME_BASEDIR')
+            basedir = "#{ENV['VOLUME_BASEDIR']}/#{directory}"
+          else
+            basedir = nil
+          end
+
+          command = build_invoke_command(lambda, event, basedir)
 
           output, @last_exit_code = Maze::Runner.run_command("cd #{directory} && #{command}")
 
@@ -46,12 +52,12 @@ module Maze
         # @param event [String, nil] An optional event file to invoke with
         #
         # @return [String]
-        def build_invoke_command(lambda, event)
+        def build_invoke_command(lambda, event, basedir = nil)
           command = "sam local invoke #{Shellwords.escape(lambda)}"
           command += " --event #{Shellwords.escape(event)}" unless event.nil?
           command += " --docker-network #{Shellwords.escape(ENV['NETWORK_NAME'])}" if ENV.key?('NETWORK_NAME')
           command += " --container-host #{Shellwords.escape(ENV['CONTAINER_HOST'])}" if ENV.key?('CONTAINER_HOST')
-          command += " --docker-volume-basedir #{Shellwords.escape(ENV['VOLUME_BASEDIR'])}" if ENV.key?('VOLUME_BASEDIR')
+          command += " --docker-volume-basedir #{basedir}" unless basedir.nil?
           pp command
           command
         end

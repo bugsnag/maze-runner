@@ -34,6 +34,10 @@ module Maze
             interval = 10
           elsif error.message.include? 'Could not proxy command to the remote server'
             interval = 10
+          elsif error.message.include? 'Could not find a connected Android device'
+            interval = 10
+          elsif error.message.include? '\'platformVersion\' must be a valid version number.'
+            interval = 10
           else
             # Do not retry in any other case
           end

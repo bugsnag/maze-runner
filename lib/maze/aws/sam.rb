@@ -47,15 +47,6 @@ module Maze
 
         private
 
-        def current_ip
-          if ENV['BUILDKITE']
-            public_ip = Maze::AwsPublicIp.new
-            public_ip.ip
-          else
-            "host.docker.internal"
-          end
-        end
-
         # Build the command to invoke the given lambda with the given event
         #
         # @param lambda [String] The name of the lambda to invoke
@@ -65,8 +56,7 @@ module Maze
         def build_invoke_command(lambda, event, basedir = nil)
           command = "sam local invoke #{Shellwords.escape(lambda)}"
           command += " --event #{Shellwords.escape(event)}" unless event.nil?
-          command += " --container-host #{current_ip}"
-          command += " --docker-network #{Shellwords.escape(ENV['NETWORK_NAME'])}" if ENV.key?('NETWORK_NAME')
+          command += " --container-host host.docker.internal"
           command += " --docker-volume-basedir #{basedir}" unless basedir.nil?
           pp command
           command

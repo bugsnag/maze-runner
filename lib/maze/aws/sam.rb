@@ -48,11 +48,12 @@ module Maze
         private
 
         def current_ip
-          return "host.docker.internal" if OS.mac?
-        
-          ip_addr = `ifconfig | grep -Eo 'inet (addr:)?([0-9]*\\\.){3}[0-9]*' | grep -v '127.0.0.1'`
-          ip_list = /((?:[0-9]*\.){3}[0-9]*)/.match(ip_addr)
-          ip_list.captures.first
+          if ENV['BUILDKITE']
+            public_ip = Maze::AwsPublicIp.new
+            public_ip.ip
+          else
+            "host.docker.internal"
+          end
         end
 
         # Build the command to invoke the given lambda with the given event

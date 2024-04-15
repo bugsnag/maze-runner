@@ -47,6 +47,12 @@ module Maze
 
         private
 
+        def container_host
+          ip_addr = `ifconfig | grep -Eo 'inet (addr:)?([0-9]*\\\.){3}[0-9]*' | grep -v '127.0.0.1'`
+          ip_list = /((?:[0-9]*\.){3}[0-9]*)/.match(ip_addr)
+          ip_list.captures.first
+        end
+
         # Build the command to invoke the given lambda with the given event
         #
         # @param lambda [String] The name of the lambda to invoke
@@ -56,7 +62,7 @@ module Maze
         def build_invoke_command(lambda, event, basedir = nil)
           command = "sam local invoke #{Shellwords.escape(lambda)}"
           command += " --event #{Shellwords.escape(event)}" unless event.nil?
-          command += " --container-host host.docker.internal"
+          command += " --container-host #{container_host}"
           command += " --docker-volume-basedir #{basedir}" unless basedir.nil?
           pp command
           command

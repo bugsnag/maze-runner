@@ -46,15 +46,15 @@ module Maze
               $logger.info "Selected device: #{device_name} (#{platform} #{platform_version})"
             else
               # If a device group has been identified, extrapolate characteristics from the group name
-              if android_match = Regexp.new('(ANDROID|android)_(\d{1,2})').match(device_name)
+              if android_match = Regexp.new('(ANDROID|android)_(\d{1,2})').match(device_or_group_names)
                 platform = 'android'
                 platform_version = android_match[2]
-              elsif ios_match = Regexp.new('(IOS|ios)_(\d{1,2})').match(device_name)
+              elsif ios_match = Regexp.new('(IOS|ios)_(\d{1,2})').match(device_or_group_names)
                 platform = 'ios'
                 platform_version = ios_match[2]
               end
 
-              $logger.info "Selected device group: #{device_name} (#{platform} #{platform_version})"
+              $logger.info "Selected device group: #{device_or_group_names} (#{platform} #{platform_version})"
             end
 
             # TODO: Setting the config here is rather a side effect and factoring it out would be better.

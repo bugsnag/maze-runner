@@ -1,3 +1,9 @@
+# 9.8.0 - TBD
+
+## Enhancements
+
+- Adds further retries for 'unknown errors' received by appium attempting to start a test session.[645](https://github.com/bugsnag/maze-runner/pull/645)
+
 # 9.7.0 - 2024/04/08
 
 ## Enhancements

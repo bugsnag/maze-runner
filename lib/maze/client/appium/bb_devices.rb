@@ -18,11 +18,18 @@ module Maze
             if device_group_ids
               # Device group found - find a free device in it
               $logger.trace "Got group ids #{device_group_ids} for #{device_or_group_names}"
-              group_count, device = api_client.find_device_in_groups(device_group_ids)
-              if device.nil?
-                raise 'There are no devices available'
+              if device_group_ids.size > 1
+                group_id = false
+                group_count, device = api_client.find_device_in_groups(device_group_ids)
+                if device.nil?
+                  raise 'There are no devices available'
+                else
+                  $logger.info "#{group_count} device(s) currently available in group(s) '#{device_or_group_names}'"
+                end
               else
-                $logger.info "#{group_count} device(s) currently available in group(s) '#{device_or_group_names}'"
+                $logger.info "Using device group #{device_or_group_names}"
+                group_id = true
+                device = device_group_ids.first
               end
             else
               # See if there is a device with the given name
@@ -42,9 +49,9 @@ module Maze
 
             case platform
             when 'android'
-              make_android_hash(device_name)
+              make_android_hash(device_name, group_id)
             when 'ios'
-              make_ios_hash(device_name)
+              make_ios_hash(device_name, group_id)
             else
               throw "Invalid device platform specified #{platform}"
             end
@@ -90,7 +97,7 @@ module Maze
             end
           end
 
-          def make_android_hash(device)
+          def android_base_hash
             # Tripling up on capabilities in the `appium:options`, `appium` sub dictionaries and base dictionary.
             # See PLAT-11087
             appium_options = {
@@ -105,16 +112,27 @@ module Maze
               'platformName' => 'Android',
               'deviceName' => 'Android Phone',
               'appium:options' => appium_options,
-              'appium' => appium_options,
-              'bitbar:options' => {
-                'device' => device,
-              }
+              'appium' => appium_options
             }
             hash.merge!(appium_options)
+            hash.dup
+          end
+
+          def make_android_hash(device, group_id = false)
+            hash = android_base_hash
+            if group_id
+              hash['bitbar:options'] = {
+                'deviceGroupId' => device
+              }
+            else
+              hash['bitbar:options'] = {
+                'device' => device
+              }
+            end
             hash.freeze
           end
 
-          def make_ios_hash(device)
+          def ios_base_hash
             # Tripling up on capabilities in the `appium:options`, `appium` sub dictionaries and base dictionary.
             # See PLAT-11087
             appium_options = {
@@ -126,12 +144,23 @@ module Maze
               'platformName' => 'iOS',
               'deviceName' => 'iPhone device',
               'appium:options' => appium_options,
-              'appium' => appium_options,
-              'bitbar:options' => {
-                'device' => device
-              }
+              'appium' => appium_options
             }
             hash.merge!(appium_options)
+            hash.dup
+          end
+
+          def make_ios_hash(device, group_id = false)
+            hash = ios_base_hash
+            if group_id
+              hash['bitbar:options'] = {
+                'deviceGroupId' => device
+              }
+            else
+              hash['bitbar:options'] = {
+                'device' => device
+              }
+            end
             hash.freeze
           end
         end

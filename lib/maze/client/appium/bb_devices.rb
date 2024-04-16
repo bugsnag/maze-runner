@@ -27,20 +27,35 @@ module Maze
                   $logger.info "#{group_count} device(s) currently available in group(s) '#{device_or_group_names}'"
                 end
               else
+                # Since there is only one group, we can use it verbatim
                 $logger.info "Using device group #{device_or_group_names}"
                 group_id = true
-                device = device_group_ids.first
+                device_name = device_group_ids.first
               end
             else
               # See if there is a device with the given name
               device = api_client.find_device device_or_group_names
             end
 
-            device_name = device['displayName']
-            platform = device['platform'].downcase
-            platform_version = device['softwareVersion']['releaseVersion']
+            # If a single device has been identified use that to determine other characteristics
+            if device
+              device_name = device['displayName']
+              platform = device['platform'].downcase
+              platform_version = device['softwareVersion']['releaseVersion']
 
-            $logger.info "Selected device: #{device_name} (#{platform} #{platform_version})"
+              $logger.info "Selected device: #{device_name} (#{platform} #{platform_version})"
+            else
+              # If a device group has been identified, extrapolate characteristics from the group name
+              if android_match = Regex.new('(ANDROID|android)_(\d{1,2})').match(device_name)
+                platform = 'android'
+                platform_version = android_match[2]
+              elsif ios_match = Regex.new('(IOS|ios)_(\d{1,2})').match(device_name)
+                platform = 'ios'
+                platform_version = ios_match[2]
+              end
+
+              $logger.info "Selected device group: #{device_name} (#{platform} #{platform_version})"
+            end
 
             # TODO: Setting the config here is rather a side effect and factoring it out would be better.
             #   For now, though, it means not having to provide the --os and --os-version options on the command line.

@@ -113,8 +113,6 @@ module Maze
           end
 
           def android_base_hash
-            # Tripling up on capabilities in the `appium:options`, `appium` sub dictionaries and base dictionary.
-            # See PLAT-11087
             appium_options = {
               'automationName' => 'UiAutomator2',
               'autoGrantPermissions' => true,
@@ -125,11 +123,13 @@ module Maze
             appium_options['appPackage'] = Maze.config.app_package unless Maze.config.app_package.nil?
             hash = {
               'platformName' => 'Android',
-              'deviceName' => 'Android Phone',
-              'appium:options' => appium_options,
-              'appium' => appium_options
+              'deviceName' => 'Android Phone'
             }
-            hash.merge!(appium_options)
+            if Maze.config.appium_version && Maze.config.appium_version.to_f < 2.0
+              hash.merge!(appium_options)
+            else
+              hash['appium:options'] = appium_options
+            end
             hash.dup
           end
 
@@ -148,8 +148,6 @@ module Maze
           end
 
           def ios_base_hash
-            # Tripling up on capabilities in the `appium:options`, `appium` sub dictionaries and base dictionary.
-            # See PLAT-11087
             appium_options = {
               'automationName' => 'XCUITest',
               'shouldTerminateApp' => 'true',
@@ -158,10 +156,12 @@ module Maze
             hash = {
               'platformName' => 'iOS',
               'deviceName' => 'iPhone device',
-              'appium:options' => appium_options,
-              'appium' => appium_options
             }
-            hash.merge!(appium_options)
+            if Maze.config.appium_version && Maze.config.appium_version.to_f < 2.0
+              hash.merge!(appium_options)
+            else
+              hash['appium:options'] = appium_options
+            end
             hash.dup
           end
 

@@ -2,6 +2,8 @@ require 'bundler/gem_tasks'
 require 'rake/testtask'
 require 'yard'
 require 'open3'
+require 'net/http'
+require 'json'
 
 def run_command(command)
   exit_status = 0
@@ -16,6 +18,28 @@ def run_command(command)
       output.each { |line| puts line }
       throw Exception.new("An error occurred running command: #{command}")
     end
+  end
+end
+
+def parse_release_tag(tag)
+  regex = /^v?(\d+)\.(\d+)\.(\d+).*$/
+  parsed = regex.match(tag)
+  {
+    major: parsed[1].to_i,
+    minor: parsed[2].to_i,
+    patch: parsed[3].to_i
+  }
+end
+
+def version_greater_than(tag1, tag2)
+  if tag1[:major].eql?(tag2[:major])
+    if tag1[:minor].eql?(tag2[:minor])
+      tag1[:patch] > tag2[:patch]
+    else
+      tag1[:minor] > tag2[:minor]
+    end
+  else
+    tag1[:major] > tag2[:major]
   end
 end
 
@@ -66,8 +90,19 @@ namespace :docs do
   end
 
   task :build_and_publish do
-    Rake::Task['docs:yard'].invoke
-    Rake::Task['docs:publish'].invoke
+    latest_release_raw = Net::HTTP.get(URI('https://api.github.com/repos/bugsnag/maze-runner/releases/latest'))
+    latest_release = JSON.parse(latest_release_raw)
+    latest_version = latest_release['tag_name']
+
+    latest_tag = parse_release_tag(latest_version)
+    release_tag = parse_release_tag(ENV['BUILDKITE_TAG'])
+
+    if release_tag.eql?(latest_tag) || version_greater_than(release_tag, latest_tag)
+      Rake::Task['docs:yard'].invoke
+      Rake::Task['docs:publish'].invoke
+    else
+      puts 'Skipping docs publish as the tag is not the latest release'
+    end
   end
 end
 

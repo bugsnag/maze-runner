@@ -22,7 +22,7 @@ def run_command(command)
 end
 
 def parse_release_tag(tag)
-  regex = /^v?(\d+)\.(\d+)\.(\d+).*$/
+  regex = /^[vV]?(\d+)\.(\d+)\.(\d+).*$/
   parsed = regex.match(tag)
   {
     major: parsed[1].to_i,

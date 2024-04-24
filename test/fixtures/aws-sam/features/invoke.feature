@@ -78,4 +78,4 @@ Scenario: Executing a lambda function that does not respond
   Then the lambda response "errorMessage" contains "Error: Runtime exited with error: exit status 1"
   And the lambda response "errorType" equals "Runtime.ExitError"
   And the lambda response "body" is null
-  And the SAM exit code equals 1
+  And the SAM exit code equals 0

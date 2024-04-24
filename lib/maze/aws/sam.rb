@@ -63,14 +63,16 @@ module Maze
         # @return [Hash]
         def parse(output)
           unless valid?(output)
-            raise <<~ERROR
-              Unable to parse Lambda output!
-              The likely cause is:
+            message = <<-WARNING
+              The lambda function did not successfully complete.
+              This may be expected and a normal result of the text execution.
+              The listed cause is:
                 > #{output.last.chomp}
 
               Full output:
                 > #{output.map(&:chomp).join("\n  > ")}
-            ERROR
+            WARNING
+            $logger.warn message
           end
 
           # Attempt to parse the last line of output as this is where a JSON

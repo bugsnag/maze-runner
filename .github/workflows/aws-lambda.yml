@@ -18,7 +18,4 @@ jobs:
         ruby-version: '3.3'
         bundler-cache: true
 
-    - run: >-
-      cd test/fixtures/aws-sam &&
-      bundle install &&
-      bundle exec maze-runner
+    - run: cd test/fixtures/aws-sam && bundle install && bundle exec maze-runner

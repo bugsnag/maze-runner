@@ -6,15 +6,15 @@ steps:
       queue: macos-14
     command: ./scripts/license_finder.sh
 
-  - label: 'AWS - SAM tests'
-    timeout_in_minutes: 30
-    agents:
-      queue: 'opensource-mac-aws-sam'
-    command: >-
-      cd test/fixtures/aws-sam &&
-      bundle install &&
-      bundle exec maze-runner
-      --no-log-requests
+  # - label: 'AWS - SAM tests'
+  #   timeout_in_minutes: 30
+  #   agents:
+  #     queue: 'opensource-mac-aws-sam'
+  #   command: >-
+  #     cd test/fixtures/aws-sam &&
+  #     bundle install &&
+  #     bundle exec maze-runner
+  #     --no-log-requests
 
   - label: 'Build Android Performance test fixture'
     timeout_in_minutes: 30

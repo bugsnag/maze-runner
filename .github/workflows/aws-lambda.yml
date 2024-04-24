@@ -18,4 +18,4 @@ jobs:
       with:
         ruby-version: '3.3'
 
-    - run: cd test/fixtures/aws-sam && bundle install && bundle exec maze-runner
+    - run: cd test/fixtures/aws-sam && bundle install && bundle exec maze-runner --log-requests

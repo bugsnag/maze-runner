@@ -3,7 +3,7 @@ steps:
   - label: 'Audit current licenses'
     timeout_in_minutes: 30
     agents:
-      queue: macos-12-arm
+      queue: macos-14
     command: ./scripts/license_finder.sh
 
   - label: 'AWS - SAM tests'
@@ -20,7 +20,7 @@ steps:
     timeout_in_minutes: 30
     key: android-test-fixture
     agents:
-      queue: 'macos-12-arm'
+      queue: macos-14
     command:
       - cd bugsnag-android-performance
       - make test-fixture
@@ -32,7 +32,7 @@ steps:
     timeout_in_minutes: 30
     key: ios-test-fixture
     agents:
-      queue: 'macos-12-arm'
+      queue: macos-14
     command:
       - cd bugsnag-cocoa
       - bundle install
@@ -420,7 +420,7 @@ steps:
   - label: 'Push to RubyGems.org'
     if: build.tag =~ /^v[2-9]\.[0-9]+\.[0-9]+\$/
     agents:
-      queue: macos-12-arm
+      queue: macos-14
     commands:
       - 'gem build bugsnag-maze-runner.gemspec'
       - 'gem push bugsnag-maze-runner-*.gem'

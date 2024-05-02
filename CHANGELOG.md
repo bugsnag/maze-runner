@@ -3,6 +3,11 @@
 ## Enhancements
 
 - Adds further retries for 'unknown errors' received by appium attempting to start a test session.[645](https://github.com/bugsnag/maze-runner/pull/645)
+- Use deviceGroupId capability to acquire device in BitBar tests where appropriate [646](https://github.com/bugsnag/maze-runner/pull/646)
+
+## Fixes
+
+- Ensure appium:options are in the correct place for each version of appium [647](https://github.com/bugsnag/maze-runner/pull/647)
 
 # 9.7.0 - 2024/04/08
 

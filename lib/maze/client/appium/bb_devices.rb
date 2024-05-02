@@ -18,22 +18,44 @@ module Maze
             if device_group_ids
               # Device group found - find a free device in it
               $logger.trace "Got group ids #{device_group_ids} for #{device_or_group_names}"
-              group_count, device = api_client.find_device_in_groups(device_group_ids)
-              if device.nil?
-                raise 'There are no devices available'
+              if device_group_ids.size > 1
+                group_id = false
+                group_count, device = api_client.find_device_in_groups(device_group_ids)
+                if device.nil?
+                  raise 'There are no devices available'
+                else
+                  $logger.info "#{group_count} device(s) currently available in group(s) '#{device_or_group_names}'"
+                end
               else
-                $logger.info "#{group_count} device(s) currently available in group(s) '#{device_or_group_names}'"
+                # Since there is only one group, we can use it verbatim
+                $logger.info "Using device group #{device_or_group_names}"
+                group_id = true
+                device_name = device_group_ids.first
               end
             else
               # See if there is a device with the given name
               device = api_client.find_device device_or_group_names
             end
 
-            device_name = device['displayName']
-            platform = device['platform'].downcase
-            platform_version = device['softwareVersion']['releaseVersion']
+            # If a single device has been identified use that to determine other characteristics
+            if device
+              device_name = device['displayName']
+              platform = device['platform'].downcase
+              platform_version = device['softwareVersion']['releaseVersion']
 
-            $logger.info "Selected device: #{device_name} (#{platform} #{platform_version})"
+              $logger.info "Selected device: #{device_name} (#{platform} #{platform_version})"
+            else
+              # If a device group has been identified, extrapolate characteristics from the group name
+              if android_match = Regexp.new('(ANDROID|android)_(\d{1,2})').match(device_or_group_names)
+                platform = 'android'
+                platform_version = android_match[2]
+              elsif ios_match = Regexp.new('(IOS|ios)_(\d{1,2})').match(device_or_group_names)
+                platform = 'ios'
+                platform_version = ios_match[2]
+              end
+
+              $logger.info "Selected device group: #{device_or_group_names} (#{platform} #{platform_version})"
+            end
 
             # TODO: Setting the config here is rather a side effect and factoring it out would be better.
             #   For now, though, it means not having to provide the --os and --os-version options on the command line.
@@ -42,9 +64,9 @@ module Maze
 
             case platform
             when 'android'
-              make_android_hash(device_name)
+              make_android_hash(device_name, group_id)
             when 'ios'
-              make_ios_hash(device_name)
+              make_ios_hash(device_name, group_id)
             else
               throw "Invalid device platform specified #{platform}"
             end
@@ -90,9 +112,7 @@ module Maze
             end
           end
 
-          def make_android_hash(device)
-            # Tripling up on capabilities in the `appium:options`, `appium` sub dictionaries and base dictionary.
-            # See PLAT-11087
+          def android_base_hash
             appium_options = {
               'automationName' => 'UiAutomator2',
               'autoGrantPermissions' => true,
@@ -103,20 +123,31 @@ module Maze
             appium_options['appPackage'] = Maze.config.app_package unless Maze.config.app_package.nil?
             hash = {
               'platformName' => 'Android',
-              'deviceName' => 'Android Phone',
-              'appium:options' => appium_options,
-              'appium' => appium_options,
-              'bitbar:options' => {
-                'device' => device,
-              }
+              'deviceName' => 'Android Phone'
             }
-            hash.merge!(appium_options)
+            if Maze.config.appium_version && Maze.config.appium_version.to_f < 2.0
+              hash.merge!(appium_options)
+            else
+              hash['appium:options'] = appium_options
+            end
+            hash.dup
+          end
+
+          def make_android_hash(device, group_id = false)
+            hash = android_base_hash
+            if group_id
+              hash['bitbar:options'] = {
+                'deviceGroupId' => device
+              }
+            else
+              hash['bitbar:options'] = {
+                'device' => device
+              }
+            end
             hash.freeze
           end
 
-          def make_ios_hash(device)
-            # Tripling up on capabilities in the `appium:options`, `appium` sub dictionaries and base dictionary.
-            # See PLAT-11087
+          def ios_base_hash
             appium_options = {
               'automationName' => 'XCUITest',
               'shouldTerminateApp' => 'true',
@@ -125,13 +156,26 @@ module Maze
             hash = {
               'platformName' => 'iOS',
               'deviceName' => 'iPhone device',
-              'appium:options' => appium_options,
-              'appium' => appium_options,
-              'bitbar:options' => {
+            }
+            if Maze.config.appium_version && Maze.config.appium_version.to_f < 2.0
+              hash.merge!(appium_options)
+            else
+              hash['appium:options'] = appium_options
+            end
+            hash.dup
+          end
+
+          def make_ios_hash(device, group_id = false)
+            hash = ios_base_hash
+            if group_id
+              hash['bitbar:options'] = {
+                'deviceGroupId' => device
+              }
+            else
+              hash['bitbar:options'] = {
                 'device' => device
               }
-            }
-            hash.merge!(appium_options)
+            end
             hash.freeze
           end
         end

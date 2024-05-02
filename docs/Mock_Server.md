@@ -40,3 +40,4 @@ The mock server provides a number of endpoints for test fixture to use:
 - `/logs` - provides a mechanism for recording and checking log messages
 - `/command` and `/commands` - provides a mechanism for feeding instructions and any other information to the test fixture using only HTTP requests instigated by the test fixture.  Essential for platforms that either do not support Appium, or render in such a way that elements are not accessible.  See [Mock Server](./Commands.md) for more information,
 - `/metrics` - provides a mechanism for collecting arbitrary metrics from a test fixture, collating and writing them to a CSV file at the end of a run.
+- `/docs' - a document server, just set Maze.config.document_server_root to the file location you want to server documents from. 

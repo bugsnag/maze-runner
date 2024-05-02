@@ -348,6 +348,7 @@ steps:
         service-ports: true
         command:
           - "--app=build/test-fixture.apk"
+          - "--appium-version=1.22"
           - "--farm=bb"
           - "--device=ANDROID_10|ANDROID_11|ANDROID_12|ANDROID_13"
           - "--fail-fast"

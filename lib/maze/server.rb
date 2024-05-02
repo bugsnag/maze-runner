@@ -242,6 +242,7 @@ module Maze
             server.mount '/logs', Servlets::LogServlet
             server.mount '/metrics', Servlets::Servlet, :metrics
             server.mount '/reflect', Servlets::ReflectiveServlet
+            server.mount '/docs', WEBrick::HTTPServlet::FileHandler, Maze.config.document_server_root unless Maze.config.document_server_root.nil?
             server.start
           rescue StandardError => e
             Bugsnag.notify e

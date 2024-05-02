@@ -34,10 +34,6 @@ module Maze
 
           # Driver creation
           expected_caps = {
-            'appium' => {
-              'noReset' => true,
-              'newCommandTimeout' => 600
-            },
             'appium:options' => {
               'noReset' => true,
               'newCommandTimeout' => 600
@@ -49,8 +45,6 @@ module Maze
               'testTimeout' => 7200,
               :bitbar_project => 'project',
               :bitbar_testrun => 'test_run'},
-            'noReset' => true,
-            'newCommandTimeout' => 600,
             'platformName' => 'iOS',
             'config' => 'capabilities'
           }
@@ -71,6 +65,7 @@ module Maze
           Maze.config.appium_server_url = 'appium server'
           Maze.config.capabilities_option = '{"config":"capabilities"}'
           Maze.config.locator = :id
+          Maze.config.appium_version = nil
         end
 
         def test_start_driver_success
@@ -117,7 +112,6 @@ module Maze
         end
 
         def test_start_driver_failure
-
           add_attempt_expectations 2
           message_1 = 'You reached the account concurrency limit'
           message_2 = 'There are no devices available'
@@ -142,6 +136,84 @@ module Maze
 
           client = BitBarClient.new
           client.start_driver Maze.config, 2
+        end
+
+        def test_device_caps_new_appium
+          Maze.config.appium_version = '2.0'
+
+          dashboard_caps = {
+            'bitbar:options' => {
+              'bitbar_project' => 'project',
+              'bitbar_testrun' => 'test_run'
+            }
+          }
+          Maze::Client::BitBarClientUtils.expects(:dashboard_capabilities).returns dashboard_caps
+
+          device_caps = {
+            'platformName' => 'iOS'
+          }
+          Maze::Client::Appium::BitBarDevices.expects(:get_available_device).returns device_caps
+
+          client = BitBarClient.new
+          device_caps = client.device_capabilities
+
+          expected_caps = {
+            'appium:options' => {
+              'noReset' => true,
+              'newCommandTimeout' => 600,
+            },
+            'bitbar:options' => {
+              'apiKey' => 'apiKey',
+              'app' => 'app',
+              'findDevice' => false,
+              'testTimeout' => 7200,
+              'bitbar_project' => 'project',
+              'bitbar_testrun' => 'test_run',
+              'appiumVersion' => '2.0'
+            },
+            'platformName' => 'iOS',
+            'config' => 'capabilities'
+          }
+
+          assert_equal expected_caps, device_caps
+        end
+
+        def test_device_caps_old_appium
+          Maze.config.appium_version = '1.5'
+
+          dashboard_caps = {
+            'bitbar:options' => {
+              'bitbar_project' => 'project',
+              'bitbar_testrun' => 'test_run'
+            }
+          }
+          Maze::Client::BitBarClientUtils.expects(:dashboard_capabilities).returns dashboard_caps
+
+          device_caps = {
+            'platformName' => 'iOS'
+          }
+          Maze::Client::Appium::BitBarDevices.expects(:get_available_device).returns device_caps
+
+          client = BitBarClient.new
+          device_caps = client.device_capabilities
+
+          expected_caps = {
+            'noReset' => true,
+            'newCommandTimeout' => 600,
+            'bitbar:options' => {
+              'apiKey' => 'apiKey',
+              'app' => 'app',
+              'findDevice' => false,
+              'testTimeout' => 7200,
+              'bitbar_project' => 'project',
+              'bitbar_testrun' => 'test_run',
+              'appiumVersion' => '1.5'
+            },
+            'platformName' => 'iOS',
+            'config' => 'capabilities'
+          }
+
+          assert_equal expected_caps, device_caps
         end
       end
     end

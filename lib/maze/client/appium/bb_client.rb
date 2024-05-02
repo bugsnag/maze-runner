@@ -58,8 +58,6 @@ module Maze
         end
 
         def device_capabilities
-          # Doubling up on capabilities in both the `appium:options` and `appium` sub dictionaries.
-          # See PLAT-11087
           config = Maze.config
           common_caps = {
             'noReset' => true,
@@ -67,8 +65,6 @@ module Maze
           }
           capabilities = {
             'bitbar:options' => {
-              # Some capabilities probably belong in the top level
-              # of the hash, but BitBar picks them up from here.
               'apiKey' => config.access_key,
               'app' => config.app,
               'findDevice' => false,
@@ -76,9 +72,9 @@ module Maze
             }
           }
           if Maze.config.appium_version && Maze.config.appium_version.to_f < 2.0
-            hash.merge!(common_caps)
+            capabilities.merge!(common_caps)
           else
-            hash['appium:options'] = common_caps
+            capabilities['appium:options'] = common_caps
           end
           capabilities.deep_merge! BitBarClientUtils.dashboard_capabilities
           capabilities.deep_merge! BitBarDevices.get_available_device(config.device)

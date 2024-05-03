@@ -1,4 +1,10 @@
-# 9.8.0 - 2024/05/02 
+# 9.9.0 - TBD
+
+## Enhancements
+
+- Adds step to allow testing of a set of properties in a named span [651](https://github.com/bugsnag/maze-runner/pull/651)
+
+# 9.8.0 - 2024/05/02
 
 ## Enhancements
 

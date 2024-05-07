@@ -53,3 +53,13 @@ Feature: Testing support for span receipt and interrogation
        Given I set up the maze-harness console
        And I input "bundle exec maze-runner --port=9349 features/span_maximum.feature" interactively
        Then the last interactive command exit code is 1
+
+    Scenario: Spans can be tested for specific properties
+        When I send a span request with 1 spans
+        Then I wait to receive 1 span
+        Then a span named "AppStart\134/Cold" has the following properties:
+            | property                       | value              |
+            | kind                           | 1                  |
+            | spanId                         | 7af51275a21aa300   |
+            | attributes.0.key               | bugsnag.sampling.p |
+            | attributes.3.value.stringValue | wifi               |

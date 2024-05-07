@@ -212,6 +212,30 @@ Then('a span named {string} has a parent named {string}') do |child_name, parent
   end
 end
 
+Then('a span named {string} has the following properties:') do |span_name, table|
+  spans = spans_from_request_list(Maze::Server.list_for('traces'))
+  found_spans = spans.find_all { |span| span['name'].eql?(span_name) }
+  raise Test::Unit::AssertionFailedError.new "No spans were found with the name #{span_name}" if found_spans.empty?
+
+  expected_properties = table.hashes
+
+  match = false
+  found_spans.each do |span|
+    matches = expected_properties.map do |expected_property|
+      property = Maze::Helper.read_key_path(span, expected_property['property'])
+      expected_property['value'].eql?(property.to_s)
+    end
+    if matches.all? && !matches.empty?
+      match = true
+      break
+    end
+  end
+
+  unless match
+    raise Test::Unit::AssertionFailedError.new "No spans were found containing all of the given properties"
+  end
+end
+
 def spans_from_request_list list
   return list.remaining
              .flat_map { |req| req[:body]['resourceSpans'] }

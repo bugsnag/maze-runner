@@ -9,7 +9,10 @@ steps:
   - label: 'AWS - SAM tests'
     timeout_in_minutes: 30
     agents:
-      queue: 'opensource-mac-aws-sam'
+      queue: "macos-14-5"
+    env:
+      NODE_VERSION: "18"
+      PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
     command: >-
       cd test/fixtures/aws-sam &&
       bundle install &&

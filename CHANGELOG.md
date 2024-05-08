@@ -1,8 +1,9 @@
-# 9.9.0 - TBD
+# 9.9.0 - 2024/05/08
 
 ## Enhancements
 
 - Adds step to allow testing of a set of properties in a named span [651](https://github.com/bugsnag/maze-runner/pull/651)
+- Update AWS SAM functionality to work with a newer version of SAM CLI [652](https://github.com/bugsnag/maze-runner/pull/652)
 
 # 9.8.0 - 2024/05/02
 

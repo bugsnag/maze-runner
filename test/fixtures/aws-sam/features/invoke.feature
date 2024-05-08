@@ -30,7 +30,7 @@ Scenario: Executing a lambda function with 'sam invoke' that raises
   Given I invoke the "HelloWorldFunction" lambda in "features/fixtures/ruby-app" with the "events/error event.json" event
   Then the lambda response "errorMessage" equals "oh no"
   And the lambda response "errorType" is not null
-  And the lambda response "stackTrace" is an array with 1 element
+  And the lambda response "stackTrace" is a non-empty array
   And the lambda response "body" is null
   And the lambda response "statusCode" is null
   And the SAM exit code equals 0
@@ -75,6 +75,7 @@ Scenario: Executing a lambda function that returns a HTML body
 
 Scenario: Executing a lambda function that does not respond
   Given I invoke the "ProcessExitFunction" lambda in "features/fixtures/node-app"
-  Then the lambda response is empty
+  Then the lambda response "errorMessage" contains "Error: Runtime exited with error: exit status 1"
+  And the lambda response "errorType" equals "Runtime.ExitError"
   And the lambda response "body" is null
   And the SAM exit code equals 0

@@ -80,7 +80,6 @@ class AppiumServerTest < Test::Unit::TestCase
 
   def test_start_default
     # Setup mocks and expectations
-    default_appium_command = "appium -a 0.0.0.0 -p 4723"
     thread_mock = mock('thread')
     stdin_mock = mock('stdin')
     stdout_mock = mock('stdout')
@@ -94,7 +93,7 @@ class AppiumServerTest < Test::Unit::TestCase
     thread_mock.stubs(:alive?).returns(true)
 
     # Expect PTY.spawn to be called, and allow block to process with mocks
-    PTY.expects(:spawn).with(default_appium_command).yields(stdout_mock, stdin_mock, pid)
+    PTY.expects(:spawn).with('appium', '-a', '0.0.0.0', '-p', '4723').yields(stdout_mock, stdin_mock, pid)
 
     # Expect stdout.each to be called, and yield "Foo" to trigger the logger
     stdout_mock.expects(:each).yields("Foo")
@@ -116,10 +115,9 @@ class AppiumServerTest < Test::Unit::TestCase
   end
 
   def test_start_overwritten_address_port
-    overwritten_appium_command = "appium -a 1.2.3.4 -p 5678"
     thread_mock = mock('thread')
     Thread.expects(:new).returns(thread_mock).yields
-    PTY.expects(:spawn).with(overwritten_appium_command)
+    PTY.expects(:spawn).with('appium', '-a', '1.2.3.4', '-p', '5678')
 
     # Ensure the sleep is stubbed to avoid delays
     Maze::AppiumServer.expects(:sleep).with(2)

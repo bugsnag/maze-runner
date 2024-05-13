@@ -1,3 +1,9 @@
+# TBD
+
+## Fixes
+
+- Update appium server to remove command vulnerability [653](https://github.com/bugsnag/maze-runner/pull/653)
+
 # 9.9.0 - 2024/05/08
 
 ## Enhancements

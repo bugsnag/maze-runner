@@ -40,9 +40,8 @@ module Maze
 
         start_logger
 
-        command = "appium -a #{address} -p #{port}"
         @appium_thread = Thread.new do
-          PTY.spawn(command) do |stdout, _stdin, pid|
+          PTY.spawn('appium', '-a', address, '-p', port) do |stdout, _stdin, pid|
             @pid = pid
             $logger.trace("Appium:#{@pid}") { 'Appium server started' }
             stdout.each do |line|

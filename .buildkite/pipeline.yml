@@ -72,6 +72,7 @@ steps:
       - push-branch-cli-legacy
     plugins:
       - monorepo-diff#v1.0.1:
+          diff: .buildkite/diff.sh
           watch:
             - path:
                 - .buildkite/*

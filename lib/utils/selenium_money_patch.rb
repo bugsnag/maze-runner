@@ -6,9 +6,10 @@ module Selenium
         def initialize(response)
           if response.is_a? String
             super(response)
+          elsif response.is_a? Selenium::WebDriver::Remote::Response
+            super("Status code #{response.code}.  Payload: #{response.payload.inspect}")
           else
-            $logger.error "Server response: #{response.inspect}"
-            super("status code #{response.code}")
+            super(response.inspect)
           end
         end
       end # ServerError

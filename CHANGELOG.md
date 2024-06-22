@@ -1,8 +1,9 @@
-# TBD
+# 9.9.1 - 2024/06/22
 
 ## Fixes
 
 - Update appium server to remove command vulnerability [653](https://github.com/bugsnag/maze-runner/pull/653)
+- Improve handling of Selenium `ServerError`s [6553](https://github.com/bugsnag/maze-runner/pull/655)
 
 # 9.9.0 - 2024/05/08
 

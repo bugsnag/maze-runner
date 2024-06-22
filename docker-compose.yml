@@ -75,6 +75,7 @@ services:
     env_file: $DOCKER_ENV_FILE
     ports:
       - "9000-9499:9339"
+      - "9000-9499:9340"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 

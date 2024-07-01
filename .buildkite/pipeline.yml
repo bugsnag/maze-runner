@@ -44,22 +44,6 @@ steps:
       artifacts#v1.9.0:
         upload: "bugsnag-cocoa/features/fixtures/ios/output/iOSTestApp.ipa"
 
-  - label: ':docker: Build CI image for Ruby 2'
-    timeout_in_minutes: 30
-    key: "ci-image-ruby-2"
-    plugins:
-      - docker-compose#v4.14.0:
-          build:
-            - ci-ruby-2
-          image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
-          cache-from:
-            - ci-ruby-2:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-2
-      - docker-compose#v4.14.0:
-          push:
-            - ci-ruby-2:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-2
-    env:
-      RUBY_VERSION: "2"
-
   - label: ':docker: Build CI image for Ruby 3'
     timeout_in_minutes: 30
     key: "ci-image-ruby-3"
@@ -76,17 +60,6 @@ steps:
     env:
       RUBY_VERSION: "3"
 
-  - label: 'Unit tests with Ruby 2'
-    timeout_in_minutes: 30
-    depends_on: 'ci-image-ruby-2'
-    plugins:
-      docker-compose#v4.14.0:
-        run: unit-test-ruby-2
-        image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
-        cache-from:
-          - ci-ruby-2:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-2
-    command: 'bundle exec rake'
-
   - label: 'Unit tests with Ruby 3'
     timeout_in_minutes: 30
     depends_on: 'ci-image-ruby-3'
@@ -97,76 +70,6 @@ steps:
         cache-from:
           - ci-ruby-3:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-3
     command: 'bundle exec rake'
-
-  - label: ':docker: Push W3C CLI image for branch'
-    key: push-branch-cli
-    timeout_in_minutes: 30
-    depends_on: "ci-image-ruby-2"
-    plugins:
-      - docker-compose#v4.14.0:
-          build: cli
-          image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
-          cache-from:
-            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
-      - docker-compose#v4.14.0:
-          push:
-            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
-
-  - label: ':docker: Push Legacy CLI image for branch'
-    key: push-branch-cli-legacy
-    timeout_in_minutes: 30
-    depends_on: "ci-image-ruby-2"
-    plugins:
-      - docker-compose#v4.14.0:
-          build: cli-legacy
-          image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
-          cache-from:
-            - cli-legacy:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli-legacy
-      - docker-compose#v4.14.0:
-          push:
-            - cli-legacy:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli-legacy
-
-  - label: 'No-device tests with Ruby 2 - batch 1'
-    timeout_in_minutes: 30
-    depends_on: "ci-image-ruby-2"
-    plugins:
-      - docker-compose#v4.14.0:
-          run: framework-tests
-      - docker-compose#v4.14.0:
-          run: comparison-tests
-      - docker-compose#v4.14.0:
-          run: proxy-tests
-      - docker-compose#v4.14.0:
-          run: cli-tests
-      - docker-compose#v4.14.0:
-          run: http-response-tests
-    env:
-      RUBY_VERSION: "2"
-      USE_LEGACY_DRIVER: "1"
-    command: 'bundle exec maze-runner -e features/fixtures'
-
-  - label: 'No-device tests with Ruby 2 - batch 2'
-    timeout_in_minutes: 30
-    depends_on: "ci-image-ruby-2"
-    plugins:
-      - docker-compose#v4.14.0:
-          run: payload-helper-tests
-      - docker-compose#v4.14.0:
-          run: docker-tests
-      - docker-compose#v4.14.0:
-          run: doc-server-tests
-      - docker-compose#v4.14.0:
-          run: exit-codes-tests
-      - docker-compose#v4.14.0:
-          run: command-workflow-tests
-      - artifacts#v1.9.0:
-          upload:
-            - test/fixtures/payload-helpers/maze_output/**/*
-            - test/fixtures/payload-helpers/maze_output/*
-    env:
-      RUBY_VERSION: "2"
-      USE_LEGACY_DRIVER: "1"
-    command: 'bundle exec maze-runner -e features/fixtures'
 
   - label: 'No-device tests with Ruby 3 - batch 1'
     timeout_in_minutes: 30

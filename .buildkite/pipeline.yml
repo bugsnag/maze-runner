@@ -71,6 +71,20 @@ steps:
           - ci-ruby-3:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-3
     command: 'bundle exec rake'
 
+  - label: ':docker: Push W3C CLI image for branch'
+    key: push-branch-cli
+    timeout_in_minutes: 30
+    depends_on: "ci-image-ruby-3"
+    plugins:
+      - docker-compose#v4.14.0:
+          build: cli
+          image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
+          cache-from:
+            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
+      - docker-compose#v4.14.0:
+          push:
+            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
+
   - label: 'No-device tests with Ruby 3 - batch 1'
     timeout_in_minutes: 30
     depends_on: "ci-image-ruby-3"

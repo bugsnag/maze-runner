@@ -136,8 +136,8 @@ steps:
         upload:
           - "bugsnag-android-performance/maze_output/**/*"
       docker-compose#v4.14.0:
-        pull: appium-test-bs-legacy
-        run: appium-test-bs-legacy
+        pull: appium-test-bs
+        run: appium-test-bs
         volumes:
           - "./bugsnag-android-performance/build:/app/build"
           - "./bugsnag-android-performance/features:/app/features"
@@ -150,9 +150,9 @@ steps:
           - "features/manual_spans.feature"
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
         cache-from:
-          - cli-legacy:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli-legacy
+          - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
     env:
-      RUBY_VERSION: "2"
+      RUBY_VERSION: "3"
     concurrency: 5
     concurrency_group: 'browserstack-app'
     concurrency_method: eager
@@ -193,7 +193,7 @@ steps:
     timeout_in_minutes: 10
     plugins:
       docker-compose#v4.14.0:
-        run: browser-tests-legacy
+        run: browser-tests
         use-aliases: true
         verbose: true
         command:
@@ -244,7 +244,7 @@ steps:
           - "--fail-fast"
           - "--no-tunnel"
     env:
-      RUBY_VERSION: "2"
+      RUBY_VERSION: "3"
     concurrency: 25
     concurrency_group: 'bitbar'
     concurrency_method: eager
@@ -334,9 +334,6 @@ steps:
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:${BUILDKITE_TAG}-cli
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-v9-cli
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-cli
-            - cli-legacy:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:${BUILDKITE_TAG}-cli-legacy
-            - cli-legacy:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-v9-cli-legacy
-            - cli-legacy:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-cli-legacy
 
   - label: 'Push to RubyGems.org'
     if: build.tag =~ /^v[2-9]\.[0-9]+\.[0-9]+\$/

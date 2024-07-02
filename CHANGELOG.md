@@ -1,3 +1,9 @@
+# 9.10.0 - 2024/07/02
+
+## Enhancements
+
+- Add Android 14 to the available BrowserStack devices [658](https://github.com/bugsnag/maze-runner/pull/658)
+
 # 9.9.1 - 2024/06/22
 
 ## Fixes

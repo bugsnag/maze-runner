@@ -195,5 +195,7 @@ module Maze
 
     # Always log all received requests to the console at the end of a scenario
     attr_accessor :always_log
+
+    attr_accessor :span_timestamp_validation
   end
 end

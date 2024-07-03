@@ -319,7 +319,7 @@ steps:
   - wait
 
   - label: 'Update docs'
-    if: build.tag =~ /^v[2-9]\.[0-9]+\.[0-9]+\$/
+    if: build.tag =~ /^v[0-9]{1,2}\.[0-9]+\.[0-9]+\$/
     plugins:
       docker-compose#v4.14.0:
         run: docs
@@ -327,7 +327,7 @@ steps:
 
     # Release images are pushed to their own repository so that they don't get aged off.
   - label: 'Push Docker image for tag'
-    if: build.tag =~ /^v[2-9]\.[0-9]+\.[0-9]+\$/
+    if: build.tag =~ /^v[0-9]{1,2}\.[0-9]+\.[0-9]+\$/
     plugins:
       - docker-compose#v4.14.0:
           push:
@@ -336,7 +336,7 @@ steps:
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-cli
 
   - label: 'Push to RubyGems.org'
-    if: build.tag =~ /^v[2-9]\.[0-9]+\.[0-9]+\$/
+    if: build.tag =~ /^v[0-9]{1,2}\.[0-9]+\.[0-9]+\$/
     agents:
       queue: macos-14
     commands:

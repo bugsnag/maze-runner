@@ -1,3 +1,9 @@
+# 9.11.0 - 2024/07/05
+
+## Enhancements
+
+- add support for comparing double and array attributes in spans [661](https://github.com/bugsnag/maze-runner/pull/661)
+
 # 9.10.0 - 2024/07/02
 
 ## Enhancements

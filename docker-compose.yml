@@ -60,6 +60,9 @@ services:
       context: .
       args:
         DOCS_PUSH_TOKEN:
+    environment:
+      BUILDKITE_TAG:
+      DOCS_PUSH_TOKEN:
 
   appium-test-bb:
     build:

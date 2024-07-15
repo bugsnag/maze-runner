@@ -1,5 +1,5 @@
 # Ruby image are based on Debian
-FROM ruby:2-bullseye as ci-ruby-2
+FROM ruby:3-bullseye as ci-legacy
 
 RUN apt-get update && apt-get upgrade -y && DEBIAN_FRONTEND=noninteractive \
     apt-get install -y apt-utils wget unzip bash bundler \
@@ -38,9 +38,5 @@ COPY Gemfile* bugsnag-maze-runner.gemspec ./
 
 RUN rm -f Gemfile.lock && USE_LEGACY_DRIVER=1 bundle install
 
-FROM ci-ruby-2 as cli-legacy
+FROM ci-legacy as cli-legacy
 ENTRYPOINT ["bundle", "exec", "maze-runner"]
-
-FROM ci-ruby-2 as unit-test-ruby-2
-COPY test/ test/
-COPY Rakefile .

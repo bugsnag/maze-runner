@@ -44,7 +44,23 @@ steps:
       artifacts#v1.9.0:
         upload: "bugsnag-cocoa/features/fixtures/ios/output/iOSTestApp.ipa"
 
-  - label: ':docker: Build CI image for Ruby 3'
+  - label: ':docker: Build legacy CI image'
+    timeout_in_minutes: 30
+    key: "ci-legacy-image"
+    plugins:
+      - docker-compose#v4.14.0:
+          build:
+            - ci-legacy
+          image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
+          cache-from:
+            - ci-legacy:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-legacy
+      - docker-compose#v4.14.0:
+          push:
+            - ci-legacy:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-legacy
+    env:
+      RUBY_VERSION: "2"
+
+  - label: ':docker: Build CI image'
     timeout_in_minutes: 30
     key: "ci-image-ruby-3"
     plugins:
@@ -70,6 +86,20 @@ steps:
         cache-from:
           - ci-ruby-3:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-3
     command: 'bundle exec rake'
+
+  - label: ':docker: Push Legacy CLI image for branch'
+    key: push-branch-cli-legacy
+    timeout_in_minutes: 30
+    depends_on: "ci-legacy-image"
+    plugins:
+      - docker-compose#v4.14.0:
+          build: cli-legacy
+          image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
+          cache-from:
+            - cli-legacy:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli-legacy
+      - docker-compose#v4.14.0:
+          push:
+            - cli-legacy:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli-legacy
 
   - label: ':docker: Push W3C CLI image for branch'
     key: push-branch-cli
@@ -334,6 +364,9 @@ steps:
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:${BUILDKITE_TAG}-cli
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-v9-cli
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-cli
+            - cli-legacy:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:${BUILDKITE_TAG}-cli-legacy
+            - cli-legacy:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-v9-cli-legacy
+            - cli-legacy:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-cli-legacy
 
   - label: 'Push to RubyGems.org'
     if: build.tag =~ /^v[0-9]{1,2}\.[0-9]+\.[0-9]+\$/

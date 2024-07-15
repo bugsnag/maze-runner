@@ -1,8 +1,9 @@
-# TBD
+# 9.11.1 - 2024/07/15
 
 ## Fixes
 
 - Move iOS 15 BrowserStack tests from iPhone 11 Pro to iPhone 13 [662](https://github.com/bugsnag/maze-runner/pull/662)
+- Reinstate publishing of legacy CLI Docker image [663](https://github.com/bugsnag/maze-runner/pull/663)
 
 # 9.11.0 - 2024/07/05
 

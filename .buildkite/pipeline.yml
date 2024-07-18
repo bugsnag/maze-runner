@@ -9,7 +9,7 @@ steps:
   - label: 'AWS - SAM tests'
     timeout_in_minutes: 30
     agents:
-      queue: "macos-14-5"
+      queue: "macos-14"
     env:
       NODE_VERSION: "18"
       PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"

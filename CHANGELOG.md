@@ -1,3 +1,9 @@
+# 9.11.2 - 2024/07/18
+
+## Fixes
+
+- Bump `curb` dependency to 1.0.5 [664](https://github.com/bugsnag/maze-runner/pull/664)
+
 # 9.11.1 - 2024/07/15
 
 ## Fixes

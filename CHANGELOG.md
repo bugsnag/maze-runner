@@ -1,3 +1,9 @@
+# TBD
+
+## Enhancements
+
+- Add tool to find failed BitBar sessions and save them to a CSV file [665](https://github.com/bugsnag/maze-runner/pull/665)
+
 # 9.11.2 - 2024/07/18
 
 ## Fixes

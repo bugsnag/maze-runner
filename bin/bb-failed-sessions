@@ -25,9 +25,9 @@ class BBFailedSessions
       opt :help,
           'Print this help.'
       opt :date,
-          "Date to filter the runs",
+          "Date to filter the runs. Format: 'YYYY-MM-DD'",
           :type => :string
-      opt :project_name,
+      opt :project,
           "Name of the BitBar project",
           :type => :string
       opt :output,
@@ -52,8 +52,11 @@ class BBFailedSessions
       end
     end
 
+    # if date is not provided, use today's date
+    opts[:date] ||= DateTime.now.strftime('%Y-%m-%d')
+
     # Fetch project information from BitBar
-    project_info = Maze::Client::BitBarClientUtils.get_ids api_key, opts[:project_name]
+    project_info = Maze::Client::BitBarClientUtils.get_ids api_key, opts[:project]
 
     # Iterate over each project and fetch unsuccessful runs
     for id, name in project_info

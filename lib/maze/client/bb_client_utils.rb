@@ -222,12 +222,12 @@ module Maze
 
         def date_to_milliseconds(date_string)
           begin
-            date_format = "%d/%m/%Y"
+            date_format = "%Y-%m-%d"
             parsed_date = DateTime.strptime(date_string, date_format)
             milliseconds = (parsed_date.to_time.to_f * 1000).to_i
             milliseconds
           rescue ArgumentError
-            raise "Invalid date format. Please use DD/MM/YYYY."
+            raise "Invalid date format. Please use YYYY-MM-DD."
           end
         end
 

@@ -17,6 +17,7 @@ module Maze
 
           start_driver(Maze.config)
 
+          pp Maze.driver.session_capabilities
           # Set bundle/app id for later use
           Maze.driver.app_id = case Maze::Helper.get_current_platform
                                when 'android'

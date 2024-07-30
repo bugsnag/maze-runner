@@ -175,6 +175,62 @@ module Maze
           }
         end
 
+
+        def get_ids(api_key, project_name = nil)
+          base_url = 'https://cloud.bitbar.com/api/me/projects?limit=100'
+          url = project_name ? "#{base_url}&filter=name_eq_#{project_name}" : base_url
+
+          uri = URI.parse(url)
+          http = Net::HTTP.new(uri.host, uri.port)
+          http.use_ssl = true
+
+          request = Net::HTTP::Get.new(uri.request_uri)
+          request.basic_auth(api_key, '')
+
+          begin
+            response = http.request(request)
+            raise "HTTP request failed with code #{response.code}" unless response.is_a?(Net::HTTPSuccess)
+            json_body_data = JSON.parse(response.body)['data']
+            json_body_data.map { |project| [project['id'], project['name']] }
+          rescue JSON::ParserError
+            raise 'Failed to parse JSON response'
+          rescue StandardError => e
+            raise "An error occurred: #{e.message}"
+          end
+        end
+
+        def get_unsuccessful_runs(api_key, project_id, date)
+          new_date = date_to_milliseconds(date)
+          url = URI.parse("https://cloud.bitbar.com/api/me/projects/#{project_id}/runs?filter=successRatio_eq_0.0;d_createTime_on_#{new_date}")
+
+          http = Net::HTTP.new(url.host, url.port)
+          http.use_ssl = true
+
+          request = Net::HTTP::Get.new(url.request_uri)
+          request.basic_auth(api_key, '')
+
+          begin
+            response = http.request(request)
+            raise "HTTP request failed with code #{response.code}" unless response.is_a?(Net::HTTPSuccess)
+            JSON.parse(response.body)['data']
+          rescue JSON::ParserError
+            raise 'Failed to parse JSON response'
+          rescue StandardError => e
+            raise "An error occurred: #{e.message}"
+          end
+        end
+
+        def date_to_milliseconds(date_string)
+          begin
+            date_format = "%Y-%m-%d"
+            parsed_date = DateTime.strptime(date_string, date_format)
+            milliseconds = (parsed_date.to_time.to_f * 1000).to_i
+            milliseconds
+          rescue ArgumentError
+            raise "Invalid date format. Please use YYYY-MM-DD."
+          end
+        end
+
         private
 
         def start_tunnel_thread(cmd)

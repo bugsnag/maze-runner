@@ -102,6 +102,10 @@ Then('the trace payload field {string} boolean attribute {string} is false') do 
   assert_attribute field, key, { 'boolValue' => false }
 end
 
+Then('the trace payload field {string} double attribute {string} equals {float}') do |field, attribute, expected|
+  check_attribute_equal field, attribute, 'doubleValue', expected
+end
+
 # @!group Span steps
 Then('a span {word} equals {string}') do |attribute, expected|
   spans = spans_from_request_list(Maze::Server.list_for('traces'))
@@ -265,8 +269,10 @@ def attribute_value_matches?(attribute_value, expected_type, expected_value)
     expected_value.to_f.eql?(attribute_value[expected_type])
   when 'boolValue'
     expected_value.eql?('true').eql?(attribute_value[expected_type])
-  when 'arrayValue', 'kvlistValue'
-    $logger.error('Span attribute validation does not currently support the "arrayValue" or "kvlistValue" types')
+  when 'arrayValue'
+    expected_value == attribute_value[expected_type]['values']
+  when 'kvlistValue'
+    $logger.error('Span attribute validation does not currently support the "kvlistValue" type')
     false
   else
     $logger.error("An invalid attribute type was expected: '#{expected_type}'")
@@ -328,4 +334,47 @@ def assert_attribute(field, key, expected)
   list = Maze::Server.traces
   attributes = Maze::Helper.read_key_path(list.current[:body], "#{field}.attributes")
   Maze.check.equal({ 'key' => key, 'value' => expected }, attributes.find { |a| a['key'] == key })
+end
+
+def check_array_attribute_equal(field, attribute, expected_values)
+  actual_values = get_attribute_value(field, attribute, 'arrayValue')['values']
+
+  # Convert string representations of integers to integers for comparison
+  actual_values.map! do |value|
+    if value.key?('intValue')
+      value['intValue'].to_i
+    else
+      value
+    end
+  end
+
+  expected_values.map! do |value|
+    if value.key?('intValue')
+      value['intValue'].to_i
+    else
+      value
+    end
+  end
+
+  Maze.check.equal(expected_values, actual_values)
+end
+
+Then('the trace payload field {string} string array attribute {string} equals the array:') do |field, attribute, expected_values|
+  expected_values_list = expected_values.raw.flatten.map { |v| { 'stringValue' => v } }
+  check_array_attribute_equal field, attribute, expected_values_list
+end
+
+Then('the trace payload field {string} integer array attribute {string} equals the array:') do |field, attribute, expected_values|
+  expected_values_list = expected_values.raw.flatten.map { |v| { 'intValue' => v.to_i } }
+  check_array_attribute_equal(field, attribute, expected_values_list)
+end
+
+Then('the trace payload field {string} double array attribute {string} equals the array:') do |field, attribute, expected_values|
+  expected_values_list = expected_values.raw.flatten.map { |v| { 'doubleValue' => v.to_f } }
+  check_array_attribute_equal field, attribute, expected_values_list
+end
+
+Then('the trace payload field {string} boolean array attribute {string} equals the array:') do |field, attribute, expected_values|
+  expected_values_list = expected_values.raw.flatten.map { |v| { 'boolValue' => v == 'true' } }
+  check_array_attribute_equal field, attribute, expected_values_list
 end

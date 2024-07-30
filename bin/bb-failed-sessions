@@ -1,0 +1,94 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Required libraries and dependencies
+require_relative '../lib/maze'
+require_relative '../lib/maze/loggers/logger'
+require_relative '../lib/maze/client/bb_client_utils'
+require 'optimist'
+require 'net/http'
+require 'json'
+require 'uri'
+require 'date'
+require 'csv'
+
+class BBFailedSessions
+  def start(args)
+    # Define and parse command-line options
+    p = Optimist::Parser.new do
+      text 'Get unsuccessful runs from BitBar Cloud'
+      text ''
+      text 'Requires BITBAR_API_KEY'
+      text ''
+      text 'Usage [OPTIONS]'
+      text ''
+      opt :help,
+          'Print this help.'
+      opt :date,
+          "Date to filter the runs. Format: 'YYYY-MM-DD'",
+          :type => :string
+      opt :project,
+          "Name of the BitBar project",
+          :type => :string
+      opt :output,
+          "Path to the output CSV file",
+          :type => :string
+    end
+
+    # Parse the command-line arguments
+    opts = Optimist::with_standard_exception_handling p do
+      raise Optimist::HelpNeeded if ARGV.empty? # Show help screen if no arguments
+      p.parse ARGV
+    end
+
+    # Get the API key from environment variable
+    api_key = ENV['BITBAR_API_KEY']
+
+    # Check if BITBAR_API_KEY has been set
+    if api_key.nil?
+      $logger.warn "BITBAR_API_KEY has not been set"
+      Optimist::with_standard_exception_handling p do
+        raise Optimist::HelpNeeded
+      end
+    end
+
+    # if date is not provided, use today's date
+    opts[:date] ||= DateTime.now.strftime('%Y-%m-%d')
+
+    # Fetch project information from BitBar
+    project_info = Maze::Client::BitBarClientUtils.get_ids api_key, opts[:project]
+
+    # Iterate over each project and fetch unsuccessful runs
+    for id, name in project_info
+      $logger.info "Getting unsuccessful runs #{name} (#{id}) on #{opts[:date]}"
+      runs = Maze::Client::BitBarClientUtils.get_unsuccessful_runs api_key, id, opts[:date]
+
+      # Array to store the data to be written to the CSV
+      data = []
+
+      # Collect the data from each run
+      runs.each do |run|
+        data << [ name, DateTime.strptime(run['createTime'].to_s, '%Q'), run['displayName'], run['uiLink'], run['config']['files'][0]['file']['userEmail'] ]
+      end
+
+      # Define the CSV file path
+      csv_file_path = opts[:output] || "failed_sessions_#{name.gsub('-', '_')}_#{opts[:date].gsub('/', '_')}.csv"
+
+      $logger.info "Saving data to CSV file at #{csv_file_path}"
+
+      # Write the data to a CSV file
+      CSV.open(csv_file_path, 'w') do |csv|
+        # Write the headers
+        csv << ['Project', 'Date', 'Test Name', 'Dashboard Link', 'User Email']
+
+        # Write the data rows
+        data.each do |row|
+          csv << row
+        end
+      end
+    end
+  end
+end
+
+# Start the process with command-line arguments
+BBFailedSessions.new.start(ARGV)

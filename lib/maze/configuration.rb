@@ -75,6 +75,9 @@ module Maze
     # Enables awareness of a public IP address on Buildkite with the Elastic CI Stack for AWS.
     attr_accessor :aws_public_ip
 
+    # Disables timestamp validation on spans
+    attr_accessor :span_timestamp_validation
+
     #
     # General appium configuration
     #
@@ -195,7 +198,5 @@ module Maze
 
     # Always log all received requests to the console at the end of a scenario
     attr_accessor :always_log
-
-    attr_accessor :span_timestamp_validation
   end
 end

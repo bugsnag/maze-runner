@@ -3,6 +3,8 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require_relative 'lib/maze'
 
 Gem::Specification.new do |spec|
+  ruby_version = Gem::Version.new(RUBY_VERSION.dup)
+
   spec.name    = 'bugsnag-maze-runner'
   spec.version = Maze::VERSION
   spec.authors = ['Steve Kirkland']

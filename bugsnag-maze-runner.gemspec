@@ -17,6 +17,10 @@ Gem::Specification.new do |spec|
 
   spec.executables = spec.files.grep(%r{^bin/[\w\-]+$}) { |f| File.basename(f) }
 
+  if ruby_version < Gem::Version.new('3.0.0')
+    spec.add_dependency 'ffi', '1.16.3'
+  end
+
   spec.add_dependency 'cucumber', '~> 7.1'
   spec.add_dependency 'os', '~> 1.0.0'
   spec.add_dependency 'test-unit', '~> 3.5.2'

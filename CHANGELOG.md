@@ -5,6 +5,10 @@
 - Add tool to find failed BitBar sessions and save them to a CSV file [665](https://github.com/bugsnag/maze-runner/pull/665)
 - Add regex-based variants of steps for checking platform-dependent values [665](https://github.com/bugsnag/maze-runner/pull/667)
 
+## Fixes
+
+- Add better appium driver exits on server error [666](https://github.com/bugsnag/maze-runner/pull/666)
+
 # 9.11.2 - 2024/07/18
 
 ## Fixes

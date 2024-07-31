@@ -20,7 +20,9 @@ steps:
     timeout_in_minutes: 30
     key: android-test-fixture
     agents:
-      queue: 'macos-12-arm'
+      queue: 'macos-14'
+    env:
+      JAVA_VERSION: "17"
     command:
       - cd bugsnag-android-performance
       - make test-fixture
@@ -32,14 +34,14 @@ steps:
     timeout_in_minutes: 30
     key: ios-test-fixture
     agents:
-      queue: 'macos-12-arm'
+      queue: 'macos-14'
     command:
       - cd bugsnag-cocoa
       - bundle install
       - make test-fixtures
     plugins:
       artifacts#v1.9.0:
-        upload: "bugsnag-cocoa/features/fixtures/ios/output/iOSTestApp.ipa"
+        upload: "bugsnag-cocoa/features/fixtures/ios/output/iOSTestApp_Release.ipa"
 
   - label: ':docker: Build CI image for Ruby 2'
     timeout_in_minutes: 30
@@ -240,7 +242,7 @@ steps:
       - "push-branch-cli"
     plugins:
       artifacts#v1.9.0:
-        download: "bugsnag-cocoa/features/fixtures/ios/output/iOSTestApp.ipa"
+        download: "bugsnag-cocoa/features/fixtures/ios/output/iOSTestApp_Release.ipa"
         upload: "bugsnag-cocoa/maze_output/**/*"
       docker-compose#v4.14.0:
         pull: appium-test-bs
@@ -250,7 +252,7 @@ steps:
           - "./bugsnag-cocoa/features:/app/features"
           - "./bugsnag-cocoa/maze_output:/app/maze_output"
         command:
-          - "--app=features/fixtures/ios/output/iOSTestApp.ipa"
+          - "--app=features/fixtures/ios/output/iOSTestApp_Release.ipa"
           - "--farm=bs"
           - "--device=IOS_15"
           - "--fail-fast"

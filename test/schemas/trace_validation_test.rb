@@ -279,6 +279,7 @@ class TraceValidationTest < Test::Unit::TestCase
   end
 
   def test_validate_timestamp_success_exact
+    Maze.config.span_timestamp_validation = true
     validator = Maze::Schemas::TraceValidator.new(create_basic_request({
       'timestamp' => '12345000000000'
     }))
@@ -289,6 +290,7 @@ class TraceValidationTest < Test::Unit::TestCase
   end
 
   def test_validate_timestamp_success_within_tolerance
+    Maze.config.span_timestamp_validation = true
     validator = Maze::Schemas::TraceValidator.new(create_basic_request({
       'timestamp' => "#{30 * 60 * 1000 * 1000 * 1000}"
     }))
@@ -299,6 +301,7 @@ class TraceValidationTest < Test::Unit::TestCase
   end
 
   def test_validate_timestamp_failure_invalid_type
+    Maze.config.span_timestamp_validation = true
     validator = Maze::Schemas::TraceValidator.new(create_basic_request({
       'timestamp' => 12345
     }))
@@ -309,6 +312,7 @@ class TraceValidationTest < Test::Unit::TestCase
   end
 
   def test_validate_timestamp_failure_negative
+    Maze.config.span_timestamp_validation = true
     validator = Maze::Schemas::TraceValidator.new(create_basic_request({
       'timestamp' => '-1'
     }))
@@ -319,6 +323,7 @@ class TraceValidationTest < Test::Unit::TestCase
   end
 
   def test_validate_timestamp_failure_outside_tolerance
+    Maze.config.span_timestamp_validation = true
     validator = Maze::Schemas::TraceValidator.new(create_basic_request({
       'timestamp' => '12345000000000'
     }))

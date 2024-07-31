@@ -119,6 +119,8 @@ Before do |scenario|
 
   # Invoke the logger hook for the scenario
   Maze::Hooks::LoggerHooks.before scenario
+
+  Maze.config.span_timestamp_validation = true
 end
 
 # General processing to be run after each scenario

@@ -256,7 +256,7 @@ steps:
           - "--farm=bs"
           - "--device=IOS_15"
           - "--fail-fast"
-          - "features/barebone_tests.feature"
+          - "features/release/barebone_tests.feature"
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
         cache-from:
           - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
@@ -347,7 +347,7 @@ steps:
         command:
           - "--app=build/test-fixture.apk"
           - "--farm=bb"
-          - "--device=ANDROID_10|ANDROID_11|ANDROID_12|ANDROID_13"
+          - "--device=ANDROID_12|ANDROID_13"
           - "--fail-fast"
           - "--no-tunnel"
           - "--aws-public-ip"

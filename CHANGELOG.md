@@ -1,3 +1,10 @@
+
+# # 8.20.3 - 2024/07/31
+
+## Removals
+
+- Remove use of deprecated BrowserStack device iPhone 11 Pro [668](https://github.com/bugsnag/maze-runner/pull/668)
+
 # # 8.20.2 - 2024/04/03
 
 ## Removals

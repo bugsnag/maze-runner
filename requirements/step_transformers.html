@@ -67,7 +67,7 @@
   <div class="title">Step Definitions &amp; Transforms</div>
 
   <div class="summary">
-    <div>268<a href="#step_definitions">Step Definitions</a></div>
+    <div>272<a href="#step_definitions">Step Definitions</a></div>
     <div>3<a href="#step_transforms">Step Transforms</a></div>
     <div>0<a href="#undefined_steps">Undefined Steps</a></div>
   </div>
@@ -17874,864 +17874,6 @@ Requires a running Appium driver</p>
                         ">
   <a name="step_definition193-stepdefinition"></a>
   <div class="title">
-    <span class="pre">Then</span>
-    <span class="name">'the {request_type} payload field {string} equals the platform-dependent string:'</span>
-    <div style="float: right;">
-      <a href="http://rubular.com/?regex='the+%7Brequest_type%7D+payload+field+%7Bstring%7D+equals+the+platform-dependent+string:'" target="_blank">Rubular</a>
-      
-      | UNUSED
-      <a class="stepdef" href="#">[Collapse]</a>
-    </div>
-    <div style="clear: both;"></div>
-  </div>
-
-  <div class="details">
-    
-    <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/app_automator_steps.rb:82</div>
-    </div>
-    
-    <!-- Comments -->
-    <div>
-      <div class="docstring">
-  <div class="discussion">
-    <p>Tests that the given payload value is correct for the target BrowserStack platform.
-This step will assume the expected and payload values are strings.
-If the step is invoked when a remote BrowserStack device is not in use this step will fail.</p>
-
-<p>The DataTable used for this step should have <code>ios</code> and <code>android</code> in the same row as their expected value:
-  | android | Java.lang.RuntimeException |
-  | ios     | NSException                |</p>
-
-<p>If the expected value is set to &quot;@skip&quot;, the check should be skipped
-If the expected value is set to &quot;@null&quot;, the check will be for null
-If the expected value is set to &quot;@not_null&quot;, the check will be for a non-null value</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Step parameters:</p>
-<ul class="step_input">
-  
-    <li>
-      
-      
-      
-      
-        
-        <div class='inline'><p>request_type [String] The type of request (error, session, build, etc)</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-      
-      
-      
-        
-        <div class='inline'><p>field_path [String] The field to test</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-      
-      
-      
-        
-        <div class='inline'><p>platform_values [DataTable] A table of acceptable values for each platform</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div>
-    </div>
-    
-
-    <!-- Source Code -->
-    <div class="method_details_list">
-      <table class="source_code">
-        <tr>
-          <td>
-            <pre class="lines">82
-83
-84</pre>
-          </td>
-          <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {request_type} payload field {string} equals the platform-dependent string:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='op'>|</span>
-  <span class='id identifier rubyid_test_string_platform_values'><span class='object_link'><a href="../top-level-namespace.html#test_string_platform_values-instance_method" title="#test_string_platform_values (method)">test_string_platform_values</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-          </td>
-        </tr>
-      </table>
-    </div>
-
-    <!-- Matching Step Instances -->
-    
-    <div class="steps">
-      
-      <div class="undefined">No steps were found to match this step definition.</div>
-      
-    </div>
-    
-  </div>
-
-  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
-
-</div>
-
-
-
-<div class="transformer stepdefinition
-                        nodefinitions
-                        ">
-  <a name="step_definition194-stepdefinition"></a>
-  <div class="title">
-    <span class="pre">Then</span>
-    <span class="name">'the event {string} equals the platform-dependent string:'</span>
-    <div style="float: right;">
-      <a href="http://rubular.com/?regex='the+event+%7Bstring%7D+equals+the+platform-dependent+string:'" target="_blank">Rubular</a>
-      
-      | UNUSED
-      <a class="stepdef" href="#">[Collapse]</a>
-    </div>
-    <div style="clear: both;"></div>
-  </div>
-
-  <div class="details">
-    
-    <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/app_automator_steps.rb:90</div>
-    </div>
-    
-    <!-- Comments -->
-    <div>
-      <div class="docstring">
-  <div class="discussion">
-    <p>See <code>the error payload field {string} equals the platform-dependent string:</code></p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Step parameters:</p>
-<ul class="step_input">
-  
-    <li>
-      
-      
-      
-      
-        
-        <div class='inline'><p>field_path [String] The field to test, prepended with &quot;events.0&quot;</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-      
-      
-      
-        
-        <div class='inline'><p>platform_values [DataTable] A table of acceptable values for each platform</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div>
-    </div>
-    
-
-    <!-- Source Code -->
-    <div class="method_details_list">
-      <table class="source_code">
-        <tr>
-          <td>
-            <pre class="lines">90
-91
-92</pre>
-          </td>
-          <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the event {string} equals the platform-dependent string:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='op'>|</span>
-  <span class='id identifier rubyid_test_string_platform_values'><span class='object_link'><a href="../top-level-namespace.html#test_string_platform_values-instance_method" title="#test_string_platform_values (method)">test_string_platform_values</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>error</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>events.0.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_field_path'>field_path</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-          </td>
-        </tr>
-      </table>
-    </div>
-
-    <!-- Matching Step Instances -->
-    
-    <div class="steps">
-      
-      <div class="undefined">No steps were found to match this step definition.</div>
-      
-    </div>
-    
-  </div>
-
-  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
-
-</div>
-
-
-
-<div class="transformer stepdefinition
-                        nodefinitions
-                        ">
-  <a name="step_definition195-stepdefinition"></a>
-  <div class="title">
-    <span class="pre">Then</span>
-    <span class="name">'the {request_type} payload field {string} equals the platform-dependent numeric:'</span>
-    <div style="float: right;">
-      <a href="http://rubular.com/?regex='the+%7Brequest_type%7D+payload+field+%7Bstring%7D+equals+the+platform-dependent+numeric:'" target="_blank">Rubular</a>
-      
-      | UNUSED
-      <a class="stepdef" href="#">[Collapse]</a>
-    </div>
-    <div style="clear: both;"></div>
-  </div>
-
-  <div class="details">
-    
-    <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/app_automator_steps.rb:109</div>
-    </div>
-    
-    <!-- Comments -->
-    <div>
-      <div class="docstring">
-  <div class="discussion">
-    <p>Tests that the given payload value is correct for the target BrowserStack platform.
-This step will assume the expected and payload values are numeric.
-If the step is invoked when a remote BrowserStack device is not in use this step will fail.</p>
-
-<p>The DataTable used for this step should have <code>ios</code> and <code>android</code> in the same row as their expected value:
-  | android | 1  |
-  | ios     | 5.5 |</p>
-
-<p>If the expected value is set to &quot;@skip&quot;, the check should be skipped
-If the expected value is set to &quot;@null&quot;, the check will be for null
-If the expected value is set to &quot;@not_null&quot;, the check will be for a non-null value</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Step parameters:</p>
-<ul class="step_input">
-  
-    <li>
-      
-      
-      
-      
-        
-        <div class='inline'><p>request_type [String] The type of request (error, session, build, etc)</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-      
-      
-      
-        
-        <div class='inline'><p>field_path [String] The field to test</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-      
-      
-      
-        
-        <div class='inline'><p>platform_values [DataTable] A table of acceptable values for each platform</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div>
-    </div>
-    
-
-    <!-- Source Code -->
-    <div class="method_details_list">
-      <table class="source_code">
-        <tr>
-          <td>
-            <pre class="lines">109
-110
-111</pre>
-          </td>
-          <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {request_type} payload field {string} equals the platform-dependent numeric:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='op'>|</span>
-  <span class='id identifier rubyid_test_numeric_platform_values'><span class='object_link'><a href="../top-level-namespace.html#test_numeric_platform_values-instance_method" title="#test_numeric_platform_values (method)">test_numeric_platform_values</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-          </td>
-        </tr>
-      </table>
-    </div>
-
-    <!-- Matching Step Instances -->
-    
-    <div class="steps">
-      
-      <div class="undefined">No steps were found to match this step definition.</div>
-      
-    </div>
-    
-  </div>
-
-  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
-
-</div>
-
-
-
-<div class="transformer stepdefinition
-                        nodefinitions
-                        ">
-  <a name="step_definition196-stepdefinition"></a>
-  <div class="title">
-    <span class="pre">Then</span>
-    <span class="name">'the event {string} equals the platform-dependent numeric:'</span>
-    <div style="float: right;">
-      <a href="http://rubular.com/?regex='the+event+%7Bstring%7D+equals+the+platform-dependent+numeric:'" target="_blank">Rubular</a>
-      
-      | UNUSED
-      <a class="stepdef" href="#">[Collapse]</a>
-    </div>
-    <div style="clear: both;"></div>
-  </div>
-
-  <div class="details">
-    
-    <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/app_automator_steps.rb:117</div>
-    </div>
-    
-    <!-- Comments -->
-    <div>
-      <div class="docstring">
-  <div class="discussion">
-    <p>See <code>the payload field {string} equals the platform-dependent numeric:</code></p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Step parameters:</p>
-<ul class="step_input">
-  
-    <li>
-      
-      
-      
-      
-        
-        <div class='inline'><p>field_path [String] The field to test, prepended with &quot;events.0&quot;</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-      
-      
-      
-        
-        <div class='inline'><p>platform_values [DataTable] A table of acceptable values for each platform</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div>
-    </div>
-    
-
-    <!-- Source Code -->
-    <div class="method_details_list">
-      <table class="source_code">
-        <tr>
-          <td>
-            <pre class="lines">117
-118
-119</pre>
-          </td>
-          <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the event {string} equals the platform-dependent numeric:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='op'>|</span>
-  <span class='id identifier rubyid_test_numeric_platform_values'><span class='object_link'><a href="../top-level-namespace.html#test_numeric_platform_values-instance_method" title="#test_numeric_platform_values (method)">test_numeric_platform_values</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>error</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>events.0.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_field_path'>field_path</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-          </td>
-        </tr>
-      </table>
-    </div>
-
-    <!-- Matching Step Instances -->
-    
-    <div class="steps">
-      
-      <div class="undefined">No steps were found to match this step definition.</div>
-      
-    </div>
-    
-  </div>
-
-  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
-
-</div>
-
-
-
-<div class="transformer stepdefinition
-                        nodefinitions
-                        ">
-  <a name="step_definition197-stepdefinition"></a>
-  <div class="title">
-    <span class="pre">Then</span>
-    <span class="name">'the {request_type} payload field {string} equals the platform-dependent boolean:'</span>
-    <div style="float: right;">
-      <a href="http://rubular.com/?regex='the+%7Brequest_type%7D+payload+field+%7Bstring%7D+equals+the+platform-dependent+boolean:'" target="_blank">Rubular</a>
-      
-      | UNUSED
-      <a class="stepdef" href="#">[Collapse]</a>
-    </div>
-    <div style="clear: both;"></div>
-  </div>
-
-  <div class="details">
-    
-    <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/app_automator_steps.rb:136</div>
-    </div>
-    
-    <!-- Comments -->
-    <div>
-      <div class="docstring">
-  <div class="discussion">
-    <p>Tests that the given payload value is correct for the target BrowserStack platform.
-This step will assume the expected and payload values are booleans.
-If the step is invoked when a remote BrowserStack device is not in use this step will fail.</p>
-
-<p>The DataTable used for this step should have <code>ios</code> and <code>android</code> in the same row as their expected value:
-  | android | 1 |
-  | ios     | 5 |</p>
-
-<p>If the expected value is set to &quot;@skip&quot;, the check should be skipped
-If the expected value is set to &quot;@null&quot;, the check will be for null
-If the expected value is set to &quot;@not_null&quot;, the check will be for a non-null value</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Step parameters:</p>
-<ul class="step_input">
-  
-    <li>
-      
-      
-      
-      
-        
-        <div class='inline'><p>request_type [String] The type of request (error, session, build, etc)</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-      
-      
-      
-        
-        <div class='inline'><p>field_path [String] The field to test</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-      
-      
-      
-        
-        <div class='inline'><p>platform_values [DataTable] A table of acceptable values for each platform</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div>
-    </div>
-    
-
-    <!-- Source Code -->
-    <div class="method_details_list">
-      <table class="source_code">
-        <tr>
-          <td>
-            <pre class="lines">136
-137
-138</pre>
-          </td>
-          <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {request_type} payload field {string} equals the platform-dependent boolean:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='op'>|</span>
-  <span class='id identifier rubyid_test_boolean_platform_values'><span class='object_link'><a href="../top-level-namespace.html#test_boolean_platform_values-instance_method" title="#test_boolean_platform_values (method)">test_boolean_platform_values</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-          </td>
-        </tr>
-      </table>
-    </div>
-
-    <!-- Matching Step Instances -->
-    
-    <div class="steps">
-      
-      <div class="undefined">No steps were found to match this step definition.</div>
-      
-    </div>
-    
-  </div>
-
-  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
-
-</div>
-
-
-
-<div class="transformer stepdefinition
-                        nodefinitions
-                        ">
-  <a name="step_definition198-stepdefinition"></a>
-  <div class="title">
-    <span class="pre">Then</span>
-    <span class="name">'the event {string} equals the platform-dependent boolean:'</span>
-    <div style="float: right;">
-      <a href="http://rubular.com/?regex='the+event+%7Bstring%7D+equals+the+platform-dependent+boolean:'" target="_blank">Rubular</a>
-      
-      | UNUSED
-      <a class="stepdef" href="#">[Collapse]</a>
-    </div>
-    <div style="clear: both;"></div>
-  </div>
-
-  <div class="details">
-    
-    <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/app_automator_steps.rb:144</div>
-    </div>
-    
-    <!-- Comments -->
-    <div>
-      <div class="docstring">
-  <div class="discussion">
-    <p>See <code>the payload field {string} equals the platform-dependent boolean:</code></p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Step parameters:</p>
-<ul class="step_input">
-  
-    <li>
-      
-      
-      
-      
-        
-        <div class='inline'><p>field_path [String] The field to test, prepended with &quot;events.0&quot;</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-      
-      
-      
-        
-        <div class='inline'><p>platform_values [DataTable] A table of acceptable values for each platform</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div>
-    </div>
-    
-
-    <!-- Source Code -->
-    <div class="method_details_list">
-      <table class="source_code">
-        <tr>
-          <td>
-            <pre class="lines">144
-145
-146</pre>
-          </td>
-          <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the event {string} equals the platform-dependent boolean:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='op'>|</span>
-  <span class='id identifier rubyid_test_boolean_platform_values'><span class='object_link'><a href="../top-level-namespace.html#test_boolean_platform_values-instance_method" title="#test_boolean_platform_values (method)">test_boolean_platform_values</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>error</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>events.0.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_field_path'>field_path</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-          </td>
-        </tr>
-      </table>
-    </div>
-
-    <!-- Matching Step Instances -->
-    
-    <div class="steps">
-      
-      <div class="undefined">No steps were found to match this step definition.</div>
-      
-    </div>
-    
-  </div>
-
-  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
-
-</div>
-
-
-
-<div class="transformer stepdefinition
-                        nodefinitions
-                        ">
-  <a name="step_definition199-stepdefinition"></a>
-  <div class="title">
-    <span class="pre">Then</span>
-    <span class="name">'the exception {string} equals the platform-dependent string:'</span>
-    <div style="float: right;">
-      <a href="http://rubular.com/?regex='the+exception+%7Bstring%7D+equals+the+platform-dependent+string:'" target="_blank">Rubular</a>
-      
-      | UNUSED
-      <a class="stepdef" href="#">[Collapse]</a>
-    </div>
-    <div style="clear: both;"></div>
-  </div>
-
-  <div class="details">
-    
-    <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/app_automator_steps.rb:152</div>
-    </div>
-    
-    <!-- Comments -->
-    <div>
-      <div class="docstring">
-  <div class="discussion">
-    <p>See <code>the payload field {string} equals the platform-dependent string:</code></p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Step parameters:</p>
-<ul class="step_input">
-  
-    <li>
-      
-      
-      
-      
-        
-        <div class='inline'><p>field_path [String] The field to test, prepended with &quot;events.0.exceptions.0.&quot;</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-      
-      
-      
-        
-        <div class='inline'><p>platform_values [DataTable] A table of acceptable values for each platform</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div>
-    </div>
-    
-
-    <!-- Source Code -->
-    <div class="method_details_list">
-      <table class="source_code">
-        <tr>
-          <td>
-            <pre class="lines">152
-153
-154</pre>
-          </td>
-          <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the exception {string} equals the platform-dependent string:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='op'>|</span>
-  <span class='id identifier rubyid_test_string_platform_values'><span class='object_link'><a href="../top-level-namespace.html#test_string_platform_values-instance_method" title="#test_string_platform_values (method)">test_string_platform_values</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>error</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>events.0.exceptions.0.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_field_path'>field_path</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-          </td>
-        </tr>
-      </table>
-    </div>
-
-    <!-- Matching Step Instances -->
-    
-    <div class="steps">
-      
-      <div class="undefined">No steps were found to match this step definition.</div>
-      
-    </div>
-    
-  </div>
-
-  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
-
-</div>
-
-
-
-<div class="transformer stepdefinition
-                        nodefinitions
-                        ">
-  <a name="step_definition200-stepdefinition"></a>
-  <div class="title">
-    <span class="pre">Then</span>
-    <span class="name">'the {string} of stack frame {int} equals the platform-dependent string:'</span>
-    <div style="float: right;">
-      <a href="http://rubular.com/?regex='the+%7Bstring%7D+of+stack+frame+%7Bint%7D+equals+the+platform-dependent+string:'" target="_blank">Rubular</a>
-      
-      | UNUSED
-      <a class="stepdef" href="#">[Collapse]</a>
-    </div>
-    <div style="clear: both;"></div>
-  </div>
-
-  <div class="details">
-    
-    <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/app_automator_steps.rb:161</div>
-    </div>
-    
-    <!-- Comments -->
-    <div>
-      <div class="docstring">
-  <div class="discussion">
-    <p>See <code>the payload field {string} equals the platform-dependent string:</code></p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Step parameters:</p>
-<ul class="step_input">
-  
-    <li>
-      
-      
-      
-      
-        
-        <div class='inline'><p>field_path [String] The field to test, prepended with &quot;events.0.exceptions.0.stacktrace.#{num}&quot;</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-      
-      
-      
-        
-        <div class='inline'><p>num [Integer] The index of the stack frame to test</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-      
-      
-      
-        
-        <div class='inline'><p>platform_values [DataTable] A table of acceptable values for each platform</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div>
-    </div>
-    
-
-    <!-- Source Code -->
-    <div class="method_details_list">
-      <table class="source_code">
-        <tr>
-          <td>
-            <pre class="lines">161
-162
-163</pre>
-          </td>
-          <td>
-            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {string} of stack frame {int} equals the platform-dependent string:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_num'>num</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='op'>|</span>
-  <span class='id identifier rubyid_test_string_platform_values'><span class='object_link'><a href="../top-level-namespace.html#test_string_platform_values-instance_method" title="#test_string_platform_values (method)">test_string_platform_values</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>error</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>events.0.exceptions.0.stacktrace.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_num'>num</span><span class='embexpr_end'>}</span><span class='tstring_content'>.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_field_path'>field_path</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-          </td>
-        </tr>
-      </table>
-    </div>
-
-    <!-- Matching Step Instances -->
-    
-    <div class="steps">
-      
-      <div class="undefined">No steps were found to match this step definition.</div>
-      
-    </div>
-    
-  </div>
-
-  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
-
-</div>
-
-
-
-<div class="transformer stepdefinition
-                        nodefinitions
-                        ">
-  <a name="step_definition201-stepdefinition"></a>
-  <div class="title">
     <span class="pre">When</span>
     <span class="name">'I clear and send the keys {string} to the element {string}'</span>
     <div style="float: right;">
@@ -18746,7 +17888,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/app_automator_steps.rb:170</div>
+      <div class="file">lib/features/steps/app_automator_steps.rb:72</div>
     </div>
     
     <!-- Comments -->
@@ -18797,9 +17939,9 @@ Requires a running Appium driver</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">170
-171
-172</pre>
+            <pre class="lines">72
+73
+74</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>When</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I clear and send the keys {string} to the element {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_keys'>keys</span><span class='comma'>,</span> <span class='id identifier rubyid_element_id'>element_id</span><span class='op'>|</span>
@@ -18829,7 +17971,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition202-stepdefinition"></a>
+  <a name="step_definition194-stepdefinition"></a>
   <div class="title">
     <span class="pre">When</span>
     <span class="name">'I start the document server'</span>
@@ -18902,7 +18044,7 @@ Requires a running Appium driver</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition203-stepdefinition"></a>
+  <a name="step_definition195-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the error is valid for the error reporting API version {string} for the {string} notifier'</span>
@@ -19003,7 +18145,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition204-stepdefinition"></a>
+  <a name="step_definition196-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the error is valid for the error reporting API version {string}' \
@@ -19152,7 +18294,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition205-stepdefinition"></a>
+  <a name="step_definition197-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'event {int} is unhandled'</span>
@@ -19228,7 +18370,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition206-stepdefinition"></a>
+  <a name="step_definition198-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'event {int} is unhandled with the severity {string}'</span>
@@ -19304,7 +18446,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition207-stepdefinition"></a>
+  <a name="step_definition199-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'event {int} is handled'</span>
@@ -19380,7 +18522,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition208-stepdefinition"></a>
+  <a name="step_definition200-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'event {int} is handled with the severity {string}'</span>
@@ -19456,7 +18598,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition209-stepdefinition"></a>
+  <a name="step_definition201-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the error payload contains the payloadVersion {string}'</span>
@@ -19561,7 +18703,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition210-stepdefinition"></a>
+  <a name="step_definition202-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">/^the event "(.+)" is (true|false|null|not null)$/</span>
@@ -19659,7 +18801,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition211-stepdefinition"></a>
+  <a name="step_definition203-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} equals {string}'</span>
@@ -19757,7 +18899,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition212-stepdefinition"></a>
+  <a name="step_definition204-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} equals {float}'</span>
@@ -19855,7 +18997,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition213-stepdefinition"></a>
+  <a name="step_definition205-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} equals {float} to {int} decimal place(s)'</span>
@@ -19953,7 +19095,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition214-stepdefinition"></a>
+  <a name="step_definition206-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} equals {int}'</span>
@@ -20051,7 +19193,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition215-stepdefinition"></a>
+  <a name="step_definition207-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} starts with {string}'</span>
@@ -20149,7 +19291,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition216-stepdefinition"></a>
+  <a name="step_definition208-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} ends with {string}'</span>
@@ -20247,7 +19389,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition217-stepdefinition"></a>
+  <a name="step_definition209-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} matches {string}'</span>
@@ -20345,7 +19487,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition218-stepdefinition"></a>
+  <a name="step_definition210-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} is a timestamp'</span>
@@ -20432,7 +19574,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition219-stepdefinition"></a>
+  <a name="step_definition211-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} is a parsable timestamp in seconds'</span>
@@ -20519,7 +19661,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition220-stepdefinition"></a>
+  <a name="step_definition212-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} equals the environment variable {string}'</span>
@@ -20617,7 +19759,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition221-stepdefinition"></a>
+  <a name="step_definition213-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} matches the JSON fixture in {string}'</span>
@@ -20715,7 +19857,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition222-stepdefinition"></a>
+  <a name="step_definition214-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} string is empty'</span>
@@ -20779,7 +19921,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition223-stepdefinition"></a>
+  <a name="step_definition215-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} is greater than {int}'</span>
@@ -20845,7 +19987,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition224-stepdefinition"></a>
+  <a name="step_definition216-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the exception {string} starts with {string}'</span>
@@ -20943,7 +20085,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition225-stepdefinition"></a>
+  <a name="step_definition217-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the exception {string} ends with {string}'</span>
@@ -21041,7 +20183,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition226-stepdefinition"></a>
+  <a name="step_definition218-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the exception {string} equals {string}'</span>
@@ -21139,7 +20281,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition227-stepdefinition"></a>
+  <a name="step_definition219-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the exception {string} matches {string}'</span>
@@ -21237,7 +20379,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition228-stepdefinition"></a>
+  <a name="step_definition220-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} of stack frame {int} equals {int}'</span>
@@ -21348,7 +20490,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition229-stepdefinition"></a>
+  <a name="step_definition221-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} of stack frame {int} matches {string}'</span>
@@ -21459,7 +20601,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition230-stepdefinition"></a>
+  <a name="step_definition222-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} of stack frame {int} equals {string}'</span>
@@ -21570,7 +20712,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition231-stepdefinition"></a>
+  <a name="step_definition223-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} of stack frame {int} starts with {string}'</span>
@@ -21681,7 +20823,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition232-stepdefinition"></a>
+  <a name="step_definition224-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} of stack frame {int} ends with {string}'</span>
@@ -21792,7 +20934,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition233-stepdefinition"></a>
+  <a name="step_definition225-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">/^the "(.*)" of stack frame (\d*) is (true|false|null|not null)$/</span>
@@ -21903,7 +21045,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition234-stepdefinition"></a>
+  <a name="step_definition226-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the thread with name {string} contains the error reporting flag'</span>
@@ -21990,7 +21132,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition235-stepdefinition"></a>
+  <a name="step_definition227-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the thread with id {string} contains the error reporting flag'</span>
@@ -22077,7 +21219,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition236-stepdefinition"></a>
+  <a name="step_definition228-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} {string} query parameter equals {string}'</span>
@@ -22188,7 +21330,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition237-stepdefinition"></a>
+  <a name="step_definition229-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} {string} query parameter is not null'</span>
@@ -22288,7 +21430,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition238-stepdefinition"></a>
+  <a name="step_definition230-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} {string} query parameter is a timestamp'</span>
@@ -22388,7 +21530,7 @@ This checks various elements of the payload matching an unhandled error includin
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition239-stepdefinition"></a>
+  <a name="step_definition231-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the session is valid for the session reporting API version {string} for the {string} notifier'</span>
@@ -22513,7 +21655,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition240-stepdefinition"></a>
+  <a name="step_definition232-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the session is valid for the session reporting API version {string} for the React Native notifier'</span>
@@ -22639,7 +21781,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition241-stepdefinition"></a>
+  <a name="step_definition233-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">/^the session "(.+)" is (true|false|null|not null)$/</span>
@@ -22737,7 +21879,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition242-stepdefinition"></a>
+  <a name="step_definition234-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the session {string} equals {string}'</span>
@@ -22835,7 +21977,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition243-stepdefinition"></a>
+  <a name="step_definition235-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the session {string} is a timestamp'</span>
@@ -22922,7 +22064,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition244-stepdefinition"></a>
+  <a name="step_definition236-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">/^the sessionCount "(.+)" is (true|false|null|not null)$/</span>
@@ -23020,7 +22162,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition245-stepdefinition"></a>
+  <a name="step_definition237-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the sessionCount {string} equals {string}'</span>
@@ -23118,7 +22260,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition246-stepdefinition"></a>
+  <a name="step_definition238-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the sessionCount {string} equals {int}'</span>
@@ -23216,7 +22358,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition247-stepdefinition"></a>
+  <a name="step_definition239-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the sessionCount {string} is a timestamp'</span>
@@ -23303,7 +22445,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition248-stepdefinition"></a>
+  <a name="step_definition240-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the session payload has a valid sessions array'</span>
@@ -23395,7 +22537,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition249-stepdefinition"></a>
+  <a name="step_definition241-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} request is valid multipart form-data'</span>
@@ -23484,7 +22626,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition250-stepdefinition"></a>
+  <a name="step_definition242-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'all {request_type} requests are valid multipart form-data'</span>
@@ -23573,7 +22715,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition251-stepdefinition"></a>
+  <a name="step_definition243-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} multipart request has {int} fields'</span>
@@ -23675,7 +22817,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition252-stepdefinition"></a>
+  <a name="step_definition244-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} multipart request has a non-empty body'</span>
@@ -23766,7 +22908,7 @@ APIKey fields and headers are tested against the &#39;$api_key&#39; global varia
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition253-stepdefinition"></a>
+  <a name="step_definition245-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} multipart body does not match the JSON file in {string}'</span>
@@ -23877,7 +23019,7 @@ JSON formatted multipart fields will be parsed into hashes.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition254-stepdefinition"></a>
+  <a name="step_definition246-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} multipart body matches the JSON file in {string}'</span>
@@ -23988,7 +23130,7 @@ JSON formatted multipart fields will be parsed into hashes.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition255-stepdefinition"></a>
+  <a name="step_definition247-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} multipart field {string} matches the JSON file in {string}'</span>
@@ -24108,7 +23250,7 @@ The field will be parsed into a hash.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition256-stepdefinition"></a>
+  <a name="step_definition248-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the field {string} for multipart {request_type} is not null'</span>
@@ -24208,7 +23350,7 @@ The field will be parsed into a hash.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition257-stepdefinition"></a>
+  <a name="step_definition249-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the field {string} for multipart {request_type} is null'</span>
@@ -24308,7 +23450,7 @@ The field will be parsed into a hash.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition258-stepdefinition"></a>
+  <a name="step_definition250-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the field {string} for multipart {request_type} equals {string}'</span>
@@ -24419,7 +23561,7 @@ The field will be parsed into a hash.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition259-stepdefinition"></a>
+  <a name="step_definition251-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I wait to receive a(n) {request_type}'</span>
@@ -24508,7 +23650,7 @@ The field will be parsed into a hash.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition260-stepdefinition"></a>
+  <a name="step_definition252-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I wait to receive {int} {request_type}'</span>
@@ -24613,7 +23755,7 @@ will be sorted by the header.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition261-stepdefinition"></a>
+  <a name="step_definition253-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I wait to receive at least {int} {request_type}'</span>
@@ -24716,7 +23858,7 @@ timing out according to @see Maze.config.receive_requests_wait.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition262-stepdefinition"></a>
+  <a name="step_definition254-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I sort the {request_type} by the payload field {string}'</span>
@@ -24816,7 +23958,7 @@ timing out according to @see Maze.config.receive_requests_wait.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition263-stepdefinition"></a>
+  <a name="step_definition255-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I have received at least {int} {request_type}'</span>
@@ -24917,7 +24059,7 @@ This step is only intended for use in stress tests</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition264-stepdefinition"></a>
+  <a name="step_definition256-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I wait to receive between {int} and {int} {request_type}'</span>
@@ -25028,7 +24170,7 @@ This step is only intended for use in stress tests</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition265-stepdefinition"></a>
+  <a name="step_definition257-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I should receive no {request_type}'</span>
@@ -25119,7 +24261,7 @@ This step is only intended for use in stress tests</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition266-stepdefinition"></a>
+  <a name="step_definition258-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'I discard the oldest {request_type}'</span>
@@ -25210,7 +24352,7 @@ This step is only intended for use in stress tests</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition267-stepdefinition"></a>
+  <a name="step_definition259-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the received errors match:'</span>
@@ -25302,7 +24444,7 @@ This step is only intended for use in stress tests</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition268-stepdefinition"></a>
+  <a name="step_definition260-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} request method equals {string}'</span>
@@ -25386,6 +24528,1275 @@ Currently only supported with the reflective servlet.</p>
     <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Test</span><span class='op'>::</span><span class='const'>Unit</span><span class='op'>::</span><span class='const'>AssertionFailedError</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_request_type'>request_type</span><span class='embexpr_end'>}</span><span class='tstring_content'> request had no receipt method listed</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
   <span class='const'>Maze</span><span class='period'>.</span><span class='id identifier rubyid_check'>check</span><span class='period'>.</span><span class='id identifier rubyid_equal'>equal</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='id identifier rubyid_payload'>payload</span><span class='lbracket'>[</span><span class='symbol'>:method</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Expected </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_request_type'>request_type</span><span class='embexpr_end'>}</span><span class='tstring_content'> request method to be </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_method'>method</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition261-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the {request_type} payload field {string} equals the platform-dependent string:'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+%7Brequest_type%7D+payload+field+%7Bstring%7D+equals+the+platform-dependent+string:'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/platform_dependent_steps.rb:18</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Tests that the given payload value is correct for the target BrowserStack platform.
+This step will assume the expected and payload values are strings.
+If the step is invoked when a remote BrowserStack device is not in use this step will fail.</p>
+
+<p>The DataTable used for this step should have <code>ios</code> and <code>android</code> in the same row as their expected value:
+  | android | Java.lang.RuntimeException |
+  | ios     | NSException                |</p>
+
+<p>If the expected value is set to &quot;@skip&quot;, the check should be skipped
+If the expected value is set to &quot;@null&quot;, the check will be for null
+If the expected value is set to &quot;@not_null&quot;, the check will be for a non-null value</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>request_type [String] The type of request (error, session, build, etc)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>field_path [String] The field to test</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>platform_values [DataTable] A table of acceptable values for each platform</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">18
+19
+20</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {request_type} payload field {string} equals the platform-dependent string:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='op'>|</span>
+  <span class='id identifier rubyid_test_string_platform_values'><span class='object_link'><a href="../top-level-namespace.html#test_string_platform_values-instance_method" title="#test_string_platform_values (method)">test_string_platform_values</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition262-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the event {string} equals the platform-dependent string:'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+event+%7Bstring%7D+equals+the+platform-dependent+string:'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/platform_dependent_steps.rb:26</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>See <code>the error payload field {string} equals the platform-dependent string:</code></p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>field_path [String] The field to test, prepended with &quot;events.0&quot;</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>platform_values [DataTable] A table of acceptable values for each platform</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">26
+27
+28</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the event {string} equals the platform-dependent string:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='op'>|</span>
+  <span class='id identifier rubyid_test_string_platform_values'><span class='object_link'><a href="../top-level-namespace.html#test_string_platform_values-instance_method" title="#test_string_platform_values (method)">test_string_platform_values</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>error</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>events.0.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_field_path'>field_path</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition263-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the {request_type} payload field {string} equals the platform-dependent numeric:'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+%7Brequest_type%7D+payload+field+%7Bstring%7D+equals+the+platform-dependent+numeric:'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/platform_dependent_steps.rb:45</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Tests that the given payload value is correct for the target BrowserStack platform.
+This step will assume the expected and payload values are numeric.
+If the step is invoked when a remote BrowserStack device is not in use this step will fail.</p>
+
+<p>The DataTable used for this step should have <code>ios</code> and <code>android</code> in the same row as their expected value:
+  | android | 1  |
+  | ios     | 5.5 |</p>
+
+<p>If the expected value is set to &quot;@skip&quot;, the check should be skipped
+If the expected value is set to &quot;@null&quot;, the check will be for null
+If the expected value is set to &quot;@not_null&quot;, the check will be for a non-null value</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>request_type [String] The type of request (error, session, build, etc)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>field_path [String] The field to test</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>platform_values [DataTable] A table of acceptable values for each platform</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">45
+46
+47</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {request_type} payload field {string} equals the platform-dependent numeric:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='op'>|</span>
+  <span class='id identifier rubyid_test_numeric_platform_values'><span class='object_link'><a href="../top-level-namespace.html#test_numeric_platform_values-instance_method" title="#test_numeric_platform_values (method)">test_numeric_platform_values</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition264-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the event {string} equals the platform-dependent numeric:'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+event+%7Bstring%7D+equals+the+platform-dependent+numeric:'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/platform_dependent_steps.rb:53</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>See <code>the payload field {string} equals the platform-dependent numeric:</code></p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>field_path [String] The field to test, prepended with &quot;events.0&quot;</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>platform_values [DataTable] A table of acceptable values for each platform</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">53
+54
+55</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the event {string} equals the platform-dependent numeric:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='op'>|</span>
+  <span class='id identifier rubyid_test_numeric_platform_values'><span class='object_link'><a href="../top-level-namespace.html#test_numeric_platform_values-instance_method" title="#test_numeric_platform_values (method)">test_numeric_platform_values</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>error</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>events.0.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_field_path'>field_path</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition265-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the {request_type} payload field {string} equals the platform-dependent boolean:'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+%7Brequest_type%7D+payload+field+%7Bstring%7D+equals+the+platform-dependent+boolean:'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/platform_dependent_steps.rb:72</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Tests that the given payload value is correct for the target BrowserStack platform.
+This step will assume the expected and payload values are booleans.
+If the step is invoked when a remote BrowserStack device is not in use this step will fail.</p>
+
+<p>The DataTable used for this step should have <code>ios</code> and <code>android</code> in the same row as their expected value:
+  | android | 1 |
+  | ios     | 5 |</p>
+
+<p>If the expected value is set to &quot;@skip&quot;, the check should be skipped
+If the expected value is set to &quot;@null&quot;, the check will be for null
+If the expected value is set to &quot;@not_null&quot;, the check will be for a non-null value</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>request_type [String] The type of request (error, session, build, etc)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>field_path [String] The field to test</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>platform_values [DataTable] A table of acceptable values for each platform</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">72
+73
+74</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {request_type} payload field {string} equals the platform-dependent boolean:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='op'>|</span>
+  <span class='id identifier rubyid_test_boolean_platform_values'><span class='object_link'><a href="../top-level-namespace.html#test_boolean_platform_values-instance_method" title="#test_boolean_platform_values (method)">test_boolean_platform_values</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition266-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the event {string} equals the platform-dependent boolean:'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+event+%7Bstring%7D+equals+the+platform-dependent+boolean:'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/platform_dependent_steps.rb:80</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>See <code>the payload field {string} equals the platform-dependent boolean:</code></p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>field_path [String] The field to test, prepended with &quot;events.0&quot;</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>platform_values [DataTable] A table of acceptable values for each platform</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">80
+81
+82</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the event {string} equals the platform-dependent boolean:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='op'>|</span>
+  <span class='id identifier rubyid_test_boolean_platform_values'><span class='object_link'><a href="../top-level-namespace.html#test_boolean_platform_values-instance_method" title="#test_boolean_platform_values (method)">test_boolean_platform_values</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>error</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>events.0.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_field_path'>field_path</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition267-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the exception {string} equals the platform-dependent string:'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+exception+%7Bstring%7D+equals+the+platform-dependent+string:'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/platform_dependent_steps.rb:88</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>See <code>the payload field {string} equals the platform-dependent string:</code></p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>field_path [String] The field to test, prepended with &quot;events.0.exceptions.0.&quot;</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>platform_values [DataTable] A table of acceptable values for each platform</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">88
+89
+90</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the exception {string} equals the platform-dependent string:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='op'>|</span>
+  <span class='id identifier rubyid_test_string_platform_values'><span class='object_link'><a href="../top-level-namespace.html#test_string_platform_values-instance_method" title="#test_string_platform_values (method)">test_string_platform_values</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>error</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>events.0.exceptions.0.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_field_path'>field_path</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition268-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the {string} of stack frame {int} equals the platform-dependent string:'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+%7Bstring%7D+of+stack+frame+%7Bint%7D+equals+the+platform-dependent+string:'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/platform_dependent_steps.rb:97</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>See <code>the payload field {string} equals the platform-dependent string:</code></p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>field_path [String] The field to test, prepended with &quot;events.0.exceptions.0.stacktrace.#{num}&quot;</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>num [Integer] The index of the stack frame to test</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>platform_values [DataTable] A table of acceptable values for each platform</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">97
+98
+99</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {string} of stack frame {int} equals the platform-dependent string:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_num'>num</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='op'>|</span>
+  <span class='id identifier rubyid_test_string_platform_values'><span class='object_link'><a href="../top-level-namespace.html#test_string_platform_values-instance_method" title="#test_string_platform_values (method)">test_string_platform_values</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>error</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>events.0.exceptions.0.stacktrace.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_num'>num</span><span class='embexpr_end'>}</span><span class='tstring_content'>.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_field_path'>field_path</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_platform_values'>platform_values</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition269-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the {request_type} payload field {string} matches the platform-dependent regex:'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+%7Brequest_type%7D+payload+field+%7Bstring%7D+matches+the+platform-dependent+regex:'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/platform_dependent_steps.rb:169</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>request_type [String] The type of request (error, session, build, etc)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>field_path [String] The field to test</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>platform_values [DataTable] A table of acceptable regexes for each platform</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">169
+170
+171</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {request_type} payload field {string} matches the platform-dependent regex:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_regexes'>platform_regexes</span><span class='op'>|</span>
+  <span class='id identifier rubyid_match_string_platform_regexes'><span class='object_link'><a href="../top-level-namespace.html#match_string_platform_regexes-instance_method" title="#match_string_platform_regexes (method)">match_string_platform_regexes</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_regexes'>platform_regexes</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition270-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the event {string} matches the platform-dependent regex:'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+event+%7Bstring%7D+matches+the+platform-dependent+regex:'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/platform_dependent_steps.rb:177</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>See <code>the error payload field {string} equals the platform-dependent string:</code></p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>field_path [String] The field to test, prepended with &quot;events.0&quot;</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>platform_values [DataTable] A table of acceptable values for each platform</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">177
+178
+179</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the event {string} matches the platform-dependent regex:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_regexes'>platform_regexes</span><span class='op'>|</span>
+  <span class='id identifier rubyid_match_string_platform_regexes'><span class='object_link'><a href="../top-level-namespace.html#match_string_platform_regexes-instance_method" title="#match_string_platform_regexes (method)">match_string_platform_regexes</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>error</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>events.0.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_field_path'>field_path</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_platform_regexes'>platform_regexes</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition271-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the exception {string} matches the platform-dependent regex:'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+exception+%7Bstring%7D+matches+the+platform-dependent+regex:'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/platform_dependent_steps.rb:183</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>field_path [String] The field to test, prepended with &quot;events.0.exceptions.0.&quot;</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>platform_values [DataTable] A table of acceptable regexes for each platform</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">183
+184
+185</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the exception {string} matches the platform-dependent regex:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_regexes'>platform_regexes</span><span class='op'>|</span>
+  <span class='id identifier rubyid_match_string_platform_regexes'><span class='object_link'><a href="../top-level-namespace.html#match_string_platform_regexes-instance_method" title="#match_string_platform_regexes (method)">match_string_platform_regexes</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>error</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>events.0.exceptions.0.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_field_path'>field_path</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_platform_regexes'>platform_regexes</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition272-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
+    <span class="name">'the {string} of stack frame {int} matches the platform-dependent regex:'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='the+%7Bstring%7D+of+stack+frame+%7Bint%7D+matches+the+platform-dependent+regex:'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/platform_dependent_steps.rb:190</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>field_path [String] The field to test, prepended with &quot;events.0.exceptions.0.stacktrace.#{num}&quot;</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>num [Integer] The index of the stack frame to test</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>platform_values [DataTable] A table of acceptable values for each platform</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">190
+191
+192</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {string} of stack frame {int} matches the platform-dependent regex:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_path'>field_path</span><span class='comma'>,</span> <span class='id identifier rubyid_num'>num</span><span class='comma'>,</span> <span class='id identifier rubyid_platform_regexes'>platform_regexes</span><span class='op'>|</span>
+  <span class='id identifier rubyid_match_string_platform_regexes'><span class='object_link'><a href="../top-level-namespace.html#match_string_platform_regexes-instance_method" title="#match_string_platform_regexes (method)">match_string_platform_regexes</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>error</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>events.0.exceptions.0.stacktrace.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_num'>num</span><span class='embexpr_end'>}</span><span class='tstring_content'>.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_field_path'>field_path</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_platform_regexes'>platform_regexes</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
           </td>
         </tr>
@@ -25643,7 +26054,7 @@ Currently only supported with the reflective servlet.</p>
 </div>
 
       <div id="footer">
-  Generated on Thu Jul 18 16:57:00 2024 by
+  Generated on Wed Jul 31 16:06:28 2024 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.36 (ruby-2.7.8).
 </div>

@@ -81,8 +81,30 @@ module Maze
           $logger.warn "StaleElementReferenceError occurred: #{e}"
           false
         end
+      rescue Selenium::WebDriver::Error::ServerError => e
+        # Assume the remote appium session has stopped, so crash out of the session
+        Maze.driver = nil
+        raise e
       else
         true
+      end
+
+      # A wrapper around launch_app adding extra error handling
+      def launch_app
+        super
+      rescue Selenium::WebDriver::Error::ServerError => e
+        # Assume the remote appium session has stopped, so crash out of the session
+        Maze.driver = nil
+        raise e
+      end
+
+      # A wrapper around close_app adding extra error handling
+      def close_app
+        super
+      rescue Selenium::WebDriver::Error::ServerError => e
+        # Assume the remote appium session has stopped, so crash out of the session
+        Maze.driver = nil
+        raise e
       end
 
       # A wrapper around find_element adding timer functionality
@@ -90,6 +112,10 @@ module Maze
         @find_element_timer.time do
           find_element(@element_locator, element_id)
         end
+      rescue Selenium::WebDriver::Error::ServerError => e
+        # Assume the remote appium session has stopped, so crash out of the session
+        Maze.driver = nil
+        raise e
       end
 
       # Clicks a given element
@@ -100,6 +126,10 @@ module Maze
         @click_element_timer.time do
           element.click
         end
+      rescue Selenium::WebDriver::Error::ServerError => e
+        # Assume the remote appium session has stopped, so crash out of the session
+        Maze.driver = nil
+        raise e
       end
 
       # Clicks a given element, ignoring any NoSuchElementError
@@ -114,6 +144,10 @@ module Maze
         true
       rescue Selenium::WebDriver::Error::NoSuchElementError
         false
+      rescue Selenium::WebDriver::Error::ServerError => e
+        # Assume the remote appium session has stopped, so crash out of the session
+        Maze.driver = nil
+        raise e
       end
 
       # Clears a given element
@@ -124,6 +158,10 @@ module Maze
         @clear_element_timer.time do
           element.clear
         end
+      rescue Selenium::WebDriver::Error::ServerError => e
+        # Assume the remote appium session has stopped, so crash out of the session
+        Maze.driver = nil
+        raise e
       end
 
       # Gets the application hierarchy XML
@@ -145,6 +183,10 @@ module Maze
         @send_keys_timer.time do
           element.send_keys(text)
         end
+      rescue Selenium::WebDriver::Error::ServerError => e
+        # Assume the remote appium session has stopped, so crash out of the session
+        Maze.driver = nil
+        raise e
       end
 
       # Sets the rotation of the device
@@ -178,6 +220,10 @@ module Maze
         @send_keys_timer.time do
           element.send_keys(text)
         end
+      rescue Selenium::WebDriver::Error::ServerError => e
+        # Assume the remote appium session has stopped, so crash out of the session
+        Maze.driver = nil
+        raise e
       end
 
       # Reset the currently running application after a given timeout

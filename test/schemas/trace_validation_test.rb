@@ -278,6 +278,17 @@ class TraceValidationTest < Test::Unit::TestCase
     assert_equal(validator.errors.first, "Element 'smaller':'1' was expected to be greater than or equal to 'larger':'5'")
   end
 
+  def test_not_validate_timestamp
+    Maze.config.span_timestamp_validation = false
+    validator = Maze::Schemas::TraceValidator.new(create_basic_request({
+      'timestamp' => '12345000000000'
+    }))
+    Time.expects(:now).never
+    validator.validate_timestamp('timestamp', Maze::Schemas::HOUR_TOLERANCE)
+    assert_nil(validator.success)
+    assert(validator.errors.empty?)
+  end
+
   def test_validate_timestamp_success_exact
     Maze.config.span_timestamp_validation = true
     validator = Maze::Schemas::TraceValidator.new(create_basic_request({

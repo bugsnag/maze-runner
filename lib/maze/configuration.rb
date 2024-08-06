@@ -12,6 +12,7 @@ module Maze
       self.enforce_bugsnag_integrity = true
       self.captured_invalid_requests = Set[:errors, :sessions, :builds, :uploads, :sourcemaps]
       self.android_app_files_directory = nil
+      self.span_timestamp_validation = true
       @legacy_driver = false
     end
 

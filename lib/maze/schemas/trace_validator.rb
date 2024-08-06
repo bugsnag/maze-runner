@@ -53,6 +53,7 @@ module Maze
       end
 
       def validate_timestamp(path, tolerance)
+        return unless Maze.config.span_timestamp_validation
         timestamp = Maze::Helper.read_key_path(@body, path)
         unless timestamp.kind_of?(String)
           @success = false

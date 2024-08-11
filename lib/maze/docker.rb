@@ -99,7 +99,7 @@ module Maze
       def down_service(service)
         # We set timeout to 0 so this kills the services rather than stopping them
         # as its quicker and they are stateless anyway.
-        run_docker_compose_command("down -t 0 #{service}")
+        run_docker_compose_command("stop -t 0 #{service}")
       end
 
       # Resets any state ready for the next scenario
@@ -115,7 +115,7 @@ module Maze
         # as it is still in use, that is ok to ignore so we pass success codes!
         # We set timeout to 0 so this kills the services rather than stopping them
         # as its quicker and they are stateless anyway.
-        run_docker_compose_command('down -t 0', success_codes: [0, 256]) if compose_stack_exists? && @services_started
+        run_docker_compose_command('stop -t 0', success_codes: [0, 256]) if compose_stack_exists? && @services_started
         @services_started = false
       end
 

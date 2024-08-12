@@ -111,6 +111,9 @@ Before do |scenario|
     $stdout.puts "--- Scenario: #{scenario.name} #{location}"
   end
 
+  # Reset configuration values to their defaults
+  Maze.config.unmanaged_traces_mode = false
+
   # Invoke the internal hook for the mode of operation
   Maze.internal_hooks.before scenario
 

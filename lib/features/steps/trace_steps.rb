@@ -35,6 +35,10 @@ Then('I should have received no spans') do
   Maze.check.equal spans_from_request_list(Maze::Server.list_for('traces')).size, 0
 end
 
+Then('I enter unmanaged traces mode') do
+  Maze.config.unmanaged_traces_mode = true
+end
+
 Then('the trace payload field {string} bool attribute {string} is true') do |field, attribute|
   check_attribute_equal field, attribute, 'boolValue', true
 end

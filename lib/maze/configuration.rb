@@ -13,6 +13,7 @@ module Maze
       self.captured_invalid_requests = Set[:errors, :sessions, :builds, :uploads, :sourcemaps]
       self.android_app_files_directory = nil
       self.span_timestamp_validation = true
+      self.unmanaged_traces_mode = false
       @legacy_driver = false
     end
 
@@ -78,6 +79,9 @@ module Maze
 
     # Whether timestamp validation should be performed on spans
     attr_accessor :span_timestamp_validation
+
+    # Enables unmanaged trace mode.
+    attr_accessor :unmanaged_traces_mode
 
     #
     # General appium configuration

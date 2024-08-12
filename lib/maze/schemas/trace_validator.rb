@@ -106,7 +106,6 @@ module Maze
         # Bugsnag-Span-Sampling
         # of the format x:y where x is a decimal between 0 and 1 (inclusive) and y is the number of spans in the batch (if possible at this stage - we could weaken this if necessary)
         unless Maze.config.unmanaged_traces_mode
-          $logger.info 'Checking for bugsnag-span-sampling header'
           validate_header('bugsnag-span-sampling') do |sampling|
             begin
               expected = Regexp.new(SAMPLING_HEADER)

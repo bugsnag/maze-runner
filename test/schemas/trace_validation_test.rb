@@ -8,7 +8,7 @@ end
 class TraceValidationTest < Test::Unit::TestCase
 
   def setup
-    Maze.config = Maze::Configuration.new
+    Maze.config.span_timestamp_validation = true
   end
 
   def create_basic_request(body)

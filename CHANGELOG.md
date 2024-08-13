@@ -1,3 +1,9 @@
+# TBD
+
+## Enhancements
+
+- Add the ability to disable timestamp validation for spans [659](https://github.com/bugsnag/maze-runner/pull/659)
+
 # 9.12.0 - 2024-07-31
 
 ## Enhancements

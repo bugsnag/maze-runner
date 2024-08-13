@@ -1,5 +1,11 @@
 # @!group Trace steps
 
+# Disable timestamp validation for spans
+#
+When('I disable timestamp validation for spans') do
+  Maze.config.span_timestamp_validation = false
+end
+
 # Waits for a given number of spans to be received, which may be spread across one or more trace requests.
 #
 # @step_input span_count [Integer] The number of spans to wait for

@@ -119,6 +119,8 @@ Before do |scenario|
 
   # Invoke the logger hook for the scenario
   Maze::Hooks::LoggerHooks.before scenario
+
+  Maze.config.span_timestamp_validation = true
 end
 
 # General processing to be run after each scenario
@@ -242,7 +244,7 @@ AfterAll do
     # create a zip file from the maze_output directory
     maze_output = File.join(Dir.pwd, 'maze_output')
     maze_output_zip = File.join(Dir.pwd, 'maze_output.zip')
-    
+
     # zip a folder with files and subfolders
     Zip::File.open(maze_output_zip, Zip::File::CREATE) do |zipfile|
       Dir["#{maze_output}/**/**"].each do |file|

@@ -5,6 +5,8 @@ require 'json'
 require 'time'
 
 def send_request(request_type, mock_api_port = 9339)
+
+
   http = Net::HTTP.new('localhost', mock_api_port)
   endpoint = if request_type == 'session'
                '/sessions'
@@ -12,7 +14,7 @@ def send_request(request_type, mock_api_port = 9339)
                '/builds'
              elsif request_type.start_with? 'metric'
                '/metrics'
-             elsif request_type == 'trace' || request_type == 'browser-trace' || request_type == 'sampling-trace'
+             elsif request_type.include? 'trace'
                '/traces'
              elsif request_type == 'reflect'
                '/reflect'

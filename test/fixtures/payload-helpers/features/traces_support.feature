@@ -67,6 +67,7 @@ Feature: Testing support on traces endpoint
         Then The HTTP response header "Bugsnag-Sampling-Probability" equals "1"
 
         # Unmanaged traces
+        And I enter unmanaged traces mode
         And I send a "unmanaged-trace"-type request
         Then I wait to receive a trace
 

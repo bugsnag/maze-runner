@@ -7,6 +7,10 @@ end
 
 class TraceValidationTest < Test::Unit::TestCase
 
+  def setup
+    Maze.config = nil
+  end
+
   def create_basic_request(body)
     request = MockRequest.new
     request.header = {

@@ -65,6 +65,12 @@ Feature: Testing support on traces endpoint
         And I send a "trace"-type request
         And I wait to receive a trace
         Then The HTTP response header "Bugsnag-Sampling-Probability" equals "1"
+        And I discard the oldest trace
+
+        # Unmanaged traces
+        And I enter unmanaged traces mode
+        And I send a "unmanaged-trace"-type request
+        Then I wait to receive a trace
 
     Scenario: The traces endpoint can accept gzipped streams
         When I enforce checking of the Bugsnag-Integrity header

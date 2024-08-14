@@ -5,6 +5,8 @@ require 'json'
 require 'time'
 
 def send_request(request_type, mock_api_port = 9339)
+
+
   http = Net::HTTP.new('localhost', mock_api_port)
   endpoint = if request_type == 'session'
                '/sessions'
@@ -12,7 +14,7 @@ def send_request(request_type, mock_api_port = 9339)
                '/builds'
              elsif request_type.start_with? 'metric'
                '/metrics'
-             elsif request_type == 'trace' || request_type == 'browser-trace' || request_type == 'sampling-trace'
+             elsif request_type.include? 'trace'
                '/traces'
              elsif request_type == 'reflect'
                '/reflect'
@@ -107,6 +109,216 @@ def send_request(request_type, mock_api_port = 9339)
         'Bugsnag-Payload-Version' => '1.0',
         'Bugsnag-Sent-At' => Time.now().iso8601(3),
         'Bugsnag-Span-Sampling' => '1:1'
+      },
+      'body' => {
+        "resourceSpans":[
+          {
+            "scopeSpans":[
+              {
+                "spans":[
+                  {
+                    "spanId":"7af51275a21aa300",
+                    "startTimeUnixNano": "#{start_time}",
+                    "traceId":"f8b18e12a2c1dca33362ac31772ed3b4",
+                    "endTimeUnixNano": "#{end_time}",
+                    "kind":1,
+                    "attributes":[
+                      {
+                        "key":"bugsnag.sampling.p",
+                        "value":{
+                          "doubleValue":1
+                        }
+                      },
+                      {
+                        "key":"bugsnag.app_start.type",
+                        "value":{
+                          "stringValue":"cold"
+                        }
+                      },
+                      {
+                        "key":"bugsnag.span.category",
+                        "value":{
+                          "stringValue":"app_start"
+                        }
+                      },
+                      {
+                        "key":"net.host.connection.type",
+                        "value":{
+                          "stringValue":"wifi"
+                        }
+                      },
+                      {
+                        "key":"bugsnag.app.in_foreground",
+                        "value":{
+                          "boolValue":true
+                        }
+                      }
+                    ],
+                    "name":"AppStart\\134/Cold"
+                  },
+                  {
+                    "spanId":"96775346bf426548",
+                    "startTimeUnixNano": "#{start_time}",
+                    "traceId":"4dea8da13b30db98f1c56bee0fdc734c",
+                    "endTimeUnixNano": "#{end_time}",
+                    "kind":"SPAN_KIND_INTERNAL",
+                    "attributes":[
+                      {
+                        "key":"bugsnag.sampling.p",
+                        "value":{
+                          "doubleValue":1
+                        }
+                      },
+                      {
+                        "key":"bugsnag.app.in_foreground",
+                        "value":{
+                          "boolValue":true
+                        }
+                      },
+                      {
+                        "key":"net.host.connection.type",
+                        "value":{
+                          "stringValue":"wifi"
+                        }
+                      }
+                    ],
+                    "name":"ManualSpanScenario"
+                  },
+                  {
+                    "spanId":"96775346a21aa300",
+                    "parentSpanId":"96775346bf426548",
+                    "startTimeUnixNano": "#{start_time}",
+                    "traceId":"4dea8da13b30db98f1c56bee0fdc734c",
+                    "endTimeUnixNano": "#{end_time}",
+                    "kind":"SPAN_KIND_INTERNAL",
+                    "attributes":[
+                      {
+                        "key":"bugsnag.sampling.p",
+                        "value":{
+                          "doubleValue":1
+                        }
+                      },
+                      {
+                        "key":"test.bool_value",
+                        "value":{
+                          "boolValue":true
+                        }
+                      },
+                      {
+                        "key":"test.string_value",
+                        "value":{
+                          "stringValue":"frayed_knot"
+                        }
+                      },
+                      {
+                        "key":"test.int_value",
+                        "value":{
+                          "intValue":"50"
+                        }
+                      },
+                      {
+                        "key":"test.double_value",
+                        "value":{
+                          "doubleValue":6.4
+                        }
+                      },
+                      {
+                        "key":"test.bytes_value",
+                        "value":{
+                          "bytesValue":"deadbeef"
+                        }
+                      }
+                    ],
+                    "name":"TestSpan"
+                  }
+                ]
+              }
+            ],
+            "resource":{
+              "attributes":[
+                {
+                  "key":"device.id",
+                  "value":{
+                    "stringValue":"cd5c48566a5ba0b8597dca328c392e1a7f98ce86"
+                  }
+                },
+                {
+                  "key":"bugsnag.app.bundle_version",
+                  "value":{
+                    "stringValue":"1"
+                  }
+                },
+                {
+                  "key":"host.arch",
+                  "value":{
+                    "stringValue":"arm64"
+                  }
+                },
+                {
+                  "key":"device.model.identifier",
+                  "value":{
+                    "stringValue":"iPhone12,3"
+                  }
+                },
+                {
+                  "key":"os.type",
+                  "value":{
+                    "stringValue":"darwin"
+                  }
+                },
+                {
+                  "key":"deployment.environment",
+                  "value":{
+                    "stringValue":"production"
+                  }
+                },
+                {
+                  "key":"os.version",
+                  "value":{
+                    "stringValue":"15.4.1"
+                  }
+                },
+                {
+                  "key":"telemetry.sdk.name",
+                  "value":{
+                    "stringValue":"bugsnag.performance.cocoa"
+                  }
+                },
+                {
+                  "key":"os.name",
+                  "value":{
+                    "stringValue":"iOS"
+                  }
+                },
+                {
+                  "key":"telemetry.sdk.version",
+                  "value":{
+                    "stringValue":"0.0"
+                  }
+                },
+                {
+                  "key":"device.manufacturer",
+                  "value":{
+                    "stringValue":"Apple"
+                  }
+                },
+                {
+                  "key":"service.name",
+                  "value":{
+                    "stringValue":"com.bugsnag.Fixture"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    'unmanaged-trace' => {
+      'headers' => {
+        'Bugsnag-Api-Key' => $api_key,
+        'Bugsnag-Payload-Version' => '1.0',
+        'Bugsnag-Sent-At' => Time.now().iso8601(3)
       },
       'body' => {
         "resourceSpans":[

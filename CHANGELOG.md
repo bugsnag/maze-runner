@@ -1,3 +1,9 @@
+# 9.13.1 - 2024-08-30
+
+## Fixes
+
+- Repeat trace requests using the API key as the subdomain [670](https://github.com/bugsnag/maze-runner/pull/670)
+
 # 9.13.0 - 2024-08-14
 
 ## Enhancements

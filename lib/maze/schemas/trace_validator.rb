@@ -11,16 +11,10 @@ module Maze
 
     # Contains a set of pre-defined validations for ensuring traces are correct
     class TraceValidator < ValidatorBase
-
-      # Whether the trace passed the validation, one of true, false, or nil (not run)
-      #   @returns [Boolean|nil] Whether the validation was successful
-      attr_reader :success
-      attr_reader :errors
-
       # Runs the validation against the trace given
       def validate
+        # The tests are being run
         @success = true
-
         validate_headers
         regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.spanId', HEX_STRING_16)
         regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.traceId', HEX_STRING_32)

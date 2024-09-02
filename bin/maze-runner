@@ -66,9 +66,6 @@ require_relative '../lib/maze/server'
 require_relative '../lib/maze/assertions/request_set_assertions'
 
 require_relative '../lib/maze/schemas/validator'
-require_relative '../lib/maze/schemas/error_validator'
-require_relative '../lib/maze/schemas/trace_schema'
-require_relative '../lib/maze/schemas/trace_validator'
 
 require_relative '../lib/maze/store'
 require_relative '../lib/maze/timers'

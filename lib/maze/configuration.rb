@@ -83,6 +83,19 @@ module Maze
     # Enables unmanaged trace mode.
     attr_accessor :unmanaged_traces_mode
 
+    # Custom validators to use for a given endpoint
+    attr_reader :custom_validators
+
+    # Consumes a block that will be triggered when a request is received for a specific endpoint
+    # This will prevent any existing default validation from triggering.
+    #
+    # @param endpoint [String] The endpoint to validate
+    # @param validator [Proc] The block to run when a request is received
+    def add_validator(endpoint, &validator)
+      @custom_validators ||= {}
+      @custom_validators[endpoint] = validator
+    end
+
     #
     # General appium configuration
     #

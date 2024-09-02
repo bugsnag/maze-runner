@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
+require_relative '../config_validator'
+require_relative '../error_validator'
+require_relative '../trace_schema'
+require_relative '../trace_validator'
+
 module Maze
   module Schemas
 
@@ -7,7 +12,6 @@ module Maze
     class Validator
 
       class << self
-
         # Tests that payloads for a specific path have passed any schema checks implemented on receipt
         # Throws an AssertionFailedError with a list of issues on failure
         #
@@ -40,16 +44,30 @@ module Maze
         # @param list [Array] An array of received requests
         # @param list_name [String] The name of the payload list for received requests
         def validate_payload_elements(list, list_name)
-          validator_class = case list_name
-          when 'trace', 'traces'
-            Maze::Schemas::TraceValidator
+          # Test to see if a custom validator exists for the list
+          if Maze.config.custom_validators&.key?(list_name)
+            custom_validator = true
+            validator_class = Maze::Schemas::ConfigValidator
           else
-            nil
+            custom_validator = false
+            validator_class = case list_name
+            when 'trace', 'traces'
+              Maze::Schemas::TraceValidator
+            when 'error', 'errors'
+              Maze::Schemas::ErrorValidator
+            else
+              nil
+            end
           end
 
           if validator_class
             validators = list.all.map do |request|
-              validator = validator_class.new(request)
+              # TODO: Implement generically in class and handle there?
+              if custom_validator
+                validator = validator_class.new(request, Maze.config.custom_validators[list_name])
+              else
+                validator = validator_class.new(request)
+              end
               validator.validate
               validator
             end

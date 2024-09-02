@@ -7,7 +7,7 @@ module Maze
   module Schemas
 
     # Contains a set of pre-defined validations for ensuring errors are correct
-    class ErrorValidator
+    class ErrorValidator < ValidatorBase
     end
   end
 end

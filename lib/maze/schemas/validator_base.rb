@@ -8,9 +8,12 @@ module Maze
       HEX_STRING_32 = '^[A-Fa-f0-9]{32}$'
       HOUR_TOLERANCE = 60 * 60 * 1000 * 1000 * 1000 # 1 hour in nanoseconds
 
-      # Whether the trace passed the validation, one of true, false, or nil (not run)
+      # Whether the payloads passed the validation, one of true, false, or nil (not run)
       #   @returns [Boolean|nil] Whether the validation was successful
       attr_reader :success
+
+      # An array of error messages if the validation failed
+      #  @returns [Array] The error messages
       attr_reader :errors
 
       # Creates the validator
@@ -23,10 +26,9 @@ module Maze
         @errors = []
       end
 
-      # Fill in method, needs to be overwritten by inheriting class
       def validate
-        @success = false
-        raise "Method 'validate' needs to be overwritten by inheriting class"
+        # By default the validation will pass
+        @success = true
       end
 
       def regex_comparison(path, regex)

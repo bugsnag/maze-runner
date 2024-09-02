@@ -1,5 +1,6 @@
 require 'test_helper'
 require_relative '../../lib/maze/schemas/trace_validator'
+require_relative '../../lib/maze/schemas/validator_base'
 
 class MockRequest
   attr_accessor :header
@@ -288,7 +289,7 @@ class TraceValidationTest < Test::Unit::TestCase
       'timestamp' => '12345000000000'
     }))
     Time.expects(:now).never
-    validator.validate_timestamp('timestamp', Maze::Schemas::HOUR_TOLERANCE)
+    validator.validate_timestamp('timestamp', Maze::Schemas::ValidatorBase::HOUR_TOLERANCE)
     assert_nil(validator.success)
     assert(validator.errors.empty?)
   end
@@ -298,7 +299,7 @@ class TraceValidationTest < Test::Unit::TestCase
       'timestamp' => '12345000000000'
     }))
     Time.expects(:now).returns(12345)
-    validator.validate_timestamp('timestamp', Maze::Schemas::HOUR_TOLERANCE)
+    validator.validate_timestamp('timestamp', Maze::Schemas::ValidatorBase::HOUR_TOLERANCE)
     assert_nil(validator.success)
     assert(validator.errors.empty?)
   end
@@ -308,7 +309,7 @@ class TraceValidationTest < Test::Unit::TestCase
       'timestamp' => "#{30 * 60 * 1000 * 1000 * 1000}"
     }))
     Time.expects(:now).returns(0)
-    validator.validate_timestamp('timestamp', Maze::Schemas::HOUR_TOLERANCE)
+    validator.validate_timestamp('timestamp', Maze::Schemas::ValidatorBase::HOUR_TOLERANCE)
     assert_nil(validator.success)
     assert(validator.errors.empty?)
   end
@@ -317,7 +318,7 @@ class TraceValidationTest < Test::Unit::TestCase
     validator = Maze::Schemas::TraceValidator.new(create_basic_request({
       'timestamp' => 12345
     }))
-    validator.validate_timestamp('timestamp', Maze::Schemas::HOUR_TOLERANCE)
+    validator.validate_timestamp('timestamp', Maze::Schemas::ValidatorBase::HOUR_TOLERANCE)
     assert_false(validator.success)
     assert_equal(1, validator.errors.size)
     assert_equal(validator.errors.first, "Timestamp was expected to be a string, was 'Integer'")
@@ -327,7 +328,7 @@ class TraceValidationTest < Test::Unit::TestCase
     validator = Maze::Schemas::TraceValidator.new(create_basic_request({
       'timestamp' => '-1'
     }))
-    validator.validate_timestamp('timestamp', Maze::Schemas::HOUR_TOLERANCE)
+    validator.validate_timestamp('timestamp', Maze::Schemas::ValidatorBase::HOUR_TOLERANCE)
     assert_false(validator.success)
     assert_equal(1, validator.errors.size)
     assert_equal(validator.errors.first, "Timestamp was expected to be a positive integer, was '-1'")
@@ -338,7 +339,7 @@ class TraceValidationTest < Test::Unit::TestCase
       'timestamp' => '12345000000000'
     }))
     Time.expects(:now).returns(12345 + 3601)
-    validator.validate_timestamp('timestamp', Maze::Schemas::HOUR_TOLERANCE)
+    validator.validate_timestamp('timestamp', Maze::Schemas::ValidatorBase::HOUR_TOLERANCE)
     assert_false(validator.success)
     assert_equal(1, validator.errors.size)
     assert_equal(validator.errors.first, "Timestamp was expected to be within 3600000000000 nanoseconds of the current time (15946000000000), was '12345000000000'")

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require_relative '../config_validator'
-require_relative '../error_validator'
-require_relative '../trace_schema'
-require_relative '../trace_validator'
+require_relative 'config_validator'
+require_relative 'error_validator'
+require_relative 'trace_schema'
+require_relative 'trace_validator'
 
 module Maze
   module Schemas

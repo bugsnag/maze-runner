@@ -145,7 +145,7 @@ class TraceValidationTest < Test::Unit::TestCase
         }
       ]
     }))
-    validator.element_contains('value', 'correct')
+    validator.span_element_contains('value', 'correct')
     assert_nil(validator.success)
     assert(validator.errors.empty?)
   end
@@ -167,7 +167,7 @@ class TraceValidationTest < Test::Unit::TestCase
         }
       ]
     }))
-    validator.element_contains('value', 'incorrect')
+    validator.span_element_contains('value', 'incorrect')
     assert_false(validator.success)
     assert_equal(1, validator.errors.size)
     assert_equal(validator.errors.first, "Element 'value' did not contain a value with the key 'incorrect'")
@@ -175,7 +175,7 @@ class TraceValidationTest < Test::Unit::TestCase
 
   def test_contains_not_array
     validator = Maze::Schemas::TraceValidator.new(create_basic_request({ 'value' => '1234' }))
-    validator.element_contains('value', 'incorrect')
+    validator.span_element_contains('value', 'incorrect')
     assert_false(validator.success)
     assert_equal(1, validator.errors.size)
     assert_equal(validator.errors.first, "Element 'value' was expected to be an array, was '1234'")
@@ -198,7 +198,7 @@ class TraceValidationTest < Test::Unit::TestCase
         }
       ]
     }))
-    validator.element_contains('value', 'correct', 'stringValue', ['good', 'done'])
+    validator.span_element_contains('value', 'correct', 'stringValue', ['good', 'done'])
     assert_nil(validator.success)
     assert(validator.errors.empty?)
   end
@@ -220,7 +220,7 @@ class TraceValidationTest < Test::Unit::TestCase
         }
       ]
     }))
-    validator.element_contains('value', 'correct', 'stringValue', ['good', 'one'])
+    validator.span_element_contains('value', 'correct', 'stringValue', ['good', 'one'])
     assert_false(validator.success)
     assert_equal(1, validator.errors.size)
     assert_equal(validator.errors.first, "Element 'value':'{\"key\"=>\"correct\", \"value\"=>{\"stringValue\"=>\"done\"}}' did not contain a value of 'stringValue' from '[\"good\", \"one\"]'")
@@ -243,7 +243,7 @@ class TraceValidationTest < Test::Unit::TestCase
         }
       ]
     }))
-    validator.element_contains('value', 'correct', 'intValue', ['good', 'one'])
+    validator.span_element_contains('value', 'correct', 'intValue', ['good', 'one'])
     assert_false(validator.success)
     assert_equal(1, validator.errors.size)
     assert_equal(validator.errors.first, "Element 'value':'{\"key\"=>\"correct\", \"value\"=>{\"stringValue\"=>\"done\"}}' did not contain a value of 'intValue' from '[\"good\", \"one\"]'")
@@ -371,12 +371,12 @@ class TraceValidationTest < Test::Unit::TestCase
       ]
     }))
     # Calls to test each of the container elements
-    validator.expects(:element_contains).with('container.0.attributes', 'test_value')
-    validator.expects(:element_contains).with('container.1.attributes', 'test_value')
-    validator.expects(:element_contains).with('container.2.attributes', 'test_value')
-    validator.expects(:element_contains).with('container.3.attributes', 'test_value')
+    validator.expects(:span_element_contains).with('container.0.attributes', 'test_value')
+    validator.expects(:span_element_contains).with('container.1.attributes', 'test_value')
+    validator.expects(:span_element_contains).with('container.2.attributes', 'test_value')
+    validator.expects(:span_element_contains).with('container.3.attributes', 'test_value')
 
-    validator.each_element_contains('container', 'attributes', 'test_value')
+    validator.each_span_element_contains('container', 'attributes', 'test_value')
     assert_nil(validator.success)
     assert(validator.errors.empty?)
   end
@@ -386,7 +386,7 @@ class TraceValidationTest < Test::Unit::TestCase
       'container' => 'foobar'
     }))
 
-    validator.each_element_contains('container', 'attributes', 'test_value')
+    validator.each_span_element_contains('container', 'attributes', 'test_value')
     assert_false(validator.success)
     assert_equal(1, validator.errors.size)
     assert_equal(validator.errors.first, "Element 'container' was expected to be an array, was 'foobar'")

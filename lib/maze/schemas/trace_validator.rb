@@ -37,7 +37,7 @@ module Maze
       end
 
       def verify_against_schema
-        if !@schema_errors.nil? || @schema_errors.size > 0
+        if !@schema_errors.nil? && @schema_errors.size > 0
           @success = false
           @schema_errors.each do |error|
             @errors << "#{JSONSchemer::Errors.pretty(error)}"

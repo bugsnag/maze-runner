@@ -22,6 +22,7 @@ module Maze
       def initialize(request)
         @headers = request[:request].header
         @body = request[:body]
+        @schema_errors = request[:schema_errors]
         @success = nil
         @errors = []
       end

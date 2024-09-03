@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../helper'
+require_relative 'trace_schema'
 require_relative 'validator_base'
 
 module Maze
@@ -15,6 +16,7 @@ module Maze
       def validate
         # The tests are being run
         @success = true
+        verify_against_schema
         validate_headers
         regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.spanId', HEX_STRING_16)
         regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.traceId', HEX_STRING_32)
@@ -32,6 +34,15 @@ module Maze
           'resourceSpans.0.scopeSpans.0.spans.0.endTimeUnixNano',
           'resourceSpans.0.scopeSpans.0.spans.0.startTimeUnixNano'
         )
+      end
+
+      def verify_against_schema
+        if !@schema_errors.nil? || @schema_errors.size > 0
+          @success = false
+          @schema_errors.each do |error|
+            @errors << "#{JSONSchemer::Errors.pretty(error)}"
+          end
+        end
       end
 
       # Checks that the required headers are present and correct

@@ -53,39 +53,6 @@ module Maze
         end
       end
 
-      def element_contains(path, key_value, value_type=nil, possible_values=nil)
-        container = Maze::Helper.read_key_path(@body, path)
-        if container.nil? || !container.kind_of?(Array)
-          @success = false
-          @errors << "Element '#{path}' was expected to be an array, was '#{container}'"
-          return
-        end
-        element = container.find { |value| value['key'].eql?(key_value) }
-        unless element
-          @success = false
-          @errors << "Element '#{path}' did not contain a value with the key '#{key_value}'"
-          return
-        end
-        if value_type && possible_values
-          unless element['value'] && element['value'][value_type] && possible_values.include?(element['value'][value_type])
-            @success = false
-            @errors << "Element '#{path}':'#{element}' did not contain a value of '#{value_type}' from '#{possible_values}'"
-          end
-        end
-      end
-
-      def each_element_contains(container_path, attribute_path, key_value)
-        container = Maze::Helper.read_key_path(@body, container_path)
-        if container.nil? || !container.kind_of?(Array)
-          @success = false
-          @errors << "Element '#{container_path}' was expected to be an array, was '#{container}'"
-          return
-        end
-        container.each_with_index do |_item, index|
-          element_contains("#{container_path}.#{index}.#{attribute_path}", key_value)
-        end
-      end
-
       def element_a_greater_or_equal_element_b(path_a, path_b)
         element_a = Maze::Helper.read_key_path(@body, path_a)
         element_b = Maze::Helper.read_key_path(@body, path_b)

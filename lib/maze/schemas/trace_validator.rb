@@ -21,11 +21,11 @@ module Maze
         element_int_in_range('resourceSpans.0.scopeSpans.0.spans.0.kind', 0..5)
         regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.startTimeUnixNano', '^[0-9]+$')
         regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.endTimeUnixNano', '^[0-9]+$')
-        element_contains('resourceSpans.0.resource.attributes', 'device.id')
-        each_element_contains('resourceSpans.0.scopeSpans.0.spans', 'attributes', 'bugsnag.sampling.p')
-        element_contains('resourceSpans.0.resource.attributes', 'deployment.environment')
-        element_contains('resourceSpans.0.resource.attributes', 'telemetry.sdk.name')
-        element_contains('resourceSpans.0.resource.attributes', 'telemetry.sdk.version')
+        span_element_contains('resourceSpans.0.resource.attributes', 'device.id')
+        each_span_element_contains('resourceSpans.0.scopeSpans.0.spans', 'attributes', 'bugsnag.sampling.p')
+        span_element_contains('resourceSpans.0.resource.attributes', 'deployment.environment')
+        span_element_contains('resourceSpans.0.resource.attributes', 'telemetry.sdk.name')
+        span_element_contains('resourceSpans.0.resource.attributes', 'telemetry.sdk.version')
         validate_timestamp('resourceSpans.0.scopeSpans.0.spans.0.startTimeUnixNano', HOUR_TOLERANCE)
         validate_timestamp('resourceSpans.0.scopeSpans.0.spans.0.endTimeUnixNano', HOUR_TOLERANCE)
         element_a_greater_or_equal_element_b(
@@ -67,6 +67,39 @@ module Maze
               end
             end
           end
+        end
+      end
+
+      def span_element_contains(path, key_value, value_type=nil, possible_values=nil)
+        container = Maze::Helper.read_key_path(@body, path)
+        if container.nil? || !container.kind_of?(Array)
+          @success = false
+          @errors << "Element '#{path}' was expected to be an array, was '#{container}'"
+          return
+        end
+        element = container.find { |value| value['key'].eql?(key_value) }
+        unless element
+          @success = false
+          @errors << "Element '#{path}' did not contain a value with the key '#{key_value}'"
+          return
+        end
+        if value_type && possible_values
+          unless element['value'] && element['value'][value_type] && possible_values.include?(element['value'][value_type])
+            @success = false
+            @errors << "Element '#{path}':'#{element}' did not contain a value of '#{value_type}' from '#{possible_values}'"
+          end
+        end
+      end
+
+      def each_span_element_contains(container_path, attribute_path, key_value)
+        container = Maze::Helper.read_key_path(@body, container_path)
+        if container.nil? || !container.kind_of?(Array)
+          @success = false
+          @errors << "Element '#{container_path}' was expected to be an array, was '#{container}'"
+          return
+        end
+        container.each_with_index do |_item, index|
+          span_element_contains("#{container_path}.#{index}.#{attribute_path}", key_value)
         end
       end
     end

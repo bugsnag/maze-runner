@@ -6,6 +6,12 @@ require_relative 'validator_base'
 module Maze
   module Schemas
     class ConfigValidator < ValidatorBase
+
+      attr_accessor :success
+      attr_accessor :errors
+      attr_reader :headers
+      attr_reader :body
+
       def initialize(request, validation_block)
         super(request)
         @validation_block = validation_block

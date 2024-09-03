@@ -1,6 +1,5 @@
 require 'test_helper'
 require_relative '../../lib/maze/schemas/trace_validator'
-require_relative '../../lib/maze/schemas/validator_base'
 
 class MockRequest
   attr_accessor :header
@@ -23,6 +22,11 @@ class TraceValidationTest < Test::Unit::TestCase
       :request => request,
       :body => body
     }
+  end
+
+  def format_errors(errors)
+    list = errors.join("\n")
+    "Errors given:\n#{list}"
   end
 
   def test_sampling_span_regex
@@ -79,53 +83,6 @@ class TraceValidationTest < Test::Unit::TestCase
     assert_false(validator.success)
     assert_equal(1, validator.errors.size, format_errors(validator.errors))
     assert_equal("bugsnag-span-sampling header was expected to match the regex '^((1(.0)?|0(\\.[0-9]+)?):[0-9]+)(;((1(.0)?|0(\\.[0-9]+)?):[0-9]+))*$', but was '2:2'", validator.errors.first)
-  end
-
-  def test_regex_success
-    validator = Maze::Schemas::TraceValidator.new(create_basic_request({ 'value' => 'abc123' }))
-    validator.regex_comparison('value', '[abc123]{6}')
-    assert_nil(validator.success)
-    assert(validator.errors.empty?)
-  end
-
-  def format_errors(errors)
-    list = errors.join("\n")
-    "Errors given:\n#{list}"
-  end
-
-  def test_regex_failure
-    validator = Maze::Schemas::TraceValidator.new(create_basic_request({
-      'value' => 'abc123'
-    }))
-    validator.regex_comparison('value', '[ab12]{6}')
-    assert_false(validator.success)
-    assert_equal(1, validator.errors.size)
-    assert_equal(validator.errors.first, "Element 'value' was expected to match the regex '[ab12]{6}', but was 'abc123'")
-  end
-
-  def test_element_int_in_range_success
-    validator = Maze::Schemas::TraceValidator.new(create_basic_request({
-      'value' => 2
-    }))
-    validator.element_int_in_range('value', 1..3)
-    assert_nil(validator.success)
-    assert(validator.errors.empty?)
-  end
-
-  def test_element_int_in_range_failure
-    validator = Maze::Schemas::TraceValidator.new(create_basic_request({ 'value' => 4 }))
-    validator.element_int_in_range('value', 1..3)
-    assert_false(validator.success)
-    assert_equal(1, validator.errors.size)
-    assert_equal(validator.errors.first, "Element 'value':'4' was expected to be in the range '1..3'")
-  end
-
-  def test_element_int_in_range_no_int_failure
-    validator = Maze::Schemas::TraceValidator.new(create_basic_request({ 'value' => 'abc' }))
-    validator.element_int_in_range('value', 1..3)
-    assert_false(validator.success)
-    assert_equal(1, validator.errors.size)
-    assert_equal(validator.errors.first, "Element 'value' was expected to be an integer, was 'abc'")
   end
 
   def test_contains_key_success

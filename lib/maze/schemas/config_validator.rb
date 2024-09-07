@@ -20,6 +20,9 @@ module Maze
       def validate
         @success = true
         @validation_block.call(self)
+      rescue => exception
+        @success = false
+        @errors << "A #{exception.class} occurred while running validation: #{exception.message}"
       end
     end
   end

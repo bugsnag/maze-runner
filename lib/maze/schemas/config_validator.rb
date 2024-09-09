@@ -22,7 +22,8 @@ module Maze
         @validation_block.call(self)
       rescue => exception
         @success = false
-        @errors << "A #{exception.class} occurred while running validation: #{exception.message}"
+        @errors << "A #{exception.class} occurred while running validation: #{exception.message}, \n #{exception.backtrace.join("\n")}" 
+
       end
     end
   end

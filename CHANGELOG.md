@@ -2,7 +2,7 @@
 
 ## Enhancements
 
-- Add support for defining custom validation blocks in configuration [671](https://github.com/bugsnag/maze-runner/pull/671) & [672](https://github.com/bugsnag/maze-runner/pull/672)
+- Add support for defining custom validation blocks in configuration [672](https://github.com/bugsnag/maze-runner/pull/672)
 
 # 9.13.1 - 2024-08-30
 

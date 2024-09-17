@@ -1,0 +1,38 @@
+# Environment Variables
+
+Maze Runner recognises various environment variables, as follows:
+
+## Bugsnag reporting
+
+`MAZE_BUGSNAG_API_KEY` - the API key for the Bugsnag project to which errors that occur during the test run should be reported.
+`MAZE_SCENARIO_BUGSNAG_API_KEY` - the API key for the Bugsnag project to which test failures should be reported as errors.
+
+## Device farms
+
+### Configuration
+
+`MAZE_APPIUM_SERVER` - the Appium server URL (if different to the default).
+`MAZE_SELENIUM_SERVER` - the Selenium server URL (if different to the default).
+`USE_LEGACY_DRIVER` - whether the legacy (JSON-WP) driver should be used.
+
+### BitBar
+
+`MAZE_SB_LOCAL` - location of the SmartBear secure tunnel binary.
+`BITBAR_USERNAME`/`BITBAR_ACCESS_KEY` - BitBar account credentials.
+
+`MAZE_ASPECTO_REPEATER_API_KEY` - Enables forwarding of all received POST trace requests to Aspecto, using the API key provided.
+`MAZE_REPEATER_API_KEY` - Enables forwarding of all received session, error and trace requests to Bugsnag, using the API key provided.
+
+### BrowserStack
+
+`MAZE_BS_LOCAL` - location of the BrowserStack secure tunnel binary.
+
+`BROWSER_STACK_USERNAME`/`BROWSER_STACK_ACCESS_KEY` - BrowserStack account credentials.
+
+`BROWSER_STACK_BROWSERS_USERNAME`/`BROWSER_STACK_BROWSERS_ACCESS_KEY` - BrowserStack account credentials for browser tests, used instead of `BROWSER_STACK_USERNAME`/`BROWSER_STACK_ACCESS_KEY` if both are provided.
+`BROWSER_STACK_DEVICES_USERNAME`/`BROWSER_STACK_DEVICES_ACCESS_KEY` - BrowserStack account credentials for device tests, used instead of `BROWSER_STACK_USERNAME`/`BROWSER_STACK_ACCESS_KEY` if both are provided.
+
+### Local devices
+
+`MAZE_APPLE_TEAM_ID` - the Apple Developer Team ID, required for testing on physical iOS devices.
+`MAZE_UDID` - the UDID of the physical iOS device to be used for test.

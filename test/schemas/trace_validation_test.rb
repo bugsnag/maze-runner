@@ -24,6 +24,11 @@ class TraceValidationTest < Test::Unit::TestCase
     }
   end
 
+  def format_errors(errors)
+    list = errors.join("\n")
+    "Errors given:\n#{list}"
+  end
+
   def test_sampling_span_regex
     regex = Regexp.new(Maze::Schemas::SAMPLING_HEADER)
     # assert_true(regex.match('0.0:1'))
@@ -80,53 +85,6 @@ class TraceValidationTest < Test::Unit::TestCase
     assert_equal("bugsnag-span-sampling header was expected to match the regex '^((1(.0)?|0(\\.[0-9]+)?):[0-9]+)(;((1(.0)?|0(\\.[0-9]+)?):[0-9]+))*$', but was '2:2'", validator.errors.first)
   end
 
-  def test_regex_success
-    validator = Maze::Schemas::TraceValidator.new(create_basic_request({ 'value' => 'abc123' }))
-    validator.regex_comparison('value', '[abc123]{6}')
-    assert_nil(validator.success)
-    assert(validator.errors.empty?)
-  end
-
-  def format_errors(errors)
-    list = errors.join("\n")
-    "Errors given:\n#{list}"
-  end
-
-  def test_regex_failure
-    validator = Maze::Schemas::TraceValidator.new(create_basic_request({
-      'value' => 'abc123'
-    }))
-    validator.regex_comparison('value', '[ab12]{6}')
-    assert_false(validator.success)
-    assert_equal(1, validator.errors.size)
-    assert_equal(validator.errors.first, "Element 'value' was expected to match the regex '[ab12]{6}', but was 'abc123'")
-  end
-
-  def test_element_int_in_range_success
-    validator = Maze::Schemas::TraceValidator.new(create_basic_request({
-      'value' => 2
-    }))
-    validator.element_int_in_range('value', 1..3)
-    assert_nil(validator.success)
-    assert(validator.errors.empty?)
-  end
-
-  def test_element_int_in_range_failure
-    validator = Maze::Schemas::TraceValidator.new(create_basic_request({ 'value' => 4 }))
-    validator.element_int_in_range('value', 1..3)
-    assert_false(validator.success)
-    assert_equal(1, validator.errors.size)
-    assert_equal(validator.errors.first, "Element 'value':'4' was expected to be in the range '1..3'")
-  end
-
-  def test_element_int_in_range_no_int_failure
-    validator = Maze::Schemas::TraceValidator.new(create_basic_request({ 'value' => 'abc' }))
-    validator.element_int_in_range('value', 1..3)
-    assert_false(validator.success)
-    assert_equal(1, validator.errors.size)
-    assert_equal(validator.errors.first, "Element 'value' was expected to be an integer, was 'abc'")
-  end
-
   def test_contains_key_success
     validator = Maze::Schemas::TraceValidator.new(create_basic_request({
       'value' => [
@@ -144,7 +102,7 @@ class TraceValidationTest < Test::Unit::TestCase
         }
       ]
     }))
-    validator.element_contains('value', 'correct')
+    validator.span_element_contains('value', 'correct')
     assert_nil(validator.success)
     assert(validator.errors.empty?)
   end
@@ -166,7 +124,7 @@ class TraceValidationTest < Test::Unit::TestCase
         }
       ]
     }))
-    validator.element_contains('value', 'incorrect')
+    validator.span_element_contains('value', 'incorrect')
     assert_false(validator.success)
     assert_equal(1, validator.errors.size)
     assert_equal(validator.errors.first, "Element 'value' did not contain a value with the key 'incorrect'")
@@ -174,7 +132,7 @@ class TraceValidationTest < Test::Unit::TestCase
 
   def test_contains_not_array
     validator = Maze::Schemas::TraceValidator.new(create_basic_request({ 'value' => '1234' }))
-    validator.element_contains('value', 'incorrect')
+    validator.span_element_contains('value', 'incorrect')
     assert_false(validator.success)
     assert_equal(1, validator.errors.size)
     assert_equal(validator.errors.first, "Element 'value' was expected to be an array, was '1234'")
@@ -197,7 +155,7 @@ class TraceValidationTest < Test::Unit::TestCase
         }
       ]
     }))
-    validator.element_contains('value', 'correct', 'stringValue', ['good', 'done'])
+    validator.span_element_contains('value', 'correct', 'stringValue', ['good', 'done'])
     assert_nil(validator.success)
     assert(validator.errors.empty?)
   end
@@ -219,7 +177,7 @@ class TraceValidationTest < Test::Unit::TestCase
         }
       ]
     }))
-    validator.element_contains('value', 'correct', 'stringValue', ['good', 'one'])
+    validator.span_element_contains('value', 'correct', 'stringValue', ['good', 'one'])
     assert_false(validator.success)
     assert_equal(1, validator.errors.size)
     assert_equal(validator.errors.first, "Element 'value':'{\"key\"=>\"correct\", \"value\"=>{\"stringValue\"=>\"done\"}}' did not contain a value of 'stringValue' from '[\"good\", \"one\"]'")
@@ -242,7 +200,7 @@ class TraceValidationTest < Test::Unit::TestCase
         }
       ]
     }))
-    validator.element_contains('value', 'correct', 'intValue', ['good', 'one'])
+    validator.span_element_contains('value', 'correct', 'intValue', ['good', 'one'])
     assert_false(validator.success)
     assert_equal(1, validator.errors.size)
     assert_equal(validator.errors.first, "Element 'value':'{\"key\"=>\"correct\", \"value\"=>{\"stringValue\"=>\"done\"}}' did not contain a value of 'intValue' from '[\"good\", \"one\"]'")
@@ -288,7 +246,7 @@ class TraceValidationTest < Test::Unit::TestCase
       'timestamp' => '12345000000000'
     }))
     Time.expects(:now).never
-    validator.validate_timestamp('timestamp', Maze::Schemas::HOUR_TOLERANCE)
+    validator.validate_timestamp('timestamp', Maze::Schemas::ValidatorBase::HOUR_TOLERANCE)
     assert_nil(validator.success)
     assert(validator.errors.empty?)
   end
@@ -298,7 +256,7 @@ class TraceValidationTest < Test::Unit::TestCase
       'timestamp' => '12345000000000'
     }))
     Time.expects(:now).returns(12345)
-    validator.validate_timestamp('timestamp', Maze::Schemas::HOUR_TOLERANCE)
+    validator.validate_timestamp('timestamp', Maze::Schemas::ValidatorBase::HOUR_TOLERANCE)
     assert_nil(validator.success)
     assert(validator.errors.empty?)
   end
@@ -308,7 +266,7 @@ class TraceValidationTest < Test::Unit::TestCase
       'timestamp' => "#{30 * 60 * 1000 * 1000 * 1000}"
     }))
     Time.expects(:now).returns(0)
-    validator.validate_timestamp('timestamp', Maze::Schemas::HOUR_TOLERANCE)
+    validator.validate_timestamp('timestamp', Maze::Schemas::ValidatorBase::HOUR_TOLERANCE)
     assert_nil(validator.success)
     assert(validator.errors.empty?)
   end
@@ -317,7 +275,7 @@ class TraceValidationTest < Test::Unit::TestCase
     validator = Maze::Schemas::TraceValidator.new(create_basic_request({
       'timestamp' => 12345
     }))
-    validator.validate_timestamp('timestamp', Maze::Schemas::HOUR_TOLERANCE)
+    validator.validate_timestamp('timestamp', Maze::Schemas::ValidatorBase::HOUR_TOLERANCE)
     assert_false(validator.success)
     assert_equal(1, validator.errors.size)
     assert_equal(validator.errors.first, "Timestamp was expected to be a string, was 'Integer'")
@@ -327,7 +285,7 @@ class TraceValidationTest < Test::Unit::TestCase
     validator = Maze::Schemas::TraceValidator.new(create_basic_request({
       'timestamp' => '-1'
     }))
-    validator.validate_timestamp('timestamp', Maze::Schemas::HOUR_TOLERANCE)
+    validator.validate_timestamp('timestamp', Maze::Schemas::ValidatorBase::HOUR_TOLERANCE)
     assert_false(validator.success)
     assert_equal(1, validator.errors.size)
     assert_equal(validator.errors.first, "Timestamp was expected to be a positive integer, was '-1'")
@@ -338,7 +296,7 @@ class TraceValidationTest < Test::Unit::TestCase
       'timestamp' => '12345000000000'
     }))
     Time.expects(:now).returns(12345 + 3601)
-    validator.validate_timestamp('timestamp', Maze::Schemas::HOUR_TOLERANCE)
+    validator.validate_timestamp('timestamp', Maze::Schemas::ValidatorBase::HOUR_TOLERANCE)
     assert_false(validator.success)
     assert_equal(1, validator.errors.size)
     assert_equal(validator.errors.first, "Timestamp was expected to be within 3600000000000 nanoseconds of the current time (15946000000000), was '12345000000000'")
@@ -370,12 +328,12 @@ class TraceValidationTest < Test::Unit::TestCase
       ]
     }))
     # Calls to test each of the container elements
-    validator.expects(:element_contains).with('container.0.attributes', 'test_value')
-    validator.expects(:element_contains).with('container.1.attributes', 'test_value')
-    validator.expects(:element_contains).with('container.2.attributes', 'test_value')
-    validator.expects(:element_contains).with('container.3.attributes', 'test_value')
+    validator.expects(:span_element_contains).with('container.0.attributes', 'test_value')
+    validator.expects(:span_element_contains).with('container.1.attributes', 'test_value')
+    validator.expects(:span_element_contains).with('container.2.attributes', 'test_value')
+    validator.expects(:span_element_contains).with('container.3.attributes', 'test_value')
 
-    validator.each_element_contains('container', 'attributes', 'test_value')
+    validator.each_span_element_contains('container', 'attributes', 'test_value')
     assert_nil(validator.success)
     assert(validator.errors.empty?)
   end
@@ -385,7 +343,7 @@ class TraceValidationTest < Test::Unit::TestCase
       'container' => 'foobar'
     }))
 
-    validator.each_element_contains('container', 'attributes', 'test_value')
+    validator.each_span_element_contains('container', 'attributes', 'test_value')
     assert_false(validator.success)
     assert_equal(1, validator.errors.size)
     assert_equal(validator.errors.first, "Element 'container' was expected to be an array, was 'foobar'")

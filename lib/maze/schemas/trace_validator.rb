@@ -1,49 +1,33 @@
 # frozen_string_literal: true
 
 require_relative '../helper'
+require_relative 'trace_schema'
+require_relative 'validator_base'
 
 module Maze
   module Schemas
 
-    HEX_STRING_16 = '^[A-Fa-f0-9]{16}$'
-    HEX_STRING_32 = '^[A-Fa-f0-9]{32}$'
     SAMPLING_HEADER_ENTRY = '((1(.0)?|0(\.[0-9]+)?):[0-9]+)'
     SAMPLING_HEADER = "^#{SAMPLING_HEADER_ENTRY}(;#{SAMPLING_HEADER_ENTRY})*$"
-    HOUR_TOLERANCE = 60 * 60 * 1000 * 1000 * 1000 # 1 hour in nanoseconds
 
     # Contains a set of pre-defined validations for ensuring traces are correct
-    class TraceValidator
-
-      # Whether the trace passed the validation, one of true, false, or nil (not run)
-      #   @returns [Boolean|nil] Whether the validation was successful
-      attr_reader :success
-      attr_reader :errors
-
-      # Creates the validator
-      #
-      #   @param request [Hash] The trace request to validate
-      def initialize(request)
-        @headers = request[:request].header
-        @body = request[:body]
-        @success = nil
-        @errors = []
-      end
-
+    class TraceValidator < ValidatorBase
       # Runs the validation against the trace given
       def validate
+        # The tests are being run
         @success = true
-
+        verify_against_schema
         validate_headers
         regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.spanId', HEX_STRING_16)
         regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.traceId', HEX_STRING_32)
         element_int_in_range('resourceSpans.0.scopeSpans.0.spans.0.kind', 0..5)
         regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.startTimeUnixNano', '^[0-9]+$')
         regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.endTimeUnixNano', '^[0-9]+$')
-        element_contains('resourceSpans.0.resource.attributes', 'device.id')
-        each_element_contains('resourceSpans.0.scopeSpans.0.spans', 'attributes', 'bugsnag.sampling.p')
-        element_contains('resourceSpans.0.resource.attributes', 'deployment.environment')
-        element_contains('resourceSpans.0.resource.attributes', 'telemetry.sdk.name')
-        element_contains('resourceSpans.0.resource.attributes', 'telemetry.sdk.version')
+        span_element_contains('resourceSpans.0.resource.attributes', 'device.id')
+        each_span_element_contains('resourceSpans.0.scopeSpans.0.spans', 'attributes', 'bugsnag.sampling.p')
+        span_element_contains('resourceSpans.0.resource.attributes', 'deployment.environment')
+        span_element_contains('resourceSpans.0.resource.attributes', 'telemetry.sdk.name')
+        span_element_contains('resourceSpans.0.resource.attributes', 'telemetry.sdk.version')
         validate_timestamp('resourceSpans.0.scopeSpans.0.spans.0.startTimeUnixNano', HOUR_TOLERANCE)
         validate_timestamp('resourceSpans.0.scopeSpans.0.spans.0.endTimeUnixNano', HOUR_TOLERANCE)
         element_a_greater_or_equal_element_b(
@@ -52,33 +36,12 @@ module Maze
         )
       end
 
-      def validate_timestamp(path, tolerance)
-        return unless Maze.config.span_timestamp_validation
-        timestamp = Maze::Helper.read_key_path(@body, path)
-        unless timestamp.kind_of?(String)
+      def verify_against_schema
+        if !@schema_errors.nil? && @schema_errors.size > 0
           @success = false
-          @errors << "Timestamp was expected to be a string, was '#{timestamp.class.name}'"
-          return
-        end
-        parsed_timestamp = timestamp.to_i
-        unless parsed_timestamp > 0
-          @success = false
-          @errors << "Timestamp was expected to be a positive integer, was '#{parsed_timestamp}'"
-          return
-        end
-        time_in_nanos = Time.now.to_i * 1000000000
-        unless (time_in_nanos - parsed_timestamp).abs < tolerance
-          @success = false
-          @errors << "Timestamp was expected to be within #{tolerance} nanoseconds of the current time (#{time_in_nanos}), was '#{parsed_timestamp}'"
-        end
-      end
-
-      def validate_header(name)
-        value = @headers[name]
-        if value.nil? || value.size > 1
-          @errors << "Expected exactly one value for header #{name}, received #{value || 'nil'}"
-        else
-          yield value[0]
+          @schema_errors.each do |error|
+            @errors << "#{JSONSchemer::Errors.pretty(error)}"
+          end
         end
       end
 
@@ -118,29 +81,7 @@ module Maze
         end
       end
 
-      def regex_comparison(path, regex)
-        element_value = Maze::Helper.read_key_path(@body, path)
-        expected = Regexp.new(regex)
-        unless expected.match(element_value)
-          @success = false
-          @errors << "Element '#{path}' was expected to match the regex '#{regex}', but was '#{element_value}'"
-        end
-      end
-
-      def element_int_in_range(path, range)
-        element_value = Maze::Helper.read_key_path(@body, path)
-        if element_value.nil? || !element_value.kind_of?(Integer)
-          @success = false
-          @errors << "Element '#{path}' was expected to be an integer, was '#{element_value}'"
-          return
-        end
-        unless range.include?(element_value)
-          @success = false
-          @errors << "Element '#{path}':'#{element_value}' was expected to be in the range '#{range}'"
-        end
-      end
-
-      def element_contains(path, key_value, value_type=nil, possible_values=nil)
+      def span_element_contains(path, key_value, value_type=nil, possible_values=nil)
         container = Maze::Helper.read_key_path(@body, path)
         if container.nil? || !container.kind_of?(Array)
           @success = false
@@ -161,7 +102,7 @@ module Maze
         end
       end
 
-      def each_element_contains(container_path, attribute_path, key_value)
+      def each_span_element_contains(container_path, attribute_path, key_value)
         container = Maze::Helper.read_key_path(@body, container_path)
         if container.nil? || !container.kind_of?(Array)
           @success = false
@@ -169,16 +110,7 @@ module Maze
           return
         end
         container.each_with_index do |_item, index|
-          element_contains("#{container_path}.#{index}.#{attribute_path}", key_value)
-        end
-      end
-
-      def element_a_greater_or_equal_element_b(path_a, path_b)
-        element_a = Maze::Helper.read_key_path(@body, path_a)
-        element_b = Maze::Helper.read_key_path(@body, path_b)
-        unless element_a && element_b && element_a >= element_b
-          @success = false
-          @errors << "Element '#{path_a}':'#{element_a}' was expected to be greater than or equal to '#{path_b}':'#{element_b}'"
+          span_element_contains("#{container_path}.#{index}.#{attribute_path}", key_value)
         end
       end
     end

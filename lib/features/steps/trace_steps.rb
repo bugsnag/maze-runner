@@ -317,7 +317,6 @@ def assert_received_spans(list, min_received, max_received = nil)
 
   Maze.check.operator(max_received, :>=, received_count, "#{received_count} spans received") if max_received
 
-  Maze::Schemas::Validator.verify_against_schema(list, 'trace')
   Maze::Schemas::Validator.validate_payload_elements(list, 'trace')
 end
 

@@ -32,6 +32,58 @@ module Maze
         @success = true
       end
 
+      def element_has_value(path, value)
+        element = Maze::Helper.read_key_path(@body, path)
+        if element.nil? || element != value
+          @success = false
+          @errors << "Element '#{path}' was expected to be '#{value}', was '#{element}'"
+        end
+      end
+
+      def element_exists(path)
+        element = Maze::Helper.read_key_path(@body, path)
+        if element.nil?
+          @success = false
+          @errors << "Element '#{path}' was not found"
+        elsif element.kind_of?(Array) && element.empty?
+          @success = false
+          @errors << "Element '#{path}' was an empty array"
+        end
+      end
+
+      def each_element_exists(paths)
+        if paths.kind_of?(Array)
+          paths.each {|path| element_exists(path)}
+        else
+          $logger.warn("each_element_exists was called with a non-array value: '#{paths}'. Use element_exists instead.")
+          element_exists(paths)
+        end
+
+      end
+
+      def each_element_contains(container_path, path)
+        containers = Maze::Helper.read_key_path(@body, container_path)
+        containers.each_with_index do |container, index|
+          element = Maze::Helper.read_key_path(container, path)
+          if element.nil? || (element.is_a?(Array) && element.empty?)
+            @success = false
+            @errors << "Required #{container_path} element #{path} was not present at index #{index}"
+          end
+        end
+      end
+
+      def each_event_contains(path)
+        each_element_contains('events', path)
+      end
+
+      def each_element_contains_each(container_path, paths)
+        paths.each { |path| each_element_contains(container_path, path) }
+      end
+
+      def each_event_contains_each(paths)
+        paths.each { |path| each_event_contains(path) }
+      end
+
       def regex_comparison(path, regex)
         element_value = Maze::Helper.read_key_path(@body, path)
         expected = Regexp.new(regex)
@@ -85,11 +137,17 @@ module Maze
       end
 
       def validate_header(name)
-        value = @headers[name]
-        if value.nil? || value.size > 1
-          @errors << "Expected exactly one value for header #{name}, received #{value || 'nil'}"
-        else
-          yield value[0]
+        begin
+          value = @headers[name]
+          if value.nil? || value.size > 1
+            @success = false
+            @errors << "Expected exactly one value for header #{name}, received #{value || 'nil'}"
+          else
+            yield value[0]
+          end
+        rescue => e
+          @success = false
+          @errors << "Error validating header #{name} with value #{value}: #{e.message}"
         end
       end
     end

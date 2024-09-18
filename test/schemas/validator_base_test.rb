@@ -160,4 +160,162 @@ class ValidatorBaseTest < Test::Unit::TestCase
     assert_equal(1, validator.errors.size)
     assert_equal(validator.errors.first, "Timestamp was expected to be within 3600000000000 nanoseconds of the current time (15946000000000), was '12345000000000'")
   end
+
+  def test_element_has_value_success
+    validator = Maze::Schemas::ValidatorBase.new(create_basic_request({
+      'value' => 'abc123'
+    }))
+    validator.element_has_value('value', 'abc123')
+    assert_nil(validator.success)
+    assert(validator.errors.empty?)
+  end
+
+  def test_element_has_value_is_nil
+    validator = Maze::Schemas::ValidatorBase.new(create_basic_request({
+      'value' => nil
+    }))
+    validator.element_has_value('value', 'abc123')
+    assert_false(validator.success)
+    assert_equal(1, validator.errors.size)
+    assert_equal(validator.errors.first, "Element 'value' was expected to be 'abc123', was ''")
+  end
+
+  def test_element_has_value_is_wrong
+    validator = Maze::Schemas::ValidatorBase.new(create_basic_request({
+      'value' => '123abc'
+    }))
+    validator.element_has_value('value', 'abc123')
+    assert_false(validator.success)
+    assert_equal(1, validator.errors.size)
+    assert_equal(validator.errors.first, "Element 'value' was expected to be 'abc123', was '123abc'")
+  end
+
+  def test_element_exists_success
+    validator = Maze::Schemas::ValidatorBase.new(create_basic_request({
+      'value' => '123abc',
+      'array' => [1, 2, 3]
+    }))
+    validator.element_exists('value')
+    assert_nil(validator.success)
+    assert_equal(0, validator.errors.size)
+
+    validator.element_exists('array')
+    assert_nil(validator.success)
+    assert_equal(0, validator.errors.size)
+  end
+
+  def test_element_exists_is_nil
+    validator = Maze::Schemas::ValidatorBase.new(create_basic_request({
+      'value' => '123abc',
+      'array' => [1, 2, 3]
+    }))
+    validator.element_exists('missing')
+    assert_false(validator.success)
+    assert_equal(1, validator.errors.size)
+    assert_equal(validator.errors.first, "Element 'missing' was not found")
+  end
+
+  def test_element_exists_is_empty_array
+    validator = Maze::Schemas::ValidatorBase.new(create_basic_request({
+      'value' => '123abc',
+      'array' => []
+    }))
+    validator.element_exists('array')
+    assert_false(validator.success)
+    assert_equal(1, validator.errors.size)
+    assert_equal(validator.errors.first, "Element 'array' was an empty array")
+  end
+
+  def test_each_element_exists_success
+    validator = Maze::Schemas::ValidatorBase.new(create_basic_request({
+      'foo' => 1,
+      'bar' => 2
+    }))
+    validator.expects(:element_exists).with('foo').once
+    validator.expects(:element_exists).with('bar').once
+    validator.each_element_exists(['foo', 'bar'])
+    assert_nil(validator.success)
+    assert_equal(0, validator.errors.size)
+  end
+
+  def test_each_element_exists_success_with_warning
+    validator = Maze::Schemas::ValidatorBase.new(create_basic_request({
+      'foo' => 1,
+      'bar' => 2
+    }))
+    validator.expects(:element_exists).with('foo').once
+    logger_mock = mock('logger')
+    logger_mock.expects(:warn).with("each_element_exists was called with a non-array value: 'foo'. Use element_exists instead.")
+    $logger = logger_mock
+
+    validator.each_element_exists('foo')
+    assert_nil(validator.success)
+    assert_equal(0, validator.errors.size)
+  end
+
+  def test_each_element_contains_success
+    validator = Maze::Schemas::ValidatorBase.new(create_basic_request({
+      'containers' => [
+        { 'value' => 'abc' },
+        { 'value' => 'def' },
+        { 'value' => 'ghi' }
+      ]
+    }))
+    validator.each_element_contains('containers', 'value')
+    assert_nil(validator.success)
+    assert_equal(0, validator.errors.size)
+  end
+
+  def test_each_element_contains_mixed_success
+    validator = Maze::Schemas::ValidatorBase.new(create_basic_request({
+      'containers' => [
+        { 'value' => 'abc' },
+        { 'value' => 'def' },
+        { 'value' => 'ghi' },
+        { 'not_value' => 'jkl' },
+        { 'value' => nil },
+        { 'value' => [] }
+      ]
+    }))
+    validator.each_element_contains('containers', 'value')
+    assert_false(validator.success)
+    assert_equal(3, validator.errors.size)
+    assert(validator.errors.include?("Required containers element value was not present at index 3"))
+    assert(validator.errors.include?("Required containers element value was not present at index 4"))
+    assert(validator.errors.include?("Required containers element value was not present at index 5"))
+  end
+
+  def test_each_element_contains_failures
+    validator = Maze::Schemas::ValidatorBase.new(create_basic_request({
+      'containers' => [
+        { 'not_value' => 'jkl' }
+      ]
+    }))
+    validator.each_element_contains('containers', 'value')
+    assert_false(validator.success)
+    assert_equal(1, validator.errors.size)
+    assert(validator.errors.include?("Required containers element value was not present at index 0"))
+  end
+
+  def test_each_event_contains
+    validator = Maze::Schemas::ValidatorBase.new(create_basic_request({}))
+    validator.expects(:each_element_contains).with('events', 'val1').once
+    validator.each_event_contains('val1')
+  end
+
+  def test_each_element_contains_each
+    validator = Maze::Schemas::ValidatorBase.new(create_basic_request({}))
+    validator.expects(:each_element_contains).with('containers', 'val1').once
+    validator.expects(:each_element_contains).with('containers', 'val2').once
+    validator.expects(:each_element_contains).with('containers', 'val3').once
+    validator.each_element_contains_each('containers', ['val1', 'val2', 'val3'])
+  end
+
+  def test_each_event_contains_each
+    validator = Maze::Schemas::ValidatorBase.new(create_basic_request({}))
+    validator.expects(:each_event_contains).with('val1').once
+    validator.expects(:each_event_contains).with('val2').once
+    validator.expects(:each_event_contains).with('val3').once
+    validator.each_event_contains_each(['val1', 'val2', 'val3'])
+  end
 end

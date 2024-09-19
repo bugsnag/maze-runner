@@ -132,6 +132,13 @@ class MazeRunnerEntry
       @args << "--expand"
     end
 
+    # Check if we've set ENV['MAZE_NO_FAIL_FAST'] to override the fail fast behaviour
+    # And remove the --fail-fast option if it's set
+    if ENV['MAZE_NO_FAIL_FAST'] && @args.include?('--fail-fast')
+      @args = @args - ['--fail-fast']
+      $logger.info 'Suppressing --fail-fast option as MAZE_NO_FAIL_FAST is set.'
+    end
+
     # Load internal steps and helper functions
     load_dir = File.expand_path(File.dirname(File.dirname(__FILE__))).freeze
     paths = Dir.glob("#{load_dir}/lib/features/**/*.rb")

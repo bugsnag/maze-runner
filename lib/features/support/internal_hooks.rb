@@ -84,12 +84,9 @@ InstallPlugin do |config|
   Maze::BugsnagConfig.start_bugsnag(config)
 
   if config.fail_fast?
-    # Check if we want to override the fail fast behaviour
-    unless ENV['MAZE_NO_FAIL_FAST']
-      # Register exit code handler
-      Maze::Hooks::ErrorCodeHook.register_exit_code_hook
-      config.filters << Maze::Plugins::ErrorCodePlugin.new(config)
-    end
+    # Register exit code handler
+    Maze::Hooks::ErrorCodeHook.register_exit_code_hook
+    config.filters << Maze::Plugins::ErrorCodePlugin.new(config)
   end
 
   # Only add the retry plugin if --retry is not used on the command line

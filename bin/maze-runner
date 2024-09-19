@@ -188,6 +188,12 @@ class MazeRunnerEntry
     remove_maze_runner_args
     add_cucumber_args
 
+    # Check if we've set ENV['MAZE_NO_FAIL_FAST'] to override the fail fast behaviour
+    # And remove the --fail-fast option if it's set
+    if ENV['MAZE_NO_FAIL_FAST'] && @args.include?('--fail-fast')
+      @args = @args - ['--fail-fast']
+    end
+
     Cucumber::Cli::Main.new(@args).execute!
   end
 end

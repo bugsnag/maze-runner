@@ -136,6 +136,7 @@ class MazeRunnerEntry
     # And remove the --fail-fast option if it's set
     if ENV['MAZE_NO_FAIL_FAST'] && @args.include?('--fail-fast')
       @args = @args - ['--fail-fast']
+      $logger.info 'Suppressing --fail-fast option as MAZE_NO_FAIL_FAST is set.'
     end
 
     # Load internal steps and helper functions

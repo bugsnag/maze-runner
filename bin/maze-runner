@@ -101,6 +101,25 @@ require_relative '../lib/utils/selenium_money_patch'
 # Encapsulates the MazeRunner entry point
 class MazeRunnerEntry
 
+  def read_options_file(filename)
+    return unless File.exist?(filename)
+
+    $logger.info "Reading command line options from #{filename}"
+    File.readlines(filename).each do |line|
+      line.strip!
+      next if line.empty? || line.start_with?('#')
+      @args << line
+    end
+  end
+
+  # Loads options from config files
+  def load_options_from_files
+    all_file = File.join('features', 'support', 'maze.all.cfg')
+    buildkite_file = File.join('features', 'support', 'maze.buildkite.cfg')
+    read_options_file(all_file)
+    read_options_file(buildkite_file) if ENV['BUILDKITE']
+  end
+
   # Removes Maze Runner specific args from the array, as these will cause Cucumber to error.
   def remove_maze_runner_args
     Maze::Option.constants.each do |opt|
@@ -192,6 +211,7 @@ class MazeRunnerEntry
     Maze::Option::Processor.populate Maze.config, options
 
     # Adjust CL options before calling down to Cucumber
+    load_options_from_files
     remove_maze_runner_args
     add_cucumber_args
 

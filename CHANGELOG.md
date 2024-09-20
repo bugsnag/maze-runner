@@ -6,6 +6,7 @@
 - Add support for defining custom validation blocks in configuration
   - [672](https://github.com/bugsnag/maze-runner/pull/672)
   - [675](https://github.com/bugsnag/maze-runner/pull/675)
+- Add support for command line options files [676](https://github.com/bugsnag/maze-runner/pull/676)
 
 # 9.13.1 - 2024-08-30
 

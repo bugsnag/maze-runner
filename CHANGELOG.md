@@ -2,8 +2,10 @@
 
 ## Enhancements
 
-- Add support for defining custom validation blocks in configuration [672](https://github.com/bugsnag/maze-runner/pull/672)
 - Add the ability to override the `--fail-fast` option via an environment variable [674](https://github.com/bugsnag/maze-runner/pull/674)
+- Add support for defining custom validation blocks in configuration
+  - [672](https://github.com/bugsnag/maze-runner/pull/672)
+  - [675](https://github.com/bugsnag/maze-runner/pull/675)
 
 # 9.13.1 - 2024-08-30
 

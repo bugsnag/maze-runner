@@ -19,13 +19,18 @@ module Maze
         def validate_payload_elements(list, list_name)
           # Test to see if a custom validator exists for the list
           custom_validator = Maze.config.custom_validators&.key?(list_name)
-          validator_class = case list_name
-          when 'trace', 'traces'
-            Maze::Schemas::TraceValidator
-          when 'error', 'errors'
-            Maze::Schemas::ErrorValidator
+
+          if Maze.config.skipped_validators && Maze.config.skipped_validators[list_name]
+            validator_class = false
           else
-            nil
+            validator_class = case list_name
+            when 'trace', 'traces'
+              Maze::Schemas::TraceValidator
+            when 'error', 'errors'
+              Maze::Schemas::ErrorValidator
+            else
+              nil
+            end
           end
 
           list_validators = list.all.map do |request|

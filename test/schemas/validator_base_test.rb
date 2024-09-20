@@ -215,17 +215,6 @@ class ValidatorBaseTest < Test::Unit::TestCase
     assert_equal(validator.errors.first, "Element 'missing' was not found")
   end
 
-  def test_element_exists_is_empty_array
-    validator = Maze::Schemas::ValidatorBase.new(create_basic_request({
-      'value' => '123abc',
-      'array' => []
-    }))
-    validator.element_exists('array')
-    assert_false(validator.success)
-    assert_equal(1, validator.errors.size)
-    assert_equal(validator.errors.first, "Element 'array' was an empty array")
-  end
-
   def test_each_element_exists_success
     validator = Maze::Schemas::ValidatorBase.new(create_basic_request({
       'foo' => 1,
@@ -279,10 +268,9 @@ class ValidatorBaseTest < Test::Unit::TestCase
     }))
     validator.each_element_contains('containers', 'value')
     assert_false(validator.success)
-    assert_equal(3, validator.errors.size)
+    assert_equal(2, validator.errors.size)
     assert(validator.errors.include?("Required containers element value was not present at index 3"))
     assert(validator.errors.include?("Required containers element value was not present at index 4"))
-    assert(validator.errors.include?("Required containers element value was not present at index 5"))
   end
 
   def test_each_element_contains_failures

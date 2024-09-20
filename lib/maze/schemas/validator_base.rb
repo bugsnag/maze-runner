@@ -45,9 +45,6 @@ module Maze
         if element.nil?
           @success = false
           @errors << "Element '#{path}' was not found"
-        elsif element.kind_of?(Array) && element.empty?
-          @success = false
-          @errors << "Element '#{path}' was an empty array"
         end
       end
 
@@ -65,7 +62,7 @@ module Maze
         containers = Maze::Helper.read_key_path(@body, container_path)
         containers.each_with_index do |container, index|
           element = Maze::Helper.read_key_path(container, path)
-          if element.nil? || (element.is_a?(Array) && element.empty?)
+          if element.nil?
             @success = false
             @errors << "Required #{container_path} element #{path} was not present at index #{index}"
           end

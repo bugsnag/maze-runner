@@ -104,6 +104,7 @@ class MazeRunnerEntry
   def read_options_file(filename)
     return unless File.exist?(filename)
 
+    $logger.info "Reading command line options from #{filename}"
     File.readlines(filename).each do |line|
       line.strip!
       next if line.empty? || line.start_with?('#')

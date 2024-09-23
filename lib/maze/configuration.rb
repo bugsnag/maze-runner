@@ -14,6 +14,7 @@ module Maze
       self.android_app_files_directory = nil
       self.span_timestamp_validation = true
       self.unmanaged_traces_mode = false
+      self.client_mode_validation = true
       @legacy_driver = false
     end
 
@@ -95,6 +96,20 @@ module Maze
       @custom_validators ||= {}
       @custom_validators[endpoint] = validator
     end
+
+    # Whether default validation should be skipped for a given endpoint
+    attr_reader :skipped_validators
+
+    # Sets whether to skip default validation for a given endpoint
+    #
+    # @param endpoint [String] The endpoint to skip default validation for
+    def skip_default_validation(endpoint)
+      @skipped_validators ||= {}
+      @skipped_validators[endpoint] = true
+    end
+
+    # Sets whether validation should be run in client mode
+    attr_accessor :client_mode_validation
 
     #
     # General appium configuration

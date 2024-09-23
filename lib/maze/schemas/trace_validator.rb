@@ -23,7 +23,6 @@ module Maze
         element_int_in_range('resourceSpans.0.scopeSpans.0.spans.0.kind', 0..5)
         regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.startTimeUnixNano', '^[0-9]+$')
         regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.endTimeUnixNano', '^[0-9]+$')
-        span_element_contains('resourceSpans.0.resource.attributes', 'device.id')
         each_span_element_contains('resourceSpans.0.scopeSpans.0.spans', 'attributes', 'bugsnag.sampling.p')
         span_element_contains('resourceSpans.0.resource.attributes', 'deployment.environment')
         span_element_contains('resourceSpans.0.resource.attributes', 'telemetry.sdk.name')
@@ -34,6 +33,10 @@ module Maze
           'resourceSpans.0.scopeSpans.0.spans.0.endTimeUnixNano',
           'resourceSpans.0.scopeSpans.0.spans.0.startTimeUnixNano'
         )
+
+        if Maze.config.client_mode_validation
+          span_element_contains('resourceSpans.0.resource.attributes', 'device.id')
+        end
       end
 
       def verify_against_schema

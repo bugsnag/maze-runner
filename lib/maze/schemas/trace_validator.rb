@@ -34,7 +34,7 @@ module Maze
           'resourceSpans.0.scopeSpans.0.spans.0.startTimeUnixNano'
         )
 
-        unless Maze.config.client_mode_validation
+        if Maze.config.client_mode_validation
           span_element_contains('resourceSpans.0.resource.attributes', 'device.id')
         end
       end

@@ -14,6 +14,7 @@ module Maze
       self.android_app_files_directory = nil
       self.span_timestamp_validation = true
       self.unmanaged_traces_mode = false
+      self.client_mode_validation = true
       @legacy_driver = false
     end
 

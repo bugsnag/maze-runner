@@ -1,4 +1,4 @@
-# 9.14.0 - TBD
+# 9.14.0 - 2024-09-23
 
 ## Enhancements
 
@@ -6,6 +6,8 @@
 - Add support for defining custom validation blocks in configuration
   - [672](https://github.com/bugsnag/maze-runner/pull/672)
   - [675](https://github.com/bugsnag/maze-runner/pull/675)
+  - [677](https://github.com/bugsnag/maze-runner/pull/677)
+- Add client mode configuration option [677](https://github.com/bugsnag/maze-runner/pull/677)
 - Add support for command line options files [676](https://github.com/bugsnag/maze-runner/pull/676)
 
 # 9.13.1 - 2024-08-30

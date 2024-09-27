@@ -1,3 +1,9 @@
+# 9.14.1 - TBD
+
+## Fixes
+
+- Add dependencies for modules no longer present in Ruby standard lib for v3.3+ [678](https://github.com/bugsnag/maze-runner/pull/678)
+
 # 9.14.0 - 2024-09-23
 
 ## Enhancements

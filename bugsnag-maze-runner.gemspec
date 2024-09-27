@@ -52,6 +52,12 @@ Gem::Specification.new do |spec|
   # Pin indirect dependencies
   spec.add_runtime_dependency 'rubyzip', '~> 2.3.2'
 
+  # Dependencies no longer part of the standard library
+  spec.add_runtime_dependency 'ostruct', '~>0.6.0'
+  spec.add_runtime_dependency 'logger', '~>1.6'
+  spec.add_runtime_dependency 'base64', '~>0.2.0'
+  spec.add_runtime_dependency 'bigdecimal', '~>3.1'
+
   spec.add_development_dependency 'license_finder', '~> 7.0'
   spec.add_development_dependency 'markdown', '~> 1.2'
   spec.add_development_dependency 'mocha', '~> 1.13.0'

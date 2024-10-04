@@ -143,7 +143,7 @@ steps:
     env:
       RUBY_VERSION: "2"
       USE_LEGACY_DRIVER: "1"
-    command: 'bundle exec maze-runner -e features/fixtures'
+    command: 'bundle exec maze-runner'
 
   - label: 'No-device tests with Ruby 2 - batch 2'
     timeout_in_minutes: 30
@@ -166,7 +166,7 @@ steps:
     env:
       RUBY_VERSION: "2"
       USE_LEGACY_DRIVER: "1"
-    command: 'bundle exec maze-runner -e features/fixtures'
+    command: 'bundle exec maze-runner'
 
   - label: 'No-device tests with Ruby 3 - batch 1'
     timeout_in_minutes: 30
@@ -184,7 +184,7 @@ steps:
           run: http-response-tests
     env:
       RUBY_VERSION: "3"
-    command: 'bundle exec maze-runner -e features/fixtures'
+    command: 'bundle exec maze-runner'
 
   - label: 'No-device tests with Ruby 3 - batch 2'
     timeout_in_minutes: 30
@@ -202,7 +202,7 @@ steps:
           run: command-workflow-tests
     env:
       RUBY_VERSION: "3"
-    command: 'bundle exec maze-runner -e features/fixtures'
+    command: 'bundle exec maze-runner'
 
   #
   # BrowserStack tests

@@ -174,7 +174,8 @@ class MazeRunnerEntry
 
     # Parse args, processing any Maze Runner specific options
     @args = args.dup
-    options = Maze::Option::Parser.parse args
+    load_options_from_files
+    options = Maze::Option::Parser.parse @args
 
     if options[Maze::Option::LIST_DEVICES]
       case options[Maze::Option::FARM].to_sym
@@ -211,7 +212,6 @@ class MazeRunnerEntry
     Maze::Option::Processor.populate Maze.config, options
 
     # Adjust CL options before calling down to Cucumber
-    load_options_from_files
     remove_maze_runner_args
     add_cucumber_args
 

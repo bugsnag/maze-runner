@@ -243,6 +243,10 @@ After do |_scenario|
   Maze::ErrorCaptor.instance.reset_captured_errors
 end
 
+After do |_scenario|
+  pp "internal_hooks AFTER"
+end
+
 # After all tests
 AfterAll do
   # Ensure the logger output is in the correct location

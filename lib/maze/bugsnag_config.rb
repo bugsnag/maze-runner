@@ -88,5 +88,18 @@ module Maze
         @middleware.call(report)
       end
     end
+
+    class ErrorCaptureMiddleware
+
+      def initialize(middleware)
+        @middleware = middleware
+      end
+
+      def call(report)
+        Maze::ErrorCaptor.instance.add_captured_error(report)
+
+        @middleware.call(report)
+      end
+    end
   end
 end

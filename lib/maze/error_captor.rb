@@ -6,7 +6,7 @@ module Maze
   class ErrorCaptor
     include Singleton
 
-    attr_reader :last_error_report
+    attr_reader :captured_errors
 
     def initialize
       @captured_errors = []

@@ -8,6 +8,7 @@
 
 - Add dependencies for modules no longer present in Ruby standard lib for v3.3+ [678](https://github.com/bugsnag/maze-runner/pull/678)
 - Fix issues with loading maze-runner commands from file [679](https://github.com/bugsnag/maze-runner/pull/679)
+- Remove deprecated close_app usage [681](https://github.com/bugsnag/maze-runner/pull/681)
 
 # 9.14.0 - 2024-09-23
 

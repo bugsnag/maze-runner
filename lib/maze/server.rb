@@ -101,6 +101,8 @@ module Maze
           sourcemaps
         when 'reflect', 'reflects', 'reflection', 'reflections'
           reflections
+        when 'pipeline event', 'pipeline events, pipeline_events'
+          pipeline_events
         when 'invalid', 'invalid requests'
           invalid_requests
         else
@@ -184,6 +186,10 @@ module Maze
       # @return [RequestList] Commands to be performed
       def commands
         @commands ||= RequestList.new
+      end
+
+      def pipeline_events
+        @pipeline_events ||= RequestList.new
       end
 
       # Whether the server thread is running
@@ -289,6 +295,7 @@ module Maze
         logs.clear
         invalid_requests.clear
         reflections.clear
+        pipeline_events.clear
       end
     end
   end

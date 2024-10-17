@@ -57,6 +57,21 @@ module Maze
                 short: :none,
                 type: :string
 
+            opt Option::BUGSNAG_DATA_ACCESS_API_ENDPOINT,
+                'Enables querying of the Bugsnag Data Access API, using the endpoint provided.  MAZE_BUGSNAG_DATA_ACCESS_API_ENDPOINT may also be set.',
+                short: :none,
+                type: :string
+
+            opt Option::BUGSNAG_DATA_ACCESS_API_KEY,
+                'Enables querying of the Bugsnag Data Access API, using the API key provided.  MAZE_BUGSNAG_DATA_ACCESS_API_KEY may also be set.',
+                short: :none,
+                type: :string
+
+            opt Option::BUGSNAG_DATA_ACCESS_PROJECT_ID,
+                'Enables querying of the Bugsnag Data Access API, using the project ID provided.  MAZE_BUGSNAG_DATA_ACCESS_PROJECT_ID may also be set.',
+                short: :none,
+                type: :string
+
             text ''
             text 'Server options:'
 
@@ -282,6 +297,10 @@ module Maze
           options[Option::APPIUM_SERVER] ||= ENV['MAZE_APPIUM_SERVER'] || 'http://localhost:4723/wd/hub'
           options[Option::APPLE_TEAM_ID] ||= ENV['MAZE_APPLE_TEAM_ID']
           options[Option::UDID] ||= ENV['MAZE_UDID']
+          options[Option::BUGSNAG_DATA_ACCESS_API_ENDPOINT] ||= ENV['MAZE_BUGSNAG_DATA_ACCESS_API_ENDPOINT']
+          options[Option::BUGSNAG_DATA_ACCESS_API_KEY] ||= ENV['MAZE_BUGSNAG_DATA_ACCESS_API_KEY']
+          options[Option::BUGSNAG_DATA_ACCESS_PROJECT_ID] ||= ENV['MAZE_BUGSNAG_DATA_ACCESS_PROJECT_ID']
+
           options
         end
       end

@@ -84,6 +84,15 @@ module Maze
     # Enables unmanaged trace mode.
     attr_accessor :unmanaged_traces_mode
 
+    # The endpoint to use for the Bugsnag Data Access API
+    attr_accessor :bugsnag_data_access_api_endpoint
+
+    # The API key to use for the Bugsnag Data Access API
+    attr_accessor :bugsnag_data_access_api_key
+
+    # The project ID to use for the Bugsnag Data Access API
+    attr_accessor :bugsnag_data_access_project_id
+
     # Custom validators to use for a given endpoint
     attr_reader :custom_validators
 

@@ -42,6 +42,7 @@ Gem::Specification.new do |spec|
   end
 
   spec.add_dependency 'bugsnag', '~> 6.24'
+  spec.add_dependency 'bugsnag-api', '~> 3.0'
   spec.add_dependency 'cucumber-expressions', '~> 6.0.0'
   spec.add_dependency 'curb', '~> 1.0.5'
   spec.add_dependency 'dogstatsd-ruby', '~> 5.5.0'

@@ -1,3 +1,5 @@
+require 'bugsnag/api'
+
 module Maze
   module Client
     module Bugsnag

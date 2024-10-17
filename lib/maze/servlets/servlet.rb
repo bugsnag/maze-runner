@@ -60,7 +60,7 @@ module Maze
       def do_POST(request, response)
 
         @aspecto_repeater.repeat request
-        @bugsnag_repeater.repeat request
+        bugsnag_response = @bugsnag_repeater.repeat request
 
         # Turn the WEBrick HttpRequest into our internal HttpRequest delegate
         request = Maze::HttpRequest.new(request)
@@ -90,6 +90,7 @@ module Maze
           schema_errors = @schema.validate(hash[:body])
           hash[:schema_errors] = schema_errors.to_a
         end
+        hash[:event_id] = bugsnag_response['bugsnag-event-id'] if bugsnag_response
         add_request(hash)
 
         # For the response, delaying if configured to do so

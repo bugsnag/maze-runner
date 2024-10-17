@@ -40,6 +40,8 @@ module Maze
 
           response = https.request(onward_request)
           log_response response
+
+          next response
         end
       end
 

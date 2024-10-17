@@ -197,6 +197,8 @@ def output_received_requests(request_type)
     request_queue.all.each.with_index(1) do |request, number|
       $stdout.puts "--- #{request_type} #{number} of #{count}"
 
+      $logger.info "Bugsnag Event Id: #{request[:event_id]}" if request[:event_id]
+
       $logger.info 'Request body:'
       Maze::Loggers::LogUtil.log_hash(Logger::Severity::INFO, request[:body])
 

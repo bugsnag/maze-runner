@@ -17,7 +17,10 @@ module Maze
 
         uri = url_for_request_type
 
-        Net::HTTP.start(uri.host, uri.port, :use_ssl => true) do |https|
+        Net::HTTP.start(uri.host, uri.port, :use_ssl => uri.to_s.start_with?('https')) do |https|
+
+          uri.path = '/' if uri.path.nil? || uri.path.empty?
+
           onward_request = Net::HTTP::Post.new(uri.path)
           onward_request.body = decompress(request)
 

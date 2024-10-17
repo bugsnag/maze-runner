@@ -34,15 +34,22 @@ module Maze
               uri = request[:request][:request_uri]
               headers = request[:request][:header]
               body = request[:request][:body]
+              event_id = nil
             else
               invalid_request = false
               uri = request[:request].request_uri
               headers = request[:request].header
               body = request[:body]
+              event_id = request[:event_id]
             end
 
             file.puts "URI: #{uri}"
             file.puts
+
+            if event_id
+              file.puts "Event Id: #{event_id}"
+              file.puts
+            end
 
             # Request
             file.puts "Request:"

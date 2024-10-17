@@ -1,8 +1,11 @@
 # @!group Pipeline_event steps
 
 # Checks to see if an event is available in the pipeline
-Then('the event is available via the data access api') do
-  # Get event_id from... somewhere
+Then('the last event is available via the data access api') do
+  event_id = Maze::Server.events.last[:event_id]
+
+  raise Test::Unit::AssertionFailedError.new('Event id could not be found from last event') if event_id.nil?
+
   # Check if the event exists in the pipeline_events list already
   return if Maze::Server.pipeline_events.any? { |event| event[:event_id].eql?(event_id) }
 
@@ -16,7 +19,11 @@ Then('the event is available via the data access api') do
   end
 end
 
-Then('the event is not available via the data access api') do
+Then('the last event is not available via the data access api') do
+  event_id = Maze::Server.events.last[:event_id]
+
+  raise Test::Unit::AssertionFailedError.new('Event id could not be found from last event') if event_id.nil?
+
   if Maze::Server.pipeline_events.any? { |event| event[:event_id].eql?(event_id) }
     raise Test::Unit::AssertionFailedError.new <<-MESSAGE
     Event with id #{event_id} already exists in the events pulled via data access api

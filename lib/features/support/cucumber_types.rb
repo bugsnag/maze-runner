@@ -1,6 +1,6 @@
 ParameterType(
   name:        'request_type',
-  regexp:      /errors?|sessions?|builds?|logs?|metrics?|sampling requests?|traces?|uploads?|sourcemaps?|reflects?|reflections?|invalid requests?/,
+  regexp:      /errors?|sessions?|builds?|logs?|metrics?|sampling requests?|traces?|uploads?|sourcemaps?|reflects?|reflections?|invalid requests?|pipeline events?/,
   type:        String,
   transformer: ->(s) { s }
 )

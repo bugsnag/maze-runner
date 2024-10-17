@@ -13,7 +13,7 @@ module Maze
           @project_id = Maze.config.bugsnag_data_access_project_id
           if @endpoint.start_with?('http')
             connection_options = { ssl: { verify: false } }
-          else
+          end
           @client = Bugsnag::Api::Client.new(
               api_key: @api_key,
               endpoint: @endpoint,

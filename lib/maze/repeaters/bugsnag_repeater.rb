@@ -17,11 +17,13 @@ module Maze
       end
 
       def url_for_request_type
-        traces_endpoint = ENV['MAZE_REPEATER_TRACES_ENDPOINT'] || 'otlp.bugsnag.com/v1/traces'
+        traces_endpoint = URI.parse(ENV['MAZE_REPEATER_TRACES_ENDPOINT'] || 'https://otlp.bugsnag.com/v1/traces').tap do |u|
+          u.host = "#{Maze.config.bugsnag_repeater_api_key}.#{u.host}"
+        end
         url = case @request_type
               when :errors then ENV['MAZE_REPEATER_NOTIFY_ENDPOINT'] || 'https://notify.bugsnag.com/'
               when :sessions then ENV['MAZE_REPEATER_SESSIONS_ENDPOINT'] || 'https://sessions.bugsnag.com/'
-              when :traces then "https://#{Maze.config.bugsnag_repeater_api_key}.#{traces_endpoint}"
+              when :traces then traces_endpoint.to_s
               else return nil
               end
         URI.parse(url)

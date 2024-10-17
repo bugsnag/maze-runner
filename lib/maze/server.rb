@@ -101,7 +101,7 @@ module Maze
           sourcemaps
         when 'reflect', 'reflects', 'reflection', 'reflections'
           reflections
-        when 'pipeline event', 'pipeline events, pipeline_events'
+        when 'pipeline event', 'pipeline events', 'pipeline_events'
           pipeline_events
         when 'invalid', 'invalid requests'
           invalid_requests

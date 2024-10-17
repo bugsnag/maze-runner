@@ -5,6 +5,7 @@
 require 'em/pure_ruby'
 
 require 'cucumber/cli/main'
+require 'bugsnag/api'
 
 require_relative '../lib/utils/deep_merge'
 

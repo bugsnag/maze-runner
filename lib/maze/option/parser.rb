@@ -57,17 +57,17 @@ module Maze
                 short: :none,
                 type: :string
 
-            opt Option::BUGSNAG_DATA_ACCESS_API_ENDPOINT
+            opt Option::BUGSNAG_DATA_ACCESS_API_ENDPOINT,
                 'Enables querying of the Bugsnag Data Access API, using the endpoint provided.  MAZE_BUGSNAG_DATA_ACCESS_API_ENDPOINT may also be set.',
                 short: :none,
                 type: :string
 
-            opt Option::BUGSNAG_DATA_ACCESS_API_KEY
+            opt Option::BUGSNAG_DATA_ACCESS_API_KEY,
                 'Enables querying of the Bugsnag Data Access API, using the API key provided.  MAZE_BUGSNAG_DATA_ACCESS_API_KEY may also be set.',
                 short: :none,
                 type: :string
 
-            opt Option::BUGSNAG_DATA_ACCESS_PROJECT_ID
+            opt Option::BUGSNAG_DATA_ACCESS_PROJECT_ID,
                 'Enables querying of the Bugsnag Data Access API, using the project ID provided.  MAZE_BUGSNAG_DATA_ACCESS_PROJECT_ID may also be set.',
                 short: :none,
                 type: :string

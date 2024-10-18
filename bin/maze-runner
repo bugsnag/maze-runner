@@ -31,6 +31,7 @@ require_relative '../lib/maze/client/selenium/base_client'
 require_relative '../lib/maze/client/selenium/bb_client'
 require_relative '../lib/maze/client/selenium/bs_client'
 require_relative '../lib/maze/client/selenium/local_client'
+require_relative '../lib/maze/client/bugsnag/data_access_api'
 
 require_relative '../lib/maze/aws_public_ip'
 require_relative '../lib/maze/compare'

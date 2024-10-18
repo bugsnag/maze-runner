@@ -34,15 +34,22 @@ module Maze
               uri = request[:request][:request_uri]
               headers = request[:request][:header]
               body = request[:request][:body]
+              event_id = nil
             else
               invalid_request = false
               uri = request[:request].request_uri
               headers = request[:request].header
               body = request[:body]
+              event_id = request[:event_id]
             end
 
             file.puts "URI: #{uri}"
             file.puts
+
+            if event_id
+              file.puts "Event Id: #{event_id}"
+              file.puts
+            end
 
             # Request
             file.puts "Request:"
@@ -86,6 +93,40 @@ module Maze
 
             counter += 1
           end
+        end
+      end
+    end
+
+    # Writes any pipeline events drawn from the data access API to a file
+    def write_pipeline_events
+      path = output_folder
+      FileUtils.makedirs(path)
+
+      request_type = 'pipeline events'
+      list = Maze::Server.list_for(request_type).all
+      return if list.empty?
+
+      filename = "#{request_type.gsub(' ', '_')}.log"
+      filepath = File.join(path, filename)
+
+      counter = 1
+      File.open(filepath, 'w+') do |file|
+        list.each do |request|
+          file.puts "=== Event #{counter} of #{list.size} ==="
+          file.puts
+
+          event = request[:event]
+          event_id = request[:event_id]
+
+          file.puts "Event Id: #{event_id}"
+          file.puts
+
+          # Event
+          file.puts "Event:"
+          file.puts JSON.pretty_generate(event)
+          file.puts
+
+          counter += 1
         end
       end
     end

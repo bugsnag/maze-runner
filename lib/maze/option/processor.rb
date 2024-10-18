@@ -24,6 +24,10 @@ module Maze
           config.aspecto_repeater_api_key = options[Maze::Option::ASPECTO_REPEATER_API_KEY]
           config.bugsnag_repeater_api_key = options[Maze::Option::BUGSNAG_REPEATER_API_KEY]
 
+          config.bugsnag_data_access_api_endpoint = options[Maze::Option::BUGSNAG_DATA_ACCESS_API_ENDPOINT]
+          config.bugsnag_data_access_api_key = options[Maze::Option::BUGSNAG_DATA_ACCESS_API_KEY]
+          config.bugsnag_data_access_project_id = options[Maze::Option::BUGSNAG_DATA_ACCESS_PROJECT_ID]
+
           # Document server options
           config.document_server_root = options[Maze::Option::DS_ROOT]
           config.document_server_bind_address = options[Maze::Option::DS_BIND_ADDRESS]

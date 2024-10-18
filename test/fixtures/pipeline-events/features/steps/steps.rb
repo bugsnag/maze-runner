@@ -1,6 +1,6 @@
 When('I send a request to the server') do
   test_payload = JSON.generate({
-    apiKey: ENV['MAZE_REPEATER_API_KEY'],
+    apiKey: Maze.config.bugsnag_repeater_api_key,
     notifier: {
       name: 'Ruby Bugsnag Notifier',
       version: '6.27.1',
@@ -51,7 +51,7 @@ When('I send a request to the server') do
   http = Net::HTTP.new('localhost', '9339')
   request = Net::HTTP::Post.new('/notify')
   request['content-type'] = 'application/json'
-  request['bugsnag-api-key'] = ENV['MAZE_REPEATER_API_KEY']
+  request['bugsnag-api-key'] = Maze.config.bugsnag_repeater_api_key
   request['bugsnag-payload-version'] = '4.0'
   request['bugsnag-sent-at'] = Time.now.utc.iso8601
   request.body = test_payload

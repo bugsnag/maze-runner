@@ -1,6 +1,9 @@
 # @!group Setup steps
 
 # Creates a new project in bugsnag
+# @step_input name [String] The name of the project
+# @step_input type [String] The type of the project, full list can be found in the Bugsnag API documentation
+# https://bugsnagapiv2.docs.apiary.io/#reference/projects/projects/create-a-project-in-an-organization
 Given('I create a new project {string} with type {string}') do |name, type|
   org_id = data_access_api.get_first_org_id
   project = data_access_api.create_project(org_id, name, type)

@@ -48,8 +48,6 @@ When('I send a request to the server') do
     ]
   })
 
-  pp test_payload
-
   http = Net::HTTP.new('localhost', '9339')
   request = Net::HTTP::Post.new('/notify')
   request['content-type'] = 'application/json'

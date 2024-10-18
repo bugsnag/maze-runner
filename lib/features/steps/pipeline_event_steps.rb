@@ -56,9 +56,9 @@ def get_event_from_api(event_id)
     end
   end
   if received_event
-    pp received_event
+    # This sucks
     Maze::Server.pipeline_events.add({
-      body: received_event.map(&:to_h).to_json,
+      body: JSON.parse(JSON.generate(received_event.to_h)),
       request: received_event,
       event_id: event_id
     })

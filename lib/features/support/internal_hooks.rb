@@ -162,6 +162,7 @@ After do |scenario|
   if (scenario.failed? && Maze.config.log_requests) || Maze.config.always_log
     $stdout.puts '^^^ +++' if ENV['BUILDKITE']
     output_received_requests('errors')
+    output_received_requests('pipeline event')
     output_received_requests('sessions')
     output_received_requests('traces')
     output_received_requests('builds')
@@ -173,7 +174,9 @@ After do |scenario|
   $success = !scenario.failed?
 
   # Log all received requests to file
-  Maze::MazeOutput.new(scenario).write_requests if Maze.config.file_log
+  maze_output = Maze::MazeOutput.new(scenario)
+  maze_output.write_requests if Maze.config.file_log
+  maze_output.write_pipeline_events if Maze.config.file_log
 
   # Invoke the internal hook for the mode of operation
   Maze.internal_hooks.after scenario

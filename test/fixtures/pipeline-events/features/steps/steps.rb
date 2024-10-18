@@ -1,6 +1,6 @@
-Given('I send a request to the server') do
-  test_payload = JSON.generate("{
-    apiKey: '#{ENV['BUGSNAG_API_KEY']}',
+When('I send a request to the server') do
+  test_payload = JSON.generate({
+    apiKey: ENV['MAZE_REPEATER_API_KEY'],
     notifier: {
       name: 'Ruby Bugsnag Notifier',
       version: '6.27.1',
@@ -9,7 +9,7 @@ Given('I send a request to the server') do
     payloadVersion: '4.0',
     events: [
       {
-        app: { version: null, releaseStage: null, type: null },
+        app: { version: nil, releaseStage: nil, type: nil },
         breadcrumbs: [],
         device: {
           hostname: 'SBUK62MMD6T.local',
@@ -46,12 +46,14 @@ Given('I send a request to the server') do
         user: {}
       }
     ]
-  }")
+  })
+
+  pp test_payload
 
   http = Net::HTTP.new('localhost', '9339')
   request = Net::HTTP::Post.new('/notify')
   request['content-type'] = 'application/json'
-  request['bugsnag-api-key'] = ENV['BUGSNAG_API_KEY']
+  request['bugsnag-api-key'] = ENV['MAZE_REPEATER_API_KEY']
   request['bugsnag-payload-version'] = '4.0'
   request['bugsnag-sent-at'] = Time.now.utc.iso8601
   request.body = test_payload

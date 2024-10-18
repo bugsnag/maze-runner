@@ -1,5 +1,3 @@
-pp "hello"
-
 Maze.config.enable_bugsnag = false
 
 BeforeAll do

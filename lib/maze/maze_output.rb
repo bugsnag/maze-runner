@@ -97,6 +97,40 @@ module Maze
       end
     end
 
+    # Writes any pipeline events drawn from the data access API to a file
+    def write_pipeline_events
+      path = output_folder
+      FileUtils.makedirs(path)
+
+      request_type = 'pipeline events'
+      list = Maze::Server.list_for(request_type).all
+      return if list.empty?
+
+      filename = "#{request_type.gsub(' ', '_')}.log"
+      filepath = File.join(path, filename)
+
+      counter = 1
+      File.open(filepath, 'w+') do |file|
+        list.each do |request|
+          file.puts "=== Event #{counter} of #{list.size} ==="
+          file.puts
+
+          event = request[:event]
+          event_id = request[:event_id]
+
+          file.puts "Event Id: #{event_id}"
+          file.puts
+
+          # Event
+          file.puts "Event:"
+          file.puts JSON.pretty_generate(event)
+          file.puts
+
+          counter += 1
+        end
+      end
+    end
+
     # Pulls the logs from the device if the scenario fails
     # @param logs [Array<String>] The lines of log to be written
     def write_device_logs(logs)

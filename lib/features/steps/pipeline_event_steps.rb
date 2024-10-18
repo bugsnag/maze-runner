@@ -53,6 +53,7 @@ def get_event_from_api(event_id)
       end
     rescue => e
       pp "Pipeline-event GET Debug: #{e.class} #{e.message}"
+      false
     end
   end
   if received_event

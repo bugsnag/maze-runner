@@ -1,33 +1,31 @@
 steps:
 
-  - label: ':docker: Build CI image for Ruby 3'
+  - label: ':docker: Build CI image for Ruby 2'
     timeout_in_minutes: 30
-    key: "ci-image-ruby-3"
+    key: "ci-image-ruby-2"
     plugins:
       - docker-compose#v4.14.0:
           build:
-            - ci-ruby-3
+            - ci-ruby-2
           image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
           cache-from:
-            - ci-ruby-3:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-3
+            - ci-ruby-2:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-2
       - docker-compose#v4.14.0:
           push:
-            - ci-ruby-3:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-3
+            - ci-ruby-2:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-2
     env:
-      RUBY_VERSION: "3"
+      RUBY_VERSION: "2"
 
-  - label: 'No-device tests with Ruby 3 - batch 1'
+  - label: ':docker: Push W3C CLI image for branch'
+    key: push-branch-cli
     timeout_in_minutes: 30
-    depends_on: "ci-image-ruby-3"
+    depends_on: "ci-image-ruby-2"
     plugins:
       - docker-compose#v4.14.0:
-          run: framework-tests
+          build: cli
+          image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
+          cache-from:
+            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
       - docker-compose#v4.14.0:
-          run: comparison-tests
-      - docker-compose#v4.14.0:
-          run: command-workflow-tests
-      - docker-compose#v4.14.0:
-          run: http-response-tests
-    env:
-      RUBY_VERSION: "3"
-    command: 'bundle exec maze-runner'
+          push:
+            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli

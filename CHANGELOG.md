@@ -1,4 +1,8 @@
-# 9.14.1 - TBD
+# 9.15.0 - 2024-10-09
+
+## Enhancements
+
+- Add support for iOS 18 on BrowserStack and remove deprecated devices [680](https://github.com/bugsnag/maze-runner/pull/680)
 
 ## Fixes
 

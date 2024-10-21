@@ -77,16 +77,17 @@ module Maze
               'ANDROID_11' => make_android_hash('Google Pixel 4', '11.0'),
               'ANDROID_10' => make_android_hash('Google Pixel 4', '10.0'),
               'ANDROID_9' => make_android_hash('Google Pixel 3', '9.0'),
-              'ANDROID_8' => make_android_hash('Samsung Galaxy Note 9', '8.1'),
+              'ANDROID_8' => make_android_hash('Samsung Galaxy S9', '8.0'),
               'ANDROID_7' => make_android_hash('Samsung Galaxy S8', '7.0'),
 
               # iOS devices
+              'IOS_18' => make_ios_hash('iPhone 14', '18'),
               'IOS_17' => make_ios_hash('iPhone 15', '17'),
               'IOS_16' => make_ios_hash('iPhone 14', '16'),
               'IOS_15' => make_ios_hash('iPhone 13', '15'),
               'IOS_14' => make_ios_hash('iPhone 11', '14'),
               'IOS_13' => make_ios_hash('iPhone 11', '13'),
-              'IOS_12' => make_ios_hash('iPhone 8', '12'),
+              'IOS_12' => make_ios_hash('iPhone XS', '12'),
             }
 
             # Specific Android devices
@@ -97,15 +98,8 @@ module Maze
             add_android 'Motorola Moto G9 Play', '10.0', hash                 # ANDROID_10_0_MOTOROLA_MOTO_G9_PLAY
             add_android 'OnePlus 8', '10.0', hash                             # ANDROID_10_0_ONEPLUS_8
 
-            add_android 'Google Pixel 2', '9.0', hash                         # ANDROID_9_0_GOOGLE_PIXEL_2
-            add_android 'Samsung Galaxy Note 9', '8.1', hash                  # ANDROID_8_1_SAMSUNG_GALAXY_NOTE_9
-            add_android 'Samsung Galaxy Tab S4', '8.1', hash                  # ANDROID_8_1_SAMSUNG_GALAXY_TAB_S4
-            add_android 'Samsung Galaxy Tab S3', '8.0', hash                  # ANDROID_8_0_SAMSUNG_GALAXY_TAB_S3
             add_android 'Samsung Galaxy S9', '8.0', hash                      # ANDROID_8_0_SAMSUNG_GALAXY_S9
-            add_android 'Samsung Galaxy S9 Plus', '8.0', hash                 # ANDROID_8_0_SAMSUNG_GALAXY_S9_PLUS
 
-            add_android 'Samsung Galaxy A8', '7.1', hash                      # ANDROID_7_1_SAMSUNG_GALAXY_A8
-            add_android 'Samsung Galaxy Note 8', '7.1', hash                  # ANDROID_7_1_SAMSUNG_GALAXY_NOTE_8
             add_android 'Samsung Galaxy S8', '7.0', hash                      # ANDROID_7_0_SAMSUNG_GALAXY_S8
 
             # Specific iOS devices

@@ -59,5 +59,10 @@ module Maze
     BUGSNAG_REPEATER_API_KEY = 'repeater-api-key'
     BUGSNAG = 'bugsnag'
     RETRIES = 'retries'
+
+    # Data Access API options
+    BUGSNAG_DATA_ACCESS_API_ENDPOINT = 'bugsnag-data-access-api-endpoint'
+    BUGSNAG_DATA_ACCESS_API_KEY = 'bugsnag-data-access-api-key'
+    BUGSNAG_DATA_ACCESS_PROJECT_ID = 'bugsnag-data-access-project-id'
   end
 end

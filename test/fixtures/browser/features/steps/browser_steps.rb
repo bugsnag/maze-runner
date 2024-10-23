@@ -1,18 +1,10 @@
 require 'socket'
 
-def get_document_server_url
-  if Maze.config.aws_public_ip
-    "http://#{Maze.public_document_server_address}"
-  else
-    "http://#{get_private_hostname}:#{Maze.config.document_server_port}"
-  end
-end
-
 def get_maze_runner_url
   if Maze.config.aws_public_ip
       "http://#{Maze.public_address}"
   else
-    "http://#{get_private_hostname}:#{Maze.config.port}"
+    "https://#{get_private_hostname}:#{Maze.config.port}"
   end
 end
 
@@ -35,8 +27,7 @@ end
 
 When('I navigate to the test URL {string}') do |test_path|
   maze_address = get_maze_runner_url
-  doc_server = get_document_server_url
-  url = "#{doc_server}#{test_path}?maze_address=#{CGI.escape(maze_address)}"
+  url = "#{maze_address}/docs#{test_path}?maze_address=#{CGI.escape(maze_address)}"
   step("I navigate to the URL \"#{url}\"")
 end
 

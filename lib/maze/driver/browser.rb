@@ -118,7 +118,13 @@ module Maze
                                                  capabilities: @capabilities
             end
           else
-            driver = ::Selenium::WebDriver.for driver_for
+            if driver_for == :chrome
+              options = Selenium::WebDriver::Options.chrome
+            elsif driver_for == :firefox
+              options = Selenium::WebDriver::Options.firefox
+            end
+            options.accept_insecure_certs = true
+            driver = ::Selenium::WebDriver.for driver_for, options: options
           end
           $logger.info "Selenium driver started in #{(Time.now - time).to_i}s"
           @driver = driver

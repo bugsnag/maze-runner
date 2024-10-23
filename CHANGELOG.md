@@ -9,6 +9,7 @@
 ## Enhancements
 
 - Add support for iOS 18 on BrowserStack and remove deprecated devices [680](https://github.com/bugsnag/maze-runner/pull/680)
+- Add https support for document servers [681](https://github.com/bugsnag/maze-runner/pull/681)
 
 ## Fixes
 

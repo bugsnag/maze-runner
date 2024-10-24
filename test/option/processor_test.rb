@@ -96,11 +96,12 @@ class ProcessorTest < Test::Unit::TestCase
     assert_true config.enable_retries
     assert_false config.log_requests
     assert_false config.always_log
+    assert_false config.https
     assert_nil config.bugsnag_repeater_api_key
   end
 
   def test_overriden_defaults
-    args = %w[--no-bugsnag --no-retries --no-file-log --no-tunnel --log-requests --always-log --bind-address=1.2.3.4 \
+    args = %w[--no-bugsnag --no-retries --no-file-log --no-tunnel --log-requests --always-log --https --bind-address=1.2.3.4 \
               --port=1234]
     options = Maze::Option::Parser.parse args
     config = Maze::Configuration.new
@@ -121,6 +122,7 @@ class ProcessorTest < Test::Unit::TestCase
     assert_false config.enable_bugsnag
     assert_false config.enable_retries
 
+    assert_true config.https
     assert_true config.log_requests
     assert_true config.always_log
   end

@@ -210,16 +210,19 @@ module Maze
 
           @thread = Thread.new do
 
-            cert_name = [
-              %w[CN localhost],
-            ]
             options = {
               Port: Maze.config.port,
               Logger: $logger,
-              AccessLog: [],
-              SSLEnable: true,
-              SSLCertName: cert_name
+              AccessLog: []
             }
+            # SSL config if enabled
+            if Maze.config.https
+              cert_name = [
+                %w[CN localhost],
+              ]
+              options[:SSLEnable] = true
+              options[:SSLCertName] = cert_name
+            end
             options[:BindAddress] = Maze.config.bind_address unless Maze.config.bind_address.nil?
             server = WEBrick::HTTPServer.new(options)
 

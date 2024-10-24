@@ -31,6 +31,7 @@ class ParserTest < Test::Unit::TestCase
     # Common options
     assert_nil(options[Maze::Option::FARM])
     assert_nil(options[Maze::Option::APP])
+    assert_false(options[Maze::Option::HTTPS])
     assert_false(options[Maze::Option::A11Y_LOCATOR])
     assert_equal('{}', options[Maze::Option::CAPABILITIES])
 
@@ -72,6 +73,7 @@ class ParserTest < Test::Unit::TestCase
       --farm=ARG_FARM
       --app=ARG_APP
       --a11y-locator
+      --https
       --capabilities=ARG_CAPABILITIES
       --bs-local=ARG_BS_LOCAL
       --device=ARG_DEVICE
@@ -98,6 +100,7 @@ class ParserTest < Test::Unit::TestCase
     assert_equal('ARG_FARM', options[Maze::Option::FARM])
     assert_equal('ARG_APP', options[Maze::Option::APP])
     assert_true(options[Maze::Option::A11Y_LOCATOR])
+    assert_true(options[Maze::Option::HTTPS])
     assert_equal('ARG_CAPABILITIES', options[Maze::Option::CAPABILITIES])
 
     # Device-farm-only options

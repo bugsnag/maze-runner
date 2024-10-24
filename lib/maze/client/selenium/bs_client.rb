@@ -16,6 +16,7 @@ module Maze
             capabilities['browserstack.local'] = 'true'
             capabilities['browserstack.localIdentifier'] = Maze.run_uuid
             capabilities['browserstack.console'] = 'errors'
+            capabilities['acceptInsecureCerts'] = 'true'
 
             # Convert W3S capabilities to JSON-WP
             capabilities['browser'] = browser['browserName']
@@ -29,6 +30,7 @@ module Maze
             config.capabilities = capabilities
           else
             capabilities = {
+              'acceptInsecureCerts' => true,
               'bstack:options' => {
                 'local' => 'true',
                 'localIdentifier' => Maze.run_uuid

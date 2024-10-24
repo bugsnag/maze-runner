@@ -60,6 +60,11 @@ module Maze
             text ''
             text 'Server options:'
 
+            opt Option::HTTPS,
+                'Use HTTPS for the mock server',
+                short: :none,
+                type: :boolean,
+                default: false
             opt Option::BIND_ADDRESS,
                 'Mock server bind address',
                 short: :none,

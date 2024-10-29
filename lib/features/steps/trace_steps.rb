@@ -270,7 +270,7 @@ def attribute_value_matches?(attribute_value, expected_type, expected_value)
   when 'intValue'
     expected_value.to_i.eql?(attribute_value[expected_type].to_i)
   when 'doubleValue'
-    expected_value.to_f.eql?(attribute_value[expected_type])
+    expected_value.to_f.eql?(attribute_value[expected_type].to_f)
   when 'boolValue'
     expected_value.eql?('true').eql?(attribute_value[expected_type])
   when 'arrayValue'

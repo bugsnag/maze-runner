@@ -1,3 +1,9 @@
+# 9.15.1 - 2024-10-29
+
+## Fixes
+
+- Ensure all values are floating points before comparison [693](https://github.com/bugsnag/maze-runner/pull/693)
+
 # 9.15.0 - 2024-10-09
 
 ## Enhancements

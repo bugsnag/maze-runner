@@ -2,7 +2,7 @@ require 'socket'
 
 def get_maze_runner_url
   if Maze.config.aws_public_ip
-      "http://#{Maze.public_address}"
+      "https://#{Maze.public_address}"
   else
     "https://#{get_private_hostname}:#{Maze.config.port}"
   end

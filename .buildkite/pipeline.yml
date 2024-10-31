@@ -322,7 +322,7 @@ steps:
         verbose: true
         command:
           - "--farm=bb"
-          - "--browser=safari_15"
+          - "--browser=safari_16"
           - "--aws-public-ip"
           - "--fail-fast"
           - "--no-tunnel"

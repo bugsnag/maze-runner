@@ -1,3 +1,9 @@
+# 9.16.0 - 2024-10-31
+
+## Enhancements
+
+- Add https support for document servers [695](https://github.com/bugsnag/maze-runner/pull/695)
+
 # 9.15.1 - 2024-10-29
 
 ## Fixes
@@ -9,7 +15,6 @@
 ## Enhancements
 
 - Add support for iOS 18 on BrowserStack and remove deprecated devices [680](https://github.com/bugsnag/maze-runner/pull/680)
-- Add https support for document servers [681](https://github.com/bugsnag/maze-runner/pull/681)
 
 ## Fixes
 

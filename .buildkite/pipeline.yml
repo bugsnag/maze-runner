@@ -262,7 +262,7 @@ steps:
           - "--farm=bs"
           - "--device=IOS_16"
           - "--fail-fast"
-          - "features/barebone_tests.feature"
+          - "features/release/barebone_tests.feature"
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
         cache-from:
           - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
@@ -373,7 +373,7 @@ steps:
       - "push-branch-cli"
     plugins:
       artifacts#v1.9.0:
-        download: "bugsnag-cocoa/features/fixtures/ios/output/iOSTestApp.ipa"
+        download: "bugsnag-cocoa/features/fixtures/ios/output/iOSTestApp_Release.ipa"
         upload: "bugsnag-cocoa/maze_output/**/*"
       docker-compose#v4.14.0:
         pull: appium-test-bb
@@ -384,13 +384,13 @@ steps:
           - "./bugsnag-cocoa/maze_output:/app/maze_output"
         service-ports: true
         command:
-          - "--app=features/fixtures/ios/output/iOSTestApp.ipa"
+          - "--app=features/fixtures/ios/output/iOSTestApp_Release.ipa"
           - "--farm=bb"
           - "--device=IOS_14|IOS_15|IOS_16"
           - "--fail-fast"
           - "--no-tunnel"
           - "--aws-public-ip"
-          - "features/barebone_tests.feature"
+          - "features/release/barebone_tests.feature"
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
         cache-from:
           - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli

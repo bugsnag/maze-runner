@@ -12,6 +12,7 @@ module Maze
           capabilities.merge! browsers[config.browser]
           capabilities.merge! JSON.parse(config.capabilities_option)
           capabilities['bitbar:options']['testTimeout'] = 900
+          capabilities['acceptInsecureCerts'] = true
           config.capabilities = capabilities
 
           if Maze::Client::BitBarClientUtils.use_local_tunnel?

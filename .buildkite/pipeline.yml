@@ -36,10 +36,13 @@ steps:
     key: ios-test-fixture
     agents:
       queue: macos-14
+    env:
+      XCODE_VERSION: "15.4.0"
     command:
       - cd bugsnag-cocoa
       - bundle install
       - make test-fixtures
+
     plugins:
       artifacts#v1.9.0:
         upload: "bugsnag-cocoa/features/fixtures/ios/output/iOSTestApp.ipa"
@@ -308,7 +311,7 @@ steps:
   # BitBar tests
   #
 
-  - label: ':bitbar: Safari 15'
+  - label: ':bitbar: Safari 16'
     depends_on: "push-branch-cli"
     timeout_in_minutes: 10
     plugins:

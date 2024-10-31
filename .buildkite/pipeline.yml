@@ -40,12 +40,10 @@ steps:
       XCODE_VERSION: "15.4.0"
     command:
       - cd bugsnag-cocoa
-      - bundle install
-      - make test-fixtures
-
+      - ./features/scripts/export_ios_app.sh Release
     plugins:
       artifacts#v1.9.0:
-        upload: "bugsnag-cocoa/features/fixtures/ios/output/iOSTestApp.ipa"
+        upload: "bugsnag-cocoa/features/fixtures/ios/output/iOSTestApp_Release.ipa"
 
   - label: ':docker: Build CI image for Ruby 2'
     timeout_in_minutes: 30
@@ -243,14 +241,14 @@ steps:
     concurrency_group: 'browserstack-app'
     concurrency_method: eager
 
-  - label: ':browserstack: iOS 15 - W3C'
+  - label: ':browserstack: iOS 16 - W3C'
     timeout_in_minutes: 20
     depends_on:
       - "ios-test-fixture"
       - "push-branch-cli"
     plugins:
       artifacts#v1.9.0:
-        download: "bugsnag-cocoa/features/fixtures/ios/output/iOSTestApp.ipa"
+        download: "bugsnag-cocoa/features/fixtures/ios/output/iOSTestApp_Release.ipa"
         upload: "bugsnag-cocoa/maze_output/**/*"
       docker-compose#v4.14.0:
         pull: appium-test-bs
@@ -260,9 +258,9 @@ steps:
           - "./bugsnag-cocoa/features:/app/features"
           - "./bugsnag-cocoa/maze_output:/app/maze_output"
         command:
-          - "--app=features/fixtures/ios/output/iOSTestApp.ipa"
+          - "--app=features/fixtures/ios/output/iOSTestApp_Release.ipa"
           - "--farm=bs"
-          - "--device=IOS_15"
+          - "--device=IOS_16"
           - "--fail-fast"
           - "features/barebone_tests.feature"
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner

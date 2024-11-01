@@ -13,6 +13,7 @@ module Maze
         def populate(config, options)
 
           # Server options
+          config.https = options[Maze::Option::HTTPS]
           config.bind_address = options[Maze::Option::BIND_ADDRESS]
           config.port = options[Maze::Option::PORT]
           config.null_port = options[Maze::Option::NULL_PORT]

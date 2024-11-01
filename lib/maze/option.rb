@@ -6,12 +6,13 @@ module Maze
     # Document server options
     DS_BIND_ADDRESS = 'document-server-bind-address'
     DS_PORT = 'document-server-port'
-    DS_ROOT = 'document-server-root'
 
     # Server options
+    HTTPS = 'https'
     BIND_ADDRESS = 'bind-address'
     NULL_PORT = 'null-port'
     PORT = 'port'
+    DS_ROOT = 'document-server-root'
 
     # Appium options
     A11Y_LOCATOR = 'a11y-locator'

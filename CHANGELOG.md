@@ -1,3 +1,9 @@
+# 9.16.0 - 2024-11-01
+
+## Enhancements
+
+- Add https support for document servers [695](https://github.com/bugsnag/maze-runner/pull/695)
+
 # 9.15.1 - 2024-10-29
 
 ## Fixes

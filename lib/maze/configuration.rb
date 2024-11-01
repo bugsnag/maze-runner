@@ -22,6 +22,9 @@ module Maze
     # Server configuration
     #
 
+    # Whether the mock server should use https
+    attr_accessor :https
+
     # Mock server bind address
     attr_accessor :bind_address
 

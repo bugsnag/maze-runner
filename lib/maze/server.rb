@@ -209,11 +209,20 @@ module Maze
         loop do
 
           @thread = Thread.new do
+
             options = {
-                Port: Maze.config.port,
-                Logger: $logger,
-                AccessLog: []
+              Port: Maze.config.port,
+              Logger: $logger,
+              AccessLog: []
             }
+            # SSL config if enabled
+            if Maze.config.https
+              cert_name = [
+                %w[CN localhost],
+              ]
+              options[:SSLEnable] = true
+              options[:SSLCertName] = cert_name
+            end
             options[:BindAddress] = Maze.config.bind_address unless Maze.config.bind_address.nil?
             server = WEBrick::HTTPServer.new(options)
 
@@ -243,6 +252,7 @@ module Maze
             server.mount '/metrics', Servlets::Servlet, :metrics
             server.mount '/reflect', Servlets::ReflectiveServlet
             server.mount '/docs', WEBrick::HTTPServlet::FileHandler, Maze.config.document_server_root unless Maze.config.document_server_root.nil?
+
             server.start
           rescue StandardError => e
             Bugsnag.notify e

@@ -123,6 +123,11 @@ module Maze
         @compose_project_name ||= nil
       end
 
+      def run_show_logs_command(container_name)
+        command = "docker logs #{container_name}"
+        @last_command_logs, @last_exit_code = Runner.run_command(command)
+      end
+
       attr_writer :compose_project_name
 
       private

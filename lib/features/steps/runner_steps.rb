@@ -59,6 +59,10 @@ When('I start the service {string}') do |service|
   Maze::Docker.start_service service
 end
 
+When('I print logs from container {string}') do |container|
+  Maze::Docker.run_show_logs_command container
+end
+
 # Runs a docker-compose service using a specific command.
 #
 # @step_input service [String] The name of the service to run

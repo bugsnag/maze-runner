@@ -3,6 +3,13 @@ module Maze
   module Hooks
     # Hooks for Appium mode use
     class AppiumHooks < InternalHooks
+
+      APPIUM_DRIVER_FAILED_ERRORS = [
+        Selenium::WebDriver::Error::UnknownError,
+        Selenium::WebDriver::Error::ServerError,
+        Selenium::WebDriver::Error::WebDriverError
+      ]
+
       @client
 
       def before_all
@@ -23,7 +30,10 @@ module Maze
       end
 
       def after(scenario)
-        
+        if scenario.failed?
+          Maze.driver = nil if driver_has_failed?
+          $logger.warn('The appium driver has failed, removing it to prevent future errors')
+        end
 
         if Maze.config.os == 'macos'
           # Close the app - without the sleep, launching the app for the next scenario intermittently fails
@@ -38,7 +48,7 @@ module Maze
           rescue Selenium::WebDriver::Error::UnknownError, Selenium::WebDriver::Error::InvalidSessionIdError
             if Maze.config.appium_version && Maze.config.appium_version.to_f < 2.0
               $logger.warn 'terminate_app failed, using the slower but more forceful close_app instead'
-              Maze.driver.close_app
+              Maze.driver.close_app unless Maze.driver.nil?
             else
               $logger.warn 'terminate_app failed, future errors may occur if the application did not close remotely'
             end
@@ -74,6 +84,15 @@ module Maze
 
       private
 
+      def driver_has_failed?
+        error_captor = Maze::ErrorCaptor.instance
+        return false unless error_captor.captured_errors_exist?
+
+        error_captor.get_captured_error_classes.any? do |error_class|
+          APPIUM_DRIVER_FAILED_ERRORS.include?(error_class)
+        end
+      end
+
       # Pulls the device logs using Appium and writes them to file in the maze_output folder
       def write_device_logs(scenario)
         log_name = case Maze::Helper.get_current_platform
@@ -82,9 +101,10 @@ module Maze
                    when 'ios'
                      'syslog'
                    end
-        logs = Maze.driver.get_log(log_name)
-
-        Maze::MazeOutput.new(scenario).write_device_logs(logs)
+        unless Maze.driver.nil?
+          logs = Maze.driver.get_log(log_name)
+          Maze::MazeOutput.new(scenario).write_device_logs(logs)
+        end
       end
     end
   end

@@ -1,8 +1,12 @@
-# 9.17.0 - 2024/11/05
+# 9.17.0 - 2024/11/06
 
 ## Enhancements
 
 - Add Android 15 to the available BrowserStack devices [697](https://github.com/bugsnag/maze-runner/pull/697)
+
+## Fixes
+
+- Do not set `acceptInsecureCerts` capability with IE [698](https://github.com/bugsnag/maze-runner/pull/698)
 
 # 9.16.0 - 2024-11-01
 

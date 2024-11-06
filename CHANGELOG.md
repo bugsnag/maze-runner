@@ -1,3 +1,9 @@
+# 9.18.0 - 2024/11/06
+
+## Enhancements
+
+- Ignore system generated ANRs on Android [699](https://github.com/bugsnag/maze-runner/pull/699)
+
 # 9.17.0 - 2024/11/06
 
 ## Enhancements

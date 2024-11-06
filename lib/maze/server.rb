@@ -303,6 +303,7 @@ module Maze
         sampling_requests.clear
         traces.clear
         logs.clear
+        ignored_requests.clear
         invalid_requests.clear
         reflections.clear
       end

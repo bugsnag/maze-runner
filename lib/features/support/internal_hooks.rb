@@ -166,6 +166,7 @@ After do |scenario|
     output_received_requests('traces')
     output_received_requests('builds')
     output_received_requests('logs')
+    output_received_requests('ignored requests')
     output_received_requests('invalid requests')
   end
 

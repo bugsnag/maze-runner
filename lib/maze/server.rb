@@ -101,6 +101,8 @@ module Maze
           sourcemaps
         when 'reflect', 'reflects', 'reflection', 'reflections'
           reflections
+        when 'ignored', 'ignored requests'
+          ignored_requests
         when 'invalid', 'invalid requests'
           invalid_requests
         else
@@ -184,6 +186,10 @@ module Maze
       # @return [RequestList] Commands to be performed
       def commands
         @commands ||= RequestList.new
+      end
+
+      def ignored_requests
+        @ignored_requests ||= RequestList.new
       end
 
       # Whether the server thread is running
@@ -297,6 +303,7 @@ module Maze
         sampling_requests.clear
         traces.clear
         logs.clear
+        ignored_requests.clear
         invalid_requests.clear
         reflections.clear
       end

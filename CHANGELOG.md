@@ -1,3 +1,9 @@
+# 9.18.1 - 2024/11/13
+
+## Fixes
+
+- Pin "uri" dependency to avoid v1.0.0 release bug [700](https://github.com/bugsnag/maze-runner/pull/700)
+
 # 9.18.0 - 2024/11/07
 
 ## Enhancements

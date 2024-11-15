@@ -65,16 +65,16 @@ edge_latest:
   version: 'latest'
   resolution: '1920x1080'
 
-safari_16:
-  platform: 'macOS'
+safari_18:
+  platforms: 'macOS'
   osVersion: '13'
   browserName: 'safari'
-  version: '16'
+  version: '18'
   resolution: '2560x1920'
 
-safari_15:
+safari_17:
   platform: 'macOS'
   osVersion: '12'
   browserName: 'safari'
-  version: '15'
+  version: '17'
   resolution: '2560x1920'

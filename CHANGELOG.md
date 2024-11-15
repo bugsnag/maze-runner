@@ -1,3 +1,9 @@
+# 9.19.0 - TBD
+
+## Enhancements
+
+- Removed deprecated safari 15 & 16 from BitBar configuration, added safari 17 & 18 [701](https://github.com/bugsnag/maze-runner/pull/701)
+
 # 9.18.1 - 2024/11/13
 
 ## Fixes

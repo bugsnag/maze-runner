@@ -186,6 +186,7 @@ ensure
   Maze::Runner.environment.clear
   Maze::Store.values.clear
   Maze::Aws::Sam.reset!
+  Maze::ErrorCaptor.reset
 end
 
 def output_received_requests(request_type)
@@ -236,11 +237,6 @@ After do |scenario|
   ['error', 'session', 'build', 'trace'].each do |endpoint|
     Maze::Schemas::Validator.validate_payload_elements(Maze::Server.list_for(endpoint), endpoint)
   end
-end
-
-# Reset any errors that may have been captured in the last scenario
-After do |_scenario|
-  Maze::ErrorCaptor.instance.reset_captured_errors
 end
 
 # After all tests

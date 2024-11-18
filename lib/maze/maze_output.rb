@@ -90,7 +90,7 @@ module Maze
       end
     end
 
-    # Pulls the logs from the device if the scenario fails
+    # Writes a set of logs to a device logs file
     # @param logs [Array<String>] The lines of log to be written
     def write_device_logs(logs)
 

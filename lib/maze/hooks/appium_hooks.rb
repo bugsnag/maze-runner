@@ -39,8 +39,6 @@ module Maze
           # Close the app - without the sleep, launching the app for the next scenario intermittently fails
           system("killall -KILL #{Maze.config.app} && sleep 1")
         elsif [:bb, :bs, :local].include? Maze.config.farm
-          write_device_logs(scenario) if scenario.failed?
-
           # Reset the server to ensure that test fixtures cannot fetch
           # commands from the previous scenario (in idempotent mode).
           begin

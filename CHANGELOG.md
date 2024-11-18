@@ -1,9 +1,10 @@
-# 9.19.0 - TBD
+# 9.19.0 - 2024/11/18
 
 ## Enhancements
 
 - Removed deprecated safari 15 & 16 from BitBar configuration, added safari 17 & 18 [701](https://github.com/bugsnag/maze-runner/pull/701)
 - Handle failing appium session better [696](https://github.com/bugsnag/maze-runner/pull/696)
+- Disable automatic attempts to acquire test device logs in appium scenarios [702](https://github.com/bugsnag/maze-runner/pull/702)
 
 ## Fixes
 

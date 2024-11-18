@@ -33,6 +33,7 @@ module Maze
           end
           config.middleware.use(AssertErrorMiddleware)
           config.middleware.use(AmbiguousErrorMiddleware)
+          config.middleware.use(ErrorCaptureMiddleware)
           config.add_metadata(:'buildkite', metadata)
           config.project_root = Dir.pwd
         end
@@ -84,6 +85,19 @@ module Maze
         if AMBIGUOUS_ERROR_CLASSES.include?(first_ex.class.name)
           report.grouping_hash = first_ex.class.name.to_s + first_ex.message.to_s
         end
+
+        @middleware.call(report)
+      end
+    end
+
+    class ErrorCaptureMiddleware
+
+      def initialize(middleware)
+        @middleware = middleware
+      end
+
+      def call(report)
+        Maze::ErrorCaptor.instance.add_captured_error(report.dup)
 
         @middleware.call(report)
       end

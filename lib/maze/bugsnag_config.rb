@@ -97,7 +97,7 @@ module Maze
       end
 
       def call(report)
-        Maze::ErrorCaptor.instance.add_captured_error(report.dup)
+        Maze::ErrorCaptor.add(report.dup)
 
         @middleware.call(report)
       end

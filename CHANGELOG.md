@@ -1,3 +1,9 @@
+# 9.19.1 - 2024/11/19
+
+## Fixes
+
+- Fix incorrect access of error captor class [703](https://github.com/bugsnag/maze-runner/pull/703)
+
 # 9.19.0 - 2024/11/18
 
 ## Enhancements

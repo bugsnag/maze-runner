@@ -60,12 +60,12 @@ module Maze
             if invalid_response_retries >= max_invalid_retries
               Bugsnag.notify error
               $logger.error "Public port response was invalid or incomplete: #{json_string}"
-              $logger.error "This has occurred more than once, exiting port process"
+              $logger.error "This has occurred more than maximum allowed #{max_invalid_retries}, exiting port process"
               return 0
             else
               invalid_response_retries += 1
               $logger.warn "Public port response was invalid or incomplete: #{json_string}"
-              $logger.warn "Attempting to determine public port again"
+              $logger.warn "Attempting to acquire public port again, retry attempt: #{invalid_response_retries}"
             end
           rescue StandardError => error
             Bugsnag.notify error

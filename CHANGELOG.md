@@ -1,3 +1,9 @@
+# 9.20.0 - TBD
+
+## Enhancements
+
+- Catch AWS IP invalid response error and attempt to retry [704](https://github.com/bugsnag/maze-runner/pull/704)
+
 # 9.19.1 - 2024/11/19
 
 ## Fixes

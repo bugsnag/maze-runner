@@ -1,8 +1,9 @@
-# 9.20.0 - TBD
+# 9.20.0 - 2024/11/21
 
 ## Enhancements
 
 - Catch AWS IP invalid response error and attempt to retry [704](https://github.com/bugsnag/maze-runner/pull/704)
+- Add iOS 13,14 and 18 mobile browsers on BrowserStack [705](https://github.com/bugsnag/maze-runner/pull/705)
 
 # 9.19.1 - 2024/11/19
 

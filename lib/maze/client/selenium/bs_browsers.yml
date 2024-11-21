@@ -124,6 +124,20 @@ ios_12:
   osVersion: "12"
   realMobile: true
 
+ios_13:
+  browserName: "iphone"
+  device: "iPhone 11"
+  os: "ios"
+  osVersion: "13"
+  realMobile: true
+
+ios_14:
+  browserName: "iphone"
+  device: "iPhone 12"
+  os: "ios"
+  osVersion: "14"
+  realMobile: true
+
 ios_15:
   browserName: "iphone"
   device: "iPhone 13"
@@ -142,6 +156,13 @@ ios_17:
   device: "iPhone 15"
   os: "ios"
   osVersion: "17"
+  realMobile: true
+
+ios_18:
+  browserName: "iphone"
+  device: "iPhone 13"
+  os: "ios"
+  osVersion: "18"
   realMobile: true
 
 android_4:

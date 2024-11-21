@@ -43,6 +43,8 @@ module Maze
       port = 0
       count = 0
       max_attempts = 30
+      invalid_response_retries = 0
+      max_invalid_retries = 2
 
       # Give up after 30 seconds
       while port == 0 && count < max_attempts do
@@ -54,6 +56,17 @@ module Maze
             json_string = result[0][0].strip
             json_result = JSON.parse(json_string)
             port = json_result['NetworkSettings']['Ports']["#{local_port}/tcp"][0]['HostPort']
+          rescue NoMethodError => error
+            if invalid_response_retries >= max_invalid_retries
+              Bugsnag.notify error
+              $logger.error "Public port response was invalid or incomplete: #{json_string}"
+              $logger.error "This has occurred more than maximum allowed #{max_invalid_retries}, exiting port process"
+              return 0
+            else
+              invalid_response_retries += 1
+              $logger.warn "Public port response was invalid or incomplete: #{json_string}"
+              $logger.warn "Attempting to acquire public port again, retry attempt: #{invalid_response_retries}"
+            end
           rescue StandardError => error
             Bugsnag.notify error
             $logger.error "Unable to parse public port from: #{json_string}"

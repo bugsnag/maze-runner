@@ -31,7 +31,7 @@ module Maze
                                  end
 
                                  # Assuming capabilities is your capabilities object
-                                 inspect_output = capabilities.inspect
+                                 inspect_output = Maze.driver.session_capabilities.inspect
 
                                  # Match the bundleId value from the inspect output using regex
                                  match = inspect_output.match(/"bundleId"=>"(.*?)"/)

@@ -28,6 +28,9 @@ module Maze
                                  $logger.info "session_capabilities: #{Maze.driver.session_capabilities.class}"
                                  $logger.info "platform name: #{Maze.driver.session_capabilities[:platform_name]}"
                                  $logger.info "bundleId: #{Maze.driver.session_capabilities[:bundleId]}"
+                                 Maze.driver.session_capabilities.as_json.each do |key, value|
+                                    $logger.info "#{key}: #{value}"
+                                 end
                                  app_id
                                end
 

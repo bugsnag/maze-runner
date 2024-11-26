@@ -42,6 +42,7 @@ module Maze
           # Reset the server to ensure that test fixtures cannot fetch
           # commands from the previous scenario (in idempotent mode).
           begin
+            $logger.info('APP ID: ${Maze.driver&.app_id}')
             Maze.driver.terminate_app Maze.driver&.app_id
           rescue Selenium::WebDriver::Error::UnknownError, Selenium::WebDriver::Error::InvalidSessionIdError
             if Maze.config.appium_version && Maze.config.appium_version.to_f < 2.0

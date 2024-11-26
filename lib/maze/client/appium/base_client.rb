@@ -28,6 +28,8 @@ module Maze
                                  $logger.info "App ID: #{app_id}"
                                  $logger.info "App ID: #{Maze.driver.session_capabilities['bundleID']}"
                                  $logger.info "App ID: #{Maze.driver.session_capabilities['CFBundleIdentifier']}"
+                                 $logger.info "session_capabilities: #{Maze.driver.session_capabilities}"
+                                 $logger.info "session_capabilities: #{Maze.driver.session_capabilities.inspect}"
                                  app_id
                                end
 

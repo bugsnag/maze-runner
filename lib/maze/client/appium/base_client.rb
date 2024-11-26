@@ -25,11 +25,10 @@ module Maze
                                  unless app_id = Maze.driver.session_capabilities['CFBundleIdentifier']
                                     app_id = Maze.driver.session_capabilities['bundleID']
                                  end
-                                 $logger.info "App ID: #{app_id}"
-                                 $logger.info "App ID: #{Maze.driver.session_capabilities['bundleID']}"
-                                 $logger.info "App ID: #{Maze.driver.session_capabilities['CFBundleIdentifier']}"
-                                 $logger.info "session_capabilities: #{Maze.driver.session_capabilities}"
-                                 $logger.info "session_capabilities: #{Maze.driver.session_capabilities.inspect}"
+                                 $logger.info "session_capabilities: #{Maze.driver.session_capabilities.class}"
+                                 Maze.driver.session_capabilities.each do |key, value|
+                                    $logger.info "#{key}: #{value}"
+                                 end
                                  app_id
                                end
 

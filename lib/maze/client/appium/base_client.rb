@@ -23,13 +23,13 @@ module Maze
                                  Maze.driver.session_capabilities['appPackage']
                                when 'ios'
                                  unless app_id = Maze.driver.session_capabilities['CFBundleIdentifier']
-                                    app_id = Maze.driver.session_capabilities['bundleID']
+                                    app_id = Maze.driver.session_capabilities['bundleId']
                                  end
-                                 $logger.info "bundle_id: #{Maze.driver.session_capabilities['bundleId']}"
-                                 $logger.info "session_capabilities: #{Maze.driver.session_capabilities.to_json}"
-                                 Maze.driver.session_capabilities.as_json.each do |key, value|
-                                    $logger.info "#{key}: #{value}"
-                                 end
+                                 # $logger.info "bundle_id: #{Maze.driver.session_capabilities['bundleId']}"
+                                 # $logger.info "session_capabilities: #{Maze.driver.session_capabilities.to_json}"
+                                 # Maze.driver.session_capabilities.as_json.each do |key, value|
+                                 #    $logger.info "#{key}: #{value}"
+                                 # end
 
                                  # # Assuming capabilities is your capabilities object
                                  # inspect_output = Maze.driver.session_capabilities.inspect

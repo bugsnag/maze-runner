@@ -26,9 +26,8 @@ module Maze
                                     app_id = Maze.driver.session_capabilities['bundleID']
                                  end
                                  $logger.info "session_capabilities: #{Maze.driver.session_capabilities.class}"
-                                 Maze.driver.session_capabilities.each do |key, value|
-                                    $logger.info "#{key}: #{value}"
-                                 end
+                                 $looger.info "platform name: #{Maze.driver.session_capabilities[:platform_name]}"
+                                 $looger.info "bundleId: #{Maze.driver.session_capabilities[:bundleId]}"
                                  app_id
                                end
 

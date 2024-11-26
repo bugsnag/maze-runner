@@ -25,8 +25,7 @@ module Maze
           next unless event.test_case.eql?(test_case) && event.result.failed?
 
           Bugsnag.notify(event.result.exception) do |bsg_event|
-
-            bsg_event.api_key = ENV['MAZE_SCENARIO_BUGSNAG_API_KEY']
+            bsg_event.api_key = ENV['MAZE_SCENARIO_BUGSNAG_API_KEY'] unless selenium_report?(event.result.exception)
 
             unless @last_test_step.nil?
 
@@ -53,6 +52,10 @@ module Maze
         end
 
         super
+      end
+
+      def selenium_report?(exception)
+        exception.class.to_s.include?('Selenium')
       end
     end
   end

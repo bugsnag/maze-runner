@@ -25,12 +25,25 @@ module Maze
                                  unless app_id = Maze.driver.session_capabilities['CFBundleIdentifier']
                                     app_id = Maze.driver.session_capabilities['bundleID']
                                  end
-                                 $logger.info "session_capabilities: #{Maze.driver.session_capabilities.class}"
-                                 $logger.info "platform name: #{Maze.driver.session_capabilities[:platform_name]}"
-                                 $logger.info "bundleId: #{Maze.driver.session_capabilities[:bundleId]}"
+                                 $logger.info "session_capabilities: #{Maze.driver.session_capabilities.to_json}"
                                  Maze.driver.session_capabilities.as_json.each do |key, value|
                                     $logger.info "#{key}: #{value}"
                                  end
+
+                                 # Assuming capabilities is your capabilities object
+                                 inspect_output = capabilities.inspect
+
+                                 # Match the bundleId value from the inspect output using regex
+                                 match = inspect_output.match(/"bundleId"=>"(.*?)"/)
+
+                                 # Extract and print the value
+                                 if match
+                                   bundle_id = match[1]
+                                   puts "Bundle ID: #{bundle_id}"
+                                 else
+                                   puts "bundleId not found"
+                                 end
+
                                  app_id
                                end
 

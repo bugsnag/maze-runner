@@ -23,10 +23,15 @@ module Maze
                                  Maze.driver.session_capabilities['appPackage']
                                when 'ios'
                                  unless app_id = Maze.driver.session_capabilities['CFBundleIdentifier']
-                                    app_id = Maze.driver.session_capabilities['bundleID']
+                                    app_id = Maze.driver.session_capabilities['bundleId']
                                  end
                                  app_id
                                end
+
+          if Maze.driver.app_id.nil?
+            $logger.error "Failed to determine app id."
+            $logger.debug "session_capabilities: #{Maze.driver.session_capabilities.inspect}"
+          end
 
           # Ensure the device is unlocked
           begin

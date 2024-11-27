@@ -1,3 +1,9 @@
+# 9.20.1- 2024/11/27
+
+## Fixes
+
+- Fix issue where the incorrect `buildId` was being pulled from `Maze.driver.session_capabilities` [707](https://github.com/bugsnag/maze-runner/pull/707)
+
 # 9.20.0 - 2024/11/21
 
 ## Enhancements

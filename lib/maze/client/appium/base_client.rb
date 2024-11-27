@@ -30,7 +30,7 @@ module Maze
 
           if Maze.driver.app_id.nil?
             $logger.error "Failed to determine app id."
-            $logger.debug "Capabilities: #{Maze.driver.session_capabilities.inspect}"
+            $logger.debug "session_capabilities: #{Maze.driver.session_capabilities.inspect}"
           end
 
           # Ensure the device is unlocked

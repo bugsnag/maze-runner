@@ -1,4 +1,8 @@
-# 9.20.1- 2024/11/27
+# 9.21.0 - 2024/11/28
+
+## Enhancements
+
+- Ensure selenium related errors are always reported [706](https://github.com/bugsnag/maze-runner/pull/706)
 
 ## Fixes
 

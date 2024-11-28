@@ -7,6 +7,7 @@ require_relative 'maze/timers'
 # Glues the various parts of MazeRunner together that need to be accessed globally,
 # providing an alternative to the proliferation of global variables or singletons.
 module Maze
+
   VERSION = '9.21.0'
 
   class << self

@@ -4,6 +4,10 @@
 
 - Ensure selenium related errors are always reported [706](https://github.com/bugsnag/maze-runner/pull/706)
 
+## Fixes
+
+- Fix issue where the incorrect `buildId` was being pulled from `Maze.driver.session_capabilities` [707](https://github.com/bugsnag/maze-runner/pull/707)
+
 # 9.20.0 - 2024/11/21
 
 ## Enhancements

@@ -23,6 +23,7 @@ module Maze
                                  Maze.driver.session_capabilities['appPackage']
                                when 'ios'
                                  unless app_id = Maze.driver.session_capabilities['CFBundleIdentifier']
+                                   $logger.info "Appium Version: #{Maze.config.appium_version}"
                                    if Maze.config.appium_version && Maze.config.appium_version.to_f < 2.5
                                      app_id = Maze.driver.session_capabilities['bundleID']
                                    else

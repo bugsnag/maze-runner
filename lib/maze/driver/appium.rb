@@ -53,6 +53,8 @@ module Maze
       def start_driver
         begin
           $logger.info 'Starting Appium driver...'
+          $logger.info Maze.config.appium_version
+          $logger.info Maze.driver.app_id
           time = Time.now
           super
           $logger.info "Appium driver started in #{(Time.now - time).to_i}s"

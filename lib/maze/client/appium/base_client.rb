@@ -37,6 +37,8 @@ module Maze
             $logger.debug "session_capabilities: #{Maze.driver.session_capabilities.inspect}"
           end
 
+          $logger.info "App id: #{Maze.driver.app_id}"
+
           # Ensure the device is unlocked
           begin
             Maze.driver.unlock
@@ -85,6 +87,7 @@ module Maze
             attempts += 1
             start_error = nil
             begin
+              $logger.info "Config: #{config.inspect}"
               Maze.driver = attempt_start_driver(config)
             rescue => error
               $logger.error "Session creation failed: #{error}"

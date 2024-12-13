@@ -42,11 +42,11 @@ module Maze
           # Reset the server to ensure that test fixtures cannot fetch
           # commands from the previous scenario (in idempotent mode).
           begin
-            Maze.driver.terminate_app Maze.driver&.app_id
+            Maze.driver.terminate_app Maze.driver.app_id
           rescue Selenium::WebDriver::Error::UnknownError, Selenium::WebDriver::Error::InvalidSessionIdError
             if Maze.config.appium_version && Maze.config.appium_version.to_f < 2.0
               $logger.warn 'terminate_app failed, using the slower but more forceful close_app instead'
-              Maze.driver&.close_app
+              Maze.driver.close_app
             else
               $logger.warn 'terminate_app failed, future errors may occur if the application did not close remotely'
             end

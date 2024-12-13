@@ -11,7 +11,7 @@ module Maze
         end
 
         def stop_session
-          Maze.driver&.driver_quit
+          Maze.driver.driver_quit unless Maze.driver.failed?
         end
       end
     end

@@ -1,3 +1,9 @@
+# 9.22.0 - 2024/12/13
+
+## Enhancements
+
+- Skip remaining tests after Appium session failure [7xx](https://github.com/bugsnag/maze-runner/pull/7xx)
+
 # 9.21.0 - 2024/11/28
 
 ## Enhancements

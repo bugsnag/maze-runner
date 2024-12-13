@@ -103,7 +103,12 @@ end
 Before do |scenario|
   Maze.scenario = Maze::Api::Cucumber::Scenario.new(scenario)
 
-  # Default to no dynamic try
+  # Skip scenario if the driver it needs has failed
+  if Maze.driver.failed? && (Maze.mode == :appium || Maze.mode == :browser)
+    skip_this_scenario
+  end
+
+  # Default to no dynamic retry
   Maze.dynamic_retry = false
 
   if ENV['BUILDKITE']

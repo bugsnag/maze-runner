@@ -20,7 +20,7 @@ module Maze
       attr_reader :device_type
 
       # @!attribute [r] capabilities
-      #   @return [Hash] The capabilities used to launch the BrowserStack instance
+      #   @return [Hash] The capabilities used to launch the Appium session
       attr_reader :capabilities
 
       # Creates the Appium driver

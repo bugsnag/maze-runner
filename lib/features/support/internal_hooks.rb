@@ -104,7 +104,7 @@ Before do |scenario|
   Maze.scenario = Maze::Api::Cucumber::Scenario.new(scenario)
 
   # Skip scenario if the driver it needs has failed
-  if Maze.driver.failed? && (Maze.mode == :appium || Maze.mode == :browser)
+  if (Maze.mode == :appium || Maze.mode == :browser) && Maze.driver.failed?
     skip_this_scenario
   end
 

@@ -11,20 +11,11 @@ module Maze
   VERSION = '9.22.0'
 
   class << self
-    attr_accessor :check, :internal_hooks, :mode, :start_time, :dynamic_retry, :public_address,
+    attr_accessor :check, :driver, :internal_hooks, :mode, :start_time, :dynamic_retry, :public_address,
                   :public_document_server_address, :run_uuid, :scenario
 
     def config
       @config ||= Maze::Configuration.new
-    end
-
-    def driver
-      raise 'Cannot use a failed driver' if @driver&.failed?
-      @driver
-    end
-
-    def driver=(driver)
-      @driver = driver
     end
 
     def hooks

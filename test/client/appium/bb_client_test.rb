@@ -74,7 +74,6 @@ module Maze
 
           # Logging
           @mock_driver.expects(:start_driver).returns true
-          @mock_driver.expects(:failed?).twice.returns false
           $logger.expects(:info).with('Created Appium session: session_id')
 
           # Successful starting of the driver
@@ -95,7 +94,6 @@ module Maze
           #
           message = 'no sessionId in returned payload'
           @mock_driver.expects(:start_driver).twice.raises(message).then.returns(true)
-          @mock_driver.expects(:failed?).twice.returns false
           $logger.expects(:error).with("Session creation failed: #{message}")
           interval = 60
           $logger.expects(:warn).with("Failed to create Appium driver, retrying in #{interval} seconds")

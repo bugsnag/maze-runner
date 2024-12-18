@@ -20,7 +20,7 @@ module Maze
       attr_reader :device_type
 
       # @!attribute [r] capabilities
-      #   @return [Hash] The capabilities used to launch the BrowserStack instance
+      #   @return [Hash] The capabilities used to launch the Appium session
       attr_reader :capabilities
 
       # Creates the Appium driver
@@ -32,6 +32,7 @@ module Maze
         # Sets up identifiers for ease of connecting jobs
         capabilities ||= {}
 
+        @failed = false
         @element_locator = locator
         @capabilities = capabilities
 
@@ -64,6 +65,17 @@ module Maze
         end
       end
 
+      # Whether the driver has known to have failed (it may still have failed and us not know yet)
+      def failed?
+        @failed
+      end
+
+      # Marks the driver as failed
+      def fail_driver
+        $logger.error 'Appium driver failed, remaining scenarios will be skipped'
+        @failed = true
+      end
+
       # Checks for an element, waiting until it is present or the method times out
       #
       # @param element_id [String] the element to search for
@@ -83,7 +95,7 @@ module Maze
         end
       rescue Selenium::WebDriver::Error::ServerError => e
         # Assume the remote appium session has stopped, so crash out of the session
-        Maze.driver = nil
+        fail_driver
         raise e
       else
         true
@@ -94,7 +106,7 @@ module Maze
         super
       rescue Selenium::WebDriver::Error::ServerError => e
         # Assume the remote appium session has stopped, so crash out of the session
-        Maze.driver = nil
+        fail_driver
         raise e
       end
 
@@ -103,7 +115,7 @@ module Maze
         super
       rescue Selenium::WebDriver::Error::ServerError => e
         # Assume the remote appium session has stopped, so crash out of the session
-        Maze.driver = nil
+        fail_driver
         raise e
       end
 
@@ -114,7 +126,7 @@ module Maze
         end
       rescue Selenium::WebDriver::Error::ServerError => e
         # Assume the remote appium session has stopped, so crash out of the session
-        Maze.driver = nil
+        fail_driver
         raise e
       end
 
@@ -128,7 +140,7 @@ module Maze
         end
       rescue Selenium::WebDriver::Error::ServerError => e
         # Assume the remote appium session has stopped, so crash out of the session
-        Maze.driver = nil
+        fail_driver
         raise e
       end
 
@@ -146,7 +158,7 @@ module Maze
         false
       rescue Selenium::WebDriver::Error::ServerError => e
         # Assume the remote appium session has stopped, so crash out of the session
-        Maze.driver = nil
+        fail_driver
         raise e
       end
 
@@ -160,7 +172,7 @@ module Maze
         end
       rescue Selenium::WebDriver::Error::ServerError => e
         # Assume the remote appium session has stopped, so crash out of the session
-        Maze.driver = nil
+        fail_driver
         raise e
       end
 
@@ -185,7 +197,7 @@ module Maze
         end
       rescue Selenium::WebDriver::Error::ServerError => e
         # Assume the remote appium session has stopped, so crash out of the session
-        Maze.driver = nil
+        fail_driver
         raise e
       end
 
@@ -222,7 +234,7 @@ module Maze
         end
       rescue Selenium::WebDriver::Error::ServerError => e
         # Assume the remote appium session has stopped, so crash out of the session
-        Maze.driver = nil
+        fail_driver
         raise e
       end
 

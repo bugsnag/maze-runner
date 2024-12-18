@@ -13,9 +13,21 @@ module Maze
 
       def initialize(driver_for, selenium_url=nil, capabilities=nil)
         capabilities ||= {}
+        @failed = false
         @capabilities = capabilities
         @driver_for = driver_for
         @selenium_url = selenium_url
+      end
+
+      # Whether the driver has known to have failed (it may still have failed and us not know yet)
+      def failed?
+        @failed
+      end
+
+      # Marks the driver as failed
+      def fail_driver
+        $logger.error 'Selenium driver failed, remaining scenarios will be skipped'
+        @failed = true
       end
 
       def find_element(*args)
@@ -128,6 +140,7 @@ module Maze
           end
           $logger.info "Selenium driver started in #{(Time.now - time).to_i}s"
           @driver = driver
+          @failed = false
         rescue => error
           Bugsnag.notify error
           $logger.warn "Selenium driver failed to start in #{(Time.now - time).to_i}s"

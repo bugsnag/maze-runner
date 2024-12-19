@@ -27,6 +27,10 @@ module Maze
 
           $logger.trace "Pushing file to '#{path}' with contents: #{contents}"
           @driver.push_file(path, contents)
+          true
+        rescue Selenium::WebDriver::Error::UnknownError => e
+          $logger.error "Error writing file to device: #{e.message}"
+          false
         end
 
         # Attempts to retrieve a given file from the device (using Appium).  The default location for the file will be
@@ -54,6 +58,10 @@ module Maze
 
           $logger.trace "Attempting to read file from '#{path}'"
           @driver.pull_file(path)
+          true
+        rescue Selenium::WebDriver::Error::UnknownError => e
+          $logger.error "Error reading file from device: #{e.message}"
+          false
         end
       end
     end

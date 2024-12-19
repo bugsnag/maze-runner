@@ -1,3 +1,6 @@
+require_relative '../../helper'
+require_relative './manager'
+
 module Maze
   module Api
     module Appium
@@ -38,7 +41,7 @@ module Maze
           end
 
           if directory
-            path = directory
+            path = "#{directory}/#{filename}"
           else
             path = case Maze::Helper.get_current_platform
                   when 'ios'
@@ -50,7 +53,7 @@ module Maze
           end
 
           $logger.trace "Attempting to read file from '#{path}'"
-          file = @driver.pull_file(path)
+          @driver.pull_file(path)
         end
       end
     end

@@ -31,6 +31,10 @@ module Maze
         rescue Selenium::WebDriver::Error::UnknownError => e
           $logger.error "Error writing file to device: #{e.message}"
           false
+        rescue Selenium::WebDriver::Error::ServerError => e
+          # Assume the remote appium session has stopped, so crash out of the session
+          fail_driver
+          raise e
         end
 
         # Attempts to retrieve a given file from the device (using Appium).  The default location for the file will be
@@ -62,6 +66,10 @@ module Maze
         rescue Selenium::WebDriver::Error::UnknownError => e
           $logger.error "Error reading file from device: #{e.message}"
           false
+        rescue Selenium::WebDriver::Error::ServerError => e
+          # Assume the remote appium session has stopped, so crash out of the session
+          fail_driver
+          raise e
         end
       end
     end

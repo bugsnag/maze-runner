@@ -10,6 +10,10 @@ module Maze
         def failed_driver?
           @driver.failed?
         end
+
+        def fail_driver
+          @driver.fail_driver
+        end
       end
     end
   end

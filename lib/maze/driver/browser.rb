@@ -34,6 +34,20 @@ module Maze
         @driver.find_element(*args)
       end
 
+      def wait_for_element(id)
+        @driver.find_element(id: id)
+      end
+
+      def click_element(id)
+        element = @driver.find_element(id: id)
+
+        if $browser.mobile?
+          element.click
+        else
+          @driver.action.move_to(element).click.perform
+        end
+      end
+
       def navigate
         @driver.navigate
       end

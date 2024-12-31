@@ -33,8 +33,8 @@ Gem::Specification.new do |spec|
   # Appium 12/Selenium 4 enforce the use of W3C
   if ENV['USE_LEGACY_DRIVER']
     puts 'Bundling legacy drivers (Selenium 3/Appium 11)'
-    spec.add_dependency 'appium_lib', '~> 12.0'
-    spec.add_dependency 'selenium-webdriver', '~> 4.0'
+    spec.add_dependency 'appium_lib', '~> 11.0'
+    spec.add_dependency 'selenium-webdriver', '~> 3.0'
   else
     puts 'Bundling W3C drivers (Selenium 4/Appium 12)'
     spec.add_dependency 'appium_lib', '~> 12.0.0'

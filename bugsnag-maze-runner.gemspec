@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
     spec.add_dependency 'ffi', '1.16.3'
   end
 
-  spec.add_dependency 'cucumber', '~> 7.1'
+  spec.add_dependency 'cucumber', '~> 9.2'
   spec.add_dependency 'os', '~> 1.0.0'
   spec.add_dependency 'test-unit', '~> 3.5.2'
   spec.add_dependency 'rack', '~> 2.2'

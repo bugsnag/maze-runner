@@ -86,7 +86,7 @@ steps:
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
         cache-from:
           - ci-ruby-2:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-2
-    command: 'bundle exec rake'
+    command: 'bundle exec rake --trace'
 
   - label: 'Unit tests with Ruby 3'
     timeout_in_minutes: 30
@@ -97,7 +97,7 @@ steps:
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
         cache-from:
           - ci-ruby-3:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-3
-    command: 'bundle exec rake'
+    command: 'bundle exec rake --trace'
 
   - label: ':docker: Push W3C CLI image for branch'
     key: push-branch-cli

@@ -53,17 +53,17 @@ module Maze
         # Device
         browser = options[Option::BROWSER]
         device = options[Option::DEVICE]
-        if browser.nil? && device.empty?
+        if browser.empty? && device.empty?
           errors << "Either --#{Option::BROWSER} or --#{Option::DEVICE} must be specified"
-        elsif browser
-
+        elsif !browser.empty?
           browsers = YAML.safe_load(File.read("#{__dir__}/../client/selenium/bs_browsers.yml"))
 
-          unless browsers.include? browser
+          rejected_browsers = browser.reject { |br| browsers.include? br }
+          unless rejected_browsers.empty?
             browser_list = browsers.keys.join ', '
-            errors << "Browser type '#{browser}' unknown on BrowserStack.  Must be one of: #{browser_list}."
+            errors << "Browser types '#{rejected_browsers.join(', ')}' unknown on BrowserStack.  Must be one of: #{browser_list}."
           end
-        elsif device
+        elsif !device.empty?
           device.each do |device_key|
             next if Maze::Client::Appium::BrowserStackDevices::DEVICE_HASH.key? device_key
             errors << "Device type '#{device_key}' unknown on BrowserStack.  Must be one of #{Maze::Client::Appium::BrowserStackDevices::DEVICE_HASH.keys}"
@@ -89,25 +89,29 @@ module Maze
       def validate_bitbar(options, errors)
         browser = options[Option::BROWSER]
         device = options[Option::DEVICE]
-        
+
         errors << "--#{Option::USERNAME} must be specified" if options[Option::USERNAME].nil?
         errors << "--#{Option::ACCESS_KEY} must be specified" if options[Option::ACCESS_KEY].nil?
 
         # Device
-        if browser.nil? && device.empty?
+        if browser.empty? && device.empty?
           errors << "Either --#{Option::BROWSER} or --#{Option::DEVICE} must be specified"
-        elsif browser
+        elsif !browser.empty?
           browsers = YAML.safe_load(File.read("#{__dir__}/../client/selenium/bb_browsers.yml"))
 
-          if browsers.include? browser
-            if options[Option::BROWSER_VERSION].nil? && !browsers[browser].include?('version')
-              errors << "--#{Option::BROWSER_VERSION} must be specified for browser '#{browser}'"
-            end
-          else
+          rejected_browsers = browser.reject { |br| browsers.include? br }
+          unless rejected_browsers.empty?
             browser_list = browsers.keys.join ', '
-            errors << "Browser type '#{browser}' unknown on BitBar.  Must be one of: #{browser_list}."
+            errors << "Browser types '#{rejected_browsers.join(', ')}' unknown on BitBar.  Must be one of: #{browser_list}."
           end
-        elsif device
+
+          if options[Option::BROWSER_VERSION].nil?
+            browser.each do |br|
+              next if browsers[br].include?('version')
+              errors << "--#{Option::BROWSER_VERSION} must be specified for browser '#{br}'"
+            end
+          end
+        elsif !device.empty?
           app = Maze::Helper.read_at_arg_file options[Option::APP]
           if app.nil?
             errors << "--#{Option::APP} must be provided when running on a device"

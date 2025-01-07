@@ -103,9 +103,7 @@ module Maze
             config.selenium_server_url = options[Maze::Option::SELENIUM_SERVER]
             config.app_bundle_id = options[Maze::Option::APP_BUNDLE_ID]
           when :local then
-            if options[Maze::Option::BROWSER]
-              config.browser = options[Maze::Option::BROWSER]
-            else
+            if options[Maze::Option::BROWSER].empty?
               os = config.os = options[Maze::Option::OS].downcase
               config.os_version = options[Maze::Option::OS_VERSION].to_f unless options[Maze::Option::OS_VERSION].nil?
               config.appium_server_url = options[Maze::Option::APPIUM_SERVER]
@@ -115,6 +113,8 @@ module Maze
                 config.apple_team_id = options[Maze::Option::APPLE_TEAM_ID]
                 config.device_id = options[Maze::Option::UDID]
               end
+            else
+              config.browser = options[Maze::Option::BROWSER].first
             end
           when :none
             if options[Maze::Option::OS]

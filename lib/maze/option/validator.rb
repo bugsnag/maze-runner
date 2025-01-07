@@ -100,17 +100,18 @@ module Maze
           browsers = YAML.safe_load(File.read("#{__dir__}/../client/selenium/bb_browsers.yml"))
 
           rejected_browsers = browser.reject { |br| browsers.include? br }
-          unless rejected_browsers.empty?
+          if rejected_browsers.empty?
+            if options[Option::BROWSER_VERSION].nil?
+              browser.each do |br|
+                next if browsers[br].include?('version')
+                errors << "--#{Option::BROWSER_VERSION} must be specified for browser '#{br}'"
+              end
+            end
+          else
             browser_list = browsers.keys.join ', '
             errors << "Browser types '#{rejected_browsers.join(', ')}' unknown on BitBar.  Must be one of: #{browser_list}."
           end
 
-          if options[Option::BROWSER_VERSION].nil?
-            browser.each do |br|
-              next if browsers[br].include?('version')
-              errors << "--#{Option::BROWSER_VERSION} must be specified for browser '#{br}'"
-            end
-          end
         elsif !device.empty?
           app = Maze::Helper.read_at_arg_file options[Option::APP]
           if app.nil?
@@ -127,7 +128,7 @@ module Maze
 
       # Validates Local device options
       def validate_local(options, errors)
-        if options[Option::BROWSER].nil?
+        if options[Option::BROWSER].empty?
           errors << "--#{Option::APP} must be specified" if options[Option::APP].nil?
 
           # OS

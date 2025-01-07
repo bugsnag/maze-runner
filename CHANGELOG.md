@@ -1,9 +1,10 @@
-# TDB - 2025/01/xx
+# 9.22.0 - 2025/01/xx
 
 ## Enhancements
 
 - Skip remaining tests after Appium session failure [708](https://github.com/bugsnag/maze-runner/pull/708)
 - Failed driver guards added to FileManager API [709](https://github.com/bugsnag/maze-runner/pull/709)
+- Adjust the URL used for Browserstack Sessions [711](https://github.com/bugsnag/maze-runner/pull/711)
 
 # 9.21.0 - 2024/11/28
 

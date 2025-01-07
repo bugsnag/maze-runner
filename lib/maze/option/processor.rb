@@ -57,7 +57,7 @@ module Maze
           case config.farm
           when :bs
             device_option = options[Maze::Option::DEVICE]
-            browser_option = options[Maze::Options::BROWSER]
+            browser_option = options[Maze::Option::BROWSER]
             if !device_option.empty?
               config.device = device_option.first
               config.device_list = device_option.drop(1)

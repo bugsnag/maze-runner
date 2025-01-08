@@ -209,7 +209,7 @@ steps:
   # BrowserStack tests
   #
 
-  - label: 'browserstack: Android 8.1 - JWP'
+  - label: ':browserstack: Android 8.1 - JWP'
     timeout_in_minutes: 20
     depends_on:
       - "android-test-fixture"

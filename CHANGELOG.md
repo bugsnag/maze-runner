@@ -1,9 +1,10 @@
-# 9.22.0 - 2024/12/xx
+# 9.22.0 - 2025/01/08
 
 ## Enhancements
 
 - Skip remaining tests after Appium session failure [708](https://github.com/bugsnag/maze-runner/pull/708)
 - Add wait_for_element and click_element methods to browser driver [710](https://github.com/bugsnag/maze-runner/pull/710)
+- Adjust the URL used for Browserstack Sessions [711](https://github.com/bugsnag/maze-runner/pull/711)
 
 # 9.21.0 - 2024/11/28
 

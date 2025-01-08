@@ -85,6 +85,8 @@ module Maze
         end
 
         def log_session_info
+          $logger.info "PROJECT NAME: #{project_name_capabilities[:project]}"
+          $logger.info "PROJECT NAME2: #{ENV['BUILDKITE_PIPELINE_NAME']}"
           # Log a link to the BrowserStack session search dashboard
           url = "https://automate.browserstack.com/projects/#{project_name_capabilities[:project]}/builds/#{Maze.run_uuid}/1?tab=tests"
           $logger.info Maze::Loggers::LogUtil.linkify url, 'BrowserStack session(s)'

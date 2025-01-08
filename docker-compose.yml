@@ -279,6 +279,7 @@ services:
         BRANCH_NAME:
         RUBY_VERSION:
     environment:
+      <<: *common-environment
       BITBAR_USERNAME:
       BITBAR_ACCESS_KEY:
       BUILDKITE:

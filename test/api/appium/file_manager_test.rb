@@ -56,9 +56,9 @@ module Maze
           @mock_driver.expects(:app_id).returns('app1')
           Maze::Helper.expects(:get_current_platform).returns('ios')
           $logger.expects(:trace).with("Attempting to read file from '@app1/Documents/filename.json'")
-          @mock_driver.expects(:pull_file).with('@app1/Documents/filename.json')
+          @mock_driver.expects(:pull_file).with('@app1/Documents/filename.json').returns('contents')
 
-          assert_true(@manager.read_app_file('filename.json'))
+          assert_equal('contents', @manager.read_app_file('filename.json'))
         end
 
         def test_read_app_file_failure
@@ -70,7 +70,7 @@ module Maze
 
           $logger.expects(:error).with("Error reading file from device: error")
 
-          assert_false(@manager.read_app_file('filename.json'))
+          assert_nil(@manager.read_app_file('filename.json'))
         end
       end
     end

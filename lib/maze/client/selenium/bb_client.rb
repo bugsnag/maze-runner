@@ -5,7 +5,6 @@ module Maze
         def start_session
           config = Maze.config
           if Maze::Client::BitBarClientUtils.use_local_tunnel?
-            capabilities['bitbar_apiKey'] = config.access_key
             Maze::Client::BitBarClientUtils.start_local_tunnel config.sb_local,
                                                                config.username,
                                                                config.access_key
@@ -27,6 +26,7 @@ module Maze
           capabilities.merge! JSON.parse(config.capabilities_option)
           capabilities['bitbar:options']['testTimeout'] = 900
           capabilities['acceptInsecureCerts'] = true unless Maze.config.browser.include? 'ie_'
+          capabilities['bitbar_apiKey'] = config.access_key if Maze::Client::BitBarClientUtils.use_local_tunnel?
           config.capabilities = capabilities
         end
 

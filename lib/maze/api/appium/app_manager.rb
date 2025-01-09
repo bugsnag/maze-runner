@@ -10,6 +10,8 @@ module Maze
         # Launches the app.
         # @returns [Boolean] Whether the app was successfully launched
         def launch
+          $logger.info 'SKW Launch the app'
+
           if failed_driver?
             $logger.error 'Cannot launch the app - Appium driver failed.'
             return false
@@ -29,6 +31,8 @@ module Maze
         # Closes the app.
         # @returns [Boolean] Whether the app was successfully closed
         def close
+          $logger.info 'SKW Close the app'
+
           if failed_driver?
             $logger.error 'Cannot close the app - Appium driver failed.'
             return false

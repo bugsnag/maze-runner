@@ -48,6 +48,25 @@ module Maze
           fail_driver
           raise e
         end
+
+        # Gets the app state.
+        # @returns [Symbol, nil] The app state, such as :not_running, :running_in_foreground, :running_in_background - of nil if the driver has failed.
+        def state
+
+          if failed_driver?
+            $logger.error 'Cannot get the app state - Appium driver failed.'
+            return nil
+          end
+
+          @driver.app_state(@driver.app_id)
+        rescue Selenium::WebDriver::Error::UnknownError => e
+          $logger.error "Error closing the app: #{e.message}"
+          mil
+        rescue Selenium::WebDriver::Error::ServerError => e
+          # Assume the remote appium session has stopped, so crash out of the session
+          fail_driver
+          raise e
+        end
       end
     end
   end

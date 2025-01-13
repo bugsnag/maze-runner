@@ -10,8 +10,6 @@ module Maze
         # Launches the app.
         # @returns [Boolean] Whether the app was successfully launched
         def launch
-          $logger.info 'SKW Launch the app'
-
           if failed_driver?
             $logger.error 'Cannot launch the app - Appium driver failed.'
             return false
@@ -19,9 +17,6 @@ module Maze
 
           @driver.launch_app
           true
-        rescue Selenium::WebDriver::Error::UnknownError => e
-          $logger.error "Error launching the app: #{e.message}"
-          false
         rescue Selenium::WebDriver::Error::ServerError => e
           # Assume the remote appium session has stopped, so crash out of the session
           fail_driver
@@ -31,8 +26,6 @@ module Maze
         # Closes the app.
         # @returns [Boolean] Whether the app was successfully closed
         def close
-          $logger.info 'SKW Close the app'
-
           if failed_driver?
             $logger.error 'Cannot close the app - Appium driver failed.'
             return false
@@ -40,9 +33,6 @@ module Maze
 
           @driver.close_app
           true
-        rescue Selenium::WebDriver::Error::UnknownError => e
-          $logger.error "Error closing the app: #{e.message}"
-          false
         rescue Selenium::WebDriver::Error::ServerError => e
           # Assume the remote appium session has stopped, so crash out of the session
           fail_driver
@@ -52,16 +42,12 @@ module Maze
         # Gets the app state.
         # @returns [Symbol, nil] The app state, such as :not_running, :running_in_foreground, :running_in_background - of nil if the driver has failed.
         def state
-
           if failed_driver?
-            $logger.error 'Cannot get the app state - Appium driver failed.'
+            $logger.error('Cannot get the app state - Appium driver failed.')
             return nil
           end
 
           @driver.app_state(@driver.app_id)
-        rescue Selenium::WebDriver::Error::UnknownError => e
-          $logger.error "Error closing the app: #{e.message}"
-          mil
         rescue Selenium::WebDriver::Error::ServerError => e
           # Assume the remote appium session has stopped, so crash out of the session
           fail_driver

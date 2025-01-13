@@ -1,4 +1,4 @@
-require 'selenium-webdriver'
+require 'appium_lib'
 
 require_relative '../../test_helper'
 require_relative '../../../lib/maze'

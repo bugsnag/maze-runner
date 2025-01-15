@@ -4,6 +4,19 @@ module Maze
       class BitBarClient < BaseClient
         def start_session
           config = Maze.config
+          if Maze::Client::BitBarClientUtils.use_local_tunnel?
+            Maze::Client::BitBarClientUtils.start_local_tunnel config.sb_local,
+                                                               config.username,
+                                                               config.access_key
+          end
+
+          create_capabilities(config)
+
+          selenium_url = Maze.config.selenium_server_url
+          start_driver(config, selenium_url)
+        end
+
+        def create_capabilities(config)
           capabilities = ::Selenium::WebDriver::Remote::Capabilities.new
           capabilities['bitbar_apiKey'] = config.access_key
           browsers = YAML.safe_load(File.read("#{__dir__}/bb_browsers.yml"))
@@ -13,20 +26,8 @@ module Maze
           capabilities.merge! JSON.parse(config.capabilities_option)
           capabilities['bitbar:options']['testTimeout'] = 900
           capabilities['acceptInsecureCerts'] = true unless Maze.config.browser.include? 'ie_'
+          capabilities['bitbar_apiKey'] = config.access_key if Maze::Client::BitBarClientUtils.use_local_tunnel?
           config.capabilities = capabilities
-
-          if Maze::Client::BitBarClientUtils.use_local_tunnel?
-            capabilities['bitbar_apiKey'] = config.access_key
-            Maze::Client::BitBarClientUtils.start_local_tunnel config.sb_local,
-                                                               config.username,
-                                                               config.access_key
-          end
-
-          selenium_url = Maze.config.selenium_server_url
-
-          $logger.trace "Starting Selenium driver with capabilities: #{config.capabilities.to_json}"
-          Maze.driver = Maze::Driver::Browser.new :remote, selenium_url, config.capabilities
-          Maze.driver.start_driver
         end
 
         def log_run_outro

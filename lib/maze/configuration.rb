@@ -173,6 +173,9 @@ module Maze
     # Test browser type
     attr_accessor :browser
 
+    # A list of browsers to attempt to connect to, in order
+    attr_accessor :browser_list
+
     # Test browser version
     attr_accessor :browser_version
 

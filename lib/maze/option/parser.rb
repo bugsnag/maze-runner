@@ -124,9 +124,10 @@ module Maze
                 type: :string,
                 multi: true
             opt Option::BROWSER,
-                'Browser to use (an entry in <farm>_browsers.yml)',
+                'Browser to use (an entry in <farm>_browsers.yml). Can be listed multiple times to have a prioritised list of browsers',
                 short: :none,
-                type: :string
+                type: :string,
+                multi: true
             opt Option::BROWSER_VERSION,
                 'Browser version to use (applies to entries in <farm>_browsers.yml that do not include a version)',
                 short: :none,

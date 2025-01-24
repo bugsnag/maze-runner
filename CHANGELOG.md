@@ -6,6 +6,12 @@
 - Add App Manager API [712](https://github.com/bugsnag/maze-runner/pull/712)
 - Add Device Manager API [712](https://github.com/bugsnag/maze-runner/pull/712)
 
+# 9.23.0 - 2025/01/XX
+
+## Enhancements
+
+- Allow multiple browser options to be presented to BitBar and BrowserStack test runs [712](https://github.com/bugsnag/maze-runner/pull/712)
+
 # 9.22.0 - 2025/01/08
 
 ## Enhancements

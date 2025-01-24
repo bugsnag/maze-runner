@@ -3,6 +3,7 @@
 ## Enhancements
 
 - Failed driver guards added to File Manager API [709](https://github.com/bugsnag/maze-runner/pull/709)
+- Added App Manager API [712](https://github.com/bugsnag/maze-runner/pull/712)
 
 # 9.22.0 - 2025/01/08
 

@@ -57,21 +57,18 @@ module Maze
           case config.farm
           when :bs
             device_option = options[Maze::Option::DEVICE]
-            if device_option.nil? || device_option.empty?
-              config.browser = options[Maze::Option::BROWSER]
-            else
-              if device_option.is_a?(Array)
-                config.device = device_option.first
-                config.device_list = device_option.drop(1)
-              else
-                config.device = device_option
-                config.device_list = []
-              end
+            browser_option = options[Maze::Option::BROWSER]
+            if !device_option.empty?
+              config.device = device_option.first
+              config.device_list = device_option.drop(1)
               if config.legacy_driver?
                 config.os_version = Maze::Client::Appium::BrowserStackDevices::DEVICE_HASH[config.device]['os_version'].to_f
               else
                 config.os_version = Maze::Client::Appium::BrowserStackDevices::DEVICE_HASH[config.device]['platformVersion'].to_f
               end
+            elsif !browser_option.empty?
+              config.browser = browser_option.first
+              config.browser_list = browser_option.drop(1)
             end
             config.bs_local = Maze::Helper.expand_path(options[Maze::Option::BS_LOCAL])
             config.appium_version = options[Maze::Option::APPIUM_VERSION]
@@ -83,18 +80,20 @@ module Maze
             config.access_key = options[Maze::Option::ACCESS_KEY]
             config.appium_version = options[Maze::Option::APPIUM_VERSION]
             device_option = options[Maze::Option::DEVICE]
-            if device_option.nil? || device_option.empty?
-              # BitBar Web
-              config.browser = options[Maze::Option::BROWSER]
-              config.browser_version = options[Maze::Option::BROWSER_VERSION]
-            else
-              # BitBar Devices
-              if device_option.is_a?(Array)
-                config.device = device_option.first
-                config.device_list = device_option.drop(1)
+            browser_option = options[Maze::Option::BROWSER]
+            browser_version = options[Maze::Option::BROWSER_VERSION]
+            if !device_option.empty?
+              config.device = device_option.first
+              config.device_list = device_option.drop(1)
+            elsif !browser_option.empty?
+              if browser_version.nil?
+                config.browser = browser_option.first
+                config.browser_list = browser_option.drop(1)
               else
-                config.device = device_option
-                config.device_list = []
+                # Dropping all but the first browser as the version is specified
+                config.browser = browser_option.first
+                config.browser_list = []
+                config.browser_version = browser_version
               end
             end
             config.os = options[Maze::Option::OS]
@@ -104,9 +103,7 @@ module Maze
             config.selenium_server_url = options[Maze::Option::SELENIUM_SERVER]
             config.app_bundle_id = options[Maze::Option::APP_BUNDLE_ID]
           when :local then
-            if options[Maze::Option::BROWSER]
-              config.browser = options[Maze::Option::BROWSER]
-            else
+            if options[Maze::Option::BROWSER].empty?
               os = config.os = options[Maze::Option::OS].downcase
               config.os_version = options[Maze::Option::OS_VERSION].to_f unless options[Maze::Option::OS_VERSION].nil?
               config.appium_server_url = options[Maze::Option::APPIUM_SERVER]
@@ -116,6 +113,8 @@ module Maze
                 config.apple_team_id = options[Maze::Option::APPLE_TEAM_ID]
                 config.device_id = options[Maze::Option::UDID]
               end
+            else
+              config.browser = options[Maze::Option::BROWSER].first
             end
           when :none
             if options[Maze::Option::OS]

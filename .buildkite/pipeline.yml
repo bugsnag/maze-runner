@@ -283,6 +283,7 @@ steps:
         command:
           - "--farm=bs"
           - "--browser=firefox_latest"
+          - "--browser=chrome_latest"
           - "--fail-fast"
     concurrency: 2
     concurrency_group: 'browserstack'
@@ -324,6 +325,7 @@ steps:
         command:
           - "--farm=bb"
           - "--browser=safari_18"
+          - "--browser=chrome_latest"
           - "--aws-public-ip"
           - "--fail-fast"
           - "--no-tunnel"

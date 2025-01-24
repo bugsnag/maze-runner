@@ -48,7 +48,7 @@ class ValidatorTest < Test::Unit::TestCase
     errors = @validator.validate options
 
     assert_equal 1, errors.length
-    assert_match 'Browser type \'MADE_UP\' unknown on BitBar.  Must be one of', errors[0]
+    assert_match 'Browser types \'MADE_UP\' unknown on BitBar.  Must be one of', errors[0]
   end
 
   def test_bitbar_missing_browser_version
@@ -102,7 +102,7 @@ class ValidatorTest < Test::Unit::TestCase
     errors = @validator.validate options
 
     assert_equal 1, errors.length
-    assert_match 'Browser type \'MADE_UP\' unknown on BrowserStack.  Must be one of', errors[0]
+    assert_match 'Browser types \'MADE_UP\' unknown on BrowserStack.  Must be one of', errors[0]
   end
 
   def test_browser_stack_missing_device

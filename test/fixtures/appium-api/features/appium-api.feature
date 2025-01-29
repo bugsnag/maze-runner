@@ -6,6 +6,10 @@ Feature: Exercise the Appium Manager APIs
     Then The app state is "not_running"
     And I launch the app
     Then The app state is "running_in_foreground"
+    And I terminate the app
+    Then The app state is "not_running"
+    And I activate the app
+    Then The app state is "running_in_foreground"
 
   Scenario: Device Manager operations
     When I unlock the device

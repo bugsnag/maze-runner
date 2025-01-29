@@ -7,7 +7,39 @@ module Maze
       # Provides operations for working with the app.
       class AppManager < Maze::Api::Appium::Manager
 
-        # Launches the app.
+        # Activates the app
+        # @returns [Boolean] Whether the app was successfully launched
+        def activate
+          if failed_driver?
+            $logger.error 'Cannot activate the app - Appium driver failed.'
+            return false
+          end
+
+          @driver.activate_app(@driver.app_id)
+          true
+        rescue Selenium::WebDriver::Error::ServerError => e
+          # Assume the remote appium session has stopped, so crash out of the session
+          fail_driver
+          raise e
+        end
+
+        # Terminates the app
+        # @returns [Boolean] Whether the app was successfully closed
+        def terminate
+          if failed_driver?
+            $logger.error 'Cannot terminate the app - Appium driver failed.'
+            return false
+          end
+
+          @driver.terminate_app(@driver.app_id)
+          true
+        rescue Selenium::WebDriver::Error::ServerError => e
+          # Assume the remote appium session has stopped, so crash out of the session
+          fail_driver
+          raise e
+        end
+
+        # Launches the app (legacy method).
         # @returns [Boolean] Whether the app was successfully launched
         def launch
           if failed_driver?
@@ -23,7 +55,7 @@ module Maze
           raise e
         end
 
-        # Closes the app.
+        # Closes the app (legacy method).
         # @returns [Boolean] Whether the app was successfully closed
         def close
           if failed_driver?

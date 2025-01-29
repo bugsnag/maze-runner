@@ -5,6 +5,7 @@
 - Failed driver guards added to File Manager API [709](https://github.com/bugsnag/maze-runner/pull/709)
 - Add App Manager API [712](https://github.com/bugsnag/maze-runner/pull/712)
 - Add Device Manager API [712](https://github.com/bugsnag/maze-runner/pull/713)
+- Add terminate and activate methods to App Manager API [716](https://github.com/bugsnag/maze-runner/pull/716)
 
 # 9.23.0 - 2025/01/XX
 

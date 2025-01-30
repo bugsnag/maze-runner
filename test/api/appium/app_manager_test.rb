@@ -37,6 +37,20 @@ module Maze
           assert_false(@manager.launch)
         end
 
+        def test_terminate_failed_driver
+          @mock_driver.expects(:failed?).returns(true)
+          $logger.expects(:error).with("Cannot terminate the app - Appium driver failed.")
+
+          assert_false(@manager.terminate)
+        end
+
+        def test_activate_failed_driver
+          @mock_driver.expects(:failed?).returns(true)
+          $logger.expects(:error).with("Cannot activate the app - Appium driver failed.")
+
+          assert_false(@manager.activate)
+        end
+
         def test_state_server_error
           @mock_driver.expects(:failed?).returns(false)
           @mock_driver.expects(:app_id).returns('app1')

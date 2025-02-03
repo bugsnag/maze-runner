@@ -73,6 +73,7 @@ module Maze
       end
 
       def at_exit
+        write_device_info
         if @client
           @client.log_run_outro
           $logger.info 'Stopping the Appium session'
@@ -81,6 +82,19 @@ module Maze
       end
 
       private
+
+      def write_device_info
+        driver = Maze.driver
+        unless driver.nil?
+          info = driver.device_info
+          filepath = File.join(Dir.pwd, 'maze_output', 'device_info.json')
+          File.open(filepath, 'w+') do |file|
+            file.puts(JSON.pretty_generate(info))
+          end
+        end
+      rescue => error
+        $logger.warn "Could not write device information file, #{error.message}"
+      end
 
       def driver_has_failed?
         return false if Maze::ErrorCaptor.empty?

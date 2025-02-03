@@ -3,6 +3,7 @@
 ## Enhancements
 
 - Allow multiple browser options to be presented to BitBar and BrowserStack test runs [712](https://github.com/bugsnag/maze-runner/pull/712)
+- Output device information as a JSON file during appium tests [717](https://github.com/bugsnag/maze-runner/pull/717)
 
 # 9.22.0 - 2025/01/08
 

@@ -17,3 +17,6 @@ Feature: Exercise the Appium Manager APIs
     And I wait for 2 seconds
     And I set the device rotation to "portrait"
     And I log the device info
+
+  Scenario: Device Manager operations
+

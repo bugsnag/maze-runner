@@ -3,22 +3,22 @@
 # Disable timestamp validation for spans
 #
 When('I disable timestamp validation for spans') do
-  Maze.config.span_timestamp_validation = false
+  disable_timestamp_validation
 end
 
 # Waits for a given number of spans to be received, which may be spread across one or more trace requests.
 #
 # @step_input span_count [Integer] The number of spans to wait for
 Then('I wait to receive {int} span(s)') do |span_count|
-  assert_received_span_count Maze::Server.list_for('traces'), span_count
+  assert_received_span_count(span_count, span_count)
 end
 
 # Waits for a minimum number of spans to be received, which may be spread across one or more trace requests.
 # If more spans than requested are received, this step will still pass.
 #
 # @step_input span_min [Integer] The minimum number of spans to wait for
-Then('I wait to receive at least {int} span(s)') do |span_min|
-  assert_received_minimum_span_count Maze::Server.list_for('traces'), span_min
+ Then('I wait to receive at least {int} span(s)') do |span_min|
+  assert_received_span_count(span_min)
 end
 
 # Waits for a minimum number of spans to be received, which may be spread across one or more trace requests.
@@ -27,7 +27,7 @@ end
 # @step_input span_min [Integer] The minimum number of spans to wait for
 # @step_input span_max [Integer] The maximum number of spans to receive before failure
 Then('I wait to receive between {int} and {int} span(s)') do |span_min, span_max|
-  assert_received_ranged_span_count Maze::Server.list_for('traces'), span_min, span_max
+  assert_received_span_count(span_min, span_max)
 end
 
 Then('I should have received no spans') do
@@ -40,74 +40,56 @@ Then('I enter unmanaged traces mode') do
 end
 
 Then('the trace payload field {string} bool attribute {string} is true') do |field, attribute|
-  check_attribute_equal field, attribute, 'boolValue', true
-end
-
-Then('the trace payload field {string} bool attribute {string} is false') do |field, attribute|
-  check_attribute_equal field, attribute, 'boolValue', false
-end
-
-Then('the trace payload field {string} integer attribute {string} equals {int}') do |field, attribute, expected|
-  check_attribute_equal field, attribute, 'intValue', expected
-end
-
-Then('the trace payload field {string} integer attribute {string} is greater than {int}') do |field, attribute, expected|
-  value = get_attribute_value field, attribute, 'intValue'
-  Maze.check.operator value, :>, expected,
-                      "The payload field '#{field}' attribute '#{attribute}' (#{value}) is not greater than '#{expected}'"
-end
-
-Then('the trace payload field {string} string attribute {string} equals {string}') do |field, attribute, expected|
-  check_attribute_equal field, attribute, 'stringValue', expected
-end
-
-Then('the trace payload field {string} string attribute {string} equals the stored value {string}') do |field, attribute, stored_key|
-  value = get_attribute_value field, attribute, 'stringValue'
-  stored = Maze::Store.values[stored_key]
-  result = Maze::Compare.value value, stored
-  Maze.check.true result.equal?, "Payload value: #{value} does not equal stored value: #{stored}"
-end
-
-Then('the trace payload field {string} string attribute {string} matches the regex {string}') do |field, attribute, pattern|
-  value = get_attribute_value field, attribute, 'stringValue'
-  regex = Regexp.new pattern
-  Maze.check.match regex, value
-end
-
-Then('the trace payload field {string} integer attribute {string} matches the regex {string}') do |field, attribute, pattern|
-  regex = Regexp.new(pattern)
-  list = Maze::Server.traces
-  attributes = Maze::Helper.read_key_path(list.current[:body], "#{field}.attributes")
-  attribute = attributes.find { |a| a['key'] == attribute }
-  value = attribute["value"]["intValue"]
-  Maze.check.match(regex, value)
-end
-
-Then('the trace payload field {string} string attribute {string} exists') do |field, attribute|
-  value = get_attribute_value field, attribute, 'stringValue'
-  Maze.check.not_nil value
-end
-
-Then('the trace payload field {string} string attribute {string} is one of:') do |field, key, possible_values|
-  list = Maze::Server.traces
-  attributes = Maze::Helper.read_key_path(list.current[:body], "#{field}.attributes")
-  attribute = attributes.find { |a| a['key'] == key }
-
-  possible_attributes = possible_values.raw.flatten.map { |v| { 'key' => key, 'value' => { 'stringValue' => v } } }
-  Maze.check.not_nil(attribute, "The attribute #{key} is nil")
-  Maze.check.include(possible_attributes, attribute)
+  assert_field_attribute_exists(field, attribute, 'boolValue', true)
 end
 
 Then('the trace payload field {string} boolean attribute {string} is true') do |field, key|
-  assert_attribute field, key, { 'boolValue' => true }
+  assert_field_attribute_exists(field, attribute, 'boolValue', true)
+end
+
+Then('the trace payload field {string} bool attribute {string} is false') do |field, attribute|
+  assert_field_attribute_exists(field, attribute, 'boolValue', false)
 end
 
 Then('the trace payload field {string} boolean attribute {string} is false') do |field, key|
-  assert_attribute field, key, { 'boolValue' => false }
+  assert_field_attribute_exists(field, attribute, 'boolValue', false)
+end
+
+Then('the trace payload field {string} integer attribute {string} equals {int}') do |field, attribute, expected|
+  assert_field_attribute_exists(field, attribute, 'intValue', expected)
+end
+
+Then('the trace payload field {string} integer attribute {string} is greater than {int}') do |field, attribute, expected|
+  assert_field_attribute_integer_compares(field, attribute, expected, :>)
+end
+
+Then('the trace payload field {string} string attribute {string} equals {string}') do |field, attribute, expected|
+  assert_field_attribute_exists(field, attribute, 'stringValue', expected)
+end
+
+Then('the trace payload field {string} string attribute {string} equals the stored value {string}') do |field, attribute, stored_key|
+  stored = Maze::Store.values[stored_key]
+  assert_field_attribute_exists(field, attribute, 'stringValue', stored)
 end
 
 Then('the trace payload field {string} double attribute {string} equals {float}') do |field, attribute, expected|
-  check_attribute_equal field, attribute, 'doubleValue', expected
+  assert_field_attribute_exists(field, attribute, 'doubleValue', expected)
+end
+
+Then('the trace payload field {string} string attribute {string} matches the regex {string}') do |field, attribute, pattern|
+  assert_field_attribute_matches_regex(field, attribute, 'stringValue', pattern)
+end
+
+Then('the trace payload field {string} integer attribute {string} matches the regex {string}') do |field, attribute, pattern|
+  assert_field_attribute_matches_regex(field, attribute, 'intValue', pattern)
+end
+
+Then('the trace payload field {string} string attribute {string} exists') do |field, attribute|
+  assert_field_attribute_exists(field, attribute, 'stringValue')
+end
+
+Then('the trace payload field {string} string attribute {string} is one of:') do |field, attribute, possible_values|
+  assert_field_attribute_one_of(field, attribute, 'stringValue', possible_values)
 end
 
 # @!group Span steps
@@ -248,95 +230,6 @@ Then('a span named {string} has the following properties:') do |span_name, table
   unless match
     raise Test::Unit::AssertionFailedError.new "No spans were found containing all of the given properties"
   end
-end
-
-def spans_from_request_list list
-  return list.remaining
-             .flat_map { |req| req[:body]['resourceSpans'] }
-             .flat_map { |r| r['scopeSpans'] }
-             .flat_map { |s| s['spans'] }
-             .select { |s| !s.nil? }
-end
-
-def attribute_value_matches?(attribute_value, expected_type, expected_value)
-  # Check that the required value type key is present
-  unless attribute_value.keys.include?(expected_type)
-    return false
-  end
-
-  case expected_type
-  when 'bytesValue', 'stringValue'
-    expected_value.eql?(attribute_value[expected_type])
-  when 'intValue'
-    expected_value.to_i.eql?(attribute_value[expected_type].to_i)
-  when 'doubleValue'
-    expected_value.to_f.eql?(attribute_value[expected_type].to_f)
-  when 'boolValue'
-    expected_value.eql?('true').eql?(attribute_value[expected_type])
-  when 'arrayValue'
-    expected_value == attribute_value[expected_type]['values']
-  when 'kvlistValue'
-    $logger.error('Span attribute validation does not currently support the "kvlistValue" type')
-    false
-  else
-    $logger.error("An invalid attribute type was expected: '#{expected_type}'")
-    false
-  end
-end
-
-def assert_received_span_count(list, count)
-  assert_received_spans(list, count, count)
-end
-
-def assert_received_minimum_span_count(list, minimum)
-  assert_received_spans(list, minimum)
-end
-
-def assert_received_ranged_span_count(list, minimum, maximum)
-  assert_received_spans(list, minimum, maximum)
-end
-
-def assert_received_spans(list, min_received, max_received = nil)
-  timeout = Maze.config.receive_requests_wait
-  wait = Maze::Wait.new(timeout: timeout)
-
-  received = wait.until { spans_from_request_list(list).size >= min_received }
-  received_count = spans_from_request_list(list).size
-
-  unless received
-    raise Test::Unit::AssertionFailedError.new <<-MESSAGE
-    Expected #{min_received} spans but received #{received_count} within the #{timeout}s timeout.
-    This could indicate that:
-    - Bugsnag crashed with a fatal error.
-    - Bugsnag did not make the requests that it should have done.
-    - The requests were made, but not deemed to be valid (e.g. missing integrity header).
-    - The requests made were prevented from being received due to a network or other infrastructure issue.
-    Please check the Maze Runner and device logs to confirm.)
-    MESSAGE
-  end
-
-  Maze.check.operator(max_received, :>=, received_count, "#{received_count} spans received") if max_received
-
-  Maze::Schemas::Validator.validate_payload_elements(list, 'trace')
-end
-
-def get_attribute_value(field, attribute, attr_type)
-  list = Maze::Server.list_for 'trace'
-  attributes = Maze::Helper.read_key_path list.current[:body], "#{field}.attributes"
-  attribute = attributes.find { |a| a['key'] == attribute }
-  value = attribute&.dig 'value', attr_type
-  attr_type == 'intValue' && value.is_a?(String) ? value.to_i : value
-end
-
-def check_attribute_equal(field, attribute, attr_type, expected)
-  actual = get_attribute_value field, attribute, attr_type
-  Maze.check.equal(expected, actual)
-end
-
-def assert_attribute(field, key, expected)
-  list = Maze::Server.traces
-  attributes = Maze::Helper.read_key_path(list.current[:body], "#{field}.attributes")
-  Maze.check.equal({ 'key' => key, 'value' => expected }, attributes.find { |a| a['key'] == key })
 end
 
 def check_array_attribute_equal(field, attribute, expected_values)

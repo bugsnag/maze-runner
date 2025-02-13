@@ -33,6 +33,9 @@ module Maze
             $logger.debug "session_capabilities: #{Maze.driver.session_capabilities.inspect}"
           end
 
+          # Log the device information after it's started
+          write_device_info
+
           # Ensure the device is unlocked
           begin
             Maze.driver.unlock
@@ -54,6 +57,16 @@ module Maze
 
         def retry_start_driver?
           raise 'Method not implemented by this class'
+        end
+
+        def write_device_info
+          info = Maze.driver.device_info
+          filepath = File.join(Dir.pwd, 'maze_output', 'device_info.json')
+          File.open(filepath, 'w+') do |file|
+            file.puts(JSON.pretty_generate(info))
+          end
+        rescue => error
+          $logger.warn "Could not write device information file, #{error.message}"
         end
 
         def attempt_start_driver(config)

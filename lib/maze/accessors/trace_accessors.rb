@@ -65,7 +65,7 @@ module Maze
           timeout = Maze.config.receive_requests_wait
           wait = Maze::Wait.new(timeout: timeout)
 
-          wait.until { spans_from_request_list(list).size >= min_received }
+          wait.until { spans_from_request_list(list).size >= minimum }
           received_count = spans_from_request_list(list).size
 
           Maze::Schemas::Validator.validate_payload_elements(list, 'trace')

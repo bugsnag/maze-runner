@@ -24,7 +24,7 @@ def assert_received_span_count(min, max=nil)
     MESSAGE
   end
 
-  Maze.check.operator(max_received, :>=, received_count, "#{received_count} spans received") if max
+  Maze.check.operator(max, :>=, received_count, "#{received_count} spans received") if max
 end
 
 # Asserts an attribute in a specific field exists, and has a given type and value if appropriate

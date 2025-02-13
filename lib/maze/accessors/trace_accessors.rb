@@ -68,7 +68,7 @@ module Maze
           wait.until { spans_from_request_list(list).size >= minimum }
           received_count = spans_from_request_list(list).size
 
-          Maze::Schemas::Validator.validate_payload_elements(list, 'trace')
+          Maze::Schemas::Validator.validate_payload_elements(Maze::Server.list_for(list), 'trace')
 
           received_count
         end

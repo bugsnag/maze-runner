@@ -8,7 +8,7 @@ maze_output/
 maze-runner.log
 Gemfile.lock
 package-lock.json
-test/fixtures/init-test
+test/e2e/init-test
 doc/
 .rakeTasks
 .yardoc/

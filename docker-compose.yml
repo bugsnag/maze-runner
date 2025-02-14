@@ -115,7 +115,7 @@ services:
 
   cli-tests:
     build:
-      context: test/fixtures/cli
+      context: test/e2e/cli
       args:
         BRANCH_NAME:
         RUBY_VERSION:
@@ -125,7 +125,7 @@ services:
 
   comparison-tests:
     build:
-      context: test/fixtures/comparison
+      context: test/e2e/comparison
       args:
         BRANCH_NAME:
         RUBY_VERSION:
@@ -135,7 +135,7 @@ services:
 
   doc-server-tests:
     build:
-      context: test/fixtures/doc-server
+      context: test/e2e/doc-server
       args:
         BRANCH_NAME:
         RUBY_VERSION:
@@ -145,7 +145,7 @@ services:
 
   exit-codes-tests:
     build:
-      context: test/fixtures/exit-codes
+      context: test/e2e/exit-codes
       args:
         BRANCH_NAME:
         RUBY_VERSION:
@@ -155,7 +155,7 @@ services:
 
   framework-tests:
     build:
-      context: test/fixtures/framework
+      context: test/e2e/framework
       args:
         BRANCH_NAME:
         RUBY_VERSION:
@@ -165,7 +165,7 @@ services:
 
   docker-tests:
     build:
-      context: test/fixtures/docker-app
+      context: test/e2e/docker-app
       args:
         BRANCH_NAME:
         RUBY_VERSION:
@@ -177,7 +177,7 @@ services:
 
   proxy-tests:
     build:
-      context: test/fixtures/proxy
+      context: test/e2e/proxy
       args:
         BRANCH_NAME:
         RUBY_VERSION:
@@ -187,7 +187,7 @@ services:
 
   payload-helper-tests:
     build:
-      context: test/fixtures/payload-helpers
+      context: test/e2e/payload-helpers
       args:
         BRANCH_NAME:
         RUBY_VERSION:
@@ -195,11 +195,11 @@ services:
       MAZE_BUGSNAG_API_KEY:
       USE_LEGACY_DRIVER:
     volumes:
-      - ./test/fixtures/payload-helpers/maze_output:/app/maze_output
+      - ./test/e2e/payload-helpers/maze_output:/app/maze_output
 
   command-workflow-tests:
     build:
-      context: test/fixtures/command-workflow
+      context: test/e2e/command-workflow
       args:
         BRANCH_NAME:
         RUBY_VERSION:
@@ -207,11 +207,11 @@ services:
       MAZE_BUGSNAG_API_KEY:
       USE_LEGACY_DRIVER:
     volumes:
-      - ./test/fixtures/command-workflow/maze_output:/app/maze_output
+      - ./test/e2e/command-workflow/maze_output:/app/maze_output
 
   http-response-tests:
     build:
-      context: test/fixtures/http-response
+      context: test/e2e/http-response
       args:
         BRANCH_NAME:
         RUBY_VERSION:
@@ -235,7 +235,7 @@ services:
 
   browser-tests:
     build:
-      context: test/fixtures/browser
+      context: test/e2e/browser
       dockerfile: Dockerfile.w3c
       args:
         BRANCH_NAME:
@@ -248,7 +248,7 @@ services:
       BROWSER_STACK_BROWSERS_USERNAME:
       BROWSER_STACK_BROWSERS_ACCESS_KEY:
     env_file:
-      - ${DOCKER_ENV_FILE:-test/browser/features/fixtures/null_env}
+      - ${DOCKER_ENV_FILE:-test/browser/features/e2e/null_env}
     ports:
       - "9000-9499:9339"
     volumes:
@@ -256,7 +256,7 @@ services:
 
   browser-tests-legacy:
     build:
-      context: test/fixtures/browser
+      context: test/e2e/browser
       dockerfile: Dockerfile.legacy
       args:
         BRANCH_NAME:
@@ -270,11 +270,11 @@ services:
       BROWSER_STACK_BROWSERS_ACCESS_KEY:
       USE_LEGACY_DRIVER: 1
     env_file:
-      - ${DOCKER_ENV_FILE:-test/browser/features/fixtures/null_env}
+      - ${DOCKER_ENV_FILE:-test/browser/features/e2e/null_env}
 
   browser-tests-bitbar:
     build:
-      context: test/fixtures/browser
+      context: test/e2e/browser
       dockerfile: Dockerfile.w3c
       args:
         BRANCH_NAME:
@@ -289,7 +289,7 @@ services:
       BUILDKITE_PIPELINE_SLUG:
       BUILDKITE_RETRY_COUNT:
     env_file:
-      - ${DOCKER_ENV_FILE:-test/browser/features/fixtures/null_env}
+      - ${DOCKER_ENV_FILE:-test/browser/features/e2e/null_env}
     ports:
       - "9000-9499:9339"
       - "9000-9499:9340"

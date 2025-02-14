@@ -14,7 +14,7 @@ steps:
       NODE_VERSION: "18"
       PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
     command: >-
-      cd test/fixtures/aws-sam &&
+      cd test/e2e/aws-sam &&
       bundle install &&
       bundle exec maze-runner
       --no-log-requests
@@ -162,8 +162,8 @@ steps:
           run: command-workflow-tests
       - artifacts#v1.9.0:
           upload:
-            - test/fixtures/payload-helpers/maze_output/**/*
-            - test/fixtures/payload-helpers/maze_output/*
+            - test/e2e/payload-helpers/maze_output/**/*
+            - test/e2e/payload-helpers/maze_output/*
     env:
       RUBY_VERSION: "2"
       USE_LEGACY_DRIVER: "1"

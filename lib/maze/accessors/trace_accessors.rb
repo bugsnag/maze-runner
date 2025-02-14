@@ -42,7 +42,10 @@ module Maze
           when 'doubleValue'
             expected_value.to_f.eql?(attribute_value[expected_type].to_f)
           when 'boolValue'
-            expected_value.eql?(attribute_value[expected_type].eql?('true'))
+            expected_value = expected_value.downcase.eql?('true') if expected_value.is_a?(String)
+            tested_value = attribute_value[expected_type]
+            tested_value = tested_value.downcase.eql?('true') if tested_value.is_a?(String)
+            expected_value.eql?(tested_value)
           when 'arrayValue'
             expected_value.eql?(attribute_value[expected_type]['values'])
           when 'kvlistValue'

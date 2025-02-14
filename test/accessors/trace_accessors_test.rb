@@ -87,6 +87,24 @@ class TraceAccessorsTest < Test::Unit::TestCase
       true
     ))
     assert(Maze::Accessors::TraceAccessors.attribute_value_matches?({
+      'boolValue' => true
+    },
+      'boolValue',
+      true
+    ))
+    assert(Maze::Accessors::TraceAccessors.attribute_value_matches?({
+      'boolValue' => false
+    },
+      'boolValue',
+      'false'
+    ))
+    assert(Maze::Accessors::TraceAccessors.attribute_value_matches?({
+      'boolValue' => true
+    },
+      'boolValue',
+      true
+    ))
+    assert(Maze::Accessors::TraceAccessors.attribute_value_matches?({
         'doubleValue' => '1.52'
       },
       'doubleValue',

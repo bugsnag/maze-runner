@@ -43,7 +43,7 @@ Then('the trace payload field {string} bool attribute {string} is true') do |fie
   assert_field_attribute_exists(field, attribute, 'boolValue', true)
 end
 
-Then('the trace payload field {string} boolean attribute {string} is true') do |field, key|
+Then('the trace payload field {string} boolean attribute {string} is true') do |field, attribute|
   assert_field_attribute_exists(field, attribute, 'boolValue', true)
 end
 
@@ -51,7 +51,7 @@ Then('the trace payload field {string} bool attribute {string} is false') do |fi
   assert_field_attribute_exists(field, attribute, 'boolValue', false)
 end
 
-Then('the trace payload field {string} boolean attribute {string} is false') do |field, key|
+Then('the trace payload field {string} boolean attribute {string} is false') do |field, attribute|
   assert_field_attribute_exists(field, attribute, 'boolValue', false)
 end
 

@@ -179,7 +179,7 @@ Then('a span named {string} contains the attributes:') do |span_name, table|
   named_spans.each do |span|
     matches = expected_attributes.map do |expected_attribute|
       span['attributes'].find_all { |attribute| attribute['key'].eql?(expected_attribute['attribute']) }
-        .any? { |attribute| attribute_value_matches?(attribute['value'], expected_attribute['type'], expected_attribute['value']) }
+        .any? { |attribute| Maze::Accessors::TraceAccessors.attribute_value_matches?(attribute['value'], expected_attribute['type'], expected_attribute['value']) }
     end
     if matches.all? && !matches.empty?
       match = true
@@ -233,7 +233,7 @@ Then('a span named {string} has the following properties:') do |span_name, table
 end
 
 def check_array_attribute_equal(field, attribute, expected_values)
-  actual_values = get_attribute_value(field, attribute, 'arrayValue')['values']
+  actual_values = Maze::Accessors::TraceAccessors.attribute_by_key(field, attribute)['value']['arrayValue']['values']
 
   # Convert string representations of integers to integers for comparison
   actual_values.map! do |value|

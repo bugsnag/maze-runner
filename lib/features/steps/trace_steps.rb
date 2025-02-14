@@ -32,7 +32,7 @@ end
 
 Then('I should have received no spans') do
   sleep Maze.config.receive_no_requests_wait
-  Maze.check.equal Maze::Accessors::TraceAccessors.spans_from_request_list(Maze::Server.list_for('traces')).size, 0
+  Maze.check.equal Maze::Accessors::TraceAccessors.spans_from_request_list('traces').size, 0
 end
 
 Then('I enter unmanaged traces mode') do
@@ -94,82 +94,82 @@ end
 
 # @!group Span steps
 Then('a span {word} equals {string}') do |attribute, expected|
-  spans = Maze::Accessors::TraceAccessors.spans_from_request_list(Maze::Server.list_for('traces'))
+  spans = Maze::Accessors::TraceAccessors.spans_from_request_list('traces')
   selected_attributes = spans.map { |span| span[attribute] }
   Maze.check.includes selected_attributes, expected
 end
 
 Then('every span field {string} equals {string}') do |key, expected|
-  spans = Maze::Accessors::TraceAccessors.spans_from_request_list(Maze::Server.list_for('traces'))
+  spans = Maze::Accessors::TraceAccessors.spans_from_request_list('traces')
   selected_keys = spans.map { |span| span[key] == expected }
   Maze.check.not_includes selected_keys, false
 end
 
 Then('every span field {string} matches the regex {string}') do |key, pattern|
-  spans = Maze::Accessors::TraceAccessors.spans_from_request_list(Maze::Server.list_for('traces'))
+  spans = Maze::Accessors::TraceAccessors.spans_from_request_list('traces')
   spans.map { |span| Maze.check.match pattern, span[key] }
 end
 
 Then('every span string attribute {string} exists') do |attribute|
-  spans = Maze::Accessors::TraceAccessors.spans_from_request_list(Maze::Server.list_for('traces'))
+  spans = Maze::Accessors::TraceAccessors.spans_from_request_list('traces')
   spans.map { |span| Maze.check.not_nil span['attributes'].find { |a| a['key'] == attribute }['value']['stringValue'] }
 end
 
 Then('every span string attribute {string} equals {string}') do |attribute, expected|
-  spans = Maze::Accessors::TraceAccessors.spans_from_request_list(Maze::Server.list_for('traces'))
+  spans = Maze::Accessors::TraceAccessors.spans_from_request_list('traces')
   spans.map { |span| Maze.check.equal expected, span['attributes'].find { |a| a['key'] == attribute }['value']['stringValue'] }
 end
 
 Then('every span string attribute {string} matches the regex {string}') do |attribute, pattern|
-  spans = Maze::Accessors::TraceAccessors.spans_from_request_list(Maze::Server.list_for('traces'))
+  spans = Maze::Accessors::TraceAccessors.spans_from_request_list('traces')
   spans.map { |span| Maze.check.match pattern, span['attributes'].find { |a| a['key'] == attribute }['value']['stringValue'] }
 end
 
 Then('every span integer attribute {string} is greater than {int}') do |attribute, expected|
-  spans = Maze::Accessors::TraceAccessors.spans_from_request_list(Maze::Server.list_for('traces'))
+  spans = Maze::Accessors::TraceAccessors.spans_from_request_list('traces')
   spans.map { |span| Maze::check.true span['attributes'].find { |a| a['key'] == attribute }['value']['intValue'].to_i > expected }
 end
 
 Then('every span bool attribute {string} is true') do |attribute|
-  spans = Maze::Accessors::TraceAccessors.spans_from_request_list(Maze::Server.list_for('traces'))
+  spans = Maze::Accessors::TraceAccessors.spans_from_request_list('traces')
   spans.map { |span| Maze::check.true span['attributes'].find { |a| a['key'] == attribute }['value']['boolValue'] }
 end
 
 Then('a span string attribute {string} exists') do |attribute|
-  spans = Maze::Accessors::TraceAccessors.spans_from_request_list(Maze::Server.list_for('traces'))
+  spans = Maze::Accessors::TraceAccessors.spans_from_request_list('traces')
   selected_attributes = spans.map { |span| span['attributes'].find { |a| a['key'].eql?(attribute) && a['value'].has_key?('stringValue') } }.compact
   Maze.check.false(selected_attributes.empty?)
 end
 
 Then('a span string attribute {string} equals {string}') do |attribute, expected|
-  spans = Maze::Accessors::TraceAccessors.spans_from_request_list(Maze::Server.list_for('traces'))
+  spans = Maze::Accessors::TraceAccessors.spans_from_request_list('traces')
   selected_attributes = spans.map { |span| span['attributes'].find { |a| a['key'].eql?(attribute) && a['value'].has_key?('stringValue') } }.compact
   attribute_values = selected_attributes.map { |a| a['value']['stringValue'] }
   Maze.check.includes attribute_values, expected
 end
 
 Then('a span field {string} equals {string}') do |key, expected|
-  spans = Maze::Accessors::TraceAccessors.spans_from_request_list(Maze::Server.list_for('traces'))
+  spans = Maze::Accessors::TraceAccessors.spans_from_request_list('traces')
   selected_keys = spans.map { |span| span[key] }
   Maze.check.includes selected_keys, expected
 end
 
 Then('a span field {string} equals {int}') do |key, expected|
-  spans = Maze::Accessors::TraceAccessors.spans_from_request_list(Maze::Server.list_for('traces'))
+  spans = Maze::Accessors::TraceAccessors.spans_from_request_list('traces')
   selected_keys = spans.map { |span| span[key] }
   Maze.check.includes selected_keys, expected
 end
 
 Then('a span field {string} matches the regex {string}') do |attribute, pattern|
   regex = Regexp.new pattern
-  spans = Maze::Accessors::TraceAccessors.spans_from_request_list(Maze::Server.list_for('traces'))
+  spans = Maze::Accessors::TraceAccessors.spans_from_request_list('traces')
   selected_attributes = spans.select { |span| regex.match? span[attribute] }
 
   Maze.check.false(selected_attributes.empty?)
 end
 
 Then('a span named {string} contains the attributes:') do |span_name, table|
-  spans = Maze::Accessors::TraceAccessors.spans_from_request_list(Maze::Server.list_for('traces'))
+  spans = Maze::Accessors::TraceAccessors.spans_from_request_list('traces')
   named_spans = spans.find_all { |span| span['name'].eql?(span_name) }
   raise Test::Unit::AssertionFailedError.new "No spans were found with the name #{span_name}" if named_spans.empty?
 
@@ -193,7 +193,7 @@ Then('a span named {string} contains the attributes:') do |span_name, table|
 end
 
 Then('a span named {string} has a parent named {string}') do |child_name, parent_name|
-  spans = Maze::Accessors::TraceAccessors.spans_from_request_list(Maze::Server.list_for('traces'))
+  spans = Maze::Accessors::TraceAccessors.spans_from_request_list('traces')
   child_spans = spans.find_all { |span| span['name'].eql?(child_name) }
   raise Test::Unit::AssertionFailedError.new "No spans were found with the name #{child_name}" if child_spans.empty?
   parent_spans = spans.find_all { |span| span['name'].eql?(parent_name) }
@@ -209,7 +209,7 @@ Then('a span named {string} has a parent named {string}') do |child_name, parent
 end
 
 Then('a span named {string} has the following properties:') do |span_name, table|
-  spans = Maze::Accessors::TraceAccessors.spans_from_request_list(Maze::Server.list_for('traces'))
+  spans = Maze::Accessors::TraceAccessors.spans_from_request_list('traces')
   found_spans = spans.find_all { |span| span['name'].eql?(span_name) }
   raise Test::Unit::AssertionFailedError.new "No spans were found with the name #{span_name}" if found_spans.empty?
 

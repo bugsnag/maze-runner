@@ -42,7 +42,7 @@ def assert_field_attribute_exists(field, attribute, attr_type=nil, expected_valu
     attribute_value = found_attribute['value']
     match = Maze::Accessors::TraceAccessors.attribute_value_matches?(attribute_value, attr_type, expected_value)
 
-    Maze.check.true(values_equal, "Expected attribute with type '#{attr_type}' and value '#{expected_value}', found '#{attribute_value}'")
+    Maze.check.true(match, "Expected attribute with type '#{attr_type}' and value '#{expected_value}', found '#{attribute_value}'")
   end
 end
 

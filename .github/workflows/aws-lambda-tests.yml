@@ -1,6 +1,6 @@
 name: AWS Lambda tests
 
-on
+on:
   push:
   pull_request:
 

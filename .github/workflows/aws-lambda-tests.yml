@@ -1,0 +1,32 @@
+name: AWS Lambda tests
+
+on
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install curl and samcli
+      run: |
+        sudo apt-get update
+        sudo apt-get install curl unzip
+        curl -o sam.zip -L https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-arm64.zip
+        unzip sam.zip -d sam-installation
+        sam-installation/install
+
+    - uses: actions/checkout@v2
+
+    - name: Install Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.1'
+        bundler-cache: true
+
+    - name: Run tests
+      run: |
+        cd test/e2e/aws-sam
+        bundle install
+        bundle exec maze-runner --no-log-requests

@@ -9,13 +9,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Install curl and samcli
-      run: |
-        sudo apt-get update
-        sudo apt-get install curl unzip
-        curl -o sam.zip -L https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-arm64.zip
-        unzip sam.zip -d sam-installation
-        sam-installation/install
+    # - name: Install curl and samcli
+    #   run: |
+    #     sudo apt-get update
+    #     sudo apt-get install curl unzip
+    #     curl -o sam.zip -L https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-arm64.zip
+    #     unzip sam.zip -d sam-installation
+    #     sam-installation/install
+
+    - run: sam --version
 
     - uses: actions/checkout@v2
 

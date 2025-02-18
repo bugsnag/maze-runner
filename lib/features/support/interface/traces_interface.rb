@@ -94,8 +94,9 @@ def assert_field_attribute_one_of(field, attribute, attr_type, values)
   Maze.check.include(found_attribute['value'], attr_type, "Payload field '#{field}' attribute '#{attribute}' value was not an '#{attr_type}', found '#{found_attribute['value']}'")
 
   attribute_value = found_attribute['value'][attr_type]
-  failure_message = "The payload field '#{field}' attribute '#{attribute}' (#{attribute_value}) was not one of: '#{values}'"
-  Maze.check.include(values, attribute_value, failure_message)
+  allowable_values = values.raw
+  failure_message = "The payload field '#{field}' attribute '#{attribute}' (#{attribute_value}) was not one of: '#{allowable_values}'"
+  Maze.check.include(allowable_values, attribute_value, failure_message)
 end
 
 

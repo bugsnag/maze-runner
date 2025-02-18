@@ -75,6 +75,8 @@ module Maze
             $logger.warn message
           end
 
+          pp output
+
           # Attempt to parse the last line of output as this is where a JSON
           # response would be. It's possible for a Lambda to output nothing,
           # e.g. if it forcefully exited, so we allow JSON parse failures here

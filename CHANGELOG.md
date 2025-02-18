@@ -1,3 +1,9 @@
+# 9.23.1 - 2025/02/19
+
+## Fixes
+
+- Fix issue with the method used to parse the lambda response line [724](https://github.com/bugsnag/maze-runner/pull/724)
+
 # 9.23.0 - 2025/02/18
 
 ## Enhancements

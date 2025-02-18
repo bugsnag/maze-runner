@@ -81,14 +81,9 @@ module Maze
           # e.g. if it forcefully exited, so we allow JSON parse failures here
           begin
             response_line = output.find { |line| /^{.*}$/.match(line.strip) }
-            pp "RESPONSE_LINE"
-            pp response_line
-            pp "END"
             parsed_output = JSON.parse(response_line)
           rescue JSON::ParserError => parser_error
-            pp "PARSER_ERROR"
-            pp parser_error
-            pp "END"
+            $logger.warn "An error occured while parsing the lambda response: #{parser_error.message}"
             return {}
           end
 

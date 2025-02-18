@@ -80,7 +80,7 @@ module Maze
           # We can assume that the output is the last line present that is JSON parsable
           response_lines = output.find_all { |line| /^{.*}$/.match(line.strip) }
           response_line = response_lines.last
-          parsed_output = response_line.nil? {} : JSON.parse(response_line)
+          parsed_output = response_line.nil? ? {} : JSON.parse(response_line)
 
           # Error output has no "body" of additional JSON so we can stop here
           return parsed_output unless parsed_output.key?('body')

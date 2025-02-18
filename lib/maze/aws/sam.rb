@@ -80,7 +80,7 @@ module Maze
           # It's possible for a Lambda to output nothing,
           # e.g. if it forcefully exited, so we allow JSON parse failures here
           begin
-            response_line = output.find { |line| /{.*}/.match(line.strip) }
+            response_line = output.find { |line| /^{.*}$/.match(line.strip) }
             pp "RESPONSE_LINE"
             pp response_line
             pp "END"

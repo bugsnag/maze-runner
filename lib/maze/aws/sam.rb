@@ -74,8 +74,6 @@ module Maze
             WARNING
             $logger.warn message
           end
-          
-          pp output
 
           # Attempt to parse response line of the output.
           # It's possible for a Lambda to output nothing,

@@ -1,5 +1,7 @@
 name: AWS Lambda tests
 
+permissions: read-all
+
 on:
   push:
   pull_request:

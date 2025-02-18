@@ -8,7 +8,6 @@ require 'selenium-webdriver'
 require 'uri'
 
 BeforeAll do
-
   Maze.check = Maze::Checks::AssertCheck.new
 
   # Infer mode of operation from config, one of:
@@ -101,6 +100,8 @@ end
 
 # Before each scenario
 Before do |scenario|
+  next if scenario.status == :skipped
+
   Maze.scenario = Maze::Api::Cucumber::Scenario.new(scenario)
 
   # Skip scenario if the driver it needs has failed
@@ -133,6 +134,8 @@ end
 
 # General processing to be run after each scenario
 After do |scenario|
+  next if scenario.status == :skipped
+
   # If we're running on macos, take a screenshot if the scenario fails
   if Maze.config.os == "macos" && scenario.status == :failed
     Maze::MacosUtils.capture_screen(scenario)
@@ -225,6 +228,8 @@ end
 #
 # Furthermore, this hook should appear after the general hook as they are executed in reverse order by Cucumber.
 After do |scenario|
+  next if scenario.status == :skipped
+
   # Call any pre_complete hooks registered by the client
   Maze.hooks.call_pre_complete scenario
 
@@ -239,6 +244,8 @@ end
 # Test all requests against schemas or extra validation rules.  These will only run if the schema/validation is
 # specified for the specific endpoint
 After do |scenario|
+  next if scenario.status == :skipped
+
   ['error', 'session', 'build', 'trace'].each do |endpoint|
     Maze::Schemas::Validator.validate_payload_elements(Maze::Server.list_for(endpoint), endpoint)
   end

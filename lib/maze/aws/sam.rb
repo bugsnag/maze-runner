@@ -65,7 +65,7 @@ module Maze
           unless valid?(output)
             message = <<-WARNING
               The lambda function did not successfully complete.
-              This may be expected and a normal result of the text execution.
+              This may be expected and a normal result of the test execution.
               The listed cause is:
                 > #{output.last.chomp}
 
@@ -75,11 +75,12 @@ module Maze
             $logger.warn message
           end
 
-          # Attempt to parse the last line of output as this is where a JSON
-          # response would be. It's possible for a Lambda to output nothing,
+          # Attempt to parse response line of the output.
+          # It's possible for a Lambda to output nothing,
           # e.g. if it forcefully exited, so we allow JSON parse failures here
           begin
-            parsed_output = JSON.parse(output.last)
+            response_line = output.find { |line| /{.*}/.match(line.strip) }
+            parsed_output = JSON.parse(response_line)
           rescue JSON::ParserError
             return {}
           end

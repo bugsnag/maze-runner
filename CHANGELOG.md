@@ -11,7 +11,7 @@
 
 ## Fixes
 
-- Do not run Cucumber `Before` and `After` hooks when skipping scenarios [728](https://github.com/bugsnag/maze-runner/pull/728)
+- Do not run Cucumber `Before` and `After` hooks when skipping scenarios [723](https://github.com/bugsnag/maze-runner/pull/723)
 - Ensure we parse the correct line from AWS lambda responses [722](https://github.com/bugsnag/maze-runner/pull/722)
 
 # 9.22.0 - 2025/01/08

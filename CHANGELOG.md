@@ -7,6 +7,10 @@
 - Add Device Manager API [712](https://github.com/bugsnag/maze-runner/pull/713)
 - Add terminate and activate methods to App Manager API [716](https://github.com/bugsnag/maze-runner/pull/716)
 
+## Fixes
+
+- Ensure we parse the correct line from AWS lambda responses [722](https://github.com/bugsnag/maze-runner/pull/722)
+
 # 9.23.0 - 2025/01/XX
 
 ## Enhancements

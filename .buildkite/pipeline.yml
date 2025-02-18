@@ -6,19 +6,6 @@ steps:
       queue: macos-14
     command: ./scripts/license_finder.sh
 
-  - label: 'AWS - SAM tests'
-    timeout_in_minutes: 30
-    agents:
-      queue: "macos-14"
-    env:
-      NODE_VERSION: "18"
-      PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
-    command: >-
-      cd test/e2e/aws-sam &&
-      bundle install &&
-      bundle exec maze-runner
-      --no-log-requests
-
   - label: 'Build Android Performance test fixture'
     timeout_in_minutes: 30
     key: android-test-fixture

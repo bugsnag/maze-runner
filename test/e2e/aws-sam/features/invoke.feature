@@ -73,9 +73,18 @@ Scenario: Executing a lambda function that returns a HTML body
   And the lambda response "statusCode" equals 200
   And the SAM exit code equals 0
 
-Scenario: Executing a lambda function that does not respond
+Scenario: Executing a lambda function that returns nothing
+
+
+Scenario: Executing a lambda function that fails with no internal errors
   Given I invoke the "ProcessExitFunction" lambda in "features/fixtures/node-app"
-  Then the lambda response "errorMessage" contains "Error: Runtime exited with error: exit status 1"
-  And the lambda response "errorType" equals "Runtime.ExitError"
+  Then the lambda response "errorMessage" contains "this is an error"
+  And the lambda response "errorType" equals "Error"
   And the lambda response "body" is null
+  And the SAM exit code equals 0
+
+Scenario: Executing a lambda function that fails with an internal error
+  Given I invoke the "NoResponseFunction" lambda in "features/fixtures/ruby-app"
+  And the lambda response "body" is null
+  And the lambda response "statusCode" equals 200
   And the SAM exit code equals 0

@@ -37,6 +37,19 @@ Resources:
             Path: /process-exit
             Method: get
 
+  ThrownErrorFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: thrown-error/
+      Handler: app.lambdaHandler
+      Runtime: nodejs20.x
+      Events:
+        ThrownError:
+          Type: Api
+          Properties:
+            Path: /thrown-error
+            Method: get
+
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM

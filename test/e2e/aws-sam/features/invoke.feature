@@ -88,7 +88,7 @@ Scenario: Executing a lambda function that fails with no internal errors
 
 Scenario: Executing a lambda function that fails with an internal error
   Given I invoke the "ThrownErrorFunction" lambda in "features/fixtures/node-app"
-  Then the lambda response "errorMessage" contains "this is an error"
+  Then the lambda response "errorMessage" contains "Oh no!"
   And the lambda response "errorType" equals "Error"
   And the lambda response "body" is null
   And the SAM exit code equals 0

@@ -1,3 +1,4 @@
-exports.lambdaHandler = async (event, context) => {
-    throw new Error('this is an error')
+exports.lambdaHandler = (event, context, callback) => {
+    throw new Error('Oh no!')
 }
+  

@@ -62,6 +62,7 @@ module Maze
         #
         # @return [Hash]
         def parse(output)
+
           unless valid?(output)
             message = <<-WARNING
               The lambda function did not successfully complete.
@@ -76,14 +77,10 @@ module Maze
           end
 
           # Attempt to parse response line of the output.
-          # It's possible for a Lambda to output nothing,
-          # e.g. if it forcefully exited, so we allow JSON parse failures here
-          begin
-            response_line = output.find { |line| /{.*}/.match(line.strip) }
-            parsed_output = JSON.parse(response_line)
-          rescue JSON::ParserError
-            return {}
-          end
+          # We can assume that the output is the last line present that is JSON parsable
+          response_lines = output.find_all { |line| /^{.*}$/.match(line.strip) }
+          response_line = response_lines.last
+          parsed_output = response_line.nil? ? {} : JSON.parse(response_line)
 
           # Error output has no "body" of additional JSON so we can stop here
           return parsed_output unless parsed_output.key?('body')

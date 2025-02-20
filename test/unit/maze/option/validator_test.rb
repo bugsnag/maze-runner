@@ -213,4 +213,33 @@ class ValidatorTest < Test::Unit::TestCase
     assert_equal 1, errors.length
     assert_equal '--capabilities must be valid JSON (given {"cap":ability"})', errors[0]
   end
+
+  def test_api_key_validation
+    $logger = mock('logger')
+
+    normal_args = %w[--repeater-api-key=12312312312312312312312312312312]
+    
+    normal_options = Maze::Option::Parser.parse normal_args
+    normal_errors = @validator.validate normal_options
+    assert_empty normal_errors
+    
+    $logger.expects(:warn).with("A repeater-api-key option was provided with an empty string. This won't be used during this test run")
+    empty_args = %w[--repeater-api-key=]
+    empty_options = Maze::Option::Parser.parse empty_args
+    empty_errors = @validator.validate empty_options
+    assert_empty empty_errors
+
+    ENV['MAZE_REPEATER_API_KEY'] = '32132132132132132132132132132132'
+    env_options = Maze::Option::Parser.parse []
+    env_errors = @validator.validate env_options
+    assert_empty env_errors
+    ENV.delete('MAZE_REPEATER_API_KEY')
+
+    $logger.expects(:warn).with("A repeater-api-key option was provided with an empty string. This won't be used during this test run")
+    ENV['MAZE_REPEATER_API_KEY'] = ''
+    empty_env_options = Maze::Option::Parser.parse []
+    empty_env_errors = @validator.validate empty_env_options
+    assert_empty empty_env_errors
+    ENV.delete('MAZE_REPEATER_API_KEY')
+  end
 end

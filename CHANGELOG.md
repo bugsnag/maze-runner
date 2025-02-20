@@ -1,3 +1,9 @@
+# 9.23.2 - 2025/02/20
+
+## Fixes
+
+- Fix an issue with repeater API keys being valid despite being empty strings [725](https://github.com/bugsnag/maze-runner/pull/725)
+
 # 9.23.1 - 2025/02/19
 
 ## Fixes

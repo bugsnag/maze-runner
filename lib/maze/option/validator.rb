@@ -31,7 +31,12 @@ module Maze
 
         # --repeater-api-key
         key = options[Option::BUGSNAG_REPEATER_API_KEY]
+        if key&.empty?
+          $logger.warn "A repeater-api-key option was provided with an empty string. This won't be used during this test run"
+          key = nil
+        end
         key_regex = /^[0-9a-fA-F]{32}$/
+
         if key && !key_regex.match?(key)
           errors << "--#{Option::BUGSNAG_REPEATER_API_KEY} must be set to a 32-character hex value"
         end

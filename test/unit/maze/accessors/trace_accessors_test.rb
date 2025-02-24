@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require_relative '../test_helper'
-require_relative '../../lib/maze/accessors/trace_accessors'
-require_relative '../../lib/maze/helper'
-require_relative '../../lib/maze/server'
+require_relative '../../test_helper'
+require_relative '../../../../lib/maze/accessors/trace_accessors'
+require_relative '../../../../lib/maze/helper'
+require_relative '../../../../lib/maze/server'
 
 class TraceAccessorsTest < Test::Unit::TestCase
 

@@ -148,6 +148,10 @@ module Maze
 
         def stop_session
           Maze.driver.driver_quit unless Maze.driver.failed?
+
+          # Report session outcome to Bugsnag
+
+
           Maze::AppiumServer.stop if Maze::AppiumServer.running
         end
       end

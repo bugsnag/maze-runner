@@ -95,9 +95,9 @@ module Maze
           @session_ids.each do |id|
             info = api_client.get_device_session_info(id)
             if info
-              link = Maze::Loggers::LogUtil.linkify(info[:ui_link], "BitBar session: #{id}")
-              device = info[:device_name]
-              $logger.info "#{link} on device #{device}"
+              link = Maze::Loggers::LogUtil.linkify(info[:dashboard_link], "BitBar session: #{id}")
+              $logger.info link
+              $logger.info "Device used: #{info[:device_name]}"
             end
           end
         end

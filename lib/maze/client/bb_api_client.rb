@@ -83,7 +83,7 @@ module Maze
         data = query_api('device-sessions', query)['data']
         if data.size == 1
           {
-            :ui_link => data[0]['uiLink'],
+            :dashboard_link => data[0]['uiLink'],
             :device_name => data[0]['device']['displayName']
           }
         else

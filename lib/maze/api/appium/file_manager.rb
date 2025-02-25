@@ -36,7 +36,7 @@ module Maze
           false
         rescue Selenium::WebDriver::Error::ServerError => e
           # Assume the remote appium session has stopped, so crash out of the session
-          fail_driver
+          fail_driver(e.message)
           raise e
         end
 
@@ -73,7 +73,7 @@ module Maze
           nil
         rescue Selenium::WebDriver::Error::ServerError => e
           # Assume the remote appium session has stopped, so crash out of the session
-          fail_driver
+          fail_driver(e.message)
           raise e
         end
       end

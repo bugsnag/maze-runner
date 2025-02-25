@@ -76,15 +76,18 @@ module Maze
         end
       end
 
-      def get_device_session_ui_link(session_id)
+      def get_device_session_info(session_id)
         query = {
           'filter': "clientSideId_eq_#{session_id}"
         }
         data = query_api('device-sessions', query)['data']
         if data.size == 1
-          data[0]['uiLink']
+          {
+            :dashboard_link => data[0]['uiLink'],
+            :device_name => data[0]['device']['displayName']
+          }
         else
-          $logger.warn "Failed to get UI link for session #{session_id}.  Expected exactly 1 device-session, found #{data.size}"
+          $logger.warn "Could not retrieve details for device session #{session_id}, BitBar may not have had time to create it yet."
         end
       end
 

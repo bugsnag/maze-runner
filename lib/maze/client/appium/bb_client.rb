@@ -93,8 +93,12 @@ module Maze
 
           $logger.info 'Appium session(s) created:'
           @session_ids.each do |id|
-            link = api_client.get_device_session_ui_link(id)
-            $logger.info Maze::Loggers::LogUtil.linkify(link, "BitBar session: #{id}") if link
+            info = api_client.get_device_session_info(id)
+            if info
+              link = Maze::Loggers::LogUtil.linkify(info[:dashboard_link], "BitBar session: #{id}")
+              $logger.info link
+              $logger.info "Device used: #{info[:device_name]}"
+            end
           end
         end
 

@@ -1,3 +1,9 @@
+# 9.24.0 - 2025/02/??
+
+## Enhancements
+
+- Log name of device used in BitBar sessions [726](https://github.com/bugsnag/maze-runner/pull/726)
+
 # 9.23.2 - 2025/02/20
 
 ## Fixes

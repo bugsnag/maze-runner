@@ -151,12 +151,30 @@ module Maze
           else
             # TODO: The call to quit could also fail
             Maze.driver.driver_quit
+            @session_metadata.success = true
           end
 
           # Report session outcome to Bugsnag
-
+          report_session if ENV['MAZE_APPIUM_BUGSNAG_API_KEY']
 
           Maze::AppiumServer.stop if Maze::AppiumServer.running
+        end
+
+        def report_session
+
+          message = @session_metadata.success ? 'Success' : @session_metadata.failure_message
+          error = Exception.new(message)
+
+          Bugsnag.notify(error) do |bsg_event|
+            bsg_event.api_key = ENV['MAZE_APPIUM_BUGSNAG_API_KEY']
+            metadata = {
+              'success': @session_metadata.success,
+              'device farm': @session_metadata.farm.to_s,
+            }
+            metadata['failure message'] = @session_metadata.failure_message unless @session_metadata.success
+            metadata['device'] = @session_metadata.device if @session_metadata.device
+            bsg_event.add_metadata(:'Appium Session', metadata)
+          end
         end
       end
     end

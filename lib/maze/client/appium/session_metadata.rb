@@ -7,6 +7,7 @@ module Maze
           @failure_message = 'Default failure message'
         end
 
+        attr_accessor :id
         attr_accessor :farm
         attr_accessor :device
         attr_accessor :success

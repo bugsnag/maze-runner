@@ -79,6 +79,7 @@ module Maze
             # Log details of this session
             $logger.info "Created Appium session: #{driver.session_id}"
             @session_metadata = Maze::Client::Appium::SessionMetadata.new
+            @session_metadata.id = driver.session_id
             @session_metadata.farm = Maze.config.farm.to_s
           end
           driver
@@ -168,6 +169,7 @@ module Maze
           Bugsnag.notify(error) do |bsg_event|
             bsg_event.api_key = ENV['MAZE_APPIUM_BUGSNAG_API_KEY']
             metadata = {
+              'session id': @session_metadata.id,
               'success': @session_metadata.success,
               'device farm': @session_metadata.farm.to_s,
             }

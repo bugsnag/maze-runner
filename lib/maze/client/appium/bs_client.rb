@@ -72,8 +72,7 @@ module Maze
         end
 
         def log_run_outro
-          $logger.info 'Appium session(s) created:'
-          @session_ids.each { |id| $logger.info "  #{id}" }
+          $logger.info "Appium session created: #{@session_metadata.id}"
           log_run_intro
         end
 

@@ -163,11 +163,15 @@ module Maze
 
         def report_session
 
-          message = @session_metadata.success ? 'Success' : @session_metadata.failure_message
+          $logger.info "--- Reporting session outcome to Bugsnag"
+          $logger.info "Failure message: #{@session_metadata.failure_message}"
+
+          message = @session_metadata.success ? 'Success' : (@session_metadata.failure_message || 'Unknown failure')
           error = Exception.new(message)
 
           Bugsnag.notify(error) do |bsg_event|
             bsg_event.api_key = ENV['MAZE_APPIUM_BUGSNAG_API_KEY']
+
             metadata = {
               'session id': @session_metadata.id,
               'success': @session_metadata.success,

@@ -252,6 +252,7 @@ module Maze
             server.mount '/ndk-symbol', Servlets::Servlet, :sourcemaps
             server.mount '/proguard', Servlets::Servlet, :sourcemaps
             server.mount '/dsym', Servlets::Servlet, :sourcemaps
+            server.mount '/breakpad-symbol', Servlets::Servlet, :sourcemaps
             server.mount '/command', Servlets::CommandServlet
             server.mount '/commands', Servlets::AllCommandsServlet
             server.mount '/logs', Servlets::LogServlet

@@ -22,6 +22,6 @@ ParameterType(
 ParameterType(
   name:        'boolean',
   regexp:      /true|false/,
-  type:        Word,
+  type:        String,
   transformer: ->(s) { s.eql?('true') }
 )

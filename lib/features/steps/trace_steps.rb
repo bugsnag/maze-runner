@@ -39,7 +39,7 @@ Then('I enter unmanaged traces mode') do
   Maze.config.unmanaged_traces_mode = true
 end
 
-Then(/the trace payload field {string} bool(ean) attribute {string} is {boolean}/) do |field, attribute, boolean|
+Then('the trace payload field {string} bool(ean) attribute {string} is {boolean}') do |field, attribute, boolean|
   assert_field_attribute_exists(field, attribute, 'boolValue', boolean)
 end
 

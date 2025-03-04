@@ -30,7 +30,6 @@ Maze Runner recognises various environment variables, as follows:
 `MAZE_SB_LOCAL` - location of the SmartBear secure tunnel binary.
 `BITBAR_USERNAME`/`BITBAR_ACCESS_KEY` - BitBar account credentials.
 
-`MAZE_ASPECTO_REPEATER_API_KEY` - Enables forwarding of all received POST trace requests to Aspecto, using the API key provided.
 `MAZE_REPEATER_API_KEY` - Enables forwarding of all received session, error and trace requests to Bugsnag, using the API key provided.
 
 #### BrowserStack

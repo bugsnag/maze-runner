@@ -39,7 +39,6 @@ module Maze
         super server
         @request_type = request_type
         @schema = JSONSchemer.schema(schema) unless schema.nil?
-        @aspecto_repeater = Maze::Repeaters::AspectoRepeater.new(@request_type)
         @bugsnag_repeater = Maze::Repeaters::BugsnagRepeater.new(@request_type)
       end
 
@@ -59,7 +58,6 @@ module Maze
       # @param response [HTTPResponse] The response to return
       def do_POST(request, response)
 
-        @aspecto_repeater.repeat request
         @bugsnag_repeater.repeat request
 
         # Turn the WEBrick HttpRequest into our internal HttpRequest delegate

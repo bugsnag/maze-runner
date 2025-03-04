@@ -147,6 +147,7 @@ class ProcessorTest < Test::Unit::TestCase
     Maze::Option::Processor.populate normal_config, normal_options
     assert_equal 'foo', normal_config.bugsnag_repeater_api_key
 
+    empty_args = %w[--repeater-api-key= --aspecto-repeater-api-key=]
     empty_options = Maze::Option::Parser.parse empty_args
     empty_config = Maze::Configuration.new
     Maze::Option::Processor.populate empty_config, empty_options

@@ -162,24 +162,29 @@ module Maze
         end
 
         def report_session
-
-          $logger.info "--- Reporting session outcome to Bugsnag"
-          $logger.info "Failure message: #{@session_metadata.failure_message}"
-
-          message = @session_metadata.success ? 'Success' : (@session_metadata.failure_message || 'Unknown failure')
+          message = @session_metadata.success ? 'Success' : @session_metadata.failure_message
           error = Exception.new(message)
 
-          Bugsnag.notify(error) do |bsg_event|
-            bsg_event.api_key = ENV['MAZE_APPIUM_BUGSNAG_API_KEY']
+          Bugsnag.notify(error) do |event|
+            event.api_key = ENV['MAZE_APPIUM_BUGSNAG_API_KEY']
+            event.grouping_hash = event.exceptions.first[:message]
 
             metadata = {
               'session id': @session_metadata.id,
               'success': @session_metadata.success,
               'device farm': @session_metadata.farm.to_s,
             }
-            metadata['failure message'] = @session_metadata.failure_message unless @session_metadata.success
             metadata['device'] = @session_metadata.device if @session_metadata.device
-            bsg_event.add_metadata(:'Appium Session', metadata)
+
+            if @session_metadata.success
+              event.severity = 'info'
+            else
+              event.severity = 'error'
+              event.unhandled = true
+              metadata['failure message'] = @session_metadata.failure_message
+            end
+
+            event.add_metadata(:'Appium Session', metadata)
           end
         end
       end

@@ -79,6 +79,7 @@ module Maze
       def fail_driver(reason)
         $logger.error "Appium driver failed: #{reason}"
         @failed = true
+        @failure_reason = reason
       end
 
       # Checks for an element, waiting until it is present or the method times out

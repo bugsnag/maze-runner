@@ -1,3 +1,9 @@
+# 9.25.0 - 2025/03/05
+
+## Removals
+
+- Remove Aspecto repeater [729](https://github.com/bugsnag/maze-runner/pull/729)
+
 # 9.24.0 - 2025/03/04
 
 ## Enhancements

@@ -18,7 +18,6 @@ class ParserTest < Test::Unit::TestCase
     ENV.delete('MAZE_SELENIUM_SERVER')
     ENV.delete('MAZE_APPLE_TEAM_ID')
     ENV.delete('MAZE_UDID')
-    ENV.delete('MAZE_ASPECTO_REPEATER_API_KEY')
     ENV.delete('MAZE_REPEATER_API_KEY')
     ENV.delete('BITBAR_USERNAME')
     ENV.delete('BITBAR_ACCESS_KEY')
@@ -136,7 +135,6 @@ class ParserTest < Test::Unit::TestCase
     ENV['MAZE_SELENIUM_SERVER'] = 'ENV_SELENIUM_SERVER'
     ENV['MAZE_APPLE_TEAM_ID'] = 'ENV_TEAM_ID'
     ENV['MAZE_UDID'] = 'ENV_UDID'
-    ENV['MAZE_ASPECTO_REPEATER_API_KEY'] = 'ENV_ASPECTO_REPEATER_API_KEY'
     ENV['MAZE_REPEATER_API_KEY'] = 'ENV_REPEATER_API_KEY'
 
     args = %w[--farm=bb]
@@ -149,7 +147,6 @@ class ParserTest < Test::Unit::TestCase
     # Local-only options
     assert_equal('ENV_TEAM_ID', options[Maze::Option::APPLE_TEAM_ID])
     assert_equal('ENV_UDID', options[Maze::Option::UDID])
-    assert_equal('ENV_ASPECTO_REPEATER_API_KEY', options[Maze::Option::ASPECTO_REPEATER_API_KEY])
     assert_equal('ENV_REPEATER_API_KEY', options[Maze::Option::BUGSNAG_REPEATER_API_KEY])
   end
 

@@ -98,7 +98,6 @@ class ProcessorTest < Test::Unit::TestCase
     assert_false config.always_log
     assert_false config.https
     assert_nil config.bugsnag_repeater_api_key
-    assert_nil config.aspecto_repeater_api_key
   end
 
   def test_overriden_defaults
@@ -142,38 +141,29 @@ class ProcessorTest < Test::Unit::TestCase
   end
 
   def test_repeater_key_responses
-    normal_args = %w[--repeater-api-key=foo --aspecto-repeater-api-key=bar]
+    normal_args = %w[--repeater-api-key=foo]
     normal_options = Maze::Option::Parser.parse normal_args
     normal_config = Maze::Configuration.new
     Maze::Option::Processor.populate normal_config, normal_options
     assert_equal 'foo', normal_config.bugsnag_repeater_api_key
-    assert_equal 'bar', normal_config.aspecto_repeater_api_key
 
-    empty_args = %w[--repeater-api-key= --aspecto-repeater-api-key=]
     empty_options = Maze::Option::Parser.parse empty_args
     empty_config = Maze::Configuration.new
     Maze::Option::Processor.populate empty_config, empty_options
     assert_nil empty_config.bugsnag_repeater_api_key
-    assert_nil empty_config.aspecto_repeater_api_key
 
-    ENV['MAZE_ASPECTO_REPEATER_API_KEY'] = 'test_1'
     ENV['MAZE_REPEATER_API_KEY'] = 'test_2'
     env_options = Maze::Option::Parser.parse []
     env_config = Maze::Configuration.new
     Maze::Option::Processor.populate env_config, env_options
-    assert_equal 'test_1', env_config.aspecto_repeater_api_key
     assert_equal 'test_2', env_config.bugsnag_repeater_api_key
-    ENV.delete('MAZE_ASPECTO_REPEATER_API_KEY')
     ENV.delete('MAZE_REPEATER_API_KEY')
 
-    ENV['MAZE_ASPECTO_REPEATER_API_KEY'] = ''
     ENV['MAZE_REPEATER_API_KEY'] = ''
     empty_env_options = Maze::Option::Parser.parse []
     empty_env_config = Maze::Configuration.new
     Maze::Option::Processor.populate empty_env_config, empty_env_options
     assert_nil empty_env_config.bugsnag_repeater_api_key
-    assert_nil empty_env_config.aspecto_repeater_api_key
-    ENV.delete('MAZE_ASPECTO_REPEATER_API_KEY')
     ENV.delete('MAZE_REPEATER_API_KEY')
   end
 

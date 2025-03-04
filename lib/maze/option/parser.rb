@@ -47,11 +47,6 @@ module Maze
                 short: :none,
                 default: true
 
-            opt Option::ASPECTO_REPEATER_API_KEY,
-                'Enables forwarding of all received POST requests to Aspecto, using the API key provided.  MAZE_ASPECTO_REPEATER_API_KEY may also be set.',
-                short: :none,
-                type: :string
-
             opt Option::BUGSNAG_REPEATER_API_KEY,
                 'Enables forwarding of all received POST requests to Bugsnag, using the API key provided.  MAZE_REPEATER_API_KEY may also be set.',
                 short: :none,
@@ -281,7 +276,6 @@ module Maze
             options[Option::SELENIUM_SERVER] ||= ENV['MAZE_SELENIUM_SERVER'] || 'https://us-west-desktop-hub.bitbar.com/wd/hub'
           end
 
-          options[Option::ASPECTO_REPEATER_API_KEY] ||= ENV['MAZE_ASPECTO_REPEATER_API_KEY']
           options[Option::BUGSNAG_REPEATER_API_KEY] ||= ENV['MAZE_REPEATER_API_KEY']
           options[Option::SB_LOCAL] ||= ENV['MAZE_SB_LOCAL'] || '/SBSecureTunnel'
           options[Option::BS_LOCAL] ||= ENV['MAZE_BS_LOCAL'] || '/BrowserStackLocal'

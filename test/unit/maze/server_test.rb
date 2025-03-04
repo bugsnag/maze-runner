@@ -51,6 +51,7 @@ module Maze
       mock_http_server.expects(:mount).with('/ndk-symbol', any_parameters).once
       mock_http_server.expects(:mount).with('/proguard', any_parameters).once
       mock_http_server.expects(:mount).with('/dsym', any_parameters).once
+      mock_http_server.expects(:mount).with('/breakpad-symbol', any_parameters).once
       mock_http_server.expects(:mount).with('/command', any_parameters).once
       mock_http_server.expects(:mount).with('/commands', any_parameters).once
       mock_http_server.expects(:mount).with('/logs', any_parameters).once
@@ -102,6 +103,7 @@ module Maze
       mock_http_server.expects(:mount).with('/ndk-symbol', any_parameters).once
       mock_http_server.expects(:mount).with('/proguard', any_parameters).once
       mock_http_server.expects(:mount).with('/dsym', any_parameters).once
+      mock_http_server.expects(:mount).with('/breakpad-symbol', any_parameters).once
       mock_http_server.expects(:mount).with('/logs', any_parameters).once
       mock_http_server.expects(:mount).with('/reflect', any_parameters).once
       mock_http_server.expects(:mount).with('/command', any_parameters).once

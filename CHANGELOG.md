@@ -1,8 +1,9 @@
-# 9.24.0 - 2025/02/??
+# 9.24.0 - 2025/03/04
 
 ## Enhancements
 
 - Log name of device used in BitBar sessions [726](https://github.com/bugsnag/maze-runner/pull/726)
+- Add the `breakpad-symbol` endpoint to the mock server [727](https://github.com/bugsnag/maze-runner/pull/727)
 
 # 9.23.2 - 2025/02/20
 

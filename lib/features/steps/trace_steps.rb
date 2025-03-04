@@ -8,12 +8,9 @@ end
 
 # Waits for a given number of spans to be received, which may be spread across one or more trace requests.
 #
-# TODO: This is functionaly identical to the below minimum-span step, but they're worded ambiguously.
-#       At the next major release we should restrict this step to an exact amount of spans.
-#
 # @step_input span_count [Integer] The number of spans to wait for
 Then('I wait to receive {int} span(s)') do |span_count|
-  assert_received_span_count(span_count)
+  assert_received_span_count(span_count, span_count)
 end
 
 # Waits for a minimum number of spans to be received, which may be spread across one or more trace requests.
@@ -42,21 +39,10 @@ Then('I enter unmanaged traces mode') do
   Maze.config.unmanaged_traces_mode = true
 end
 
-Then('the trace payload field {string} bool attribute {string} is true') do |field, attribute|
-  assert_field_attribute_exists(field, attribute, 'boolValue', true)
+Then(/the trace payload field {string} bool(ean) attribute {string} is {boolean}/) do |field, attribute, boolean|
+  assert_field_attribute_exists(field, attribute, 'boolValue', boolean)
 end
 
-Then('the trace payload field {string} boolean attribute {string} is true') do |field, attribute|
-  assert_field_attribute_exists(field, attribute, 'boolValue', true)
-end
-
-Then('the trace payload field {string} bool attribute {string} is false') do |field, attribute|
-  assert_field_attribute_exists(field, attribute, 'boolValue', false)
-end
-
-Then('the trace payload field {string} boolean attribute {string} is false') do |field, attribute|
-  assert_field_attribute_exists(field, attribute, 'boolValue', false)
-end
 
 Then('the trace payload field {string} integer attribute {string} equals {int}') do |field, attribute, expected|
   assert_field_attribute_exists(field, attribute, 'intValue', expected)

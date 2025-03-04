@@ -18,3 +18,10 @@ ParameterType(
   type:        String,
   transformer: ->(s) { s.split(',').map(&:strip).map(&:to_i) }
 )
+
+ParameterType(
+  name:        'boolean',
+  regexp:      /true|false/,
+  type:        String,
+  transformer: ->(s) { s.eql?('true') }
+)

@@ -95,7 +95,8 @@ module Maze
           if info
             link = Maze::Loggers::LogUtil.linkify(info[:dashboard_link], "BitBar session: #{@session_metadata.id}")
             $logger.info link
-            $logger.info "Device used: #{info[:device_name]}"
+            @session_metadata.device = info[:device_name]
+            $logger.info "Device used: #{@session_metadata.device}"
           end
         end
 

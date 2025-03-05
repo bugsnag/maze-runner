@@ -88,6 +88,7 @@ module Maze
           }
         else
           $logger.warn "Could not retrieve details for device session #{session_id}, BitBar may not have had time to create it yet."
+          nil
         end
       end
 

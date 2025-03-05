@@ -1,5 +1,9 @@
 # 9.25.0 - 2025/03/05
 
+## Fixes
+
+- Replace deprecated BrowserStack device Google Pixel 4 for ANDROID_11 [730](https://github.com/bugsnag/maze-runner/pull/730)
+
 ## Removals
 
 - Remove Aspecto repeater [729](https://github.com/bugsnag/maze-runner/pull/729)

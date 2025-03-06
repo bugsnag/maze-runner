@@ -8,7 +8,6 @@ module Maze
         FIXTURE_CONFIG = 'fixture_config.json'
 
         def initialize
-          @session_ids = []
           @start_attempts = 0
         end
 
@@ -79,9 +78,9 @@ module Maze
           if result
             # Log details of this session
             $logger.info "Created Appium session: #{driver.session_id}"
-            @session_ids << driver.session_id
-            udid = driver.session_capabilities['udid']
-            $logger.info "Running on device: #{udid}" unless udid.nil?
+            @session_metadata = Maze::Client::Appium::SessionMetadata.new
+            @session_metadata.id = driver.session_id
+            @session_metadata.farm = Maze.config.farm.to_s
           end
           driver
         end
@@ -147,8 +146,46 @@ module Maze
         end
 
         def stop_session
-          Maze.driver.driver_quit unless Maze.driver.failed?
+          if Maze.driver.failed?
+            @session_metadata.success = false
+            @session_metadata.failure_message = Maze.driver.failure_reason
+          else
+            # TODO: The call to quit could also fail
+            Maze.driver.driver_quit
+            @session_metadata.success = true
+          end
+
+          # Report session outcome to Bugsnag
+          report_session if ENV['MAZE_APPIUM_BUGSNAG_API_KEY']
+
           Maze::AppiumServer.stop if Maze::AppiumServer.running
+        end
+
+        def report_session
+          message = @session_metadata.success ? 'Success' : @session_metadata.failure_message
+          error = Exception.new(message)
+
+          Bugsnag.notify(error) do |event|
+            event.api_key = ENV['MAZE_APPIUM_BUGSNAG_API_KEY']
+            event.grouping_hash = event.exceptions.first[:message]
+
+            metadata = {
+              'session id': @session_metadata.id,
+              'success': @session_metadata.success,
+              'device farm': @session_metadata.farm.to_s,
+            }
+            metadata['device'] = @session_metadata.device if @session_metadata.device
+
+            if @session_metadata.success
+              event.severity = 'info'
+            else
+              event.severity = 'error'
+              event.unhandled = true
+              metadata['failure message'] = @session_metadata.failure_message
+            end
+
+            event.add_metadata(:'Appium Session', metadata)
+          end
         end
       end
     end

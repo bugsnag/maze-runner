@@ -9,6 +9,7 @@ require_relative '../../../../../lib/maze/client/bb_client_utils'
 require_relative '../../../../../lib/maze/client/appium/base_client'
 require_relative '../../../../../lib/maze/client/appium/bb_client'
 require_relative '../../../../../lib/maze/client/appium/bb_devices'
+require_relative '../../../../../lib/maze/client/appium/session_metadata'
 require_relative '../../../../../lib/utils/deep_merge'
 
 module Maze
@@ -78,7 +79,6 @@ module Maze
 
           # Successful starting of the driver
           @mock_driver.expects(:session_id).twice.returns 'session_id'
-          @mock_driver.expects(:session_capabilities).returns({ 'uuid' => 'uuid' })
           Bugsnag.expects(:notify).never
 
           client = BitBarClient.new
@@ -104,7 +104,6 @@ module Maze
           #
           $logger.expects(:info).with('Created Appium session: session_id')
           @mock_driver.expects(:session_id).twice.returns 'session_id'
-          @mock_driver.expects(:session_capabilities).returns({ 'uuid' => 'uuid' })
           Bugsnag.expects(:notify).never
 
           client = BitBarClient.new

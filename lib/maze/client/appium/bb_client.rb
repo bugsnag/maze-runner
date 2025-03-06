@@ -91,14 +91,12 @@ module Maze
         def log_run_outro
           api_client = BitBarApiClient.new(Maze.config.access_key)
 
-          $logger.info 'Appium session(s) created:'
-          @session_ids.each do |id|
-            info = api_client.get_device_session_info(id)
-            if info
-              link = Maze::Loggers::LogUtil.linkify(info[:dashboard_link], "BitBar session: #{id}")
-              $logger.info link
-              $logger.info "Device used: #{info[:device_name]}"
-            end
+          info = api_client.get_device_session_info(@session_metadata.id)
+          if info
+            link = Maze::Loggers::LogUtil.linkify(info[:dashboard_link], "BitBar session: #{@session_metadata.id}")
+            $logger.info link
+            @session_metadata.device = info[:device_name]
+            $logger.info "Device used: #{@session_metadata.device}"
           end
         end
 

@@ -1,4 +1,8 @@
-# 9.25.0 - 2025/03/05
+# 9.25.0 - 2025/03/06
+
+## Enhancements
+
+- Reporting of Appium session success statuses to Bugsnag [728](https://github.com/bugsnag/maze-runner/pull/728)
 
 ## Fixes
 

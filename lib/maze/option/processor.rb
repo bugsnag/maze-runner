@@ -22,8 +22,6 @@ module Maze
           config.aws_public_ip = options[Maze::Option::AWS_PUBLIC_IP]
           config.enable_retries = options[Maze::Option::RETRIES]
           config.enable_bugsnag = options[Maze::Option::BUGSNAG]
-          aspecto_repeater_api_key = options[Maze::Option::ASPECTO_REPEATER_API_KEY]
-          config.aspecto_repeater_api_key = aspecto_repeater_api_key unless aspecto_repeater_api_key&.empty?
           bugsnag_repeater_api_key = options[Maze::Option::BUGSNAG_REPEATER_API_KEY]
           config.bugsnag_repeater_api_key = bugsnag_repeater_api_key unless bugsnag_repeater_api_key&.empty? 
 

@@ -22,6 +22,10 @@ When('I unlock the device') do
   Maze::Api::Appium::DeviceManager.new.unlock
 end
 
+When('I press the back button') do
+  Maze::Api::Appium::DeviceManager.new.back
+end
+
 When('I set the device rotation to {string}') do |orientation|
   Maze::Api::Appium::DeviceManager.new.set_rotation(orientation.to_sym)
 end

@@ -24,6 +24,22 @@ module Maze
           raise e
         end
 
+        # Presses the Back button.
+        # @returns [Boolean] Success status
+        def back
+          if failed_driver?
+            $logger.error 'Cannot press the Back button - Appium driver failed.'
+            return false
+          end
+
+          @driver.back
+          true
+        rescue Selenium::WebDriver::Error::ServerError => e
+          # Assume the remote appium session has stopped, so crash out of the session
+          fail_driver(e.message)
+          raise e
+        end
+
         # Sets the rotation of the device.
         # @param orientation [Symbol] The orientation to set the device to, :portrait or :landscape
         # @returns [Boolean] Success status

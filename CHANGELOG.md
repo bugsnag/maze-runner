@@ -1,3 +1,9 @@
+# 9.26.0 - 2025/03/18
+
+## Enhancements
+
+- Add Appium API method for pressing the Back button [731](https://github.com/bugsnag/maze-runner/pull/731)
+
 # 9.25.0 - 2025/03/06
 
 ## Enhancements

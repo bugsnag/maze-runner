@@ -19,3 +19,8 @@ Feature: Exercise the Appium Manager APIs
     And I set the device rotation to "portrait"
     And I log the device info
     And I press the back button
+
+  Scenario: UI Manager operations
+    When the element "clearUserData" is present
+    And I click the element "clearUserData"
+    And I click the element "clearUserData" if present

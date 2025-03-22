@@ -5,7 +5,7 @@
 #
 # @step_input element_id [String] The locator id
 Given('the element {string} is present') do |element_id|
-  present = Maze.driver.wait_for_element(element_id)
+  present = Maze::Api::Appium::UiManager.new.wait_for_element(element_id)
   raise Maze::Error::AppiumElementNotFoundError.new("The element #{element_id} could not be found", element_id) unless present
 end
 
@@ -24,7 +24,15 @@ end
 #
 # @step_input element_id [String] The locator id
 When('I click the element {string}') do |element_id|
-  Maze.driver.click_element(element_id)
+  Maze::Api::Appium::UiManager.new.click_element(element_id)
+end
+
+# Clicks a given element if present
+# Requires a running Appium driver
+#
+# @step_input element_id [String] The locator id
+When('I click the element {string} if present') do |element_id|
+  Maze::Api::Appium::UiManager.new.click_element_if_present(element_id)
 end
 
 # Sends the app to the background indefinitely

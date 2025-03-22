@@ -3,6 +3,7 @@
 ## Enhancements
 
 - Add Appium API method for retrieving device logs [732](https://github.com/bugsnag/maze-runner/pull/732)
+- Add UiManager to Appium API [733](https://github.com/bugsnag/maze-runner/pull/733)
 
 # 9.26.0 - 2025/03/18
 

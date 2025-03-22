@@ -1,3 +1,9 @@
+# 9.27.0 - TDB
+
+## Enhancements
+
+- Add Appium API method for retrieving device logs [732](https://github.com/bugsnag/maze-runner/pull/732)
+
 # 9.26.0 - 2025/03/18
 
 ## Enhancements

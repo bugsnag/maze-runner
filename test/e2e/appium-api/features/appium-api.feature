@@ -13,6 +13,7 @@ Feature: Exercise the Appium Manager APIs
 
   Scenario: Device Manager operations
     When I unlock the device
+    And I get the device logs
     And I set the device rotation to "landscape"
     And I wait for 2 seconds
     And I set the device rotation to "portrait"

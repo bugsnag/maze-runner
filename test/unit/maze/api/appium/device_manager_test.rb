@@ -23,6 +23,20 @@ module Maze
           assert_false(@manager.unlock)
         end
 
+        def test_back_failed_driver
+          @mock_driver.expects(:failed?).returns(true)
+          $logger.expects(:error).with("Cannot press the Back button - Appium driver failed.")
+
+          assert_false(@manager.back)
+        end
+
+        def test_get_log_failed_driver
+          @mock_driver.expects(:failed?).returns(true)
+          $logger.expects(:error).with("Cannot get logs - Appium driver failed.")
+
+          assert_nil(@manager.get_log('syslog'))
+        end
+
         def test_set_rotation_failed_driver
           @mock_driver.expects(:failed?).returns(true)
           $logger.expects(:error).with("Cannot set the device rotation - Appium driver failed.")
@@ -66,6 +80,28 @@ module Maze
 
           error = assert_raises Selenium::WebDriver::Error::ServerError do
             @manager.info
+          end
+          assert_equal 'Timeout', error.message
+        end
+
+        def test_back_server_error
+          @mock_driver.expects(:failed?).returns(false)
+          @mock_driver.expects(:fail_driver)
+          @mock_driver.expects(:back).raises(Selenium::WebDriver::Error::ServerError, 'Timeout')
+
+          error = assert_raises Selenium::WebDriver::Error::ServerError do
+            @manager.back
+          end
+          assert_equal 'Timeout', error.message
+        end
+
+        def test_get_log_server_error
+          @mock_driver.expects(:failed?).returns(false)
+          @mock_driver.expects(:fail_driver)
+          @mock_driver.expects(:get_log).with('syslog').raises(Selenium::WebDriver::Error::ServerError, 'Timeout')
+
+          error = assert_raises Selenium::WebDriver::Error::ServerError do
+            @manager.get_log('syslog')
           end
           assert_equal 'Timeout', error.message
         end

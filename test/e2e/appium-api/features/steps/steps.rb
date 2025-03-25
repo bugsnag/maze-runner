@@ -34,3 +34,14 @@ When('I log the device info') do
   info = Maze::Api::Appium::DeviceManager.new.info
   $logger.info "Device info is: #{info}"
 end
+
+When('I get the device logs') do
+  log_type = if Maze.config.device.include?('ANDROID')
+               'logcat'
+             else
+               'syslog'
+             end
+  logs = Maze::Api::Appium::DeviceManager.new.get_log(log_type)
+  $logger.info "#{logs.length} device logs entries returned"
+end
+

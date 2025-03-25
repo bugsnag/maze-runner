@@ -40,6 +40,23 @@ module Maze
           raise e
         end
 
+        # Gets logs from the device.
+        # @param log_type [String] The type pf log to get as recognised by Appium, such as 'syslog'
+        #
+        # @returns [Array, nil] Array of Selenium::WebDriver::LogEntry, or nil if the driver has failed
+        def get_log(log_type)
+          if failed_driver?
+            $logger.error 'Cannot get logs - Appium driver failed.'
+            return nil
+          end
+
+          @driver.get_log(log_type)
+        rescue Selenium::WebDriver::Error::ServerError => e
+          # Assume the remote appium session has stopped, so crash out of the session
+          fail_driver(e.message)
+          raise e
+        end
+
         # Sets the rotation of the device.
         # @param orientation [Symbol] The orientation to set the device to, :portrait or :landscape
         # @returns [Boolean] Success status

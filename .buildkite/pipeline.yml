@@ -355,6 +355,40 @@ steps:
     concurrency_group: 'bitbar'
     concurrency_method: eager
 
+  - label: ':bitbar: Appium API'
+    timeout_in_minutes: 20
+    depends_on:
+      - "android-test-fixture"
+      - "push-branch-cli"
+    plugins:
+      artifacts#v1.9.0:
+        download:
+          - from: "bugsnag-android-performance/build/test-fixture.apk"
+            to: "./test/e2e/appium-api/build/test-fixture.apk"
+        upload: "test/e2e/appium-api/maze_output/**/*"
+      docker-compose#v4.14.0:
+        pull: appium-test-bb
+        run: appium-test-bb
+        volumes:
+          - "./test/e2e/appium-api/build:/app/build"
+          - "./test/e2e/appium-api/features:/app/features"
+          - "./test/e2e/appium-api/maze_output:/app/maze_output"
+        service-ports: true
+        command:
+          - "--app=build/test-fixture.apk"
+          - "--appium-version=1.22"
+          - "--farm=bb"
+          - "--device=ANDROID_10|ANDROID_11|ANDROID_12|ANDROID_13"
+          - "--fail-fast"
+          - "--no-tunnel"
+          - "--aws-public-ip"
+        image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
+    env:
+      RUBY_VERSION: "3"
+    concurrency: 25
+    concurrency_group: 'bitbar'
+    concurrency_method: eager
+
   - label: ':bitbar: iOS'
     timeout_in_minutes: 20
     depends_on:

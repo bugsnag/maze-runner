@@ -4,12 +4,6 @@ module Maze
     # Hooks for Appium mode use
     class AppiumHooks < InternalHooks
 
-      APPIUM_DRIVER_FAILED_ERRORS = [
-        Selenium::WebDriver::Error::UnknownError,
-        Selenium::WebDriver::Error::ServerError,
-        Selenium::WebDriver::Error::WebDriverError
-      ]
-
       @client
 
       def before_all
@@ -30,11 +24,6 @@ module Maze
       end
 
       def after(scenario)
-        if scenario.failed?
-          Maze.driver = nil if driver_has_failed?
-          $logger.warn('The appium driver has failed, removing it to prevent future errors')
-        end
-
         if Maze.config.os == 'macos'
           # Close the app - without the sleep, launching the app for the next scenario intermittently fails
           system("killall -KILL #{Maze.config.app} && sleep 1")
@@ -81,14 +70,6 @@ module Maze
       end
 
       private
-
-      def driver_has_failed?
-        return false if Maze::ErrorCaptor.empty?
-
-        Maze::ErrorCaptor.classes.any? do |error_class|
-          APPIUM_DRIVER_FAILED_ERRORS.include?(error_class)
-        end
-      end
 
       # Pulls the device logs using Appium and writes them to file in the maze_output folder
       def write_device_logs(scenario)

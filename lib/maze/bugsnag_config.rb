@@ -33,7 +33,6 @@ module Maze
           end
           config.middleware.use(AssertErrorMiddleware)
           config.middleware.use(AmbiguousErrorMiddleware)
-          config.middleware.use(ErrorCaptureMiddleware)
           config.add_metadata(:'buildkite', metadata)
           config.project_root = Dir.pwd
         end
@@ -71,10 +70,7 @@ module Maze
     end
 
     class AmbiguousErrorMiddleware
-      AMBIGUOUS_ERROR_CLASSES = [
-        'Selenium::WebDriver::Error::ServerError',
-        'Selenium::WebDriver::Error::UnknownError'
-      ]
+      AMBIGUOUS_ERROR_CLASSES = %w[Selenium::WebDriver::Error::ServerError Selenium::WebDriver::Error::UnknownError]
 
       def initialize(middleware)
         @middleware = middleware
@@ -85,19 +81,6 @@ module Maze
         if AMBIGUOUS_ERROR_CLASSES.include?(first_ex.class.name)
           report.grouping_hash = first_ex.class.name.to_s + first_ex.message.to_s
         end
-
-        @middleware.call(report)
-      end
-    end
-
-    class ErrorCaptureMiddleware
-
-      def initialize(middleware)
-        @middleware = middleware
-      end
-
-      def call(report)
-        Maze::ErrorCaptor.add(report.dup)
 
         @middleware.call(report)
       end

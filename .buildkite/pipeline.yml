@@ -17,6 +17,8 @@ steps:
     plugins:
       artifacts#v1.9.0:
         upload: "bugsnag-android-performance/build/test-fixture.apk"
+    env:
+      JAVA_VERSION: 17
 
   - label: 'Build iOS test fixture'
     timeout_in_minutes: 30

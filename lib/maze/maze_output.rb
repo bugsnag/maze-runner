@@ -90,19 +90,6 @@ module Maze
       end
     end
 
-    # Writes a set of logs to a device logs file
-    # @param logs [Array<String>] The lines of log to be written
-    def write_device_logs(logs)
-
-      dir = output_folder
-      FileUtils.makedirs(dir)
-      filepath = File.join(dir, 'device.log')
-
-      File.open(filepath, 'w+') do |file|
-        logs.each { |line| file.puts line }
-      end
-    end
-
     # Determines the output folder for the scenario
     def output_folder
       folder1 = File.join(Dir.pwd, 'maze_output')

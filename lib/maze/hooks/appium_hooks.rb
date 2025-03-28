@@ -68,22 +68,6 @@ module Maze
           @client.stop_session
         end
       end
-
-      private
-
-      # Pulls the device logs using Appium and writes them to file in the maze_output folder
-      def write_device_logs(scenario)
-        log_name = case Maze::Helper.get_current_platform
-                   when 'android'
-                     'logcat'
-                   when 'ios'
-                     'syslog'
-                   end
-        unless Maze.driver.nil?
-          logs = Maze.driver.get_log(log_name)
-          Maze::MazeOutput.new(scenario).write_device_logs(logs)
-        end
-      end
     end
   end
 end

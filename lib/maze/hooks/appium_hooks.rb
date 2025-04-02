@@ -24,6 +24,7 @@ module Maze
       end
 
       def after(scenario)
+        manager = Maze::Api::Appium::AppManager.new
         if Maze.config.os == 'macos'
           # Close the app - without the sleep, launching the app for the next scenario intermittently fails
           system("killall -KILL #{Maze.config.app} && sleep 1")
@@ -31,17 +32,17 @@ module Maze
           # Reset the server to ensure that test fixtures cannot fetch
           # commands from the previous scenario (in idempotent mode).
           begin
-            Maze.driver.terminate_app Maze.driver.app_id
+            manager.terminate
           rescue Selenium::WebDriver::Error::UnknownError, Selenium::WebDriver::Error::InvalidSessionIdError
             if Maze.config.appium_version && Maze.config.appium_version.to_f < 2.0
               $logger.warn 'terminate_app failed, using the slower but more forceful close_app instead'
-              Maze.driver.close_app
+              manager.close
             else
               $logger.warn 'terminate_app failed, future errors may occur if the application did not close remotely'
             end
           end
           Maze::Server.reset!
-          Maze.driver.activate_app Maze.driver.app_id
+          manager.activate
         end
       rescue => error
         # Notify and re-raise for Cucumber to handle

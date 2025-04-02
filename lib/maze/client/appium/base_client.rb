@@ -37,7 +37,7 @@ module Maze
 
           # Ensure the device is unlocked
           begin
-            Maze.driver.unlock
+            Maze::Api::Appium::DeviceManager.new.unlock
           rescue => error
             Bugsnag.notify error
             $logger.warn "Failed to unlock device: #{error}"
@@ -59,7 +59,7 @@ module Maze
         end
 
         def write_device_info
-          info = Maze.driver.device_info
+          info = Maze::Api::Appium::DeviceManager.new.info
           filepath = File.join(Dir.pwd, 'maze_output', 'device_info.json')
           File.open(filepath, 'w+') do |file|
             file.puts(JSON.pretty_generate(info))

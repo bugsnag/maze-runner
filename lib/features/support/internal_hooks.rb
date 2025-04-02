@@ -194,7 +194,6 @@ ensure
   Maze::Runner.environment.clear
   Maze::Store.values.clear
   Maze::Aws::Sam.reset!
-  Maze::ErrorCaptor.reset
 end
 
 def output_received_requests(request_type)

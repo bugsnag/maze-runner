@@ -1,3 +1,9 @@
+# 9.27.1 - TBD
+
+## Fixes
+
+- Removed erroneous warning for failed Appium drivers [735](https://github.com/bugsnag/maze-runner/pull/735)
+
 # 9.27.0 - 2025/03/25
 
 ## Enhancements

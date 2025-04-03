@@ -1,9 +1,10 @@
-# 9.27.1 - TBD
+# 9.27.1 - 2025/04/07
 
+## Fixes
 ## Fixes
 
 - Removed erroneous warning for failed Appium drivers [735](https://github.com/bugsnag/maze-runner/pull/735)
-- Do not use `Maze.driver` directly when performing operations [736](https://github.com/bugsnag/maze-runner/pull/736)
+- Do not use `Maze.driver` directly when performing operations [737](https://github.com/bugsnag/maze-runner/pull/737)
 
 # 9.27.0 - 2025/03/25
 

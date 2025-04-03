@@ -1,5 +1,9 @@
 # 9.27.1 - TBD
 
+## Enhancements
+
+- Add trace step to validate percentages [735](https://github.com/bugsnag/maze-runner/pull/735)
+
 ## Fixes
 
 - Removed erroneous warning for failed Appium drivers [735](https://github.com/bugsnag/maze-runner/pull/735)

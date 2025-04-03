@@ -2,7 +2,7 @@
 
 ## Enhancements
 
-- Add trace step to validate percentages [735](https://github.com/bugsnag/maze-runner/pull/735)
+- Add trace step to validate percentages [736](https://github.com/bugsnag/maze-runner/pull/736)
 
 ## Fixes
 

@@ -381,3 +381,66 @@ Then('the trace payload field {string} boolean array attribute {string} equals t
   expected_values_list = expected_values.raw.flatten.map { |v| { 'boolValue' => v == 'true' } }
   check_array_attribute_equal field, attribute, expected_values_list
 end
+
+def check_valid_percentage(value, field_name, attribute_name, request_type)
+  Maze.check.operator(
+    value, 
+    :>=, 
+    0.0,
+    "Attribute '#{attribute_name}' in '#{field_name}' is less than 0% for request type '#{request_type}': #{value}"
+  )
+  Maze.check.operator(
+    value, 
+    :<=, 
+    100.0,
+    "Attribute '#{attribute_name}' in '#{field_name}' is greater than 100% for request type '#{request_type}': #{value}"
+  )
+end
+
+When('the {request_type} payload field {string} double attribute {string} is a valid percentage') do |request_type, field_name, attribute_name|
+  list = Maze::Server.list_for(request_type)
+  attributes = Maze::Helper.read_key_path(list.current[:body], "#{field_name}.attributes")
+  Maze.check.not_nil(attributes, "No attributes found for '#{field_name}' in request type '#{request_type}'.")
+
+  attr = attributes.find { |a| a['key'] == attribute_name }
+  Maze.check.not_nil(
+    attr,
+    "No attribute named '#{attribute_name}' was found in '#{field_name}' for request type '#{request_type}'."
+  )
+
+  value = attr.dig('value', 'doubleValue')
+  Maze.check.not_nil(
+    value,
+    "Attribute '#{attribute_name}' in '#{field_name}' is missing a doubleValue."
+  )
+
+  float_value = value.to_f
+  check_valid_percentage(float_value, field_name, attribute_name, request_type)
+end
+
+When('the {request_type} payload field {string} double array attribute {string} contains valid percentages') do |request_type, field_name, attribute_name|
+  list = Maze::Server.list_for(request_type)
+  attributes = Maze::Helper.read_key_path(list.current[:body], "#{field_name}.attributes")
+  Maze.check.not_nil(attributes, "No attributes found for '#{field_name}' in request type '#{request_type}'.")
+
+  attr = attributes.find { |a| a['key'] == attribute_name }
+  Maze.check.not_nil(
+    attr,
+    "No attribute named '#{attribute_name}' was found in '#{field_name}' for request type '#{request_type}'."
+  )
+
+  array_value = attr.dig('value', 'arrayValue', 'values')
+  Maze.check.not_nil(
+    array_value,
+    "Attribute '#{attribute_name}' in '#{field_name}' is not an arrayValue or is missing 'values' key."
+  )
+
+  # Check each element is in the valid percentage range
+  array_value.each do |element|
+    double_val_raw = element['doubleValue']
+    Maze.check.not_nil(double_val_raw, "Expected a 'doubleValue' in the array but got: #{element}")
+
+    float_value = double_val_raw.to_f
+    check_valid_percentage(float_value, field_name, attribute_name, request_type)
+  end
+end

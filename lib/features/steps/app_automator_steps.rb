@@ -15,7 +15,7 @@ end
 # @step_input element_id [String] The locator id
 # @step_input timeout [Int] The number of seconds to wait before timing out
 Given('the element {string} is present within {int} seconds') do |element_id, timeout|
-  present = Maze.driver.wait_for_element(element_id, timeout)
+  present = Maze::Api::Appium::UiManager.new.wait_for_element(element_id, timeout)
   raise Maze::Error::AppiumElementNotFoundError.new("The element #{element_id} could not be found", element_id) unless present
 end
 
@@ -53,6 +53,7 @@ end
 # Requires a running Appium driver
 #
 # @step_input element_id [String] The locator id
+# @deprecated To be removed in the next major version
 When('I clear the element {string}') do |element_id|
   Maze.driver.clear_element(element_id)
 end
@@ -62,6 +63,7 @@ end
 #
 # @step_input keys [String] The keys to send to the element
 # @step_input element_id [String] The locator id
+# @deprecated To be removed in the next major version
 When('I send the keys {string} to the element {string}') do |keys, element_id|
   Maze.driver.send_keys_to_element(element_id, keys)
 end
@@ -69,7 +71,7 @@ end
 # Set the device orientation to either portrait or landscape
 # Requires a running Appium driver
 When('I set the device orientation to {orientation}') do |orientation|
-  Maze.driver.set_rotation orientation
+  Maze::Api::Appium::DeviceManager.new.set_rotation orientation
 end
 
 # Sends keys to a given element, clearing it first
@@ -77,6 +79,7 @@ end
 #
 # @step_input keys [String] The keys to send to the element
 # @step_input element_id [String] The locator id
+# @deprecated To be removed in the next major version
 When('I clear and send the keys {string} to the element {string}') do |keys, element_id|
   Maze.driver.clear_and_send_keys_to_element(element_id, keys)
 end

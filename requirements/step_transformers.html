@@ -17470,7 +17470,7 @@ Requires a running Appium driver</p>
           </td>
           <td>
             <pre class="code"><span class='const'>Given</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the element {string} is present within {int} seconds</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_element_id'>element_id</span><span class='comma'>,</span> <span class='id identifier rubyid_timeout'>timeout</span><span class='op'>|</span>
-  <span class='id identifier rubyid_present'>present</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='period'>.</span><span class='id identifier rubyid_driver'>driver</span><span class='period'>.</span><span class='id identifier rubyid_wait_for_element'>wait_for_element</span><span class='lparen'>(</span><span class='id identifier rubyid_element_id'>element_id</span><span class='comma'>,</span> <span class='id identifier rubyid_timeout'>timeout</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_present'>present</span> <span class='op'>=</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Api</span><span class='op'>::</span><span class='const'>Appium</span><span class='op'>::</span><span class='const'>UiManager</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='period'>.</span><span class='id identifier rubyid_wait_for_element'>wait_for_element</span><span class='lparen'>(</span><span class='id identifier rubyid_element_id'>element_id</span><span class='comma'>,</span> <span class='id identifier rubyid_timeout'>timeout</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Error</span><span class='op'>::</span><span class='const'>AppiumElementNotFoundError</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The element </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_element_id'>element_id</span><span class='embexpr_end'>}</span><span class='tstring_content'> could not be found</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_element_id'>element_id</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_present'>present</span>
 <span class='kw'>end</span></pre>
           </td>
@@ -17850,14 +17850,16 @@ Requires a running Appium driver</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/app_automator_steps.rb:56</div>
+      <div class="file">lib/features/steps/app_automator_steps.rb:57</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    <p>Clears a given element
+    <div class="note deprecated"><strong>Deprecated.</strong> <div class='inline'><p>To be removed in the next major version</p>
+</div></div>
+<p>Clears a given element
 Requires a running Appium driver</p>
 
 
@@ -17890,9 +17892,9 @@ Requires a running Appium driver</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">56
-57
-58</pre>
+            <pre class="lines">57
+58
+59</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>When</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I clear the element {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_element_id'>element_id</span><span class='op'>|</span>
@@ -17938,14 +17940,16 @@ Requires a running Appium driver</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/app_automator_steps.rb:65</div>
+      <div class="file">lib/features/steps/app_automator_steps.rb:67</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    <p>Sends keys to a given element
+    <div class="note deprecated"><strong>Deprecated.</strong> <div class='inline'><p>To be removed in the next major version</p>
+</div></div>
+<p>Sends keys to a given element
 Requires a running Appium driver</p>
 
 
@@ -17989,9 +17993,9 @@ Requires a running Appium driver</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">65
-66
-67</pre>
+            <pre class="lines">67
+68
+69</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>When</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I send the keys {string} to the element {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_keys'>keys</span><span class='comma'>,</span> <span class='id identifier rubyid_element_id'>element_id</span><span class='op'>|</span>
@@ -18037,7 +18041,7 @@ Requires a running Appium driver</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/app_automator_steps.rb:71</div>
+      <div class="file">lib/features/steps/app_automator_steps.rb:73</div>
     </div>
     
     <!-- Comments -->
@@ -18062,13 +18066,13 @@ Requires a running Appium driver</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">71
-72
-73</pre>
+            <pre class="lines">73
+74
+75</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>When</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I set the device orientation to {orientation}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_orientation'>orientation</span><span class='op'>|</span>
-  <span class='const'>Maze</span><span class='period'>.</span><span class='id identifier rubyid_driver'>driver</span><span class='period'>.</span><span class='id identifier rubyid_set_rotation'>set_rotation</span> <span class='id identifier rubyid_orientation'>orientation</span>
+  <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Api</span><span class='op'>::</span><span class='const'>Appium</span><span class='op'>::</span><span class='const'>DeviceManager</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='period'>.</span><span class='id identifier rubyid_set_rotation'>set_rotation</span> <span class='id identifier rubyid_orientation'>orientation</span>
 <span class='kw'>end</span></pre>
           </td>
         </tr>
@@ -18110,14 +18114,16 @@ Requires a running Appium driver</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/app_automator_steps.rb:80</div>
+      <div class="file">lib/features/steps/app_automator_steps.rb:83</div>
     </div>
     
     <!-- Comments -->
     <div>
       <div class="docstring">
   <div class="discussion">
-    <p>Sends keys to a given element, clearing it first
+    <div class="note deprecated"><strong>Deprecated.</strong> <div class='inline'><p>To be removed in the next major version</p>
+</div></div>
+<p>Sends keys to a given element, clearing it first
 Requires a running Appium driver</p>
 
 
@@ -18161,9 +18167,9 @@ Requires a running Appium driver</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">80
-81
-82</pre>
+            <pre class="lines">83
+84
+85</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>When</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I clear and send the keys {string} to the element {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_keys'>keys</span><span class='comma'>,</span> <span class='id identifier rubyid_element_id'>element_id</span><span class='op'>|</span>
@@ -26276,7 +26282,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
 </div>
 
       <div id="footer">
-  Generated on Tue Mar 25 15:08:28 2025 by
+  Generated on Fri Apr  4 15:39:51 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-2.7.8).
 </div>

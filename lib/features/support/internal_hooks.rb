@@ -8,6 +8,8 @@ require 'selenium-webdriver'
 require 'uri'
 
 BeforeAll do
+  Signal.trap('TERM') { Kernel.exit(::Maze::Api::ExitCode::SIGTERM) }
+
   Maze.check = Maze::Checks::AssertCheck.new
 
   # Infer mode of operation from config, one of:

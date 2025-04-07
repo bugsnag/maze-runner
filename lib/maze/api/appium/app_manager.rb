@@ -17,7 +17,7 @@ module Maze
 
           @driver.activate_app(@driver.app_id)
           true
-        rescue Selenium::WebDriver::Error::ServerError => e
+        rescue Selenium::WebDriver::Error::ServerError, Selenium::WebDriver::Error::UnknownError => e
           # Assume the remote appium session has stopped, so crash out of the session
           fail_driver(e.message)
           raise e
@@ -33,7 +33,7 @@ module Maze
 
           @driver.terminate_app(@driver.app_id)
           true
-        rescue Selenium::WebDriver::Error::ServerError => e
+        rescue Selenium::WebDriver::Error::ServerError, Selenium::WebDriver::Error::UnknownError => e
           # Assume the remote appium session has stopped, so crash out of the session
           fail_driver(e.message)
           raise e
@@ -49,7 +49,7 @@ module Maze
 
           @driver.launch_app
           true
-        rescue Selenium::WebDriver::Error::ServerError => e
+        rescue Selenium::WebDriver::Error::ServerError, Selenium::WebDriver::Error::UnknownError => e
           # Assume the remote appium session has stopped, so crash out of the session
           fail_driver(e.message)
           raise e
@@ -65,7 +65,7 @@ module Maze
 
           @driver.close_app
           true
-        rescue Selenium::WebDriver::Error::ServerError => e
+        rescue Selenium::WebDriver::Error::ServerError, Selenium::WebDriver::Error::UnknownError => e
           # Assume the remote appium session has stopped, so crash out of the session
           fail_driver(e.message)
           raise e
@@ -80,7 +80,7 @@ module Maze
           end
 
           @driver.app_state(@driver.app_id)
-        rescue Selenium::WebDriver::Error::ServerError => e
+        rescue Selenium::WebDriver::Error::ServerError, Selenium::WebDriver::Error::UnknownError => e
           # Assume the remote appium session has stopped, so crash out of the session
           fail_driver(e.message)
           raise e

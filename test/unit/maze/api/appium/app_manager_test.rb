@@ -51,13 +51,13 @@ module Maze
           assert_false(@manager.activate)
         end
 
-        def test_state_server_error
+        def test_state_unknown_error
           @mock_driver.expects(:failed?).returns(false)
           @mock_driver.expects(:app_id).returns('app1')
           @mock_driver.expects(:fail_driver)
-          @mock_driver.expects(:app_state).with('app1').raises(Selenium::WebDriver::Error::ServerError, 'Timeout')
+          @mock_driver.expects(:app_state).with('app1').raises(Selenium::WebDriver::Error::UnknownError, 'Timeout')
 
-          error = assert_raises Selenium::WebDriver::Error::ServerError do
+          error = assert_raises Selenium::WebDriver::Error::UnknownError do
             @manager.state
           end
           assert_equal 'Timeout', error.message

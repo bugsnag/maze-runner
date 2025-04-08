@@ -1,3 +1,9 @@
+# 9.27.2 - 2025/04/07
+
+## Fixes
+
+- Handle Appium `UnknownError` in `AppManager` [738](https://github.com/bugsnag/maze-runner/pull/738)
+
 # 9.27.1 - 2025/04/04
 
 ## Fixes

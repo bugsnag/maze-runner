@@ -1,3 +1,9 @@
+# 9.27.3 - 2025/04/10
+
+## Fixes
+
+- Fail test run when Appium driver fails [739](https://github.com/bugsnag/maze-runner/pull/739)
+
 # 9.27.2 - 2025/04/07
 
 ## Fixes

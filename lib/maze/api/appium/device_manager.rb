@@ -19,6 +19,7 @@ module Maze
           @driver.unlock
           true
         rescue Selenium::WebDriver::Error::ServerError => e
+          $logger.error "Failed to unlock the device: #{e.message}"
           # Assume the remote appium session has stopped, so crash out of the session
           fail_driver(e.message)
           raise e
@@ -35,6 +36,7 @@ module Maze
           @driver.back
           true
         rescue Selenium::WebDriver::Error::ServerError => e
+          $logger.error "Failed to press back: #{e.message}"
           # Assume the remote appium session has stopped, so crash out of the session
           fail_driver(e.message)
           raise e
@@ -52,6 +54,7 @@ module Maze
 
           @driver.get_log(log_type)
         rescue Selenium::WebDriver::Error::ServerError => e
+          $logger.error "Failed to get logs: #{e.message}"
           # Assume the remote appium session has stopped, so crash out of the session
           fail_driver(e.message)
           raise e
@@ -69,6 +72,7 @@ module Maze
           @driver.set_rotation(orientation)
           true
         rescue Selenium::WebDriver::Error::ServerError => e
+          $logger.error "Failed to set the device rotation: #{e.message}"
           # Assume the remote appium session has stopped, so crash out of the session
           fail_driver(e.message)
           raise e
@@ -84,6 +88,7 @@ module Maze
 
           JSON.generate(@driver.device_info)
         rescue Selenium::WebDriver::Error::ServerError => e
+          $logger.error "Failed to get the device info: #{e.message}"
           # Assume the remote appium session has stopped, so crash out of the session
           fail_driver(e.message)
           raise e

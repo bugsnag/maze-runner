@@ -56,6 +56,7 @@ module Maze
           @mock_driver.expects(:app_id).returns('app1')
           @mock_driver.expects(:fail_driver)
           @mock_driver.expects(:app_state).with('app1').raises(Selenium::WebDriver::Error::UnknownError, 'Timeout')
+          $logger.expects(:error).with("Failed to get app state: Timeout")
 
           error = assert_raises Selenium::WebDriver::Error::UnknownError do
             @manager.state
@@ -67,6 +68,7 @@ module Maze
           @mock_driver.expects(:failed?).returns(false)
           @mock_driver.expects(:fail_driver)
           @mock_driver.expects(:close_app).raises(Selenium::WebDriver::Error::ServerError, 'Timeout')
+          $logger.expects(:error).with("Failed to close app: Timeout")
 
           error = assert_raises Selenium::WebDriver::Error::ServerError do
             @manager.close
@@ -78,6 +80,7 @@ module Maze
           @mock_driver.expects(:failed?).returns(false)
           @mock_driver.expects(:fail_driver)
           @mock_driver.expects(:launch_app).raises(Selenium::WebDriver::Error::ServerError, 'Timeout')
+          $logger.expects(:error).with("Failed to launch app: Timeout")
 
           error = assert_raises Selenium::WebDriver::Error::ServerError do
             @manager.launch

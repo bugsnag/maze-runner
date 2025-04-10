@@ -232,9 +232,15 @@ After do |scenario|
   # Call any pre_complete hooks registered by the client
   Maze.hooks.call_pre_complete scenario
 
+  # Fail the scenario if there are any invalid requests
   unless Maze::Server.invalid_requests.size_all == 0
     msg = "#{Maze::Server.invalid_requests.size_all} invalid request(s) received during scenario"
     Maze.scenario.mark_as_failed msg
+  end
+
+  # Fail the scenario if the Appium driver failed
+  if Maze.mode == :appium && Maze.driver.failed?
+    Maze.scenario.mark_as_failed Maze.driver.failure_reason
   end
 
   Maze.scenario.complete

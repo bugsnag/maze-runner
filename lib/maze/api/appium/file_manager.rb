@@ -35,6 +35,7 @@ module Maze
           $logger.error "Error writing file to device: #{e.message}"
           false
         rescue Selenium::WebDriver::Error::ServerError => e
+          $logger.error "Error writing file to device: #{e.message}"
           # Assume the remote appium session has stopped, so crash out of the session
           fail_driver(e.message)
           raise e
@@ -72,6 +73,7 @@ module Maze
           $logger.error "Error reading file from device: #{e.message}"
           nil
         rescue Selenium::WebDriver::Error::ServerError => e
+          $logger.error "Error reading file from device: #{e.message}"
           # Assume the remote appium session has stopped, so crash out of the session
           fail_driver(e.message)
           raise e

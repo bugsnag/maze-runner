@@ -22,6 +22,7 @@ module Maze
 
           @driver.wait_for_element(element_id, timeout, retry_if_stale)
         rescue Selenium::WebDriver::Error::ServerError => e
+          $logger.error "Error waiting for element #{element_id}: #{e.message}"
           # Assume the remote appium session has stopped, so crash out of the session
           fail_driver(e.message)
           raise e
@@ -41,6 +42,7 @@ module Maze
           @driver.click_element(element_id)
           true
         rescue Selenium::WebDriver::Error::ServerError => e
+          $logger.error "Error clicking element #{element_id}: #{e.message}"
           # Assume the remote appium session has stopped, so crash out of the session
           fail_driver(e.message)
           raise e
@@ -59,6 +61,7 @@ module Maze
 
           @driver.click_element_if_present(element_id)
         rescue Selenium::WebDriver::Error::ServerError => e
+          $logger.error "Error clicking element #{element_id}: #{e.message}"
           # Assume the remote appium session has stopped, so crash out of the session
           fail_driver(e.message)
           raise e

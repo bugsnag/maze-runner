@@ -2,7 +2,7 @@
 
 ## Fixes
 
-- Fail test run when Appium driver fails [739](https://github.com/bugsnag/maze-runner/pull/739)
+- Fail test run when Appium driver fails [740](https://github.com/bugsnag/maze-runner/pull/740)
 
 # 9.27.2 - 2025/04/07
 

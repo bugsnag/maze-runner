@@ -41,6 +41,7 @@ module Maze
           @mock_driver.expects(:failed?).returns(false)
           @mock_driver.expects(:fail_driver)
           @mock_driver.expects(:wait_for_element).with('element1', 15, true).raises(Selenium::WebDriver::Error::ServerError, 'Timeout')
+          $logger.expects(:error).with("Error waiting for element element1: Timeout")
 
           error = assert_raises Selenium::WebDriver::Error::ServerError do
             @manager.wait_for_element('element1')
@@ -52,6 +53,7 @@ module Maze
           @mock_driver.expects(:failed?).returns(false)
           @mock_driver.expects(:fail_driver)
           @mock_driver.expects(:click_element).with('element1').raises(Selenium::WebDriver::Error::ServerError, 'Timeout')
+          $logger.expects(:error).with("Error clicking element element1: Timeout")
 
           error = assert_raises Selenium::WebDriver::Error::ServerError do
             @manager.click_element('element1')
@@ -63,6 +65,7 @@ module Maze
           @mock_driver.expects(:failed?).returns(false)
           @mock_driver.expects(:fail_driver)
           @mock_driver.expects(:click_element_if_present).with('element1').raises(Selenium::WebDriver::Error::ServerError, 'Timeout')
+          $logger.expects(:error).with("Error clicking element element1: Timeout")
 
           error = assert_raises Selenium::WebDriver::Error::ServerError do
             @manager.click_element_if_present('element1')

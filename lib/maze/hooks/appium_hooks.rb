@@ -37,7 +37,7 @@ module Maze
               $logger.warn 'terminate_app failed, using the slower but more forceful close_app instead'
               manager.close
             else
-              $logger.warn 'terminate_app failed, future errors may occur if the application did not close remotely'
+              $logger.warn 'terminate_app failed, future errors may occur if the application did not close properly'
             end
           end
 

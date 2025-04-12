@@ -109,7 +109,7 @@ Before do |scenario|
   $logger.debug "Before hook - Mae.driver&.failed?: #{Maze.driver&.failed?}"
   if (Maze.mode == :appium || Maze.mode == :browser) && Maze.driver.failed?
     $logger.debug "Skipping scenario because driver failed: #{Maze.driver.failure_reason}"
-    skip_this_scenario
+    scenario.fail('Cannot run scenario - driver failed')
   end
 
   # Default to no dynamic retry

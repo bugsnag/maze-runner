@@ -106,7 +106,7 @@ Before do |scenario|
   Maze.scenario = Maze::Api::Cucumber::Scenario.new(scenario)
 
   # Skip scenario if the driver it needs has failed
-  $logger.debug "Before hook - Mae.driver.failed?: #{Maze.driver.failed?}"
+  $logger.debug "Before hook - Mae.driver&.failed?: #{Maze.driver&.failed?}"
   if (Maze.mode == :appium || Maze.mode == :browser) && Maze.driver.failed?
     $logger.debug "Skipping scenario because driver failed: #{Maze.driver.failure_reason}"
     skip_this_scenario
@@ -244,7 +244,7 @@ After do |scenario|
   end
 
   # Fail the scenario if the Appium driver failed
-  $logger.debug "After hook 2 - Maze.driver.failed?: #{Maze.driver.failed?}"
+  $logger.debug "After hook 2 - Maze.driver&.failed?: #{Maze.driver&.failed?}"
   if Maze.mode == :appium && Maze.driver.failed?
     $logger.debug "Marking scenario as failed because driver failed: #{Maze.driver.failure_reason}"
     Maze.scenario.mark_as_failed Maze.driver.failure_reason

@@ -24,6 +24,8 @@ module Maze
       end
 
       def after(scenario)
+        $logger.debug "Appium after hook"
+
         manager = Maze::Api::Appium::AppManager.new
         if Maze.config.os == 'macos'
           # Close the app - without the sleep launching the app for the next scenario intermittently fails

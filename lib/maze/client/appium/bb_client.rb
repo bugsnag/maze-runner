@@ -38,6 +38,8 @@ module Maze
             interval = 10
           elsif error.message.include? '\'platformVersion\' must be a valid version number.'
             interval = 10
+          elsif error.message.include?('Device model with name') && error.message.include?('is currently unavailable')
+            interval = 10
           else
             # Do not retry in any other case
           end

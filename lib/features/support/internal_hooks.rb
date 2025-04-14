@@ -108,7 +108,7 @@ Before do |scenario|
   # Skip scenario if the driver it needs has failed
   $logger.debug "Before hook - Mae.driver&.failed?: #{Maze.driver&.failed?}"
   if (Maze.mode == :appium || Maze.mode == :browser) && Maze.driver.failed?
-    $logger.debug "Skipping scenario because driver failed: #{Maze.driver.failure_reason}"
+    $logger.debug "Failing scenario because the #{Maze.mode.to_s} driver failed: #{Maze.driver.failure_reason}"
     scenario.fail('Cannot run scenario - driver failed')
   end
 

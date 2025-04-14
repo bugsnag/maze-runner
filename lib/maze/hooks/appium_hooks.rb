@@ -24,6 +24,8 @@ module Maze
       end
 
       def after(scenario)
+        $logger.debug "Appium after hook"
+
         manager = Maze::Api::Appium::AppManager.new
         if Maze.config.os == 'macos'
           # Close the app - without the sleep launching the app for the next scenario intermittently fails
@@ -37,7 +39,7 @@ module Maze
               $logger.warn 'terminate_app failed, using the slower but more forceful close_app instead'
               manager.close
             else
-              $logger.warn 'terminate_app failed, future errors may occur if the application did not close remotely'
+              $logger.warn 'terminate_app failed, future errors may occur if the application did not close properly'
             end
           end
 

@@ -1,4 +1,8 @@
-# 9.27.5 - 2025/04/15
+# 9.28.0 - 2025/04/15
+
+## Enhancements
+
+- Add `background` to AppManager API [743](https://github.com/bugsnag/maze-runner/pull/743)
 
 ## Fixes
 

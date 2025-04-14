@@ -26,7 +26,7 @@ module Maze
 
         # Terminates the app.  If terminate fails then clients may wish to ty the legacy close method, so an option
         # is provided to not fail the Appium driver.
-        # @fail_driver [Boolean] Whether to fail the Appium driver if the app cannot be terminated
+        # @param fail_driver [Boolean] Whether to fail the Appium driver if the app cannot be terminated
         # @returns [Boolean] Whether the app was successfully closed
         def terminate(fail_driver = true)
           if failed_driver?
@@ -40,6 +40,24 @@ module Maze
           $logger.error "Failed to terminate app: #{e.message}"
           # Assume the remote appium session has stopped, so crash out of the session
           fail_driver(e.message) if fail_driver
+          raise e
+        end
+
+        # Instructs Appium to background the app
+        # @param seconds [Integers] The number of seconds to background the app for, or -1 for indefinitely
+        # @returns [Boolean] Whether the instruction to Appium was successfully made
+        def background(seconds = -1)
+          if failed_driver?
+            $logger.error 'Cannot background the app - Appium driver failed.'
+            return false
+          end
+
+          @driver.background_app(seconds)
+          true
+        rescue Selenium::WebDriver::Error::ServerError, Selenium::WebDriver::Error::UnknownError => e
+          $logger.error "Failed to background app: #{e.message}"
+          # Assume the remote appium session has stopped, so crash out of the session
+          fail_driver(e.message)
           raise e
         end
 

@@ -1,3 +1,9 @@
+# 9.27.4 - 2025/04/14
+
+## Fixes
+
+- Explicitly fail remaining scenarios if driver fails [741](https://github.com/bugsnag/maze-runner/pull/741)
+
 # 9.27.3 - 2025/04/10
 
 ## Fixes

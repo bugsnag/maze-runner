@@ -1,3 +1,9 @@
+# 9.27.5 - 2025/04/15
+
+## Fixes
+
+- Retry BitBar Appium session creation if beaten to selected device [742](https://github.com/bugsnag/maze-runner/pull/742)
+
 # 9.27.4 - 2025/04/14
 
 ## Fixes

@@ -38,7 +38,7 @@ end
 # Sends the app to the background indefinitely
 # Requires a running Appium driver
 When('I send the app to the background') do
-  Maze.driver.background_app(-1)
+  Maze::Api::Appium::AppManager.new.background(-1)
 end
 
 # Sends the app to the background for a number of seconds
@@ -46,7 +46,7 @@ end
 #
 # @step_input timeout [Integer] The amount of time the app is in the background in seconds
 When('I send the app to the background for {int} second(s)') do |timeout|
-  Maze.driver.background_app(timeout)
+  Maze::Api::Appium::AppManager.new.background(timeout)
 end
 
 # Clears a given element

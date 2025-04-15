@@ -51,6 +51,13 @@ module Maze
           assert_false(@manager.activate)
         end
 
+        def test_background_failed_driver
+          @mock_driver.expects(:failed?).returns(true)
+          $logger.expects(:error).with("Cannot background the app - Appium driver failed.")
+
+          assert_false(@manager.background)
+        end
+
         def test_state_unknown_error
           @mock_driver.expects(:failed?).returns(false)
           @mock_driver.expects(:app_id).returns('app1')
@@ -84,6 +91,18 @@ module Maze
 
           error = assert_raises Selenium::WebDriver::Error::ServerError do
             @manager.launch
+          end
+          assert_equal 'Timeout', error.message
+        end
+
+        def test_background_server_error
+          @mock_driver.expects(:failed?).returns(false)
+          @mock_driver.expects(:fail_driver)
+          @mock_driver.expects(:background_app).with(-1).raises(Selenium::WebDriver::Error::ServerError, 'Timeout')
+          $logger.expects(:error).with("Failed to background app: Timeout")
+
+          error = assert_raises Selenium::WebDriver::Error::ServerError do
+            @manager.background
           end
           assert_equal 'Timeout', error.message
         end

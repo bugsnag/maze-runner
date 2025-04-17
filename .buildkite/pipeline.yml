@@ -1,5 +1,15 @@
 steps:
 
+  - label: 'SIGTERM test'
+    timeout_in_minutes: 30
+    agents:
+      queue: macos-14
+    commands:
+        - 'bundle install'
+        - 'bundle exec maze-runner'
+
+  - wait
+
   - label: 'Audit current licenses'
     timeout_in_minutes: 30
     agents:

@@ -1,3 +1,9 @@
+# 9.29.0 - 2025/04/15
+
+## Enhancements
+
+- Allow mock server port to be set from the environment [744](https://github.com/bugsnag/maze-runner/pull/744)
+
 # 9.28.0 - 2025/04/15
 
 ## Enhancements

@@ -74,7 +74,7 @@ class ParserTest < Test::Unit::TestCase
       --app=ARG_APP
       --a11y-locator
       --https
-      --port=ARG_PORT
+      --port=1234
       --capabilities=ARG_CAPABILITIES
       --bs-local=ARG_BS_LOCAL
       --device=ARG_DEVICE
@@ -114,7 +114,7 @@ class ParserTest < Test::Unit::TestCase
     assert_equal('ARG_APP_ACTIVITY', options[Maze::Option::APP_ACTIVITY])
     assert_equal('ARG_APP_PACKAGE', options[Maze::Option::APP_PACKAGE])
     assert_equal('ARG_APPIUM_VERSION', options[Maze::Option::APPIUM_VERSION])
-    assert_equal('ARG_PORT', options[Maze::Option::PORT])
+    assert_equal(1234, options[Maze::Option::PORT])
     assert_false(options[Maze::Option::TUNNEL])
 
     # Local-only options
@@ -218,7 +218,7 @@ class ParserTest < Test::Unit::TestCase
       --selenium-server=ARG_SELENIUM_SERVER
       --apple-team-id=ARG_TEAM_ID
       --udid=ARG_UDID
-      --port=ARG_PORT
+      --port=1234
     ]
     options = Maze::Option::Parser.parse args
 
@@ -226,7 +226,7 @@ class ParserTest < Test::Unit::TestCase
     assert_equal('ARG_SELENIUM_SERVER', options[Maze::Option::SELENIUM_SERVER])
     assert_equal('ARG_USERNAME', options[Maze::Option::USERNAME])
     assert_equal('ARG_ACCESS_KEY', options[Maze::Option::ACCESS_KEY])
-    assert_equal('ARG_PORT', options[Maze::Option::PORT])
+    assert_equal(1234, options[Maze::Option::PORT])
 
     # Local-only options
     assert_equal('ARG_TEAM_ID', options[Maze::Option::APPLE_TEAM_ID])

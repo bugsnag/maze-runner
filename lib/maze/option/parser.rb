@@ -65,9 +65,9 @@ module Maze
                 short: :none,
                 type: :string
             opt Option::PORT,
-                'Mock server port',
+                'Mock server port, defaulting to MAZE_PORT or 9339',
                 short: :none,
-                default: 9339
+                type: :integer
             opt Option::NULL_PORT,
                 'Terminating connection port',
                 short: :none,
@@ -279,6 +279,7 @@ module Maze
           options[Option::BUGSNAG_REPEATER_API_KEY] ||= ENV['MAZE_REPEATER_API_KEY']
           options[Option::SB_LOCAL] ||= ENV['MAZE_SB_LOCAL'] || '/SBSecureTunnel'
           options[Option::BS_LOCAL] ||= ENV['MAZE_BS_LOCAL'] || '/BrowserStackLocal'
+          options[Option::PORT] ||= ENV['MAZE_PORT'] || 9339
           options[Option::APPIUM_SERVER] ||= ENV['MAZE_APPIUM_SERVER'] || 'http://localhost:4723/wd/hub'
           options[Option::APPLE_TEAM_ID] ||= ENV['MAZE_APPLE_TEAM_ID']
           options[Option::UDID] ||= ENV['MAZE_UDID']

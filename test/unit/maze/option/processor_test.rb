@@ -11,6 +11,7 @@ class ProcessorTest < Test::Unit::TestCase
   def setup
     ENV.delete('BUILDKITE')
     ENV.delete('MAZE_BS_LOCAL')
+    ENV.delete('MAZE_PORT')
     ENV.delete('BROWSER_STACK_USERNAME')
     ENV.delete('BROWSER_STACK_ACCESS_KEY')
     ENV.delete('BITBAR_ACCESS_KEY')
@@ -170,6 +171,7 @@ class ProcessorTest < Test::Unit::TestCase
 
   def test_environment_options
     ENV['USE_LEGACY_DRIVER'] = '1'
+    ENV['MAZE_PORT'] = '1234'
 
     args = []
     options = Maze::Option::Parser.parse args

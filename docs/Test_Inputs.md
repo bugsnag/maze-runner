@@ -12,6 +12,10 @@ Command line options can also be listed in the following files:
 
 Maze Runner recognises various environment variables, as follows:
 
+### Mock Server
+
+`MAZE_PORT` - the port to run the mock server on.
+
 ### Bugsnag reporting
 
 `MAZE_BUGSNAG_API_KEY` - the API key for the Bugsnag project to which errors that occur during the test run should be reported.

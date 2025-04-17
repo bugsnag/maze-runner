@@ -17,6 +17,7 @@ class ParserTest < Test::Unit::TestCase
     ENV.delete('MAZE_APPIUM_SERVER')
     ENV.delete('MAZE_SELENIUM_SERVER')
     ENV.delete('MAZE_APPLE_TEAM_ID')
+    ENV.delete('MAZE_PORT')
     ENV.delete('MAZE_UDID')
     ENV.delete('MAZE_REPEATER_API_KEY')
     ENV.delete('BITBAR_USERNAME')
@@ -73,6 +74,7 @@ class ParserTest < Test::Unit::TestCase
       --app=ARG_APP
       --a11y-locator
       --https
+      --port=1234
       --capabilities=ARG_CAPABILITIES
       --bs-local=ARG_BS_LOCAL
       --device=ARG_DEVICE
@@ -112,6 +114,7 @@ class ParserTest < Test::Unit::TestCase
     assert_equal('ARG_APP_ACTIVITY', options[Maze::Option::APP_ACTIVITY])
     assert_equal('ARG_APP_PACKAGE', options[Maze::Option::APP_PACKAGE])
     assert_equal('ARG_APPIUM_VERSION', options[Maze::Option::APPIUM_VERSION])
+    assert_equal(1234, options[Maze::Option::PORT])
     assert_false(options[Maze::Option::TUNNEL])
 
     # Local-only options
@@ -135,6 +138,7 @@ class ParserTest < Test::Unit::TestCase
     ENV['MAZE_SELENIUM_SERVER'] = 'ENV_SELENIUM_SERVER'
     ENV['MAZE_APPLE_TEAM_ID'] = 'ENV_TEAM_ID'
     ENV['MAZE_UDID'] = 'ENV_UDID'
+    ENV['MAZE_PORT'] = 'ENV_PORT'
     ENV['MAZE_REPEATER_API_KEY'] = 'ENV_REPEATER_API_KEY'
 
     args = %w[--farm=bb]
@@ -143,6 +147,7 @@ class ParserTest < Test::Unit::TestCase
     assert_equal('ENV_APPIUM_SERVER', options[Maze::Option::APPIUM_SERVER])
     assert_equal('ENV_SELENIUM_SERVER', options[Maze::Option::SELENIUM_SERVER])
     assert_equal('ENV_SB_LOCAL', options[Maze::Option::SB_LOCAL])
+    assert_equal('ENV_PORT', options[Maze::Option::PORT])
 
     # Local-only options
     assert_equal('ENV_TEAM_ID', options[Maze::Option::APPLE_TEAM_ID])
@@ -203,6 +208,7 @@ class ParserTest < Test::Unit::TestCase
     ENV['MAZE_SELENIUM_SERVER'] = 'ENV_SELENIUM_SERVER'
     ENV['MAZE_APPLE_TEAM_ID'] = 'ENV_TEAM_ID'
     ENV['MAZE_UDID'] = 'ENV_UDID'
+    ENV['MAZE_PORT'] = 'ENV_PORT'
 
     args = %w[
       --farm=bb
@@ -212,6 +218,7 @@ class ParserTest < Test::Unit::TestCase
       --selenium-server=ARG_SELENIUM_SERVER
       --apple-team-id=ARG_TEAM_ID
       --udid=ARG_UDID
+      --port=1234
     ]
     options = Maze::Option::Parser.parse args
 
@@ -219,6 +226,7 @@ class ParserTest < Test::Unit::TestCase
     assert_equal('ARG_SELENIUM_SERVER', options[Maze::Option::SELENIUM_SERVER])
     assert_equal('ARG_USERNAME', options[Maze::Option::USERNAME])
     assert_equal('ARG_ACCESS_KEY', options[Maze::Option::ACCESS_KEY])
+    assert_equal(1234, options[Maze::Option::PORT])
 
     # Local-only options
     assert_equal('ARG_TEAM_ID', options[Maze::Option::APPLE_TEAM_ID])

@@ -1,3 +1,9 @@
+# 9.29.1 - 2025/04/23
+
+## Fixes
+
+- Remove erroneous use of global variable from browser driver `click_element` [745](https://github.com/bugsnag/maze-runner/pull/745)
+
 # 9.29.0 - 2025/04/17
 
 ## Enhancements

@@ -94,7 +94,7 @@ module Maze
 
         def log_session_info
           # Log a link to the BrowserStack session search dashboard
-          url = "https://automate.browserstack.com/projects/#{project_name_capabilities[:project]}/builds/#{Maze.run_uuid}/1?tab=tests"
+          url = "https://automate.browserstack.com/dashboard/v2/search?query=#{Maze.run_uuid}"
           $logger.info Maze::Loggers::LogUtil.linkify url, 'BrowserStack session(s)'
         end
       end

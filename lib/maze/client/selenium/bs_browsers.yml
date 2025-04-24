@@ -37,22 +37,40 @@ edge_15:
   osVersion: "10"
 
 edge_17:
-  browser: "edge"
-  browser_version: "17"
+  browserName: "edge"
+  browserVersion: "17"
   os: "windows"
-  os_version: "10"
+  osVersion: "10"
 
 edge_80:
-  browser: "edge"
-  browser_version: "80"
+  browserName: "edge"
+  browserVersion: "80"
   os: "windows"
-  os_version: "11"
+  osVersion: "11"
+
+edge_90:
+  browserName: "edge"
+  browserVersion: "90"
+  os: "windows"
+  osVersion: "11"
+
+edge_100:
+  browserName: "edge"
+  browserVersion: "100"
+  os: "windows"
+  osVersion: "11"
+
+edge_110:
+  browserName: "edge"
+  browserVersion: "110"
+  os: "windows"
+  osVersion: "11"
 
 edge_latest:
-  browser: "edge"
-  browser_version: "latest"
+  browserName: "edge"
+  browserVersion: "latest"
   os: "windows"
-  os_version: "11"
+  osVersion: "11"
 
 safari_6:
   browserName: "safari"
@@ -219,10 +237,10 @@ firefox_60:
   osVersion: "10"
 
 firefox_78:
-  browser: "firefox"
-  browser_version: "78"
+  browserName: "firefox"
+  browserVersion: "78"
   os: "windows"
-  os_version: "10"
+  osVersion: "10"
 
 firefox_latest:
   browserName: "firefox"
@@ -279,10 +297,10 @@ chrome_43:
   osVersion: "7"
 
 chrome_53:
-  browser: "chrome"
-  browser_version: "53.0"
+  browserName: "chrome"
+  browserVersion: "53.0"
   os: "windows"
-  os_version: "10"
+  osVersion: "10"
 
 chrome_61:
   browserName: "chrome"
@@ -291,14 +309,13 @@ chrome_61:
   osVersion: "10"
 
 chrome_72:
-  browser: "chrome"
-  browser_version: "72.0"
+  browserName: "chrome"
+  browserVersion: "72.0"
   os: "windows"
-  os_version: "10"
+  osVersion: "10"
 
 chrome_latest:
   browserName: "chrome"
   browserVersion: "latest"
   os: "windows"
   osVersion: "10"
-  seleniumVersion: "3.14.0"

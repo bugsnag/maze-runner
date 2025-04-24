@@ -1,3 +1,9 @@
+# 9.29.2 - 2025/04/24
+
+## Fixes
+
+- Correct BrowserStack session link in response to dashboard change [746](https://github.com/bugsnag/maze-runner/pull/746)
+
 # 9.29.1 - 2025/04/23
 
 ## Fixes

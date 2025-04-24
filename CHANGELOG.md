@@ -2,7 +2,7 @@
 
 ## Enhancements
 
-- Addition Edge browsers added on BrowserStack and corrections to others [747](https://github.com/bugsnag/maze-runner/pull/747)
+- Add Edge 81 on BrowserStack and make corrections to others [747](https://github.com/bugsnag/maze-runner/pull/747)
 
 ## Fixes
 

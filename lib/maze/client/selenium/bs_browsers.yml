@@ -48,9 +48,57 @@ edge_80:
   os: "windows"
   osVersion: "11"
 
-edge_90:
+edge_81:
   browserName: "edge"
-  browserVersion: "90"
+  browserVersion: "81"
+  os: "windows"
+  osVersion: "11"
+
+edge_82:
+  browserName: "edge"
+  browserVersion: "82"
+  os: "windows"
+  osVersion: "11"
+
+edge_83:
+  browserName: "edge"
+  browserVersion: "83"
+  os: "windows"
+  osVersion: "11"
+
+edge_84:
+  browserName: "edge"
+  browserVersion: "84"
+  os: "windows"
+  osVersion: "11"
+
+edge_85:
+  browserName: "edge"
+  browserVersion: "85"
+  os: "windows"
+  osVersion: "11"
+
+edge_86:
+  browserName: "edge"
+  browserVersion: "86"
+  os: "windows"
+  osVersion: "11"
+
+edge_87:
+  browserName: "edge"
+  browserVersion: "87"
+  os: "windows"
+  osVersion: "11"
+
+edge_88:
+  browserName: "edge"
+  browserVersion: "88"
+  os: "windows"
+  osVersion: "11"
+
+edge_89:
+  browserName: "edge"
+  browserVersion: "89"
   os: "windows"
   osVersion: "11"
 

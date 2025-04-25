@@ -23,45 +23,23 @@ module Maze
         end
 
         def create_capabilities(config)
-          if config.legacy_driver?
-            capabilities = ::Selenium::WebDriver::Remote::Capabilities.new
-            capabilities['browserstack.local'] = 'true'
-            capabilities['browserstack.localIdentifier'] = Maze.run_uuid
-            capabilities['browserstack.console'] = 'errors'
-            capabilities['acceptInsecureCerts'] = 'true'
-            capabilities.merge! JSON.parse(config.capabilities_option)
-            capabilities.merge! project_name_capabilities
-            add_browser_capabilities(config, capabilities)
-          else
-            raw_capabilities = {
-              'acceptInsecureCerts' => true,
-              'bstack:options' => {
-                'local' => 'true',
-                'localIdentifier' => Maze.run_uuid
-              }
+          raw_capabilities = {
+            'acceptInsecureCerts' => true,
+            'bstack:options' => {
+              'local' => 'true',
+              'localIdentifier' => Maze.run_uuid
             }
-            raw_capabilities.deep_merge! JSON.parse(config.capabilities_option)
-            raw_capabilities.merge! project_name_capabilities
-            add_browser_capabilities(config, raw_capabilities)
-            capabilities = ::Selenium::WebDriver::Remote::Capabilities.new raw_capabilities
-          end
+          }
+          raw_capabilities.deep_merge! JSON.parse(config.capabilities_option)
+          raw_capabilities.merge! project_name_capabilities
+          add_browser_capabilities(config, raw_capabilities)
+          capabilities = ::Selenium::WebDriver::Remote::Capabilities.new raw_capabilities
           config.capabilities = capabilities
         end
 
         def add_browser_capabilities(config, capabilities)
           browsers = YAML.safe_load(File.read("#{__dir__}/bs_browsers.yml"))
-          browser = browsers[config.browser]
-
-          if config.legacy_driver?
-            # Convert W3S capabilities to JSON-WP
-            capabilities['browser'] = browser['browserName']
-            capabilities['browser_version'] = browser['browserVersion']
-            capabilities['device'] = browser['device']
-            capabilities['os'] = browser['os']
-            capabilities['os_version'] = browser['osVersion']
-          else
-            capabilities.deep_merge! browser
-          end
+          capabilities.deep_merge! browsers[config.browser]
         end
 
         def stop_session

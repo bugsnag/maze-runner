@@ -169,15 +169,4 @@ class ProcessorTest < Test::Unit::TestCase
     ENV.delete('MAZE_REPEATER_API_KEY')
   end
 
-  def test_environment_options
-    ENV['USE_LEGACY_DRIVER'] = '1'
-    ENV['MAZE_PORT'] = '1234'
-
-    args = []
-    options = Maze::Option::Parser.parse args
-    config = Maze::Configuration.new
-    Maze::Option::Processor.populate config, options
-
-    assert_true config.legacy_driver?
-  end
 end

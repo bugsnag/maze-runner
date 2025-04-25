@@ -1,3 +1,9 @@
+# v10.0.0 - TBD
+
+## Removals
+
+- Remove support for legacy JSON-WP drivers [xyz](https://github.com/bugsnag/maze-runner/pull/xyz)
+
 # 9.29.2 - 2025/04/24
 
 ## Fixes

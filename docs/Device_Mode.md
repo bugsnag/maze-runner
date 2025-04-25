@@ -43,21 +43,6 @@ bundle exec maze-runner features/smoke_tests    \
 
 For BitBar, the `--device` option maps directly to the name of either a device, or a device group configured in the BitBar dashboard.  Multiple device groups can also be listed, separated by a pipe.  Maze Runner will select an available device from them at random.  E.g. `--device=ANDROID_10|ANDROID_11`.
 
-## Appium client modes
-
-By default, Maze Runner will use the latest version of `appium_lib`, the Ruby Appium library.  For versions onwards, the library enforces the use of W3C mode, which in turn means that Appium server v1.15 or later must be used.  If an earlier version is needed for any reason, this case be achieved by setting the `USE_LEGACY_DRIVER` environment variable when both `bundle install`ing the Gem and when executing it.  `appium_lib` v11 will then be installed and JWP protocol employed.
-
-```
-rm Gemfile.lock
-USE_LEGACY_DRIVER=1 bundle update
-USE_LEGACY_DRIVER=1 bundle exec maze-runner features/smoke_tests    \
-                                            --app=fixture-debug.apk \
-                                            --farm=bs               \
-                                            --device=ANDROID_9_0
-```
-
-Note that the `Gemfile.lock` must also be removed when taking this approach.
-
 ## Test fixture config files
 
 Test fixture apps need to know the netword address of the MAze Runner server in order to configure Bugsnag properly.  Rather than having to hard code the address in test fixture code, Maze Runner had the concept of a test fixture configuration file.  This is a JSON file written to disk locally under `maze_working/` and pushed onto the device using Appium.  A test fixture can then read this file to find the address.  Example file:

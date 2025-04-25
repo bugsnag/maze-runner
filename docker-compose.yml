@@ -168,7 +168,7 @@ services:
     environment:
       MAZE_BUGSNAG_API_KEY:
 
-  unit-test-ruby:
+  unit-test:
     build:
       dockerfile: dockerfiles/Dockerfile.ci
       context: .
@@ -177,7 +177,6 @@ services:
   browser-tests:
     build:
       context: test/e2e/browser
-      dockerfile: test/e2e/browser/Dockerfile
       args:
         BRANCH_NAME:
     environment:
@@ -197,7 +196,6 @@ services:
   browser-tests-bitbar:
     build:
       context: test/e2e/browser
-      dockerfile: test/e2e/browser/Dockerfile
       args:
         BRANCH_NAME:
     environment:

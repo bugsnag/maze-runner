@@ -78,6 +78,36 @@ module Maze
           fail_driver(e.message)
           raise e
         end
+
+        # Attempts to retrieve the app folder from the device - Document on iOS or files on Android (unless
+        # Maze.config.android_app_files_directory has been set).
+        # @return [String, nil] The content of the folder, or nil
+        def read_app_folder
+          if failed_driver?
+            $logger.error 'Cannot read folder from device - Appium driver failed.'
+            return nil
+          end
+
+          path = case Maze::Helper.get_current_platform
+                 when 'ios'
+                   "@#{@driver.app_id}/Documents"
+                 when 'android'
+                   Maze.config.android_app_files_directory || "/sdcard/Android/data/#{@driver.app_id}"
+                 else
+                   raise 'read_app_folder is not supported on this platform'
+                 end
+
+          $logger.trace "Attempting to read folder from '#{path}'"
+          @driver.pull_folder(path)
+        rescue Selenium::WebDriver::Error::UnknownError => e
+          $logger.error "Error reading folder from device: #{e.message}"
+          nil
+        rescue Selenium::WebDriver::Error::ServerError => e
+          $logger.error "Error reading folder from device: #{e.message}"
+          # Assume the remote appium session has stopped, so crash out of the session
+          fail_driver(e.message)
+          raise e
+        end
       end
     end
   end

@@ -1,4 +1,8 @@
-# 9.29.2 - 2025/04/24
+# 9.30.0 - 2025/04/24
+
+## Enhancements
+
+- Add Edge 81 on BrowserStack and make corrections to others [747](https://github.com/bugsnag/maze-runner/pull/747)
 
 ## Fixes
 

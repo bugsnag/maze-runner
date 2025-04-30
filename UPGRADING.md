@@ -1,5 +1,11 @@
 # Upgrading Guide
 
+## v9 to v10
+
+### Legacy drivers
+
+The legacy JSON-WP protocol drivers (using Selenium v3 and Appium v11) are no longer supported. 
+
 ## v8 to v9
 
 ### Clearing app data between test scenarios

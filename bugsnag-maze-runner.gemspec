@@ -30,17 +30,9 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'webrick', '~> 1.7.0'
   spec.add_dependency 'uri', '~> 0.13.0'
 
-  # Appium 12/Selenium 4 enforce the use of W3C
-  if ENV['USE_LEGACY_DRIVER']
-    puts 'Bundling legacy drivers (Selenium 3/Appium 11)'
-    spec.add_dependency 'appium_lib', '~> 11.0'
-    spec.add_dependency 'selenium-webdriver', '~> 3.0'
-  else
-    puts 'Bundling W3C drivers (Selenium 4/Appium 12)'
-    spec.add_dependency 'appium_lib', '~> 12.0.0'
-    spec.add_dependency 'appium_lib_core', '~> 5.4.0'
-    spec.add_dependency 'selenium-webdriver', '~> 4.0'
-  end
+  spec.add_dependency 'appium_lib', '~> 12.0.0'
+  spec.add_dependency 'appium_lib_core', '~> 5.4.0'
+  spec.add_dependency 'selenium-webdriver', '~> 4.0'
 
   spec.add_dependency 'bugsnag', '~> 6.24'
   spec.add_dependency 'cucumber-expressions', '~> 6.0.0'

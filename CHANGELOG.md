@@ -1,3 +1,10 @@
+# 9.30.1 - 2025/05/02
+
+## Fixes
+
+- Correct BrowserStack device session link in response to dashboard change [750](https://github.com/bugsnag/maze-runner/pull/750)
+- Notify when `terminate_app` falls back to `close_app` [750](https://github.com/bugsnag/maze-runner/pull/750)
+
 # 9.30.0 - 2025/04/29
 
 ## Enhancements
@@ -9,7 +16,7 @@
 
 ## Fixes
 
-- Correct BrowserStack session link in response to dashboard change [746](https://github.com/bugsnag/maze-runner/pull/746)
+- Correct BrowserStack browser session link in response to dashboard change [746](https://github.com/bugsnag/maze-runner/pull/746)
 
 # 9.29.1 - 2025/04/23
 

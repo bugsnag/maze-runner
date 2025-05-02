@@ -3,10 +3,6 @@
 # Provides the set of Maze Runner command line options
 module Maze
   module Option
-    # Document server options
-    DS_BIND_ADDRESS = 'document-server-bind-address'
-    DS_PORT = 'document-server-port'
-
     # Server options
     HTTPS = 'https'
     BIND_ADDRESS = 'bind-address'

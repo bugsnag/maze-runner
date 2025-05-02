@@ -36,8 +36,6 @@ class ProcessorTest < Test::Unit::TestCase
     assert_equal '1.2.3.4', config.bind_address
     assert_equal 1234, config.port
     assert_equal 'root', config.document_server_root
-    assert_equal '5.6.7.8', config.document_server_bind_address
-    assert_equal 5678, config.document_server_port
     assert_false config.start_appium
     assert_equal '123456789012345678901234567890ab', config.bugsnag_repeater_api_key
   end
@@ -56,8 +54,6 @@ class ProcessorTest < Test::Unit::TestCase
     assert_equal 'ABC', config.apple_team_id
     assert_equal '123', config.device_id
     assert_equal 'root', config.document_server_root
-    assert_equal '5.6.7.8', config.document_server_bind_address
-    assert_equal 5678, config.document_server_port
     assert_false config.start_appium
 
     assert_nil config.os_version
@@ -85,8 +81,6 @@ class ProcessorTest < Test::Unit::TestCase
     assert_equal nil, config.bind_address
     assert_equal 9339, config.port
     assert_equal nil, config.document_server_root
-    assert_equal nil, config.document_server_bind_address
-    assert_equal 9340, config.document_server_port
 
     assert_equal :id, config.locator
     assert_nil config.capabilities
@@ -112,8 +106,6 @@ class ProcessorTest < Test::Unit::TestCase
     assert_equal 1234, config.port
 
     assert_equal nil, config.document_server_root
-    assert_equal nil, config.document_server_bind_address
-    assert_equal 9340, config.document_server_port
 
     assert_equal :id, config.locator
     assert_nil config.capabilities

@@ -49,38 +49,9 @@ When('I send the app to the background for {int} second(s)') do |timeout|
   Maze::Api::Appium::AppManager.new.background(timeout)
 end
 
-# Clears a given element
-# Requires a running Appium driver
-#
-# @step_input element_id [String] The locator id
-# @deprecated To be removed in the next major version
-When('I clear the element {string}') do |element_id|
-  Maze.driver.clear_element(element_id)
-end
-
-# Sends keys to a given element
-# Requires a running Appium driver
-#
-# @step_input keys [String] The keys to send to the element
-# @step_input element_id [String] The locator id
-# @deprecated To be removed in the next major version
-When('I send the keys {string} to the element {string}') do |keys, element_id|
-  Maze.driver.send_keys_to_element(element_id, keys)
-end
-
 # Set the device orientation to either portrait or landscape
 # Requires a running Appium driver
 When('I set the device orientation to {orientation}') do |orientation|
   Maze::Api::Appium::DeviceManager.new.set_rotation orientation
-end
-
-# Sends keys to a given element, clearing it first
-# Requires a running Appium driver
-#
-# @step_input keys [String] The keys to send to the element
-# @step_input element_id [String] The locator id
-# @deprecated To be removed in the next major version
-When('I clear and send the keys {string} to the element {string}') do |keys, element_id|
-  Maze.driver.clear_and_send_keys_to_element(element_id, keys)
 end
 

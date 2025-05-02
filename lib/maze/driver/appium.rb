@@ -40,8 +40,6 @@ module Maze
         # Timers
         @find_element_timer = Maze.timers.add 'Appium - find element'
         @click_element_timer = Maze.timers.add 'Appium - click element'
-        @clear_element_timer = Maze.timers.add 'Appium - clear element'
-        @send_keys_timer = Maze.timers.add 'Appium - send keys to element'
 
         super({
           'caps' => @capabilities,
@@ -168,20 +166,6 @@ module Maze
         raise e
       end
 
-      # Clears a given element
-      #
-      # @param element_id [String] the element to clear
-      def clear_element(element_id)
-        element = find_element_timed(element_id)
-        @clear_element_timer.time do
-          element.clear
-        end
-      rescue Selenium::WebDriver::Error::ServerError => e
-        # Assume the remote appium session has stopped, so crash out of the session
-        fail_driver(e.message)
-        raise e
-      end
-
       # Gets the application hierarchy XML
       def page_source
         @driver.page_source
@@ -190,21 +174,6 @@ module Maze
       # Unlocks the device
       def unlock
         @driver.unlock
-      end
-
-      # Sends keys to a given element
-      #
-      # @param element_id [String] the element to send text to
-      # @param text [String] the text to send
-      def send_keys_to_element(element_id, text)
-        element = find_element_timed(element_id)
-        @send_keys_timer.time do
-          element.send_keys(text)
-        end
-      rescue Selenium::WebDriver::Error::ServerError => e
-        # Assume the remote appium session has stopped, so crash out of the session
-        fail_driver(e.message)
-        raise e
       end
 
       # Sets the rotation of the device
@@ -216,40 +185,6 @@ module Maze
 
       def window_size
         @driver.window_size
-      end
-
-      # Send keys to the device without a specific element
-      #
-      # @param text [String] the text to send
-      def send_keys(text)
-        @driver.send_keys(text)
-      end
-
-      # Sends keys to a given element, clearing it first
-      #
-      # @param element_id [String] the element to clear and send text to
-      # @param text [String] the text to send
-      def clear_and_send_keys_to_element(element_id, text)
-        element = find_element_timed(element_id)
-        @clear_element_timer.time do
-          element.clear
-        end
-
-        @send_keys_timer.time do
-          element.send_keys(text)
-        end
-      rescue Selenium::WebDriver::Error::ServerError => e
-        # Assume the remote appium session has stopped, so crash out of the session
-        fail_driver(e.message)
-        raise e
-      end
-
-      # Reset the currently running application after a given timeout
-      #
-      # @param timeout [Number] the amount of time in seconds to wait before resetting
-      def reset_with_timeout(timeout = 0.1)
-        sleep(timeout)
-        reset
       end
 
       def device_info

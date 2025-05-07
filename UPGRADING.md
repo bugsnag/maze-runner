@@ -6,6 +6,15 @@
 
 The legacy JSON-WP protocol drivers (using Selenium v3 and Appium v11) are no longer supported. 
 
+### Removed steps
+
+| Removed step  | Replacement                              |
+|---|------------------------------------------|
+| `I wait for {int} span(s)`  | I wait to receive at least {int} span(s) |
+| `I clear the element {string}` | None.                                    |
+| `I send the keys {string} to the element {string}` | None.                                    |
+| `I clear and send the keys {string} to the element {string}` | None.                                    |
+
 ## v8 to v9
 
 ### Clearing app data between test scenarios

@@ -2,6 +2,10 @@
 
 ## v9 to v10
 
+### Document server
+
+The document server that ran on port 9340 by default has been removed.  Documents are still server under the `/docs` endpoint on port 9339 by default.
+
 ### Legacy drivers
 
 The legacy JSON-WP protocol drivers (using Selenium v3 and Appium v11) are no longer supported. 

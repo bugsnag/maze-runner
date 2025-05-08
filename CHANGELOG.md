@@ -6,11 +6,25 @@
 - Remove deprecated Cucumber steps for sending keys to elements [751](https://github.com/bugsnag/maze-runner/pull/751)
 - Remove document server on port 9340 [752](https://github.com/bugsnag/maze-runner/pull/752)
 
+# 9.30.1 - 2025/05/02
+
+## Fixes
+
+- Correct BrowserStack device session link in response to dashboard change [750](https://github.com/bugsnag/maze-runner/pull/750)
+- Notify when `terminate_app` falls back to `close_app` [750](https://github.com/bugsnag/maze-runner/pull/750)
+
+# 9.30.0 - 2025/04/29
+
+## Enhancements
+
+- Add Edge 81 on BrowserStack and make corrections to others [747](https://github.com/bugsnag/maze-runner/pull/747)
+- Add File Manager API method for pulling Documents/Files directory from mobile devices [749](https://github.com/bugsnag/maze-runner/pull/749)
+
 # 9.29.2 - 2025/04/24
 
 ## Fixes
 
-- Correct BrowserStack session link in response to dashboard change [746](https://github.com/bugsnag/maze-runner/pull/746)
+- Correct BrowserStack browser session link in response to dashboard change [746](https://github.com/bugsnag/maze-runner/pull/746)
 
 # 9.29.1 - 2025/04/23
 

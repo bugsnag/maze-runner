@@ -38,6 +38,8 @@ module Maze
             interval = 10
           elsif error.message.include? '\'platformVersion\' must be a valid version number.'
             interval = 10
+          elsif error.message.include?('Device model with name') && error.message.include?('is currently unavailable')
+            interval = 10
           else
             # Do not retry in any other case
           end
@@ -91,10 +93,12 @@ module Maze
         def log_run_outro
           api_client = BitBarApiClient.new(Maze.config.access_key)
 
-          $logger.info 'Appium session(s) created:'
-          @session_ids.each do |id|
-            link = api_client.get_device_session_ui_link(id)
-            $logger.info Maze::Loggers::LogUtil.linkify(link, "BitBar session: #{id}") if link
+          info = api_client.get_device_session_info(@session_metadata.id)
+          if info
+            link = Maze::Loggers::LogUtil.linkify(info[:dashboard_link], "BitBar session: #{@session_metadata.id}")
+            $logger.info link
+            @session_metadata.device = info[:device_name]
+            $logger.info "Device used: #{@session_metadata.device}"
           end
         end
 

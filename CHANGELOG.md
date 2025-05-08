@@ -1,3 +1,104 @@
+# 9.30.1 - 2025/05/02
+
+## Fixes
+
+- Correct BrowserStack device session link in response to dashboard change [750](https://github.com/bugsnag/maze-runner/pull/750)
+- Notify when `terminate_app` falls back to `close_app` [750](https://github.com/bugsnag/maze-runner/pull/750)
+
+# 9.30.0 - 2025/04/29
+
+## Enhancements
+
+- Add Edge 81 on BrowserStack and make corrections to others [747](https://github.com/bugsnag/maze-runner/pull/747)
+- Add File Manager API method for pulling Documents/Files directory from mobile devices [749](https://github.com/bugsnag/maze-runner/pull/749)
+
+# 9.29.2 - 2025/04/24
+
+## Fixes
+
+- Correct BrowserStack browser session link in response to dashboard change [746](https://github.com/bugsnag/maze-runner/pull/746)
+
+# 9.29.1 - 2025/04/23
+
+## Fixes
+
+- Remove erroneous use of global variable from browser driver `click_element` [745](https://github.com/bugsnag/maze-runner/pull/745)
+
+# 9.29.0 - 2025/04/17
+
+## Enhancements
+
+- Allow mock server port to be set from the environment [744](https://github.com/bugsnag/maze-runner/pull/744)
+
+# 9.28.0 - 2025/04/15
+
+## Enhancements
+
+- Add `background` to AppManager API [743](https://github.com/bugsnag/maze-runner/pull/743)
+
+## Fixes
+
+- Retry BitBar Appium session creation if beaten to selected device [742](https://github.com/bugsnag/maze-runner/pull/742)
+
+# 9.27.4 - 2025/04/14
+
+## Fixes
+
+- Explicitly fail remaining scenarios if driver fails [741](https://github.com/bugsnag/maze-runner/pull/741)
+
+# 9.27.3 - 2025/04/10
+
+## Fixes
+
+- Fail test run when Appium driver fails [740](https://github.com/bugsnag/maze-runner/pull/740)
+
+# 9.27.2 - 2025/04/07
+
+## Fixes
+
+- Handle Appium `UnknownError` in `AppManager` [738](https://github.com/bugsnag/maze-runner/pull/738)
+
+# 9.27.1 - 2025/04/04
+
+## Fixes
+
+- Removed erroneous warning for failed Appium drivers [735](https://github.com/bugsnag/maze-runner/pull/735)
+- Do not use `Maze.driver` directly when performing operations [737](https://github.com/bugsnag/maze-runner/pull/737)
+
+# 9.27.0 - 2025/03/25
+
+## Enhancements
+
+- Add Appium API method for retrieving device logs [732](https://github.com/bugsnag/maze-runner/pull/732)
+- Add UiManager to Appium API [733](https://github.com/bugsnag/maze-runner/pull/733)
+
+# 9.26.0 - 2025/03/18
+
+## Enhancements
+
+- Add Appium API method for pressing the Back button [731](https://github.com/bugsnag/maze-runner/pull/731)
+
+# 9.25.0 - 2025/03/06
+
+## Enhancements
+
+- Reporting of Appium session success statuses to Bugsnag [728](https://github.com/bugsnag/maze-runner/pull/728)
+
+## Fixes
+
+- Replace deprecated BrowserStack device Google Pixel 4 for ANDROID_11 [730](https://github.com/bugsnag/maze-runner/pull/730)
+
+## Removals
+
+- Remove Aspecto repeater [729](https://github.com/bugsnag/maze-runner/pull/729)
+
+# 9.24.0 - 2025/03/04
+
+## Enhancements
+
+- Log name of device used in BitBar sessions [726](https://github.com/bugsnag/maze-runner/pull/726)
+- Add the `breakpad-symbol` endpoint to the mock server [727](https://github.com/bugsnag/maze-runner/pull/727)
+
 # 9.23.2 - 2025/02/20
 
 ## Fixes

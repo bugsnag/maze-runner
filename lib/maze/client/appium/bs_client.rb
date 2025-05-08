@@ -67,13 +67,12 @@ module Maze
 
         def log_run_intro
           # Log a link to the BrowserStack session search dashboard
-          url = "https://app-automate.browserstack.com/projects/#{project_name_capabilities[:project]}/builds/#{Maze.run_uuid}/1?tab=tests"
+          url = "https://app-automate.browserstack.com/dashboard/v2/search?query=#{Maze.run_uuid}&type=builds"
           $logger.info Maze::Loggers::LogUtil.linkify(url, 'BrowserStack session(s)')
         end
 
         def log_run_outro
-          $logger.info 'Appium session(s) created:'
-          @session_ids.each { |id| $logger.info "  #{id}" }
+          $logger.info "Appium session created: #{@session_metadata.id}"
           log_run_intro
         end
 

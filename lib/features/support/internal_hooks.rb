@@ -100,13 +100,16 @@ end
 
 # Before each scenario
 Before do |scenario|
+  $logger.debug "Before hook - scenario.status: #{scenario.status}"
   next if scenario.status == :skipped
 
   Maze.scenario = Maze::Api::Cucumber::Scenario.new(scenario)
 
   # Skip scenario if the driver it needs has failed
+  $logger.debug "Before hook - Maze.driver&.failed?: #{Maze.driver&.failed?}"
   if (Maze.mode == :appium || Maze.mode == :browser) && Maze.driver.failed?
-    skip_this_scenario
+    $logger.debug "Failing scenario because the #{Maze.mode.to_s} driver failed: #{Maze.driver.failure_reason}"
+    scenario.fail('Cannot run scenario - driver failed')
   end
 
   # Default to no dynamic retry
@@ -134,6 +137,7 @@ end
 
 # General processing to be run after each scenario
 After do |scenario|
+  $logger.debug "After hook 1 - scenario.status: #{scenario.status}"
   next if scenario.status == :skipped
 
   # If we're running on macos, take a screenshot if the scenario fails
@@ -194,7 +198,6 @@ ensure
   Maze::Runner.environment.clear
   Maze::Store.values.clear
   Maze::Aws::Sam.reset!
-  Maze::ErrorCaptor.reset
 end
 
 def output_received_requests(request_type)
@@ -228,14 +231,23 @@ end
 #
 # Furthermore, this hook should appear after the general hook as they are executed in reverse order by Cucumber.
 After do |scenario|
+  $logger.debug "After hook 2 - scenario.status: #{scenario.status}"
   next if scenario.status == :skipped
 
   # Call any pre_complete hooks registered by the client
   Maze.hooks.call_pre_complete scenario
 
+  # Fail the scenario if there are any invalid requests
   unless Maze::Server.invalid_requests.size_all == 0
     msg = "#{Maze::Server.invalid_requests.size_all} invalid request(s) received during scenario"
     Maze.scenario.mark_as_failed msg
+  end
+
+  # Fail the scenario if the driver failed, if the scenario hasn't already failed
+  $logger.debug "After hook 2 - Maze.driver&.failed?: #{Maze.driver&.failed?}"
+  if (Maze.mode == :appium || Maze.mode == :browser) && Maze.driver.failed? && !scenario.failed?
+    $logger.debug "Marking scenario as failed because driver failed: #{Maze.driver.failure_reason}"
+    Maze.scenario.mark_as_failed Maze.driver.failure_reason
   end
 
   Maze.scenario.complete
@@ -244,6 +256,7 @@ end
 # Test all requests against schemas or extra validation rules.  These will only run if the schema/validation is
 # specified for the specific endpoint
 After do |scenario|
+  $logger.debug "After hook 3 - scenario.status: #{scenario.status}"
   next if scenario.status == :skipped
 
   ['error', 'session', 'build', 'trace'].each do |endpoint|

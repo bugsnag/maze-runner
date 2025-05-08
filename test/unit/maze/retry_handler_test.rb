@@ -3,9 +3,9 @@
 
 require 'appium_lib'
 require_relative '../test_helper'
+require_relative '../../../lib/maze/api/exit_code'
 require_relative '../../../lib/maze/errors'
 require_relative '../../../lib/maze/retry_handler'
-require_relative '../../../lib/maze/api/exit_code'
 require_relative '../../../lib/maze/driver/appium'
 require_relative '../../../lib/maze/driver/browser'
 require_relative '../../../lib/maze/hooks/error_code_hook'
@@ -152,9 +152,9 @@ class RetryHandlerTest < Test::Unit::TestCase
   end
 
   def test_should_retry_appium_driver_not_bb_error
+    Maze.mode = :appium
     driver_mock = mock('driver')
-    Maze.expects(:driver).times(3).returns(driver_mock)
-    driver_mock.expects(:is_a?).with(Maze::Driver::Appium).returns(true)
+    Maze.expects(:driver).times(2).returns(driver_mock)
     driver_mock.expects(:restart)
 
     test_case_mock = mock('test_case')
@@ -178,9 +178,10 @@ class RetryHandlerTest < Test::Unit::TestCase
   end
 
   def test_should_not_retry_appium_driver_bb_error
+    Maze.mode = :appium
+
     driver_mock = mock('driver')
-    Maze.expects(:driver).times(2).returns(driver_mock)
-    driver_mock.expects(:is_a?).with(Maze::Driver::Appium).returns(true)
+    Maze.expects(:driver).once.returns(driver_mock)
 
     test_case_mock = mock('test_case')
 
@@ -203,10 +204,9 @@ class RetryHandlerTest < Test::Unit::TestCase
   end
 
   def test_should_retry_browser_driver_error
+    Maze.mode = :browser
     driver_mock = mock('driver')
-    Maze.expects(:driver).times(4).returns(driver_mock)
-    driver_mock.expects(:is_a?).with(Maze::Driver::Appium).returns(false)
-    driver_mock.expects(:is_a?).with(Maze::Driver::Browser).returns(true)
+    Maze.expects(:driver).times(2).returns(driver_mock)
     driver_mock.expects(:refresh)
 
     test_case_mock = mock('test_case')

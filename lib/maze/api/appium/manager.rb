@@ -11,8 +11,8 @@ module Maze
           @driver.failed?
         end
 
-        def fail_driver
-          @driver.fail_driver
+        def fail_driver(message)
+          @driver.fail_driver(message)
         end
       end
     end

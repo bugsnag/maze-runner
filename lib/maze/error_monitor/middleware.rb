@@ -1,5 +1,5 @@
 module Maze
-  module Bugsnag
+  module ErrorMonitor
     class AssertErrorMiddleware
       IGNORE_CLASS_NAME = 'Test::Unit::AssertionFailedError'
 

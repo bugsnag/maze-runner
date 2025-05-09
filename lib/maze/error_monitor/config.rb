@@ -2,7 +2,7 @@ require 'bugsnag'
 
 # Contains logic for running Bugsnag
 module Maze
-  module Bugsnag
+  module ErrorMonitor
       # This class is responsible for configuring Bugsnag
       # and setting up the middleware for error reporting.
       #

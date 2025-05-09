@@ -80,7 +80,7 @@ end
 # @param config The Cucumber config
 InstallPlugin do |config|
   # Start Bugsnag
-  Maze::BugsnagConfig.start_bugsnag(config)
+  Maze::Bugsnag::Config.start_bugsnag(config)
 
   if config.fail_fast?
     # Register exit code handler

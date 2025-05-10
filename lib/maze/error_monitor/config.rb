@@ -40,7 +40,7 @@ module Maze
               end
             end
             config.middleware.use(AssertErrorMiddleware)
-            config.middleware.use(AmbiguousErrorMiddleware)
+            config.middleware.use(SeleniumErrorMiddleware)
             config.add_metadata(:'buildkite', metadata)
             config.project_root = Dir.pwd
           end

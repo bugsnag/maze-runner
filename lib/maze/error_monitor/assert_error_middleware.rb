@@ -21,22 +21,5 @@ module Maze
         @middleware.call(report)
       end
     end
-
-    class AmbiguousErrorMiddleware
-      AMBIGUOUS_ERROR_CLASSES = %w[Selenium::WebDriver::Error::ServerError Selenium::WebDriver::Error::UnknownError]
-
-      def initialize(middleware)
-        @middleware = middleware
-      end
-
-      def call(report)
-        first_ex = report.raw_exceptions.first
-        if AMBIGUOUS_ERROR_CLASSES.include?(first_ex.class.name)
-          report.grouping_hash = first_ex.class.name.to_s + first_ex.message.to_s
-        end
-
-        @middleware.call(report)
-      end
-    end
   end
 end

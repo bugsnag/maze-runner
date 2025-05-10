@@ -20,6 +20,10 @@ module Maze
           {
             pattern: /(An unknown server-side error occurred while processing the command. Original error: ')(.*)(' is still running after 500ms timeout)/,
             replacement: '\1APP_NAME\3'
+          },
+          {
+            pattern: /(unexpected end of stream on )(http:\/\/[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}:[0-9]{1,5}\/\.\.\.)/,
+            replacement: '\1URL'
           }
         ]
 

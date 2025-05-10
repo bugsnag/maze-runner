@@ -6,8 +6,9 @@ module Selenium
         def initialize(response)
           if response.is_a? String
             super(response)
-          elsif response.is_a? Selenium::WebDriver::Remote::Response
-            super("Status code #{response.code}.  Payload: #{response.payload.inspect}")
+          elsif response.is_a? Selenium::WebDriver::Remote::Response &&
+                response.payload.respond_to?("message")
+            super("Status code #{response.code}: #{response.payload.message}")
           else
             super(response.inspect)
           end

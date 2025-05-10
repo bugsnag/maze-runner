@@ -101,7 +101,7 @@ require_relative '../lib/maze/plugins/datadog_metrics_plugin'
 require_relative '../lib/maze/plugins/logging_scenarios_plugin'
 
 # Require monkey-patches after everything else
-require_relative '../lib/utils/selenium_money_patch'
+require_relative '../lib/utils/selenium_monkey_patch'
 
 # Encapsulates the MazeRunner entry point
 class MazeRunnerEntry

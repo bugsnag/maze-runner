@@ -7,10 +7,14 @@ module Selenium
           $logger.info "In the monkey patch for ServerError"
           if response.is_a? String
             super(response)
-          elsif response.is_a?(Selenium::WebDriver::Remote::Response) &&
-                response.payload.respond_to?("message")
+          elsif response.is_a?(Selenium::WebDriver::Remote::Response)
             $logger.info "It is a Selenium::WebDriver::Remote::Response: #{response.inspect}"
-            super("Status code #{response.code}: #{response.payload.message}")
+            if response?.payload.has?("message")
+              $logger.info "It has a message"
+              super("Status code #{response.code}: #{response.payload['message']}")
+            else
+              super(response.inspect)
+            end
           else
             super(response.inspect)
           end

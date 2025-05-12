@@ -210,19 +210,30 @@ def output_received_requests(request_type)
     request_queue.all.each.with_index(1) do |request, number|
       $stdout.puts "--- #{request_type} #{number} of #{count}"
 
-      $logger.info 'Request body:'
+      $logger.info 'Request:'
       Maze::Loggers::LogUtil.log_hash(Logger::Severity::INFO, request[:body])
-
-      $logger.info 'Request headers:'
-      Maze::Loggers::LogUtil.log_hash(Logger::Severity::INFO, request[:request].header)
+      log_headers(request[:request])
 
       $logger.info 'Request digests:'
       Maze::Loggers::LogUtil.log_hash(Logger::Severity::INFO, request[:digests])
 
-      $logger.info "Response body: #{request[:response].body}"
-      $logger.info 'Response headers:'
-      Maze::Loggers::LogUtil.log_hash(Logger::Severity::INFO, request[:response].header)
+      $logger.info "Response: #{request[:response].body}"
+      log_headers(request[:response])
     end
+  end
+end
+
+def log_headers(container)
+  header = if container.respond_to?(:header)
+             container.header
+           elsif container.key?('header')
+             container['header']
+           else
+             nil
+           end
+  unless header.nil?
+    $logger.info 'Headers:'
+    Maze::Loggers::LogUtil.log_hash(Logger::Severity::INFO, header)
   end
 end
 

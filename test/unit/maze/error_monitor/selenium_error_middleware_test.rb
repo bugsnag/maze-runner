@@ -2,7 +2,6 @@ require_relative '../../test_helper'
 require_relative '../../../../lib/maze/error_monitor/selenium_error_middleware'
 
 class SeleniumErrorMiddlewareTest < Test::Unit::TestCase
-
   def setup
     @middleware = Maze::ErrorMonitor::SeleniumErrorMiddleware.new(nil)
   end
@@ -20,6 +19,4 @@ class SeleniumErrorMiddlewareTest < Test::Unit::TestCase
 
     assert_equal("unexpected end of stream on URL", sanitised)
   end
-
-
 end

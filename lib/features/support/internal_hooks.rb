@@ -217,8 +217,10 @@ def output_received_requests(request_type)
       $logger.info 'Request digests:'
       Maze::Loggers::LogUtil.log_hash(Logger::Severity::INFO, request[:digests])
 
-      $logger.info "Response: #{request[:response].body}"
-      log_headers(request[:response])
+      unless request[:response].nil?
+        $logger.info "Response: #{request[:response].body}"
+        log_headers(request[:response])
+      end
     end
   end
 end

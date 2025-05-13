@@ -1,3 +1,9 @@
+# 9.30.2 - 2025/05/12
+
+## Fixes
+
+- Improve grouping of reported Selenium/Appium errors [753](https://github.com/bugsnag/maze-runner/pull/753)
+
 # 9.30.1 - 2025/05/02
 
 ## Fixes

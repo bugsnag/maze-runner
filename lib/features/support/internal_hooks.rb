@@ -228,8 +228,8 @@ end
 def log_headers(container)
   header = if container.respond_to?(:header)
              container.header
-           elsif container.key?('header')
-             container['header']
+           elsif container.key?('header') || container.key?(:header)
+             container['header'] || container[:header]
            else
              nil
            end

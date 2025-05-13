@@ -6,7 +6,7 @@ module Selenium
         def initialize(response)
           if response.is_a? String
             super(response)
-          elsif response.is_a?(Selenium::WebDriver::Remote::Response) && response.payload.has?('message')
+          elsif response.is_a?(Selenium::WebDriver::Remote::Response) && response.payload.key?('message')
             super("Status code #{response.code}: #{response.payload['message']}")
           else
             super(response.inspect)

@@ -107,6 +107,7 @@ module Maze
           Server.invalid_requests.add({
             reason: msg,
             request: request,
+            response: response,
             body: request.body
           })
         else
@@ -124,7 +125,8 @@ module Maze
               request_uri: request.request_uri,
               header: request.header,
               body: request.inspect
-            }
+            },
+            response: response
           })
         else
           $logger.warn msg

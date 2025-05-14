@@ -6,6 +6,19 @@
 - Remove deprecated Cucumber steps for sending keys to elements [751](https://github.com/bugsnag/maze-runner/pull/751)
 - Remove document server on port 9340 [752](https://github.com/bugsnag/maze-runner/pull/752)
 
+# 9.30.3 - 2025/05/14
+
+## Fixes
+
+- Fix crash writing received invalid requests to maze_output [755](https://github.com/bugsnag/maze-runner/pull/755)
+
+# 9.30.2 - 2025/05/13
+
+## Fixes
+
+- Improve grouping of reported Selenium/Appium errors [753](https://github.com/bugsnag/maze-runner/pull/753)
+- Correct logging of invalid messages [754](https://github.com/bugsnag/maze-runner/pull/754)
+
 # 9.30.1 - 2025/05/02
 
 ## Fixes

@@ -1,3 +1,9 @@
+# 9.30.3 - 2025/05/14
+
+## Fixes
+
+- Fix crash writing received invalid requests to maze_output [755](https://github.com/bugsnag/maze-runner/pull/755)
+
 # 9.30.2 - 2025/05/13
 
 ## Fixes

@@ -98,6 +98,24 @@ class RequestListTest < Test::Unit::TestCase
     assert_equal after_add(item4), list.current
   end
 
+  def test_add_after_end
+    item1 = build_item 1
+    item2 = build_item 2
+    item3 = build_item 3
+    item4 = build_item 4
+
+    list = Maze::RequestList.new
+    list.add item1
+    list.add item2
+    list.add item3
+    list.end
+
+    assert_nil list.current
+
+    list.add item4
+    assert_equal after_add(item4), list.current
+  end
+
   def test_clear
     item1 = build_item 1
     item2 = build_item 2

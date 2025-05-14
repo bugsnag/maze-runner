@@ -31,7 +31,10 @@ Feature: Breadcrumb helper steps
         And the event has 3 breadcrumbs
 
     Scenario: The payload has no breadcrumbs
-        Given I send a "handled"-type request
+        Given I send a "breadcrumbs"-type request
+        When I wait to receive an error
+        And I discard all errors
+        And I send a "handled"-type request
         When I wait to receive an error
         Then the event has no breadcrumbs
         Then the event has 0 breadcrumbs

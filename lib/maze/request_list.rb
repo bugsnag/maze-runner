@@ -59,6 +59,12 @@ module Maze
       @count -= 1
     end
 
+    # Moves to the end of the list
+    def end
+      @current = @requests.size
+      @count = 0
+    end
+
     # A frozen clone of all requests held, including those already processed
     def all
       @requests.clone.freeze

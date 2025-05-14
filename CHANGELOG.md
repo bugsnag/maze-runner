@@ -1,3 +1,9 @@
+# 9.31.0 - 2025/05/15
+
+## Enhancements
+
+- Add step `I discard all {request_type}`' [756](https://github.com/bugsnag/maze-runner/pull/756)
+
 # 9.30.3 - 2025/05/14
 
 ## Fixes

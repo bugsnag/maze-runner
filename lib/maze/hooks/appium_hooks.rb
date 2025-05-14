@@ -36,7 +36,6 @@ module Maze
             manager.terminate(!close_fallback)
           rescue Selenium::WebDriver::Error::UnknownError, Selenium::WebDriver::Error::InvalidSessionIdError => e
             if close_fallback
-              Bugsnag.notify(e)
               $logger.warn 'terminate_app failed, using the slower but more forceful close_app instead'
               manager.close
             else

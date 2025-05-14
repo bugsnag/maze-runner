@@ -4,6 +4,10 @@
 
 - Add step `I discard all {request_type}`' [756](https://github.com/bugsnag/maze-runner/pull/756)
 
+## Fixes
+
+- Notify errors that fail the Appium driver [757](https://github.com/bugsnag/maze-runner/pull/757)
+
 # 9.30.3 - 2025/05/14
 
 ## Fixes

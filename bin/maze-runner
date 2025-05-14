@@ -95,7 +95,6 @@ require_relative '../lib/maze/hooks/logger_hooks'
 require_relative '../lib/maze/driver/appium'
 require_relative '../lib/maze/driver/browser'
 
-require_relative '../lib/maze/plugins/bugsnag_reporting_plugin'
 require_relative '../lib/maze/plugins/error_code_plugin'
 require_relative '../lib/maze/plugins/global_retry_plugin'
 require_relative '../lib/maze/plugins/datadog_metrics_plugin'

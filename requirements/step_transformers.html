@@ -67,7 +67,7 @@
   <div class="title">Step Definitions &amp; Transforms</div>
 
   <div class="summary">
-    <div>275<a href="#step_definitions">Step Definitions</a></div>
+    <div>276<a href="#step_definitions">Step Definitions</a></div>
     <div>3<a href="#step_transforms">Step Transforms</a></div>
     <div>0<a href="#undefined_steps">Undefined Steps</a></div>
   </div>
@@ -24583,6 +24583,97 @@ This step is only intended for use in stress tests</p>
   <a name="step_definition262-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
+    <span class="name">'I discard all {request_type}'</span>
+    <div style="float: right;">
+      <a href="http://rubular.com/?regex='I+discard+all+%7Brequest_type%7D'" target="_blank">Rubular</a>
+      
+      | UNUSED
+      <a class="stepdef" href="#">[Collapse]</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="details">
+    
+    <div class="meta" style="clear: right;">
+      <div class="file">lib/features/steps/request_assertion_steps.rb:137</div>
+    </div>
+    
+    <!-- Comments -->
+    <div>
+      <div class="docstring">
+  <div class="discussion">
+    <p>Moves to the end of the request list</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Step parameters:</p>
+<ul class="step_input">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>request_type [String] The type of request (error, session, build, etc)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+    </div>
+    
+
+    <!-- Source Code -->
+    <div class="method_details_list">
+      <table class="source_code">
+        <tr>
+          <td>
+            <pre class="lines">137
+138
+139
+140
+141</pre>
+          </td>
+          <td>
+            <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I discard all {request_type}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='op'>|</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>No </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_request_type'>request_type</span><span class='embexpr_end'>}</span><span class='tstring_content'> to discard</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_list_for'>list_for</span><span class='lparen'>(</span><span class='id identifier rubyid_request_type'>request_type</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_current'>current</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+
+  <span class='const'>Maze</span><span class='op'>::</span><span class='const'>Server</span><span class='period'>.</span><span class='id identifier rubyid_list_for'>list_for</span><span class='lparen'>(</span><span class='id identifier rubyid_request_type'>request_type</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_end'>end</span>
+<span class='kw'>end</span></pre>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Matching Step Instances -->
+    
+    <div class="steps">
+      
+      <div class="undefined">No steps were found to match this step definition.</div>
+      
+    </div>
+    
+  </div>
+
+  <div style="margin: 30px 20px; border-top: 1px dotted #AAA;"></div>
+
+</div>
+
+
+
+<div class="transformer stepdefinition
+                        nodefinitions
+                        ">
+  <a name="step_definition263-stepdefinition"></a>
+  <div class="title">
+    <span class="pre">Then</span>
     <span class="name">'the received errors match:'</span>
     <div style="float: right;">
       <a href="http://rubular.com/?regex='the+received+errors+match:'" target="_blank">Rubular</a>
@@ -24596,7 +24687,7 @@ This step is only intended for use in stress tests</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:134</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:143</div>
     </div>
     
     <!-- Comments -->
@@ -24610,16 +24701,7 @@ This step is only intended for use in stress tests</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">134
-135
-136
-137
-138
-139
-140
-141
-142
-143
+            <pre class="lines">143
 144
 145
 146
@@ -24627,7 +24709,16 @@ This step is only intended for use in stress tests</p>
 148
 149
 150
-151</pre>
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the received errors match:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_table'>table</span><span class='op'>|</span>
@@ -24672,7 +24763,7 @@ This step is only intended for use in stress tests</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition263-stepdefinition"></a>
+  <a name="step_definition264-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} request method equals {string}'</span>
@@ -24688,7 +24779,7 @@ This step is only intended for use in stress tests</p>
   <div class="details">
     
     <div class="meta" style="clear: right;">
-      <div class="file">lib/features/steps/request_assertion_steps.rb:158</div>
+      <div class="file">lib/features/steps/request_assertion_steps.rb:167</div>
     </div>
     
     <!-- Comments -->
@@ -24739,14 +24830,14 @@ Currently only supported with the reflective servlet.</p>
       <table class="source_code">
         <tr>
           <td>
-            <pre class="lines">158
-159
-160
-161
-162
-163
-164
-165</pre>
+            <pre class="lines">167
+168
+169
+170
+171
+172
+173
+174</pre>
           </td>
           <td>
             <pre class="code"><span class='const'>Then</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>the {request_type} request method equals {string}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_request_type'>request_type</span><span class='comma'>,</span> <span class='id identifier rubyid_method'>method</span><span class='op'>|</span>
@@ -24781,7 +24872,7 @@ Currently only supported with the reflective servlet.</p>
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition264-stepdefinition"></a>
+  <a name="step_definition265-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} payload field {string} equals the platform-dependent string:'</span>
@@ -24900,7 +24991,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition265-stepdefinition"></a>
+  <a name="step_definition266-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} equals the platform-dependent string:'</span>
@@ -24998,7 +25089,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition266-stepdefinition"></a>
+  <a name="step_definition267-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} payload field {string} equals the platform-dependent numeric:'</span>
@@ -25117,7 +25208,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition267-stepdefinition"></a>
+  <a name="step_definition268-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} equals the platform-dependent numeric:'</span>
@@ -25215,7 +25306,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition268-stepdefinition"></a>
+  <a name="step_definition269-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} payload field {string} equals the platform-dependent boolean:'</span>
@@ -25334,7 +25425,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition269-stepdefinition"></a>
+  <a name="step_definition270-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} equals the platform-dependent boolean:'</span>
@@ -25432,7 +25523,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition270-stepdefinition"></a>
+  <a name="step_definition271-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the exception {string} equals the platform-dependent string:'</span>
@@ -25530,7 +25621,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition271-stepdefinition"></a>
+  <a name="step_definition272-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} of stack frame {int} equals the platform-dependent string:'</span>
@@ -25639,7 +25730,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition272-stepdefinition"></a>
+  <a name="step_definition273-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {request_type} payload field {string} matches the platform-dependent regex:'</span>
@@ -25747,7 +25838,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition273-stepdefinition"></a>
+  <a name="step_definition274-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the event {string} matches the platform-dependent regex:'</span>
@@ -25845,7 +25936,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition274-stepdefinition"></a>
+  <a name="step_definition275-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the exception {string} matches the platform-dependent regex:'</span>
@@ -25942,7 +26033,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
 <div class="transformer stepdefinition
                         nodefinitions
                         ">
-  <a name="step_definition275-stepdefinition"></a>
+  <a name="step_definition276-stepdefinition"></a>
   <div class="title">
     <span class="pre">Then</span>
     <span class="name">'the {string} of stack frame {int} matches the platform-dependent regex:'</span>
@@ -26282,7 +26373,7 @@ If the expected value is set to &quot;@not_null&quot;, the check will be for a n
 </div>
 
       <div id="footer">
-  Generated on Wed May 14 15:00:21 2025 by
+  Generated on Thu May 15 13:36:40 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-2.7.8).
 </div>

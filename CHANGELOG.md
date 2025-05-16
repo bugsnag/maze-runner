@@ -1,3 +1,9 @@
+# 9.31.1 - 2025/05/16
+
+## Fixes
+
+- Ignore precise milliseconds when grouping errors finding a connected Android device [758](https://github.com/bugsnag/maze-runner/pull/758)
+
 # 9.31.0 - 2025/05/15
 
 ## Enhancements

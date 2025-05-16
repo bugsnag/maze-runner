@@ -24,6 +24,10 @@ module Maze
           {
             pattern: /(unexpected end of stream on )(http:\/\/[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}:[0-9]{1,5}\/\.\.\.)/,
             replacement: '\1URL'
+          },
+          {
+            pattern: /(Could not find a connected Android device in )([0-9]+)ms/,
+            replacement: '\1TIME'
           }
         ]
 

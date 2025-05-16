@@ -60,18 +60,16 @@ module Maze
         else
           Maze::Plugins::DatadogMetricsPlugin.send_increment('appium.test_failed')
         end
-      rescue => error
-        # Notify and re-raise for Cucumber to handle
-        Bugsnag.notify error
-        raise
-      end
 
-      def at_exit
         if @client
           @client.log_run_outro
           $logger.info 'Stopping the Appium session'
           @client.stop_session
         end
+      rescue => error
+        # Notify and re-raise for Cucumber to handle
+        Bugsnag.notify error
+        raise
       end
     end
   end

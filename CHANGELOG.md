@@ -1,9 +1,10 @@
-# 9.31.1 - 2025/05/16
+# 9.31.1 - 2025/05/19
 
 ## Fixes
 
 - Ignore precise milliseconds when grouping errors finding a connected Android device [758](https://github.com/bugsnag/maze-runner/pull/758)
 - Avoid double-reporting of Appium errors [759](https://github.com/bugsnag/maze-runner/pull/759)
+- Ensure Appium session result is notified before Bugsnag shuts down [760](https://github.com/bugsnag/maze-runner/pull/760)
 
 # 9.31.0 - 2025/05/15
 

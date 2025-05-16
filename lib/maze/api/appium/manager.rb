@@ -13,6 +13,7 @@ module Maze
 
         def fail_driver(exception)
           Bugsnag.notify(exception)
+          exception.instance_eval { def skip_bugsnag; true; end }
           @driver.fail_driver(exception.message)
         end
       end

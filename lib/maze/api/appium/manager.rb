@@ -11,8 +11,9 @@ module Maze
           @driver.failed?
         end
 
-        def fail_driver(message)
-          @driver.fail_driver(message)
+        def fail_driver(exception)
+          Bugsnag.notify(exception)
+          @driver.fail_driver(exception.message)
         end
       end
     end

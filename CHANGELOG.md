@@ -6,6 +6,16 @@
 - Remove deprecated Cucumber steps for sending keys to elements [751](https://github.com/bugsnag/maze-runner/pull/751)
 - Remove document server on port 9340 [752](https://github.com/bugsnag/maze-runner/pull/752)
 
+# 9.31.0 - 2025/05/15
+
+## Enhancements
+
+- Add step `I discard all {request_type}`' [756](https://github.com/bugsnag/maze-runner/pull/756)
+
+## Fixes
+
+- Notify errors that fail the Appium driver [757](https://github.com/bugsnag/maze-runner/pull/757)
+
 # 9.30.3 - 2025/05/14
 
 ## Fixes

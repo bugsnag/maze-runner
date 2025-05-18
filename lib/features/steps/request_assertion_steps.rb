@@ -131,6 +131,15 @@ Then('I discard the oldest {request_type}') do |request_type|
   Maze::Server.list_for(request_type).next
 end
 
+# Moves to the end of the request list
+#
+# @step_input request_type [String] The type of request (error, session, build, etc)
+Then('I discard all {request_type}') do |request_type|
+  raise "No #{request_type} to discard" if Maze::Server.list_for(request_type).current.nil?
+
+  Maze::Server.list_for(request_type).end
+end
+
 Then('the received errors match:') do |table|
   # Checks that each request matches one of the event fields
   requests = Maze::Server.errors.remaining

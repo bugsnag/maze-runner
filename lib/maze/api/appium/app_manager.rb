@@ -20,7 +20,7 @@ module Maze
         rescue Selenium::WebDriver::Error::ServerError, Selenium::WebDriver::Error::UnknownError => e
           $logger.error "Failed to activate app: #{e.message}"
           # Assume the remote appium session has stopped, so crash out of the session
-          fail_driver(e.message)
+          fail_driver(e)
           raise e
         end
 
@@ -39,7 +39,7 @@ module Maze
         rescue Selenium::WebDriver::Error::ServerError, Selenium::WebDriver::Error::UnknownError => e
           $logger.error "Failed to terminate app: #{e.message}"
           # Assume the remote appium session has stopped, so crash out of the session
-          fail_driver(e.message) if fail_driver
+          fail_driver(e) if fail_driver
           raise e
         end
 
@@ -57,7 +57,7 @@ module Maze
         rescue Selenium::WebDriver::Error::ServerError, Selenium::WebDriver::Error::UnknownError => e
           $logger.error "Failed to background app: #{e.message}"
           # Assume the remote appium session has stopped, so crash out of the session
-          fail_driver(e.message)
+          fail_driver(e)
           raise e
         end
 
@@ -74,7 +74,7 @@ module Maze
         rescue Selenium::WebDriver::Error::ServerError, Selenium::WebDriver::Error::UnknownError => e
           $logger.error "Failed to launch app: #{e.message}"
           # Assume the remote appium session has stopped, so crash out of the session
-          fail_driver(e.message)
+          fail_driver(e)
           raise e
         end
 
@@ -91,7 +91,7 @@ module Maze
         rescue Selenium::WebDriver::Error::ServerError, Selenium::WebDriver::Error::UnknownError => e
           $logger.error "Failed to close app: #{e.message}"
           # Assume the remote appium session has stopped, so crash out of the session
-          fail_driver(e.message)
+          fail_driver(e)
           raise e
         end
 
@@ -107,7 +107,7 @@ module Maze
         rescue Selenium::WebDriver::Error::ServerError, Selenium::WebDriver::Error::UnknownError => e
           $logger.error "Failed to get app state: #{e.message}"
           # Assume the remote appium session has stopped, so crash out of the session
-          fail_driver(e.message)
+          fail_driver(e)
           raise e
         end
       end

@@ -84,9 +84,6 @@ InstallPlugin do |config|
 
   # Add step logging
   config.filters << Maze::Plugins::LoggingScenariosPlugin.new(config)
-
-  # Add bugsnag failed scenario reporting only if ENV['MAZE_SCENARIO_BUGSNAG_API_KEY'] is present
-  config.filters << Maze::Plugins::BugsnagReportingPlugin.new(config) unless ENV['MAZE_SCENARIO_BUGSNAG_API_KEY'].nil?
 end
 
 # Before each scenario

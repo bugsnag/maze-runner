@@ -19,4 +19,11 @@ class SeleniumErrorMiddlewareTest < Test::Unit::TestCase
 
     assert_equal("unexpected end of stream on URL", sanitised)
   end
+
+  def test_sanitise_3
+    plain = "An unknown server-side error occurred while processing the command. Original error: Could not find a connected Android device in 20088ms."
+    sanitised = @middleware.sanitise(plain)
+
+    assert_equal("An unknown server-side error occurred while processing the command. Original error: Could not find a connected Android device in TIME.", sanitised)
+  end
 end

@@ -1,8 +1,9 @@
-# 9.31.2 - 2025/05/28
+# 9.31.2 - 2025/05/29
 
 ## Fixes
 
 - Retry BitBar device session creation for `Error executing adbExec` errors [762](https://github.com/bugsnag/maze-runner/pull/762)
+- Group Appium session reports on sanitised message [763](https://github.com/bugsnag/maze-runner/pull/763)
 
 # 9.31.1 - 2025/05/19
 

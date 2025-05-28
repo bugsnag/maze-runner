@@ -163,11 +163,10 @@ module Maze
 
         def report_session
           message = @session_metadata.success ? 'Success' : @session_metadata.failure_message
-          error = Exception.new(message)
+          error = ::Selenium::WebDriver::Error::ServerError.new(message)
 
           Bugsnag.notify(error) do |event|
             event.api_key = ENV['MAZE_APPIUM_BUGSNAG_API_KEY']
-            event.grouping_hash = event.exceptions.first[:message]
 
             metadata = {
               'session id': @session_metadata.id,

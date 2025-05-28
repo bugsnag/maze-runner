@@ -1,6 +1,18 @@
 require 'bugsnag'
 require 'json'
 
+# Custom error class for reporting successful Appium sessions
+class Success < StandardError
+  def initialize(message)
+    super(message)
+    @message = message
+  end
+
+  def to_s
+    @message
+  end
+end
+
 module Maze
   module Client
     module Appium
@@ -162,8 +174,11 @@ module Maze
         end
 
         def report_session
-          message = @session_metadata.success ? 'Success' : @session_metadata.failure_message
-          error = ::Selenium::WebDriver::Error::ServerError.new(message)
+          if @session_metadata.success
+            error = Success.new('Success')
+          else
+            error = ::Selenium::WebDriver::Error::ServerError.new(@session_metadata.failure_message)
+          end
 
           Bugsnag.notify(error) do |event|
             event.api_key = ENV['MAZE_APPIUM_BUGSNAG_API_KEY']

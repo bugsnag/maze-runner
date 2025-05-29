@@ -1,3 +1,9 @@
+# 9.31.2 - 2025/05/28
+
+## Fixes
+
+- Retry BitBar device session creation for `Error executing adbExec` errors [762](https://github.com/bugsnag/maze-runner/pull/762)
+
 # 9.31.1 - 2025/05/19
 
 ## Fixes

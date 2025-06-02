@@ -6,6 +6,27 @@
 - Remove deprecated Cucumber steps for sending keys to elements [751](https://github.com/bugsnag/maze-runner/pull/751)
 - Remove document server on port 9340 [752](https://github.com/bugsnag/maze-runner/pull/752)
 
+# 9.31.3 - 2025/06/02
+
+## Enhancements
+
+- Add `unity-line-mappings` endpoint to the mock server [764](https://github.com/bugsnag/maze-runner/pull/764)
+
+# 9.31.2 - 2025/05/29
+
+## Fixes
+
+- Retry BitBar device session creation for `Error executing adbExec` errors [762](https://github.com/bugsnag/maze-runner/pull/762)
+- Group Appium session reports on sanitised message [763](https://github.com/bugsnag/maze-runner/pull/763)
+
+# 9.31.1 - 2025/05/19
+
+## Fixes
+
+- Ignore precise milliseconds when grouping errors finding a connected Android device [758](https://github.com/bugsnag/maze-runner/pull/758)
+- Avoid double-reporting of Appium errors [759](https://github.com/bugsnag/maze-runner/pull/759)
+- Ensure Appium session result is notified before Bugsnag shuts down [760](https://github.com/bugsnag/maze-runner/pull/760)
+
 # 9.31.0 - 2025/05/15
 
 ## Enhancements

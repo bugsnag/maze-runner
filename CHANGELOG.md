@@ -2,7 +2,7 @@
 
 ## Enhancements
 
-- Add `unity-line-mappings` endpoint to the mock server []()
+- Add `unity-line-mappings` endpoint to the mock server [764](https://github.com/bugsnag/maze-runner/pull/764)
 
 # 9.31.2 - 2025/05/29
 

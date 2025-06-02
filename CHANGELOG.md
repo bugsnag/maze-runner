@@ -1,3 +1,9 @@
+# 9.31.3 - 2025/06/02
+
+## Enhancements
+
+- Add `unity-line-mappings` endpoint to the mock server []()
+
 # 9.31.2 - 2025/05/29
 
 ## Fixes

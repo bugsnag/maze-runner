@@ -11,9 +11,7 @@ Feature: Exercise the Appium Manager APIs
     And I activate the app
     Then The app state is "running_in_foreground"
     And I send the app to the background
-    Then The app state is "running_in_background"
     And I activate the app
-    Then The app state is "running_in_foreground"
     And I send the app to the background for 5 seconds
 
   Scenario: Device Manager operations

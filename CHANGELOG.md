@@ -1,3 +1,9 @@
+# 9.31.4 - 2025/06/09
+
+## Fixes
+
+- Remove pin for `uri` standard Gem [766](https://github.com/bugsnag/maze-runner/pull/766)
+
 # 9.31.3 - 2025/06/02
 
 ## Enhancements

@@ -6,6 +6,12 @@
 - Remove deprecated Cucumber steps for sending keys to elements [751](https://github.com/bugsnag/maze-runner/pull/751)
 - Remove document server on port 9340 [752](https://github.com/bugsnag/maze-runner/pull/752)
 
+# 9.31.4 - 2025/06/09
+
+## Fixes
+
+- Remove pin for `uri` standard Gem [766](https://github.com/bugsnag/maze-runner/pull/766)
+
 # 9.31.3 - 2025/06/02
 
 ## Enhancements

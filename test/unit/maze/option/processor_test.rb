@@ -22,7 +22,8 @@ class ProcessorTest < Test::Unit::TestCase
   def test_populate_local_config
     args = %w[--farm=local --app=my_app.apk --os=ios --os-version=7.1 --apple-team-id=ABC --udid=123 \
               --bind-address=1.2.3.4 --port=1234 --no-start-appium --document-server-root=root \
-              --document-server-bind-address=5.6.7.8 --document-server-port=5678 --repeater-api-key=123456789012345678901234567890ab]
+              --document-server-bind-address=5.6.7.8 --document-server-port=5678 --repeater-api-key=123456789012345678901234567890ab \
+              --hub-repeater-api-key=000006789012345678901234567890ab]
     options = Maze::Option::Parser.parse args
     config = Maze::Configuration.new
     Maze::Option::Processor.populate config, options
@@ -40,6 +41,7 @@ class ProcessorTest < Test::Unit::TestCase
     assert_equal 5678, config.document_server_port
     assert_false config.start_appium
     assert_equal '123456789012345678901234567890ab', config.bugsnag_repeater_api_key
+    assert_equal '000006789012345678901234567890ab', config.hub_repeater_api_key
   end
 
   def test_populate_local_config_defaults
@@ -99,6 +101,7 @@ class ProcessorTest < Test::Unit::TestCase
     assert_false config.always_log
     assert_false config.https
     assert_nil config.bugsnag_repeater_api_key
+    assert_nil config.hub_repeater_api_key
   end
 
   def test_overriden_defaults
@@ -142,31 +145,39 @@ class ProcessorTest < Test::Unit::TestCase
   end
 
   def test_repeater_key_responses
-    normal_args = %w[--repeater-api-key=foo]
+    normal_args = %w[--repeater-api-key=foo --hub-repeater-api-key=bar]
     normal_options = Maze::Option::Parser.parse normal_args
     normal_config = Maze::Configuration.new
     Maze::Option::Processor.populate normal_config, normal_options
     assert_equal 'foo', normal_config.bugsnag_repeater_api_key
+    assert_equal 'bar', normal_config.hub_repeater_api_key
 
-    empty_args = %w[--repeater-api-key= --aspecto-repeater-api-key=]
+    empty_args = %w[--repeater-api-key= --hub-repeater-api-key=]
     empty_options = Maze::Option::Parser.parse empty_args
     empty_config = Maze::Configuration.new
     Maze::Option::Processor.populate empty_config, empty_options
     assert_nil empty_config.bugsnag_repeater_api_key
+    assert_nil empty_config.hub_repeater_api_key
 
     ENV['MAZE_REPEATER_API_KEY'] = 'test_2'
+    ENV['MAZE_HUB_REPEATER_API_KEY'] = 'test_3'
     env_options = Maze::Option::Parser.parse []
     env_config = Maze::Configuration.new
     Maze::Option::Processor.populate env_config, env_options
     assert_equal 'test_2', env_config.bugsnag_repeater_api_key
+    assert_equal 'test_3', env_config.hub_repeater_api_key
     ENV.delete('MAZE_REPEATER_API_KEY')
+    ENV.delete('MAZE_HUB_REPEATER_API_KEY')
 
     ENV['MAZE_REPEATER_API_KEY'] = ''
+    ENV['MAZE_HUB_REPEATER_API_KEY'] = ''
     empty_env_options = Maze::Option::Parser.parse []
     empty_env_config = Maze::Configuration.new
     Maze::Option::Processor.populate empty_env_config, empty_env_options
     assert_nil empty_env_config.bugsnag_repeater_api_key
+    assert_nil empty_env_config.hub_repeater_api_key
     ENV.delete('MAZE_REPEATER_API_KEY')
+    ENV.delete('MAZE_HUB_REPEATER_API_KEY')
   end
 
   def test_environment_options

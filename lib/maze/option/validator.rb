@@ -41,6 +41,18 @@ module Maze
           errors << "--#{Option::BUGSNAG_REPEATER_API_KEY} must be set to a 32-character hex value"
         end
 
+        # --hub-repeater-api-key
+        key = options[Option::HUB_REPEATER_API_KEY]
+        if key&.empty?
+          $logger.warn "A hub-repeater-api-key option was provided with an empty string. This won't be used during this test run"
+          key = nil
+        end
+        key_regex = /^[0-9a-fA-F]{32}$/
+
+        if key && !key_regex.match?(key)
+          errors << "--#{Option::HUB_REPEATER_API_KEY} must be set to a 32-character hex value"
+        end
+
         # Farm specific options
         validate_bs options, errors if farm == 'bs'
         validate_bitbar options, errors if farm == 'bb'

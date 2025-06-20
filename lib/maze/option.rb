@@ -57,6 +57,7 @@ module Maze
     # General options
     AWS_PUBLIC_IP = 'aws-public-ip'
     BUGSNAG_REPEATER_API_KEY = 'repeater-api-key'
+    HUB_REPEATER_API_KEY = 'hub-repeater-api-key'
     BUGSNAG = 'bugsnag'
     RETRIES = 'retries'
   end

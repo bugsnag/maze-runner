@@ -35,6 +35,7 @@ Maze Runner recognises various environment variables, as follows:
 `BITBAR_USERNAME`/`BITBAR_ACCESS_KEY` - BitBar account credentials.
 
 `MAZE_REPEATER_API_KEY` - Enables forwarding of all received session, error and trace requests to Bugsnag, using the API key provided.
+`MAZE_HUB_REPEATER_API_KEY` - Enables forwarding of all received session, error and trace requests to Insight Hub, using the API key provided.
 
 #### BrowserStack
 

@@ -20,7 +20,7 @@ module Maze
         url = case @request_type
               when :errors then 'https://notify.insighthub.smartbear.com/'
               when :sessions then 'https://sessions.insighthub.smartbear.com/'
-              when :traces then "https://#{Maze.config.hub_repeater_api_key}.otlp.bugsnag.com/v1/traces"
+              when :traces then "https://#{Maze.config.hub_repeater_api_key}.otlp.insighthub.smartbear.com/v1/traces"
               else return nil
               end
         URI.parse(url)

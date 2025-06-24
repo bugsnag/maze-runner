@@ -23,7 +23,9 @@ module Maze
           config.enable_retries = options[Maze::Option::RETRIES]
           config.enable_bugsnag = options[Maze::Option::BUGSNAG]
           bugsnag_repeater_api_key = options[Maze::Option::BUGSNAG_REPEATER_API_KEY]
-          config.bugsnag_repeater_api_key = bugsnag_repeater_api_key unless bugsnag_repeater_api_key&.empty? 
+          config.bugsnag_repeater_api_key = bugsnag_repeater_api_key unless bugsnag_repeater_api_key&.empty?
+          hub_repeater_api_key = options[Maze::Option::HUB_REPEATER_API_KEY]
+          config.hub_repeater_api_key = hub_repeater_api_key unless hub_repeater_api_key&.empty?
 
           # Document server options
           config.document_server_root = options[Maze::Option::DS_ROOT]

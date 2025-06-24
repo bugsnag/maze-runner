@@ -20,6 +20,7 @@ class ParserTest < Test::Unit::TestCase
     ENV.delete('MAZE_PORT')
     ENV.delete('MAZE_UDID')
     ENV.delete('MAZE_REPEATER_API_KEY')
+    ENV.delete('MAZE_HUB_REPEATER_API_KEY')
     ENV.delete('BITBAR_USERNAME')
     ENV.delete('BITBAR_ACCESS_KEY')
   end
@@ -140,6 +141,7 @@ class ParserTest < Test::Unit::TestCase
     ENV['MAZE_UDID'] = 'ENV_UDID'
     ENV['MAZE_PORT'] = 'ENV_PORT'
     ENV['MAZE_REPEATER_API_KEY'] = 'ENV_REPEATER_API_KEY'
+    ENV['MAZE_HUB_REPEATER_API_KEY'] = 'ENV_HUB_REPEATER_API_KEY'
 
     args = %w[--farm=bb]
     options = Maze::Option::Parser.parse args
@@ -153,6 +155,7 @@ class ParserTest < Test::Unit::TestCase
     assert_equal('ENV_TEAM_ID', options[Maze::Option::APPLE_TEAM_ID])
     assert_equal('ENV_UDID', options[Maze::Option::UDID])
     assert_equal('ENV_REPEATER_API_KEY', options[Maze::Option::BUGSNAG_REPEATER_API_KEY])
+    assert_equal('ENV_HUB_REPEATER_API_KEY', options[Maze::Option::HUB_REPEATER_API_KEY])
   end
 
   def test_environment_value_browsers

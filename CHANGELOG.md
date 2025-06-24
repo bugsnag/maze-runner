@@ -1,3 +1,9 @@
+# 9.32.0 - 2025/06/24
+
+## Enhancements
+
+- Add Hub repeater [767](https://github.com/bugsnag/maze-runner/pull/767)
+
 # 9.31.4 - 2025/06/09
 
 ## Fixes

@@ -41,6 +41,15 @@ class ValidatorTest < Test::Unit::TestCase
     assert_equal "--repeater-api-key must be set to a 32-character hex value", errors[0]
   end
 
+  def test_hub_repeater_api_key
+    args = %w[--hub-repeater-api-key=invalid]
+    options = Maze::Option::Parser.parse args
+    errors = @validator.validate options
+
+    assert_equal 1, errors.length
+    assert_equal "--hub-repeater-api-key must be set to a 32-character hex value", errors[0]
+  end
+
   def test_bitbar_invalid_browser
     args = %w[--farm=bb --username=user --access-key=key --browser=MADE_UP]
 

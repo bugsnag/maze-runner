@@ -75,6 +75,9 @@ module Maze
     # API key to use when repeating requests to Bugsnag
     attr_accessor :bugsnag_repeater_api_key
 
+    # API key to use when repeating requests to InsightHub
+    attr_accessor :hub_repeater_api_key
+
     # Enables awareness of a public IP address on Buildkite with the Elastic CI Stack for AWS.
     attr_accessor :aws_public_ip
 

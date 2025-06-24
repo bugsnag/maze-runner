@@ -40,6 +40,7 @@ module Maze
         @request_type = request_type
         @schema = JSONSchemer.schema(schema) unless schema.nil?
         @bugsnag_repeater = Maze::Repeaters::BugsnagRepeater.new(@request_type)
+        @hub_repeater = Maze::Repeaters::HubRepeater.new(@request_type)
       end
 
       # Logs an incoming GET WEBrick request.
@@ -59,6 +60,7 @@ module Maze
       def do_POST(request, response)
 
         @bugsnag_repeater.repeat request
+        @hub_repeater.repeat request
 
         # Turn the WEBrick HttpRequest into our internal HttpRequest delegate
         request = Maze::HttpRequest.new(request)

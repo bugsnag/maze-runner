@@ -2,7 +2,7 @@
 
 ## Removals
 
-- Remove option of ANDROID_7 for BrowserStack device (deprecated device).  Alternatives provided for other deprecations. [730](https://github.com/bugsnag/maze-runner/pull/730)
+- Remove option of ANDROID_7 for BrowserStack device (deprecated device).  Alternatives provided for other deprecations. [768](https://github.com/bugsnag/maze-runner/pull/768)
 
 # 9.32.0 - 2025/06/24
 

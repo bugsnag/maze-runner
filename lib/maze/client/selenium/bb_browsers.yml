@@ -1,79 +1,79 @@
 chrome:
-  platform: 'Windows'
+  platformName: 'Windows'
   osVersion: '11'
   browserName: 'chrome'
   resolution: '1920x1080'
 
 chrome_latest:
-  platform: 'Windows'
+  platformName: 'Windows'
   osVersion: '11'
   browserName: 'chrome'
   version: 'latest'
   resolution: '1920x1080'
 
 chrome_72:
-  platform: 'Windows'
+  platformName: 'Windows'
   osVersion: '10'
   browserName: 'chrome'
   version: '72'
   resolution: '1920x1080'
 
 chrome_43:
-  platform: 'Windows'
+  platformName: 'Windows'
   osVersion: '10'
   browserName: 'chrome'
   version: '43'
   resolution: '1920x1080'
 
 firefox:
-  platform: 'Windows'
+  platformName: 'Windows'
   osVersion: '11'
   browserName: 'firefox'
   resolution: '1920x1080'
 
 firefox_latest:
-  platform: 'Windows'
+  platformName: 'Windows'
   osVersion: '11'
   browserName: 'firefox'
   version: 'latest'
   resolution: '1920x1080'
 
 firefox_78:
-  platform: 'Windows'
+  platformName: 'Windows'
   osVersion: '10'
   browserName: 'firefox'
   version: '78'
   resolution: '1920x1080'
 
 ie_11:
-  platform: 'Windows'
+  platformName: 'Windows'
   osVersion: '10'
   browserName: 'internet explorer'
   version: '11'
   resolution: '1920x1080'
 
 edge:
-  platform: 'Windows'
+  platformName: 'Windows'
   osVersion: '11'
   browserName: 'MicrosoftEdge'
   resolution: '1920x1080'
 
 edge_latest:
-  platform: 'Windows'
+  platformName: 'Windows'
   osVersion: '11'
   browserName: 'MicrosoftEdge'
   version: 'latest'
   resolution: '1920x1080'
 
 safari_18:
-  platform: 'macOS'
+  platformName: 'macOS'
   osVersion: '13'
   browserName: 'safari'
   version: '18'
   resolution: '2560x1920'
 
 safari_17:
-  platform: 'macOS'
+  platformName: 'macOS'
   osVersion: '12'
   browserName: 'safari'
   version: '17'

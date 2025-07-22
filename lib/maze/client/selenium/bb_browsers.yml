@@ -8,21 +8,21 @@ chrome_latest:
   platformName: 'Windows'
   osVersion: '11'
   browserName: 'chrome'
-  version: 'latest'
+  browserVersion: 'latest'
   resolution: '1920x1080'
 
 chrome_72:
   platformName: 'Windows'
   osVersion: '10'
   browserName: 'chrome'
-  version: '72'
+  browserVersion: '72'
   resolution: '1920x1080'
 
 chrome_43:
   platformName: 'Windows'
   osVersion: '10'
   browserName: 'chrome'
-  version: '43'
+  browserVersion: '43'
   resolution: '1920x1080'
 
 firefox:
@@ -35,21 +35,21 @@ firefox_latest:
   platformName: 'Windows'
   osVersion: '11'
   browserName: 'firefox'
-  version: 'latest'
+  browserVersion: 'latest'
   resolution: '1920x1080'
 
 firefox_78:
   platformName: 'Windows'
   osVersion: '10'
   browserName: 'firefox'
-  version: '78'
+  browserVersion: '78'
   resolution: '1920x1080'
 
 ie_11:
   platformName: 'Windows'
   osVersion: '10'
   browserName: 'internet explorer'
-  version: '11'
+  browserVersion: '11'
   resolution: '1920x1080'
 
 edge:
@@ -62,19 +62,19 @@ edge_latest:
   platformName: 'Windows'
   osVersion: '11'
   browserName: 'MicrosoftEdge'
-  version: 'latest'
+  browserVersion: 'latest'
   resolution: '1920x1080'
 
 safari_18:
   platformName: 'macOS'
   osVersion: '13'
   browserName: 'safari'
-  version: '18'
+  browserVersion: '18'
   resolution: '2560x1920'
 
 safari_17:
   platformName: 'macOS'
   osVersion: '12'
   browserName: 'safari'
-  version: '17'
+  browserVersion: '17'
   resolution: '2560x1920'

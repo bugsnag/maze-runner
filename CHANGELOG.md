@@ -1,3 +1,9 @@
+# 9.32.2 - 2025/07/22
+
+## Fixes
+
+- Update BitBar browser capability from `platform` to `platformName` [769](https://github.com/bugsnag/maze-runner/pull/769)
+
 # 9.32.1 - 2025/07/15
 
 ## Removals

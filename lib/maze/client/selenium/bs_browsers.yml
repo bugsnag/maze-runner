@@ -196,7 +196,7 @@ android_8:
   browserName: "Android Browser"
   device: "Samsung Galaxy S9"
   os: "android"
-  osVersion: "9.0"
+  osVersion: "8.0"
   realMobile: true
 
 android_13:

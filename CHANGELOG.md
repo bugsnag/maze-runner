@@ -1,3 +1,9 @@
+# 9.32.3 - 2025/07/23
+
+## Enhancements
+
+- Remove Android 7 browser support from BS and replace it with Android 8 [770](https://github.com/bugsnag/maze-runner/pull/770)
+
 # 9.32.2 - 2025/07/22
 
 ## Fixes

@@ -1,3 +1,9 @@
+# 9.32.4 - TBD
+
+## Removals
+
+- Remove reporting of Appium metrics to Datadog. [771](https://github.com/bugsnag/maze-runner/pull/771)
+
 # 9.32.3 - 2025/07/23
 
 ## Enhancements

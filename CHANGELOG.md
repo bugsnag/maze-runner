@@ -6,6 +6,12 @@
 - Remove deprecated Cucumber steps for sending keys to elements [751](https://github.com/bugsnag/maze-runner/pull/751)
 - Remove document server on port 9340 [752](https://github.com/bugsnag/maze-runner/pull/752)
 
+# 9.32.0 - 2025/06/24
+
+## Enhancements
+
+- Add Hub repeater [767](https://github.com/bugsnag/maze-runner/pull/767)
+
 # 9.31.4 - 2025/06/09
 
 ## Fixes

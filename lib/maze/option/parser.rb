@@ -52,6 +52,11 @@ module Maze
                 short: :none,
                 type: :string
 
+            opt Option::HUB_REPEATER_API_KEY,
+                'Enables forwarding of all received POST requests to InsightHub, using the API key provided.  MAZE_HUB_REPEATER_API_KEY may also be set.',
+                short: :none,
+                type: :string
+
             text ''
             text 'Server options:'
 
@@ -269,6 +274,7 @@ module Maze
           end
 
           options[Option::BUGSNAG_REPEATER_API_KEY] ||= ENV['MAZE_REPEATER_API_KEY']
+          options[Option::HUB_REPEATER_API_KEY] ||= ENV['MAZE_HUB_REPEATER_API_KEY']
           options[Option::SB_LOCAL] ||= ENV['MAZE_SB_LOCAL'] || '/SBSecureTunnel'
           options[Option::BS_LOCAL] ||= ENV['MAZE_BS_LOCAL'] || '/BrowserStackLocal'
           options[Option::PORT] ||= ENV['MAZE_PORT'] || 9339

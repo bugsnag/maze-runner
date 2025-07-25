@@ -7,7 +7,6 @@ module Maze
       @client
 
       def before_all
-        Maze::Plugins::DatadogMetricsPlugin.send_increment('appium.test_started')
         @client = Maze::Client::Appium.start
       rescue => error
         # Notify and re-raise for Cucumber to handle
@@ -55,12 +54,6 @@ module Maze
       end
 
       def after_all
-        if $success
-          Maze::Plugins::DatadogMetricsPlugin.send_increment('appium.test_succeeded')
-        else
-          Maze::Plugins::DatadogMetricsPlugin.send_increment('appium.test_failed')
-        end
-
         if @client
           @client.log_run_outro
           $logger.info 'Stopping the Appium session'

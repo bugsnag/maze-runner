@@ -5,7 +5,7 @@ module Maze
         def prepare_session
           config = Maze.config
           config.app = Maze::Client::BitBarClientUtils.upload_app config.access_key,
-                                                                  config.app
+                                                                  config.app if config.app
           if Maze::Client::BitBarClientUtils.use_local_tunnel?
             Maze::Client::BitBarClientUtils.start_local_tunnel config.sb_local,
                                                                config.username,
@@ -81,6 +81,7 @@ module Maze
           capabilities.deep_merge! BitBarClientUtils.dashboard_capabilities
           capabilities.deep_merge! BitBarDevices.get_available_device(config.device)
           capabilities['bitbar:options']['appiumVersion'] = config.appium_version unless config.appium_version.nil?
+          capabilities['browserName'] = config.browser unless config.browser.nil?
           capabilities.deep_merge! JSON.parse(config.capabilities_option)
 
           capabilities

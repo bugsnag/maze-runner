@@ -113,7 +113,8 @@ module Maze
         # Device
         if browser.empty? && device.empty?
           errors << "Either --#{Option::BROWSER} or --#{Option::DEVICE} must be specified"
-        elsif !browser.empty?
+        elsif !browser.empty? && device.empty?
+          # Desktop browsers (Selenium)
           browsers = YAML.safe_load(File.read("#{__dir__}/../client/selenium/bb_browsers.yml"))
 
           rejected_browsers = browser.reject { |br| browsers.include? br }
@@ -129,7 +130,8 @@ module Maze
             errors << "Browser types '#{rejected_browsers.join(', ')}' unknown on BitBar.  Must be one of: #{browser_list}."
           end
 
-        elsif !device.empty?
+        elsif browser.empty? && !device.empty?
+          # Mobile app testing
           app = Maze::Helper.read_at_arg_file options[Option::APP]
           if app.nil?
             errors << "--#{Option::APP} must be provided when running on a device"
@@ -140,6 +142,8 @@ module Maze
               errors << "app file '#{app}' not found" unless File.exist?(app)
             end
           end
+        else
+          # TODO - Mobile browser testing
         end
       end
 

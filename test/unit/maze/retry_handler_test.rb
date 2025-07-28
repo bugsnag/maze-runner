@@ -204,7 +204,7 @@ class RetryHandlerTest < Test::Unit::TestCase
   end
 
   def test_should_retry_browser_driver_error
-    Maze.mode = :browser
+    Maze.mode = :selenium
     driver_mock = mock('driver')
     Maze.expects(:driver).times(2).returns(driver_mock)
     driver_mock.expects(:refresh)

@@ -28,7 +28,7 @@ module Maze
               $logger.warn "Retrying #{test_case.name} due to appium driver error: #{event.result.exception}"
               Maze.driver.restart
             end
-          elsif Maze.mode == :browser
+          elsif Maze.mode == :selenium
             $logger.warn "Retrying #{test_case.name} due to selenium driver error: #{event.result.exception}"
             Maze.driver.refresh
           end

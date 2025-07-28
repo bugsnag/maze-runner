@@ -51,10 +51,12 @@ module Maze
         end
 
         def start_scenario
-          # Write Maze's address to file and push to the device
-          maze_address = Maze.public_address || "local:#{Maze.config.port}"
-          Maze::Api::Appium::FileManager.new.write_app_file(JSON.generate({ maze_address: maze_address }),
-                                                            FIXTURE_CONFIG)
+          unless Maze.config.browser
+            # Write Maze's address to file and push to the device
+            maze_address = Maze.public_address || "local:#{Maze.config.port}"
+            Maze::Api::Appium::FileManager.new.write_app_file(JSON.generate({ maze_address: maze_address }),
+                                                              FIXTURE_CONFIG)
+          end
 
           super
         end

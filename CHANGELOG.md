@@ -1,4 +1,8 @@
-# 9.32.4 - TBD
+# 9.32.4 - 2025/08/01
+
+## Fixes
+
+- Set metadata token header when retrieving public IP of Docker container [772](https://github.com/bugsnag/maze-runner/pull/772)
 
 ## Removals
 

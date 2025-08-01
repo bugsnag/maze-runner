@@ -22,7 +22,8 @@ module Maze
     def determine_public_ip
       # 169.254.169.254 is the address of the AWS instance metadata service
       # See https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html
-      `curl --silent -XGET http://169.254.169.254/latest/meta-data/public-ipv4`
+      token = `curl --silent -H "X-aws-ec2-metadata-token-ttl-seconds: 120" -XPUT http://169.254.169.254/latest/api/token`
+      `curl -H "X-aws-ec2-metadata-token: #{token}" --silent -XGET http://169.254.169.254/latest/meta-data/public-ipv4`
     end
 
     # Determines the external port of the running Docker container that's associated with the port given

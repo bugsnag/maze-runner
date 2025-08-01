@@ -63,7 +63,8 @@ module Maze
         #
         # @returns [String] The local ipv4 address the Datadog agent is running on
         def aws_instance_ip
-          `curl --silent -XGET http://169.254.169.254/latest/meta-data/local-ipv4`
+          token = `curl --silent -H "X-aws-ec2-metadata-token-ttl-seconds: 120" -XPUT http://169.254.169.254/latest/api/token`
+          `curl -H "X-aws-ec2-metadata-token: #{token}" --silent -XGET http://169.254.169.254/latest/meta-data/local-ipv4`
         end
       end
     end

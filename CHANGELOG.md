@@ -6,6 +6,34 @@
 - Remove deprecated Cucumber steps for sending keys to elements [751](https://github.com/bugsnag/maze-runner/pull/751)
 - Remove document server on port 9340 [752](https://github.com/bugsnag/maze-runner/pull/752)
 
+# 9.32.4 - 2025/08/01
+
+## Fixes
+
+- Set metadata token header when retrieving public IP of Docker container [772](https://github.com/bugsnag/maze-runner/pull/772)
+
+## Removals
+
+- Remove reporting of Appium metrics to Datadog. [771](https://github.com/bugsnag/maze-runner/pull/771)
+
+# 9.32.3 - 2025/07/23
+
+## Enhancements
+
+- Remove Android 7 browser support from BS and replace it with Android 8 [770](https://github.com/bugsnag/maze-runner/pull/770)
+
+# 9.32.2 - 2025/07/22
+
+## Fixes
+
+- Update BitBar browser capability from `platform` to `platformName` [769](https://github.com/bugsnag/maze-runner/pull/769)
+
+# 9.32.1 - 2025/07/15
+
+## Removals
+
+- Remove option of ANDROID_7 for BrowserStack device (deprecated device).  Alternatives provided for other deprecations. [768](https://github.com/bugsnag/maze-runner/pull/768)
+
 # 9.32.0 - 2025/06/24
 
 ## Enhancements

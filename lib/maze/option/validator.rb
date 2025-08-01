@@ -120,7 +120,7 @@ module Maze
           if rejected_browsers.empty?
             if options[Option::BROWSER_VERSION].nil?
               browser.each do |br|
-                next if browsers[br].include?('version')
+                next if browsers[br].include?('browserVersion')
                 errors << "--#{Option::BROWSER_VERSION} must be specified for browser '#{br}'"
               end
             end

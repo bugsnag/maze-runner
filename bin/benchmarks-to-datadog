@@ -1,0 +1,214 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'csv'
+require 'time'
+require 'datadog/statsd'
+require 'optimist'
+
+require_relative '../lib/maze'
+require_relative '../lib/maze/loggers/logger'
+
+class DatadogMetricsIngester
+  def initialize
+    @statsd = Datadog::Statsd.new('127.0.0.1', 8125)
+  end
+
+  def start(args)
+    p = Optimist::Parser.new do
+      text 'Ingest CSV metrics into Datadog'
+      text ''
+      text 'Usage [OPTIONS] <csv_file>'
+      text ''
+      opt :help, 'Print this help.'
+      opt :csv_file, "Path to the CSV file containing metrics", type: :string, required: true
+    end
+
+    opts = Optimist::with_standard_exception_handling p do
+      raise Optimist::HelpNeeded if ARGV.empty? # show help screen
+      p.parse ARGV
+    end
+
+    if opts[:csv_file].nil? || opts[:csv_file].empty?
+      $logger.warn "CSV file path has not been provided"
+      Optimist::with_standard_exception_handling p do
+        raise Optimist::HelpNeeded
+      end
+    end
+
+    $logger.info "Starting Datadog metrics ingestion..."
+    $logger.info "CSV file: #{csv_file_path}"
+    $logger.info "=" * 60
+
+    ingester = DatadogMetricsIngester.new
+    ingester.ingest_csv(csv_file_path)
+
+    $logger.info "Metrics ingestion completed!"
+  end
+
+  def parse_timestamp(timestamp_str)
+    begin
+      # Parse "Wed Jul 30 11:11:03 GMT 2025" format
+      Time.strptime(timestamp_str, "%a %b %d %H:%M:%S GMT %Y").to_i
+    rescue ArgumentError
+      # Fallback to current time if parsing fails
+      Time.now.to_i
+    end
+  end
+
+  def build_tags(row)
+    tags = ["env:platforms-testing"]
+    tags << "benchmark:#{row['benchmark']}"
+
+    tags << "cpu_intensive:true" if row['cpu'] == 'true'
+    tags << "memory_intensive:true" if row['memory'] == 'true'
+    tags << "rendering_enabled:true" if row['rendering'] == 'true'
+
+    tags
+  end
+
+  def send_metric(metric_name, value, tags = [], type = :gauge)
+    case type
+    when :gauge
+      @statsd.gauge(metric_name, value, tags: tags)
+    when :count
+      @statsd.count(metric_name, value, tags: tags)
+    end
+  end
+
+  def ingest_csv(file_path)
+    total_rows = 0
+    successful_batches = 0
+
+    CSV.foreach(file_path, headers: true) do |row|
+      next if row['benchmark'].nil? || row['benchmark'].empty?
+
+      total_rows += 1
+      benchmark_name = row['benchmark']
+      base_tags = build_tags(row)
+
+      $logger.info "Processing row #{total_rows}: #{benchmark_name} at #{row['timestamp']}"
+
+      # CPU Usage metrics (average of 5 runs)
+      cpu_values = (1..5).map { |i|
+        val = row["cpuUse.#{i}"]
+        val && !val.empty? ? val.to_f : nil
+      }.compact
+
+      if cpu_values.any?
+        avg_cpu = cpu_values.sum / cpu_values.length
+        send_metric(
+          'benchmark.cpu_usage_percent',
+          avg_cpu,
+          base_tags
+        )
+      end
+
+      # Individual run metrics
+      (1..5).each do |i|
+        run_tags = base_tags + ["run:#{i}"]
+
+        # Measured Time for each run
+        measured_time = row["measuredTime.#{i}"]
+        if measured_time && !measured_time.empty?
+          send_metric(
+            'benchmark.measured_time_ns',
+            measured_time.to_f,
+            run_tags
+          )
+        end
+
+        # Iterations for each run
+        iterations = row["iterations.#{i}"]
+        if iterations && !iterations.empty?
+          send_metric(
+            'benchmark.iterations',
+            iterations.to_f,
+            run_tags
+          )
+        end
+
+        # Time taken for each run
+        time_taken = row["timeTaken.#{i}"]
+        if time_taken && !time_taken.empty?
+          send_metric(
+            'benchmark.time_taken_ns',
+            time_taken.to_f,
+            run_tags
+          )
+        end
+
+        # Excluded time for each run
+        excluded_time = row["excludedTime.#{i}"]
+        if excluded_time && !excluded_time.empty? && excluded_time.to_f > 0
+          send_metric(
+            'benchmark.excluded_time_ns',
+            excluded_time.to_f,
+            run_tags
+          )
+        end
+      end
+
+      # Total metrics
+      total_measured_time = row['totalMeasuredTime']
+      if total_measured_time && !total_measured_time.empty?
+        send_metric(
+          'benchmark.total_measured_time_ns',
+          total_measured_time.to_f,
+          base_tags
+        )
+      end
+
+      total_iterations = row['totalIterations']
+      if total_iterations && !total_iterations.empty?
+        send_metric(
+          'benchmark.total_iterations',
+          total_iterations.to_f,
+          base_tags
+        )
+      end
+
+      total_time_taken = row['totalTimeTaken']
+      if total_time_taken && !total_time_taken.empty?
+        send_metric(
+          'benchmark.total_time_taken_ns',
+          total_time_taken.to_f,
+          base_tags
+        )
+      end
+
+      total_excluded_time = row['totalExcludedTime']
+      if total_excluded_time && !total_excluded_time.empty? && total_excluded_time.to_f > 0
+        send_metric(
+          'benchmark.total_excluded_time_ns',
+          total_excluded_time.to_f,
+          base_tags
+        )
+      end
+
+      # Calculate and send average time per iteration
+      if total_measured_time && total_iterations &&
+        !total_measured_time.empty? && !total_iterations.empty? &&
+        total_iterations.to_f > 0
+        avg_time_per_iteration = total_measured_time.to_f / total_iterations.to_f
+        send_metric(
+          'benchmark.avg_time_per_iteration_ns',
+          avg_time_per_iteration,
+          base_tags
+        )
+      end
+
+      $logger.info "Completed processing #{benchmark_name}"
+      $logger.info "-" * 60
+
+      # Add a small delay to avoid rate limiting
+      sleep(0.1)
+    end
+
+    $logger.info "\nIngestion Summary:"
+    $logger.info "Total rows processed: #{total_rows}"
+    $logger.info "Successful batches: #{successful_batches}"
+  end
+end
+
+DatadogMetricsIngester.new.start(ARGV)

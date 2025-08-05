@@ -119,7 +119,11 @@ class DatadogMetricsIngester
   end
 
   def process_cpu_metrics(row, tags, timestamp)
-    cpu_values = (1..5).map { |i| row["cpuUse.#{i}"]&.to_f }.compact
+    cpu_values = row.headers.grep(/^cpuUse\.\d+$/).map { |key|
+      val = row[key]
+      val&.empty? ? nil : val.to_f
+    }.compact
+
     return if cpu_values.empty?
 
     avg_cpu = cpu_values.sum / cpu_values.size
@@ -127,8 +131,14 @@ class DatadogMetricsIngester
   end
 
   def process_run_metrics(row, base_tags, timestamp)
-    (1..5).each do |i|
-      run_tags = base_tags
+    run_indices = row.headers
+                     .grep(/^(measuredTime|iterations|timeTaken|excludedTime)\.(\d+)$/)
+                     .map { |key| key.split('.').last.to_i }
+                     .uniq
+                     .sort
+
+    run_indices.each do |i|
+      run_tags = base_tags + ["run:#{i}"]
 
       {
         'benchmark.measured_time_ns' => row["measuredTime.#{i}"],

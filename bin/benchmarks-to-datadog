@@ -69,6 +69,7 @@ class DatadogMetricsIngester
       $logger.info "Completed processing #{benchmark_name}"
       $logger.info '-' * 60
 
+      # Sleep briefly to avoid overwhelming the Datadog API
       sleep(0.1)
     end
 
@@ -119,6 +120,7 @@ class DatadogMetricsIngester
   end
 
   def process_cpu_metrics(row, tags, timestamp)
+    # Select all headers matching cpuUse.<number> pattern and extract their float values
     cpu_values = row.headers.grep(/^cpuUse\.\d+$/).map { |key|
       val = row[key]
       val&.empty? ? nil : val.to_f
@@ -131,9 +133,10 @@ class DatadogMetricsIngester
   end
 
   def process_run_metrics(row, base_tags, timestamp)
+    # Extract unique run indices from headers like measuredTime.1, iterations.2, etc.
     run_indices = row.headers
                      .grep(/^(measuredTime|iterations|timeTaken|excludedTime)\.(\d+)$/)
-                     .map { |key| key.split('.').last.to_i }
+                     .map { |key| key.split('.').last.to_i } # Extract the run index number
                      .uniq
                      .sort
 

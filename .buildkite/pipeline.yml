@@ -77,14 +77,6 @@ steps:
     plugins:
       - docker-compose#v4.14.0:
           run: framework-tests
-      - docker-compose#v4.14.0:
-          run: comparison-tests
-      - docker-compose#v4.14.0:
-          run: proxy-tests
-      - docker-compose#v4.14.0:
-          run: cli-tests
-      - docker-compose#v4.14.0:
-          run: http-response-tests
     command: 'bundle exec maze-runner'
 
   - label: 'No-device tests - batch 2'

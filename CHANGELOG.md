@@ -1,5 +1,9 @@
 # v10.0.0 - TBD
 
+## Enhancements
+
+- Update to Cucumber 10 [773](https://github.com/bugsnag/maze-runner/pull/773)
+
 ## Removals
 
 - Remove support for legacy JSON-WP drivers [748](https://github.com/bugsnag/maze-runner/pull/748)

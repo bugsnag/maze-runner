@@ -136,14 +136,6 @@ Then('the event {string} equals {float} to {int} decimal place(s)') do |field, f
   step "the error payload field \"events.0.#{field}\" equals #{float_value} to #{places} decimal places"
 end
 
-# Tests whether a value in the first event entry equals an integer.
-#
-# @step_input field [String] The relative location of the value to test
-# @step_input value [Integer] The integer to test against
-Then('the event {string} equals {int}') do |field, value|
-  step "the error payload field \"events.0.#{field}\" equals #{value}"
-end
-
 # Tests whether a value in the first event entry starts with a string.
 #
 # @step_input field [String] The relative location of the value to test

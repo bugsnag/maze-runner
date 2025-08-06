@@ -177,10 +177,12 @@ class TraceValidationTest < Test::Unit::TestCase
         }
       ]
     }))
-    validator.span_element_contains('value', 'correct', 'stringValue', ['good', 'one'])
+    validator.span_element_contains('value', 'correct', 'stringValue', %w[good one])
     assert_false(validator.success)
     assert_equal(1, validator.errors.size)
-    assert_equal(validator.errors.first, "Element 'value':'{\"key\"=>\"correct\", \"value\"=>{\"stringValue\"=>\"done\"}}' did not contain a value of 'stringValue' from '[\"good\", \"one\"]'")
+
+    hash = {"key"=>"correct", "value"=>{"stringValue"=>"done"}}.to_s
+    assert_equal(validator.errors.first, "Element 'value':'#{hash}' did not contain a value of 'stringValue' from '[\"good\", \"one\"]'")
   end
 
   def test_contains_key_value_and_options_value_type_missing_failure
@@ -200,10 +202,11 @@ class TraceValidationTest < Test::Unit::TestCase
         }
       ]
     }))
-    validator.span_element_contains('value', 'correct', 'intValue', ['good', 'one'])
+    validator.span_element_contains('value', 'correct', 'intValue', %w[good one])
     assert_false(validator.success)
     assert_equal(1, validator.errors.size)
-    assert_equal(validator.errors.first, "Element 'value':'{\"key\"=>\"correct\", \"value\"=>{\"stringValue\"=>\"done\"}}' did not contain a value of 'intValue' from '[\"good\", \"one\"]'")
+    hash = {"key"=>"correct", "value"=>{"stringValue"=>"done"}}.to_s
+    assert_equal(validator.errors.first, "Element 'value':'#{hash}' did not contain a value of 'intValue' from '[\"good\", \"one\"]'")
   end
 
   def test_greater_than_success

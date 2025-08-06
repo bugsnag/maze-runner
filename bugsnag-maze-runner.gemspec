@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
     spec.add_dependency 'ffi', '1.16.3'
   end
 
-  spec.add_dependency 'cucumber', '~> 7.1'
+  spec.add_dependency 'cucumber', '~> 10.0'
   spec.add_dependency 'os', '~> 1.0.0'
   spec.add_dependency 'test-unit', '~> 3.5.2'
   spec.add_dependency 'rack', '~> 2.2'
@@ -34,7 +34,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'selenium-webdriver', '~> 4.0'
 
   spec.add_dependency 'bugsnag', '~> 6.24'
-  spec.add_dependency 'cucumber-expressions', '~> 6.0.0'
   spec.add_dependency 'curb', '~> 1.0.5'
   spec.add_dependency 'dogstatsd-ruby', '~> 5.5.0'
   spec.add_dependency 'optimist', '~> 3.0.1'

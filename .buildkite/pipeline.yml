@@ -44,7 +44,6 @@ steps:
           image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
           cache-from:
             - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
-      - docker-compose#v4.14.0:
           push:
             - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
 
@@ -69,7 +68,6 @@ steps:
           image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
           cache-from:
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
-      - docker-compose#v4.14.0:
           push:
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
 
@@ -203,7 +201,7 @@ steps:
           - "--app=build/test-fixture.apk"
           - "--appium-version=1.22"
           - "--farm=bb"
-          - "--device=ANDROID_10|ANDROID_11|ANDROID_12|ANDROID_13"
+          - "--device=ANDROID_12|ANDROID_13|ANDROID_14|ANDROID_15"
           - "--fail-fast"
           - "--no-tunnel"
           - "--aws-public-ip"
@@ -236,7 +234,7 @@ steps:
           - "--app=build/test-fixture.apk"
           - "--appium-version=1.22"
           - "--farm=bb"
-          - "--device=ANDROID_10|ANDROID_11|ANDROID_12|ANDROID_13"
+          - "--device=ANDROID_12|ANDROID_13|ANDROID_14|ANDROID_15"
           - "--fail-fast"
           - "--no-tunnel"
           - "--aws-public-ip"
@@ -293,7 +291,7 @@ steps:
       - docker-compose#v4.14.0:
           push:
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:${BUILDKITE_TAG}-cli
-            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-v9-cli
+            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-v10-cli
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-cli
 
   - label: 'Push to RubyGems.org'

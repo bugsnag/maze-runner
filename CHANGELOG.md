@@ -2,7 +2,7 @@
 
 ## Enhancements
 
-- Set exit code when Appium driver fails [775](https://github.com/bugsnag/maze-runner/pull/775)
+- Set exit code when Appium driver fails [776](https://github.com/bugsnag/maze-runner/pull/776)
 
 # 9.33.0 - 2025/08/06
 

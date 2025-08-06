@@ -71,34 +71,82 @@ steps:
           push:
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
 
-  - label: 'No-device tests - batch 1'
+  - label: 'Framework tests'
     timeout_in_minutes: 30
     depends_on: "ci-image"
     plugins:
       - docker-compose#v4.14.0:
           run: framework-tests
+    command: 'bundle exec maze-runner'
+
+  - label: 'Comparison tests'
+    timeout_in_minutes: 10
+    depends_on: "ci-image"
+    plugins:
       - docker-compose#v4.14.0:
           run: comparison-tests
+    command: 'bundle exec maze-runner'
+
+  - label: 'Proxy tests'
+    timeout_in_minutes: 10
+    depends_on: "ci-image"
+    plugins:
       - docker-compose#v4.14.0:
           run: proxy-tests
+    command: 'bundle exec maze-runner'
+
+  - label: 'CLI tests'
+    timeout_in_minutes: 10
+    depends_on: "ci-image"
+    plugins:
       - docker-compose#v4.14.0:
           run: cli-tests
+    command: 'bundle exec maze-runner'
+
+  - label: 'HTTP response tests'
+    timeout_in_minutes: 10
+    depends_on: "ci-image"
+    plugins:
       - docker-compose#v4.14.0:
           run: http-response-tests
     command: 'bundle exec maze-runner'
 
-  - label: 'No-device tests - batch 2'
-    timeout_in_minutes: 30
+  - label: 'Payload helper tests'
+    timeout_in_minutes: 10
     depends_on: "ci-image"
     plugins:
       - docker-compose#v4.14.0:
           run: payload-helper-tests
+    command: 'bundle exec maze-runner'
+
+  - label: 'Docker tests'
+    timeout_in_minutes: 10
+    depends_on: "ci-image"
+    plugins:
       - docker-compose#v4.14.0:
           run: docker-tests
+    command: 'bundle exec maze-runner'
+
+  - label: 'Doc server tests'
+    timeout_in_minutes: 10
+    depends_on: "ci-image"
+    plugins:
       - docker-compose#v4.14.0:
           run: doc-server-tests
+    command: 'bundle exec maze-runner'
+
+  - label: 'Exit codes tests'
+    timeout_in_minutes: 10
+    depends_on: "ci-image"
+    plugins:
       - docker-compose#v4.14.0:
           run: exit-codes-tests
+    command: 'bundle exec maze-runner'
+
+  - label: 'Command workflow tests'
+    timeout_in_minutes: 10
+    depends_on: "ci-image"
+    plugins:
       - docker-compose#v4.14.0:
           run: command-workflow-tests
     command: 'bundle exec maze-runner'

@@ -1,0 +1,186 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'csv'
+require 'time'
+require 'optimist'
+require 'datadog_api_client'
+
+require_relative '../lib/maze'
+require_relative '../lib/maze/loggers/logger'
+
+class DatadogMetricsIngester
+  def initialize(api_key:, app_key:, host: 'platforms-benchmark')
+    configuration = DatadogAPIClient::Configuration.new
+    configuration.api_key['apiKeyAuth'] = api_key
+    configuration.api_key['appKeyAuth'] = app_key
+
+    api_client = DatadogAPIClient::APIClient.new(configuration)
+    @api = DatadogAPIClient::V2::MetricsAPI.new(api_client)
+    @host = host
+  end
+
+  def self.run(args)
+    parser = Optimist::Parser.new do
+      text 'Ingest CSV metrics into Datadog'
+      opt :csv_file, 'Path to the CSV file containing metrics', type: :string, required: true
+      opt :api_key, 'Datadog API key', type: :string
+      opt :app_key, 'Datadog App key', type: :string
+    end
+
+    opts = Optimist::with_standard_exception_handling(parser) do
+      raise Optimist::HelpNeeded if args.empty?
+      parser.parse(args)
+    end
+
+    csv_file = opts[:csv_file]
+    api_key = opts[:api_key] || ENV['DATADOG_API_KEY']
+    app_key = opts[:app_key] || ENV['DATADOG_APP_KEY']
+
+    abort_with_help(parser, "CSV file is missing") if csv_file.to_s.empty?
+    abort_with_help(parser, "API key is missing") if api_key.to_s.empty?
+    abort_with_help(parser, "App key is missing") if app_key.to_s.empty?
+
+    new(api_key: api_key, app_key: app_key).ingest_csv(csv_file)
+  end
+
+  def self.abort_with_help(parser, message)
+    $logger.warn message
+    Optimist::with_standard_exception_handling(parser) { raise Optimist::HelpNeeded }
+  end
+
+  def ingest_csv(file_path)
+    total_rows = 0
+
+    CSV.foreach(file_path, headers: true) do |row|
+      next unless valid_benchmark_row?(row)
+
+      total_rows += 1
+      benchmark_name = row['benchmark']
+      tags = build_tags(row)
+      timestamp = parse_timestamp(row['timestamp'])
+
+      $logger.info "Processing row #{total_rows}: #{benchmark_name} at #{row['timestamp']}"
+
+      process_cpu_metrics(row, tags, timestamp)
+      process_run_metrics(row, tags, timestamp)
+      process_total_metrics(row, tags, timestamp)
+
+      $logger.info "Completed processing #{benchmark_name}"
+      $logger.info '-' * 60
+
+      # Sleep briefly to avoid overwhelming the Datadog API
+      sleep(0.1)
+    end
+
+    $logger.info "Ingestion Summary:"
+    $logger.info "Total rows processed: #{total_rows}"
+  end
+
+  def valid_benchmark_row?(row)
+    row['benchmark'] && !row['benchmark'].strip.empty?
+  end
+
+  def parse_timestamp(timestamp_str)
+    Time.strptime(timestamp_str, "%a %b %d %H:%M:%S GMT %Y").to_i
+  rescue ArgumentError
+    Time.now.to_i
+  end
+
+  def build_tags(row)
+    tags = ["env:platforms-testing", "benchmark:#{row['benchmark']}"]
+    tags << "cpu_intensive:true" if row['cpu'] == 'true'
+    tags << "memory_intensive:true" if row['memory'] == 'true'
+    tags << "rendering_enabled:true" if row['rendering'] == 'true'
+    tags
+  end
+
+  def send_metric(name, value, tags, type = DatadogAPIClient::V2::MetricIntakeType::GAUGE, timestamp = Time.now.to_i)
+    metric_series = DatadogAPIClient::V2::MetricSeries.new(
+      metric: name,
+      type: type,
+      points: [
+        DatadogAPIClient::V2::MetricPoint.new(timestamp: timestamp, value: value)
+      ],
+      tags: tags,
+      resources: [
+        DatadogAPIClient::V2::MetricResource.new(name: @host, type: "host")
+      ]
+    )
+
+    payload = DatadogAPIClient::V2::MetricPayload.new(series: [metric_series])
+
+    begin
+      @api.submit_metrics(payload)
+    rescue DatadogAPIClient::APIError => e
+      $logger.error "Failed to send metric #{name}: #{e.message}"
+      $logger.error "HTTP status code: #{e.code}"
+      $logger.error "Response body: #{e.response_body}"
+    end
+  end
+
+  def process_cpu_metrics(row, tags, timestamp)
+    # Select all headers matching cpuUse.<number> pattern and extract their float values
+    cpu_values = row.headers.grep(/^cpuUse\.\d+$/).map { |key|
+      val = row[key]
+      val&.empty? ? nil : val.to_f
+    }.compact
+
+    return if cpu_values.empty?
+
+    avg_cpu = cpu_values.sum / cpu_values.size
+    send_metric('benchmark.cpu_usage_percent', avg_cpu, tags, timestamp)
+  end
+
+  def process_run_metrics(row, base_tags, timestamp)
+    # Extract unique run indices from headers like measuredTime.1, iterations.2, etc.
+    run_indices = row.headers
+                     .grep(/^(measuredTime|iterations|timeTaken|excludedTime)\.(\d+)$/)
+                     .map { |key| key.split('.').last.to_i } # Extract the run index number
+                     .uniq
+                     .sort
+
+    run_indices.each do |i|
+      run_tags = base_tags + ["run:#{i}"]
+
+      {
+        'benchmark.measured_time_ns' => row["measuredTime.#{i}"],
+        'benchmark.iterations'       => row["iterations.#{i}"],
+        'benchmark.time_taken_ns'    => row["timeTaken.#{i}"],
+        'benchmark.excluded_time_ns' => row["excludedTime.#{i}"]
+      }.each do |metric, value|
+        send_if_valid(metric, value, run_tags, timestamp)
+      end
+    end
+  end
+
+  def process_total_metrics(row, tags, timestamp)
+    totals = {
+      'benchmark.total_measured_time_ns' => row['totalMeasuredTime'],
+      'benchmark.total_iterations'       => row['totalIterations'],
+      'benchmark.total_time_taken_ns'    => row['totalTimeTaken'],
+      'benchmark.total_excluded_time_ns' => row['totalExcludedTime']
+    }
+
+    totals.each { |metric, value| send_if_valid(metric, value, tags, timestamp) }
+
+    if valid_value?(row['totalMeasuredTime']) && valid_value?(row['totalIterations'])
+      total_time = row['totalMeasuredTime'].to_f
+      total_iters = row['totalIterations'].to_f
+      if total_iters > 0
+        avg = total_time / total_iters
+        send_metric('benchmark.avg_time_per_iteration_ns', avg, tags, timestamp)
+      end
+    end
+  end
+
+  def valid_value?(value)
+    value && !value.empty? && value.to_f > 0
+  end
+
+  def send_if_valid(metric, value, tags, timestamp)
+    send_metric(metric, value.to_f, tags, timestamp) if valid_value?(value)
+  end
+end
+
+DatadogMetricsIngester.run(ARGV)

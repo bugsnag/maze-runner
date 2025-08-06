@@ -1,3 +1,9 @@
+# 9.33.0 - 2025/08/06
+
+## Enhancements
+
+- Add method to send benchmark results to Datadog [774](https://github.com/bugsnag/maze-runner/pull/774)
+
 # 9.32.4 - 2025/08/01
 
 ## Fixes

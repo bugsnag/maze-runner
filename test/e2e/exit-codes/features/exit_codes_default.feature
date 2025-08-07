@@ -5,10 +5,10 @@ Scenario: An exit code linked to an error isn't present when --fail-fast is miss
     And I input "bundle exec maze-runner --port=9349 features/throw_a_maze_appiumelementnotfounderror.feature" interactively
     Then the last interactive command exit code is 1
 
-Scenario: A user-set exit code isn't present when --fail-fast is missing
+Scenario: A user-set exit code is still present when --fail-fast is missing
     Given I set up the maze-harness console
     And I input "bundle exec maze-runner --port=9349 features/set_exit_code.feature" interactively
-    Then the last interactive command exit code is 1
+    Then the last interactive command exit code is 43
 
 Scenario: Mark as failed
     Given I set up the maze-harness console

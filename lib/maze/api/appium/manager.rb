@@ -15,6 +15,7 @@ module Maze
           Bugsnag.notify(exception)
           exception.instance_eval { def skip_bugsnag; true; end }
           @driver.fail_driver(exception.message)
+          Maze::Hooks::ErrorCodeHook.exit_code = Maze::Api::ExitCode::APPIUM_SESSION_FAILURE
         end
       end
     end

@@ -1,3 +1,9 @@
+# 9.35.0 - 2025/08/12
+
+## Enhancements
+
+- Add Android 16 to the available BrowserStack devices [697](https://github.com/bugsnag/maze-runner/pull/697)
+
 # 9.34.0 - 2025/08/07
 
 ## Enhancements

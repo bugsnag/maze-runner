@@ -1,3 +1,9 @@
+# 9.35.1 - 2025/08/13
+
+## Fixes
+
+- Add missing `datadog_api_client` dependency to Gemspec [778](https://github.com/bugsnag/maze-runner/pull/778)
+
 # 9.35.0 - 2025/08/12
 
 ## Enhancements

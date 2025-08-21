@@ -1,3 +1,9 @@
+# 9.35.2 - 2025/08/21
+
+## Fixes
+
+- Make Datadog API client dependency not dev-only [779](https://github.com/bugsnag/maze-runner/pull/779)
+
 # 9.35.1 - 2025/08/13
 
 ## Fixes

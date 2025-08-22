@@ -183,6 +183,10 @@ steps:
     concurrency: 5
     concurrency_group: 'browserstack-app'
     concurrency_method: eager
+    retry:
+      automatic:
+        - exit_status: 103  # Appium client failure
+          limit: 2
 
   - label: ':browserstack: Firefox'
     depends_on: "push-branch-cli"
@@ -258,6 +262,10 @@ steps:
     concurrency: 25
     concurrency_group: 'bitbar'
     concurrency_method: eager
+    retry:
+      automatic:
+        - exit_status: 103  # Appium client failure
+          limit: 2
 
   - label: ':bitbar: Appium API'
     timeout_in_minutes: 20
@@ -290,6 +298,10 @@ steps:
     concurrency: 25
     concurrency_group: 'bitbar'
     concurrency_method: eager
+    retry:
+      automatic:
+        - exit_status: 103  # Appium client failure
+          limit: 2
 
   - label: ':bitbar: iOS'
     timeout_in_minutes: 20
@@ -322,6 +334,10 @@ steps:
     concurrency: 25
     concurrency_group: 'bitbar'
     concurrency_method: eager
+    retry:
+      automatic:
+        - exit_status: 103  # Appium client failure
+          limit: 2
 
   - wait
 

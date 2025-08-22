@@ -10,6 +10,7 @@
 - Remove support for legacy JSON-WP drivers [748](https://github.com/bugsnag/maze-runner/pull/748)
 - Remove deprecated Cucumber steps for sending keys to elements [751](https://github.com/bugsnag/maze-runner/pull/751)
 - Remove document server on port 9340 [752](https://github.com/bugsnag/maze-runner/pull/752)
+- Remove scenario retries for driver errors [782](https://github.com/bugsnag/maze-runner/pull/782)
 
 # 9.35.3 - 2025/08/22
 

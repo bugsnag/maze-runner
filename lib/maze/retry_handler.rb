@@ -14,25 +14,11 @@ module Maze
       # Determines whether a failed test_case should be restarted
       #
       # @param test_case [Cucumber::RunningTestCase] The current test_case or scenario
-      # @param event [Cucumber::Core::Event] The triggering event
-      def should_retry?(test_case, event)
+      def should_retry?(test_case)
         # Only retry if the option is set and we haven't already retried
         return false if !Maze.config.enable_retries || retried_previously?(test_case)
 
-        if retry_on_driver_error?(event)
-          if Maze.mode == :appium
-            if Maze.config.farm.eql?(:bb)
-              Maze::Hooks::ErrorCodeHook.exit_code = Maze::Api::ExitCode::APPIUM_SESSION_FAILURE
-              return false
-            else
-              $logger.warn "Retrying #{test_case.name} due to appium driver error: #{event.result.exception}"
-              Maze.driver.restart
-            end
-          elsif Maze.mode == :browser
-            $logger.warn "Retrying #{test_case.name} due to selenium driver error: #{event.result.exception}"
-            Maze.driver.refresh
-          end
-        elsif retry_on_tag?(test_case)
+        if retry_on_tag?(test_case)
           $logger.warn "Retrying #{test_case.name} due to retry tag"
         elsif Maze.dynamic_retry
           $logger.warn "Retrying #{test_case.name} due to dynamic retry set"
@@ -51,12 +37,6 @@ module Maze
 
       def increment_retry_count(test_case)
         global_retried[test_case] += 1
-      end
-
-      def retry_on_driver_error?(event)
-        error_class = event.result.exception.class
-        maze_errors = Maze::Error::ERROR_CODES
-        Maze.driver && maze_errors.include?(error_class) && maze_errors[error_class][:retry]
       end
 
       def retry_on_tag?(test_case)

@@ -1,3 +1,9 @@
+# 9.35.3 - 2025/08/22
+
+## Fixes
+
+- Update environment variables used by datadog metrics utility [780](https://github.com/bugsnag/maze-runner/pull/780)
+
 # 9.35.2 - 2025/08/21
 
 ## Fixes

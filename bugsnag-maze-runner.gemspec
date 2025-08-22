@@ -36,6 +36,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'bugsnag', '~> 6.24'
   spec.add_dependency 'curb', '~> 1.0.5'
   spec.add_dependency 'dogstatsd-ruby', '~> 5.5.0'
+  spec.add_dependency 'datadog_api_client', '2.40.0'
   spec.add_dependency 'optimist', '~> 3.0.1'
   spec.add_dependency 'rake', '~> 12.3.3'
   spec.add_dependency 'json_schemer', '~> 0.2.24'

@@ -10,6 +10,42 @@
 - Remove deprecated Cucumber steps for sending keys to elements [751](https://github.com/bugsnag/maze-runner/pull/751)
 - Remove document server on port 9340 [752](https://github.com/bugsnag/maze-runner/pull/752)
 
+# 9.35.3 - 2025/08/22
+
+## Fixes
+
+- Update environment variables used by datadog metrics utility [780](https://github.com/bugsnag/maze-runner/pull/780)
+
+# 9.35.2 - 2025/08/21
+
+## Fixes
+
+- Make Datadog API client dependency not dev-only [779](https://github.com/bugsnag/maze-runner/pull/779)
+
+# 9.35.1 - 2025/08/13
+
+## Fixes
+
+- Add missing `datadog_api_client` dependency to Gemspec [778](https://github.com/bugsnag/maze-runner/pull/778)
+
+# 9.35.0 - 2025/08/12
+
+## Enhancements
+
+- Add Android 16 to the available BrowserStack devices [777](https://github.com/bugsnag/maze-runner/pull/777)
+
+# 9.34.0 - 2025/08/07
+
+## Enhancements
+
+- Set exit code when Appium driver fails [776](https://github.com/bugsnag/maze-runner/pull/776)
+
+# 9.33.0 - 2025/08/06
+
+## Enhancements
+
+- Add method to send benchmark results to Datadog [774](https://github.com/bugsnag/maze-runner/pull/774)
+
 # 9.32.4 - 2025/08/01
 
 ## Fixes

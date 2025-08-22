@@ -3,6 +3,7 @@
 ## Enhancements
 
 - Update to Cucumber 10 [773](https://github.com/bugsnag/maze-runner/pull/773)
+- Minimum Ruby version increased to 3.1 [781](https://github.com/bugsnag/maze-runner/pull/781)
 
 ## Removals
 

@@ -19,6 +19,10 @@ The legacy JSON-WP protocol drivers (using Selenium v3 and Appium v11) are no lo
 | `I send the keys {string} to the element {string}` | None.                                    |
 | `I clear and send the keys {string} to the element {string}` | None.                                    |
 
+# Minimum Ruby version
+
+The minimum supported Ruby version is now 3.1 (due to Cucumber being updated to v10).
+
 ## v8 to v9
 
 ### Clearing app data between test scenarios

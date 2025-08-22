@@ -3,25 +3,19 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require_relative 'lib/maze'
 
 Gem::Specification.new do |spec|
-  ruby_version = Gem::Version.new(RUBY_VERSION.dup)
-
   spec.name    = 'bugsnag-maze-runner'
   spec.version = Maze::VERSION
-  spec.authors = ['Steve Kirkland']
-  spec.email   = ['steve@bugsnag.com']
-  spec.required_ruby_version = '>= 2.5.0'
+  spec.authors = ['Steve Kirkland', 'Josh Edney']
+  spec.email   = ['notifiers@bugsnag.com']
+  spec.required_ruby_version = '>= 3.1'
   spec.description = 'Automation steps and mock server to validate' \
                      'request payloads response.'
-  spec.summary = 'Bugsnag API request validation harness'
+  spec.summary = 'Bugsnag SDK test harness'
   spec.license = 'MIT'
   spec.require_paths = ['lib']
   spec.files = Dir.glob('{bin,lib}/**/*').select { |fn| File.file?(fn) }
 
   spec.executables = spec.files.grep(%r{^bin/[\w\-]+$}) { |f| File.basename(f) }
-
-  if ruby_version < Gem::Version.new('3.0.0')
-    spec.add_dependency 'ffi', '1.16.3'
-  end
 
   spec.add_dependency 'cucumber', '~> 10.0'
   spec.add_dependency 'os', '~> 1.0.0'

@@ -4,6 +4,23 @@ require_relative '../test_helper'
 require_relative '../../../lib/maze/helper'
 require_relative '../../../lib/maze/request_list'
 
+class FakeRequest
+  attr_accessor :body, :path
+
+  def initialize(body)
+    @body = body
+    @path = nil
+  end
+
+  def [](key)
+    instance_variable_get("@#{key}")
+  end
+
+  def []=(key, value)
+    instance_variable_set("@#{key}", value)
+  end
+end
+
 # noinspection RubyNilAnalysis
 class RequestListTest < Test::Unit::TestCase
 
@@ -32,6 +49,15 @@ class RequestListTest < Test::Unit::TestCase
         header => time,
         body: "{id: '#{id}'}"
       }
+    }
+  end
+
+  def build_item_with_path(id, path)
+    req = FakeRequest.new("{id: '#{id}'}")
+    req.path = path
+    {
+      id: id,
+      request: req
     }
   end
 
@@ -280,14 +306,11 @@ class RequestListTest < Test::Unit::TestCase
   end
 
   def test_sort_by_request_path
-    request1 = build_item 1
-    request1[:request].path = '/zebra'
+    request1 = build_item_with_path 1, '/zebra'
 
-    request2 = build_item 2
-    request2[:request].path = '/antelope'
+    request2 = build_item_with_path 2, '/antelope'
 
-    request3 = build_item 3
-    request3[:request].path = '/yak'
+    request3 = build_item_with_path 3, '/yak'
 
     list = Maze::RequestList.new
     list.add request1
@@ -300,14 +323,12 @@ class RequestListTest < Test::Unit::TestCase
   end
 
   def test_sort_by_request_path_with_missing_path
-    request1 = build_item 1
-    request1[:request].path = '/zebra'
+    request1 = build_item_with_path 1, '/zebra'
 
-    request2 = build_item 2
     # No path key in request2
+    request2 = build_item_with_path 2, ""
 
-    request3 = build_item 3
-    request3[:request].path = '/antelope'
+    request3 = build_item_with_path 3, '/antelope'
 
     list = Maze::RequestList.new
     list.add request1
@@ -321,14 +342,11 @@ class RequestListTest < Test::Unit::TestCase
   end
 
   def test_sort_by_request_path_partial_list
-    request1 = build_item 1
-    request1[:request].path = '/zebra'
+    request1 = build_item_with_path 1, '/zebra'
 
-    request2 = build_item 2
-    request2[:request].path = '/antelope'
+    request2 = build_item_with_path 2, '/antelope'
 
-    request3 = build_item 3
-    request3[:request].path = '/yak'
+    request3 = build_item_with_path 3, '/yak'
 
     list = Maze::RequestList.new
     list.add request1

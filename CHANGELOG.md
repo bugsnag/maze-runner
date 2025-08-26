@@ -1,3 +1,17 @@
+# v10.0.0 - 2025/08/26
+
+## Enhancements
+
+- Update to Cucumber 10 [773](https://github.com/bugsnag/maze-runner/pull/773)
+- Minimum Ruby version increased to 3.1 [781](https://github.com/bugsnag/maze-runner/pull/781)
+
+## Removals
+
+- Remove support for legacy JSON-WP drivers [748](https://github.com/bugsnag/maze-runner/pull/748)
+- Remove deprecated Cucumber steps for sending keys to elements [751](https://github.com/bugsnag/maze-runner/pull/751)
+- Remove document server on port 9340 [752](https://github.com/bugsnag/maze-runner/pull/752)
+- Remove scenario retries for driver errors [782](https://github.com/bugsnag/maze-runner/pull/782)
+
 # 9.36.0 - 2025/08/26
 
 ## Enhancements

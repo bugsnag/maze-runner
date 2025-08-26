@@ -57,20 +57,11 @@ BeforeAll do
   # Call any blocks registered by the client
   Maze.hooks.call_before_all
 
-  # Start document server, if asked for
-  # This must happen after any client hooks have run, so that they can set the server root
-  Maze::DocumentServer.start unless Maze.config.document_server_root.nil?
-
   # Determine public IP if enabled
   if Maze.config.aws_public_ip
     public_ip = Maze::AwsPublicIp.new
     Maze.public_address = public_ip.address
     $logger.info "Public address: #{Maze.public_address}"
-
-    unless Maze.config.document_server_root.nil?
-      Maze.public_document_server_address = public_ip.document_server_address
-      $logger.info "Public document server address: #{Maze.public_document_server_address}"
-    end
   end
 
   # An initial setup for total success status
@@ -145,9 +136,6 @@ After do |scenario|
 
   # Call any blocks registered by the client
   Maze.hooks.call_after scenario
-
-  # Stop document server if started by the Cucumber step
-  Maze::DocumentServer.manual_stop
 
   # Stop terminating server if started by the Cucumber step
   Maze::TerminatingServer.stop

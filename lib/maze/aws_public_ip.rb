@@ -5,16 +5,9 @@ module Maze
   class AwsPublicIp
     attr_reader :host
     attr_reader :port
-    attr_reader :document_server_port
 
     def address
       "#{@ip}:#{@port}"
-    end
-
-    def document_server_address
-      return nil if @document_server_port.nil?
-
-      "#{@ip}:#{@document_server_port}"
     end
 
     def initialize
@@ -23,11 +16,6 @@ module Maze
 
       @ip = determine_public_ip
       @port = determine_public_port Maze.config.port
-
-      unless Maze.config.document_server_root.nil?
-        @document_server_port = determine_public_port Maze.config.document_server_port
-      end
-
     end
 
     # Determines the public IP address of the running AWS instance

@@ -27,7 +27,6 @@ Maze Runner recognises various environment variables, as follows:
 
 `MAZE_APPIUM_SERVER` - the Appium server URL (if different to the default).
 `MAZE_SELENIUM_SERVER` - the Selenium server URL (if different to the default).
-`USE_LEGACY_DRIVER` - whether the legacy (JSON-WP) driver should be used.
 
 #### BitBar
 

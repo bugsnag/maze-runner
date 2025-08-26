@@ -8,11 +8,11 @@ require_relative 'maze/timers'
 # providing an alternative to the proliferation of global variables or singletons.
 module Maze
 
-  VERSION = '9.36.0'
+  VERSION = '10.0.0'
 
   class << self
     attr_accessor :check, :driver, :internal_hooks, :mode, :start_time, :dynamic_retry, :public_address,
-                  :public_document_server_address, :run_uuid, :scenario
+                  :run_uuid, :scenario
 
     def config
       @config ||= Maze::Configuration.new

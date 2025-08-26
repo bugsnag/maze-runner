@@ -85,14 +85,6 @@ module Maze
                 'Document server root',
                 short: :none,
                 type: :string
-            opt Option::DS_BIND_ADDRESS,
-                'Document server bind address',
-                short: :none,
-                type: :string
-            opt Option::DS_PORT,
-                'Document server port',
-                short: :none,
-                default: 9340
 
             text ''
             text 'Appium options:'

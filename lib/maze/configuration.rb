@@ -15,7 +15,6 @@ module Maze
       self.span_timestamp_validation = true
       self.unmanaged_traces_mode = false
       self.client_mode_validation = true
-      @legacy_driver = false
     end
 
     #
@@ -40,12 +39,6 @@ module Maze
 
     # Document server root
     attr_accessor :document_server_root
-
-    # Document server bind address
-    attr_accessor :document_server_bind_address
-
-    # Document server port
-    attr_accessor :document_server_port
 
     #
     # Common configuration
@@ -193,15 +186,6 @@ module Maze
 
     # URL of the Selenium server
     attr_accessor :selenium_server_url
-
-    # Whether the legacy (JSON-WP) Appium driver should be used
-    def legacy_driver?
-      @legacy_driver
-    end
-
-    def legacy_driver=(value)
-      @legacy_driver = value
-    end
 
     #
     # Local testing specific configuration

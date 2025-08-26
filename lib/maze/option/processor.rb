@@ -29,8 +29,6 @@ module Maze
 
           # Document server options
           config.document_server_root = options[Maze::Option::DS_ROOT]
-          config.document_server_bind_address = options[Maze::Option::DS_BIND_ADDRESS]
-          config.document_server_port = options[Maze::Option::DS_PORT]
 
           # Logger options
           config.file_log = options[Maze::Option::FILE_LOG]
@@ -52,7 +50,6 @@ module Maze
           config.capabilities_option = options[Maze::Option::CAPABILITIES]
           config.app_activity = options[Maze::Option::APP_ACTIVITY]
           config.app_package = options[Maze::Option::APP_PACKAGE]
-          config.legacy_driver = !ENV['USE_LEGACY_DRIVER'].nil?
           config.start_tunnel = options[Maze::Option::TUNNEL]
 
           # Farm specific options
@@ -63,11 +60,7 @@ module Maze
             if !device_option.empty?
               config.device = device_option.first
               config.device_list = device_option.drop(1)
-              if config.legacy_driver?
-                config.os_version = Maze::Client::Appium::BrowserStackDevices::DEVICE_HASH[config.device]['os_version'].to_f
-              else
-                config.os_version = Maze::Client::Appium::BrowserStackDevices::DEVICE_HASH[config.device]['platformVersion'].to_f
-              end
+              config.os_version = Maze::Client::Appium::BrowserStackDevices::DEVICE_HASH[config.device]['platformVersion'].to_f
             elsif !browser_option.empty?
               config.browser = browser_option.first
               config.browser_list = browser_option.drop(1)

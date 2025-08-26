@@ -281,13 +281,13 @@ class RequestListTest < Test::Unit::TestCase
 
   def test_sort_by_request_path
     request1 = build_item 1
-    request1[:request][:path] = '/zebra'
+    request1[:request].path = '/zebra'
 
     request2 = build_item 2
-    request2[:request][:path] = '/antelope'
+    request2[:request].path = '/antelope'
 
     request3 = build_item 3
-    request3[:request][:path] = '/yak'
+    request3[:request].path = '/yak'
 
     list = Maze::RequestList.new
     list.add request1
@@ -301,13 +301,13 @@ class RequestListTest < Test::Unit::TestCase
 
   def test_sort_by_request_path_with_missing_path
     request1 = build_item 1
-    request1[:request][:path] = '/zebra'
+    request1[:request].path = '/zebra'
 
     request2 = build_item 2
     # No path key in request2
 
     request3 = build_item 3
-    request3[:request][:path] = '/antelope'
+    request3[:request].path = '/antelope'
 
     list = Maze::RequestList.new
     list.add request1
@@ -322,13 +322,13 @@ class RequestListTest < Test::Unit::TestCase
 
   def test_sort_by_request_path_partial_list
     request1 = build_item 1
-    request1[:request][:path] = '/zebra'
+    request1[:request].path = '/zebra'
 
     request2 = build_item 2
-    request2[:request][:path] = '/antelope'
+    request2[:request].path = '/antelope'
 
     request3 = build_item 3
-    request3[:request][:path] = '/yak'
+    request3[:request].path = '/yak'
 
     list = Maze::RequestList.new
     list.add request1

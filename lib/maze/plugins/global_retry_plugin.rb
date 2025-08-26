@@ -23,7 +23,7 @@ module Maze
           configuration.options[:retry] = 0
 
           # Guard to check if the case should be retried
-          should_retry = event.result.failed? && Maze::RetryHandler.should_retry?(test_case, event)
+          should_retry = event.result.failed? && Maze::RetryHandler.should_retry?(test_case)
 
           next unless should_retry
 

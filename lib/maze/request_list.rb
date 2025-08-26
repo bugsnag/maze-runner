@@ -91,6 +91,17 @@ module Maze
       sub_list.each_with_index { |r, i| @requests[@current + i] = r }
     end
 
+    # Sorts the remaining elements of the list by the request path, if present in all of those elements
+    def sort_by_request_path!
+      list = remaining
+
+      return if list.any? { |r| r[:request].path.nil? }
+
+      # Sort the list by request path and overwrite in the main list
+      list.sort_by! { |r| r[:request].path }
+      list.each_with_index { |r, i| @requests[@current + i] = r }
+    end
+
     # Sorts the remaining elements of the list by the field given, if present in all of those elements
     def sort_by!(key_path)
       list = remaining

@@ -4,6 +4,23 @@ require_relative '../test_helper'
 require_relative '../../../lib/maze/helper'
 require_relative '../../../lib/maze/request_list'
 
+class FakeRequest
+  attr_accessor :body, :path
+
+  def initialize(body)
+    @body = body
+    @path = nil
+  end
+
+  def [](key)
+    instance_variable_get("@#{key}")
+  end
+
+  def []=(key, value)
+    instance_variable_set("@#{key}", value)
+  end
+end
+
 # noinspection RubyNilAnalysis
 class RequestListTest < Test::Unit::TestCase
 
@@ -32,6 +49,15 @@ class RequestListTest < Test::Unit::TestCase
         header => time,
         body: "{id: '#{id}'}"
       }
+    }
+  end
+
+  def build_item_with_path(id, path)
+    req = FakeRequest.new("{id: '#{id}'}")
+    req.path = path
+    {
+      id: id,
+      request: req
     }
   end
 
@@ -277,5 +303,60 @@ class RequestListTest < Test::Unit::TestCase
     assert_equal after_add(request3), list.current
     list.next
     assert_equal after_add(request1), list.current
+  end
+
+  def test_sort_by_request_path
+    request1 = build_item_with_path 1, '/zebra'
+
+    request2 = build_item_with_path 2, '/antelope'
+
+    request3 = build_item_with_path 3, '/yak'
+
+    list = Maze::RequestList.new
+    list.add request1
+    list.add request2
+    list.add request3
+
+    list.sort_by_request_path!
+
+    assert_equal [request2, request3, request1].map { |entry| after_add(entry) }, list.remaining
+  end
+
+  def test_sort_by_request_path_with_missing_path
+    request1 = build_item_with_path 1, '/zebra'
+
+    # No path key in request2
+    request2 = build_item_with_path 2, ""
+
+    request3 = build_item_with_path 3, '/antelope'
+
+    list = Maze::RequestList.new
+    list.add request1
+    list.add request2
+    list.add request3
+
+    list.sort_by_request_path!
+
+    # Should remain unsorted because one request has no path
+    assert_equal [request2, request3, request1].map { |entry| after_add(entry) }, list.remaining
+  end
+
+  def test_sort_by_request_path_partial_list
+    request1 = build_item_with_path 1, '/zebra'
+
+    request2 = build_item_with_path 2, '/antelope'
+
+    request3 = build_item_with_path 3, '/yak'
+
+    list = Maze::RequestList.new
+    list.add request1
+    list.add request2
+    list.add request3
+    list.next # Skip first item
+
+    list.sort_by_request_path!
+
+    # Only the remaining items should be sorted
+    assert_equal [request2, request3].map { |entry| after_add(entry) }, list.remaining
   end
 end

@@ -1,3 +1,9 @@
+# 9.36.0 - 2025/08/26
+
+## Enhancements
+
+- Add the ability to sort requests by URL path [783](https://github.com/bugsnag/maze-runner/pull/783)
+
 # 9.35.3 - 2025/08/22
 
 ## Fixes

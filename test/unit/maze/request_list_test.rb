@@ -278,4 +278,67 @@ class RequestListTest < Test::Unit::TestCase
     list.next
     assert_equal after_add(request1), list.current
   end
+
+  def test_sort_by_request_path
+    request1 = build_item 1
+    request1[:request][:path] = '/zebra'
+
+    request2 = build_item 2
+    request2[:request][:path] = '/antelope'
+
+    request3 = build_item 3
+    request3[:request][:path] = '/yak'
+
+    list = Maze::RequestList.new
+    list.add request1
+    list.add request2
+    list.add request3
+
+    list.sort_by_request_path!
+
+    assert_equal [request2, request1, request3].map { |entry| after_add(entry) }, list.remaining
+  end
+
+  def test_sort_by_request_path_with_missing_path
+    request1 = build_item 1
+    request1[:request][:path] = '/zebra'
+
+    request2 = build_item 2
+    # No path key in request2
+
+    request3 = build_item 3
+    request3[:request][:path] = '/antelope'
+
+    list = Maze::RequestList.new
+    list.add request1
+    list.add request2
+    list.add request3
+
+    list.sort_by_request_path!
+
+    # Should remain unsorted because one request has no path
+    assert_equal [request1, request2, request3].map { |entry| after_add(entry) }, list.remaining
+  end
+
+  def test_sort_by_request_path_partial_list
+    request1 = build_item 1
+    request1[:request][:path] = '/zebra'
+
+    request2 = build_item 2
+    request2[:request][:path] = '/antelope'
+
+    request3 = build_item 3
+    request3[:request][:path] = '/yak'
+
+    list = Maze::RequestList.new
+    list.add request1
+    list.add request2
+    list.add request3
+    list.next # Skip first item
+
+    list.sort_by_request_path!
+
+    # Only the remaining items should be sorted
+    assert_equal [request2, request3].map { |entry| after_add(entry) }, list.remaining
+  end
 end

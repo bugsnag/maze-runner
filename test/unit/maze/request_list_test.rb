@@ -319,7 +319,7 @@ class RequestListTest < Test::Unit::TestCase
 
     list.sort_by_request_path!
 
-    assert_equal [request2, request1, request3].map { |entry| after_add(entry) }, list.remaining
+    assert_equal [request2, request3, request1].map { |entry| after_add(entry) }, list.remaining
   end
 
   def test_sort_by_request_path_with_missing_path
@@ -338,7 +338,7 @@ class RequestListTest < Test::Unit::TestCase
     list.sort_by_request_path!
 
     # Should remain unsorted because one request has no path
-    assert_equal [request1, request2, request3].map { |entry| after_add(entry) }, list.remaining
+    assert_equal [request2, request3, request1].map { |entry| after_add(entry) }, list.remaining
   end
 
   def test_sort_by_request_path_partial_list

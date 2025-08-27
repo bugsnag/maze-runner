@@ -246,8 +246,8 @@ steps:
         verbose: true
         command:
           - "--farm=bb"
-          - "--browser=chrome"
-          - "--device=ANDROID_13"
+          - "--browser=safari"
+          - "--device=IOS_14"
           - "--aws-public-ip"
           - "--fail-fast"
           - "--no-tunnel"

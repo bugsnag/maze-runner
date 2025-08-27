@@ -75,12 +75,6 @@ module Maze
               'testTimeout' => 7200
             }
           }
-          # Mobile browsers
-          unless config.browser.nil?
-            common_caps['acceptInsecureCerts'] = true
-            capabilities['browserName'] = config.browser
-          end
-
           if Maze.config.appium_version && Maze.config.appium_version.to_f < 2.0
             capabilities.merge!(common_caps)
           else
@@ -89,6 +83,10 @@ module Maze
           capabilities.deep_merge! BitBarClientUtils.dashboard_capabilities
           capabilities.deep_merge! BitBarDevices.get_available_device(config.device)
           capabilities['bitbar:options']['appiumVersion'] = config.appium_version unless config.appium_version.nil?
+          unless config.browser.nil?
+            capabilities['bitbar:options']['acceptInsecureCerts'] = true
+            capabilities['browserName'] = config.browser
+          end
           capabilities.deep_merge! JSON.parse(config.capabilities_option)
 
           capabilities

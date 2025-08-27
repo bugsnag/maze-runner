@@ -83,7 +83,10 @@ module Maze
           capabilities.deep_merge! BitBarClientUtils.dashboard_capabilities
           capabilities.deep_merge! BitBarDevices.get_available_device(config.device)
           capabilities['bitbar:options']['appiumVersion'] = config.appium_version unless config.appium_version.nil?
-          capabilities['browserName'] = config.browser unless config.browser.nil?
+          unless config.browser.nil?
+            capabilities['acceptInsecureCerts'] = true
+            capabilities['browserName'] = config.browser
+          end
           capabilities.deep_merge! JSON.parse(config.capabilities_option)
 
           capabilities

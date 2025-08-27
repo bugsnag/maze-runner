@@ -209,7 +209,7 @@ steps:
   # BitBar tests
   #
 
-  - label: ':bitbar: Safari 18'
+  - label: ':bitbar: Desktop browsers - Safari 18'
     depends_on: "push-branch-cli"
     timeout_in_minutes: 10
     plugins:
@@ -225,6 +225,29 @@ steps:
           - "--farm=bb"
           - "--browser=safari_18"
           - "--browser=chrome_latest"
+          - "--aws-public-ip"
+          - "--fail-fast"
+          - "--no-tunnel"
+    concurrency: 25
+    concurrency_group: 'bitbar'
+    concurrency_method: eager
+
+  - label: ':bitbar: Mobile browsers - Android Chrome'
+    depends_on: "push-branch-cli"
+    timeout_in_minutes: 10
+    plugins:
+      artifacts#v1.9.0:
+        upload: "maze_output/failed/**/*"
+      docker-compose#v4.14.0:
+        pull: browser-tests-bitbar
+        run: browser-tests-bitbar
+        service-ports: true
+        use-aliases: true
+        verbose: true
+        command:
+          - "--farm=bb"
+          - "--browser=chrome"
+          - "--device=ANDROID_13"
           - "--aws-public-ip"
           - "--fail-fast"
           - "--no-tunnel"

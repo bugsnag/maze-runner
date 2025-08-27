@@ -82,10 +82,8 @@ module Maze
 
       def javascript?
         return false if Maze.config.browser.nil?
-        $logger.info 'SKW1'
         @driver.execute_script('return true')
       rescue Selenium::WebDriver::Error::UnsupportedOperationError
-        $logger.error 'FAILED'
         false
       end
 
@@ -105,8 +103,6 @@ module Maze
       }
         JAVASCRIPT
 
-        $logger.info result
-        $logger.info 'SKW3'
         result == true
       end
 

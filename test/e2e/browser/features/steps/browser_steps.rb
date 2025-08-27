@@ -74,17 +74,3 @@ end
 Then('Maze Runner reports the current platform as {string}') do |platform|
   Maze.check.equal(platform, Maze::Helper.get_current_platform)
 end
-
-When('the test should run in this browser') do
-  wait = Selenium::WebDriver::Wait.new(timeout: 10)
-  wait.until {
-    $logger.info 'Checking for the element'
-    Maze.driver.find_element(id: 'bugsnag-test-should-run') &&
-      Maze.driver.find_element(id: 'bugsnag-test-should-run').text == 'PENDING'
-  }
-  if Maze.driver.find_element(id: 'bugsnag-test-should-run').text == 'NO'
-    Maze::Server.reset!
-    skip_this_scenario
-  end
-end
-

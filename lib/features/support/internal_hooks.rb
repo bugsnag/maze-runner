@@ -12,14 +12,8 @@ BeforeAll do
 
   # Infer mode of operation from config, one of:
   # - Appium (using either remote or local devices)
-  # - Browser (Selenium with local or remote browsers)
+  # - Selenium (Selenium with local or remote browsers)
   # - Command (the software under test is invoked with a system call)
-  # TODO Consider making this a specific command line option defaulting to Appium
-
-
-  $logger.info Maze.config.device
-  $logger.info Maze.config.browser
-
   is_appium = ([:bs, :bb, :local].include?(Maze.config.farm) && !Maze.config.app.nil?) ||
     (Maze.config.farm == :bb && !Maze.config.device.nil? && !Maze.config.browser.nil?)
   is_browser = Maze.config.device.nil? && !Maze.config.browser.nil?

@@ -60,7 +60,7 @@ namespace :docs do
       run_command 'git fetch'
       run_command 'git checkout gh-pages'
       run_command 'git pull'
-      run_command "echo https://#{ENV["DOCS_PUSH_TOKEN"]}:x-oauth-basic@github.com >> ~/.git-credentials"
+      run_command "echo https://#{ENV["MAZE_DOCS_PUSH_TOKEN"]}:x-oauth-basic@github.com >> ~/.git-credentials"
       run_command "git config credential.helper 'store'"
       run_command "git config --global user.email 'notifiers@bugsnag.com'"
       run_command "git config --global user.name 'Bugsnag notifiers'"

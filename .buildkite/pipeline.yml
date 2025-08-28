@@ -343,10 +343,11 @@ steps:
 
   - label: 'Update docs'
     if: build.tag =~ /^v[0-9]{1,2}\.[0-9]+\.[0-9]+\$/
-    plugins:
-      docker-compose#v4.14.0:
-        run: docs
-    command: 'bundle exec rake docs:build_and_publish'
+    agents:
+      queue: macos-15
+    commands:
+      - 'bundle install'
+      - 'bundle exec rake docs:prepare'
 
     # Release images are pushed to their own repository so that they don't get aged off.
   - label: 'Push Docker image for tag'
@@ -361,7 +362,7 @@ steps:
   - label: 'Push to RubyGems.org'
     if: build.tag =~ /^v[0-9]{1,2}\.[0-9]+\.[0-9]+\$/
     agents:
-      queue: macos-14
+      queue: macos-15
     commands:
       - 'gem build bugsnag-maze-runner.gemspec'
       - 'gem push bugsnag-maze-runner-*.gem'

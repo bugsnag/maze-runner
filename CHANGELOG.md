@@ -2,7 +2,7 @@
 
 ## Enhancements
 
-- Tentative support for BitBar mobile browsers [786](https://github.com/bugsnag/maze-runner/pull/786)
+- Partial support for BitBar mobile browsers [786](https://github.com/bugsnag/maze-runner/pull/786)
 
 # v10.0.0 - 2025/08/26
 

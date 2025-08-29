@@ -1,8 +1,12 @@
-# v10.1.0 - TBD
+# v10.1.0 - 2025/08/29
 
 ## Enhancements
 
 - Partial support for BitBar mobile browsers [786](https://github.com/bugsnag/maze-runner/pull/786)
+
+## Fixes
+
+- Bump webrick to 1.9.1 [787](https://github.com/bugsnag/maze-runner/pull/787)
 
 # v10.0.0 - 2025/08/26
 

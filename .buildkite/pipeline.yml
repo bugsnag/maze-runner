@@ -163,7 +163,9 @@ steps:
     plugins:
       artifacts#v1.9.0:
         download: "bugsnag-cocoa/features/fixtures/ios/output/iOSTestApp_Release.ipa"
-        upload: "bugsnag-cocoa/maze_output/**/*"
+        upload:
+          - "bugsnag-cocoa/maze_output/**/*"
+          - "bugsnag-cocoa/maze_output/maze_output.zip"
       docker-compose#v4.14.0:
         pull: appium-test-bs
         run: appium-test-bs
@@ -214,7 +216,9 @@ steps:
     timeout_in_minutes: 10
     plugins:
       artifacts#v1.9.0:
-        upload: "maze_output/failed/**/*"
+        upload:
+          - "maze_output/failed/**/*"
+          - "maze_output/maze_output.zip"
       docker-compose#v4.14.0:
         pull: browser-tests-bitbar
         run: browser-tests-bitbar
@@ -238,7 +242,9 @@ steps:
     timeout_in_minutes: 10
     plugins:
       artifacts#v1.9.0:
-        upload: "maze_output/failed/**/*"
+        upload:
+          - "maze_output/failed/**/*"
+          - "maze_output/maze_output.zip"
       docker-compose#v4.14.0:
         pull: browser-tests-bitbar
         run: browser-tests-bitbar
@@ -264,7 +270,9 @@ steps:
     plugins:
       artifacts#v1.9.0:
         download: "bugsnag-android-performance/build/test-fixture.apk"
-        upload: "bugsnag-android-performance/maze_output/**/*"
+        upload:
+          - "bugsnag-android-performance/maze_output/**/*"
+          - "bugsnag-android-performance/maze_output/maze_output.zip"
       docker-compose#v4.14.0:
         pull: appium-test-bb
         run: appium-test-bb
@@ -301,7 +309,9 @@ steps:
         download:
           - from: "bugsnag-android-performance/build/test-fixture.apk"
             to: "./test/e2e/appium-api/build/test-fixture.apk"
-        upload: "test/e2e/appium-api/maze_output/**/*"
+        upload:
+          - "test/e2e/appium-api/maze_output/**/*"
+          - "test/e2e/appium-api/maze_output/maze_output.zip"
       docker-compose#v4.14.0:
         pull: appium-test-bb
         run: appium-test-bb
@@ -335,7 +345,9 @@ steps:
     plugins:
       artifacts#v1.9.0:
         download: "bugsnag-cocoa/features/fixtures/ios/output/iOSTestApp_Release.ipa"
-        upload: "bugsnag-cocoa/maze_output/**/*"
+        upload:
+          - "bugsnag-cocoa/maze_output/**/*"
+          - "bugsnag-cocoa/maze_output/maze_output.zip"
       docker-compose#v4.14.0:
         pull: appium-test-bb
         run: appium-test-bb

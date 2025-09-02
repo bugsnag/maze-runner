@@ -1,3 +1,9 @@
+# v10.1.1 - 2025/09/02
+
+## Fixes
+
+- Bump rubyzip to 3.x [788](https://github.com/bugsnag/maze-runner/pull/788)
+
 # v10.1.0 - 2025/09/02
 
 ## Enhancements

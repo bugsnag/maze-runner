@@ -36,7 +36,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'json_schemer', '~> 0.2.24'
 
   # Pin indirect dependencies
-  spec.add_runtime_dependency 'rubyzip', '~> 2.3.2'
+  spec.add_runtime_dependency 'rubyzip', '~> 3'
 
   # Dependencies no longer part of the standard library
   spec.add_runtime_dependency 'ostruct', '~>0.6.0'

@@ -118,7 +118,7 @@ end
 
 Anywhere a `{field}`, `{path}`, `{key_path}`, etc is denoted, it can be replaced with dot-delimited key path to indicate the path from the root of an object to the intended target.
 
-For example, to match the name of the second objects in the the key `fruits` below, use `fruits.1.name` as the keypath.
+For example, to match the name of the second objects in the key `fruits` below, use `fruits.1.name` as the keypath.
 
 ```json
 {

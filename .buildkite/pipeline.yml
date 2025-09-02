@@ -1,12 +1,12 @@
 steps:
 
-  - label: 'Audit current licenses'
+  - label: "Audit current licenses"
     timeout_in_minutes: 30
     agents:
       queue: macos-14
     command: ./scripts/license_finder.sh
 
-  - label: 'Build Android Performance test fixture'
+  - label: "Build Android Performance test fixture"
     timeout_in_minutes: 30
     key: android-test-fixture
     agents:
@@ -20,7 +20,7 @@ steps:
     env:
       JAVA_VERSION: 17
 
-  - label: 'Build iOS test fixture'
+  - label: "Build iOS test fixture"
     timeout_in_minutes: 30
     key: ios-test-fixture
     agents:
@@ -34,7 +34,7 @@ steps:
       artifacts#v1.9.0:
         upload: "bugsnag-cocoa/features/fixtures/ios/output/iOSTestApp_Release.ipa"
 
-  - label: ':docker: Build CI image'
+  - label: ":docker: Build CI image"
     timeout_in_minutes: 30
     key: "ci-image"
     plugins:
@@ -47,18 +47,18 @@ steps:
           push:
             - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
 
-  - label: 'Unit tests'
+  - label: "Unit tests"
     timeout_in_minutes: 30
-    depends_on: 'ci-image'
+    depends_on: "ci-image"
     plugins:
       docker-compose#v4.14.0:
         run: unit-test
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
         cache-from:
           - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
-    command: 'bundle exec rake'
+    command: "bundle exec rake"
 
-  - label: ':docker: Push CLI image for branch'
+  - label: ":docker: Push CLI image for branch"
     key: push-branch-cli
     timeout_in_minutes: 30
     depends_on: "ci-image"
@@ -71,91 +71,91 @@ steps:
           push:
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
 
-  - label: 'Framework tests'
+  - label: "Framework tests"
     timeout_in_minutes: 30
     depends_on: "ci-image"
     plugins:
       - docker-compose#v4.14.0:
           run: framework-tests
-    command: 'bundle exec maze-runner'
+    command: "bundle exec maze-runner"
 
-  - label: 'Comparison tests'
+  - label: "Comparison tests"
     timeout_in_minutes: 10
     depends_on: "ci-image"
     plugins:
       - docker-compose#v4.14.0:
           run: comparison-tests
-    command: 'bundle exec maze-runner'
+    command: "bundle exec maze-runner"
 
-  - label: 'Proxy tests'
+  - label: "Proxy tests"
     timeout_in_minutes: 10
     depends_on: "ci-image"
     plugins:
       - docker-compose#v4.14.0:
           run: proxy-tests
-    command: 'bundle exec maze-runner'
+    command: "bundle exec maze-runner"
 
-  - label: 'CLI tests'
+  - label: "CLI tests"
     timeout_in_minutes: 10
     depends_on: "ci-image"
     plugins:
       - docker-compose#v4.14.0:
           run: cli-tests
-    command: 'bundle exec maze-runner'
+    command: "bundle exec maze-runner"
 
-  - label: 'HTTP response tests'
+  - label: "HTTP response tests"
     timeout_in_minutes: 10
     depends_on: "ci-image"
     plugins:
       - docker-compose#v4.14.0:
           run: http-response-tests
-    command: 'bundle exec maze-runner'
+    command: "bundle exec maze-runner"
 
-  - label: 'Payload helper tests'
+  - label: "Payload helper tests"
     timeout_in_minutes: 10
     depends_on: "ci-image"
     plugins:
       - docker-compose#v4.14.0:
           run: payload-helper-tests
-    command: 'bundle exec maze-runner'
+    command: "bundle exec maze-runner"
 
-  - label: 'Docker tests'
+  - label: "Docker tests"
     timeout_in_minutes: 10
     depends_on: "ci-image"
     plugins:
       - docker-compose#v4.14.0:
           run: docker-tests
-    command: 'bundle exec maze-runner'
+    command: "bundle exec maze-runner"
 
-  - label: 'Doc server tests'
+  - label: "Doc server tests"
     timeout_in_minutes: 10
     depends_on: "ci-image"
     plugins:
       - docker-compose#v4.14.0:
           run: doc-server-tests
-    command: 'bundle exec maze-runner'
+    command: "bundle exec maze-runner"
 
-  - label: 'Exit codes tests'
+  - label: "Exit codes tests"
     timeout_in_minutes: 10
     depends_on: "ci-image"
     plugins:
       - docker-compose#v4.14.0:
           run: exit-codes-tests
-    command: 'bundle exec maze-runner'
+    command: "bundle exec maze-runner"
 
-  - label: 'Command workflow tests'
+  - label: "Command workflow tests"
     timeout_in_minutes: 10
     depends_on: "ci-image"
     plugins:
       - docker-compose#v4.14.0:
           run: command-workflow-tests
-    command: 'bundle exec maze-runner'
+    command: "bundle exec maze-runner"
 
   #
   # BrowserStack tests
   #
 
-  - label: ':browserstack: iOS 17'
+  - label: ":browserstack: iOS 17"
     timeout_in_minutes: 20
     depends_on:
       - "ios-test-fixture"
@@ -181,14 +181,14 @@ steps:
         cache-from:
           - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
     concurrency: 5
-    concurrency_group: 'browserstack-app'
+    concurrency_group: "browserstack-app"
     concurrency_method: eager
     retry:
       automatic:
         - exit_status: 103  # Appium client failure
           limit: 2
 
-  - label: ':browserstack: Firefox'
+  - label: ":browserstack: Firefox"
     depends_on: "push-branch-cli"
     timeout_in_minutes: 10
     plugins:
@@ -202,14 +202,14 @@ steps:
           - "--browser=firefox_latest"
           - "--fail-fast"
     concurrency: 2
-    concurrency_group: 'browserstack'
+    concurrency_group: "browserstack"
     concurrency_method: eager
 
   #
   # BitBar tests
   #
 
-  - label: ':bitbar: Safari 18'
+  - label: ":bitbar: Desktop browsers - Safari 18"
     depends_on: "push-branch-cli"
     timeout_in_minutes: 10
     plugins:
@@ -229,10 +229,34 @@ steps:
           - "--fail-fast"
           - "--no-tunnel"
     concurrency: 25
-    concurrency_group: 'bitbar'
+    concurrency_group: "bitbar"
     concurrency_method: eager
 
-  - label: ':bitbar: Android'
+  - label: ":bitbar: iOS Safari"
+    skip: "Skipped pending PLAT-14618"
+    depends_on: "push-branch-cli"
+    timeout_in_minutes: 10
+    plugins:
+      artifacts#v1.9.0:
+        upload: "maze_output/failed/**/*"
+      docker-compose#v4.14.0:
+        pull: browser-tests-bitbar
+        run: browser-tests-bitbar
+        service-ports: true
+        use-aliases: true
+        verbose: true
+        command:
+          - "--farm=bb"
+          - "--browser=safari"
+          - "--device=IOS_14"
+          - "--aws-public-ip"
+          - "--fail-fast"
+          - "--no-tunnel"
+    concurrency: 25
+    concurrency_group: "bitbar"
+    concurrency_method: eager
+
+  - label: ":bitbar: Android"
     timeout_in_minutes: 20
     depends_on:
       - "android-test-fixture"
@@ -260,14 +284,14 @@ steps:
           - "features/manual_spans.feature"
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
     concurrency: 25
-    concurrency_group: 'bitbar'
+    concurrency_group: "bitbar"
     concurrency_method: eager
     retry:
       automatic:
         - exit_status: 103  # Appium client failure
           limit: 2
 
-  - label: ':bitbar: Appium API'
+  - label: ":bitbar: Appium API"
     timeout_in_minutes: 20
     depends_on:
       - "android-test-fixture"
@@ -296,14 +320,14 @@ steps:
           - "--aws-public-ip"
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
     concurrency: 25
-    concurrency_group: 'bitbar'
+    concurrency_group: "bitbar"
     concurrency_method: eager
     retry:
       automatic:
         - exit_status: 103  # Appium client failure
           limit: 2
 
-  - label: ':bitbar: iOS'
+  - label: ":bitbar: iOS"
     timeout_in_minutes: 20
     depends_on:
       - "ios-test-fixture"
@@ -332,7 +356,7 @@ steps:
         cache-from:
           - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
     concurrency: 25
-    concurrency_group: 'bitbar'
+    concurrency_group: "bitbar"
     concurrency_method: eager
     retry:
       automatic:
@@ -341,16 +365,16 @@ steps:
 
   - wait
 
-  - label: 'Update docs'
+  - label: "Update docs"
     if: build.tag =~ /^v[0-9]{1,2}\.[0-9]+\.[0-9]+\$/
     agents:
       queue: macos-15
     commands:
-      - 'bundle install'
-      - 'bundle exec rake docs:prepare'
+      - "bundle install"
+      - "bundle exec rake docs:prepare"
 
-    # Release images are pushed to their own repository so that they don't get aged off.
-  - label: 'Push Docker image for tag'
+    # Release images are pushed to their own repository so that they don"t get aged off.
+  - label: "Push Docker image for tag"
     if: build.tag =~ /^v[0-9]{1,2}\.[0-9]+\.[0-9]+\$/
     plugins:
       - docker-compose#v4.14.0:
@@ -359,10 +383,10 @@ steps:
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-v10-cli
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-cli
 
-  - label: 'Push to RubyGems.org'
+  - label: "Push to RubyGems.org"
     if: build.tag =~ /^v[0-9]{1,2}\.[0-9]+\.[0-9]+\$/
     agents:
       queue: macos-15
     commands:
-      - 'gem build bugsnag-maze-runner.gemspec'
-      - 'gem push bugsnag-maze-runner-*.gem'
+      - "gem build bugsnag-maze-runner.gemspec"
+      - "gem push bugsnag-maze-runner-*.gem"

@@ -58,7 +58,7 @@ module Maze
 
       # check if Selenium supports running javascript in the current browser
       def javascript?
-        @driver.execute_script('return true')
+        !Maze.config.browser.nil? && @driver.execute_script('return true')
       rescue Selenium::WebDriver::Error::UnsupportedOperationError
         false
       end

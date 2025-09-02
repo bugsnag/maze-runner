@@ -29,7 +29,7 @@ module Maze
         if Maze.config.os == 'macos'
           # Close the app - without the sleep launching the app for the next scenario intermittently fails
           system("killall -KILL #{Maze.config.app} && sleep 1")
-        elsif [:bb, :bs, :local].include? Maze.config.farm
+        elsif [:bb, :bs, :local].include?(Maze.config.farm) && Maze.config.browser.nil?
           close_fallback = Maze.config.appium_version && Maze.config.appium_version.to_f < 2.0
           begin
             manager.terminate(!close_fallback)
@@ -45,7 +45,7 @@ module Maze
           # Reset the server before relaunching the app to ensure that test fixtures cannot fetch
           # commands from the previous scenario (in idempotent mode).
           Maze::Server.reset!
-          manager.activate
+          manager.activate if Maze.config.browser.nil?
         end
       rescue => error
         # Notify and re-raise for Cucumber to handle

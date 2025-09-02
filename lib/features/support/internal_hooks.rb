@@ -12,16 +12,16 @@ BeforeAll do
 
   # Infer mode of operation from config, one of:
   # - Appium (using either remote or local devices)
-  # - Browser (Selenium with local or remote browsers)
+  # - Selenium (Selenium with local or remote browsers)
   # - Command (the software under test is invoked with a system call)
-  # TODO Consider making this a specific command line option defaulting to Appium
-  is_appium = [:bs, :bb, :local].include?(Maze.config.farm) && !Maze.config.app.nil?
-  is_browser = !Maze.config.browser.nil?
+  is_appium = ([:bs, :bb, :local].include?(Maze.config.farm) && !Maze.config.app.nil?) ||
+    (Maze.config.farm == :bb && !Maze.config.device.nil? && !Maze.config.browser.nil?)
+  is_browser = Maze.config.device.nil? && !Maze.config.browser.nil?
   if is_appium
     Maze.mode = :appium
     Maze.internal_hooks = Maze::Hooks::AppiumHooks.new
   elsif is_browser
-    Maze.mode = :browser
+    Maze.mode = :selenium
     Maze.internal_hooks = Maze::Hooks::BrowserHooks.new
   else
     Maze.mode = :command
@@ -93,7 +93,7 @@ Before do |scenario|
 
   # Skip scenario if the driver it needs has failed
   $logger.debug "Before hook - Maze.driver&.failed?: #{Maze.driver&.failed?}"
-  if (Maze.mode == :appium || Maze.mode == :browser) && Maze.driver.failed?
+  if (Maze.mode == :appium || Maze.mode == :selenium) && Maze.driver.failed?
     $logger.debug "Failing scenario because the #{Maze.mode.to_s} driver failed: #{Maze.driver.failure_reason}"
     scenario.fail('Cannot run scenario - driver failed')
   end
@@ -241,7 +241,7 @@ After do |scenario|
 
   # Fail the scenario if the driver failed, if the scenario hasn't already failed
   $logger.debug "After hook 2 - Maze.driver&.failed?: #{Maze.driver&.failed?}"
-  if (Maze.mode == :appium || Maze.mode == :browser) && Maze.driver.failed? && !scenario.failed?
+  if (Maze.mode == :appium || Maze.mode == :selenium) && Maze.driver.failed? && !scenario.failed?
     $logger.debug "Marking scenario as failed because driver failed: #{Maze.driver.failure_reason}"
     Maze.scenario.mark_as_failed Maze.driver.failure_reason
   end

@@ -77,7 +77,12 @@ module Maze
             device_option = options[Maze::Option::DEVICE]
             browser_option = options[Maze::Option::BROWSER]
             browser_version = options[Maze::Option::BROWSER_VERSION]
-            if !device_option.empty?
+            if !device_option.empty? && !browser_option.empty?
+              config.device = device_option.first
+              config.device_list = device_option.drop(1)
+              config.browser = browser_option.first
+              config.browser_list = browser_option.drop(1)
+            elsif !device_option.empty?
               config.device = device_option.first
               config.device_list = device_option.drop(1)
             elsif !browser_option.empty?

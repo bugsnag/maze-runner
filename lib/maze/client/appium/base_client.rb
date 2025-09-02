@@ -29,20 +29,19 @@ module Maze
           start_driver(Maze.config)
 
           # Set bundle/app id for later use
-          Maze.driver.app_id = case Maze::Helper.get_current_platform
-                               when 'android'
-                                 Maze.driver.session_capabilities['appPackage']
-                               when 'ios'
-                                 unless app_id = Maze.driver.session_capabilities['CFBundleIdentifier']
-                                    app_id = Maze.driver.session_capabilities['bundleId']
+          unless Maze.config.app.nil?
+            Maze.driver.app_id = case Maze::Helper.get_current_platform
+                                 when 'android'
+                                   Maze.driver.session_capabilities['appPackage']
+                                 when 'ios'
+                                   unless app_id = Maze.driver.session_capabilities['CFBundleIdentifier']
+                                      app_id = Maze.driver.session_capabilities['bundleId']
+                                   end
+                                   app_id
                                  end
-                                 app_id
-                               end
-
-          if Maze.driver.app_id.nil?
-            $logger.error "Failed to determine app id."
-            $logger.debug "session_capabilities: #{Maze.driver.session_capabilities.inspect}"
           end
+
+          $logger.error "Failed to determine app id." if Maze.driver.app_id.nil?
 
           # Log the device information after it's started
           write_device_info

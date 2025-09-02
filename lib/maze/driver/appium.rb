@@ -80,6 +80,33 @@ module Maze
         @failure_reason = reason
       end
 
+      def javascript?
+        return false if Maze.config.browser.nil?
+        @driver.execute_script('return true')
+      rescue Selenium::WebDriver::Error::UnsupportedOperationError
+        false
+      end
+
+
+      # Provided for mobile browsers - check if the browser supports local storage
+      def local_storage?
+        # Assume we can use local storage if we aren't able to verify by running JavaScript
+        return true unless javascript?
+
+        result = @driver.execute_script <<-JAVASCRIPT
+      try {
+        window.localStorage.setItem('__localstorage_test__', 1234)
+        window.localStorage.removeItem('__localstorage_test__')
+        return true
+      } catch (err) {
+        return err
+      }
+        JAVASCRIPT
+
+        result == true
+      end
+
+
       # Checks for an element, waiting until it is present or the method times out
       #
       # @param element_id [String] the element to search for

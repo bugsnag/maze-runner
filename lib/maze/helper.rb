@@ -89,7 +89,7 @@ module Maze
       # Returns the current platform all lower-case.
       # @return Typically 'ios', 'android', 'mac' or 'browser'
       def get_current_platform
-        if Maze.mode == :browser
+        if Maze.mode == :selenium || (Maze.mode == :appium && Maze.config.browser)
           os = 'browser'
         else
           os = case Maze.config.farm

@@ -5,7 +5,7 @@ module Maze
         def prepare_session
           config = Maze.config
           config.app = Maze::Client::BitBarClientUtils.upload_app config.access_key,
-                                                                  config.app
+                                                                  config.app if config.app
           if Maze::Client::BitBarClientUtils.use_local_tunnel?
             Maze::Client::BitBarClientUtils.start_local_tunnel config.sb_local,
                                                                config.username,
@@ -51,10 +51,12 @@ module Maze
         end
 
         def start_scenario
-          # Write Maze's address to file and push to the device
-          maze_address = Maze.public_address || "local:#{Maze.config.port}"
-          Maze::Api::Appium::FileManager.new.write_app_file(JSON.generate({ maze_address: maze_address }),
-                                                            FIXTURE_CONFIG)
+          unless Maze.config.browser
+            # Write Maze's address to file and push to the device
+            maze_address = Maze.public_address || "local:#{Maze.config.port}"
+            Maze::Api::Appium::FileManager.new.write_app_file(JSON.generate({ maze_address: maze_address }),
+                                                              FIXTURE_CONFIG)
+          end
 
           super
         end
@@ -81,6 +83,10 @@ module Maze
           capabilities.deep_merge! BitBarClientUtils.dashboard_capabilities
           capabilities.deep_merge! BitBarDevices.get_available_device(config.device)
           capabilities['bitbar:options']['appiumVersion'] = config.appium_version unless config.appium_version.nil?
+          unless config.browser.nil?
+            capabilities['bitbar:options']['acceptInsecureCerts'] = true
+            capabilities['browserName'] = config.browser
+          end
           capabilities.deep_merge! JSON.parse(config.capabilities_option)
 
           capabilities

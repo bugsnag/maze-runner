@@ -131,6 +131,20 @@ module Maze
         @sampling_requests ||= RequestList.new
       end
 
+      # A list of error config requests received
+      #
+      # @return [RequestList] Received error config requests
+      def error_config_requests
+        @error_config_requests ||= RequestList.new
+      end
+
+      # A list of error config responses to be returned to the client
+      #
+      # @return [RequestList] Error config responses to be returned
+      def error_configs
+        @error_configs ||= RequestList.new
+      end
+
       # A list of trace requests received
       #
       # @return [RequestList] Received trace requests
@@ -240,7 +254,6 @@ module Maze
               response.status = 200
             end
 
-            # When adding more endpoints, be sure to update the 'I should receive no requests' step
             server.mount '/notify', Servlets::Servlet, :errors
             server.mount '/sessions', Servlets::Servlet, :sessions
             server.mount '/builds', Servlets::Servlet, :builds
@@ -256,6 +269,7 @@ module Maze
             server.mount '/unity-line-mappings', Servlets::Servlet, :sourcemaps
             server.mount '/command', Servlets::CommandServlet
             server.mount '/commands', Servlets::AllCommandsServlet
+            server.mount '/error-config', Servlets::ErrorConfigServlet
             server.mount '/logs', Servlets::LogServlet
             server.mount '/metrics', Servlets::Servlet, :metrics
             server.mount '/reflect', Servlets::ReflectiveServlet

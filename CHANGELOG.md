@@ -1,4 +1,8 @@
-# v10.1.1 - TBD
+# v10.2.0 - TBD
+
+## Enhancements
+
+- Add test support for Bugsnag remote config [XYZ](https://github.com/bugsnag/maze-runner/pull/XYZ)
 
 ## Fixes
 

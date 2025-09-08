@@ -1,7 +1,7 @@
 Feature: Checks on value types
 
   Scenario: Checks on values of different types
-    When I send a "values"-type request
+    When I make a "values"-type POST request
     And I wait to receive 1 error
     And I have received at least 1 error
 
@@ -11,9 +11,9 @@ Feature: Checks on value types
     And the error payload field "values.date" is a date
 
   Scenario: Verify that multiple requests can be sorted by field
-    When I send a "ordered 1"-type request
+    When I make a "ordered 1"-type POST request
     And I wait to receive 1 error
-    And I send a "ordered 2"-type request
+    And I make a "ordered 2"-type POST request
     # Now 2 errors in total
     And I wait to receive 2 errors
 

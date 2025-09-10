@@ -14,10 +14,17 @@ module Maze
       # @param response [HTTPResponse] The response to return
       def do_GET(request, response)
 
+        # Write to the response with the next error config in the queue, logging and error if the queue is empty
+
         # Store the query parameters in the error config request list
-
-        # Response with the next error config in the queue, logging and error if the queue is empty
-
+        details = {
+          body: {},
+          query: Rack::Utils.parse_nested_query(request.query_string),
+          request: request,
+          response: response,
+          method: 'GET'
+        }
+        Server.error_config_requests.add(details)
       end
 
       # Logs and returns a set of valid headers for this servlet.

@@ -59,6 +59,14 @@ Then('I wait to receive a(n) {request_type}') do |request_type|
   step "I wait to receive 1 #{request_type}"
 end
 
+#
+# Shortcut to waiting to receive requests for error configs
+#
+# @step_input count [Integer] Number of error config requests expected
+Then('I wait for {int} error configs to be requested') do |count|
+  step "I wait to receive #{count} error config requests"
+end
+
 # Continually checks to see if the required amount of requests have been received,
 # timing out according to @see Maze.config.receive_requests_wait.
 # If all expected requests are received and have the Bugsnag-Sent-At header, they

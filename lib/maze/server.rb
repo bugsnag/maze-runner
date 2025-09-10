@@ -85,6 +85,10 @@ module Maze
           errors
         when 'session', 'sessions'
           sessions
+        when 'error config', 'error configs'
+          error_configs
+        when 'error config request', 'error config requests'
+          error_config_requests
         when 'build', 'builds'
           builds
         when 'log', 'logs'

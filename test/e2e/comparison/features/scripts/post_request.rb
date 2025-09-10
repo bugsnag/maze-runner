@@ -1,5 +1,3 @@
-#!/usr/bin/env ruby
-
 require 'net/http'
 
 http = Net::HTTP.new('localhost', ENV['MOCK_API_PORT'])

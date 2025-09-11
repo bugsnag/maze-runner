@@ -13,7 +13,7 @@ module Maze
       path = output_folder
       FileUtils.makedirs(path)
 
-      request_types = %w[errors sessions builds uploads logs sourcemaps traces invalid]
+      request_types = %w[errors sessions builds uploads logs sourcemaps traces ignored invalid]
       request_types << 'sampling requests'
 
       request_types.each do |request_type|

@@ -1,3 +1,9 @@
+# 8.21.0 - 2025/09/11
+
+## Enhancements
+
+- Add support for Android 14-16 on BrowserStack [790](https://github.com/bugsnag/maze-runner/pull/790)
+
 # 8.20.4 - 2025/09/11
 
 ## Fixes

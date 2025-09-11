@@ -22,7 +22,7 @@ Feature: Exercise the Appium Manager APIs
     And I set the device rotation to "portrait"
     And I log the device info
     And I press the back button
-    And I
+    And I execute the command "echo hello"
 
   Scenario: UI Manager operations
     When the element "clearUserData" is present

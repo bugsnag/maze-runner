@@ -1,10 +1,15 @@
 Feature: Error config requests and responses
 
   Scenario: Basic handling if error-config request
-    When I make an "android error-config"-type GET request
+    When I prepare an error config with:
+      | type     | name           | value                              |
+      | header   | Cache-Control  | max-age=604800                     |
+      | property | contents_file  | features/support/error_config.json |
+      | property | status         | 200                                |
+    And I make an "android error-config"-type GET request
     And I wait for 1 error configs to be requested
-    Then the error config request "Bugsnag-Api-Key" header equals "12312312312312312312312312312312"
 
+    Then the error config request "Bugsnag-Api-Key" header equals "12312312312312312312312312312312"
     And the error config request "version" query parameter equals "1.2.3"
     And the error config request "versionCode" query parameter equals "123"
     And the error config request "releaseStage" query parameter equals "production"

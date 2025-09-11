@@ -3,6 +3,7 @@
 ## Enhancements
 
 - Add support for Android 14-16 on BrowserStack [790](https://github.com/bugsnag/maze-runner/pull/790)
+- Ignore system generated ANRs on Android [791](https://github.com/bugsnag/maze-runner/pull/791)
 
 # 8.20.4 - 2025/09/11
 

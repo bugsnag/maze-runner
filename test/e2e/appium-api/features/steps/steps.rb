@@ -30,7 +30,7 @@ When('I set the device rotation to {string}') do |orientation|
   Maze::Api::Appium::DeviceManager.new.set_rotation(orientation.to_sym)
 end
 
-When('I execute the command {string}') do |command|
+When('I execute the script {string}') do |command|
   Maze::Api::Appium::DeviceManager.new.execute_script(command)
 end
 

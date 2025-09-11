@@ -34,9 +34,9 @@ steps:
     timeout_in_minutes: 30
     key: ios-test-fixture
     agents:
-      queue: macos-15
+      queue: macos-13-arm
     env:
-      XCODE_VERSION: 16.3.0
+      XCODE_VERSION: 14.3.1
     command:
       - cd bugsnag-cocoa
       - bundle install

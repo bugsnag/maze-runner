@@ -71,6 +71,9 @@ module Maze
           def create_hash
             hash = {
               # Classic, non-specific devices for each Android version
+              'ANDROID_16' => make_android_hash('Google Pixel 9', '16.0'),
+              'ANDROID_15' => make_android_hash('Google Pixel 9', '15.0'),
+              'ANDROID_14' => make_android_hash('Google Pixel 8', '14.0'),
               'ANDROID_13' => make_android_hash('Google Pixel 6 Pro', '13.0'),
               'ANDROID_12' => make_android_hash('Google Pixel 5', '12.0'),
               'ANDROID_11' => make_android_hash('Google Pixel 4', '11.0'),

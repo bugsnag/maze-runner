@@ -258,7 +258,7 @@ steps:
           - "--farm=bs"
           - "--device=IOS_15"
           - "--fail-fast"
-          - "features/release/barebone_tests.feature"
+          - "features/barebone_tests.feature"
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
         cache-from:
           - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
@@ -379,10 +379,8 @@ steps:
           push:
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:${BUILDKITE_TAG}-cli
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-v8-cli
-            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-cli
             - cli-legacy:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:${BUILDKITE_TAG}-cli-legacy
             - cli-legacy:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-v8-cli-legacy
-            - cli-legacy:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-cli-legacy
 
   - label: 'Push to RubyGems.org'
     if: build.tag =~ /^v[2-9]\.[0-9]+\.[0-9]+\$/

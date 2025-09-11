@@ -1,5 +1,5 @@
 # Ruby image are based on Debian
-FROM ruby:3-bullseye as ci-ruby-3
+FROM ruby:3.2-bullseye as ci-ruby-3
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
     apt-get install -y apt-utils wget unzip bash bundler \

@@ -1,3 +1,9 @@
+# 8.20.4 - 2025/09/11
+
+## Fixes
+
+- Set metadata token header when retrieving public IP of Docker container [789](https://github.com/bugsnag/maze-runner/pull/789)
+
 # 8.20.3 - 2024/08/01
 
 ## Removals

@@ -1,0 +1,16 @@
+name: Dummy Workflow
+
+permissions: read-all
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Dummy step
+      run: |
+        echo "This is a dummy workflow to prevent CodeQL errors."

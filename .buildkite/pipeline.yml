@@ -34,14 +34,16 @@ steps:
     timeout_in_minutes: 30
     key: ios-test-fixture
     agents:
-      queue: 'macos-14'
+      queue: macos-13-arm
+    env:
+      XCODE_VERSION: 14.3.1
     command:
       - cd bugsnag-cocoa
       - bundle install
       - make test-fixtures
     plugins:
       artifacts#v1.9.0:
-        upload: "bugsnag-cocoa/features/fixtures/ios/output/iOSTestApp_Release.ipa"
+        upload: "bugsnag-cocoa/features/fixtures/ios/output/iOSTestApp.ipa"
 
   - label: ':docker: Build CI image for Ruby 2'
     timeout_in_minutes: 30
@@ -242,7 +244,7 @@ steps:
       - "push-branch-cli"
     plugins:
       artifacts#v1.9.0:
-        download: "bugsnag-cocoa/features/fixtures/ios/output/iOSTestApp_Release.ipa"
+        download: "bugsnag-cocoa/features/fixtures/ios/output/iOSTestApp.ipa"
         upload: "bugsnag-cocoa/maze_output/**/*"
       docker-compose#v4.14.0:
         pull: appium-test-bs
@@ -252,11 +254,11 @@ steps:
           - "./bugsnag-cocoa/features:/app/features"
           - "./bugsnag-cocoa/maze_output:/app/maze_output"
         command:
-          - "--app=features/fixtures/ios/output/iOSTestApp_Release.ipa"
+          - "--app=features/fixtures/ios/output/iOSTestApp.ipa"
           - "--farm=bs"
           - "--device=IOS_15"
           - "--fail-fast"
-          - "features/release/barebone_tests.feature"
+          - "features/barebone_tests.feature"
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
         cache-from:
           - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
@@ -303,7 +305,7 @@ steps:
   # BitBar tests
   #
 
-  - label: ':bitbar: Safari 15'
+  - label: ':bitbar: Safari 18'
     depends_on: "push-branch-cli"
     timeout_in_minutes: 10
     plugins:
@@ -317,7 +319,7 @@ steps:
         verbose: true
         command:
           - "--farm=bb"
-          - "--browser=safari_15"
+          - "--browser=safari_18"
           - "--aws-public-ip"
           - "--fail-fast"
           - "--no-tunnel"
@@ -377,10 +379,8 @@ steps:
           push:
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:${BUILDKITE_TAG}-cli
             - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-v8-cli
-            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-cli
             - cli-legacy:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:${BUILDKITE_TAG}-cli-legacy
             - cli-legacy:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-v8-cli-legacy
-            - cli-legacy:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-cli-legacy
 
   - label: 'Push to RubyGems.org'
     if: build.tag =~ /^v[2-9]\.[0-9]+\.[0-9]+\$/

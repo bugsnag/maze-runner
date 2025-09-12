@@ -1,4 +1,8 @@
-# v10.1.1 - TBD
+# v10.2.0 - 2025/09/12
+
+## Enhancements
+
+- Add support for executing a script on a device via the device manager api [792](https://github.com/bugsnag/maze-runner/pull/792)
 
 ## Fixes
 

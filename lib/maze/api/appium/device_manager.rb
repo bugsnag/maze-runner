@@ -93,6 +93,21 @@ module Maze
           fail_driver(e)
           raise e
         end
+
+        # Execute script on the device.
+        # @returns [string] Output of the command
+        def execute_script(script)
+          if failed_driver?
+            $logger.error 'Cannot execute script on the device - Appium driver failed.'
+            return nil
+          end
+          @driver.execute_script('mobile: shell', command: script)
+        rescue Selenium::WebDriver::Error::ServerError => e
+          $logger.error "Failed execute script on the device: #{e.message}"
+          # Assume the remote appium session has stopped, so crash out of the session
+          fail_driver(e)
+          raise e
+        end
       end
     end
   end

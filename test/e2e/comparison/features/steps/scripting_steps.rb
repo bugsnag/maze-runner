@@ -1,9 +1,5 @@
-When(/^I make an? "(.+)"-type GET request$/) do |request_type|
-  steps %(
-    When I set environment variable "request_type" to "#{request_type}"
-    And I set environment variable "MOCK_API_PORT" to "9339"
-    And I run the script "features/scripts/get_request.rb" using ruby synchronously
-  )
+When("I request a(n) {string} type error config and store the response") do |request_type|
+  $error_config = get_error_config(request_type)
 end
 
 When(/^I make an? "(.+)"-type POST request$/) do |request_type|

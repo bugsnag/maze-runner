@@ -2,11 +2,11 @@ Feature: Error config requests and responses
 
   Scenario: Basic handling if error-config request
     When I prepare an error config with:
-      | type     | name           | value                              |
-      | header   | Cache-Control  | max-age=604800                     |
-      | property | contents_file  | features/support/error_config.json |
-      | property | status         | 200                                |
-    And I make an "android error-config"-type GET request
+      | type     | name           | value                               |
+      | header   | Cache-Control  | max-age=604800                      |
+      | property | body           | @features/support/error_config.json |
+      | property | status         | 200                                 |
+    And I request an "android" type error config and store the response
     And I wait for 1 error configs to be requested
 
     Then the error config request "Bugsnag-Api-Key" header equals "12312312312312312312312312312312"

@@ -1,0 +1,19 @@
+{
+  "discardRules": [
+    {
+      "ruleType": "ERROR_CLASS_DISCARD",
+      "matchType": "HASH",
+      "hash": {
+        "paths": [
+          {
+            "path": "exceptions.0.errorClass"
+          }
+        ],
+        "matches": [
+          "8d56880b083b5175c0ee38e80a647680281b975f",
+          "14ffa763eaa7fbd212b39db4b4a89aed0a92664a"
+        ]
+      }
+    }
+  ]
+}

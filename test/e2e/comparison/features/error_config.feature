@@ -7,7 +7,7 @@ Feature: Error config requests and responses
       | property | body           | @features/support/error_config.json |
       | property | status         | 200                                 |
     And I request an "android" type error config and store the response
-    And I wait for 1 error configs to be requested
+    And I wait for 1 error config to be requested
 
     Then the error config request "Bugsnag-Api-Key" header equals "12312312312312312312312312312312"
     And the error config request "version" query parameter equals "1.2.3"

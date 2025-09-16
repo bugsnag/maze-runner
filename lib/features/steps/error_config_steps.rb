@@ -6,7 +6,7 @@
 # Shortcut to waiting to receive requests for error configs
 #
 # @step_input count [Integer] Number of error config requests expected
-Then('I wait for {int} error configs to be requested') do |count|
+Then('I wait for {int} error config(s) to be requested') do |count|
   step "I wait to receive #{count} error config requests"
 end
 

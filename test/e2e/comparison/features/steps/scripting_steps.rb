@@ -15,6 +15,11 @@ Then('the requests match the following:') do |data_table|
   Maze::Assertions::RequestSetAssertions.assert_requests_match requests, data_table
 end
 
+
+Then('the stored error config body matches the contents of {string}') do |filename|
+  Maze.check.equal(File.read(filename), $error_config.body)
+end
+
 Then('the stored error config status code equals {string}') do |status|
   Maze.check.equal(status, $error_config.code)
 end

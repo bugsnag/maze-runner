@@ -16,5 +16,6 @@ Feature: Error config requests and responses
     And the error config request "osVersion" query parameter equals "11"
 
     And the stored error config status code equals "200"
+    And the stored error config body matches the contents of "features/support/error_config.json"
     And the stored error config "Cache-Control" header equals "max-age=604800"
     And the stored error config "Etag" header equals "43ec7d2b971daba752e9546da4e1dca8094107e0"

@@ -1,6 +1,6 @@
 Feature: Error config requests and responses
 
-  Scenario: Basic handling if error-config request
+  Scenario: Basic handling of error-config request
     When I prepare an error config with:
       | type     | name           | value                               |
       | header   | Cache-Control  | max-age=604800                      |

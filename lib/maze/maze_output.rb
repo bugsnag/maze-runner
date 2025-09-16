@@ -15,6 +15,7 @@ module Maze
 
       request_types = %w[errors sessions builds uploads logs sourcemaps traces ignored invalid reflections]
       request_types << 'sampling requests'
+      request_types << 'error config requests'
 
       request_types.each do |request_type|
         list = Maze::Server.list_for(request_type).all

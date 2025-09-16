@@ -43,6 +43,7 @@ module Maze
         details = {
           body: {},
           query: Rack::Utils.parse_nested_query(request.query_string),
+          request_uri: request.request_uri,
           request: request,
           response: response,
           method: 'GET'

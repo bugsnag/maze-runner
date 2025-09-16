@@ -157,6 +157,7 @@ After do |scenario|
   if (scenario.failed? && Maze.config.log_requests) || Maze.config.always_log
     $stdout.puts '^^^ +++' if ENV['BUILDKITE']
     output_received_requests('errors')
+    output_received_requests('error config requests')
     output_received_requests('sessions')
     output_received_requests('traces')
     output_received_requests('builds')

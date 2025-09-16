@@ -14,3 +14,11 @@ Then('the requests match the following:') do |data_table|
   requests = Maze::Server.errors.all
   Maze::Assertions::RequestSetAssertions.assert_requests_match requests, data_table
 end
+
+Then('the stored error config status code equals {string}') do |status|
+  Maze.check.equal(status, $error_config.code)
+end
+
+Then('the stored error config {string} header equals {string}') do |key, value|
+  Maze.check.equal(value, $error_config[key])
+end

@@ -16,7 +16,7 @@ Any Ruby hash can be added to the list of Commands, for example:
   Maze::Server.commands.add command
 ```
 
-How commands are formed is governed by the contract formed between the Cumuber scenarios and test fixture.
+How commands are formed is governed by the contract formed between the Cucumber scenarios and test fixture.
 
 Each time a command is added, two additional fields are automatically set:
 - `:uuid` - a UUID for the command.

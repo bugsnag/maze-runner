@@ -2,7 +2,7 @@
 
 ## Endpoint
 
-The `/error-config` endpoint is provided on the mock server for test fixtures to requests error configuration from.  Maze Runner stores any received requests for later inspection.
+The `/error-config` endpoint is provided on the mock server for test fixtures to request error configuration from.  Maze Runner stores any received requests for later inspection.
 
 ## Cucumber steps
 
@@ -16,14 +16,14 @@ When I prepare an error config with:
   | property | status         | 200                                 |
 ```
 
-- The `type` column can be either `header` or `property`. 
+- The `type` can be either `header` or `property`. 
 - If the `value` provided for `body` starts with `@` then Maze Runner will treat it as a file location to read the actual body from.
 
-Properties of receive error config requests can be checked using the following steps:
+Properties of received error config requests can be checked using the following steps:
 
 ```
-the error config request {string} header equals {string}}
-the error config request {string} query parameter equals {string}
+the {word} {string} header equals {string}
+the {word} {string} query parameter equals {string}
 ```
 
 (where `word` is `error config request` in this case).

@@ -110,6 +110,34 @@ module Maze
           end
           assert_equal 'Timeout', error.message
         end
+
+        def test_execute_script_failed_driver
+          @mock_driver.expects(:failed?).returns(true)
+          $logger.expects(:error).with("Cannot execute script on the device - Appium driver failed.")
+
+          assert_nil(@manager.execute_script("echo hello"))
+        end
+
+        def test_execute_script_success
+          @mock_driver.expects(:failed?).returns(false)
+          @mock_driver.expects(:execute_script).with('mobile: shell', command: "echo hello").returns("output")
+
+          result = @manager.execute_script("echo hello")
+          assert_equal "output", result
+        end
+
+        def test_execute_script_server_error
+          @mock_driver.expects(:failed?).returns(false)
+          @mock_driver.expects(:fail_driver)
+          @mock_driver.expects(:execute_script).with('mobile: shell', command: "echo hello")
+                      .raises(Selenium::WebDriver::Error::ServerError, 'Timeout')
+          $logger.expects(:error).with("Failed execute script on the device: Timeout")
+
+          error = assert_raises Selenium::WebDriver::Error::ServerError do
+            @manager.execute_script("echo hello")
+          end
+          assert_equal 'Timeout', error.message
+        end
       end
     end
   end

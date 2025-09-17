@@ -30,6 +30,10 @@ When('I set the device rotation to {string}') do |orientation|
   Maze::Api::Appium::DeviceManager.new.set_rotation(orientation.to_sym)
 end
 
+When('I execute the script {string}') do |command|
+  Maze::Api::Appium::DeviceManager.new.execute_script(command)
+end
+
 When('I log the device info') do
   info = Maze::Api::Appium::DeviceManager.new.info
   $logger.info "Device info is: #{info}"

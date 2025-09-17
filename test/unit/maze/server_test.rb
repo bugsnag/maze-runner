@@ -11,6 +11,7 @@ require_relative '../../../lib/maze/servlets/base_servlet'
 require_relative '../../../lib/maze/servlets/servlet'
 require_relative '../../../lib/maze/servlets/all_commands_servlet'
 require_relative '../../../lib/maze/servlets/command_servlet'
+require_relative '../../../lib/maze/servlets/error_config_servlet'
 require_relative '../../../lib/maze/servlets/log_servlet'
 require_relative '../../../lib/maze/servlets/trace_servlet'
 require_relative '../../../lib/maze/servlets/reflective_servlet'
@@ -41,6 +42,7 @@ module Maze
       mock_http_server.expects(:mount_proc).with('/', any_parameters).once
       mock_http_server.expects(:mount).with('/notify', any_parameters).once
       mock_http_server.expects(:mount).with('/sessions', any_parameters).once
+      mock_http_server.expects(:mount).with('/error-config', any_parameters).once
       mock_http_server.expects(:mount).with('/builds', any_parameters).once
       mock_http_server.expects(:mount).with('/metrics', any_parameters).once
       mock_http_server.expects(:mount).with('/uploads', any_parameters).once
@@ -94,6 +96,7 @@ module Maze
       mock_http_server.expects(:mount_proc).with('/', any_parameters).once
       mock_http_server.expects(:mount).with('/notify', any_parameters).once
       mock_http_server.expects(:mount).with('/sessions', any_parameters).once
+      mock_http_server.expects(:mount).with('/error-config', any_parameters).once
       mock_http_server.expects(:mount).with('/builds', any_parameters).once
       mock_http_server.expects(:mount).with('/metrics', any_parameters).once
       mock_http_server.expects(:mount).with('/uploads', any_parameters).once

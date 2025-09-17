@@ -1,3 +1,9 @@
+# v10.3.0 - 2025/09/17
+
+## Enhancements
+
+- Add test support for Bugsnag remote config [793](https://github.com/bugsnag/maze-runner/pull/793)
+
 # v10.2.0 - 2025/09/12
 
 ## Enhancements

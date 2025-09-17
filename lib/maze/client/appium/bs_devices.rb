@@ -77,18 +77,19 @@ module Maze
               'ANDROID_13' => make_android_hash('Google Pixel 6 Pro', '13.0'),
               'ANDROID_12' => make_android_hash('Google Pixel 6', '12.0'),
               'ANDROID_11' => make_android_hash('Samsung Galaxy S21', '11.0'),
-              'ANDROID_10' => make_android_hash('Google Pixel 4 XL', '10.0'),
-              'ANDROID_9' => make_android_hash('Google Pixel 3', '9.0'),
-              'ANDROID_8' => make_android_hash('Samsung Galaxy S9', '8.0'),
+              'ANDROID_10' => make_android_hash('Samsung Galaxy S20', '10.0'),
+              'ANDROID_9' => make_android_hash('Samsung Galaxy S10', '9.0'),
+              'ANDROID_8' => make_android_hash('Samsung Galaxy Note 9', '8.1'),
 
               # iOS devices
+              'IOS_26' => make_ios_hash('iPhone 15', '26'),
               'IOS_18' => make_ios_hash('iPhone 14', '18'),
               'IOS_17' => make_ios_hash('iPhone 15', '17'),
               'IOS_16' => make_ios_hash('iPhone 14', '16'),
               'IOS_15' => make_ios_hash('iPhone 13', '15'),
               'IOS_14' => make_ios_hash('iPhone 12', '14'),
               'IOS_13' => make_ios_hash('iPhone 11', '13'),
-              'IOS_12' => make_ios_hash('iPhone XS', '12'),
+              'IOS_12' => make_ios_hash('iPad Pro 12.9 2018', '12'),
             }
 
             # Specific Android devices

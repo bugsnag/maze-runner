@@ -3,6 +3,7 @@
 ## Enhancements
 
 - Add test support for Bugsnag remote config [793](https://github.com/bugsnag/maze-runner/pull/793)
+- Avoid latest round of deprecated BrowserStack devices and add iOS 26 [794](https://github.com/bugsnag/maze-runner/pull/794)
 
 # v10.2.0 - 2025/09/12
 

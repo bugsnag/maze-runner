@@ -154,7 +154,7 @@ After do |scenario|
   Maze::Proxy.instance.stop
 
   # Unfold the previous scenario on Buildkite if it failed or had undefined steps
-  $stdout.puts '^^^ +++' if ENV['BUILDKITE'] && (scenario.failed? || scenario.status == :undefined?)
+  $stdout.puts '^^^ +++' if ENV['BUILDKITE'] && (scenario.failed? || scenario.status == :undefined)
 
   # Log all received requests to the console if the scenario fails and/or config says to
   if (scenario.failed? && Maze.config.log_requests) || Maze.config.always_log

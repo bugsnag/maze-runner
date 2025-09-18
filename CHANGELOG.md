@@ -1,3 +1,9 @@
+# v10.3.1 - 2025/09/18
+
+## Fixes
+
+- Unfold `undefined` scenarios on Buildkite [795](https://github.com/bugsnag/maze-runner/pull/795)
+
 # v10.3.0 - 2025/09/17
 
 ## Enhancements

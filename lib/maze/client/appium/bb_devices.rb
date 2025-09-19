@@ -18,19 +18,11 @@ module Maze
             if device_group_ids
               # Device group found - find a free device in it
               $logger.trace "Got group ids #{device_group_ids} for #{device_or_group_names}"
-              if device_group_ids.size > 1
-                group_id = false
-                group_count, device = api_client.find_device_in_groups(device_group_ids)
-                if device.nil?
-                  raise 'There are no devices available'
-                else
-                  $logger.info "#{group_count} device(s) currently available in group(s) '#{device_or_group_names}'"
-                end
+              group_count, device = api_client.find_device_in_groups(device_group_ids)
+              if device.nil?
+                raise 'There are no devices available'
               else
-                # Since there is only one group, we can use it verbatim
-                $logger.info "Using device group #{device_or_group_names}"
-                group_id = true
-                device_name = device_group_ids.first
+                $logger.info "#{group_count} device(s) currently available in group(s) '#{device_or_group_names}'"
               end
             else
               # See if there is a device with the given name
@@ -64,9 +56,9 @@ module Maze
 
             case platform
             when 'android'
-              make_android_hash(device_name, group_id)
+              make_android_hash(device_name)
             when 'ios'
-              make_ios_hash(device_name, group_id)
+              make_ios_hash(device_name)
             else
               throw "Invalid device platform specified #{platform}"
             end

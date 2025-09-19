@@ -1,8 +1,9 @@
-# v10.3.1 - 2025/09/18
+# v10.3.1 - 2025/09/19
 
 ## Fixes
 
 - Unfold `undefined` scenarios on Buildkite [795](https://github.com/bugsnag/maze-runner/pull/795)
+- Stop using BitBar `deviceGroupId` capability [796](https://github.com/bugsnag/maze-runner/pull/796)
 
 # v10.3.0 - 2025/09/17
 

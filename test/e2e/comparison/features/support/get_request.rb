@@ -7,7 +7,7 @@ def get_error_config(request_type)
   when 'android'
     { :version => '1.2.3', :versionCode => '123', :releaseStage => 'production', :osVersion => '11' }
   when 'ios'
-    { :version => '3.2.1', :bundleVersion => '321', :releaseStage => 'production', :osVersion => '15' }
+    { :version => '3.2.1', :bundleVersion => '321', :releaseStage => 'development', :osVersion => '15' }
   else
     $logger.error("Unknown request type '#{request_type}'")
     exit(1)

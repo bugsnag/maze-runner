@@ -316,6 +316,8 @@ module Maze
         # Clear request lists
         commands.clear
         errors.clear
+        error_configs.clear
+        error_config_requests.clear
         sessions.clear
         builds.clear
         uploads.clear

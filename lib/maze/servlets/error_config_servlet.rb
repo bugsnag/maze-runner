@@ -28,7 +28,7 @@ module Maze
             response.header[key] = value
           end
           response.body = error_config[:body]
-          response.status = 200
+          response.status = error_config[:status]
 
           Server.error_configs.next
         else

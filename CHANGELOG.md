@@ -2,14 +2,14 @@
 
 ## Fixes
 
-- Remote config support corrections [797](https://github.com/bugsnag/maze-runner/pull/797)
+- Remote config support corrections [798](https://github.com/bugsnag/maze-runner/pull/798)
 
 # v10.3.1 - 2025/09/19
 
 ## Fixes
 
-- Unfold `undefined` scenarios on Buildkite [795](https://github.com/bugsnag/maze-runner/pull/795)
-- Stop using BitBar `deviceGroupId` capability [796](https://github.com/bugsnag/maze-runner/pull/796)
+- Unfold `undefined` scenarios on Buildkite [796](https://github.com/bugsnag/maze-runner/pull/796)
+- Stop using BitBar `deviceGroupId` capability [797](https://github.com/bugsnag/maze-runner/pull/797)
 
 # v10.3.0 - 2025/09/17
 

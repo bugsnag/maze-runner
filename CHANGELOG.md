@@ -1,3 +1,9 @@
+# v10.3.2 - 2025/09/29
+
+## Fixes
+
+- Remote config support corrections [797](https://github.com/bugsnag/maze-runner/pull/797)
+
 # v10.3.1 - 2025/09/19
 
 ## Fixes

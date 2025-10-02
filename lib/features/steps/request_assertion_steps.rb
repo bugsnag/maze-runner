@@ -29,16 +29,24 @@ def assert_received_requests(request_count, list, list_name, precise = true, max
     count_now >= request_count
   end
 
+  invalid_requests = Maze::Server.invalid_requests.size_remaining
+  invalid_requests_message = if invalid_requests > 0
+    "\nNote: #{invalid_requests} invalid requests have been received in this scenario.\n"
+  else
+    ""
+  end
+
   unless received
     raise Test::Unit::AssertionFailedError.new <<-MESSAGE
-    Expected #{request_count} #{list_name} but received #{list.size_remaining} within the #{timeout}s timeout.
-    This could indicate that:
-    - Bugsnag crashed with a fatal error.
-    - Bugsnag did not make the requests that it should have done.
-    - The requests were made, but not deemed to be valid (e.g. missing integrity header).
-    - The requests made were prevented from being received due to a network or other infrastructure issue.
-    Please check the Maze Runner and device logs to confirm.)
-    MESSAGE
+Expected #{request_count} #{list_name} but received #{list.size_remaining} within the #{timeout}s timeout.
+#{invalid_requests_message}
+This could indicate that:
+- Bugsnag crashed with a fatal error.
+- Bugsnag did not make the requests that it should have done.
+- The requests were made, but not deemed to be valid (e.g. missing integrity header).
+- The requests made were prevented from being received due to a network or other infrastructure issue.
+Please check the Maze Runner and device logs to confirm.
+MESSAGE
   end
 
   if precise

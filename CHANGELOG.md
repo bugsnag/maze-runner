@@ -1,3 +1,9 @@
+# v10.4.0 - 2025/10/02
+
+## Enhancements
+
+- Indicate receipt of invalid requests when valid requests are missing [799](https://github.com/bugsnag/maze-runner/pull/799)
+
 # v10.3.2 - 2025/09/29
 
 ## Fixes

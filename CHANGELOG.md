@@ -1,4 +1,8 @@
-# v10.4.2 - TBD
+# v10.5.0 - 2025/10/20
+
+## Enhancements
+
+- Dedicated endpoint for idempotent commands [803](https://github.com/bugsnag/maze-runner/pull/803)
 
 ## Fixes
 

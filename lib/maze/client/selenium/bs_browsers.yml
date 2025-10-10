@@ -118,14 +118,15 @@ ios_10:
 
 ios_11:
   browserName: "iphone"
-  device: "iPhone X"
+  device: "iPhone 8"
   os: "ios"
   osVersion: "11"
   realMobile: true
 
+# Using iPad Pro here because no iPhone is available on BrowserStack with iOS 12
 ios_12:
   browserName: "iphone"
-  device: "iPhone XS"
+  device: "iPad Pro 12.9 2018"
   os: "ios"
   osVersion: "12"
   realMobile: true
@@ -197,6 +198,13 @@ android_8:
   device: "Samsung Galaxy S9"
   os: "android"
   osVersion: "8.0"
+  realMobile: true
+
+android_9:
+  browserName: "Android Browser"
+  device: "Samsung Galaxy S10"
+  os: "android"
+  osVersion: "9.0"
   realMobile: true
 
 android_13:

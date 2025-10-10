@@ -1,3 +1,7 @@
+# 9.36.1 - 2025/10/10
+
+- Update BrowserStack mobile devices [801](https://github.com/bugsnag/maze-runner/pull/801)
+
 # 9.36.0 - 2025/08/26
 
 ## Enhancements

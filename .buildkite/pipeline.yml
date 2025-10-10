@@ -198,7 +198,7 @@ steps:
   # BrowserStack tests
   #
 
-  - label: ':browserstack: Android 8.1 - JWP'
+  - label: ':browserstack: Android 9 - JWP'
     timeout_in_minutes: 20
     depends_on:
       - "android-test-fixture"
@@ -218,7 +218,7 @@ steps:
         command:
           - "--app=build/test-fixture.apk"
           - "--farm=bs"
-          - "--device=ANDROID_8"
+          - "--device=ANDROID_9"
           - "--fail-fast"
           - "features/manual_spans.feature"
         image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner

@@ -26,8 +26,10 @@ module Maze
     # @param request The new request, from which a clone is made
     def add(request)
       clone = request.clone
-      # UUID primarily used for commands, but no harm to set on everything
+      # UUID and other metadata primarily used for commands, but no harm to set on everything
       clone[:uuid] = SecureRandom.uuid
+      clone[:cucumber_scenario_name] = Maze.scenario.name
+      clone[:cucumber_scenario_location] = Maze.scenario.location
       clone[:run_uuid] = Maze.run_uuid
       @requests.append clone
       @count += 1

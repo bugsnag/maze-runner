@@ -55,7 +55,7 @@ module Maze
         if index.nil?
           # No matching command - client must reset its UUID
           response.body = RESET_COMMAND
-          response.status = 400
+          response.status = 200
         else
           if index + 1 < commands.size_all
             # Respond with the next command in the queue

@@ -24,12 +24,6 @@ ie_11:
   os: "windows"
   osVersion: "10"
 
-edge_14:
-  browserName: "edge"
-  browserVersion: "14"
-  os: "windows"
-  osVersion: "10"
-
 edge_15:
   browserName: "edge"
   browserVersion: "15"
@@ -68,7 +62,7 @@ safari_6:
 
 safari_10:
   browserName: "safari"
-  browserVersion: "10.0"
+  browserVersion: "10.1"
   os: "OS X"
   osVersion: "sierra"
 
@@ -86,28 +80,21 @@ safari_13:
 
 safari_14:
   browserName: "Safari"
-  browserVersion: "14.0"
+  browserVersion: "14.1"
   os: "OS X"
   osVersion: "Big Sur"
 
 safari_15:
   browserName: "Safari"
-  browserVersion: "15.0"
+  browserVersion: "15.6"
   os: "OS X"
   osVersion: "Monterey"
 
 safari_16:
   browserName: "Safari"
-  browserVersion: "16.0"
+  browserVersion: "16.5"
   os: "OS X"
   osVersion: "Ventura"
-
-ios_9:
-  browserName: "iphone"
-  device: "iPhone 6S"
-  os: "ios"
-  osVersion: "9.0"
-  realMobile: true
 
 ios_10:
   browserName: "iphone"
@@ -121,14 +108,6 @@ ios_11:
   device: "iPhone 8"
   os: "ios"
   osVersion: "11"
-  realMobile: true
-
-# Using iPad Pro here because no iPhone is available on BrowserStack with iOS 12
-ios_12:
-  browserName: "iphone"
-  device: "iPad Pro 12.9 2018"
-  os: "ios"
-  osVersion: "12"
   realMobile: true
 
 ios_13:
@@ -172,32 +151,11 @@ ios_18:
   osVersion: "18"
   realMobile: true
 
-android_4:
-  browserName: "Android Browser"
-  device: "Google Nexus 5"
-  os: "android"
-  osVersion: "4.4"
-  realMobile: true
-
-android_5:
-  browserName: "Android Browser"
-  device: "Samsung Galaxy S6"
-  os: "android"
-  osVersion: "5.0"
-  realMobile: true
-
-android_6:
-  browserName: "Android Browser"
-  device: "Samsung Galaxy S7"
-  os: "android"
-  osVersion: "6.0"
-  realMobile: true
-
 android_8:
   browserName: "Android Browser"
-  device: "Samsung Galaxy S9"
+  device: "Samsung Galaxy Note 9"
   os: "android"
-  osVersion: "8.0"
+  osVersion: "8.1"
   realMobile: true
 
 android_9:

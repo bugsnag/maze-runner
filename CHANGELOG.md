@@ -1,3 +1,9 @@
+# v10.4.2 - TBD
+
+## Fixes
+
+- Update BrowserStack mobile browser device list [802](https://github.com/bugsnag/maze-runner/pull/802)
+
 # v10.4.1 - 2025/10/10
 
 ## Fixes

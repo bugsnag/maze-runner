@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "ostruct"
 require_relative '../test_helper'
 require_relative '../../../lib/maze/helper'
 require_relative '../../../lib/maze/request_list'
@@ -30,6 +31,7 @@ class RequestListTest < Test::Unit::TestCase
   def setup
     Maze.run_uuid = RUN_UUID
     SecureRandom.stubs(:uuid).returns(COMMAND_UUID)
+    Maze.scenario = OpenStruct.new(name: 'scenario_name', location: 'scenario_location')
   end
 
   def build_item(id)
@@ -65,6 +67,8 @@ class RequestListTest < Test::Unit::TestCase
     after_add = hash.clone
     after_add[:run_uuid] = RUN_UUID
     after_add[:uuid] = COMMAND_UUID
+    after_add[:cucumber_scenario_name] = 'scenario_name'
+    after_add[:cucumber_scenario_location] = 'scenario_location'
     after_add
   end
 

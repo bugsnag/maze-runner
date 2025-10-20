@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'ostruct'
 require 'set'
 require_relative '../test_helper'
 require_relative '../../../lib/maze/metrics_processor'
@@ -8,6 +9,10 @@ require_relative '../../../lib/maze/metrics_processor'
 class MetricsProcessorTest < Test::Unit::TestCase
 
   FILE_PATH = 'path/metrics.csv'
+
+  def setup
+    Maze.scenario = OpenStruct.new(name: 'scenario_name', location: 'scenario_location')
+  end
 
   def test_uniform_metrics
     metrics = Maze::RequestList.new

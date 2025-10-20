@@ -272,6 +272,7 @@ module Maze
             server.mount '/breakpad-symbol', Servlets::Servlet, :sourcemaps
             server.mount '/unity-line-mappings', Servlets::Servlet, :sourcemaps
             server.mount '/command', Servlets::CommandServlet
+            server.mount '/idem-command', Servlets::IdempotentCommandServlet
             server.mount '/commands', Servlets::AllCommandsServlet
             server.mount '/error-config', Servlets::ErrorConfigServlet
             server.mount '/logs', Servlets::LogServlet

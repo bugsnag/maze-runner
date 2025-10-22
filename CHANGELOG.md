@@ -1,3 +1,9 @@
+# v10.6.0 - TBD
+
+## Refactor
+
+- Split trace and span step definition into separate files [804](https://github.com/bugsnag/maze-runner/pull/804)
+
 # v10.5.0 - 2025/10/20
 
 ## Enhancements

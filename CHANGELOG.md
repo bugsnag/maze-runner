@@ -1,5 +1,9 @@
 # v10.6.0 - TBD
 
+## Enhancements
+
+- Add step to store properties of named spans [805](https://github.com/bugsnag/maze-runner/pull/805)
+
 ## Refactor
 
 - Split trace and span step definition into separate files [804](https://github.com/bugsnag/maze-runner/pull/804)

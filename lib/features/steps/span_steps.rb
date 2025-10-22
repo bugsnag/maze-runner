@@ -174,6 +174,10 @@ Then('a span named {string} has the following properties:') do |span_name, table
   end
 end
 
+Then('the {string} field of the span named {string} is stored as the value {string}') do |field, span_name, store_key|
+
+end
+
 def assert_received_span_count(list, count)
   assert_received_spans(list, count, count)
 end
@@ -211,9 +215,9 @@ def assert_received_spans(list, min_received, max_received = nil)
 end
 
 def spans_from_request_list list
-  return list.remaining
-             .flat_map { |req| req[:body]['resourceSpans'] }
-             .flat_map { |r| r['scopeSpans'] }
-             .flat_map { |s| s['spans'] }
-             .select { |s| !s.nil? }
+  list.remaining
+      .flat_map { |req| req[:body]['resourceSpans'] }
+      .flat_map { |r| r['scopeSpans'] }
+      .flat_map { |s| s['spans'] }
+      .select { |s| !s.nil? }
 end

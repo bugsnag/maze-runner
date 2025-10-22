@@ -12,6 +12,7 @@ class SpanSupport
       spans = spans_from_request_list(Maze::Server.traces)
       named_spans = spans.find_all { |span| span['name'].eql?(span_name) }
       raise Test::Unit::AssertionFailedError.new "No spans were found with the name #{span_name}" if named_spans.empty?
+      named_spans
     end
   end
 end

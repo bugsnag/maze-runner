@@ -50,5 +50,14 @@ MESSAGE
 
       Maze::Schemas::Validator.validate_payload_elements(list, 'trace')
     end
+
+    def store_named_span_field(span_name, field, store_key)
+      spans = SpanSupport.get_named_spans(span_name)
+      values = spans.map { |span| span[field] }.compact
+      raise Test::Unit::AssertionFailedError.new "Expected 1 span named #{span_name}, found #{values.size}" unless values.size == 1
+
+      value = Maze::Helper.read_key_path(spans[0], field)
+      Maze::Store.values[store_key] = value.dup
+    end
   end
 end

@@ -169,7 +169,7 @@ Then('a span named {string} has the following properties:') do |span_name, table
 end
 
 Then('the {string} field of the span named {string} is stored as the value {string}') do |field, span_name, store_key|
-  SpanSupport.store_span_field_as_value(field, span_name, store_key)
+  SpanSupport.store_named_span_field(span_name, field, store_key)
 end
 
 

@@ -10,7 +10,7 @@ end
 #
 # @step_input span_count [Integer] The number of spans to wait for
 Then('I wait to receive {int} span(s)') do |span_count|
-  assert_received_span_count Maze::Server.traces, span_count
+  SpanSupport.assert_received_span_count Maze::Server.traces, span_count
 end
 
 # Waits for a minimum number of spans to be received, which may be spread across one or more trace requests.
@@ -18,7 +18,7 @@ end
 #
 # @step_input span_min [Integer] The minimum number of spans to wait for
 Then('I wait to receive at least {int} span(s)') do |span_min|
-  assert_received_minimum_span_count Maze::Server.traces, span_min
+  SpanSupport.assert_received_minimum_span_count Maze::Server.traces, span_min
 end
 
 # Waits for a minimum number of spans to be received, which may be spread across one or more trace requests.
@@ -27,7 +27,7 @@ end
 # @step_input span_min [Integer] The minimum number of spans to wait for
 # @step_input span_max [Integer] The maximum number of spans to receive before failure
 Then('I wait to receive between {int} and {int} span(s)') do |span_min, span_max|
-  assert_received_ranged_span_count Maze::Server.traces, span_min, span_max
+  SpanSupport.assert_received_ranged_span_count Maze::Server.traces, span_min, span_max
 end
 
 Then('I should have received no spans') do
@@ -169,41 +169,7 @@ Then('a span named {string} has the following properties:') do |span_name, table
 end
 
 Then('the {string} field of the span named {string} is stored as the value {string}') do |field, span_name, store_key|
-
+  SpanSupport.store_span_field_as_value(field, span_name, store_key)
 end
 
-def assert_received_span_count(list, count)
-  assert_received_spans(list, count, count)
-end
 
-def assert_received_minimum_span_count(list, minimum)
-  assert_received_spans(list, minimum)
-end
-
-def assert_received_ranged_span_count(list, minimum, maximum)
-  assert_received_spans(list, minimum, maximum)
-end
-
-def assert_received_spans(list, min_received, max_received = nil)
-  timeout = Maze.config.receive_requests_wait
-  wait = Maze::Wait.new(timeout: timeout)
-
-  received = wait.until { SpanSupport.spans_from_request_list(list).size >= min_received }
-  received_count = SpanSupport.spans_from_request_list(list).size
-
-  unless received
-    raise Test::Unit::AssertionFailedError.new <<-MESSAGE
-    Expected #{min_received} spans but received #{received_count} within the #{timeout}s timeout.
-    This could indicate that:
-    - Bugsnag crashed with a fatal error.
-    - Bugsnag did not make the requests that it should have done.
-    - The requests were made, but not deemed to be valid (e.g. missing integrity header).
-    - The requests made were prevented from being received due to a network or other infrastructure issue.
-    Please check the Maze Runner and device logs to confirm.)
-    MESSAGE
-  end
-
-  Maze.check.operator(max_received, :>=, received_count, "#{received_count} spans received") if max_received
-
-  Maze::Schemas::Validator.validate_payload_elements(list, 'trace')
-end

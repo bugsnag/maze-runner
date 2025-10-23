@@ -1,7 +1,8 @@
 Feature: Testing support for span receipt and interrogation
 
     Scenario: An exact amount of spans
-        When I send a span request with 3 spans
+        When I should have received no spans
+        And I send a span request with 3 spans
         Then I wait to receive 3 spans
 
     Scenario: An exact amount of spans across payloads

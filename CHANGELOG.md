@@ -1,8 +1,8 @@
-# v10.6.0 - TBD
+# v10.6.0 - 2025/10/24
 
 ## Enhancements
 
-- Add step to store properties of named spans [805](https://github.com/bugsnag/maze-runner/pull/805)
+- Add step to store fields of named spans [805](https://github.com/bugsnag/maze-runner/pull/805)
 
 ## Refactor
 

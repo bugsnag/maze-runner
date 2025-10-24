@@ -1,7 +1,8 @@
 Feature: Testing support for span receipt and interrogation
 
     Scenario: An exact amount of spans
-        When I send a span request with 3 spans
+        When I should have received no spans
+        And I send a span request with 3 spans
         Then I wait to receive 3 spans
 
     Scenario: An exact amount of spans across payloads
@@ -57,9 +58,11 @@ Feature: Testing support for span receipt and interrogation
     Scenario: Spans can be tested for specific properties
         When I send a span request with 1 spans
         Then I wait to receive 1 span
+        Then the "spanId" field of the span named "AppStart\134/Cold" is stored as the value "spanId"
         Then a span named "AppStart\134/Cold" has the following properties:
             | property                       | value              |
             | kind                           | 1                  |
             | spanId                         | 7af51275a21aa300   |
             | attributes.0.key               | bugsnag.sampling.p |
             | attributes.3.value.stringValue | wifi               |
+        And the stored value "spanId" equals "7af51275a21aa300"

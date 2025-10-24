@@ -292,7 +292,7 @@ AfterAll do
     Maze.timers.report
   end
 
-  $stdout.puts '+++ All scenarios complete'
+  $stdout.puts '+++ Test run complete'
 
   # Stop the mock server
   Maze::Server.stop

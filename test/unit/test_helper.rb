@@ -11,3 +11,12 @@ require 'timecop'
 # being safe.
 # https://github.com/travisjeffery/timecop#timecopsafe_mode
 Timecop.safe_mode = true
+
+def load_hash_from_json_file(filename)
+  file = File.join(File.dirname(__FILE__), '..', '..', filename)
+  JSON.parse(File.read(file))
+end
+
+def add_trace_to_request_list(trace)
+  Maze::Server.traces.add({ body: trace })
+end

@@ -15,22 +15,52 @@ class SpanSupport
       named_spans
     end
 
-    def assert_received_span_count(list, count)
-      assert_received_spans(list, count, count)
+    def named_span_exists?(span_name)
+      spans = spans_from_request_list(Maze::Server.traces)
+      named_spans = spans.find_all { |span| span['name'].eql?(span_name) }
+      !named_spans.empty?
     end
 
-    def assert_received_minimum_span_count(list, minimum)
-      assert_received_spans(list, minimum)
+    def assert_received_span_count(count)
+      assert_received_spans(count, count)
     end
 
-    def assert_received_ranged_span_count(list, minimum, maximum)
-      assert_received_spans(list, minimum, maximum)
+    def assert_received_minimum_span_count(minimum)
+      assert_received_spans(minimum)
     end
 
-    def assert_received_spans(list, min_received, max_received = nil)
+    def assert_received_ranged_span_count(minimum, maximum)
+      assert_received_spans(minimum, maximum)
+    end
+
+    def assert_received_named_span(span_name)
       timeout = Maze.config.receive_requests_wait
       wait = Maze::Wait.new(timeout: timeout)
 
+      received = wait.until { SpanSupport.named_span_exists?(span_name) }
+
+      list = Maze::Server.traces
+      received_count = SpanSupport.spans_from_request_list(list).size
+
+      unless received
+        raise Test::Unit::AssertionFailedError.new <<-MESSAGE
+Expected span with name #{span_name} not received within the #{timeout}s timeout (#{received_count} spans were received)}.
+This could indicate that:
+- Bugsnag crashed with a fatal error.
+- Bugsnag did not make the requests that it should have done.
+- The requests were made, but not deemed to be valid (e.g. missing integrity header).
+- The requests made were prevented from being received due to a network or other infrastructure issue.
+Please check the Maze Runner and device logs to confirm.)
+MESSAGE
+      end
+
+      Maze::Schemas::Validator.validate_payload_elements(list, 'trace')
+    end
+
+    def assert_received_spans(min_received, max_received = nil)
+      timeout = Maze.config.receive_requests_wait
+      wait = Maze::Wait.new(timeout: timeout)
+      list = Maze::Server.traces
       received = wait.until { SpanSupport.spans_from_request_list(list).size >= min_received }
       received_count = SpanSupport.spans_from_request_list(list).size
 

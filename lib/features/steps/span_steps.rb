@@ -10,7 +10,7 @@ end
 #
 # @step_input span_count [Integer] The number of spans to wait for
 Then('I wait to receive {int} span(s)') do |span_count|
-  SpanSupport.assert_received_span_count Maze::Server.traces, span_count
+  SpanSupport.assert_received_span_count span_count
 end
 
 # Waits for a minimum number of spans to be received, which may be spread across one or more trace requests.
@@ -18,7 +18,7 @@ end
 #
 # @step_input span_min [Integer] The minimum number of spans to wait for
 Then('I wait to receive at least {int} span(s)') do |span_min|
-  SpanSupport.assert_received_minimum_span_count Maze::Server.traces, span_min
+  SpanSupport.assert_received_minimum_span_count span_min
 end
 
 # Waits for a minimum number of spans to be received, which may be spread across one or more trace requests.
@@ -27,7 +27,16 @@ end
 # @step_input span_min [Integer] The minimum number of spans to wait for
 # @step_input span_max [Integer] The maximum number of spans to receive before failure
 Then('I wait to receive between {int} and {int} span(s)') do |span_min, span_max|
-  SpanSupport.assert_received_ranged_span_count Maze::Server.traces, span_min, span_max
+  SpanSupport.assert_received_ranged_span_count span_min, span_max
+end
+
+# Waits for a minimum number of spans to be received, which may be spread across one or more trace requests.
+# If more spans than the maximum requested number of spans are received, this step will fail.
+#
+# @step_input span_min [Integer] The minimum number of spans to wait for
+# @step_input span_max [Integer] The maximum number of spans to receive before failure
+Then('I wait to receive a span named {string}') do |span_name|
+  SpanSupport.assert_received_named_span span_name
 end
 
 Then('I should have received no spans') do

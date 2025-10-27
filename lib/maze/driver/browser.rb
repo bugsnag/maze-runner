@@ -30,10 +30,6 @@ module Maze
         @failed = true
       end
 
-      def set_implicit_wait(timeout_seconds)
-        @driver.manage.timeouts.implicit_wait = timeout_seconds
-      end
-
       def find_element(*args)
         @driver.find_element(*args)
       end

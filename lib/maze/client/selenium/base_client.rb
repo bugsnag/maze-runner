@@ -18,7 +18,6 @@ module Maze
             begin
               Maze.driver = Maze::Driver::Browser.new(:remote, selenium_url, config.capabilities)
               Maze.driver.start_driver
-              Maze.driver.set_implicit_wait(20)
             rescue => error
               Maze.driver = nil
               $logger.error "Session creation failed: #{error}"

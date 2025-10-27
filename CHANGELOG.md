@@ -1,3 +1,9 @@
+# v10.7.0 - 2025/10/27
+
+## Enhancements
+
+- Add step `I wait to receive a span named {string}` [806](https://github.com/bugsnag/maze-runner/pull/806)
+
 # v10.6.0 - 2025/10/24
 
 ## Enhancements

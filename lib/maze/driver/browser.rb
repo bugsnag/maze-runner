@@ -30,6 +30,13 @@ module Maze
         @failed = true
       end
 
+      def set_implicit_wait(timeout_seconds)
+        @driver.manage.timeouts.implicit_wait = timeout_seconds
+      rescue
+        # Not all browsers support setting implicit wait
+        $logger.warn 'Failed to set implicit wait on Selenium driver'
+      end
+
       def find_element(*args)
         @driver.find_element(*args)
       end

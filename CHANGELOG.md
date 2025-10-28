@@ -1,3 +1,9 @@
+# v10.7.1 - 2025/10/28
+
+## Fixes
+
+- Set implicit wait for browser tests [807](https://github.com/bugsnag/maze-runner/pull/807)
+
 # v10.7.0 - 2025/10/27
 
 ## Enhancements

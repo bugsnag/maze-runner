@@ -1,3 +1,9 @@
+# v10.7.2 - 2025/11/05
+
+## Fixes
+
+- Guard against nil `Maze.scenario` when receiving requests [808](https://github.com/bugsnag/maze-runner/pull/808)
+
 # v10.7.1 - 2025/10/28
 
 ## Fixes

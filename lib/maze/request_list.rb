@@ -28,8 +28,10 @@ module Maze
       clone = request.clone
       # UUID and other metadata primarily used for commands, but no harm to set on everything
       clone[:uuid] = SecureRandom.uuid
-      clone[:cucumber_scenario_name] = Maze.scenario.name
-      clone[:cucumber_scenario_location] = Maze.scenario.location
+      unless Maze.scenario.nil?
+        clone[:cucumber_scenario_name] = Maze.scenario.name
+        clone[:cucumber_scenario_location] = Maze.scenario.location
+      end
       clone[:run_uuid] = Maze.run_uuid
       @requests.append clone
       @count += 1

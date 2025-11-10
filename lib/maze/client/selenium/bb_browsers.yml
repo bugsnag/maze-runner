@@ -11,20 +11,6 @@ chrome_latest:
   browserVersion: 'latest'
   resolution: '1920x1080'
 
-chrome_72:
-  platformName: 'Windows'
-  osVersion: '10'
-  browserName: 'chrome'
-  browserVersion: '72'
-  resolution: '1920x1080'
-
-chrome_43:
-  platformName: 'Windows'
-  osVersion: '10'
-  browserName: 'chrome'
-  browserVersion: '43'
-  resolution: '1920x1080'
-
 firefox:
   platformName: 'Windows'
   osVersion: '11'
@@ -36,13 +22,6 @@ firefox_latest:
   osVersion: '11'
   browserName: 'firefox'
   browserVersion: 'latest'
-  resolution: '1920x1080'
-
-firefox_78:
-  platformName: 'Windows'
-  osVersion: '10'
-  browserName: 'firefox'
-  browserVersion: '78'
   resolution: '1920x1080'
 
 ie_11:

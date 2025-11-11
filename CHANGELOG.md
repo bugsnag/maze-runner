@@ -1,3 +1,9 @@
+# v10.7.3 - TBD
+
+## Removals
+
+- Remove BitBar browsers no longer supported [809](https://github.com/bugsnag/maze-runner/pull/809)
+
 # v10.7.2 - 2025/11/05
 
 ## Fixes

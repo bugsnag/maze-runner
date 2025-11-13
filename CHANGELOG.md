@@ -1,4 +1,8 @@
-# v10.7.3 - TBD
+# v10.7.3 - 2025/11/14
+
+## Fixes
+
+- Log Appium server URL to console [810](https://github.com/bugsnag/maze-runner/pull/810)
 
 ## Removals
 

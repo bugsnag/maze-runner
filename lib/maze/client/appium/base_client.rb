@@ -1,5 +1,6 @@
 require 'bugsnag'
 require 'json'
+require 'uri'
 
 # Custom error class for reporting successful Appium sessions
 class Success < StandardError
@@ -21,6 +22,13 @@ module Maze
 
         def initialize
           @start_attempts = 0
+        end
+
+        def sanitize_url(url)
+          uri = URI.parse(url)
+          uri.user = nil
+          uri.password = nil
+          uri.to_s
         end
 
         def start_session
@@ -81,10 +89,14 @@ module Maze
 
         def attempt_start_driver(config)
           config.capabilities = device_capabilities
+
+
+
           driver = Maze::Driver::Appium.new config.appium_server_url,
                                             config.capabilities,
                                             config.locator
 
+          $logger.info "Creating Appium session with #{sanitize_url(config.appium_server_url)}..."
           result = driver.start_driver
           if result
             # Log details of this session

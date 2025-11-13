@@ -52,7 +52,6 @@ module Maze
       # Starts the Appium driver
       def start_driver
         begin
-          $logger.info 'Starting Appium driver...'
           time = Time.now
           super
           $logger.info "Appium driver started in #{(Time.now - time).to_i}s"

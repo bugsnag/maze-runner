@@ -5,7 +5,7 @@ require_relative '../../../../lib/maze/driver/appium'
 
 class AppiumDriverTest < Test::Unit::TestCase
 
-  SERVER_URL = 'server_url'
+  SERVER_URL = 'http://user:password@server_url.com/wd/hub'
   UUID_REGEX = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.freeze
 
   def setup
@@ -171,7 +171,6 @@ class AppiumDriverTest < Test::Unit::TestCase
 
     Appium::Driver.any_instance.expects(:start_driver).returns(true)
     Time.expects(:now).twice.returns(0)
-    logger.expects(:info).with('Starting Appium driver...')
     logger.expects(:info).with('Appium driver started in 0s')
 
     driver.start_driver

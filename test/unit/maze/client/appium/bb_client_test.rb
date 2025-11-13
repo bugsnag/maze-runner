@@ -63,7 +63,7 @@ module Maze
           Maze.driver = nil
           Maze.config.app = 'app'
           Maze.config.access_key = 'apiKey'
-          Maze.config.appium_server_url = 'appium server'
+          Maze.config.appium_server_url = 'http://user:password@appium-server.com/wd/hub'
           Maze.config.capabilities_option = '{"config":"capabilities"}'
           Maze.config.locator = :id
           Maze.config.appium_version = nil
@@ -75,6 +75,7 @@ module Maze
 
           # Logging
           @mock_driver.expects(:start_driver).returns true
+          $logger.expects(:info).with("Creating Appium session with http://appium-server.com/wd/hub...")
           $logger.expects(:info).with('Created Appium session: session_id')
 
           # Successful starting of the driver
@@ -94,6 +95,7 @@ module Maze
           #
           message = 'no sessionId in returned payload'
           @mock_driver.expects(:start_driver).twice.raises(message).then.returns(true)
+          $logger.expects(:info).with("Creating Appium session with http://appium-server.com/wd/hub...").twice
           $logger.expects(:error).with("Session creation failed: #{message}")
           interval = 60
           $logger.expects(:warn).with("Failed to create Appium driver, retrying in #{interval} seconds")
@@ -119,6 +121,7 @@ module Maze
           # First attempt - failure
           #
           @mock_driver.expects(:start_driver).twice.raises(message_1).then.raises(message_2)
+          $logger.expects(:info).with("Creating Appium session with http://appium-server.com/wd/hub...").twice
           $logger.expects(:error).with("Session creation failed: #{message_1}")
 
           interval = 300

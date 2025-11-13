@@ -3,17 +3,17 @@ steps:
   - label: "Audit current licenses"
     timeout_in_minutes: 30
     agents:
-      queue: macos-14
-    command: ./scripts/license_finder.sh
+      queue: "macos-14"
+    command: "./scripts/license_finder.sh"
 
   - label: "Build Android Performance test fixture"
     timeout_in_minutes: 30
-    key: android-test-fixture
+    key: "android-test-fixture"
     agents:
-      queue: macos-14
+      queue: "macos-14"
     command:
-      - cd bugsnag-android-performance
-      - make test-fixture
+      - "cd bugsnag-android-performance"
+      - "make test-fixture"
     plugins:
       artifacts#v1.9.0:
         upload: "bugsnag-android-performance/build/test-fixture.apk"
@@ -22,14 +22,14 @@ steps:
 
   - label: "Build iOS test fixture"
     timeout_in_minutes: 30
-    key: ios-test-fixture
+    key: "ios-test-fixture"
     agents:
-      queue: macos-14
+      queue: "macos-14"
     env:
       XCODE_VERSION: "15.4.0"
     command:
-      - cd bugsnag-cocoa
-      - ./features/scripts/export_ios_app.sh Release
+      - "cd bugsnag-cocoa"
+      - "./features/scripts/export_ios_app.sh Release"
     plugins:
       artifacts#v1.9.0:
         upload: "bugsnag-cocoa/features/fixtures/ios/output/iOSTestApp_Release.ipa"
@@ -40,43 +40,43 @@ steps:
     plugins:
       - docker-compose#v4.14.0:
           build:
-            - ci
-          image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
+            - "ci"
+          image-repository: "855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner"
           cache-from:
-            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
+            - "ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci"
           push:
-            - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
+            - "ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci"
 
   - label: "Unit tests"
     timeout_in_minutes: 30
     depends_on: "ci-image"
     plugins:
       docker-compose#v4.14.0:
-        run: unit-test
-        image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
+        run: "unit-test"
+        image-repository: "855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner"
         cache-from:
-          - ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci
+          - "ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci"
     command: "bundle exec rake"
 
   - label: ":docker: Push CLI image for branch"
-    key: push-branch-cli
+    key: "push-branch-cli"
     timeout_in_minutes: 30
     depends_on: "ci-image"
     plugins:
       - docker-compose#v4.14.0:
-          build: cli
-          image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
+          build: "cli"
+          image-repository: "855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner"
           cache-from:
-            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
+            - "cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli"
           push:
-            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
+            - "cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli"
 
   - label: "Framework tests"
     timeout_in_minutes: 30
     depends_on: "ci-image"
     plugins:
       - docker-compose#v4.14.0:
-          run: framework-tests
+          run: "framework-tests"
     command: "bundle exec maze-runner"
 
   - label: "Comparison tests"
@@ -84,7 +84,7 @@ steps:
     depends_on: "ci-image"
     plugins:
       - docker-compose#v4.14.0:
-          run: comparison-tests
+          run: "comparison-tests"
     command: "bundle exec maze-runner"
 
   - label: "Proxy tests"
@@ -92,7 +92,7 @@ steps:
     depends_on: "ci-image"
     plugins:
       - docker-compose#v4.14.0:
-          run: proxy-tests
+          run: "proxy-tests"
     command: "bundle exec maze-runner"
 
   - label: "CLI tests"
@@ -100,7 +100,7 @@ steps:
     depends_on: "ci-image"
     plugins:
       - docker-compose#v4.14.0:
-          run: cli-tests
+          run: "cli-tests"
     command: "bundle exec maze-runner"
 
   - label: "HTTP response tests"
@@ -108,7 +108,7 @@ steps:
     depends_on: "ci-image"
     plugins:
       - docker-compose#v4.14.0:
-          run: http-response-tests
+          run: "http-response-tests"
     command: "bundle exec maze-runner"
 
   - label: "Payload helper tests"
@@ -116,7 +116,7 @@ steps:
     depends_on: "ci-image"
     plugins:
       - docker-compose#v4.14.0:
-          run: payload-helper-tests
+          run: "payload-helper-tests"
     command: "bundle exec maze-runner"
 
   - label: "Docker tests"
@@ -124,7 +124,7 @@ steps:
     depends_on: "ci-image"
     plugins:
       - docker-compose#v4.14.0:
-          run: docker-tests
+          run: "docker-tests"
     command: "bundle exec maze-runner"
 
   - label: "Doc server tests"
@@ -132,7 +132,7 @@ steps:
     depends_on: "ci-image"
     plugins:
       - docker-compose#v4.14.0:
-          run: doc-server-tests
+          run: "doc-server-tests"
     command: "bundle exec maze-runner"
 
   - label: "Exit codes tests"
@@ -140,7 +140,7 @@ steps:
     depends_on: "ci-image"
     plugins:
       - docker-compose#v4.14.0:
-          run: exit-codes-tests
+          run: "exit-codes-tests"
     command: "bundle exec maze-runner"
 
   - label: "Command workflow tests"
@@ -148,7 +148,7 @@ steps:
     depends_on: "ci-image"
     plugins:
       - docker-compose#v4.14.0:
-          run: command-workflow-tests
+          run: "command-workflow-tests"
     command: "bundle exec maze-runner"
 
   #
@@ -167,8 +167,8 @@ steps:
           - "bugsnag-cocoa/maze_output/failed/*"
           - "bugsnag-cocoa/maze_output/maze_output.zip"
       docker-compose#v4.14.0:
-        pull: appium-test-bs
-        run: appium-test-bs
+        pull: "appium-test-bs"
+        run: "appium-test-bs"
         volumes:
           - "./bugsnag-cocoa/build:/app/build"
           - "./bugsnag-cocoa/features:/app/features"
@@ -179,12 +179,12 @@ steps:
           - "--device=IOS_17"
           - "--fail-fast"
           - "features/release/barebone_tests.feature"
-        image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
+        image-repository: "855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner"
         cache-from:
-          - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
+          - "cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli"
     concurrency: 5
     concurrency_group: "browserstack-app"
-    concurrency_method: eager
+    concurrency_method: "eager"
     retry:
       automatic:
         - exit_status: 103  # Appium client failure
@@ -195,8 +195,8 @@ steps:
     timeout_in_minutes: 10
     plugins:
       docker-compose#v4.14.0:
-        pull: browser-tests
-        run: browser-tests
+        pull: "browser-tests"
+        run: "browser-tests"
         use-aliases: true
         verbose: true
         command:
@@ -205,7 +205,7 @@ steps:
           - "--fail-fast"
     concurrency: 2
     concurrency_group: "browserstack"
-    concurrency_method: eager
+    concurrency_method: "eager"
 
   #
   # BitBar tests
@@ -220,8 +220,8 @@ steps:
           - "maze_output/failed/**/*"
           - "maze_output/maze_output.zip"
       docker-compose#v4.14.0:
-        pull: browser-tests-bitbar
-        run: browser-tests-bitbar
+        pull: "browser-tests-bitbar"
+        run: "browser-tests-bitbar"
         service-ports: true
         use-aliases: true
         verbose: true
@@ -234,7 +234,7 @@ steps:
           - "--no-tunnel"
     concurrency: 25
     concurrency_group: "bitbar"
-    concurrency_method: eager
+    concurrency_method: "eager"
 
   - label: ":bitbar: iOS Safari"
     skip: "Skipped pending PLAT-14618"
@@ -246,8 +246,8 @@ steps:
           - "maze_output/failed/**/*"
           - "maze_output/maze_output.zip"
       docker-compose#v4.14.0:
-        pull: browser-tests-bitbar
-        run: browser-tests-bitbar
+        pull: "browser-tests-bitbar"
+        run: "browser-tests-bitbar"
         service-ports: true
         use-aliases: true
         verbose: true
@@ -260,13 +260,15 @@ steps:
           - "--no-tunnel"
     concurrency: 25
     concurrency_group: "bitbar"
-    concurrency_method: eager
+    concurrency_method: "eager"
 
-  - label: ":bitbar: Android"
+  - label: ":bitbar: Android (EU)"
     timeout_in_minutes: 20
     depends_on:
       - "android-test-fixture"
       - "push-branch-cli"
+    env:
+      MAZE_APPIUM_SERVER: "https://eu-mobile-hub.bitbar.com/wd/hub"
     plugins:
       artifacts#v1.9.0:
         download: "bugsnag-android-performance/build/test-fixture.apk"
@@ -274,8 +276,8 @@ steps:
           - "bugsnag-android-performance/maze_output/**/*"
           - "bugsnag-android-performance/maze_output/maze_output.zip"
       docker-compose#v4.14.0:
-        pull: appium-test-bb
-        run: appium-test-bb
+        pull: "appium-test-bb"
+        run: "appium-test-bb"
         volumes:
           - "./bugsnag-android-performance/build:/app/build"
           - "./bugsnag-android-performance/features:/app/features"
@@ -285,15 +287,15 @@ steps:
           - "--app=build/test-fixture.apk"
           - "--appium-version=1.22"
           - "--farm=bb"
-          - "--device=ANDROID_12|ANDROID_13|ANDROID_14|ANDROID_15"
+          - "--device=ANDROID_12_EU|ANDROID_13_EU|ANDROID_14_EU|ANDROID_15_EU"
           - "--fail-fast"
           - "--no-tunnel"
           - "--aws-public-ip"
           - "features/manual_spans.feature"
-        image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
+        image-repository: "855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner"
     concurrency: 25
     concurrency_group: "bitbar"
-    concurrency_method: eager
+    concurrency_method: "eager"
     retry:
       automatic:
         - exit_status: 103  # Appium client failure
@@ -313,8 +315,8 @@ steps:
           - "test/e2e/appium-api/maze_output/failed/*"
           - "test/e2e/appium-api/maze_output/maze_output.zip"
       docker-compose#v4.14.0:
-        pull: appium-test-bb
-        run: appium-test-bb
+        pull: "appium-test-bb"
+        run: "appium-test-bb"
         volumes:
           - "./test/e2e/appium-api/build:/app/build"
           - "./test/e2e/appium-api/features:/app/features"
@@ -328,10 +330,10 @@ steps:
           - "--fail-fast"
           - "--no-tunnel"
           - "--aws-public-ip"
-        image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
+        image-repository: "855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner"
     concurrency: 25
     concurrency_group: "bitbar"
-    concurrency_method: eager
+    concurrency_method: "eager"
     retry:
       automatic:
         - exit_status: 103  # Appium client failure
@@ -349,8 +351,8 @@ steps:
           - "bugsnag-cocoa/maze_output/failed/*"
           - "bugsnag-cocoa/maze_output/maze_output.zip"
       docker-compose#v4.14.0:
-        pull: appium-test-bb
-        run: appium-test-bb
+        pull: "appium-test-bb"
+        run: "appium-test-bb"
         volumes:
           - "./bugsnag-cocoa/build:/app/build"
           - "./bugsnag-cocoa/features:/app/features"
@@ -364,18 +366,18 @@ steps:
           - "--no-tunnel"
           - "--aws-public-ip"
           - "features/release/barebone_tests.feature"
-        image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
+        image-repository: "855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner"
         cache-from:
-          - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli
+          - "cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli"
     concurrency: 25
     concurrency_group: "bitbar"
-    concurrency_method: eager
+    concurrency_method: "eager"
     retry:
       automatic:
         - exit_status: 103  # Appium client failure
           limit: 2
 
-  - wait
+  - wait:
 
   - label: "Update docs"
     if: build.tag =~ /^v[0-9]{1,2}\.[0-9]+\.[0-9]+\$/
@@ -391,14 +393,14 @@ steps:
     plugins:
       - docker-compose#v4.14.0:
           push:
-            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:${BUILDKITE_TAG}-cli
-            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-v10-cli
-            - cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-cli
+            - "cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:${BUILDKITE_TAG}-cli"
+            - "cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-v10-cli"
+            - "cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner-releases:latest-cli"
 
   - label: "Push to RubyGems.org"
     if: build.tag =~ /^v[0-9]{1,2}\.[0-9]+\.[0-9]+\$/
     agents:
-      queue: macos-15
+      queue: "macos-15"
     commands:
       - "gem build bugsnag-maze-runner.gemspec"
       - "gem push bugsnag-maze-runner-*.gem"

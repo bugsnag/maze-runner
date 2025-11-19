@@ -30,6 +30,7 @@ module Maze
               value = value_hash.values.first
               array << SpanAttributeArrayElement.new(type, value)
             end
+            array
           end
 
           def from_hash(hash)

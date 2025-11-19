@@ -1,0 +1,339 @@
+{
+  "resourceSpans": [
+    {
+      "scopeSpans": [
+        {
+          "spans": [
+            {
+              "startTimeUnixNano": "1763431339681206016",
+              "spanId": "8fb3864e9a3815f5",
+              "traceId": "4d66399ae3fafc1497f9afd5f609cb78",
+              "endTimeUnixNano": "1763431539681206016",
+              "parentSpanId": "e1e0ae7c3be532c9",
+              "kind": 1,
+              "name": "[AppStartPhase/App launching - pre main()]",
+              "attributes": [
+                {
+                  "key": "bugsnag.sampling.p",
+                  "value": {
+                    "doubleValue": 1
+                  }
+                },
+                {
+                  "key": "bugsnag.span.callbacks_duration",
+                  "value": {
+                    "intValue": "2980"
+                  }
+                },
+                {
+                  "key": "bugsnag.span.category",
+                  "value": {
+                    "stringValue": "app_start_phase"
+                  }
+                },
+                {
+                  "key": "bugsnag.phase",
+                  "value": {
+                    "stringValue": "App launching - pre main()"
+                  }
+                },
+                {
+                  "key": "net.host.connection.type",
+                  "value": {
+                    "stringValue": "wifi"
+                  }
+                },
+                {
+                  "key": "bugsnag.app.in_foreground",
+                  "value": {
+                    "boolValue": true
+                  }
+                }
+              ]
+            },
+            {
+              "startTimeUnixNano": "1763431539681206016",
+              "spanId": "INVALID",
+              "traceId": "4d66399ae3fafc1497f9afd5f609cb78",
+              "endTimeUnixNano": "1763431539867252736",
+              "parentSpanId": "e1e0ae7c3be532c9",
+              "kind": 1,
+              "name": "[AppStartPhase/App launching - post main()]",
+              "attributes": [
+                {
+                  "key": "bugsnag.sampling.p",
+                  "value": {
+                    "doubleValue": 1
+                  }
+                },
+                {
+                  "key": "bugsnag.span.callbacks_duration",
+                  "value": {
+                    "intValue": "0"
+                  }
+                },
+                {
+                  "key": "bugsnag.span.category",
+                  "value": {
+                    "stringValue": "app_start_phase"
+                  }
+                },
+                {
+                  "key": "bugsnag.phase",
+                  "value": {
+                    "stringValue": "App launching - post main()"
+                  }
+                },
+                {
+                  "key": "net.host.connection.type",
+                  "value": {
+                    "stringValue": "wifi"
+                  }
+                },
+                {
+                  "key": "bugsnag.app.in_foreground",
+                  "value": {
+                    "boolValue": true
+                  }
+                }
+              ]
+            },
+            {
+              "startTimeUnixNano": "1763431539867252736",
+              "spanId": "6a09501eadc5be89",
+              "traceId": "INVALID",
+              "endTimeUnixNano": "1763431539902490112",
+              "parentSpanId": "e1e0ae7c3be532c9",
+              "kind": 1,
+              "name": "[AppStartPhase/UI init]",
+              "attributes": [
+                {
+                  "key": "bugsnag.sampling.p",
+                  "value": {
+                    "doubleValue": 1
+                  }
+                },
+                {
+                  "key": "bugsnag.span.callbacks_duration",
+                  "value": {
+                    "intValue": "0"
+                  }
+                },
+                {
+                  "key": "bugsnag.span.category",
+                  "value": {
+                    "stringValue": "app_start_phase"
+                  }
+                },
+                {
+                  "key": "bugsnag.phase",
+                  "value": {
+                    "stringValue": "UI init"
+                  }
+                },
+                {
+                  "key": "net.host.connection.type",
+                  "value": {
+                    "stringValue": "wifi"
+                  }
+                },
+                {
+                  "key": "bugsnag.app.in_foreground",
+                  "value": {
+                    "boolValue": true
+                  }
+                }
+              ]
+            },
+            {
+              "startTimeUnixNano": "1763431533302490112",
+              "spanId": "e1e0ae7c3be532c9",
+              "traceId": "4d66399ae3fafc1497f9afd5f609cb78",
+              "endTimeUnixNano": "1763431539902490112",
+              "attributes": [
+                {
+                  "key": "bugsnag.app_start.type",
+                  "value": {
+                    "stringValue": "cold"
+                  }
+                },
+                {
+                  "key": "bugsnag.span.callbacks_duration",
+                  "value": {
+                    "intValue": "0"
+                  }
+                },
+                {
+                  "key": "bugsnag.span.category",
+                  "value": {
+                    "stringValue": "app_start"
+                  }
+                },
+                {
+                  "key": "bugsnag.sampling.p",
+                  "value": {
+                    "doubleValue": 1
+                  }
+                },
+                {
+                  "key": "bugsnag.app.in_foreground",
+                  "value": {
+                    "boolValue": true
+                  }
+                },
+                {
+                  "key": "bugsnag.app_start.first_view_name",
+                  "value": {
+                    "stringValue": "Fixture.ViewController"
+                  }
+                },
+                {
+                  "key": "net.host.connection.type",
+                  "value": {
+                    "stringValue": "wifi"
+                  }
+                }
+              ],
+              "kind": 1,
+              "name": "[AppStart/iOSCold]"
+            },
+            {
+              "startTimeUnixNano": "1763431539902490112",
+              "spanId": "e1e0ae7c3be532c9",
+              "traceId": "4d66399ae3fafc1497f9afd5f609cb78",
+              "endTimeUnixNano": "1763431539952490112",
+              "attributes": [
+                {
+                  "key": "bugsnag.app_start.type",
+                  "value": {
+                    "stringValue": "cold"
+                  }
+                },
+                {
+                  "key": "bugsnag.span.callbacks_duration",
+                  "value": {
+                    "intValue": "0"
+                  }
+                },
+                {
+                  "key": "bugsnag.span.category",
+                  "value": {
+                    "stringValue": "app_start"
+                  }
+                },
+                {
+                  "key": "bugsnag.sampling.p",
+                  "value": {
+                    "doubleValue": 1
+                  }
+                },
+                {
+                  "key": "bugsnag.app.in_foreground",
+                  "value": {
+                    "boolValue": true
+                  }
+                },
+                {
+                  "key": "bugsnag.app_start.first_view_name",
+                  "value": {
+                    "stringValue": "Fixture.ViewController"
+                  }
+                },
+                {
+                  "key": "net.host.connection.type",
+                  "value": {
+                    "stringValue": "wifi"
+                  }
+                }
+              ],
+              "kind": 1,
+              "name": "[AppStart/iOSCold]"
+            }
+          ]
+        }
+      ],
+      "resource": {
+        "attributes": [
+          {
+            "key": "device.id",
+            "value": {
+              "stringValue": "3c5ee3da409299e4b23f8630f70308fc29b9a717"
+            }
+          },
+          {
+            "key": "bugsnag.app.bundle_version",
+            "value": {
+              "stringValue": "30"
+            }
+          },
+          {
+            "key": "host.arch",
+            "value": {
+              "stringValue": "arm64"
+            }
+          },
+          {
+            "key": "device.model.identifier",
+            "value": {
+              "stringValue": "iPhone17,4"
+            }
+          },
+          {
+            "key": "os.type",
+            "value": {
+              "stringValue": "darwin"
+            }
+          },
+          {
+            "key": "deployment.environment",
+            "value": {
+              "stringValue": "staging"
+            }
+          },
+          {
+            "key": "os.version",
+            "value": {
+              "stringValue": "26.1"
+            }
+          },
+          {
+            "key": "service.version",
+            "value": {
+              "stringValue": "10.0"
+            }
+          },
+          {
+            "key": "telemetry.sdk.name",
+            "value": {
+              "stringValue": "bugsnag.performance.cocoa"
+            }
+          },
+          {
+            "key": "os.name",
+            "value": {
+              "stringValue": "iOS"
+            }
+          },
+          {
+            "key": "telemetry.sdk.version",
+            "value": {
+              "stringValue": "1.15.0"
+            }
+          },
+          {
+            "key": "device.manufacturer",
+            "value": {
+              "stringValue": "Apple"
+            }
+          },
+          {
+            "key": "service.name",
+            "value": {
+              "stringValue": "com.bugsnag.fixtures.cocoaperformance"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

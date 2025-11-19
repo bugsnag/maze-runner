@@ -1,0 +1,1181 @@
+{
+  "resourceSpans": [
+    {
+      "resource": {
+        "attributes": [
+          {
+            "key": "host.arch",
+            "value": {
+              "stringValue": "arm64"
+            }
+          },
+          {
+            "key": "os.type",
+            "value": {
+              "stringValue": "linux"
+            }
+          },
+          {
+            "key": "os.name",
+            "value": {
+              "stringValue": "android"
+            }
+          },
+          {
+            "key": "os.version",
+            "value": {
+              "stringValue": "12"
+            }
+          },
+          {
+            "key": "bugsnag.device.android_api_version",
+            "value": {
+              "stringValue": "32"
+            }
+          },
+          {
+            "key": "device.model.identifier",
+            "value": {
+              "stringValue": "Pixel 6"
+            }
+          },
+          {
+            "key": "device.manufacturer",
+            "value": {
+              "stringValue": "Google"
+            }
+          },
+          {
+            "key": "deployment.environment",
+            "value": {
+              "stringValue": "production"
+            }
+          },
+          {
+            "key": "bugsnag.app.version_code",
+            "value": {
+              "stringValue": "1"
+            }
+          },
+          {
+            "key": "service.name",
+            "value": {
+              "stringValue": "com.bugsnag.mazeracer"
+            }
+          },
+          {
+            "key": "service.version",
+            "value": {
+              "stringValue": "1.0"
+            }
+          },
+          {
+            "key": "telemetry.sdk.name",
+            "value": {
+              "stringValue": "bugsnag.performance.android"
+            }
+          },
+          {
+            "key": "telemetry.sdk.version",
+            "value": {
+              "stringValue": "2.1.0"
+            }
+          },
+          {
+            "key": "device.id",
+            "value": {
+              "stringValue": "39365e66-68df-4ae7-a526-5af6013e7250"
+            }
+          }
+        ]
+      },
+      "scopeSpans": [
+        {
+          "spans": [
+            {
+              "name": "[AppStartPhase/Framework]",
+              "kind": 1,
+              "spanId": "f9c159109a0c6177",
+              "traceId": "3c3075183d654d78829ec5648437d355",
+              "startTimeUnixNano": "1763435286746724040",
+              "endTimeUnixNano": "1763435286747410400",
+              "parentSpanId": "39dff22d78183c11",
+              "attributes": [
+                {
+                  "key": "bugsnag.sampling.p",
+                  "value": {
+                    "doubleValue": 1.0
+                  }
+                },
+                {
+                  "key": "bugsnag.span.category",
+                  "value": {
+                    "stringValue": "app_start_phase"
+                  }
+                },
+                {
+                  "key": "bugsnag.span.first_class",
+                  "value": {
+                    "boolValue": false
+                  }
+                },
+                {
+                  "key": "net.host.connection.type",
+                  "value": {
+                    "stringValue": "unknown"
+                  }
+                },
+                {
+                  "key": "bugsnag.app.in_foreground",
+                  "value": {
+                    "boolValue": true
+                  }
+                },
+                {
+                  "key": "bugsnag.phase",
+                  "value": {
+                    "stringValue": "FrameworkLoad"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "[ViewLoadPhase/ActivityCreate]SplashScreenActivity",
+              "kind": 1,
+              "spanId": "7bbc0a37ca54e8af",
+              "traceId": "3c3075183d654d78829ec5648437d355",
+              "startTimeUnixNano": "1763435286761439128",
+              "endTimeUnixNano": "1763435286767932455",
+              "parentSpanId": "fa443a81ef4cb385",
+              "attributes": [
+                {
+                  "key": "bugsnag.sampling.p",
+                  "value": {
+                    "doubleValue": 1.0
+                  }
+                },
+                {
+                  "key": "bugsnag.span.category",
+                  "value": {
+                    "stringValue": "view_load_phase"
+                  }
+                },
+                {
+                  "key": "net.host.connection.type",
+                  "value": {
+                    "stringValue": "unknown"
+                  }
+                },
+                {
+                  "key": "bugsnag.app.in_foreground",
+                  "value": {
+                    "boolValue": true
+                  }
+                },
+                {
+                  "key": "bugsnag.view.name",
+                  "value": {
+                    "stringValue": "SplashScreenActivity"
+                  }
+                },
+                {
+                  "key": "bugsnag.view.type",
+                  "value": {
+                    "stringValue": "activity"
+                  }
+                },
+                {
+                  "key": "bugsnag.phase",
+                  "value": {
+                    "stringValue": "ActivityCreate"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "[ViewLoadPhase/ActivityStart]SplashScreenActivity",
+              "kind": 1,
+              "spanId": "3e9a7537bd66851f",
+              "traceId": "3c3075183d654d78829ec5648437d355",
+              "startTimeUnixNano": "1763435286768151571",
+              "endTimeUnixNano": "1763435286769358073",
+              "parentSpanId": "fa443a81ef4cb385",
+              "attributes": [
+                {
+                  "key": "bugsnag.sampling.p",
+                  "value": {
+                    "doubleValue": 1.0
+                  }
+                },
+                {
+                  "key": "bugsnag.span.category",
+                  "value": {
+                    "stringValue": "view_load_phase"
+                  }
+                },
+                {
+                  "key": "net.host.connection.type",
+                  "value": {
+                    "stringValue": "unknown"
+                  }
+                },
+                {
+                  "key": "bugsnag.app.in_foreground",
+                  "value": {
+                    "boolValue": true
+                  }
+                },
+                {
+                  "key": "bugsnag.view.name",
+                  "value": {
+                    "stringValue": "SplashScreenActivity"
+                  }
+                },
+                {
+                  "key": "bugsnag.view.type",
+                  "value": {
+                    "stringValue": "activity"
+                  }
+                },
+                {
+                  "key": "bugsnag.phase",
+                  "value": {
+                    "stringValue": "ActivityStart"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "[ViewLoadPhase/ActivityResume]SplashScreenActivity",
+              "kind": 1,
+              "spanId": "f19d0ea485191290",
+              "traceId": "3c3075183d654d78829ec5648437d355",
+              "startTimeUnixNano": "1763435286772844849",
+              "endTimeUnixNano": "1763435286773188721",
+              "parentSpanId": "fa443a81ef4cb385",
+              "attributes": [
+                {
+                  "key": "bugsnag.sampling.p",
+                  "value": {
+                    "doubleValue": 1.0
+                  }
+                },
+                {
+                  "key": "bugsnag.span.category",
+                  "value": {
+                    "stringValue": "view_load_phase"
+                  }
+                },
+                {
+                  "key": "net.host.connection.type",
+                  "value": {
+                    "stringValue": "unknown"
+                  }
+                },
+                {
+                  "key": "bugsnag.app.in_foreground",
+                  "value": {
+                    "boolValue": true
+                  }
+                },
+                {
+                  "key": "bugsnag.view.name",
+                  "value": {
+                    "stringValue": "SplashScreenActivity"
+                  }
+                },
+                {
+                  "key": "bugsnag.view.type",
+                  "value": {
+                    "stringValue": "activity"
+                  }
+                },
+                {
+                  "key": "bugsnag.phase",
+                  "value": {
+                    "stringValue": "ActivityResume"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "[ViewLoad/Activity]SplashScreenActivity",
+              "kind": 1,
+              "spanId": "fa443a81ef4cb385",
+              "traceId": "3c3075183d654d78829ec5648437d355",
+              "startTimeUnixNano": "1763435286761290121",
+              "endTimeUnixNano": "1763435286773209513",
+              "parentSpanId": "39dff22d78183c11",
+              "attributes": [
+                {
+                  "key": "bugsnag.sampling.p",
+                  "value": {
+                    "doubleValue": 1.0
+                  }
+                },
+                {
+                  "key": "bugsnag.span.category",
+                  "value": {
+                    "stringValue": "view_load"
+                  }
+                },
+                {
+                  "key": "net.host.connection.type",
+                  "value": {
+                    "stringValue": "unknown"
+                  }
+                },
+                {
+                  "key": "bugsnag.app.in_foreground",
+                  "value": {
+                    "boolValue": true
+                  }
+                },
+                {
+                  "key": "bugsnag.view.type",
+                  "value": {
+                    "stringValue": "activity"
+                  }
+                },
+                {
+                  "key": "bugsnag.view.name",
+                  "value": {
+                    "stringValue": "SplashScreenActivity"
+                  }
+                },
+                {
+                  "key": "bugsnag.span.first_class",
+                  "value": {
+                    "boolValue": true
+                  }
+                }
+              ]
+            },
+            {
+              "name": "[ViewLoadPhase/ActivityCreate]MainActivity",
+              "kind": 1,
+              "spanId": "ad23dd8f924c2250",
+              "traceId": "3c3075183d654d78829ec5648437d355",
+              "startTimeUnixNano": "1763435287046216756",
+              "endTimeUnixNano": "1763435287055450073",
+              "parentSpanId": "c72576cae45b9871",
+              "attributes": [
+                {
+                  "key": "bugsnag.sampling.p",
+                  "value": {
+                    "doubleValue": 1.0
+                  }
+                },
+                {
+                  "key": "bugsnag.span.category",
+                  "value": {
+                    "stringValue": "view_load_phase"
+                  }
+                },
+                {
+                  "key": "net.host.connection.type",
+                  "value": {
+                    "stringValue": "unknown"
+                  }
+                },
+                {
+                  "key": "bugsnag.app.in_foreground",
+                  "value": {
+                    "boolValue": true
+                  }
+                },
+                {
+                  "key": "bugsnag.view.name",
+                  "value": {
+                    "stringValue": "MainActivity"
+                  }
+                },
+                {
+                  "key": "bugsnag.view.type",
+                  "value": {
+                    "stringValue": "activity"
+                  }
+                },
+                {
+                  "key": "bugsnag.phase",
+                  "value": {
+                    "stringValue": "ActivityCreate"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "[ViewLoadPhase/ActivityStart]MainActivity",
+              "kind": 1,
+              "spanId": "62fac9a7564a25db",
+              "traceId": "3c3075183d654d78829ec5648437d355",
+              "startTimeUnixNano": "1763435287055736776",
+              "endTimeUnixNano": "1763435287056632365",
+              "parentSpanId": "c72576cae45b9871",
+              "attributes": [
+                {
+                  "key": "bugsnag.sampling.p",
+                  "value": {
+                    "doubleValue": 1.0
+                  }
+                },
+                {
+                  "key": "bugsnag.span.category",
+                  "value": {
+                    "stringValue": "view_load_phase"
+                  }
+                },
+                {
+                  "key": "net.host.connection.type",
+                  "value": {
+                    "stringValue": "unknown"
+                  }
+                },
+                {
+                  "key": "bugsnag.app.in_foreground",
+                  "value": {
+                    "boolValue": true
+                  }
+                },
+                {
+                  "key": "bugsnag.view.name",
+                  "value": {
+                    "stringValue": "MainActivity"
+                  }
+                },
+                {
+                  "key": "bugsnag.view.type",
+                  "value": {
+                    "stringValue": "activity"
+                  }
+                },
+                {
+                  "key": "bugsnag.phase",
+                  "value": {
+                    "stringValue": "ActivityStart"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "[ViewLoadPhase/ActivityResume]MainActivity",
+              "kind": 1,
+              "spanId": "76aff03a02ca6f03",
+              "traceId": "3c3075183d654d78829ec5648437d355",
+              "startTimeUnixNano": "1763435287056729981",
+              "endTimeUnixNano": "1763435287056879842",
+              "parentSpanId": "c72576cae45b9871",
+              "attributes": [
+                {
+                  "key": "bugsnag.sampling.p",
+                  "value": {
+                    "doubleValue": 1.0
+                  }
+                },
+                {
+                  "key": "bugsnag.span.category",
+                  "value": {
+                    "stringValue": "view_load_phase"
+                  }
+                },
+                {
+                  "key": "net.host.connection.type",
+                  "value": {
+                    "stringValue": "unknown"
+                  }
+                },
+                {
+                  "key": "bugsnag.app.in_foreground",
+                  "value": {
+                    "boolValue": true
+                  }
+                },
+                {
+                  "key": "bugsnag.view.name",
+                  "value": {
+                    "stringValue": "MainActivity"
+                  }
+                },
+                {
+                  "key": "bugsnag.view.type",
+                  "value": {
+                    "stringValue": "activity"
+                  }
+                },
+                {
+                  "key": "bugsnag.phase",
+                  "value": {
+                    "stringValue": "ActivityResume"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "[AppStart/AndroidCold]SplashScreen",
+              "kind": 1,
+              "spanId": "39dff22d78183c11",
+              "traceId": "3c3075183d654d78829ec5648437d355",
+              "startTimeUnixNano": "1763435286746278768",
+              "endTimeUnixNano": "1763435287056886434",
+              "attributes": [
+                {
+                  "key": "bugsnag.sampling.p",
+                  "value": {
+                    "doubleValue": 1.0
+                  }
+                },
+                {
+                  "key": "bugsnag.span.category",
+                  "value": {
+                    "stringValue": "app_start"
+                  }
+                },
+                {
+                  "key": "bugsnag.span.first_class",
+                  "value": {
+                    "boolValue": true
+                  }
+                },
+                {
+                  "key": "net.host.connection.type",
+                  "value": {
+                    "stringValue": "unknown"
+                  }
+                },
+                {
+                  "key": "bugsnag.app.in_foreground",
+                  "value": {
+                    "boolValue": true
+                  }
+                },
+                {
+                  "key": "bugsnag.app_start.type",
+                  "value": {
+                    "stringValue": "cold"
+                  }
+                },
+                {
+                  "key": "bugsnag.view.type",
+                  "value": {
+                    "stringValue": "activity"
+                  }
+                },
+                {
+                  "key": "bugsnag.app_start.first_view_name",
+                  "value": {
+                    "stringValue": "SplashScreenActivity"
+                  }
+                },
+                {
+                  "key": "bugsnag.app_start.name",
+                  "value": {
+                    "stringValue": "SplashScreen"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "[ViewLoad/Activity]MainActivity",
+              "kind": 1,
+              "spanId": "c72576cae45b9871",
+              "traceId": "3c3075183d654d78829ec5648437d355",
+              "startTimeUnixNano": "1763435287046139893",
+              "endTimeUnixNano": "1763435287056886434",
+              "parentSpanId": "39dff22d78183c11",
+              "attributes": [
+                {
+                  "key": "bugsnag.sampling.p",
+                  "value": {
+                    "doubleValue": 1.0
+                  }
+                },
+                {
+                  "key": "bugsnag.span.category",
+                  "value": {
+                    "stringValue": "view_load"
+                  }
+                },
+                {
+                  "key": "net.host.connection.type",
+                  "value": {
+                    "stringValue": "unknown"
+                  }
+                },
+                {
+                  "key": "bugsnag.app.in_foreground",
+                  "value": {
+                    "boolValue": true
+                  }
+                },
+                {
+                  "key": "bugsnag.view.type",
+                  "value": {
+                    "stringValue": "activity"
+                  }
+                },
+                {
+                  "key": "bugsnag.view.name",
+                  "value": {
+                    "stringValue": "MainActivity"
+                  }
+                },
+                {
+                  "key": "bugsnag.span.first_class",
+                  "value": {
+                    "boolValue": true
+                  }
+                }
+              ]
+            },
+            {
+              "name": "[ViewLoadPhase/ActivityCreate]NestedSpansActivity",
+              "kind": 1,
+              "spanId": "3585b0534010bc30",
+              "traceId": "3e9905e9672044569822c76498aabae8",
+              "startTimeUnixNano": "1763435289667354616",
+              "endTimeUnixNano": "1763435289671965659",
+              "parentSpanId": "c1bd34eb0ba82ffc",
+              "attributes": [
+                {
+                  "key": "bugsnag.sampling.p",
+                  "value": {
+                    "doubleValue": 1.0
+                  }
+                },
+                {
+                  "key": "bugsnag.span.category",
+                  "value": {
+                    "stringValue": "view_load_phase"
+                  }
+                },
+                {
+                  "key": "net.host.connection.type",
+                  "value": {
+                    "stringValue": "unknown"
+                  }
+                },
+                {
+                  "key": "bugsnag.app.in_foreground",
+                  "value": {
+                    "boolValue": true
+                  }
+                },
+                {
+                  "key": "bugsnag.view.name",
+                  "value": {
+                    "stringValue": "NestedSpansActivity"
+                  }
+                },
+                {
+                  "key": "bugsnag.view.type",
+                  "value": {
+                    "stringValue": "activity"
+                  }
+                },
+                {
+                  "key": "bugsnag.phase",
+                  "value": {
+                    "stringValue": "ActivityCreate"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "[ViewLoadPhase/FragmentCreate]FirstFragment",
+              "kind": 1,
+              "spanId": "19d62707a460fb90",
+              "traceId": "3e9905e9672044569822c76498aabae8",
+              "startTimeUnixNano": "1763435289672652264",
+              "endTimeUnixNano": "1763435289672793662",
+              "parentSpanId": "2609689b26b807a1",
+              "attributes": [
+                {
+                  "key": "bugsnag.sampling.p",
+                  "value": {
+                    "doubleValue": 1.0
+                  }
+                },
+                {
+                  "key": "bugsnag.span.category",
+                  "value": {
+                    "stringValue": "view_load_phase"
+                  }
+                },
+                {
+                  "key": "net.host.connection.type",
+                  "value": {
+                    "stringValue": "unknown"
+                  }
+                },
+                {
+                  "key": "bugsnag.app.in_foreground",
+                  "value": {
+                    "boolValue": true
+                  }
+                },
+                {
+                  "key": "bugsnag.view.name",
+                  "value": {
+                    "stringValue": "FirstFragment"
+                  }
+                },
+                {
+                  "key": "bugsnag.view.type",
+                  "value": {
+                    "stringValue": "fragment"
+                  }
+                },
+                {
+                  "key": "bugsnag.phase",
+                  "value": {
+                    "stringValue": "FragmentCreate"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "[ViewLoadPhase/ActivityStart]NestedSpansActivity",
+              "kind": 1,
+              "spanId": "deb26b6ee66ca066",
+              "traceId": "3e9905e9672044569822c76498aabae8",
+              "startTimeUnixNano": "1763435289672210044",
+              "endTimeUnixNano": "1763435289673658449",
+              "parentSpanId": "c1bd34eb0ba82ffc",
+              "attributes": [
+                {
+                  "key": "bugsnag.sampling.p",
+                  "value": {
+                    "doubleValue": 1.0
+                  }
+                },
+                {
+                  "key": "bugsnag.span.category",
+                  "value": {
+                    "stringValue": "view_load_phase"
+                  }
+                },
+                {
+                  "key": "net.host.connection.type",
+                  "value": {
+                    "stringValue": "unknown"
+                  }
+                },
+                {
+                  "key": "bugsnag.app.in_foreground",
+                  "value": {
+                    "boolValue": true
+                  }
+                },
+                {
+                  "key": "bugsnag.view.name",
+                  "value": {
+                    "stringValue": "NestedSpansActivity"
+                  }
+                },
+                {
+                  "key": "bugsnag.view.type",
+                  "value": {
+                    "stringValue": "activity"
+                  }
+                },
+                {
+                  "key": "bugsnag.phase",
+                  "value": {
+                    "stringValue": "ActivityStart"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "[ViewLoad/Fragment]FirstFragment",
+              "kind": 1,
+              "spanId": "2609689b26b807a1",
+              "traceId": "3e9905e9672044569822c76498aabae8",
+              "startTimeUnixNano": "1763435289672652264",
+              "endTimeUnixNano": "1763435289674191815",
+              "parentSpanId": "deb26b6ee66ca066",
+              "attributes": [
+                {
+                  "key": "bugsnag.sampling.p",
+                  "value": {
+                    "doubleValue": 1.0
+                  }
+                },
+                {
+                  "key": "bugsnag.span.category",
+                  "value": {
+                    "stringValue": "view_load"
+                  }
+                },
+                {
+                  "key": "net.host.connection.type",
+                  "value": {
+                    "stringValue": "unknown"
+                  }
+                },
+                {
+                  "key": "bugsnag.app.in_foreground",
+                  "value": {
+                    "boolValue": true
+                  }
+                },
+                {
+                  "key": "bugsnag.view.type",
+                  "value": {
+                    "stringValue": "fragment"
+                  }
+                },
+                {
+                  "key": "bugsnag.view.name",
+                  "value": {
+                    "stringValue": "FirstFragment"
+                  }
+                },
+                {
+                  "key": "bugsnag.span.first_class",
+                  "value": {
+                    "boolValue": false
+                  }
+                }
+              ]
+            },
+            {
+              "name": "[ViewLoadPhase/FragmentCreate]SecondFragment",
+              "kind": 1,
+              "spanId": "e9bf310d6563c509",
+              "traceId": "3e9905e9672044569822c76498aabae8",
+              "startTimeUnixNano": "1763435289674402345",
+              "endTimeUnixNano": "1763435289674512412",
+              "parentSpanId": "cb1065b77cbe9b8d",
+              "attributes": [
+                {
+                  "key": "bugsnag.sampling.p",
+                  "value": {
+                    "doubleValue": 1.0
+                  }
+                },
+                {
+                  "key": "bugsnag.span.category",
+                  "value": {
+                    "stringValue": "view_load_phase"
+                  }
+                },
+                {
+                  "key": "net.host.connection.type",
+                  "value": {
+                    "stringValue": "unknown"
+                  }
+                },
+                {
+                  "key": "bugsnag.app.in_foreground",
+                  "value": {
+                    "boolValue": true
+                  }
+                },
+                {
+                  "key": "bugsnag.view.name",
+                  "value": {
+                    "stringValue": "SecondFragment"
+                  }
+                },
+                {
+                  "key": "bugsnag.view.type",
+                  "value": {
+                    "stringValue": "fragment"
+                  }
+                },
+                {
+                  "key": "bugsnag.phase",
+                  "value": {
+                    "stringValue": "FragmentCreate"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "[ViewLoad/Fragment]SecondFragment",
+              "kind": 1,
+              "spanId": "cb1065b77cbe9b8d",
+              "traceId": "3e9905e9672044569822c76498aabae8",
+              "startTimeUnixNano": "1763435289674402345",
+              "endTimeUnixNano": "1763435289675280194",
+              "parentSpanId": "44ed3409a245e010",
+              "attributes": [
+                {
+                  "key": "bugsnag.sampling.p",
+                  "value": {
+                    "doubleValue": 1.0
+                  }
+                },
+                {
+                  "key": "bugsnag.span.category",
+                  "value": {
+                    "stringValue": "view_load"
+                  }
+                },
+                {
+                  "key": "net.host.connection.type",
+                  "value": {
+                    "stringValue": "unknown"
+                  }
+                },
+                {
+                  "key": "bugsnag.app.in_foreground",
+                  "value": {
+                    "boolValue": true
+                  }
+                },
+                {
+                  "key": "bugsnag.view.type",
+                  "value": {
+                    "stringValue": "fragment"
+                  }
+                },
+                {
+                  "key": "bugsnag.view.name",
+                  "value": {
+                    "stringValue": "SecondFragment"
+                  }
+                },
+                {
+                  "key": "bugsnag.span.first_class",
+                  "value": {
+                    "boolValue": false
+                  }
+                }
+              ]
+            },
+            {
+              "name": "[ViewLoadPhase/ActivityResume]NestedSpansActivity",
+              "kind": 1,
+              "spanId": "eb261bcba67fe07b",
+              "traceId": "3e9905e9672044569822c76498aabae8",
+              "startTimeUnixNano": "1763435289673755861",
+              "endTimeUnixNano": "1763435289675381268",
+              "parentSpanId": "c1bd34eb0ba82ffc",
+              "attributes": [
+                {
+                  "key": "bugsnag.sampling.p",
+                  "value": {
+                    "doubleValue": 1.0
+                  }
+                },
+                {
+                  "key": "bugsnag.span.category",
+                  "value": {
+                    "stringValue": "view_load_phase"
+                  }
+                },
+                {
+                  "key": "net.host.connection.type",
+                  "value": {
+                    "stringValue": "unknown"
+                  }
+                },
+                {
+                  "key": "bugsnag.app.in_foreground",
+                  "value": {
+                    "boolValue": true
+                  }
+                },
+                {
+                  "key": "bugsnag.view.name",
+                  "value": {
+                    "stringValue": "NestedSpansActivity"
+                  }
+                },
+                {
+                  "key": "bugsnag.view.type",
+                  "value": {
+                    "stringValue": "activity"
+                  }
+                },
+                {
+                  "key": "bugsnag.phase",
+                  "value": {
+                    "stringValue": "ActivityResume"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "DoStuff",
+              "kind": 1,
+              "spanId": "77f3caad43aff8ec",
+              "traceId": "3e9905e9672044569822c76498aabae8",
+              "startTimeUnixNano": "1763435289681444500",
+              "endTimeUnixNano": "1763435289732203940",
+              "parentSpanId": "44ed3409a245e010",
+              "attributes": [
+                {
+                  "key": "bugsnag.sampling.p",
+                  "value": {
+                    "doubleValue": 1.0
+                  }
+                },
+                {
+                  "key": "bugsnag.span.category",
+                  "value": {
+                    "stringValue": "custom"
+                  }
+                },
+                {
+                  "key": "bugsnag.span.first_class",
+                  "value": {
+                    "boolValue": true
+                  }
+                },
+                {
+                  "key": "net.host.connection.type",
+                  "value": {
+                    "stringValue": "unknown"
+                  }
+                },
+                {
+                  "key": "bugsnag.app.in_foreground",
+                  "value": {
+                    "boolValue": true
+                  }
+                }
+              ]
+            },
+            {
+              "name": "LoadData",
+              "kind": 1,
+              "spanId": "73c606f41cc4abe1",
+              "traceId": "3e9905e9672044569822c76498aabae8",
+              "startTimeUnixNano": "1763435289783187380",
+              "endTimeUnixNano": "1763435289783271079",
+              "parentSpanId": "44ed3409a245e010",
+              "attributes": [
+                {
+                  "key": "bugsnag.sampling.p",
+                  "value": {
+                    "doubleValue": 1.0
+                  }
+                },
+                {
+                  "key": "bugsnag.span.category",
+                  "value": {
+                    "stringValue": "custom"
+                  }
+                },
+                {
+                  "key": "bugsnag.span.first_class",
+                  "value": {
+                    "boolValue": true
+                  }
+                },
+                {
+                  "key": "net.host.connection.type",
+                  "value": {
+                    "stringValue": "unknown"
+                  }
+                },
+                {
+                  "key": "bugsnag.app.in_foreground",
+                  "value": {
+                    "boolValue": true
+                  }
+                }
+              ]
+            },
+            {
+              "name": "CustomRoot",
+              "kind": 1,
+              "spanId": "44ed3409a245e010",
+              "traceId": "3e9905e9672044569822c76498aabae8",
+              "startTimeUnixNano": "1763435289673880454",
+              "endTimeUnixNano": "1763435289783552777",
+              "parentSpanId": "eb261bcba67fe07b",
+              "attributes": [
+                {
+                  "key": "bugsnag.sampling.p",
+                  "value": {
+                    "doubleValue": 1.0
+                  }
+                },
+                {
+                  "key": "bugsnag.span.category",
+                  "value": {
+                    "stringValue": "custom"
+                  }
+                },
+                {
+                  "key": "bugsnag.span.first_class",
+                  "value": {
+                    "boolValue": true
+                  }
+                },
+                {
+                  "key": "net.host.connection.type",
+                  "value": {
+                    "stringValue": "unknown"
+                  }
+                },
+                {
+                  "key": "bugsnag.app.in_foreground",
+                  "value": {
+                    "boolValue": true
+                  }
+                }
+              ]
+            },
+            {
+              "name": "[ViewLoad/Activity]NestedSpansActivity",
+              "kind": 1,
+              "spanId": "c1bd34eb0ba82ffc",
+              "traceId": "3e9905e9672044569822c76498aabae8",
+              "startTimeUnixNano": "1763435289667245892",
+              "endTimeUnixNano": "1763435289675392295",
+              "attributes": [
+                {
+                  "key": "bugsnag.sampling.p",
+                  "value": {
+                    "doubleValue": 1.0
+                  }
+                },
+                {
+                  "key": "bugsnag.span.category",
+                  "value": {
+                    "stringValue": "view_load"
+                  }
+                },
+                {
+                  "key": "net.host.connection.type",
+                  "value": {
+                    "stringValue": "unknown"
+                  }
+                },
+                {
+                  "key": "bugsnag.app.in_foreground",
+                  "value": {
+                    "boolValue": true
+                  }
+                },
+                {
+                  "key": "bugsnag.view.type",
+                  "value": {
+                    "stringValue": "activity"
+                  }
+                },
+                {
+                  "key": "bugsnag.view.name",
+                  "value": {
+                    "stringValue": "NestedSpansActivity"
+                  }
+                },
+                {
+                  "key": "bugsnag.span.first_class",
+                  "value": {
+                    "boolValue": true
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

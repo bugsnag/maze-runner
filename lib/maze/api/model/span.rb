@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'span_attribute'
+
 module Maze
   module Api
     module Model
@@ -10,7 +12,7 @@ module Maze
           @attributes = {}
 
           def add_attribute(attribute)
-            @attributes[attribute['key']] = attribute
+            @attributes[attribute.key] = attribute
           end
         end
 

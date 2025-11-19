@@ -10,7 +10,7 @@ module Maze
         INT = 3
         STRING = 4
 
-        def for_string(type_string)
+        def self.for_string(type_string)
           case type_string
           when 'arrayValue'
             ARRAY

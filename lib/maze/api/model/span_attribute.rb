@@ -25,7 +25,7 @@ module Maze
         class << self
           def array_from_hash(hash_array)
             array = []
-            hash_array['values'].each do |value_hash|
+            hash_array.each do |value_hash|
               type = SpanAttributeType::for_string(value_hash.keys.first)
               value = value_hash.values.first
               array << SpanAttributeArrayElement.new(type, value)
@@ -33,7 +33,7 @@ module Maze
           end
 
           def from_hash(hash)
-            type = SpanAttributeType::for_string(hash['value'].keys.first)
+            type = SpanAttributeType.for_string(hash['value'].keys.first)
             hash_value = hash['value']
             value = if hash_value.has_key?('arrayValue')
               array_from_hash(hash_value['arrayValue']['values'])

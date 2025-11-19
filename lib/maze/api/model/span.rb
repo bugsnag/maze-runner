@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'span_attribute'
+require_relative 'otel_attribute'
 
 module Maze
   module Api
@@ -27,7 +27,7 @@ module Maze
             span.end_time = hash['endTimeUnixNano']
 
             hash['attributes'].each do |attribute_hash|
-              attribute = SpanAttribute.from_hash(attribute_hash)
+              attribute = OtelAttribute.from_hash(attribute_hash)
               span.add_attribute(attribute)
             end
 

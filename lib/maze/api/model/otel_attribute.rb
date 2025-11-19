@@ -1,10 +1,10 @@
 # frozen_string_literal: true
-require_relative 'span_attribute_type'
+require_relative 'otel_attribute_type'
 
 module Maze
   module Api
     module Model
-      class SpanAttributeArrayElement
+      class OtelAttributeArrayElement
         attr_accessor :type, :value
 
         def initialize(type, value)
@@ -13,7 +13,8 @@ module Maze
         end
       end
 
-      class SpanAttribute
+      # OTEL attributes used in both spans and resources
+      class OtelAttribute
         attr_accessor :type, :key, :value
 
         def initialize(type, key, value)
@@ -26,15 +27,15 @@ module Maze
           def array_from_hash(hash_array)
             array = []
             hash_array.each do |value_hash|
-              type = SpanAttributeType::for_string(value_hash.keys.first)
+              type = OtelAttributeType::for_string(value_hash.keys.first)
               value = value_hash.values.first
-              array << SpanAttributeArrayElement.new(type, value)
+              array << OtelAttributeArrayElement.new(type, value)
             end
             array
           end
 
           def from_hash(hash)
-            type = SpanAttributeType.for_string(hash['value'].keys.first)
+            type = OtelAttributeType.for_string(hash['value'].keys.first)
             hash_value = hash['value']
             value = if hash_value.has_key?('arrayValue')
               array_from_hash(hash_value['arrayValue']['values'])

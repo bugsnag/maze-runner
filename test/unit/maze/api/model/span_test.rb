@@ -25,55 +25,55 @@ class SpanTest < Test::Unit::TestCase
     key = 'bugsnag.span.category'
     assert_true(span.attributes.key?(key))
     assert_equal(key, span.attributes[key].key)
-    assert_equal(Maze::Api::Model::SpanAttributeType::STRING, span.attributes[key].type)
+    assert_equal(Maze::Api::Model::OtelAttributeType::STRING, span.attributes[key].type)
     assert_equal('custom', span.attributes[key].value)
 
     key = 'bugsnag.span.first_class'
     assert_true(span.attributes.key?(key))
     assert_equal(key, span.attributes[key].key)
-    assert_equal(Maze::Api::Model::SpanAttributeType::BOOL, span.attributes[key].type)
+    assert_equal(Maze::Api::Model::OtelAttributeType::BOOL, span.attributes[key].type)
     assert_true(span.attributes[key].value)
 
     key = 'customAttribute1'
     assert_true(span.attributes.key?(key))
     assert_equal(key, span.attributes[key].key)
-    assert_equal(Maze::Api::Model::SpanAttributeType::STRING, span.attributes[key].type)
+    assert_equal(Maze::Api::Model::OtelAttributeType::STRING, span.attributes[key].type)
     assert_equal('C', span.attributes[key].value)
 
     key = 'customAttribute3'
     assert_true(span.attributes.key?(key))
     assert_equal(key, span.attributes[key].key)
-    assert_equal(Maze::Api::Model::SpanAttributeType::INT, span.attributes[key].type)
+    assert_equal(Maze::Api::Model::OtelAttributeType::INT, span.attributes[key].type)
     assert_equal('3', span.attributes[key].value)
 
     key = 'bugsnag.sampling.p'
     assert_true(span.attributes.key?(key))
     assert_equal(key, span.attributes[key].key)
-    assert_equal(Maze::Api::Model::SpanAttributeType::DOUBLE, span.attributes[key].type)
+    assert_equal(Maze::Api::Model::OtelAttributeType::DOUBLE, span.attributes[key].type)
     assert_equal(1.0, span.attributes[key].value)
 
     key = 'customAttribute4'
     assert_true(span.attributes.key?(key))
     assert_equal(key, span.attributes[key].key)
-    assert_equal(Maze::Api::Model::SpanAttributeType::DOUBLE, span.attributes[key].type)
+    assert_equal(Maze::Api::Model::OtelAttributeType::DOUBLE, span.attributes[key].type)
     assert_equal(42.0, span.attributes[key].value)
 
     key = 'customAttribute5'
     assert_true(span.attributes.key?(key))
     assert_equal(key, span.attributes[key].key)
-    assert_equal(Maze::Api::Model::SpanAttributeType::ARRAY, span.attributes[key].type)
+    assert_equal(Maze::Api::Model::OtelAttributeType::ARRAY, span.attributes[key].type)
     assert_kind_of(Array, span.attributes[key].value)
 
     # Array elements
     array = span.attributes[key].value
     assert_equal(4, array.size)
-    assert_equal(Maze::Api::Model::SpanAttributeType::STRING, array[0].type)
+    assert_equal(Maze::Api::Model::OtelAttributeType::STRING, array[0].type)
     assert_equal('customString', array[0].value)
-    assert_equal(Maze::Api::Model::SpanAttributeType::INT, array[1].type)
+    assert_equal(Maze::Api::Model::OtelAttributeType::INT, array[1].type)
     assert_equal('42', array[1].value)
-    assert_equal(Maze::Api::Model::SpanAttributeType::BOOL, array[2].type)
+    assert_equal(Maze::Api::Model::OtelAttributeType::BOOL, array[2].type)
     assert_true(array[2].value)
-    assert_equal(Maze::Api::Model::SpanAttributeType::DOUBLE, array[3].type)
+    assert_equal(Maze::Api::Model::OtelAttributeType::DOUBLE, array[3].type)
     assert_equal(43.0, array[3].value)
   end
 end

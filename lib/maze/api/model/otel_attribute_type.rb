@@ -3,7 +3,7 @@
 module Maze
   module Api
     module Model
-      module SpanAttributeType
+      module OtelAttributeType
         ARRAY = 0
         BOOL = 1
         DOUBLE = 2

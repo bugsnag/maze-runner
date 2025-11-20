@@ -110,6 +110,7 @@ module Maze
 
         # File summary
         file.puts "=== Spans Summary ==="
+        file.puts
         file.puts "Id                Name"
         spans.each do |span|
           file.puts "#{span['spanId']}  #{span['name']}"
@@ -121,6 +122,7 @@ module Maze
         counter = 1
         spans.each do |span|
           file.puts "=== Span #{counter} of #{spans.size} ==="
+          file.puts
           file.puts JSON.pretty_generate(span)
           file.puts
           file.puts

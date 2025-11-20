@@ -2,6 +2,7 @@
 module Maze
   module Api
     module Model
+      # OTEL span kinds.
       module SpanKind
         UNSPECIFIED = 0
         INTERNAL = 1

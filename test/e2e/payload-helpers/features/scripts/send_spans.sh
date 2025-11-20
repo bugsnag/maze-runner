@@ -11,9 +11,11 @@ request['Content-Type'] = 'application/json'
 def create_sample_span(number)
   start_time = Time.now.to_i * 1000 * 1000 * 1000
   end_time = start_time + (2 * 1000 * 1000 * 1000)
+
+  id = "%016x" % number
   name = "Span #{number}"
   {
-    "spanId":"7af51275a21aa300",
+    "spanId": id,
     "startTimeUnixNano": "#{start_time}",
     "traceId":"f8b18e12a2c1dca33362ac31772ed3b4",
     "endTimeUnixNano": "#{end_time}",

@@ -52,6 +52,7 @@ class SpanSupport
       unless received
         raise Test::Unit::AssertionFailedError.new <<-MESSAGE
 Expected span with name #{span_name} not received within the #{timeout}s timeout.  #{spans.size} spans were received#{names}
+
 This could indicate that:
 - Bugsnag crashed with a fatal error.
 - Bugsnag did not make the requests that it should have done.

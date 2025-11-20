@@ -172,7 +172,7 @@ After do |scenario|
   $success = !scenario.failed?
 
   # Log all received requests to file
-  Maze::MazeOutput.new(scenario).write_requests if Maze.config.file_log
+  Maze::MazeOutput.new(scenario).write_requests_and_spans if Maze.config.file_log
 
   # Invoke the internal hook for the mode of operation
   Maze.internal_hooks.after scenario

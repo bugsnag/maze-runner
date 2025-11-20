@@ -7,6 +7,11 @@ module Maze
       @scenario = scenario
     end
 
+    def write_requests_and_spans
+      write_requests
+      write_spans
+    end
+
     # Writes each list of requests to a separate file under, e.g:
     # maze_output/failed/scenario_name/errors.log
     def write_requests
@@ -89,6 +94,47 @@ module Maze
           end
         end
       end
+    end
+
+    # Writes each list of requests to a separate file under, e.g:
+    # maze_output/failed/scenario_name/errors.log
+    def write_spans
+      list = Maze::Server.traces.all
+      return if list.empty?
+
+      path = output_folder
+      filepath = File.join(path, 'spans.log')
+
+      File.open(filepath, 'w+') do |file|
+        spans = spans_from_request_list(list)
+
+        # File summary
+        file.puts "=== Spans Summary ==="
+        file.puts "Id                Name"
+        spans.each do |span|
+          file.puts "#{span['spanId']}  #{span['name']}"
+        end
+        file.puts
+        file.puts
+
+        # Write the spans
+        counter = 1
+        spans.each do |span|
+          file.puts "=== Span #{counter} of #{spans.size} ==="
+          file.puts JSON.pretty_generate(span)
+          file.puts
+          file.puts
+
+          counter += 1
+        end
+      end
+    end
+
+    def spans_from_request_list(list)
+      list.flat_map { |req| req[:body]['resourceSpans'] }
+          .flat_map { |r| r['scopeSpans'] }
+          .flat_map { |s| s['spans'] }
+          .select { |s| !s.nil? }
     end
 
     # Determines the output folder for the scenario

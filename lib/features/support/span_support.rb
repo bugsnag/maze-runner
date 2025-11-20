@@ -33,25 +33,32 @@ class SpanSupport
       assert_received_spans(minimum, maximum)
     end
 
+    def received_spans_names
+      spans = spans_from_request_list(Maze::Server.traces)
+      names spans.map { |span| span['name'] }
+
+    end
+
     def assert_received_named_span(span_name)
       timeout = Maze.config.receive_requests_wait
       wait = Maze::Wait.new(timeout: timeout)
-
       received = wait.until { SpanSupport.named_span_exists?(span_name) }
 
+      spans = Maze::Api::Model::SpanSet.new
       list = Maze::Server.traces
-      received_count = SpanSupport.spans_from_request_list(list).size
+      list.remaining.each { |t| spans.add_from_trace_hash(t[:body]) }
+      names = spans.size == 0 ? '.' : ", with names:\n#{spans.names.sort.join("\n")}"
 
       unless received
         raise Test::Unit::AssertionFailedError.new <<-MESSAGE
-Expected span with name #{span_name} not received within the #{timeout}s timeout (#{received_count} spans were received)}.
+Expected span with name #{span_name} not received within the #{timeout}s timeout.  #{spans.size} spans were received#{names}
 This could indicate that:
 - Bugsnag crashed with a fatal error.
 - Bugsnag did not make the requests that it should have done.
 - The requests were made, but not deemed to be valid (e.g. missing integrity header).
 - The requests made were prevented from being received due to a network or other infrastructure issue.
 Please check the Maze Runner and device logs to confirm.)
-MESSAGE
+        MESSAGE
       end
 
       Maze::Schemas::Validator.validate_payload_elements(list, 'trace')
@@ -73,7 +80,7 @@ This could indicate that:
 - The requests were made, but not deemed to be valid (e.g. missing integrity header).
 - The requests made were prevented from being received due to a network or other infrastructure issue.
 Please check the Maze Runner and device logs to confirm.)
-MESSAGE
+        MESSAGE
       end
 
       Maze.check.operator(max_received, :>=, received_count, "#{received_count} spans received") if max_received

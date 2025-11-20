@@ -16,6 +16,12 @@ module Maze
           @spans[span.id] = span
         end
 
+        # Add spans from a trace hash to the SpanSet.
+        # @param trace_hash [Hash] Trace request payload as a hash.
+        def add_from_trace_hash(trace_hash)
+          SpanSet.add_trace_hash(trace_hash, self)
+        end
+
         # @param span_id [String] Id of the span to remove from the SpanSet.
         def remove(span_id)
           @spans.delete(span_id)

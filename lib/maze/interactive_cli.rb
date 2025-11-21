@@ -174,8 +174,8 @@ module Maze
     end
 
     def strip_nonprintable(str)
-      # keep: space..tilde, CR, LF
-      str.gsub(/[^\x20-\x7E\r\n]/, '')
+      # keep: space..tilde, Tab, CR, LF
+      str.gsub(/[^\x20-\x7E\t\r\n]/, '')
     end
   end
 end

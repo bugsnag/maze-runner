@@ -5,6 +5,7 @@ require_relative 'otel_attribute'
 module Maze
   module Api
     module Model
+      # A single OTEL span.
       class Span
         attr_accessor :id, :kind, :name, :trace_id, :start_time, :end_time, :attributes
 
@@ -17,6 +18,9 @@ module Maze
         end
 
         class << self
+          # Create a Span from a hash.
+          # @param hash [Hash] Hash representing an OTEL span.
+          # @return [Span] Span object.
           def from_hash(hash)
             span = new
             span.id = hash['spanId']

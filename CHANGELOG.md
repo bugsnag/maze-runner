@@ -1,3 +1,9 @@
+# v10.8.0 - TBD
+
+## Enhancements
+
+- Improve diagnostics for span-related failures [813](https://github.com/bugsnag/maze-runner/pull/813)
+
 # v10.7.3 - 2025/11/17
 
 ## Fixes

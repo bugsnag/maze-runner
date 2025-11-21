@@ -4,6 +4,7 @@ require_relative 'otel_attribute_type'
 module Maze
   module Api
     module Model
+      # Element of an OTEL attribute array.
       class OtelAttributeArrayElement
         attr_accessor :type, :value
 
@@ -24,6 +25,9 @@ module Maze
         end
 
         class << self
+          # Create an array of OtelAttributeArrayElement from a hash array.
+          # @param hash_array [Array<Hash>] Array of hashes representing attribute values.
+          # @return [Array<OtelAttributeArrayElement>] Array of OtelAttributeArrayElement objects.
           def array_from_hash(hash_array)
             array = []
             hash_array.each do |value_hash|
@@ -34,6 +38,9 @@ module Maze
             array
           end
 
+          # Create an OtelAttribute from a hash.
+          # @param hash [Hash] Hash representing an OTEL attribute.
+          # @return [OtelAttribute] OtelAttribute object.
           def from_hash(hash)
             type = OtelAttributeType.for_string(hash['value'].keys.first)
             hash_value = hash['value']

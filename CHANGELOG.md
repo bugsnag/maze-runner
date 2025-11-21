@@ -1,3 +1,9 @@
+# v10.8.0 - TBD
+
+## Fixes
+
+- Sanitize the current_buffer from the interactive CLI so that it is always humanly readable [815](https://github.com/bugsnag/maze-runner/pull/815)
+
 # v10.7.3 - 2025/11/17
 
 ## Fixes

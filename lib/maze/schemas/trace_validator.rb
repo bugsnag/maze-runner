@@ -67,24 +67,42 @@ module Maze
       end
 
       def validate_fields
-        regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.spanId', HEX_STRING_16)
-        regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.traceId', HEX_STRING_32)
-        element_int_in_range('resourceSpans.0.scopeSpans.0.spans.0.kind', 0..5)
-        regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.startTimeUnixNano', '^[0-9]+$')
-        regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.endTimeUnixNano', '^[0-9]+$')
-        each_span_element_contains('resourceSpans.0.scopeSpans.0.spans', 'attributes', 'bugsnag.sampling.p')
-        span_element_contains('resourceSpans.0.resource.attributes', 'deployment.environment')
-        span_element_contains('resourceSpans.0.resource.attributes', 'telemetry.sdk.name')
-        span_element_contains('resourceSpans.0.resource.attributes', 'telemetry.sdk.version')
-        validate_timestamp('resourceSpans.0.scopeSpans.0.spans.0.startTimeUnixNano', HOUR_TOLERANCE)
-        validate_timestamp('resourceSpans.0.scopeSpans.0.spans.0.endTimeUnixNano', HOUR_TOLERANCE)
-        element_a_greater_or_equal_element_b(
-          'resourceSpans.0.scopeSpans.0.spans.0.endTimeUnixNano',
-          'resourceSpans.0.scopeSpans.0.spans.0.startTimeUnixNano'
-        )
+        resource_spans = Maze::Helper.read_key_path(@body, 'resourceSpans')
 
-        if Maze.config.client_mode_validation
-          span_element_contains('resourceSpans.0.resource.attributes', 'device.id')
+        # Loop through all resource spans
+        (0...resource_spans.size).each do |rs|
+
+          if Maze.config.client_mode_validation
+            span_element_contains("resourceSpans.#{rs}.resource.attributes", 'device.id')
+          end
+          span_element_contains("resourceSpans.#{rs}.resource.attributes", 'deployment.environment')
+          span_element_contains("resourceSpans.#{rs}.resource.attributes", 'telemetry.sdk.name')
+          span_element_contains("resourceSpans.#{rs}.resource.attributes", 'telemetry.sdk.version')
+
+          # Loop through all scope spans
+          scope_spans = Maze::Helper.read_key_path(@body, "resourceSpans.#{rs}.scopeSpans")
+          (0...scope_spans.size).each do |ss|
+
+            each_span_element_contains("resourceSpans.#{rs}.scopeSpans.#{ss}.spans", 'attributes', 'bugsnag.sampling.p')
+
+            # Loop through all spans
+            spans = Maze::Helper.read_key_path(@body, "resourceSpans.#{rs}.scopeSpans.#{ss}.spans")
+            (0...spans.size).each do |s|
+
+              # Field validations
+              regex_comparison("resourceSpans.#{rs}.scopeSpans.#{ss}.spans.#{s}.spanId", HEX_STRING_16)
+              regex_comparison("resourceSpans.#{rs}.scopeSpans.#{ss}.spans.#{s}.traceId", HEX_STRING_32)
+              element_int_in_range("resourceSpans.#{rs}.scopeSpans.#{ss}.spans.#{s}.kind", 0..5)
+              regex_comparison("resourceSpans.#{rs}.scopeSpans.#{ss}.spans.#{s}.startTimeUnixNano", '^[0-9]+$')
+              regex_comparison("resourceSpans.#{rs}.scopeSpans.#{ss}.spans.#{s}.endTimeUnixNano", '^[0-9]+$')
+              validate_timestamp("resourceSpans.#{rs}.scopeSpans.#{ss}.spans.#{s}.startTimeUnixNano", HOUR_TOLERANCE)
+              validate_timestamp("resourceSpans.#{rs}.scopeSpans.#{ss}.spans.#{s}.endTimeUnixNano", HOUR_TOLERANCE)
+              element_a_greater_or_equal_element_b(
+                "resourceSpans.#{rs}.scopeSpans.#{ss}.spans.#{s}.endTimeUnixNano",
+                "resourceSpans.#{rs}.scopeSpans.#{ss}.spans.#{s}.startTimeUnixNano"
+              )
+            end
+          end
         end
       end
 

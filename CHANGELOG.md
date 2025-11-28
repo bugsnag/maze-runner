@@ -5,6 +5,10 @@
 - Improve diagnostics for span-related failures [813](https://github.com/bugsnag/maze-runner/pull/813)
 - Write received spans to file after each scenario [814](https://github.com/bugsnag/maze-runner/pull/814)
 
+## Fixes
+
+- Validate fields in all received spans [816](https://github.com/bugsnag/maze-runner/pull/816)
+
 # v10.7.3 - 2025/11/17
 
 ## Fixes

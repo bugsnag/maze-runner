@@ -18,25 +18,7 @@ module Maze
         @success = true
         verify_against_schema
         validate_headers
-        regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.spanId', HEX_STRING_16)
-        regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.traceId', HEX_STRING_32)
-        element_int_in_range('resourceSpans.0.scopeSpans.0.spans.0.kind', 0..5)
-        regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.startTimeUnixNano', '^[0-9]+$')
-        regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.endTimeUnixNano', '^[0-9]+$')
-        each_span_element_contains('resourceSpans.0.scopeSpans.0.spans', 'attributes', 'bugsnag.sampling.p')
-        span_element_contains('resourceSpans.0.resource.attributes', 'deployment.environment')
-        span_element_contains('resourceSpans.0.resource.attributes', 'telemetry.sdk.name')
-        span_element_contains('resourceSpans.0.resource.attributes', 'telemetry.sdk.version')
-        validate_timestamp('resourceSpans.0.scopeSpans.0.spans.0.startTimeUnixNano', HOUR_TOLERANCE)
-        validate_timestamp('resourceSpans.0.scopeSpans.0.spans.0.endTimeUnixNano', HOUR_TOLERANCE)
-        element_a_greater_or_equal_element_b(
-          'resourceSpans.0.scopeSpans.0.spans.0.endTimeUnixNano',
-          'resourceSpans.0.scopeSpans.0.spans.0.startTimeUnixNano'
-        )
-
-        if Maze.config.client_mode_validation
-          span_element_contains('resourceSpans.0.resource.attributes', 'device.id')
-        end
+        validate_fields
       end
 
       def verify_against_schema
@@ -81,6 +63,28 @@ module Maze
               end
             end
           end
+        end
+      end
+
+      def validate_fields
+        regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.spanId', HEX_STRING_16)
+        regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.traceId', HEX_STRING_32)
+        element_int_in_range('resourceSpans.0.scopeSpans.0.spans.0.kind', 0..5)
+        regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.startTimeUnixNano', '^[0-9]+$')
+        regex_comparison('resourceSpans.0.scopeSpans.0.spans.0.endTimeUnixNano', '^[0-9]+$')
+        each_span_element_contains('resourceSpans.0.scopeSpans.0.spans', 'attributes', 'bugsnag.sampling.p')
+        span_element_contains('resourceSpans.0.resource.attributes', 'deployment.environment')
+        span_element_contains('resourceSpans.0.resource.attributes', 'telemetry.sdk.name')
+        span_element_contains('resourceSpans.0.resource.attributes', 'telemetry.sdk.version')
+        validate_timestamp('resourceSpans.0.scopeSpans.0.spans.0.startTimeUnixNano', HOUR_TOLERANCE)
+        validate_timestamp('resourceSpans.0.scopeSpans.0.spans.0.endTimeUnixNano', HOUR_TOLERANCE)
+        element_a_greater_or_equal_element_b(
+          'resourceSpans.0.scopeSpans.0.spans.0.endTimeUnixNano',
+          'resourceSpans.0.scopeSpans.0.spans.0.startTimeUnixNano'
+        )
+
+        if Maze.config.client_mode_validation
+          span_element_contains('resourceSpans.0.resource.attributes', 'device.id')
         end
       end
 

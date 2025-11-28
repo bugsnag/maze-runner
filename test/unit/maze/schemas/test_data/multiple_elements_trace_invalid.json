@@ -1,0 +1,280 @@
+{
+  "resourceSpans": [
+    {
+      "scopeSpans": [
+        {
+          "spans": [
+            {
+              "startTimeUnixNano": "3000000000000000999",
+              "endTimeUnixNano":   "2000000000000000999",
+              "spanId":  "1000000000000001",
+              "traceId": "10000000000000000000000000000ZZZ",
+              "parentSpanId": "e1e0ae7c3be532c9",
+              "kind": 1,
+              "name": "resourceSpans.0.scopeSpans.0.spans.0",
+              "attributes": [
+                {
+                  "key": "bugsnag.sampling.p",
+                  "value": {
+                    "doubleValue": 1
+                  }
+                },
+                {
+                  "key": "bugsnag.span.callbacks_duration",
+                  "value": {
+                    "intValue": "2980"
+                  }
+                }
+              ]
+            },
+            {
+              "startTimeUnixNano": "1000000000000000999",
+              "endTimeUnixNano":   "1000000000000000012",
+              "spanId":  "1000000000000002",
+              "traceId": "10000000000000000000000000000001",
+              "parentSpanId": "e1e0ae7c3be532c9",
+              "kind": 1,
+              "name": "resourceSpans.0.scopeSpans.0.spans.1",
+              "attributes": [
+                {
+                  "key": "bugsnag.sampling.p",
+                  "value": {
+                    "doubleValue": 1
+                  }
+                },
+                {
+                  "key": "bugsnag.span.callbacks_duration",
+                  "value": {
+                    "intValue": "2980"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "startTimeUnixNano": "1000000000000000021",
+              "endTimeUnixNano":   "1000000000000000022",
+              "spanId":  "1000000000000002",
+              "traceId": "10000000000000000000000000000001",
+              "parentSpanId": "e1e0ae7c3be532c9",
+              "kind": 1,
+              "name": "resourceSpans.0.scopeSpans.1.spans.0",
+              "attributes": [
+                {
+                  "key": "bugsnag.sampling.p",
+                  "value": {
+                    "doubleValue": 1
+                  }
+                },
+                {
+                  "key": "bugsnag.span.callbacks_duration",
+                  "value": {
+                    "intValue": "2980"
+                  }
+                }
+              ]
+            },
+            {
+              "startTimeUnixNano": "1000000000000000001",
+              "endTimeUnixNano":   "1000000000000000002",
+              "spanId":  "1000000000000002",
+              "traceId": "10000000000000000000000000000001",
+              "parentSpanId": "e1e0ae7c3be532c9",
+              "kind": 999,
+              "name": "resourceSpans.0.scopeSpans.1.spans.1",
+              "attributes": [
+                {
+                  "key": "bugsnag.sampling.p",
+                  "value": {
+                    "doubleValue": 1
+                  }
+                },
+                {
+                  "key": "bugsnag.span.callbacks_duration",
+                  "value": {
+                    "intValue": "2980"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "resource": {
+        "attributes": [
+          {
+            "key": "device.id",
+            "value": {
+              "stringValue": "1000000000200000000030000000004000000000"
+            }
+          },
+          {
+            "key": "bugsnag.app.bundle_version",
+            "value": {
+              "stringValue": "1"
+            }
+          },
+          {
+            "key": "deployment.environment",
+            "value": {
+              "stringValue": "staging"
+            }
+          },
+          {
+            "key": "telemetry.sdk.name",
+            "value": {
+              "stringValue": "bugsnag.performance.cocoa"
+            }
+          },
+          {
+            "key": "telemetry.sdk.version",
+            "value": {
+              "stringValue": "1.15.0"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "scopeSpans": [
+        {
+          "spans": [
+            {
+              "startTimeUnixNano": "1000000000000000001",
+              "endTimeUnixNano":   "1000000000000000002",
+              "spanId":  "1000000000000ZZZ",
+              "traceId": "10000000000000000000000000000001",
+              "parentSpanId": "e1e0ae7c3be532c9",
+              "kind": 1,
+              "name": "resourceSpans.1.scopeSpans.0.spans.0",
+              "attributes": [
+                {
+                  "key": "bugsnag.sampling.p",
+                  "value": {
+                    "doubleValue": 1
+                  }
+                },
+                {
+                  "key": "bugsnag.span.callbacks_duration",
+                  "value": {
+                    "intValue": "2980"
+                  }
+                }
+              ]
+            },
+            {
+              "startTimeUnixNano": "1000000000000000001",
+              "endTimeUnixNano":   "1000000000000000002",
+              "spanId":  "1000000000000002",
+              "traceId": "10000000000000000000000000000001",
+              "parentSpanId": "e1e0ae7c3be532c9",
+              "kind": 1,
+              "name": "resourceSpans.1.scopeSpans.0.spans.1",
+              "attributes": [
+                {
+                  "key": "bugsnag.sampling.p",
+                  "value": {
+                    "doubleValue": 1
+                  }
+                },
+                {
+                  "key": "bugsnag.span.callbacks_duration",
+                  "value": {
+                    "intValue": "2980"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "spans": [
+            {
+              "startTimeUnixNano": "1000000000000000ZZZ",
+              "endTimeUnixNano":   "1000000000000000ZZZ",
+              "spanId":  "1000000000000002",
+              "traceId": "10000000000000000000000000000001",
+              "parentSpanId": "e1e0ae7c3be532c9",
+              "kind": 1,
+              "name": "resourceSpans.1.scopeSpans.1.spans.0",
+              "attributes": [
+                {
+                  "key": "bugsnag.sampling.p",
+                  "value": {
+                    "doubleValue": 1
+                  }
+                },
+                {
+                  "key": "bugsnag.span.callbacks_duration",
+                  "value": {
+                    "intValue": "2980"
+                  }
+                }
+              ]
+            },
+            {
+              "startTimeUnixNano": "1000000000000000001",
+              "endTimeUnixNano":   "1000000000000000002",
+              "spanId":  "1000000000000002",
+              "traceId": "10000000000000000000000000000001",
+              "parentSpanId": "e1e0ae7c3be532c9",
+              "kind": 1,
+              "name": "resourceSpans.1.scopeSpans.1.spans.1",
+              "attributes": [
+                {
+                  "key": "bugsnag.sampling.p",
+                  "value": {
+                    "doubleValue": 1
+                  }
+                },
+                {
+                  "key": "bugsnag.span.callbacks_duration",
+                  "value": {
+                    "intValue": "2980"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "resource": {
+        "attributes": [
+          {
+            "key": "device.id.missing",
+            "value": {
+              "stringValue": "5000000000600000000070000000008000000000"
+            }
+          },
+          {
+            "key": "bugsnag.app.bundle_version",
+            "value": {
+              "stringValue": "2"
+            }
+          },
+          {
+            "key": "deployment.environment",
+            "value": {
+              "stringValue": "staging"
+            }
+          },
+          {
+            "key": "telemetry.sdk.name",
+            "value": {
+              "stringValue": "bugsnag.performance.cocoa"
+            }
+          },
+          {
+            "key": "telemetry.sdk.version",
+            "value": {
+              "stringValue": "1.15.0"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

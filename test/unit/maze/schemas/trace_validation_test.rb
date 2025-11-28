@@ -351,4 +351,50 @@ class TraceValidationTest < Test::Unit::TestCase
     assert_equal(1, validator.errors.size)
     assert_equal(validator.errors.first, "Element 'container' was expected to be an array, was 'foobar'")
   end
+
+  # Tests that the validate_fields function validates all spans in a trace, not just the first one in each array.
+  def test_field_validation_valid
+
+    Time.expects(:now).at_least(1).returns(Time.at(1000000000))
+
+
+    file_path = File.join(File.dirname(__FILE__), 'test_data', 'multiple_elements_trace_valid.json')
+    trace = JSON.parse(File.open(file_path, &:read))
+
+    validator = Maze::Schemas::TraceValidator.new(create_basic_request(trace))
+    validator.validate_fields
+
+    errors = validator.errors.join("\n")
+    assert_equal(0, validator.errors.size, "Expected no errors, found: #{errors}")
+  end
+
+  # Tests that the validate_fields function validates all spans in a trace, not just the first one in each array.
+  def test_field_validation_invalid
+
+    Time.expects(:now).at_least(1).returns(Time.at(1000000000))
+
+    file_path = File.join(File.dirname(__FILE__), 'test_data', 'multiple_elements_trace_invalid.json')
+    trace = JSON.parse(File.open(file_path, &:read))
+
+    validator = Maze::Schemas::TraceValidator.new(create_basic_request(trace))
+    validator.validate_fields
+
+    assert_equal(12, validator.errors.size)
+    expected_errors = [
+      "Element 'resourceSpans.0.scopeSpans.0.spans.0.traceId' was expected to match the regex '^[A-Fa-f0-9]{32}$', but was '10000000000000000000000000000ZZZ'",
+      "Timestamp was expected to be within 3600000000000 nanoseconds of the current time (1000000000000000000), was '3000000000000000999'",
+      "Timestamp was expected to be within 3600000000000 nanoseconds of the current time (1000000000000000000), was '2000000000000000999'",
+      "Element 'resourceSpans.0.scopeSpans.0.spans.0.endTimeUnixNano':'2000000000000000999' was expected to be greater than or equal to 'resourceSpans.0.scopeSpans.0.spans.0.startTimeUnixNano':'3000000000000000999'",
+      "Element 'resourceSpans.0.scopeSpans.0.spans.1.endTimeUnixNano':'1000000000000000012' was expected to be greater than or equal to 'resourceSpans.0.scopeSpans.0.spans.1.startTimeUnixNano':'1000000000000000999'",
+      "Element 'resourceSpans.0.scopeSpans.1.spans.1.kind':'999' was expected to be in the range '0..5'",
+      "Element 'resourceSpans.1.resource.attributes' did not contain a value with the key 'device.id'",
+      "Element 'resourceSpans.1.scopeSpans.0.spans.0.spanId' was expected to match the regex '^[A-Fa-f0-9]{16}$', but was '1000000000000ZZZ'",
+      "Element 'resourceSpans.1.scopeSpans.1.spans.0.startTimeUnixNano' was expected to match the regex '^[0-9]+$', but was '1000000000000000ZZZ'",
+      "Element 'resourceSpans.1.scopeSpans.1.spans.0.endTimeUnixNano' was expected to match the regex '^[0-9]+$', but was '1000000000000000ZZZ'",
+      "Timestamp was expected to be within 3600000000000 nanoseconds of the current time (1000000000000000000), was '1000000000000000ZZZ'",
+      "Timestamp was expected to be within 3600000000000 nanoseconds of the current time (1000000000000000000), was '1000000000000000ZZZ'"
+    ]
+    assert_equal(expected_errors, validator.errors)
+  end
+
 end

@@ -161,7 +161,7 @@ def send_request(request_type, mock_api_port = 9339)
                     "startTimeUnixNano": "#{start_time}",
                     "traceId":"4dea8da13b30db98f1c56bee0fdc734c",
                     "endTimeUnixNano": "#{end_time}",
-                    "kind":"SPAN_KIND_INTERNAL",
+                    "kind":1,
                     "attributes":[
                       {
                         "key":"bugsnag.sampling.p",
@@ -190,7 +190,7 @@ def send_request(request_type, mock_api_port = 9339)
                     "startTimeUnixNano": "#{start_time}",
                     "traceId":"4dea8da13b30db98f1c56bee0fdc734c",
                     "endTimeUnixNano": "#{end_time}",
-                    "kind":"SPAN_KIND_INTERNAL",
+                    "kind":1,
                     "attributes":[
                       {
                         "key":"bugsnag.sampling.p",
@@ -371,7 +371,7 @@ def send_request(request_type, mock_api_port = 9339)
                     "startTimeUnixNano": "#{start_time}",
                     "traceId":"4dea8da13b30db98f1c56bee0fdc734c",
                     "endTimeUnixNano": "#{end_time}",
-                    "kind":"SPAN_KIND_INTERNAL",
+                    "kind":1,
                     "attributes":[
                       {
                         "key":"bugsnag.sampling.p",
@@ -400,7 +400,7 @@ def send_request(request_type, mock_api_port = 9339)
                     "startTimeUnixNano": "#{start_time}",
                     "traceId":"4dea8da13b30db98f1c56bee0fdc734c",
                     "endTimeUnixNano": "#{end_time}",
-                    "kind":"SPAN_KIND_INTERNAL",
+                    "kind":1,
                     "attributes":[
                       {
                         "key":"bugsnag.sampling.p",
@@ -610,7 +610,7 @@ def send_request(request_type, mock_api_port = 9339)
                     "startTimeUnixNano": "#{start_time}",
                     "traceId":"4dea8da13b30db98f1c56bee0fdc734c",
                     "endTimeUnixNano": "#{end_time}",
-                    "kind":"SPAN_KIND_INTERNAL",
+                    "kind":1,
                     "attributes":[
                       {
                         "key":"bugsnag.sampling.p",

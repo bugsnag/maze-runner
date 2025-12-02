@@ -61,7 +61,7 @@ templates = {
                   "startTimeUnixNano":"1677082367269565184",
                   "traceId":"4dea8da13b30db98f1c56bee0fdc734c",
                   "endTimeUnixNano":"1677082367269576192",
-                  "kind":"SPAN_KIND_INTERNAL",
+                  "kind":1,
                   "attributes":[
                     {
                       "key":"bugsnag.app.in_foreground",
@@ -174,7 +174,7 @@ templates = {
                   "startTimeUnixNano": "1666597446638054912",
                   "traceId": "df943b5467203ac6752bc6d12ab52d2a",
                   "endTimeUnixano": "1666597446894199808",
-                  "kind": "SPAN_KIND_INTERNAL",
+                  "kind": 1,
                   "attributes": [
                     {
                       "key": "http.request_content_length",

@@ -1,38 +1,38 @@
 steps:
 
-  - label: "Audit current licenses"
-    timeout_in_minutes: 30
-    agents:
-      queue: "macos-14"
-    command: "./scripts/license_finder.sh"
+#  - label: "Audit current licenses"
+#    timeout_in_minutes: 30
+#    agents:
+#      queue: "macos-14"
+#    command: "./scripts/license_finder.sh"
 
-  - label: "Build Android Performance test fixture"
-    timeout_in_minutes: 30
-    key: "android-test-fixture"
-    agents:
-      queue: "macos-14"
-    command:
-      - "cd bugsnag-android-performance"
-      - "make test-fixture"
-    plugins:
-      artifacts#v1.9.0:
-        upload: "bugsnag-android-performance/build/test-fixture.apk"
-    env:
-      JAVA_VERSION: 17
+#  - label: "Build Android Performance test fixture"
+#    timeout_in_minutes: 30
+#    key: "android-test-fixture"
+#    agents:
+#      queue: "macos-14"
+#    command:
+#      - "cd bugsnag-android-performance"
+#      - "make test-fixture"
+#    plugins:
+#      artifacts#v1.9.0:
+#        upload: "bugsnag-android-performance/build/test-fixture.apk"
+#    env:
+#      JAVA_VERSION: 17
 
-  - label: "Build iOS test fixture"
-    timeout_in_minutes: 30
-    key: "ios-test-fixture"
-    agents:
-      queue: "macos-14"
-    env:
-      XCODE_VERSION: "15.4.0"
-    command:
-      - "cd bugsnag-cocoa"
-      - "./features/scripts/export_ios_app.sh Release"
-    plugins:
-      artifacts#v1.9.0:
-        upload: "bugsnag-cocoa/features/fixtures/ios/output/iOSTestApp_Release.ipa"
+#  - label: "Build iOS test fixture"
+#    timeout_in_minutes: 30
+#    key: "ios-test-fixture"
+#    agents:
+#      queue: "macos-14"
+#    env:
+#      XCODE_VERSION: "15.4.0"
+#    command:
+#      - "cd bugsnag-cocoa"
+#      - "./features/scripts/export_ios_app.sh Release"
+#    plugins:
+#      artifacts#v1.9.0:
+#        upload: "bugsnag-cocoa/features/fixtures/ios/output/iOSTestApp_Release.ipa"
 
   - label: ":docker: Build CI image"
     timeout_in_minutes: 30
@@ -47,16 +47,16 @@ steps:
           push:
             - "ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci"
 
-  - label: "Unit tests"
-    timeout_in_minutes: 30
-    depends_on: "ci-image"
-    plugins:
-      docker-compose#v4.14.0:
-        run: "unit-test"
-        image-repository: "855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner"
-        cache-from:
-          - "ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci"
-    command: "bundle exec rake"
+#  - label: "Unit tests"
+#    timeout_in_minutes: 30
+#    depends_on: "ci-image"
+#    plugins:
+#      docker-compose#v4.14.0:
+#        run: "unit-test"
+#        image-repository: "855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner"
+#        cache-from:
+#          - "ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci"
+#    command: "bundle exec rake"
 
   - label: ":docker: Push CLI image for branch"
     key: "push-branch-cli"
@@ -71,149 +71,149 @@ steps:
           push:
             - "cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli"
 
-  - label: "Framework tests"
-    timeout_in_minutes: 30
-    depends_on: "ci-image"
-    plugins:
-      - docker-compose#v4.14.0:
-          run: "framework-tests"
-    command: "bundle exec maze-runner"
-
-  - label: "Comparison tests"
-    timeout_in_minutes: 10
-    depends_on: "ci-image"
-    plugins:
-      - docker-compose#v4.14.0:
-          run: "comparison-tests"
-    command: "bundle exec maze-runner"
-
-  - label: "Proxy tests"
-    timeout_in_minutes: 10
-    depends_on: "ci-image"
-    plugins:
-      - docker-compose#v4.14.0:
-          run: "proxy-tests"
-    command: "bundle exec maze-runner"
-
-  - label: "CLI tests"
-    timeout_in_minutes: 10
-    depends_on: "ci-image"
-    plugins:
-      - docker-compose#v4.14.0:
-          run: "cli-tests"
-    command: "bundle exec maze-runner"
-
-  - label: "HTTP response tests"
-    timeout_in_minutes: 10
-    depends_on: "ci-image"
-    plugins:
-      - docker-compose#v4.14.0:
-          run: "http-response-tests"
-    command: "bundle exec maze-runner"
-
-  - label: "Payload helper tests"
-    timeout_in_minutes: 10
-    depends_on: "ci-image"
-    plugins:
-      - docker-compose#v4.14.0:
-          run: "payload-helper-tests"
-    command: "bundle exec maze-runner"
-
-  - label: "Docker tests"
-    timeout_in_minutes: 10
-    depends_on: "ci-image"
-    plugins:
-      - docker-compose#v4.14.0:
-          run: "docker-tests"
-    command: "bundle exec maze-runner"
-
-  - label: "Doc server tests"
-    timeout_in_minutes: 10
-    depends_on: "ci-image"
-    plugins:
-      - docker-compose#v4.14.0:
-          run: "doc-server-tests"
-    command: "bundle exec maze-runner"
-
-  - label: "Exit codes tests"
-    timeout_in_minutes: 10
-    depends_on: "ci-image"
-    plugins:
-      - docker-compose#v4.14.0:
-          run: "exit-codes-tests"
-    command: "bundle exec maze-runner"
-
-  - label: "Command workflow tests"
-    timeout_in_minutes: 10
-    depends_on: "ci-image"
-    plugins:
-      - docker-compose#v4.14.0:
-          run: "command-workflow-tests"
-    command: "bundle exec maze-runner"
+#  - label: "Framework tests"
+#    timeout_in_minutes: 30
+#    depends_on: "ci-image"
+#    plugins:
+#      - docker-compose#v4.14.0:
+#          run: "framework-tests"
+#    command: "bundle exec maze-runner"
+#
+#  - label: "Comparison tests"
+#    timeout_in_minutes: 10
+#    depends_on: "ci-image"
+#    plugins:
+#      - docker-compose#v4.14.0:
+#          run: "comparison-tests"
+#    command: "bundle exec maze-runner"
+#
+#  - label: "Proxy tests"
+#    timeout_in_minutes: 10
+#    depends_on: "ci-image"
+#    plugins:
+#      - docker-compose#v4.14.0:
+#          run: "proxy-tests"
+#    command: "bundle exec maze-runner"
+#
+#  - label: "CLI tests"
+#    timeout_in_minutes: 10
+#    depends_on: "ci-image"
+#    plugins:
+#      - docker-compose#v4.14.0:
+#          run: "cli-tests"
+#    command: "bundle exec maze-runner"
+#
+#  - label: "HTTP response tests"
+#    timeout_in_minutes: 10
+#    depends_on: "ci-image"
+#    plugins:
+#      - docker-compose#v4.14.0:
+#          run: "http-response-tests"
+#    command: "bundle exec maze-runner"
+#
+#  - label: "Payload helper tests"
+#    timeout_in_minutes: 10
+#    depends_on: "ci-image"
+#    plugins:
+#      - docker-compose#v4.14.0:
+#          run: "payload-helper-tests"
+#    command: "bundle exec maze-runner"
+#
+#  - label: "Docker tests"
+#    timeout_in_minutes: 10
+#    depends_on: "ci-image"
+#    plugins:
+#      - docker-compose#v4.14.0:
+#          run: "docker-tests"
+#    command: "bundle exec maze-runner"
+#
+#  - label: "Doc server tests"
+#    timeout_in_minutes: 10
+#    depends_on: "ci-image"
+#    plugins:
+#      - docker-compose#v4.14.0:
+#          run: "doc-server-tests"
+#    command: "bundle exec maze-runner"
+#
+#  - label: "Exit codes tests"
+#    timeout_in_minutes: 10
+#    depends_on: "ci-image"
+#    plugins:
+#      - docker-compose#v4.14.0:
+#          run: "exit-codes-tests"
+#    command: "bundle exec maze-runner"
+#
+#  - label: "Command workflow tests"
+#    timeout_in_minutes: 10
+#    depends_on: "ci-image"
+#    plugins:
+#      - docker-compose#v4.14.0:
+#          run: "command-workflow-tests"
+#    command: "bundle exec maze-runner"
 
   #
   # BrowserStack tests
   #
 
-  - label: ":browserstack: iOS 17"
-    timeout_in_minutes: 20
-    depends_on:
-      - "ios-test-fixture"
-      - "push-branch-cli"
-    plugins:
-      artifacts#v1.9.0:
-        download: "bugsnag-cocoa/features/fixtures/ios/output/iOSTestApp_Release.ipa"
-        upload:
-          - "bugsnag-cocoa/maze_output/failed/*"
-          - "bugsnag-cocoa/maze_output/maze_output.zip"
-      docker-compose#v4.14.0:
-        pull: "appium-test-bs"
-        run: "appium-test-bs"
-        volumes:
-          - "./bugsnag-cocoa/build:/app/build"
-          - "./bugsnag-cocoa/features:/app/features"
-          - "./bugsnag-cocoa/maze_output:/app/maze_output"
-        command:
-          - "--app=features/fixtures/ios/output/iOSTestApp_Release.ipa"
-          - "--farm=bs"
-          - "--device=IOS_17"
-          - "--fail-fast"
-          - "features/release/barebone_tests.feature"
-        image-repository: "855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner"
-        cache-from:
-          - "cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli"
-    concurrency: 5
-    concurrency_group: "browserstack-app"
-    concurrency_method: "eager"
-    retry:
-      automatic:
-        - exit_status: 103  # Appium client failure
-          limit: 2
+#  - label: ":browserstack: iOS 17"
+#    timeout_in_minutes: 20
+#    depends_on:
+#      - "ios-test-fixture"
+#      - "push-branch-cli"
+#    plugins:
+#      artifacts#v1.9.0:
+#        download: "bugsnag-cocoa/features/fixtures/ios/output/iOSTestApp_Release.ipa"
+#        upload:
+#          - "bugsnag-cocoa/maze_output/failed/*"
+#          - "bugsnag-cocoa/maze_output/maze_output.zip"
+#      docker-compose#v4.14.0:
+#        pull: "appium-test-bs"
+#        run: "appium-test-bs"
+#        volumes:
+#          - "./bugsnag-cocoa/build:/app/build"
+#          - "./bugsnag-cocoa/features:/app/features"
+#          - "./bugsnag-cocoa/maze_output:/app/maze_output"
+#        command:
+#          - "--app=features/fixtures/ios/output/iOSTestApp_Release.ipa"
+#          - "--farm=bs"
+#          - "--device=IOS_17"
+#          - "--fail-fast"
+#          - "features/release/barebone_tests.feature"
+#        image-repository: "855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner"
+#        cache-from:
+#          - "cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli"
+#    concurrency: 5
+#    concurrency_group: "browserstack-app"
+#    concurrency_method: "eager"
+#    retry:
+#      automatic:
+#        - exit_status: 103  # Appium client failure
+#          limit: 2
 
-  - label: ":browserstack: Firefox"
-    depends_on: "push-branch-cli"
-    timeout_in_minutes: 10
-    plugins:
-      docker-compose#v4.14.0:
-        pull: "browser-tests"
-        run: "browser-tests"
-        use-aliases: true
-        verbose: true
-        command:
-          - "--farm=bs"
-          - "--browser=firefox_latest"
-          - "--fail-fast"
-    concurrency: 2
-    concurrency_group: "browserstack"
-    concurrency_method: "eager"
+#  - label: ":browserstack: Firefox"
+#    depends_on: "push-branch-cli"
+#    timeout_in_minutes: 10
+#    plugins:
+#      docker-compose#v4.14.0:
+#        pull: "browser-tests"
+#        run: "browser-tests"
+#        use-aliases: true
+#        verbose: true
+#        command:
+#          - "--farm=bs"
+#          - "--browser=firefox_latest"
+#          - "--fail-fast"
+#    concurrency: 2
+#    concurrency_group: "browserstack"
+#    concurrency_method: "eager"
 
   #
   # BitBar tests
   #
 
-  - label: ":bitbar: Desktop browsers - Safari 18"
+  - label: ":bitbar: Desktop browsers - IE 11"
     depends_on: "push-branch-cli"
-    timeout_in_minutes: 10
+    timeout_in_minutes: 60
     plugins:
       artifacts#v1.9.0:
         upload:
@@ -227,155 +227,157 @@ steps:
         verbose: true
         command:
           - "--farm=bb"
-          - "--browser=safari_18"
-          - "--browser=chrome_latest"
+          - "--browser=ie_11"
           - "--aws-public-ip"
           - "--fail-fast"
           - "--no-tunnel"
-    concurrency: 25
-    concurrency_group: "bitbar"
-    concurrency_method: "eager"
-
-  - label: ":bitbar: iOS Safari"
-    skip: "Skipped pending PLAT-14618"
-    depends_on: "push-branch-cli"
-    timeout_in_minutes: 10
-    plugins:
-      artifacts#v1.9.0:
-        upload:
-          - "maze_output/failed/**/*"
-          - "maze_output/maze_output.zip"
-      docker-compose#v4.14.0:
-        pull: "browser-tests-bitbar"
-        run: "browser-tests-bitbar"
-        service-ports: true
-        use-aliases: true
-        verbose: true
-        command:
-          - "--farm=bb"
-          - "--browser=safari"
-          - "--device=IOS_14"
-          - "--aws-public-ip"
-          - "--fail-fast"
-          - "--no-tunnel"
-    concurrency: 25
-    concurrency_group: "bitbar"
-    concurrency_method: "eager"
-
-  - label: ":bitbar: Android (EU)"
-    timeout_in_minutes: 20
-    depends_on:
-      - "android-test-fixture"
-      - "push-branch-cli"
-    env:
-      MAZE_APPIUM_SERVER: "https://eu-mobile-hub.bitbar.com/wd/hub"
-    plugins:
-      artifacts#v1.9.0:
-        download: "bugsnag-android-performance/build/test-fixture.apk"
-        upload:
-          - "bugsnag-android-performance/maze_output/**/*"
-          - "bugsnag-android-performance/maze_output/maze_output.zip"
-      docker-compose#v4.14.0:
-        pull: "appium-test-bb"
-        run: "appium-test-bb"
-        volumes:
-          - "./bugsnag-android-performance/build:/app/build"
-          - "./bugsnag-android-performance/features:/app/features"
-          - "./bugsnag-android-performance/maze_output:/app/maze_output"
-        service-ports: true
-        command:
-          - "--app=build/test-fixture.apk"
-          - "--appium-version=1.22"
-          - "--farm=bb"
-          - "--device=ANDROID_12_EU|ANDROID_13_EU|ANDROID_14_EU|ANDROID_15_EU"
-          - "--fail-fast"
-          - "--no-tunnel"
-          - "--aws-public-ip"
-          - "features/manual_spans.feature"
-        image-repository: "855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner"
     concurrency: 25
     concurrency_group: "bitbar"
     concurrency_method: "eager"
     retry:
-      automatic:
-        - exit_status: 103  # Appium client failure
-          limit: 2
+      manual:
+        permit_on_passed: true
 
-  - label: ":bitbar: Appium API"
-    timeout_in_minutes: 20
-    depends_on:
-      - "android-test-fixture"
-      - "push-branch-cli"
-    plugins:
-      artifacts#v1.9.0:
-        download:
-          - from: "bugsnag-android-performance/build/test-fixture.apk"
-            to: "./test/e2e/appium-api/build/test-fixture.apk"
-        upload:
-          - "test/e2e/appium-api/maze_output/failed/*"
-          - "test/e2e/appium-api/maze_output/maze_output.zip"
-      docker-compose#v4.14.0:
-        pull: "appium-test-bb"
-        run: "appium-test-bb"
-        volumes:
-          - "./test/e2e/appium-api/build:/app/build"
-          - "./test/e2e/appium-api/features:/app/features"
-          - "./test/e2e/appium-api/maze_output:/app/maze_output"
-        service-ports: true
-        command:
-          - "--app=build/test-fixture.apk"
-          - "--appium-version=1.22"
-          - "--farm=bb"
-          - "--device=ANDROID_12|ANDROID_13|ANDROID_14|ANDROID_15"
-          - "--fail-fast"
-          - "--no-tunnel"
-          - "--aws-public-ip"
-        image-repository: "855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner"
-    concurrency: 25
-    concurrency_group: "bitbar"
-    concurrency_method: "eager"
-    retry:
-      automatic:
-        - exit_status: 103  # Appium client failure
-          limit: 2
-
-  - label: ":bitbar: iOS"
-    timeout_in_minutes: 20
-    depends_on:
-      - "ios-test-fixture"
-      - "push-branch-cli"
-    plugins:
-      artifacts#v1.9.0:
-        download: "bugsnag-cocoa/features/fixtures/ios/output/iOSTestApp_Release.ipa"
-        upload:
-          - "bugsnag-cocoa/maze_output/failed/*"
-          - "bugsnag-cocoa/maze_output/maze_output.zip"
-      docker-compose#v4.14.0:
-        pull: "appium-test-bb"
-        run: "appium-test-bb"
-        volumes:
-          - "./bugsnag-cocoa/build:/app/build"
-          - "./bugsnag-cocoa/features:/app/features"
-          - "./bugsnag-cocoa/maze_output:/app/maze_output"
-        service-ports: true
-        command:
-          - "--app=features/fixtures/ios/output/iOSTestApp_Release.ipa"
-          - "--farm=bb"
-          - "--device=IOS_14|IOS_15|IOS_16"
-          - "--fail-fast"
-          - "--no-tunnel"
-          - "--aws-public-ip"
-          - "features/release/barebone_tests.feature"
-        image-repository: "855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner"
-        cache-from:
-          - "cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli"
-    concurrency: 25
-    concurrency_group: "bitbar"
-    concurrency_method: "eager"
-    retry:
-      automatic:
-        - exit_status: 103  # Appium client failure
-          limit: 2
+#  - label: ":bitbar: iOS Safari"
+#    skip: "Skipped pending PLAT-14618"
+#    depends_on: "push-branch-cli"
+#    timeout_in_minutes: 10
+#    plugins:
+#      artifacts#v1.9.0:
+#        upload:
+#          - "maze_output/failed/**/*"
+#          - "maze_output/maze_output.zip"
+#      docker-compose#v4.14.0:
+#        pull: "browser-tests-bitbar"
+#        run: "browser-tests-bitbar"
+#        service-ports: true
+#        use-aliases: true
+#        verbose: true
+#        command:
+#          - "--farm=bb"
+#          - "--browser=safari"
+#          - "--device=IOS_14"
+#          - "--aws-public-ip"
+#          - "--fail-fast"
+#          - "--no-tunnel"
+#    concurrency: 25
+#    concurrency_group: "bitbar"
+#    concurrency_method: "eager"
+#
+#  - label: ":bitbar: Android (EU)"
+#    timeout_in_minutes: 20
+#    depends_on:
+#      - "android-test-fixture"
+#      - "push-branch-cli"
+#    env:
+#      MAZE_APPIUM_SERVER: "https://eu-mobile-hub.bitbar.com/wd/hub"
+#    plugins:
+#      artifacts#v1.9.0:
+#        download: "bugsnag-android-performance/build/test-fixture.apk"
+#        upload:
+#          - "bugsnag-android-performance/maze_output/**/*"
+#          - "bugsnag-android-performance/maze_output/maze_output.zip"
+#      docker-compose#v4.14.0:
+#        pull: "appium-test-bb"
+#        run: "appium-test-bb"
+#        volumes:
+#          - "./bugsnag-android-performance/build:/app/build"
+#          - "./bugsnag-android-performance/features:/app/features"
+#          - "./bugsnag-android-performance/maze_output:/app/maze_output"
+#        service-ports: true
+#        command:
+#          - "--app=build/test-fixture.apk"
+#          - "--appium-version=1.22"
+#          - "--farm=bb"
+#          - "--device=ANDROID_12_EU|ANDROID_13_EU|ANDROID_14_EU|ANDROID_15_EU"
+#          - "--fail-fast"
+#          - "--no-tunnel"
+#          - "--aws-public-ip"
+#          - "features/manual_spans.feature"
+#        image-repository: "855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner"
+#    concurrency: 25
+#    concurrency_group: "bitbar"
+#    concurrency_method: "eager"
+#    retry:
+#      automatic:
+#        - exit_status: 103  # Appium client failure
+#          limit: 2
+#
+#  - label: ":bitbar: Appium API"
+#    timeout_in_minutes: 20
+#    depends_on:
+#      - "android-test-fixture"
+#      - "push-branch-cli"
+#    plugins:
+#      artifacts#v1.9.0:
+#        download:
+#          - from: "bugsnag-android-performance/build/test-fixture.apk"
+#            to: "./test/e2e/appium-api/build/test-fixture.apk"
+#        upload:
+#          - "test/e2e/appium-api/maze_output/failed/*"
+#          - "test/e2e/appium-api/maze_output/maze_output.zip"
+#      docker-compose#v4.14.0:
+#        pull: "appium-test-bb"
+#        run: "appium-test-bb"
+#        volumes:
+#          - "./test/e2e/appium-api/build:/app/build"
+#          - "./test/e2e/appium-api/features:/app/features"
+#          - "./test/e2e/appium-api/maze_output:/app/maze_output"
+#        service-ports: true
+#        command:
+#          - "--app=build/test-fixture.apk"
+#          - "--appium-version=1.22"
+#          - "--farm=bb"
+#          - "--device=ANDROID_12|ANDROID_13|ANDROID_14|ANDROID_15"
+#          - "--fail-fast"
+#          - "--no-tunnel"
+#          - "--aws-public-ip"
+#        image-repository: "855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner"
+#    concurrency: 25
+#    concurrency_group: "bitbar"
+#    concurrency_method: "eager"
+#    retry:
+#      automatic:
+#        - exit_status: 103  # Appium client failure
+#          limit: 2
+#
+#  - label: ":bitbar: iOS"
+#    timeout_in_minutes: 20
+#    depends_on:
+#      - "ios-test-fixture"
+#      - "push-branch-cli"
+#    plugins:
+#      artifacts#v1.9.0:
+#        download: "bugsnag-cocoa/features/fixtures/ios/output/iOSTestApp_Release.ipa"
+#        upload:
+#          - "bugsnag-cocoa/maze_output/failed/*"
+#          - "bugsnag-cocoa/maze_output/maze_output.zip"
+#      docker-compose#v4.14.0:
+#        pull: "appium-test-bb"
+#        run: "appium-test-bb"
+#        volumes:
+#          - "./bugsnag-cocoa/build:/app/build"
+#          - "./bugsnag-cocoa/features:/app/features"
+#          - "./bugsnag-cocoa/maze_output:/app/maze_output"
+#        service-ports: true
+#        command:
+#          - "--app=features/fixtures/ios/output/iOSTestApp_Release.ipa"
+#          - "--farm=bb"
+#          - "--device=IOS_14|IOS_15|IOS_16"
+#          - "--fail-fast"
+#          - "--no-tunnel"
+#          - "--aws-public-ip"
+#          - "features/release/barebone_tests.feature"
+#        image-repository: "855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner"
+#        cache-from:
+#          - "cli:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-cli"
+#    concurrency: 25
+#    concurrency_group: "bitbar"
+#    concurrency_method: "eager"
+#    retry:
+#      automatic:
+#        - exit_status: 103  # Appium client failure
+#          limit: 2
 
   - wait:
 

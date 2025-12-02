@@ -34,6 +34,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'optimist', '~> 3.0.1'
   spec.add_dependency 'rake', '~> 12.3.3'
   spec.add_dependency 'json_schemer', '~> 0.2.24'
+  spec.add_dependency 'openssl','~> 3.3.0'
 
   # Pin indirect dependencies
   spec.add_runtime_dependency 'rubyzip', '~> 2.3.2'

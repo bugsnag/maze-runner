@@ -211,7 +211,7 @@ steps:
   # BitBar tests
   #
 
-  - label: ":bitbar: Desktop browsers - IE 11"
+  - label: ":bitbar: Desktop browsers - IE 11 http"
     depends_on: "push-branch-cli"
     timeout_in_minutes: 60
     plugins:
@@ -231,6 +231,34 @@ steps:
           - "--aws-public-ip"
           - "--fail-fast"
           - "--no-tunnel"
+    concurrency: 25
+    concurrency_group: "bitbar"
+    concurrency_method: "eager"
+    retry:
+      manual:
+        permit_on_passed: true
+
+  - label: ":bitbar: Desktop browsers - IE 11 https"
+    depends_on: "push-branch-cli"
+    timeout_in_minutes: 60
+    plugins:
+      artifacts#v1.9.0:
+        upload:
+          - "maze_output/failed/**/*"
+          - "maze_output/maze_output.zip"
+      docker-compose#v4.14.0:
+        pull: "browser-tests-bitbar"
+        run: "browser-tests-bitbar"
+        service-ports: true
+        use-aliases: true
+        verbose: true
+        command:
+          - "--farm=bb"
+          - "--browser=ie_11"
+          - "--aws-public-ip"
+          - "--fail-fast"
+          - "--no-tunnel"
+          - "--https"
     concurrency: 25
     concurrency_group: "bitbar"
     concurrency_method: "eager"

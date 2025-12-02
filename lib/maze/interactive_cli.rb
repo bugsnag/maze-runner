@@ -19,7 +19,10 @@ module Maze
 
     # @!attribute [r] current_buffer
     #   @return [String] A string representation of the current output present in the terminal
-    attr_reader :current_buffer
+    # attr_reader :current_buffer
+    def current_buffer
+      strip_nonprintable(@current_buffer)
+    end
 
     # Creates an InteractiveCLI instance
     #
@@ -168,6 +171,11 @@ module Maze
       # TODO: Removed pending PLAT-6322
       # @boring.scrub(line.strip)
       line.strip
+    end
+
+    def strip_nonprintable(str)
+      # keep: space..tilde, Tab, CR, LF
+      str.gsub(/[^\x20-\x7E\t\r\n]/, '')
     end
   end
 end

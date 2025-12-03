@@ -1,9 +1,15 @@
-# v10.8.0 - TBD
+# v10.8.0 - 2025/12/03
+
+## Enhancements
+
+- Improve diagnostics for span-related failures [813](https://github.com/bugsnag/maze-runner/pull/813)
+- Write received spans to file after each scenario [814](https://github.com/bugsnag/maze-runner/pull/814)
 
 ## Fixes
 
-- Include `openssl` in the gemspec to fix issues with `unable to get certificate CRL` [817](https://github.com/bugsnag/maze-runner/pull/817)
 - Sanitize the current_buffer from the interactive CLI so that it is always humanly readable [815](https://github.com/bugsnag/maze-runner/pull/815)
+- Validate fields in all received spans [816](https://github.com/bugsnag/maze-runner/pull/816)
+- Include `openssl` in the gemspec to fix issues with `unable to get certificate CRL` [817](https://github.com/bugsnag/maze-runner/pull/817)
 
 # v10.7.3 - 2025/11/17
 

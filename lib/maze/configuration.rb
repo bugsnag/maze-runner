@@ -15,6 +15,7 @@ module Maze
       self.span_timestamp_validation = true
       self.unmanaged_traces_mode = false
       self.client_mode_validation = true
+      self.reset_on_navigation_failure = false
     end
 
     #
@@ -108,7 +109,7 @@ module Maze
     attr_accessor :client_mode_validation
 
     #
-    # General appium configuration
+    # General Appium/Selenium configuration
     #
 
     # Element locator strategy, :id or :accessibility_id
@@ -137,6 +138,9 @@ module Maze
 
     # Folder to push app files to on Android
     attr_accessor :android_app_files_directory
+
+    # Call Maze::Server.reset! if browser navigation fails
+    attr_accessor :reset_on_navigation_failure
 
     #
     # Device farm specific configuration

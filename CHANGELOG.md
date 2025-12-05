@@ -1,3 +1,9 @@
+# v10.9.0 - 2025/12/05
+
+## Enhancements
+
+- Add config option to reset server lists on Selenium navigation failures [819](https://github.com/bugsnag/maze-runner/pull/819)
+
 # v10.8.0 - 2025/12/03
 
 ## Enhancements

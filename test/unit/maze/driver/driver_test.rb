@@ -169,7 +169,7 @@ class AppiumDriverTest < Test::Unit::TestCase
 
     driver = Maze::Driver::Appium.new SERVER_URL, @capabilities, :accessibility_id
 
-    Appium::Driver.any_instance.expects(:start_driver).returns(true)
+    Appium::Core::Driver.any_instance.expects(:start_driver).returns(true)
     Time.expects(:now).twice.returns(0)
     logger.expects(:info).with('Appium driver started in 0s')
 

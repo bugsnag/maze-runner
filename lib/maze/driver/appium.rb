@@ -8,7 +8,7 @@ require_relative '../../maze'
 
 module Maze
   module Driver
-    # Provide a thin layer of abstraction above @see Appium::Driver
+    # Provide a thin layer of abstraction above @see Appium::Core::Driver
     class Appium
 
       # @!attribute [rw] app_id
@@ -46,14 +46,14 @@ module Maze
             server_url: server_url
           }
         }
-        @driver = ::Appium::Core.for(opts)
+        @core = ::Appium::Core.for(opts)
       end
 
       # Starts the Appium driver
       def start_driver
         begin
           time = Time.now
-          @driver.start_driver
+          @driver = @core.start_driver
           $logger.info "Appium driver started in #{(Time.now - time).to_i}s"
         rescue => error
           $logger.warn "Appium driver failed to start in #{(Time.now - time).to_i}s"
@@ -136,7 +136,7 @@ module Maze
 
       # A wrapper around launch_app adding extra error handling
       def launch_app
-        super
+        @driver.launch_app
       rescue Selenium::WebDriver::Error::ServerError => e
         # Assume the remote appium session has stopped, so crash out of the session
         fail_driver(e)
@@ -145,7 +145,7 @@ module Maze
 
       # A wrapper around close_app adding extra error handling
       def close_app
-        super
+        @driver.close_app
       rescue Selenium::WebDriver::Error::ServerError => e
         # Assume the remote appium session has stopped, so crash out of the session
         fail_driver(e)

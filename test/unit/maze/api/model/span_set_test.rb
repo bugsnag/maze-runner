@@ -2,7 +2,7 @@ require 'json'
 require_relative '../../../test_helper'
 require_relative '../../../../../lib/maze/api/model/span_set'
 
-class SpanTest < Test::Unit::TestCase
+class SpanSetTest < Test::Unit::TestCase
   # Verifies that all fields and attributes are correctly parsed from a hash
   def test_span_from_hash
     # Load hash from file and create a populated span object

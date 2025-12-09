@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'appium_lib'
+require 'appium_lib_core'
 
 module Maze
   # Handles the logic of when a test should be retried after a failure.

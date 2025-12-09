@@ -1,4 +1,4 @@
-require 'appium_lib'
+require 'appium_lib_core'
 require 'bugsnag'
 require 'json'
 require 'open3'
@@ -9,7 +9,7 @@ require_relative '../../maze'
 module Maze
   module Driver
     # Provide a thin layer of abstraction above @see Appium::Driver
-    class Appium < Appium::Driver
+    class Appium
 
       # @!attribute [rw] app_id
       #   @return [String] The app_id derived from session_capabilities (appPackage on Android, bundleID on iOS)
@@ -40,20 +40,20 @@ module Maze
         # Timers
         @find_element_timer = Maze.timers.add 'Appium - find element'
         @click_element_timer = Maze.timers.add 'Appium - click element'
-
-        super({
-          'caps' => @capabilities,
-          'appium_lib' => {
+        opts = {
+          :caps => @capabilities,
+          :appium_lib => {
             server_url: server_url
           }
-        }, true)
+        }
+        @driver = ::Appium::Core.for(opts)
       end
 
       # Starts the Appium driver
       def start_driver
         begin
           time = Time.now
-          super
+          @driver.start_driver
           $logger.info "Appium driver started in #{(Time.now - time).to_i}s"
         rescue => error
           $logger.warn "Appium driver failed to start in #{(Time.now - time).to_i}s"
@@ -86,6 +86,9 @@ module Maze
         false
       end
 
+      def appium_server_version
+        @driver.appium_server_version
+      end
 
       # Provided for mobile browsers - check if the browser supports local storage
       def local_storage?

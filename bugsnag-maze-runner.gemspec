@@ -23,8 +23,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rack', '~> 2.2'
   spec.add_dependency 'webrick', '~> 1.9.0'
 
-  spec.add_dependency 'appium_lib', '~> 12.0.0'
-  spec.add_dependency 'appium_lib_core', '~> 5.4.0'
+  spec.add_dependency 'appium_lib_core', '~> 11.0'
   spec.add_dependency 'selenium-webdriver', '~> 4.0'
 
   spec.add_dependency 'bugsnag', '~> 6.24'

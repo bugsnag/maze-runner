@@ -87,7 +87,7 @@ module Maze
       end
 
       def appium_server_version
-        @driver.appium_server_version
+        @core.appium_server_version
       end
 
       # Provided for mobile browsers - check if the browser supports local storage

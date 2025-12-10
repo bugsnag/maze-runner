@@ -99,10 +99,12 @@ module Maze
           $logger.info "Creating Appium session with #{sanitize_url(config.appium_server_url)}..."
           result = driver.start_driver
           if result
+            $logger.info "Server version: #{driver.appium_server_version}"
+
             # Log details of this session
-            $logger.info "Created Appium session: #{driver.session_id}"
+            # $logger.info "Created Appium session: #{driver.session_id}"
             @session_metadata = Maze::Client::Appium::SessionMetadata.new
-            @session_metadata.id = driver.session_id
+            # @session_metadata.id = driver.session_id
             @session_metadata.farm = Maze.config.farm.to_s
           end
           driver

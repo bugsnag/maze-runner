@@ -47,6 +47,8 @@ module Maze
           }
         }
         @core = ::Appium::Core.for(opts)
+
+        $logger.info "@core: #{@core.inspect}"
       end
 
       # Starts the Appium driver
@@ -84,6 +86,10 @@ module Maze
         @driver.execute_script('return true')
       rescue Selenium::WebDriver::Error::UnsupportedOperationError
         false
+      end
+
+      def remote_status
+        @driver.remote_status
       end
 
       def appium_server_version

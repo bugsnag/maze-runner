@@ -36,6 +36,8 @@ module Maze
 
           start_driver(Maze.config)
 
+          # $logger.info "Server version: #{Maze.driver.remote_status}"
+
           # Set bundle/app id for later use
           unless Maze.config.app.nil?
             Maze.driver.app_id = case Maze::Helper.get_current_platform
@@ -61,6 +63,8 @@ module Maze
             Bugsnag.notify error
             $logger.warn "Failed to unlock device: #{error}"
           end
+
+
 
           log_run_intro
         end
@@ -99,7 +103,6 @@ module Maze
           $logger.info "Creating Appium session with #{sanitize_url(config.appium_server_url)}..."
           result = driver.start_driver
           if result
-            $logger.info "Server version: #{driver.appium_server_version}"
 
             # Log details of this session
             # $logger.info "Created Appium session: #{driver.session_id}"

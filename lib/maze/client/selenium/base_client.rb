@@ -16,7 +16,7 @@ module Maze
             $logger.trace "Attempting to start Selenium driver with capabilities: #{config.capabilities.to_json}"
             $logger.trace "Attempt #{attempts}"
             begin
-              sanitized_url = Maze::Helper.sanitize_url(config.selenium_url)
+              sanitized_url = Maze::Helper.sanitize_url(selenium_url)
               $logger.info "Creating Selenium session with #{sanitized_url}..."
               Maze.driver = Maze::Driver::Browser.new(:remote, selenium_url, config.capabilities)
               Maze.driver.start_driver

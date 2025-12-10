@@ -285,7 +285,7 @@ steps:
           - "--app=build/test-fixture.apk"
           - "--appium-version=1.22"
           - "--farm=bb"
-          - "--device=ANDROID_12_EU|ANDROID_13_EU|ANDROID_14_EU|ANDROID_15_EU"
+          - "--device=ANDROID_12|ANDROID_13|ANDROID_14|ANDROID_15"
           - "--fail-fast"
           - "--no-tunnel"
           - "--aws-public-ip"

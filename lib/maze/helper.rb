@@ -118,6 +118,14 @@ module Maze
       def to_friendly_filename(string)
         string.gsub(/[:"& ]/, "_").gsub(/_+/, "_")
       end
+
+      # @return URL without any embedded username or password
+      def sanitize_url(url)
+        uri = URI.parse(url)
+        uri.user = nil
+        uri.password = nil
+        uri.to_s
+      end
     end
   end
 end

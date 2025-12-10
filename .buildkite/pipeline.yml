@@ -262,13 +262,11 @@ steps:
     concurrency_group: "bitbar"
     concurrency_method: "eager"
 
-  - label: ":bitbar: Android (EU)"
+  - label: ":bitbar: Android"
     timeout_in_minutes: 20
     depends_on:
       - "android-test-fixture"
       - "push-branch-cli"
-    env:
-      MAZE_APPIUM_SERVER: "https://eu-mobile-hub.bitbar.com/wd/hub"
     plugins:
       artifacts#v1.9.0:
         download: "bugsnag-android-performance/build/test-fixture.apk"
@@ -287,7 +285,7 @@ steps:
           - "--app=build/test-fixture.apk"
           - "--appium-version=1.22"
           - "--farm=bb"
-          - "--device=ANDROID_12_EU|ANDROID_13_EU|ANDROID_14_EU|ANDROID_15_EU"
+          - "--device=ANDROID_12|ANDROID_13|ANDROID_14|ANDROID_15"
           - "--fail-fast"
           - "--no-tunnel"
           - "--aws-public-ip"

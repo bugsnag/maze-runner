@@ -1,3 +1,9 @@
+# v10.9.1 - 2025/12/11
+
+## Fixes
+
+- Change default BitBar Selenium/Appium servers to EU [821](https://github.com/bugsnag/maze-runner/pull/821)
+
 # v10.9.0 - 2025/12/05
 
 ## Enhancements

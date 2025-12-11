@@ -35,6 +35,25 @@ When('I click the element {string} if present') do |element_id|
   Maze::Api::Appium::UiManager.new.click_element_if_present(element_id)
 end
 
+# Touches the screen at the given coordinates
+# Requires a running Appium driver
+#
+# @step_input element_id [String] The locator id
+When('I touch the screen at {int},{int}') do |x, y|
+  Maze::Api::Appium::UiManager.new.touch_at(x, y)
+end
+
+# Touches the screen at the given coordinates a number of times
+# Requires a running Appium driver
+#
+# @step_input element_id [String] The locator id
+When('I touch the screen at {int},{int} {int} time(s)') do |x, y, times|
+  times.times do
+    Maze::Api::Appium::UiManager.new.touch_at(x, y)
+    sleep 1
+  end
+end
+
 # Sends the app to the background indefinitely
 # Requires a running Appium driver
 When('I send the app to the background') do

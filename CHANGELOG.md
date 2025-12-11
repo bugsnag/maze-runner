@@ -1,3 +1,9 @@
+# v10.10.0 - 2025/12/12
+
+## Enhancements
+
+- Add `touch_at` to UiManager [822](https://github.com/bugsnag/maze-runner/pull/822)
+
 # v10.9.1 - 2025/12/11
 
 ## Fixes

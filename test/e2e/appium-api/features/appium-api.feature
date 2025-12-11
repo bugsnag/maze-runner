@@ -28,3 +28,5 @@ Feature: Exercise the Appium Manager APIs
     When the element "clearUserData" is present
     And I click the element "clearUserData"
     And I click the element "clearUserData" if present
+    And I touch the screen at 100,200 3 times
+    And I touch the screen at 150,250

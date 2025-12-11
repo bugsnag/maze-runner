@@ -39,17 +39,17 @@ module Maze
           # $logger.info "Server version: #{Maze.driver.remote_status}"
 
           # Set bundle/app id for later use
-          unless Maze.config.app.nil?
-            Maze.driver.app_id = case Maze::Helper.get_current_platform
-                                 when 'android'
-                                   Maze.driver.session_capabilities['appPackage']
-                                 when 'ios'
-                                   unless app_id = Maze.driver.session_capabilities['CFBundleIdentifier']
-                                      app_id = Maze.driver.session_capabilities['bundleId']
-                                   end
-                                   app_id
-                                 end
-          end
+          # unless Maze.config.app.nil?
+          #   Maze.driver.app_id = case Maze::Helper.get_current_platform
+          #                        when 'android'
+          #                          Maze.driver.session_capabilities['appPackage']
+          #                        when 'ios'
+          #                          unless app_id = Maze.driver.session_capabilities['CFBundleIdentifier']
+          #                             app_id = Maze.driver.session_capabilities['bundleId']
+          #                          end
+          #                          app_id
+          #                        end
+          # end
 
           $logger.error "Failed to determine app id." if Maze.driver.app_id.nil?
 

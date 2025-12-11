@@ -229,6 +229,18 @@ module Maze
       def session_capabilities
         @driver.session_capabilities
       end
+
+      def push_file(path, contents)
+        @driver.push_file(path, contents)
+      end
+
+      def activate_app(app_id)
+        @driver.activate_app(app_id)
+      end
+
+      def terminate_app(app_id)
+        @driver.terminate_app(app_id)
+      end
     end
   end
 end

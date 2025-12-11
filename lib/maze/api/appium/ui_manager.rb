@@ -48,6 +48,32 @@ module Maze
           raise e
         end
 
+        # Performs a touch operation at the given coordinates, using W3C actions.
+        #
+        # @param x [Integer] X coordinate
+        # @param y [Integer] Y coordinate
+        #
+        # @returns [Boolean] Whether the operation was successfully performed
+        def touch_at(x, y)
+          if failed_driver?
+            $logger.error 'Cannot perform touch - Appium driver failed.'
+            return false
+          end
+
+          f1 = ::Selenium::WebDriver::Interactions.pointer(:touch, name: 'finger1')
+          f1.create_pointer_move(duration: 1, x: x, y: y,
+                                 origin: ::Selenium::WebDriver::Interactions::PointerMove::VIEWPORT)
+          f1.create_pointer_down(:left)
+          f1.create_pointer_up(:left)
+          @driver.perform_actions([f1])
+          true
+        rescue Selenium::WebDriver::Error::ServerError => e
+          $logger.error "Error performing touch: #{e.message}"
+          # Assume the remote appium session has stopped, so crash out of the session
+          fail_driver(e)
+          raise e
+        end
+
         # Clicks a given element if present.
         #
         # @param element_id [String] the element to click

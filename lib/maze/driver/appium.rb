@@ -220,6 +220,10 @@ module Maze
       def session_capabilities
         driver.session_capabilities
       end
+
+      def perform_actions(actions)
+        @driver.perform_actions(actions)
+      end
     end
   end
 end

@@ -1,3 +1,9 @@
+# v10.10.1 - 2025/12/15
+
+## Fixes
+
+- Relax `Content-Type` check in `ReflectiveServlet` to allow encoding to appear alongside `application/json` [823](https://github.com/bugsnag/maze-runner/pull/823)
+
 # v10.10.0 - 2025/12/12
 
 ## Enhancements

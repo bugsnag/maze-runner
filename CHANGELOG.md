@@ -1,3 +1,9 @@
+# unreleased
+
+## Enhancements
+
+- Add `--prefix` to the benchmark ingestion tool to allow users to specify a prefix for the metric names [824](https://github.com/bugsnag/maze-runner/pull/824)
+
 # v10.10.1 - 2025/12/15
 
 ## Fixes

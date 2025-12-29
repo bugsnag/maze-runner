@@ -10,7 +10,7 @@ require_relative '../lib/maze'
 require_relative '../lib/maze/loggers/logger'
 
 class DatadogMetricsIngester
-  def initialize(api_key:, app_key:, host: 'platforms-benchmark')
+  def initialize(api_key:, app_key:, host: 'platforms-benchmark', prefix: nil)
     configuration = DatadogAPIClient::Configuration.new
     configuration.api_key['apiKeyAuth'] = api_key
     configuration.api_key['appKeyAuth'] = app_key
@@ -18,6 +18,7 @@ class DatadogMetricsIngester
     api_client = DatadogAPIClient::APIClient.new(configuration)
     @api = DatadogAPIClient::V2::MetricsAPI.new(api_client)
     @host = host
+    @prefix = prefix
   end
 
   def self.run(args)
@@ -26,6 +27,7 @@ class DatadogMetricsIngester
       opt :csv_file, 'Path to the CSV file containing metrics', type: :string, required: true
       opt :api_key, 'Datadog API key', type: :string
       opt :app_key, 'Datadog App key', type: :string
+      opt :prefix, 'Prefix to prepend to metric names', type: :string
     end
 
     opts = Optimist::with_standard_exception_handling(parser) do
@@ -43,7 +45,7 @@ class DatadogMetricsIngester
     errors << "App key is missing" if app_key.to_s.empty?
     abort(errors) unless errors.empty?
 
-    new(api_key: api_key, app_key: app_key).ingest_csv(csv_file)
+    new(api_key: api_key, app_key: app_key, prefix: opts[:prefix]).ingest_csv(csv_file)
   end
 
   def self.abort(errors)
@@ -90,7 +92,8 @@ class DatadogMetricsIngester
   end
 
   def build_tags(row)
-    tags = ["env:platforms-testing", "benchmark:#{row['benchmark']}"]
+    benchmark_value = @prefix && !@prefix.to_s.empty? ? "#{@prefix}:#{row['benchmark']}" : row['benchmark']
+    tags = ["env:platforms-testing", "benchmark:#{benchmark_value}"]
     tags << "cpu_intensive:true" if row['cpu'] == 'true'
     tags << "memory_intensive:true" if row['memory'] == 'true'
     tags << "rendering_enabled:true" if row['rendering'] == 'true'

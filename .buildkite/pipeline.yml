@@ -254,7 +254,7 @@ steps:
         command:
           - "--farm=bb"
           - "--browser=safari"
-          - "--device=IOS_14"
+          - "--device=IOS_17|IOS_18|IOS_26"
           - "--aws-public-ip"
           - "--fail-fast"
           - "--no-tunnel"
@@ -359,7 +359,7 @@ steps:
         command:
           - "--app=features/fixtures/ios/output/iOSTestApp_Release.ipa"
           - "--farm=bb"
-          - "--device=IOS_14|IOS_15|IOS_16"
+          - "--device=IOS_17|IOS_18|IOS_26"
           - "--fail-fast"
           - "--no-tunnel"
           - "--aws-public-ip"

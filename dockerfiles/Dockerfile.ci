@@ -4,7 +4,7 @@ FROM ruby:4-bookworm as ci
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
     apt-get install -y apt-utils wget unzip bash bundler \
                        # Needed for symbolication
-                       llvm-11 \
+                       llvm-13 \
                        # Needed to install docker compose
                        ca-certificates \
                        curl \

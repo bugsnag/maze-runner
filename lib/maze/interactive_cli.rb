@@ -1,6 +1,4 @@
 require 'pty'
-# TODO: Removed pending PLAT-6322
-# require 'boring'
 
 module Maze
   # Encapsulates a shell session, retaining state and input streams for interactive tests
@@ -35,8 +33,6 @@ module Maze
       @stderr_lines = []
       @on_exit_blocks = []
       @current_buffer = ''
-      # TODO: Removed pending PLAT-6322
-      # @boring = Boring.new
 
       start_threaded_shell(shell)
     end
@@ -168,8 +164,6 @@ module Maze
     end
 
     def format_line(line)
-      # TODO: Removed pending PLAT-6322
-      # @boring.scrub(line.strip)
       line.strip
     end
 

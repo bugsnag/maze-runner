@@ -48,7 +48,6 @@ module Maze
           run_docker_compose_command("build #{service}")
           run_docker_compose_command("run --use-aliases #{service} #{command}")
         else
-          # TODO: Consider adding a logs command here
           run_docker_compose_command("up -d --build #{service}")
         end
         @services_started = true

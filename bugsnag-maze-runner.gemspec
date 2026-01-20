@@ -45,6 +45,10 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'base64', '~>0.2.0'
   spec.add_runtime_dependency 'bigdecimal', '~>3.1'
 
+  if RUBY_VERSION >= Gem::Version.new('4.0.0')
+    spec.add_runtime_dependency 'cgi'
+  end
+
   spec.add_development_dependency 'license_finder', '~> 7.0'
   spec.add_development_dependency 'markdown', '~> 1.2'
   spec.add_development_dependency 'mocha', '~> 1.13.0'

@@ -42,7 +42,7 @@ module Maze
         content_type = request['Content-Type']
 
         # For JSON, pull the instructions from the body.  Otherwise, take them from the query string.
-        if content_type.include?('application/json')
+        if !content_type.nil? && content_type.include?('application/json')
           body = JSON.parse(request.body)
           delay_ms = body['delay_ms']
           status = body['status']

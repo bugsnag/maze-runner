@@ -167,7 +167,6 @@ module Maze
             @session_metadata.success = false
             @session_metadata.failure_message = Maze.driver.failure_reason
           else
-            # TODO: The call to quit could also fail
             Maze.driver.driver_quit
             @session_metadata.success = true
           end

@@ -49,7 +49,7 @@ module Maze
               $logger.info "Selected device group: #{device_or_group_names} (#{platform} #{platform_version})"
             end
 
-            # TODO: Setting the config here is rather a side effect and factoring it out would be better.
+            # Setting the config here is rather a side effect and factoring it out would be better.
             #   For now, though, it means not having to provide the --os and --os-version options on the command line.
             Maze.config.os = platform
             Maze.config.os_version = platform_version.to_f.floor

@@ -226,6 +226,10 @@ module Maze
         @driver.execute_script('mobile:deviceInfo')
       end
 
+      def session_id
+        @driver.session_id
+      end
+
       def session_capabilities
         @driver.session_capabilities
       end

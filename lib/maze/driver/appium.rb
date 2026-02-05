@@ -248,6 +248,10 @@ module Maze
         @driver.terminate_app(app_id)
       end
 
+      def background_app(seconds)
+        @driver.background_app(seconds)
+      end
+
       def perform_actions(actions)
         @driver.perform_actions(actions)
       end

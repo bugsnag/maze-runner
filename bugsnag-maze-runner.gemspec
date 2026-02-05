@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'webrick', '~> 1.9.0'
 
   spec.add_dependency 'appium_lib_core', '~> 7.5.0'
-  spec.add_dependency 'selenium-webdriver', '~> 4.0'
+  spec.add_dependency 'selenium-webdriver', '4.29.1'
 
   spec.add_dependency 'bugsnag', '~> 6.24'
   spec.add_dependency 'curb', '~> 1.0.5'

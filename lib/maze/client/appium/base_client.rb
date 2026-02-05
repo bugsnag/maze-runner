@@ -29,20 +29,18 @@ module Maze
 
           start_driver(Maze.config)
 
-          # $logger.info "Server version: #{Maze.driver.remote_status}"
-
           # Set bundle/app id for later use
-          # unless Maze.config.app.nil?
-          #   Maze.driver.app_id = case Maze::Helper.get_current_platform
-          #                        when 'android'
-          #                          Maze.driver.session_capabilities['appPackage']
-          #                        when 'ios'
-          #                          unless app_id = Maze.driver.session_capabilities['CFBundleIdentifier']
-          #                             app_id = Maze.driver.session_capabilities['bundleId']
-          #                          end
-          #                          app_id
-          #                        end
-          # end
+          unless Maze.config.app.nil?
+            Maze.driver.app_id = case Maze::Helper.get_current_platform
+                                 when 'android'
+                                   Maze.driver.session_capabilities['appPackage']
+                                 when 'ios'
+                                   unless app_id = Maze.driver.session_capabilities['CFBundleIdentifier']
+                                      app_id = Maze.driver.session_capabilities['bundleId']
+                                   end
+                                   app_id
+                                 end
+          end
 
           $logger.error "Failed to determine app id." if Maze.driver.app_id.nil?
 
@@ -99,9 +97,9 @@ module Maze
           if result
 
             # Log details of this session
-            # $logger.info "Created Appium session: #{driver.session_id}"
+            $logger.info "Created Appium session: #{driver.session_id}"
             @session_metadata = Maze::Client::Appium::SessionMetadata.new
-            # @session_metadata.id = driver.session_id
+            @session_metadata.id = driver.session_id
             @session_metadata.farm = Maze.config.farm.to_s
           end
           driver

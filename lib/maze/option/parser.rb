@@ -159,12 +159,12 @@ module Maze
             opt Option::APPIUM_SERVER,
                 "Appium server URL.  Defaults are: \n" +
                 "  --farm=local - MAZE_APPIUM_SERVER or http://localhost:4723/wd/hub\n" +
-                "  --farm=bb - MAZE_APPIUM_SERVER or https://us-west-mobile-hub.bitbar.com/wd/hub\n" +
+                "  --farm=bb - MAZE_APPIUM_SERVER or https://eu-mobile-hub.bitbar.com/wd/hub\n" +
                 'Not used for --farm=bs',
                 short: :none,
                 type: :string
             opt Option::SELENIUM_SERVER,
-                "Selenium server URL. Only used for --farm=bb, defaulting to MAZE_SELENIUM_SERVER or https://us-west-desktop-hub.bitbar.com/wd/hub",
+                "Selenium server URL. Only used for --farm=bb, defaulting to MAZE_SELENIUM_SERVER or https://eu-desktop-hub.bitbar.com/wd/hub",
                 short: :none,
                 type: :string
 
@@ -269,8 +269,8 @@ module Maze
           when 'bb'
             options[Option::USERNAME] ||= ENV['BITBAR_USERNAME']
             options[Option::ACCESS_KEY] ||= ENV['BITBAR_ACCESS_KEY']
-            options[Option::APPIUM_SERVER] ||= ENV['MAZE_APPIUM_SERVER'] || 'https://us-west-mobile-hub.bitbar.com/wd/hub'
-            options[Option::SELENIUM_SERVER] ||= ENV['MAZE_SELENIUM_SERVER'] || 'https://us-west-desktop-hub.bitbar.com/wd/hub'
+            options[Option::APPIUM_SERVER] ||= ENV['MAZE_APPIUM_SERVER'] || 'https://eu-mobile-hub.bitbar.com/wd/hub'
+            options[Option::SELENIUM_SERVER] ||= ENV['MAZE_SELENIUM_SERVER'] || 'https://eu-desktop-hub.bitbar.com/wd/hub'
           end
 
           options[Option::BUGSNAG_REPEATER_API_KEY] ||= ENV['MAZE_REPEATER_API_KEY']

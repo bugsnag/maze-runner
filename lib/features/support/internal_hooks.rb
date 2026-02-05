@@ -143,8 +143,6 @@ After do |scenario|
   # This is here to stop sessions from one test hitting another.
   # However this does mean that tests take longer.
   # In addition, reset the last captured exit code
-  # TODO:SM We could try and fix this by generating unique endpoints
-  # for each test.
   Maze::Docker.reset
 
   # Make sure that any scripts are killed between test runs

@@ -27,8 +27,6 @@ end
 #
 # @step_input payload_version [String] The payload version expected
 # @step_input notifier_name [String] The expected name of the notifier
-# TODO: I'm reluctant to risk changing the previous step implementation right now, but we should consider
-#   refactoring the two at some point to avoid duplication.
 Then('the session is valid for the session reporting API version {string} for the React Native notifier') do |payload_version|
   steps %{
     Then the session "bugsnag-api-key" header equals "#{$api_key}"

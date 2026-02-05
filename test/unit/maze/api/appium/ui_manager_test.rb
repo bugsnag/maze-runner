@@ -1,7 +1,10 @@
 require 'appium_lib_core'
+require 'bugsnag'
 
 require_relative '../../../test_helper'
 require_relative '../../../../../lib/maze'
+require_relative '../../../../../lib/maze/hooks/error_code_hook'
+require_relative '../../../../../lib/maze/api/exit_code'
 require_relative '../../../../../lib/maze/api/appium/ui_manager'
 
 module Maze
@@ -10,6 +13,7 @@ module Maze
       class UiManagerTest < Test::Unit::TestCase
 
         def setup()
+          Bugsnag.stubs(:notify)
           $logger = mock('logger')
           @mock_driver = mock('driver')
           Maze.driver = @mock_driver
@@ -35,6 +39,13 @@ module Maze
           $logger.expects(:error).with("Cannot click element - Appium driver failed.")
 
           assert_false(@manager.click_element_if_present('element1'))
+        end
+
+        def test_touch_at_failed_driver
+          @mock_driver.expects(:failed?).returns(true)
+          $logger.expects(:error).with("Cannot perform touch - Appium driver failed.")
+
+          assert_false(@manager.touch_at(100, 200))
         end
 
         def test_wait_for_element_server_error
@@ -70,6 +81,18 @@ module Maze
           error = assert_raises Selenium::WebDriver::Error::ServerError do
             @manager.click_element_if_present('element1')
           end
+          assert_equal 'Timeout', error.message
+        end
+
+        def test_touch_at_server_error
+          @mock_driver.expects(:failed?).returns(false)
+          @mock_driver.expects(:fail_driver)
+          @mock_driver.expects(:perform_actions).with(anything).raises(Selenium::WebDriver::Error::ServerError, 'Timeout')
+          $logger.expects(:error).with("Error performing touch: Timeout")
+
+          error = assert_raises Selenium::WebDriver::Error::ServerError do
+            @manager.touch_at(100, 200)
+            end
           assert_equal 'Timeout', error.message
         end
       end

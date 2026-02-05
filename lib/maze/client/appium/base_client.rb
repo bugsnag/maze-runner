@@ -24,13 +24,6 @@ module Maze
           @start_attempts = 0
         end
 
-        def sanitize_url(url)
-          uri = URI.parse(url)
-          uri.user = nil
-          uri.password = nil
-          uri.to_s
-        end
-
         def start_session
           prepare_session
 
@@ -100,7 +93,8 @@ module Maze
                                             config.capabilities,
                                             config.locator
 
-          $logger.info "Creating Appium session with #{sanitize_url(config.appium_server_url)}..."
+          sanitized_url = Maze::Helper.sanitize_url(config.appium_server_url)
+          $logger.info "Creating Appium session with #{sanitized_url}..."
           result = driver.start_driver
           if result
 
@@ -178,7 +172,6 @@ module Maze
             @session_metadata.success = false
             @session_metadata.failure_message = Maze.driver.failure_reason
           else
-            # TODO: The call to quit could also fail
             Maze.driver.driver_quit
             @session_metadata.success = true
           end

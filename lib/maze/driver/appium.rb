@@ -241,6 +241,10 @@ module Maze
       def terminate_app(app_id)
         @driver.terminate_app(app_id)
       end
+
+      def perform_actions(actions)
+        @driver.perform_actions(actions)
+      end
     end
   end
 end

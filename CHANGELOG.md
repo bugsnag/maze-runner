@@ -1,3 +1,31 @@
+# v10.11.0 - 2026/01/20
+
+## Enhancements
+
+- Add `--prefix` to the benchmark ingestion tool to allow users to specify a prefix for the metric names [824](https://github.com/bugsnag/maze-runner/pull/824)
+
+## Fixes
+
+- Support for Ruby 4 [826](https://github.com/bugsnag/maze-runner/pull/826)
+
+# v10.10.1 - 2025/12/15
+
+## Fixes
+
+- Relax `Content-Type` check in `ReflectiveServlet` to allow encoding to appear alongside `application/json` [823](https://github.com/bugsnag/maze-runner/pull/823)
+
+# v10.10.0 - 2025/12/12
+
+## Enhancements
+
+- Add `touch_at` to UiManager [822](https://github.com/bugsnag/maze-runner/pull/822)
+
+# v10.9.1 - 2025/12/11
+
+## Fixes
+
+- Change default BitBar Selenium/Appium servers to EU [821](https://github.com/bugsnag/maze-runner/pull/821)
+
 # v10.9.0 - 2025/12/05
 
 ## Enhancements

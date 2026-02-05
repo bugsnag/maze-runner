@@ -6,8 +6,6 @@ module Maze
       private
 
       def set_headers(request)
-        # TODO Also overwrite apiKey in the payload, if present, recalculate the integrity header (handling
-        #   compressed payloads if the content-encoding header is set accordingly)
         request['bugsnag-api-key'] = Maze.config.hub_repeater_api_key
       end
 

@@ -47,8 +47,6 @@ module Maze
           }
         }
         @core = ::Appium::Core.for(opts)
-
-        $logger.info "@core: #{@core.inspect}"
       end
 
       # Starts the Appium driver
@@ -238,6 +236,10 @@ module Maze
         @driver.push_file(path, contents)
       end
 
+      def app_state(app_id)
+        @driver.app_state(app_id)
+      end
+
       def activate_app(app_id)
         @driver.activate_app(app_id)
       end
@@ -248,6 +250,22 @@ module Maze
 
       def perform_actions(actions)
         @driver.perform_actions(actions)
+      end
+
+      def push_file(path, contents)
+        @driver.push_file(path, contents)
+      end
+
+      def pull_file(path)
+        @driver.pull_file(path)
+      end
+
+      def pull_folder(path)
+        @driver.pull_folder(path)
+      end
+
+      def driver_quit
+        @driver.driver_quit
       end
     end
   end

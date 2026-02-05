@@ -1,3 +1,9 @@
+# v11.0.0 - 2026/02/06
+
+## Enhancements
+
+- Use `appium_lib_core` only and not `appium_lib` [827](https://github.com/bugsnag/maze-runner/pull/827)
+
 # v10.11.0 - 2026/01/20
 
 ## Enhancements

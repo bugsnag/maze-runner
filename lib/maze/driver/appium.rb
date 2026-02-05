@@ -272,6 +272,10 @@ module Maze
         @driver.get_log(type)
       end
 
+      def unlock
+        @driver.unlock
+      end
+
       def driver_quit
         @driver.quit
       end

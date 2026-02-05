@@ -265,7 +265,7 @@ module Maze
       end
 
       def driver_quit
-        @driver.driver_quit
+        @driver.quit
       end
     end
   end

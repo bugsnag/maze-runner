@@ -268,6 +268,10 @@ module Maze
         @driver.pull_folder(path)
       end
 
+      def get_log(type)
+        @driver.get_log(type)
+      end
+
       def driver_quit
         @driver.quit
       end

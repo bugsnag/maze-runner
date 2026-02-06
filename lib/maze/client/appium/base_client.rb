@@ -55,8 +55,6 @@ module Maze
             $logger.warn "Failed to unlock device: #{error}"
           end
 
-
-
           log_run_intro
         end
 
@@ -84,9 +82,6 @@ module Maze
 
         def attempt_start_driver(config)
           config.capabilities = device_capabilities
-
-
-
           driver = Maze::Driver::Appium.new config.appium_server_url,
                                             config.capabilities,
                                             config.locator
@@ -95,7 +90,6 @@ module Maze
           $logger.info "Creating Appium session with #{sanitized_url}..."
           result = driver.start_driver
           if result
-
             # Log details of this session
             $logger.info "Created Appium session: #{driver.session_id}"
             @session_metadata = Maze::Client::Appium::SessionMetadata.new

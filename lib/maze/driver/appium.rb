@@ -288,6 +288,10 @@ module Maze
         @driver.execute_script(type, script)
       end
 
+      def find_element(*args)
+        @driver.find_element(*args)
+      end
+
       def driver_quit
         @driver.quit
       end

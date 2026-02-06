@@ -82,9 +82,6 @@ module Maze
 
         def attempt_start_driver(config)
           config.capabilities = device_capabilities
-
-
-
           driver = Maze::Driver::Appium.new config.appium_server_url,
                                             config.capabilities,
                                             config.locator

@@ -39,13 +39,21 @@ When('I log the device info') do
   $logger.info "Device info is: #{info}"
 end
 
-When('I get the device logs') do
-  log_type = if Maze.config.device.include?('ANDROID')
-               'logcat'
-             else
-               'syslog'
-             end
-  logs = Maze::Api::Appium::DeviceManager.new.get_log(log_type)
-  $logger.info "#{logs.length} device logs entries returned"
+When('I list all available device log types') do
+  manager = Maze::Api::Appium::DeviceManager.new
+  log_types = manager.get_available_log_types
+  $logger.info("Available log types: #{log_types}")
 end
 
+When('I get the {word} device logs') do |type|
+  manager = Maze::Api::Appium::DeviceManager.new
+  logs = manager.get_logs(type.to_sym)
+  $logger.info "#{logs.length} entries returned for log type #{type}"
+
+  # Write the logs to a file of the same name
+  File.open("#{type}_logs.txt", 'w') do |file|
+    logs.each do |entry|
+      file.puts entry.to_s
+    end
+  end
+end

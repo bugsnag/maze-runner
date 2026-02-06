@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 
-require 'appium_lib'
+require 'appium_lib_core'
 require_relative '../test_helper'
 require_relative '../../../lib/maze/api/exit_code'
 require_relative '../../../lib/maze/errors'

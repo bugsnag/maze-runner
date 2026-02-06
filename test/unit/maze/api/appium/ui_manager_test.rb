@@ -1,4 +1,4 @@
-require 'appium_lib'
+require 'appium_lib_core'
 require 'bugsnag'
 
 require_relative '../../../test_helper'

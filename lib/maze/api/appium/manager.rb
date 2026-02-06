@@ -1,3 +1,5 @@
+require 'bugsnag'
+
 module Maze
   module Api
     module Appium

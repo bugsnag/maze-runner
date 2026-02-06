@@ -30,11 +30,18 @@ module Maze
           assert_false(@manager.back)
         end
 
-        def test_get_log_failed_driver
+        def test_get_logs_failed_driver
           @mock_driver.expects(:failed?).returns(true)
           $logger.expects(:error).with("Cannot get logs - Appium driver failed.")
 
-          assert_nil(@manager.get_log('syslog'))
+          assert_nil(@manager.get_logs(:syslog))
+        end
+
+        def test_get_available_log_types_failed_driver
+          @mock_driver.expects(:failed?).returns(true)
+          $logger.expects(:error).with("Cannot get available log types - Appium driver failed.")
+
+          assert_nil(@manager.get_available_log_types)
         end
 
         def test_set_rotation_failed_driver

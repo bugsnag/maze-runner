@@ -268,12 +268,24 @@ module Maze
         @driver.pull_folder(path)
       end
 
-      def get_log(type)
-        @driver.get_log(type)
+      def get_available_log_types
+        @driver.logs.available_types
+      end
+
+      def get_logs(type)
+        @driver.logs.get(type)
       end
 
       def unlock
         @driver.unlock
+      end
+
+      def back
+        @driver.back
+      end
+
+      def execute_script(type, script)
+        @driver.execute_script(type, script)
       end
 
       def driver_quit

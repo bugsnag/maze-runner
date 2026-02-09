@@ -1,8 +1,10 @@
-require 'appium_lib'
+require 'appium_lib_core'
 
 require_relative '../../../test_helper'
 require_relative '../../../../../lib/maze'
 require_relative '../../../../../lib/maze/api/appium/device_manager'
+require_relative '../../../../../lib/maze/api/exit_code'
+require_relative '../../../../../lib/maze/hooks/error_code_hook'
 
 module Maze
   module Api
@@ -30,11 +32,18 @@ module Maze
           assert_false(@manager.back)
         end
 
-        def test_get_log_failed_driver
+        def test_get_logs_failed_driver
           @mock_driver.expects(:failed?).returns(true)
           $logger.expects(:error).with("Cannot get logs - Appium driver failed.")
 
-          assert_nil(@manager.get_log('syslog'))
+          assert_nil(@manager.get_logs(:syslog))
+        end
+
+        def test_get_available_log_types_failed_driver
+          @mock_driver.expects(:failed?).returns(true)
+          $logger.expects(:error).with("Cannot get available log types - Appium driver failed.")
+
+          assert_nil(@manager.get_available_log_types)
         end
 
         def test_set_rotation_failed_driver
@@ -102,11 +111,11 @@ module Maze
         def test_get_log_server_error
           @mock_driver.expects(:failed?).returns(false)
           @mock_driver.expects(:fail_driver)
-          @mock_driver.expects(:get_log).with('syslog').raises(Selenium::WebDriver::Error::ServerError, 'Timeout')
+          @mock_driver.expects(:get_logs).with(:syslog).raises(Selenium::WebDriver::Error::ServerError, 'Timeout')
           $logger.expects(:error).with("Failed to get logs: Timeout")
 
           error = assert_raises Selenium::WebDriver::Error::ServerError do
-            @manager.get_log('syslog')
+            @manager.get_logs(:syslog)
           end
           assert_equal 'Timeout', error.message
         end

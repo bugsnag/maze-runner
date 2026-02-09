@@ -1,4 +1,4 @@
-require 'appium_lib'
+require 'appium_lib_core'
 require 'bugsnag'
 require 'json'
 require 'open3'
@@ -8,8 +8,8 @@ require_relative '../../maze'
 
 module Maze
   module Driver
-    # Provide a thin layer of abstraction above @see Appium::Driver
-    class Appium < Appium::Driver
+    # Provide a thin layer of abstraction above @see Appium::Core::Driver
+    class Appium
 
       # @!attribute [rw] app_id
       #   @return [String] The app_id derived from session_capabilities (appPackage on Android, bundleID on iOS)
@@ -40,20 +40,20 @@ module Maze
         # Timers
         @find_element_timer = Maze.timers.add 'Appium - find element'
         @click_element_timer = Maze.timers.add 'Appium - click element'
-
-        super({
-          'caps' => @capabilities,
-          'appium_lib' => {
+        opts = {
+          :caps => @capabilities,
+          :appium_lib => {
             server_url: server_url
           }
-        }, true)
+        }
+        @core = ::Appium::Core.for(opts)
       end
 
       # Starts the Appium driver
       def start_driver
         begin
           time = Time.now
-          super
+          @driver = @core.start_driver
           $logger.info "Appium driver started in #{(Time.now - time).to_i}s"
         rescue => error
           $logger.warn "Appium driver failed to start in #{(Time.now - time).to_i}s"
@@ -86,6 +86,13 @@ module Maze
         false
       end
 
+      def remote_status
+        @driver.remote_status
+      end
+
+      def appium_server_version
+        @core.appium_server_version
+      end
 
       # Provided for mobile browsers - check if the browser supports local storage
       def local_storage?
@@ -133,7 +140,7 @@ module Maze
 
       # A wrapper around launch_app adding extra error handling
       def launch_app
-        super
+        @driver.launch_app
       rescue Selenium::WebDriver::Error::ServerError => e
         # Assume the remote appium session has stopped, so crash out of the session
         fail_driver(e)
@@ -142,7 +149,7 @@ module Maze
 
       # A wrapper around close_app adding extra error handling
       def close_app
-        super
+        @driver.close_app
       rescue Selenium::WebDriver::Error::ServerError => e
         # Assume the remote appium session has stopped, so crash out of the session
         fail_driver(e)
@@ -214,15 +221,79 @@ module Maze
       end
 
       def device_info
-        driver.execute_script('mobile:deviceInfo')
+        @driver.execute_script('mobile:deviceInfo')
+      end
+
+      def session_id
+        @driver.session_id
       end
 
       def session_capabilities
-        driver.session_capabilities
+        @driver.session_capabilities
+      end
+
+      def push_file(path, contents)
+        @driver.push_file(path, contents)
+      end
+
+      def app_state(app_id)
+        @driver.app_state(app_id)
+      end
+
+      def activate_app(app_id)
+        @driver.activate_app(app_id)
+      end
+
+      def terminate_app(app_id)
+        @driver.terminate_app(app_id)
+      end
+
+      def background_app(seconds)
+        @driver.background_app(seconds)
       end
 
       def perform_actions(actions)
         @driver.perform_actions(actions)
+      end
+
+      def push_file(path, contents)
+        @driver.push_file(path, contents)
+      end
+
+      def pull_file(path)
+        @driver.pull_file(path)
+      end
+
+      def pull_folder(path)
+        @driver.pull_folder(path)
+      end
+
+      def get_available_log_types
+        @driver.logs.available_types
+      end
+
+      def get_logs(type)
+        @driver.logs.get(type)
+      end
+
+      def unlock
+        @driver.unlock
+      end
+
+      def back
+        @driver.back
+      end
+
+      def execute_script(type, script)
+        @driver.execute_script(type, script)
+      end
+
+      def find_element(*args)
+        @driver.find_element(*args)
+      end
+
+      def driver_quit
+        @driver.quit
       end
     end
   end

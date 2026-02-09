@@ -1,5 +1,11 @@
 # Upgrading Guide
 
+## v10 to v11
+
+### DeviceManager
+
+`get_log` in the `DeviceManager` API has been renamed to `get_logs` and now accepts a symbol for the log type instead of a string.  The list of available log types for the current device can be found by calling the `get_available_log_types` method.
+
 ## v9 to v10
 
 ### Document server

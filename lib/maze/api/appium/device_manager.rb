@@ -42,17 +42,34 @@ module Maze
           raise e
         end
 
+        # Gets available log types on the device.
+        #
+        # @returns [Array, nil] Array of Symbols, or nil if the driver has failed
+        def get_available_log_types
+          if failed_driver?
+            $logger.error 'Cannot get available log types - Appium driver failed.'
+            return nil
+          end
+
+          @driver.get_available_log_types
+        rescue Selenium::WebDriver::Error::ServerError => e
+          $logger.error "Failed to get available log types: #{e.message}"
+          # Assume the remote appium session has stopped, so crash out of the session
+          fail_driver(e)
+          raise e
+        end
+
         # Gets logs from the device.
-        # @param log_type [String] The type pf log to get as recognised by Appium, such as 'syslog'
+        # @param log_type [Symbol] The type of log to get as recognised by Appium, such as :logcat
         #
         # @returns [Array, nil] Array of Selenium::WebDriver::LogEntry, or nil if the driver has failed
-        def get_log(log_type)
+        def get_logs(log_type)
           if failed_driver?
             $logger.error 'Cannot get logs - Appium driver failed.'
             return nil
           end
 
-          @driver.get_log(log_type)
+          @driver.get_logs(log_type)
         rescue Selenium::WebDriver::Error::ServerError => e
           $logger.error "Failed to get logs: #{e.message}"
           # Assume the remote appium session has stopped, so crash out of the session

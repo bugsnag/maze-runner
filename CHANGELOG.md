@@ -1,3 +1,9 @@
+# TBD
+
+## Enhancements
+
+- Add `--record-screen` to the CLI options to record macOS screens during a test run [828](https://github.com/bugsnag/maze-runner/pull/828)
+
 # v11.0.0 - 2026/02/09
 
 ## Enhancements

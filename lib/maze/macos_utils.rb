@@ -18,14 +18,18 @@ module Maze
         FileUtils.makedirs(path) unless File.exist?(path)
         filename = "#{Maze::Helper.to_friendly_filename(scenario.name)}-screenrecording.mp4"
         @screen_recording_path = File.join(path, filename)
-        # Start ffmpeg screen recording in the background
-        # macOS screen index 1 is usually the main display
+        # Start ffmpeg screen recording in the background.
+        # The macOS screen index used for capture is configurable via the
+        # MAZE_MACOS_SCREEN_INDEX environment variable. It defaults to "1"
+        # to preserve existing behavior, but note that in AVFoundation device
+        # indexes are 0-based and "0" is often the primary display.
+        screen_index = ENV.fetch('MAZE_MACOS_SCREEN_INDEX', '1')
         @screen_recording_pid = Process.spawn(
           'ffmpeg',
           '-y',
           '-f', 'avfoundation',
           '-framerate', '30',
-          '-i', '1:none',
+          '-i', "#{screen_index}:none",
           '-pix_fmt', 'yuv420p',
           @screen_recording_path,
           out: File::NULL, err: File::NULL

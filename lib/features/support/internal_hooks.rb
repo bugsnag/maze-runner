@@ -39,7 +39,7 @@ BeforeAll do
   maze_output_zip = Dir.glob(File.join(Dir.pwd, 'maze_output.zip'))
   FileUtils.rm_rf(maze_output_zip)
 
-  if Maze.config.os == "macos" && Maze.config.record_screen
+  if Maze.config.record_screen
     begin
       $screen_recording_path = Maze::MacosUtils.start_screen_recording(OpenStruct.new(name: "all_scenarios"))
       $logger.info "Started macOS screen recording."
@@ -275,7 +275,7 @@ end
 # After all tests
 AfterAll do
   # Stop screen recording on macOS after all tests, if enabled
-  if Maze.config.os == "macos" && Maze.config.record_screen
+  if Maze.config.record_screen
     $logger.info "Stopping macOS screen recording..."
         begin
       path = Maze::MacosUtils.stop_screen_recording(OpenStruct.new(name: "all_scenarios"))

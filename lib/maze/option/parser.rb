@@ -187,7 +187,6 @@ module Maze
                 'OS type to use ("ios", "android")',
                 short: :none,
                 type: :string,
-                default: 'macos'
             opt Option::OS_VERSION,
                 'The intended OS version when running on a local device',
                 short: :none,

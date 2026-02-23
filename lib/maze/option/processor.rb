@@ -35,6 +35,9 @@ module Maze
           config.log_requests = options[Maze::Option::LOG_REQUESTS] || !ENV['BUILDKITE'].nil?
           config.always_log = options[Maze::Option::ALWAYS_LOG]
 
+          # Screen recording options
+          config.record_screen = options[Maze::Option::RECORD_SCREEN]
+
           # General appium options
           config.app = Maze::Helper.read_at_arg_file options[Maze::Option::APP]
           farm = options[Maze::Option::FARM]

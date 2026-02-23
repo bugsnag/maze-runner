@@ -35,6 +35,7 @@ module Maze
           out: File::NULL, err: File::NULL
         )
         Process.detach(@screen_recording_pid)
+        @screen_recording_path
       end
 
       def stop_screen_recording(_scenario)

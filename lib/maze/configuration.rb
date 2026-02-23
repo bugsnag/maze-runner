@@ -2,8 +2,8 @@
 
 module Maze
   # MazeRunner configuration
-  class Configuration
-
+    class Configuration
+      
     # Set default values
     def initialize
       self.receive_no_requests_wait = 30
@@ -212,6 +212,9 @@ module Maze
 
     # The location of the appium server logfile
     attr_accessor :appium_logfile
+
+    # Enable screen recording for the test run
+    attr_accessor :record_screen
 
     #
     # Logging configuration

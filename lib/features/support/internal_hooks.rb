@@ -6,6 +6,7 @@ require 'json'
 require 'securerandom'
 require 'selenium-webdriver'
 require 'uri'
+require 'ostruct'
 
 BeforeAll do
   Maze.check = Maze::Checks::AssertCheck.new
@@ -37,6 +38,16 @@ BeforeAll do
   end
   maze_output_zip = Dir.glob(File.join(Dir.pwd, 'maze_output.zip'))
   FileUtils.rm_rf(maze_output_zip)
+
+  if Maze.config.os == "macos" && Maze.config.record_screen
+    begin
+      $screen_recording_path = Maze::MacosUtils.start_screen_recording(OpenStruct.new(name: "all_scenarios"))
+      $logger.info "Started macOS screen recording."
+    rescue => e
+      $logger.error "Failed to start screen recording: #{e.message}"
+    end
+  end
+  # Start screen recording on macOS before any tests, if enabled
 
   # Record the local server starting time
   Maze.start_time = Time.now.strftime('%Y-%m-%d %H:%M:%S')
@@ -128,7 +139,7 @@ After do |scenario|
 
   # If we're running on macos, take a screenshot if the scenario fails
   if Maze.config.os == "macos" && scenario.status == :failed
-    Maze::MacosUtils.capture_screen(scenario)
+    Maze::MacosUtils.take_screenshot(scenario)
   end
 
   # Invoke the logger hook for the scenario
@@ -263,6 +274,16 @@ end
 
 # After all tests
 AfterAll do
+  # Stop screen recording on macOS after all tests, if enabled
+  if Maze.config.os == "macos" && Maze.config.record_screen
+    $logger.info "Stopping macOS screen recording..."
+        begin
+      path = Maze::MacosUtils.stop_screen_recording(OpenStruct.new(name: "all_scenarios"))
+      $logger.info "Stopped macOS screen recording. Saved to: #{path}"
+    rescue => e
+      $logger.error "Failed to stop screen recording: #{e.message}"
+    end
+  end
   # Ensure the logger output is in the correct location
   Maze::Hooks::LoggerHooks.after_all
 

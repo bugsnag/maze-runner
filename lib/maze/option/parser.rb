@@ -186,7 +186,8 @@ module Maze
             opt Option::OS,
                 'OS type to use ("ios", "android")',
                 short: :none,
-                type: :string
+                type: :string,
+                default: 'macos'
             opt Option::OS_VERSION,
                 'The intended OS version when running on a local device',
                 short: :none,
@@ -207,6 +208,11 @@ module Maze
                 'Apple UDID, required for local iOS testing. MAZE_UDID env var by default',
                 short: :none,
                 type: :string
+            opt Option::RECORD_SCREEN,
+                'Enable macOS screen recording for the duration of the test run',
+                type: :boolean,
+                short: :none,
+                default: false
 
             text ''
             text 'Logging options:'

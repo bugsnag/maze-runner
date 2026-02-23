@@ -147,5 +147,12 @@ module Maze
 
       File.join(folder1, folder2, folder3)
     end
+
+    def recording
+      folder1 = File.join(Dir.pwd, 'maze_output')
+      folder2 = "recordings"
+
+      File.join(folder1, folder2)
+    end
   end
 end

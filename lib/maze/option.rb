@@ -44,6 +44,7 @@ module Maze
     APPLE_TEAM_ID = 'apple-team-id'
     START_APPIUM = 'start-appium'
     UDID = 'udid'
+    RECORD_SCREEN = 'record-screen'
 
     # Logging options
     ALWAYS_LOG = 'always-log'

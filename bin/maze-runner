@@ -221,6 +221,8 @@ class MazeRunnerEntry
     end
 
     Maze::Option::Processor.populate Maze.config, options
+    # Ensure record_screen is set on Maze.config
+    Maze.config.record_screen = options[Maze::Option::RECORD_SCREEN]
 
     # Adjust CL options before calling down to Cucumber
     remove_maze_runner_args

@@ -3,7 +3,6 @@
 module Maze
   # MazeRunner configuration
     class Configuration
-      
     # Set default values
     def initialize
       self.receive_no_requests_wait = 30

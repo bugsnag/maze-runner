@@ -158,7 +158,7 @@ steps:
     commands:
       - "cd test/e2e/macos-recording"
       - "bundle install"
-      - "bundle exec maze-runner"
+      - "bundle exec maze-runner --farm=local --browser=firefox --record-screen"
 
   #
   # BrowserStack tests

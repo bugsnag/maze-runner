@@ -158,7 +158,11 @@ steps:
     commands:
       - "cd test/e2e/macos-recording"
       - "bundle install"
-      - "bundle exec maze-runner --farm=local --browser=firefox --record-screen"
+      - "bundle exec maze-runner --farm=local --browser=firefox --record-screen features/macos_recording.feature"
+    plugins:
+      artifacts#v1.9.0:
+        upload: 
+          - "maze_output/**/*"
 
   #
   # BrowserStack tests

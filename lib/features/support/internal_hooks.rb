@@ -41,7 +41,7 @@ BeforeAll do
 
   if Maze.config.record_screen
     begin
-      $screen_recording_path = Maze::MacosUtils.start_screen_recording(OpenStruct.new(name: "all_scenarios"))
+      Maze::MacosUtils.start_screen_recording(OpenStruct.new(name: "all_scenarios"))
       $logger.info "Started macOS screen recording."
     rescue => e
       $logger.error "Failed to start screen recording: #{e.message}"

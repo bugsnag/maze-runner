@@ -153,6 +153,8 @@ steps:
 
   - label: "macOS recording tests"
     timeout_in_minutes: 10
+    agents:
+      queue: "macos-15"
     commands:
       - "cd test/e2e/macos-recording"
       - "bundle install"

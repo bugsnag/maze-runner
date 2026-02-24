@@ -276,8 +276,7 @@ end
 AfterAll do
   # Stop screen recording on macOS after all tests, if enabled
   if Maze.config.record_screen
-    $logger.info "Stopping macOS screen recording..."
-        begin
+    begin
       path = Maze::MacosUtils.stop_screen_recording(OpenStruct.new(name: "all_scenarios"))
       $logger.info "Stopped macOS screen recording. Saved to: #{path}"
     rescue => e

@@ -162,7 +162,7 @@ steps:
     plugins:
       artifacts#v1.9.0:
         upload: 
-          - "test/e2e/macos-recording/features/maze_output/**/*"
+          - "test/e2e/macos-recording/maze_output/**/*"
 
   #
   # BrowserStack tests

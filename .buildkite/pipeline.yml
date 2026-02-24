@@ -151,6 +151,13 @@ steps:
           run: "command-workflow-tests"
     command: "bundle exec maze-runner"
 
+  - label: "macOS recording tests"
+    timeout_in_minutes: 10
+    commands:
+      - "cd test/e2e/macos-recording"
+      - "bundle install"
+      - "bundle exec maze-runner"
+
   #
   # BrowserStack tests
   #

@@ -1,5 +1,34 @@
 # Upgrading Guide
 
+## v10 to v11
+
+### DeviceManager
+
+`get_log` in the `DeviceManager` API has been renamed to `get_logs` and now accepts a symbol for the log type instead of a string.  The list of available log types for the current device can be found by calling the `get_available_log_types` method.
+
+## v9 to v10
+
+### Document server
+
+The document server that ran on port 9340 by default has been removed.  Documents are still server under the `/docs` endpoint on port 9339 by default.
+
+### Legacy drivers
+
+The legacy JSON-WP protocol drivers (using Selenium v3 and Appium v11) are no longer supported. 
+
+### Removed steps
+
+| Removed step  | Replacement                              |
+|---|------------------------------------------|
+| `I wait for {int} span(s)`  | I wait to receive at least {int} span(s) |
+| `I clear the element {string}` | None.                                    |
+| `I send the keys {string} to the element {string}` | None.                                    |
+| `I clear and send the keys {string} to the element {string}` | None.                                    |
+
+# Minimum Ruby version
+
+The minimum supported Ruby version is now 3.1 (due to Cucumber being updated to v10).
+
 ## v8 to v9
 
 ### Clearing app data between test scenarios

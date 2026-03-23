@@ -5,7 +5,7 @@ module Maze
         def prepare_session
           config = Maze.config
           config.app = Maze::Client::BitBarClientUtils.upload_app config.access_key,
-                                                                  config.app
+                                                                  config.app if config.app
           if Maze::Client::BitBarClientUtils.use_local_tunnel?
             Maze::Client::BitBarClientUtils.start_local_tunnel config.sb_local,
                                                                config.username,
@@ -38,6 +38,10 @@ module Maze
             interval = 10
           elsif error.message.include? '\'platformVersion\' must be a valid version number.'
             interval = 10
+          elsif error.message.include?('Device model with name') && error.message.include?('is currently unavailable')
+            interval = 10
+          elsif error.message.include?('Error executing adbExec')
+            interval = 10
           else
             # Do not retry in any other case
           end
@@ -47,7 +51,7 @@ module Maze
         end
 
         def start_scenario
-          unless Maze.config.legacy_driver?
+          unless Maze.config.browser
             # Write Maze's address to file and push to the device
             maze_address = Maze.public_address || "local:#{Maze.config.port}"
             Maze::Api::Appium::FileManager.new.write_app_file(JSON.generate({ maze_address: maze_address }),
@@ -79,6 +83,10 @@ module Maze
           capabilities.deep_merge! BitBarClientUtils.dashboard_capabilities
           capabilities.deep_merge! BitBarDevices.get_available_device(config.device)
           capabilities['bitbar:options']['appiumVersion'] = config.appium_version unless config.appium_version.nil?
+          unless config.browser.nil?
+            capabilities['bitbar:options']['acceptInsecureCerts'] = true
+            capabilities['browserName'] = config.browser
+          end
           capabilities.deep_merge! JSON.parse(config.capabilities_option)
 
           capabilities
@@ -91,10 +99,12 @@ module Maze
         def log_run_outro
           api_client = BitBarApiClient.new(Maze.config.access_key)
 
-          $logger.info 'Appium session(s) created:'
-          @session_ids.each do |id|
-            link = api_client.get_device_session_ui_link(id)
-            $logger.info Maze::Loggers::LogUtil.linkify(link, "BitBar session: #{id}") if link
+          info = api_client.get_device_session_info(@session_metadata.id)
+          if info
+            link = Maze::Loggers::LogUtil.linkify(info[:dashboard_link], "BitBar session: #{@session_metadata.id}")
+            $logger.info link
+            @session_metadata.device = info[:device_name]
+            $logger.info "Device used: #{@session_metadata.device}"
           end
         end
 

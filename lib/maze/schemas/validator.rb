@@ -14,7 +14,7 @@ module Maze
         # Tests that payloads for a specific path pass any additional validation checks
         # Throws an AssertionFailedError with a list of issues on failure
         #
-        # @param list [Array] An array of received requests
+        # @param list [Maze::RequestList] An array of received requests
         # @param list_name [String] The name of the payload list for received requests
         def validate_payload_elements(list, list_name)
           # Test to see if a custom validator exists for the list

@@ -26,8 +26,12 @@ module Maze
     # @param request The new request, from which a clone is made
     def add(request)
       clone = request.clone
-      # UUID primarily used for commands, but no harm to set on everything
+      # UUID and other metadata primarily used for commands, but no harm to set on everything
       clone[:uuid] = SecureRandom.uuid
+      unless Maze.scenario.nil?
+        clone[:cucumber_scenario_name] = Maze.scenario.name
+        clone[:cucumber_scenario_location] = Maze.scenario.location
+      end
       clone[:run_uuid] = Maze.run_uuid
       @requests.append clone
       @count += 1
@@ -59,6 +63,12 @@ module Maze
       @count -= 1
     end
 
+    # Moves to the end of the list
+    def end
+      @current = @requests.size
+      @count = 0
+    end
+
     # A frozen clone of all requests held, including those already processed
     def all
       @requests.clone.freeze
@@ -83,6 +93,17 @@ module Maze
       # Sort sublist by Bugsnag-Sent-At and overwrite in the main list
       sub_list.sort_by! { |r| DateTime.parse(r[:request][header]) }
       sub_list.each_with_index { |r, i| @requests[@current + i] = r }
+    end
+
+    # Sorts the remaining elements of the list by the request path, if present in all of those elements
+    def sort_by_request_path!
+      list = remaining
+
+      return if list.any? { |r| r[:request].path.nil? }
+
+      # Sort the list by request path and overwrite in the main list
+      list.sort_by! { |r| r[:request].path }
+      list.each_with_index { |r, i| @requests[@current + i] = r }
     end
 
     # Sorts the remaining elements of the list by the field given, if present in all of those elements

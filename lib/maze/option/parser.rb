@@ -47,13 +47,13 @@ module Maze
                 short: :none,
                 default: true
 
-            opt Option::ASPECTO_REPEATER_API_KEY,
-                'Enables forwarding of all received POST requests to Aspecto, using the API key provided.  MAZE_ASPECTO_REPEATER_API_KEY may also be set.',
+            opt Option::BUGSNAG_REPEATER_API_KEY,
+                'Enables forwarding of all received POST requests to Bugsnag, using the API key provided.  MAZE_REPEATER_API_KEY may also be set.',
                 short: :none,
                 type: :string
 
-            opt Option::BUGSNAG_REPEATER_API_KEY,
-                'Enables forwarding of all received POST requests to Bugsnag, using the API key provided.  MAZE_REPEATER_API_KEY may also be set.',
+            opt Option::HUB_REPEATER_API_KEY,
+                'Enables forwarding of all received POST requests to InsightHub, using the API key provided.  MAZE_HUB_REPEATER_API_KEY may also be set.',
                 short: :none,
                 type: :string
 
@@ -75,14 +75,19 @@ module Maze
             text ''
             text 'Server options:'
 
+            opt Option::HTTPS,
+                'Use HTTPS for the mock server',
+                short: :none,
+                type: :boolean,
+                default: false
             opt Option::BIND_ADDRESS,
                 'Mock server bind address',
                 short: :none,
                 type: :string
             opt Option::PORT,
-                'Mock server port',
+                'Mock server port, defaulting to MAZE_PORT or 9339',
                 short: :none,
-                default: 9339
+                type: :integer
             opt Option::NULL_PORT,
                 'Terminating connection port',
                 short: :none,
@@ -95,14 +100,6 @@ module Maze
                 'Document server root',
                 short: :none,
                 type: :string
-            opt Option::DS_BIND_ADDRESS,
-                'Document server bind address',
-                short: :none,
-                type: :string
-            opt Option::DS_PORT,
-                'Document server port',
-                short: :none,
-                default: 9340
 
             text ''
             text 'Appium options:'
@@ -134,9 +131,10 @@ module Maze
                 type: :string,
                 multi: true
             opt Option::BROWSER,
-                'Browser to use (an entry in <farm>_browsers.yml)',
+                'Browser to use (an entry in <farm>_browsers.yml). Can be listed multiple times to have a prioritised list of browsers',
                 short: :none,
-                type: :string
+                type: :string,
+                multi: true
             opt Option::BROWSER_VERSION,
                 'Browser version to use (applies to entries in <farm>_browsers.yml that do not include a version)',
                 short: :none,
@@ -176,12 +174,12 @@ module Maze
             opt Option::APPIUM_SERVER,
                 "Appium server URL.  Defaults are: \n" +
                 "  --farm=local - MAZE_APPIUM_SERVER or http://localhost:4723/wd/hub\n" +
-                "  --farm=bb - MAZE_APPIUM_SERVER or https://us-west-mobile-hub.bitbar.com/wd/hub\n" +
+                "  --farm=bb - MAZE_APPIUM_SERVER or https://eu-mobile-hub.bitbar.com/wd/hub\n" +
                 'Not used for --farm=bs',
                 short: :none,
                 type: :string
             opt Option::SELENIUM_SERVER,
-                "Selenium server URL. Only used for --farm=bb, defaulting to MAZE_SELENIUM_SERVER or https://us-west-desktop-hub.bitbar.com/wd/hub",
+                "Selenium server URL. Only used for --farm=bb, defaulting to MAZE_SELENIUM_SERVER or https://eu-desktop-hub.bitbar.com/wd/hub",
                 short: :none,
                 type: :string
 
@@ -286,14 +284,15 @@ module Maze
           when 'bb'
             options[Option::USERNAME] ||= ENV['BITBAR_USERNAME']
             options[Option::ACCESS_KEY] ||= ENV['BITBAR_ACCESS_KEY']
-            options[Option::APPIUM_SERVER] ||= ENV['MAZE_APPIUM_SERVER'] || 'https://us-west-mobile-hub.bitbar.com/wd/hub'
-            options[Option::SELENIUM_SERVER] ||= ENV['MAZE_SELENIUM_SERVER'] || 'https://us-west-desktop-hub.bitbar.com/wd/hub'
+            options[Option::APPIUM_SERVER] ||= ENV['MAZE_APPIUM_SERVER'] || 'https://eu-mobile-hub.bitbar.com/wd/hub'
+            options[Option::SELENIUM_SERVER] ||= ENV['MAZE_SELENIUM_SERVER'] || 'https://eu-desktop-hub.bitbar.com/wd/hub'
           end
 
-          options[Option::ASPECTO_REPEATER_API_KEY] ||= ENV['MAZE_ASPECTO_REPEATER_API_KEY']
           options[Option::BUGSNAG_REPEATER_API_KEY] ||= ENV['MAZE_REPEATER_API_KEY']
+          options[Option::HUB_REPEATER_API_KEY] ||= ENV['MAZE_HUB_REPEATER_API_KEY']
           options[Option::SB_LOCAL] ||= ENV['MAZE_SB_LOCAL'] || '/SBSecureTunnel'
           options[Option::BS_LOCAL] ||= ENV['MAZE_BS_LOCAL'] || '/BrowserStackLocal'
+          options[Option::PORT] ||= ENV['MAZE_PORT'] || 9339
           options[Option::APPIUM_SERVER] ||= ENV['MAZE_APPIUM_SERVER'] || 'http://localhost:4723/wd/hub'
           options[Option::APPLE_TEAM_ID] ||= ENV['MAZE_APPLE_TEAM_ID']
           options[Option::UDID] ||= ENV['MAZE_UDID']

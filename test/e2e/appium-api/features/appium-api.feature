@@ -1,0 +1,33 @@
+Feature: Exercise the Appium Manager APIs
+
+  Scenario: App Manager operations
+    When The app state is "running_in_foreground"
+    And I close the app
+    Then The app state is "not_running"
+    And I launch the app
+    Then The app state is "running_in_foreground"
+    And I terminate the app
+    Then The app state is "not_running"
+    And I activate the app
+    Then The app state is "running_in_foreground"
+    And I send the app to the background
+    And I activate the app
+    And I send the app to the background for 5 seconds
+
+  Scenario: Device Manager operations
+    When I unlock the device
+    And I list all available device log types
+    And I get the logcat device logs
+    And I set the device rotation to "landscape"
+    And I wait for 2 seconds
+    And I set the device rotation to "portrait"
+    And I log the device info
+    And I press the back button
+    And I execute the script "echo hello"
+
+  Scenario: UI Manager operations
+    When the element "clearUserData" is present
+    And I click the element "clearUserData"
+    And I click the element "clearUserData" if present
+    And I touch the screen at 100,200 3 times
+    And I touch the screen at 150,250

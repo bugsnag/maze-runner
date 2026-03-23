@@ -1,4 +1,4 @@
-require 'appium_lib'
+require 'appium_lib_core'
 require 'bugsnag'
 require 'json'
 require 'open3'
@@ -8,8 +8,8 @@ require_relative '../../maze'
 
 module Maze
   module Driver
-    # Provide a thin layer of abstraction above @see Appium::Driver
-    class Appium < Appium::Driver
+    # Provide a thin layer of abstraction above @see Appium::Core::Driver
+    class Appium
 
       # @!attribute [rw] app_id
       #   @return [String] The app_id derived from session_capabilities (appPackage on Android, bundleID on iOS)
@@ -20,7 +20,7 @@ module Maze
       attr_reader :device_type
 
       # @!attribute [r] capabilities
-      #   @return [Hash] The capabilities used to launch the BrowserStack instance
+      #   @return [Hash] The capabilities used to launch the Appium session
       attr_reader :capabilities
 
       # Creates the Appium driver
@@ -32,29 +32,28 @@ module Maze
         # Sets up identifiers for ease of connecting jobs
         capabilities ||= {}
 
+        @failed = false
+        @failure_reason = ''
         @element_locator = locator
         @capabilities = capabilities
 
         # Timers
         @find_element_timer = Maze.timers.add 'Appium - find element'
         @click_element_timer = Maze.timers.add 'Appium - click element'
-        @clear_element_timer = Maze.timers.add 'Appium - clear element'
-        @send_keys_timer = Maze.timers.add 'Appium - send keys to element'
-
-        super({
-          'caps' => @capabilities,
-          'appium_lib' => {
+        opts = {
+          :caps => @capabilities,
+          :appium_lib => {
             server_url: server_url
           }
-        }, true)
+        }
+        @core = ::Appium::Core.for(opts)
       end
 
       # Starts the Appium driver
       def start_driver
         begin
-          $logger.info 'Starting Appium driver...'
           time = Time.now
-          super
+          @driver = @core.start_driver
           $logger.info "Appium driver started in #{(Time.now - time).to_i}s"
         rescue => error
           $logger.warn "Appium driver failed to start in #{(Time.now - time).to_i}s"
@@ -63,6 +62,56 @@ module Maze
           raise error
         end
       end
+
+      # Whether the driver has known to have failed (it may still have failed and us not know yet)
+      def failed?
+        @failed
+      end
+
+      def failure_reason
+        @failure_reason
+      end
+
+      # Marks the driver as failed
+      def fail_driver(reason)
+        $logger.error "Appium driver failed: #{reason}"
+        @failed = true
+        @failure_reason = reason
+      end
+
+      def javascript?
+        return false if Maze.config.browser.nil?
+        @driver.execute_script('return true')
+      rescue Selenium::WebDriver::Error::UnsupportedOperationError
+        false
+      end
+
+      def remote_status
+        @driver.remote_status
+      end
+
+      def appium_server_version
+        @core.appium_server_version
+      end
+
+      # Provided for mobile browsers - check if the browser supports local storage
+      def local_storage?
+        # Assume we can use local storage if we aren't able to verify by running JavaScript
+        return true unless javascript?
+
+        result = @driver.execute_script <<-JAVASCRIPT
+      try {
+        window.localStorage.setItem('__localstorage_test__', 1234)
+        window.localStorage.removeItem('__localstorage_test__')
+        return true
+      } catch (err) {
+        return err
+      }
+        JAVASCRIPT
+
+        result == true
+      end
+
 
       # Checks for an element, waiting until it is present or the method times out
       #
@@ -83,7 +132,7 @@ module Maze
         end
       rescue Selenium::WebDriver::Error::ServerError => e
         # Assume the remote appium session has stopped, so crash out of the session
-        Maze.driver = nil
+        fail_driver(e)
         raise e
       else
         true
@@ -91,19 +140,19 @@ module Maze
 
       # A wrapper around launch_app adding extra error handling
       def launch_app
-        super
+        @driver.launch_app
       rescue Selenium::WebDriver::Error::ServerError => e
         # Assume the remote appium session has stopped, so crash out of the session
-        Maze.driver = nil
+        fail_driver(e)
         raise e
       end
 
       # A wrapper around close_app adding extra error handling
       def close_app
-        super
+        @driver.close_app
       rescue Selenium::WebDriver::Error::ServerError => e
         # Assume the remote appium session has stopped, so crash out of the session
-        Maze.driver = nil
+        fail_driver(e)
         raise e
       end
 
@@ -114,7 +163,7 @@ module Maze
         end
       rescue Selenium::WebDriver::Error::ServerError => e
         # Assume the remote appium session has stopped, so crash out of the session
-        Maze.driver = nil
+        fail_driver(e)
         raise e
       end
 
@@ -128,7 +177,7 @@ module Maze
         end
       rescue Selenium::WebDriver::Error::ServerError => e
         # Assume the remote appium session has stopped, so crash out of the session
-        Maze.driver = nil
+        fail_driver(e)
         raise e
       end
 
@@ -146,21 +195,7 @@ module Maze
         false
       rescue Selenium::WebDriver::Error::ServerError => e
         # Assume the remote appium session has stopped, so crash out of the session
-        Maze.driver = nil
-        raise e
-      end
-
-      # Clears a given element
-      #
-      # @param element_id [String] the element to clear
-      def clear_element(element_id)
-        element = find_element_timed(element_id)
-        @clear_element_timer.time do
-          element.clear
-        end
-      rescue Selenium::WebDriver::Error::ServerError => e
-        # Assume the remote appium session has stopped, so crash out of the session
-        Maze.driver = nil
+        fail_driver(e)
         raise e
       end
 
@@ -174,21 +209,6 @@ module Maze
         @driver.unlock
       end
 
-      # Sends keys to a given element
-      #
-      # @param element_id [String] the element to send text to
-      # @param text [String] the text to send
-      def send_keys_to_element(element_id, text)
-        element = find_element_timed(element_id)
-        @send_keys_timer.time do
-          element.send_keys(text)
-        end
-      rescue Selenium::WebDriver::Error::ServerError => e
-        # Assume the remote appium session has stopped, so crash out of the session
-        Maze.driver = nil
-        raise e
-      end
-
       # Sets the rotation of the device
       #
       # @param orientation [Symbol] :portrait or :landscape
@@ -200,46 +220,80 @@ module Maze
         @driver.window_size
       end
 
-      # Send keys to the device without a specific element
-      #
-      # @param text [String] the text to send
-      def send_keys(text)
-        @driver.send_keys(text)
-      end
-
-      # Sends keys to a given element, clearing it first
-      #
-      # @param element_id [String] the element to clear and send text to
-      # @param text [String] the text to send
-      def clear_and_send_keys_to_element(element_id, text)
-        element = find_element_timed(element_id)
-        @clear_element_timer.time do
-          element.clear
-        end
-
-        @send_keys_timer.time do
-          element.send_keys(text)
-        end
-      rescue Selenium::WebDriver::Error::ServerError => e
-        # Assume the remote appium session has stopped, so crash out of the session
-        Maze.driver = nil
-        raise e
-      end
-
-      # Reset the currently running application after a given timeout
-      #
-      # @param timeout [Number] the amount of time in seconds to wait before resetting
-      def reset_with_timeout(timeout = 0.1)
-        sleep(timeout)
-        reset
-      end
-
       def device_info
-        driver.execute_script('mobile:deviceInfo')
+        @driver.execute_script('mobile:deviceInfo')
+      end
+
+      def session_id
+        @driver.session_id
       end
 
       def session_capabilities
-        driver.session_capabilities
+        @driver.session_capabilities
+      end
+
+      def push_file(path, contents)
+        @driver.push_file(path, contents)
+      end
+
+      def app_state(app_id)
+        @driver.app_state(app_id)
+      end
+
+      def activate_app(app_id)
+        @driver.activate_app(app_id)
+      end
+
+      def terminate_app(app_id)
+        @driver.terminate_app(app_id)
+      end
+
+      def background_app(seconds)
+        @driver.background_app(seconds)
+      end
+
+      def perform_actions(actions)
+        @driver.perform_actions(actions)
+      end
+
+      def push_file(path, contents)
+        @driver.push_file(path, contents)
+      end
+
+      def pull_file(path)
+        @driver.pull_file(path)
+      end
+
+      def pull_folder(path)
+        @driver.pull_folder(path)
+      end
+
+      def get_available_log_types
+        @driver.logs.available_types
+      end
+
+      def get_logs(type)
+        @driver.logs.get(type)
+      end
+
+      def unlock
+        @driver.unlock
+      end
+
+      def back
+        @driver.back
+      end
+
+      def execute_script(type, script)
+        @driver.execute_script(type, script)
+      end
+
+      def find_element(*args)
+        @driver.find_element(*args)
+      end
+
+      def driver_quit
+        @driver.quit
       end
     end
   end

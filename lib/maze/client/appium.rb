@@ -5,14 +5,7 @@ module Maze
         client_class =
           case Maze.config.farm
           when :bb then BitBarClient
-          when :bs
-            if Maze.config.legacy_driver?
-              $logger.info 'Using the Legacy (JWP) Appium client'
-              BrowserStackLegacyClient
-            else
-              $logger.info 'Using the W3C Appium client'
-              BrowserStackClient
-            end
+          when :bs then BrowserStackClient
           when :local then LocalClient
           end
 

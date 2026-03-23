@@ -129,7 +129,7 @@ module Maze
         time_in_nanos = Time.now.to_i * 1000000000
         unless (time_in_nanos - parsed_timestamp).abs < tolerance
           @success = false
-          @errors << "Timestamp was expected to be within #{tolerance} nanoseconds of the current time (#{time_in_nanos}), was '#{parsed_timestamp}'"
+          @errors << "Timestamp was expected to be within #{tolerance} nanoseconds of the current time (#{time_in_nanos}), was '#{timestamp}'"
         end
       end
 

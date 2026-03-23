@@ -1,0 +1,67 @@
+{
+  "startTimeUnixNano": "1763554427680519000",
+  "name": "CustomSpanAttributesScenarioSpan",
+  "endTimeUnixNano": "1763554427682259000",
+  "traceId": "640363bdca12490dc93e9859b76a39fe",
+  "spanId": "0e7d1dda40103863",
+  "kind": 1,
+  "attributes": [
+    {
+      "key": "bugsnag.span.category",
+      "value": {
+        "stringValue": "custom"
+      }
+    },
+    {
+      "key": "bugsnag.span.first_class",
+      "value": {
+        "boolValue": true
+      }
+    },
+    {
+      "key": "customAttribute1",
+      "value": {
+        "stringValue": "C"
+      }
+    },
+    {
+      "key": "customAttribute3",
+      "value": {
+        "intValue": "3"
+      }
+    },
+    {
+      "key": "bugsnag.sampling.p",
+      "value": {
+        "doubleValue": 1.0
+      }
+    },
+    {
+      "key": "customAttribute4",
+      "value": {
+        "doubleValue": 42.0
+      }
+    },
+    {
+      "key": "customAttribute5",
+      "value": {
+        "arrayValue": {
+          "values": [
+            {
+              "stringValue": "customString"
+            },
+            {
+              "intValue": "42"
+            },
+            {
+              "boolValue": true
+            },
+            {
+              "doubleValue": 43.0
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -69,6 +69,11 @@ Then('the {request_type} payload field {string} does not equal the stored value 
   Maze.check.false(result.equal?, "Payload value: #{payload_value} equals stored value: #{stored_value}")
 end
 
+Then('the stored value {string} equals {string}') do |key, value|
+  stored_value = Maze::Store.values[key]
+  Maze.check.equal(value, stored_value)
+end
+
 # Tests whether a payload field is a number (Numeric according to Ruby)
 #
 # @step_input request_type [String] The type of request (error, session, build, etc)

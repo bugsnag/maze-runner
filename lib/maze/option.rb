@@ -3,15 +3,12 @@
 # Provides the set of Maze Runner command line options
 module Maze
   module Option
-    # Document server options
-    DS_BIND_ADDRESS = 'document-server-bind-address'
-    DS_PORT = 'document-server-port'
-    DS_ROOT = 'document-server-root'
-
     # Server options
+    HTTPS = 'https'
     BIND_ADDRESS = 'bind-address'
     NULL_PORT = 'null-port'
     PORT = 'port'
+    DS_ROOT = 'document-server-root'
 
     # Appium options
     A11Y_LOCATOR = 'a11y-locator'
@@ -55,8 +52,8 @@ module Maze
 
     # General options
     AWS_PUBLIC_IP = 'aws-public-ip'
-    ASPECTO_REPEATER_API_KEY = 'aspecto-repeater-api-key'
     BUGSNAG_REPEATER_API_KEY = 'repeater-api-key'
+    HUB_REPEATER_API_KEY = 'hub-repeater-api-key'
     BUGSNAG = 'bugsnag'
     RETRIES = 'retries'
 

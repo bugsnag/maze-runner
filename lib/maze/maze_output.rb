@@ -7,14 +7,20 @@ module Maze
       @scenario = scenario
     end
 
+    def write_requests_and_spans
+      write_requests
+      write_spans
+    end
+
     # Writes each list of requests to a separate file under, e.g:
     # maze_output/failed/scenario_name/errors.log
     def write_requests
       path = output_folder
       FileUtils.makedirs(path)
 
-      request_types = %w[errors sessions builds uploads logs sourcemaps traces invalid reflections]
+      request_types = %w[errors sessions builds uploads logs sourcemaps traces ignored invalid reflections]
       request_types << 'sampling requests'
+      request_types << 'error config requests'
 
       request_types.each do |request_type|
         list = Maze::Server.list_for(request_type).all
@@ -97,17 +103,47 @@ module Maze
       end
     end
 
-    # Pulls the logs from the device if the scenario fails
-    # @param logs [Array<String>] The lines of log to be written
-    def write_device_logs(logs)
+    # Writes each list of requests to a separate file under, e.g:
+    # maze_output/failed/scenario_name/errors.log
+    def write_spans
+      list = Maze::Server.traces.all
+      return if list.empty?
 
-      dir = output_folder
-      FileUtils.makedirs(dir)
-      filepath = File.join(dir, 'device.log')
+      path = output_folder
+      filepath = File.join(path, 'spans.log')
 
       File.open(filepath, 'w+') do |file|
-        logs.each { |line| file.puts line }
+        spans = spans_from_request_list(list)
+
+        # File summary
+        file.puts "=== Spans Summary ==="
+        file.puts
+        file.puts "Id                Name"
+        spans.each do |span|
+          file.puts "#{span['spanId']}  #{span['name']}"
+        end
+        file.puts
+        file.puts
+
+        # Write the spans
+        counter = 1
+        spans.each do |span|
+          file.puts "=== Span #{counter} of #{spans.size} ==="
+          file.puts
+          file.puts JSON.pretty_generate(span)
+          file.puts
+          file.puts
+
+          counter += 1
+        end
       end
+    end
+
+    def spans_from_request_list(list)
+      list.flat_map { |req| req[:body]['resourceSpans'] }
+          .flat_map { |r| r['scopeSpans'] }
+          .flat_map { |s| s['spans'] }
+          .select { |s| !s.nil? }
     end
 
     # Determines the output folder for the scenario

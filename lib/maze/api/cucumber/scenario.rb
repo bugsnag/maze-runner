@@ -11,6 +11,18 @@ module Maze
           @fail_override_reason = nil
         end
 
+        def name
+          @scenario.name
+        end
+
+        def location
+          @scenario.location
+        end
+
+        def tags
+          @scenario.tags
+        end
+
         def mark_as_failed(reason)
           @fail_override = true
           @fail_override_reason = reason

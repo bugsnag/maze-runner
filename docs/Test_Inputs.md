@@ -12,6 +12,10 @@ Command line options can also be listed in the following files:
 
 Maze Runner recognises various environment variables, as follows:
 
+### Mock Server
+
+`MAZE_PORT` - the port to run the mock server on.
+
 ### Bugsnag reporting
 
 `MAZE_BUGSNAG_API_KEY` - the API key for the Bugsnag project to which errors that occur during the test run should be reported.
@@ -23,15 +27,14 @@ Maze Runner recognises various environment variables, as follows:
 
 `MAZE_APPIUM_SERVER` - the Appium server URL (if different to the default).
 `MAZE_SELENIUM_SERVER` - the Selenium server URL (if different to the default).
-`USE_LEGACY_DRIVER` - whether the legacy (JSON-WP) driver should be used.
 
 #### BitBar
 
 `MAZE_SB_LOCAL` - location of the SmartBear secure tunnel binary.
 `BITBAR_USERNAME`/`BITBAR_ACCESS_KEY` - BitBar account credentials.
 
-`MAZE_ASPECTO_REPEATER_API_KEY` - Enables forwarding of all received POST trace requests to Aspecto, using the API key provided.
 `MAZE_REPEATER_API_KEY` - Enables forwarding of all received session, error and trace requests to Bugsnag, using the API key provided.
+`MAZE_HUB_REPEATER_API_KEY` - Enables forwarding of all received session, error and trace requests to Insight Hub, using the API key provided.
 
 #### BrowserStack
 

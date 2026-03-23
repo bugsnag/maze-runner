@@ -1,5 +1,3 @@
-version: '3.6'
-
 x-common-environment: &common-environment
   DEBUG:
   BRANCH_NAME:
@@ -16,6 +14,8 @@ x-common-environment: &common-environment
   BUILDKITE_REPO:
   BUILDKITE_RETRY_COUNT:
   BUILDKITE_STEP_KEY:
+  MAZE_APPIUM_BUGSNAG_API_KEY:
+  MAZE_APPIUM_SERVER:
   MAZE_BUGSNAG_API_KEY:
   MAZE_SCENARIO_BUGSNAG_API_KEY:
 
@@ -28,49 +28,24 @@ services:
     volumes:
       - ./:/scan
 
-  ci-ruby-3:
+  ci:
     build:
-      dockerfile: dockerfiles/Dockerfile.ci-ruby-3
+      dockerfile: dockerfiles/Dockerfile.ci
       context: .
-      target: ci-ruby-3
-
-  ci-ruby-2:
-    build:
-      dockerfile: dockerfiles/Dockerfile.ci-ruby-2
-      context: .
-      target: ci-ruby-2
-    environment:
-      USE_LEGACY_DRIVER: 1
+      target: ci
 
   cli:
     build:
-      dockerfile: dockerfiles/Dockerfile.ci-ruby-3
+      dockerfile: dockerfiles/Dockerfile.ci
       context: .
       target: cli
-
-  cli-legacy:
-    build:
-      dockerfile: dockerfiles/Dockerfile.ci-ruby-2
-      context: .
-      target: cli-legacy
-
-  docs:
-    build:
-      dockerfile: dockerfiles/Dockerfile.docs
-      context: .
-      args:
-        DOCS_PUSH_TOKEN:
-    environment:
-      BUILDKITE_TAG:
-      DOCS_PUSH_TOKEN:
 
   appium-test-bb:
     build:
       context: .
-      dockerfile: dockerfiles/Dockerfile.w3c
+      dockerfile: dockerfiles/Dockerfile.cli
       args:
         BRANCH_NAME:
-        RUBY_VERSION:
     environment:
       <<: *common-environment
       BITBAR_USERNAME:
@@ -85,199 +60,145 @@ services:
   appium-test-bs:
     build:
       context: .
-      dockerfile: dockerfiles/Dockerfile.w3c
+      dockerfile: dockerfiles/Dockerfile.cli
       args:
         BRANCH_NAME:
-        RUBY_VERSION:
     environment:
       <<: *common-environment
       BROWSER_STACK_USERNAME:
       BROWSER_STACK_ACCESS_KEY:
       BROWSER_STACK_DEVICES_USERNAME:
       BROWSER_STACK_DEVICES_ACCESS_KEY:
-    env_file: $DOCKER_ENV_FILE
-
-  appium-test-bs-legacy:
-    build:
-      context: .
-      dockerfile: dockerfiles/Dockerfile.legacy
-      args:
-        BRANCH_NAME:
-        RUBY_VERSION:
-    environment:
-      <<: *common-environment
-      BROWSER_STACK_USERNAME:
-      BROWSER_STACK_ACCESS_KEY:
-      BROWSER_STACK_DEVICES_USERNAME:
-      BROWSER_STACK_DEVICES_ACCESS_KEY:
-      USE_LEGACY_DRIVER: 1
     env_file: $DOCKER_ENV_FILE
 
   cli-tests:
     build:
-      context: test/fixtures/cli
+      context: test/e2e/cli
       args:
         BRANCH_NAME:
-        RUBY_VERSION:
     environment:
+      <<: *common-environment
       MAZE_BUGSNAG_API_KEY:
-      USE_LEGACY_DRIVER:
 
   comparison-tests:
     build:
-      context: test/fixtures/comparison
+      context: test/e2e/comparison
       args:
         BRANCH_NAME:
-        RUBY_VERSION:
     environment:
+      <<: *common-environment
       MAZE_BUGSNAG_API_KEY:
-      USE_LEGACY_DRIVER:
 
   doc-server-tests:
     build:
-      context: test/fixtures/doc-server
+      context: test/e2e/doc-server
       args:
         BRANCH_NAME:
-        RUBY_VERSION:
     environment:
+      <<: *common-environment
       MAZE_BUGSNAG_API_KEY:
-      USE_LEGACY_DRIVER:
 
   exit-codes-tests:
     build:
-      context: test/fixtures/exit-codes
+      context: test/e2e/exit-codes
       args:
         BRANCH_NAME:
-        RUBY_VERSION:
     environment:
+      <<: *common-environment
       MAZE_BUGSNAG_API_KEY:
-      USE_LEGACY_DRIVER:
 
   framework-tests:
     build:
-      context: test/fixtures/framework
+      context: test/e2e/framework
       args:
         BRANCH_NAME:
-        RUBY_VERSION:
     environment:
+      <<: *common-environment
       MAZE_BUGSNAG_API_KEY:
-      USE_LEGACY_DRIVER:
 
   docker-tests:
     build:
-      context: test/fixtures/docker-app
+      context: test/e2e/docker-app
       args:
         BRANCH_NAME:
-        RUBY_VERSION:
     environment:
+      <<: *common-environment
       MAZE_BUGSNAG_API_KEY:
-      USE_LEGACY_DRIVER:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
   proxy-tests:
     build:
-      context: test/fixtures/proxy
+      context: test/e2e/proxy
       args:
         BRANCH_NAME:
-        RUBY_VERSION:
     environment:
+      <<: *common-environment
       MAZE_BUGSNAG_API_KEY:
-      USE_LEGACY_DRIVER:
 
   payload-helper-tests:
     build:
-      context: test/fixtures/payload-helpers
+      context: test/e2e/payload-helpers
       args:
         BRANCH_NAME:
-        RUBY_VERSION:
     environment:
+      <<: *common-environment
       MAZE_BUGSNAG_API_KEY:
-      USE_LEGACY_DRIVER:
     volumes:
-      - ./test/fixtures/payload-helpers/maze_output:/app/maze_output
+      - ./test/e2e/payload-helpers/maze_output:/app/maze_output
 
   command-workflow-tests:
     build:
-      context: test/fixtures/command-workflow
+      context: test/e2e/command-workflow
       args:
         BRANCH_NAME:
-        RUBY_VERSION:
     environment:
+      <<: *common-environment
       MAZE_BUGSNAG_API_KEY:
-      USE_LEGACY_DRIVER:
     volumes:
-      - ./test/fixtures/command-workflow/maze_output:/app/maze_output
+      - ./test/e2e/command-workflow/maze_output:/app/maze_output
 
   http-response-tests:
     build:
-      context: test/fixtures/http-response
+      context: test/e2e/http-response
       args:
         BRANCH_NAME:
-        RUBY_VERSION:
     environment:
+      <<: *common-environment
       MAZE_BUGSNAG_API_KEY:
-      USE_LEGACY_DRIVER:
 
-  unit-test-ruby-2:
+  unit-test:
     build:
-      dockerfile: dockerfiles/Dockerfile.ci-ruby-2
+      dockerfile: dockerfiles/Dockerfile.ci
       context: .
-      target: unit-test-ruby-2
-    environment:
-      USE_LEGACY_DRIVER: 1
-
-  unit-test-ruby-3:
-    build:
-      dockerfile: dockerfiles/Dockerfile.ci-ruby-3
-      context: .
-      target: unit-test-ruby-3
+      target: unit-test
 
   browser-tests:
     build:
-      context: test/fixtures/browser
-      dockerfile: Dockerfile.w3c
+      context: test/e2e/browser
       args:
         BRANCH_NAME:
-        RUBY_VERSION:
     environment:
+      <<: *common-environment
       BUILDKITE:
       BROWSER_STACK_USERNAME:
       BROWSER_STACK_ACCESS_KEY:
       BROWSER_STACK_BROWSERS_USERNAME:
       BROWSER_STACK_BROWSERS_ACCESS_KEY:
     env_file:
-      - ${DOCKER_ENV_FILE:-test/browser/features/fixtures/null_env}
+      - ${DOCKER_ENV_FILE:-test/browser/features/e2e/null_env}
     ports:
       - "9000-9499:9339"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
-  browser-tests-legacy:
-    build:
-      context: test/fixtures/browser
-      dockerfile: Dockerfile.legacy
-      args:
-        BRANCH_NAME:
-        RUBY_VERSION:
-    environment:
-      BUILDKITE:
-      BROWSER_STACK_USERNAME:
-      BROWSER_STACK_ACCESS_KEY:
-      BROWSER_STACK_BROWSERS_USERNAME:
-      BROWSER_STACK_BROWSERS_ACCESS_KEY:
-      USE_LEGACY_DRIVER: 1
-    env_file:
-      - ${DOCKER_ENV_FILE:-test/browser/features/fixtures/null_env}
-
   browser-tests-bitbar:
     build:
-      context: test/fixtures/browser
-      dockerfile: Dockerfile.w3c
+      context: test/e2e/browser
       args:
         BRANCH_NAME:
-        RUBY_VERSION:
     environment:
+      <<: *common-environment
       BITBAR_USERNAME:
       BITBAR_ACCESS_KEY:
       BUILDKITE:
@@ -286,7 +207,7 @@ services:
       BUILDKITE_PIPELINE_SLUG:
       BUILDKITE_RETRY_COUNT:
     env_file:
-      - ${DOCKER_ENV_FILE:-test/browser/features/fixtures/null_env}
+      - ${DOCKER_ENV_FILE:-test/browser/features/e2e/null_env}
     ports:
       - "9000-9499:9339"
       - "9000-9499:9340"

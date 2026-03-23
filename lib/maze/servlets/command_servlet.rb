@@ -11,7 +11,7 @@ module Maze
 
       NOOP_COMMAND = '{"action": "noop", "message": "No commands queued"}'
 
-      # Serves the next command, if these is one.
+      # Serves the next command, if there is one.
       #
       # @param request [HTTPRequest] The incoming GET request
       # @param response [HTTPResponse] The response to return

@@ -1,5 +1,18 @@
 require 'bugsnag'
 require 'json'
+require 'uri'
+
+# Custom error class for reporting successful Appium sessions
+class Success < StandardError
+  def initialize(message)
+    super(message)
+    @message = message
+  end
+
+  def to_s
+    @message
+  end
+end
 
 module Maze
   module Client
@@ -8,7 +21,6 @@ module Maze
         FIXTURE_CONFIG = 'fixture_config.json'
 
         def initialize
-          @session_ids = []
           @start_attempts = 0
         end
 
@@ -18,19 +30,26 @@ module Maze
           start_driver(Maze.config)
 
           # Set bundle/app id for later use
-          Maze.driver.app_id = case Maze::Helper.get_current_platform
-                               when 'android'
-                                 Maze.driver.session_capabilities['appPackage']
-                               when 'ios'
-                                 unless app_id = Maze.driver.session_capabilities['CFBundleIdentifier']
-                                    app_id = Maze.driver.session_capabilities['bundleID']
+          unless Maze.config.app.nil?
+            Maze.driver.app_id = case Maze::Helper.get_current_platform
+                                 when 'android'
+                                   Maze.driver.session_capabilities['appPackage']
+                                 when 'ios'
+                                   unless app_id = Maze.driver.session_capabilities['CFBundleIdentifier']
+                                      app_id = Maze.driver.session_capabilities['bundleId']
+                                   end
+                                   app_id
                                  end
-                                 app_id
-                               end
+          end
+
+          $logger.error "Failed to determine app id." if Maze.driver.app_id.nil?
+
+          # Log the device information after it's started
+          write_device_info
 
           # Ensure the device is unlocked
           begin
-            Maze.driver.unlock
+            Maze::Api::Appium::DeviceManager.new.unlock
           rescue => error
             Bugsnag.notify error
             $logger.warn "Failed to unlock device: #{error}"
@@ -51,19 +70,31 @@ module Maze
           raise 'Method not implemented by this class'
         end
 
+        def write_device_info
+          info = Maze::Api::Appium::DeviceManager.new.info
+          filepath = File.join(Dir.pwd, 'maze_output', 'device_info.json')
+          File.open(filepath, 'w+') do |file|
+            file.puts(JSON.pretty_generate(info))
+          end
+        rescue => error
+          $logger.warn "Could not write device information file, #{error.message}"
+        end
+
         def attempt_start_driver(config)
           config.capabilities = device_capabilities
           driver = Maze::Driver::Appium.new config.appium_server_url,
                                             config.capabilities,
                                             config.locator
 
+          sanitized_url = Maze::Helper.sanitize_url(config.appium_server_url)
+          $logger.info "Creating Appium session with #{sanitized_url}..."
           result = driver.start_driver
           if result
             # Log details of this session
             $logger.info "Created Appium session: #{driver.session_id}"
-            @session_ids << driver.session_id
-            udid = driver.session_capabilities['udid']
-            $logger.info "Running on device: #{udid}" unless udid.nil?
+            @session_metadata = Maze::Client::Appium::SessionMetadata.new
+            @session_metadata.id = driver.session_id
+            @session_metadata.farm = Maze.config.farm.to_s
           end
           driver
         end
@@ -129,8 +160,47 @@ module Maze
         end
 
         def stop_session
-          Maze.driver&.driver_quit
+          if Maze.driver.failed?
+            @session_metadata.success = false
+            @session_metadata.failure_message = Maze.driver.failure_reason
+          else
+            Maze.driver.driver_quit
+            @session_metadata.success = true
+          end
+
+          # Report session outcome to Bugsnag
+          report_session if ENV['MAZE_APPIUM_BUGSNAG_API_KEY']
+
           Maze::AppiumServer.stop if Maze::AppiumServer.running
+        end
+
+        def report_session
+          if @session_metadata.success
+            error = Success.new('Success')
+          else
+            error = ::Selenium::WebDriver::Error::ServerError.new(@session_metadata.failure_message)
+          end
+
+          Bugsnag.notify(error) do |event|
+            event.api_key = ENV['MAZE_APPIUM_BUGSNAG_API_KEY']
+
+            metadata = {
+              'session id': @session_metadata.id,
+              'success': @session_metadata.success,
+              'device farm': @session_metadata.farm.to_s,
+            }
+            metadata['device'] = @session_metadata.device if @session_metadata.device
+
+            if @session_metadata.success
+              event.severity = 'info'
+            else
+              event.severity = 'error'
+              event.unhandled = true
+              metadata['failure message'] = @session_metadata.failure_message
+            end
+
+            event.add_metadata(:'Appium Session', metadata)
+          end
         end
       end
     end

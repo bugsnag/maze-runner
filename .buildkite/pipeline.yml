@@ -1,33 +1,94 @@
 steps:
 
-  - label: ':docker: Build CI image for Ruby 3'
+  - label: ":docker: Build CI image"
     timeout_in_minutes: 30
-    key: "ci-image-ruby-3"
+    key: "ci-image"
     plugins:
       - docker-compose#v4.14.0:
           build:
-            - ci-ruby-3
-          image-repository: 855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner
+            - "ci"
+          image-repository: "855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner"
           cache-from:
-            - ci-ruby-3:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-3
-      - docker-compose#v4.14.0:
+            - "ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci"
           push:
-            - ci-ruby-3:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci-ruby-3
-    env:
-      RUBY_VERSION: "3"
+            - "ci:855461928731.dkr.ecr.us-west-1.amazonaws.com/maze-runner:${BRANCH_NAME}-ci"
 
-  - label: 'No-device tests with Ruby 3 - batch 1'
+  - label: "Framework tests"
     timeout_in_minutes: 30
-    depends_on: "ci-image-ruby-3"
+    depends_on: "ci-image"
     plugins:
       - docker-compose#v4.14.0:
-          run: framework-tests
+          run: "framework-tests"
+    command: "bundle exec maze-runner"
+
+  - label: "Comparison tests"
+    timeout_in_minutes: 10
+    depends_on: "ci-image"
+    plugins:
       - docker-compose#v4.14.0:
-          run: comparison-tests
+          run: "comparison-tests"
+    command: "bundle exec maze-runner"
+
+  - label: "Proxy tests"
+    timeout_in_minutes: 10
+    depends_on: "ci-image"
+    plugins:
       - docker-compose#v4.14.0:
-          run: command-workflow-tests
+          run: "proxy-tests"
+    command: "bundle exec maze-runner"
+
+  - label: "CLI tests"
+    timeout_in_minutes: 10
+    depends_on: "ci-image"
+    plugins:
       - docker-compose#v4.14.0:
-          run: http-response-tests
-    env:
-      RUBY_VERSION: "3"
-    command: 'bundle exec maze-runner'
+          run: "cli-tests"
+    command: "bundle exec maze-runner"
+
+  - label: "HTTP response tests"
+    timeout_in_minutes: 10
+    depends_on: "ci-image"
+    plugins:
+      - docker-compose#v4.14.0:
+          run: "http-response-tests"
+    command: "bundle exec maze-runner"
+
+  - label: "Payload helper tests"
+    timeout_in_minutes: 10
+    depends_on: "ci-image"
+    plugins:
+      - docker-compose#v4.14.0:
+          run: "payload-helper-tests"
+    command: "bundle exec maze-runner"
+
+  - label: "Docker tests"
+    timeout_in_minutes: 10
+    depends_on: "ci-image"
+    plugins:
+      - docker-compose#v4.14.0:
+          run: "docker-tests"
+    command: "bundle exec maze-runner"
+
+  - label: "Doc server tests"
+    timeout_in_minutes: 10
+    depends_on: "ci-image"
+    plugins:
+      - docker-compose#v4.14.0:
+          run: "doc-server-tests"
+    command: "bundle exec maze-runner"
+
+  - label: "Exit codes tests"
+    timeout_in_minutes: 10
+    depends_on: "ci-image"
+    plugins:
+      - docker-compose#v4.14.0:
+          run: "exit-codes-tests"
+    command: "bundle exec maze-runner"
+
+  - label: "Command workflow tests"
+    timeout_in_minutes: 10
+    depends_on: "ci-image"
+    plugins:
+      - docker-compose#v4.14.0:
+          run: "command-workflow-tests"
+    command: "bundle exec maze-runner"

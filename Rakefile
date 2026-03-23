@@ -44,20 +44,11 @@ def version_greater_than(tag1, tag2)
 end
 
 namespace :test do
-  Rake::TestTask.new(:integration) do |t|
-    t.libs << 'test'
-    t.libs << 'lib'
-    t.test_files = FileList['test/integration/{**/,}*_test.rb']
-  end
   Rake::TestTask.new(:unit) do |t|
     t.libs << 'test'
     t.libs << 'lib'
-    t.test_files = FileList.new('test/**/*_test.rb') do |fl|
-      fl.exclude(/integration/)
-    end
+    t.test_files = FileList.new('test/**/*_test.rb')
   end
-  desc 'Run all tests'
-  task :all => [:unit, :integration]
 end
 
 namespace :docs do
@@ -69,7 +60,7 @@ namespace :docs do
       run_command 'git fetch'
       run_command 'git checkout gh-pages'
       run_command 'git pull'
-      run_command "echo https://#{ENV["DOCS_PUSH_TOKEN"]}:x-oauth-basic@github.com >> ~/.git-credentials"
+      run_command "echo https://#{ENV["MAZE_DOCS_PUSH_TOKEN"]}:x-oauth-basic@github.com >> ~/.git-credentials"
       run_command "git config credential.helper 'store'"
       run_command "git config --global user.email 'notifiers@bugsnag.com'"
       run_command "git config --global user.name 'Bugsnag notifiers'"

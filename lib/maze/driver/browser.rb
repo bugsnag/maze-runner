@@ -13,13 +13,40 @@ module Maze
 
       def initialize(driver_for, selenium_url=nil, capabilities=nil)
         capabilities ||= {}
+        @failed = false
         @capabilities = capabilities
         @driver_for = driver_for
         @selenium_url = selenium_url
       end
 
+      # Whether the driver has known to have failed (it may still have failed and us not know yet)
+      def failed?
+        @failed
+      end
+
+      # Marks the driver as failed
+      def fail_driver
+        $logger.error 'Selenium driver failed, remaining scenarios will be skipped'
+        @failed = true
+      end
+
+      def set_implicit_wait(timeout_seconds)
+        @driver.manage.timeouts.implicit_wait = timeout_seconds
+      rescue
+        # Not all browsers support setting implicit wait
+        $logger.warn 'Failed to set implicit wait on Selenium driver'
+      end
+
       def find_element(*args)
         @driver.find_element(*args)
+      end
+
+      def wait_for_element(id)
+        @driver.find_element(id: id)
+      end
+
+      def click_element(id)
+        @driver.find_element(id: id).click
       end
 
       def navigate
@@ -38,7 +65,7 @@ module Maze
 
       # check if Selenium supports running javascript in the current browser
       def javascript?
-        @driver.execute_script('return true')
+        !Maze.config.browser.nil? && @driver.execute_script('return true')
       rescue Selenium::WebDriver::Error::UnsupportedOperationError
         false
       end
@@ -108,20 +135,21 @@ module Maze
           $logger.info "Starting Selenium driver"
           time = Time.now
           if driver_for == :remote
-            if Maze.config.legacy_driver?
-              driver = ::Selenium::WebDriver.for :remote,
-                                                 url: selenium_url,
-                                                 desired_capabilities: @capabilities
-            else
-              driver = ::Selenium::WebDriver.for :remote,
-                                                 url: selenium_url,
-                                                 capabilities: @capabilities
-            end
+            driver = ::Selenium::WebDriver.for :remote,
+                                               url: selenium_url,
+                                               capabilities: @capabilities
           else
-            driver = ::Selenium::WebDriver.for driver_for
+            if driver_for == :chrome
+              options = Selenium::WebDriver::Options.chrome
+            elsif driver_for == :firefox
+              options = Selenium::WebDriver::Options.firefox
+            end
+            options.accept_insecure_certs = true
+            driver = ::Selenium::WebDriver.for driver_for, options: options
           end
           $logger.info "Selenium driver started in #{(Time.now - time).to_i}s"
           @driver = driver
+          @failed = false
         rescue => error
           Bugsnag.notify error
           $logger.warn "Selenium driver failed to start in #{(Time.now - time).to_i}s"

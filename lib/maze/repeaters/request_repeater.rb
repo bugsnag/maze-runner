@@ -12,7 +12,6 @@ module Maze
 
         return unless enabled?
 
-        # TODO Forwarding of internal errors to be considered later
         return if request.header.keys.any? { |key| key.downcase == 'bugsnag-internal-error' }
 
         uri = url_for_request_type

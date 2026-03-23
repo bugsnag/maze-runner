@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+number = 123
+
+puts "What number am I thinking of?"
+
+loop do
+  guess = gets
+
+  break if guess.nil?
+
+  guess.chomp!
+
+  if guess.to_i == number
+    puts "Yeah, it's #{number}!"
+    break
+  end
+
+  puts "Nope, it's not #{guess}. Try again!"
+end

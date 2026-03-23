@@ -29,16 +29,24 @@ def assert_received_requests(request_count, list, list_name, precise = true, max
     count_now >= request_count
   end
 
+  invalid_requests = Maze::Server.invalid_requests.size_remaining
+  invalid_requests_message = if invalid_requests > 0
+    "\nNote: #{invalid_requests} invalid requests have been received in this scenario.\n"
+  else
+    ""
+  end
+
   unless received
     raise Test::Unit::AssertionFailedError.new <<-MESSAGE
-    Expected #{request_count} #{list_name} but received #{list.size_remaining} within the #{timeout}s timeout.
-    This could indicate that:
-    - Bugsnag crashed with a fatal error.
-    - Bugsnag did not make the requests that it should have done.
-    - The requests were made, but not deemed to be valid (e.g. missing integrity header).
-    - The requests made were prevented from being received due to a network or other infrastructure issue.
-    Please check the Maze Runner and device logs to confirm.)
-    MESSAGE
+Expected #{request_count} #{list_name} but received #{list.size_remaining} within the #{timeout}s timeout.
+#{invalid_requests_message}
+This could indicate that:
+- Bugsnag crashed with a fatal error.
+- Bugsnag did not make the requests that it should have done.
+- The requests were made, but not deemed to be valid (e.g. missing integrity header).
+- The requests made were prevented from being received due to a network or other infrastructure issue.
+Please check the Maze Runner and device logs to confirm.
+MESSAGE
   end
 
   if precise
@@ -129,6 +137,15 @@ Then('I discard the oldest {request_type}') do |request_type|
   raise "No #{request_type} to discard" if Maze::Server.list_for(request_type).current.nil?
 
   Maze::Server.list_for(request_type).next
+end
+
+# Moves to the end of the request list
+#
+# @step_input request_type [String] The type of request (error, session, build, etc)
+Then('I discard all {request_type}') do |request_type|
+  raise "No #{request_type} to discard" if Maze::Server.list_for(request_type).current.nil?
+
+  Maze::Server.list_for(request_type).end
 end
 
 Then('the received errors match:') do |table|

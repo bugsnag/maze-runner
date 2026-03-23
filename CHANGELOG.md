@@ -1,3 +1,503 @@
+# v11.0.0 - 2026/02/09
+
+## Enhancements
+
+- Use `appium_lib_core` only and not `appium_lib` [827](https://github.com/bugsnag/maze-runner/pull/827)
+
+# v10.11.0 - 2026/01/20
+
+## Enhancements
+
+- Add `--prefix` to the benchmark ingestion tool to allow users to specify a prefix for the metric names [824](https://github.com/bugsnag/maze-runner/pull/824)
+
+## Fixes
+
+- Support for Ruby 4 [826](https://github.com/bugsnag/maze-runner/pull/826)
+
+# v10.10.1 - 2025/12/15
+
+## Fixes
+
+- Relax `Content-Type` check in `ReflectiveServlet` to allow encoding to appear alongside `application/json` [823](https://github.com/bugsnag/maze-runner/pull/823)
+
+# v10.10.0 - 2025/12/12
+
+## Enhancements
+
+- Add `touch_at` to UiManager [822](https://github.com/bugsnag/maze-runner/pull/822)
+
+# v10.9.1 - 2025/12/11
+
+## Fixes
+
+- Change default BitBar Selenium/Appium servers to EU [821](https://github.com/bugsnag/maze-runner/pull/821)
+
+# v10.9.0 - 2025/12/05
+
+## Enhancements
+
+- Add config option to reset server lists on Selenium navigation failures [819](https://github.com/bugsnag/maze-runner/pull/819)
+
+# v10.8.0 - 2025/12/03
+
+## Enhancements
+
+- Improve diagnostics for span-related failures [813](https://github.com/bugsnag/maze-runner/pull/813)
+- Write received spans to file after each scenario [814](https://github.com/bugsnag/maze-runner/pull/814)
+
+## Fixes
+
+- Sanitize the current_buffer from the interactive CLI so that it is always humanly readable [815](https://github.com/bugsnag/maze-runner/pull/815)
+- Validate fields in all received spans [816](https://github.com/bugsnag/maze-runner/pull/816)
+- Include `openssl` in the gemspec to fix issues with `unable to get certificate CRL` [817](https://github.com/bugsnag/maze-runner/pull/817)
+
+# v10.7.3 - 2025/11/17
+
+## Fixes
+
+- Log Appium server URL to console [810](https://github.com/bugsnag/maze-runner/pull/810)
+
+## Removals
+
+- Remove BitBar browsers no longer supported [809](https://github.com/bugsnag/maze-runner/pull/809)
+
+# v10.7.2 - 2025/11/05
+
+## Fixes
+
+- Guard against nil `Maze.scenario` when receiving requests [808](https://github.com/bugsnag/maze-runner/pull/808)
+
+# v10.7.1 - 2025/10/28
+
+## Fixes
+
+- Set implicit wait for browser tests [807](https://github.com/bugsnag/maze-runner/pull/807)
+
+# v10.7.0 - 2025/10/27
+
+## Enhancements
+
+- Add step `I wait to receive a span named {string}` [806](https://github.com/bugsnag/maze-runner/pull/806)
+
+# v10.6.0 - 2025/10/24
+
+## Enhancements
+
+- Add step to store fields of named spans [805](https://github.com/bugsnag/maze-runner/pull/805)
+
+## Refactor
+
+- Split trace and span step definition into separate files [804](https://github.com/bugsnag/maze-runner/pull/804)
+
+# v10.5.0 - 2025/10/20
+
+## Enhancements
+
+- Dedicated endpoint for idempotent commands [803](https://github.com/bugsnag/maze-runner/pull/803)
+
+## Fixes
+
+- Update BrowserStack mobile browser device list [802](https://github.com/bugsnag/maze-runner/pull/802)
+
+# v10.4.1 - 2025/10/10
+
+## Fixes
+
+- Update BrowserStack mobile browser device list [800](https://github.com/bugsnag/maze-runner/pull/800)
+
+# v10.4.0 - 2025/10/03
+
+## Enhancements
+
+- Indicate receipt of invalid requests when valid requests are missing [799](https://github.com/bugsnag/maze-runner/pull/799)
+
+# v10.3.2 - 2025/09/29
+
+## Fixes
+
+- Remote config support corrections [798](https://github.com/bugsnag/maze-runner/pull/798)
+
+# v10.3.1 - 2025/09/19
+
+## Fixes
+
+- Unfold `undefined` scenarios on Buildkite [796](https://github.com/bugsnag/maze-runner/pull/796)
+- Stop using BitBar `deviceGroupId` capability [797](https://github.com/bugsnag/maze-runner/pull/797)
+
+# v10.3.0 - 2025/09/17
+
+## Enhancements
+
+- Add test support for Bugsnag remote config [793](https://github.com/bugsnag/maze-runner/pull/793)
+- Avoid latest round of deprecated BrowserStack devices and add iOS 26 [794](https://github.com/bugsnag/maze-runner/pull/794)
+- Add `name`, `location` and `tags` to interface of `Maze.scenario [795](https://github.com/bugsnag/maze-runner/pull/795)
+
+# v10.2.0 - 2025/09/12
+
+## Enhancements
+
+- Add support for executing a script on a device via the device manager api [792](https://github.com/bugsnag/maze-runner/pull/792)
+
+## Fixes
+
+- Downgrade Ruby in published Docker image to 3.3 to avoid repetitive frozen string literal warnings [788](https://github.com/bugsnag/maze-runner/pull/788)
+
+# v10.1.0 - 2025/09/02
+
+## Enhancements
+
+- Partial support for BitBar mobile browsers [786](https://github.com/bugsnag/maze-runner/pull/786)
+
+## Fixes
+
+- Bump webrick to 1.9.1 [787](https://github.com/bugsnag/maze-runner/pull/787)
+
+# v10.0.0 - 2025/08/26
+
+## Enhancements
+
+- Update to Cucumber 10 [773](https://github.com/bugsnag/maze-runner/pull/773)
+- Minimum Ruby version increased to 3.1 [781](https://github.com/bugsnag/maze-runner/pull/781)
+
+## Removals
+
+- Remove support for legacy JSON-WP drivers [748](https://github.com/bugsnag/maze-runner/pull/748)
+- Remove deprecated Cucumber steps for sending keys to elements [751](https://github.com/bugsnag/maze-runner/pull/751)
+- Remove document server on port 9340 [752](https://github.com/bugsnag/maze-runner/pull/752)
+- Remove scenario retries for driver errors [782](https://github.com/bugsnag/maze-runner/pull/782)
+
+# 9.36.0 - 2025/08/26
+
+## Enhancements
+
+- Add the ability to sort requests by URL path [783](https://github.com/bugsnag/maze-runner/pull/783)
+
+# 9.35.3 - 2025/08/22
+
+## Fixes
+
+- Update environment variables used by datadog metrics utility [780](https://github.com/bugsnag/maze-runner/pull/780)
+
+# 9.35.2 - 2025/08/21
+
+## Fixes
+
+- Make Datadog API client dependency not dev-only [779](https://github.com/bugsnag/maze-runner/pull/779)
+
+# 9.35.1 - 2025/08/13
+
+## Fixes
+
+- Add missing `datadog_api_client` dependency to Gemspec [778](https://github.com/bugsnag/maze-runner/pull/778)
+
+# 9.35.0 - 2025/08/12
+
+## Enhancements
+
+- Add Android 16 to the available BrowserStack devices [777](https://github.com/bugsnag/maze-runner/pull/777)
+
+# 9.34.0 - 2025/08/07
+
+## Enhancements
+
+- Set exit code when Appium driver fails [776](https://github.com/bugsnag/maze-runner/pull/776)
+
+# 9.33.0 - 2025/08/06
+
+## Enhancements
+
+- Add method to send benchmark results to Datadog [774](https://github.com/bugsnag/maze-runner/pull/774)
+
+# 9.32.4 - 2025/08/01
+
+## Fixes
+
+- Set metadata token header when retrieving public IP of Docker container [772](https://github.com/bugsnag/maze-runner/pull/772)
+
+## Removals
+
+- Remove reporting of Appium metrics to Datadog. [771](https://github.com/bugsnag/maze-runner/pull/771)
+
+# 9.32.3 - 2025/07/23
+
+## Enhancements
+
+- Remove Android 7 browser support from BS and replace it with Android 8 [770](https://github.com/bugsnag/maze-runner/pull/770)
+
+# 9.32.2 - 2025/07/22
+
+## Fixes
+
+- Update BitBar browser capability from `platform` to `platformName` [769](https://github.com/bugsnag/maze-runner/pull/769)
+
+# 9.32.1 - 2025/07/15
+
+## Removals
+
+- Remove option of ANDROID_7 for BrowserStack device (deprecated device).  Alternatives provided for other deprecations. [768](https://github.com/bugsnag/maze-runner/pull/768)
+
+# 9.32.0 - 2025/06/24
+
+## Enhancements
+
+- Add Hub repeater [767](https://github.com/bugsnag/maze-runner/pull/767)
+
+# 9.31.4 - 2025/06/09
+
+## Fixes
+
+- Remove pin for `uri` standard Gem [766](https://github.com/bugsnag/maze-runner/pull/766)
+
+# 9.31.3 - 2025/06/02
+
+## Enhancements
+
+- Add `unity-line-mappings` endpoint to the mock server [764](https://github.com/bugsnag/maze-runner/pull/764)
+
+# 9.31.2 - 2025/05/29
+
+## Fixes
+
+- Retry BitBar device session creation for `Error executing adbExec` errors [762](https://github.com/bugsnag/maze-runner/pull/762)
+- Group Appium session reports on sanitised message [763](https://github.com/bugsnag/maze-runner/pull/763)
+
+# 9.31.1 - 2025/05/19
+
+## Fixes
+
+- Ignore precise milliseconds when grouping errors finding a connected Android device [758](https://github.com/bugsnag/maze-runner/pull/758)
+- Avoid double-reporting of Appium errors [759](https://github.com/bugsnag/maze-runner/pull/759)
+- Ensure Appium session result is notified before Bugsnag shuts down [760](https://github.com/bugsnag/maze-runner/pull/760)
+
+# 9.31.0 - 2025/05/15
+
+## Enhancements
+
+- Add step `I discard all {request_type}`' [756](https://github.com/bugsnag/maze-runner/pull/756)
+
+## Fixes
+
+- Notify errors that fail the Appium driver [757](https://github.com/bugsnag/maze-runner/pull/757)
+
+# 9.30.3 - 2025/05/14
+
+## Fixes
+
+- Fix crash writing received invalid requests to maze_output [755](https://github.com/bugsnag/maze-runner/pull/755)
+
+# 9.30.2 - 2025/05/13
+
+## Fixes
+
+- Improve grouping of reported Selenium/Appium errors [753](https://github.com/bugsnag/maze-runner/pull/753)
+- Correct logging of invalid messages [754](https://github.com/bugsnag/maze-runner/pull/754)
+
+# 9.30.1 - 2025/05/02
+
+## Fixes
+
+- Correct BrowserStack device session link in response to dashboard change [750](https://github.com/bugsnag/maze-runner/pull/750)
+- Notify when `terminate_app` falls back to `close_app` [750](https://github.com/bugsnag/maze-runner/pull/750)
+
+# 9.30.0 - 2025/04/29
+
+## Enhancements
+
+- Add Edge 81 on BrowserStack and make corrections to others [747](https://github.com/bugsnag/maze-runner/pull/747)
+- Add File Manager API method for pulling Documents/Files directory from mobile devices [749](https://github.com/bugsnag/maze-runner/pull/749)
+
+# 9.29.2 - 2025/04/24
+
+## Fixes
+
+- Correct BrowserStack browser session link in response to dashboard change [746](https://github.com/bugsnag/maze-runner/pull/746)
+
+# 9.29.1 - 2025/04/23
+
+## Fixes
+
+- Remove erroneous use of global variable from browser driver `click_element` [745](https://github.com/bugsnag/maze-runner/pull/745)
+
+# 9.29.0 - 2025/04/17
+
+## Enhancements
+
+- Allow mock server port to be set from the environment [744](https://github.com/bugsnag/maze-runner/pull/744)
+
+# 9.28.0 - 2025/04/15
+
+## Enhancements
+
+- Add `background` to AppManager API [743](https://github.com/bugsnag/maze-runner/pull/743)
+
+## Fixes
+
+- Retry BitBar Appium session creation if beaten to selected device [742](https://github.com/bugsnag/maze-runner/pull/742)
+
+# 9.27.4 - 2025/04/14
+
+## Fixes
+
+- Explicitly fail remaining scenarios if driver fails [741](https://github.com/bugsnag/maze-runner/pull/741)
+
+# 9.27.3 - 2025/04/10
+
+## Fixes
+
+- Fail test run when Appium driver fails [740](https://github.com/bugsnag/maze-runner/pull/740)
+
+# 9.27.2 - 2025/04/07
+
+## Fixes
+
+- Handle Appium `UnknownError` in `AppManager` [738](https://github.com/bugsnag/maze-runner/pull/738)
+
+# 9.27.1 - 2025/04/04
+
+## Fixes
+
+- Removed erroneous warning for failed Appium drivers [735](https://github.com/bugsnag/maze-runner/pull/735)
+- Do not use `Maze.driver` directly when performing operations [737](https://github.com/bugsnag/maze-runner/pull/737)
+
+# 9.27.0 - 2025/03/25
+
+## Enhancements
+
+- Add Appium API method for retrieving device logs [732](https://github.com/bugsnag/maze-runner/pull/732)
+- Add UiManager to Appium API [733](https://github.com/bugsnag/maze-runner/pull/733)
+
+# 9.26.0 - 2025/03/18
+
+## Enhancements
+
+- Add Appium API method for pressing the Back button [731](https://github.com/bugsnag/maze-runner/pull/731)
+
+# 9.25.0 - 2025/03/06
+
+## Enhancements
+
+- Reporting of Appium session success statuses to Bugsnag [728](https://github.com/bugsnag/maze-runner/pull/728)
+
+## Fixes
+
+- Replace deprecated BrowserStack device Google Pixel 4 for ANDROID_11 [730](https://github.com/bugsnag/maze-runner/pull/730)
+
+## Removals
+
+- Remove Aspecto repeater [729](https://github.com/bugsnag/maze-runner/pull/729)
+
+# 9.24.0 - 2025/03/04
+
+## Enhancements
+
+- Log name of device used in BitBar sessions [726](https://github.com/bugsnag/maze-runner/pull/726)
+- Add the `breakpad-symbol` endpoint to the mock server [727](https://github.com/bugsnag/maze-runner/pull/727)
+
+# 9.23.2 - 2025/02/20
+
+## Fixes
+
+- Fix an issue with repeater API keys being valid despite being empty strings [725](https://github.com/bugsnag/maze-runner/pull/725)
+
+# 9.23.1 - 2025/02/19
+
+## Fixes
+
+- Fix issue with the method used to parse the lambda response line [724](https://github.com/bugsnag/maze-runner/pull/724)
+
+# 9.23.0 - 2025/02/18
+
+## Enhancements
+
+- Allow multiple browser options to be presented to BitBar and BrowserStack test runs [712](https://github.com/bugsnag/maze-runner/pull/712)
+- Output device information as a JSON file during appium tests [717](https://github.com/bugsnag/maze-runner/pull/717)
+- Failed driver guards added to File Manager API [709](https://github.com/bugsnag/maze-runner/pull/709)
+- Add App Manager API [712](https://github.com/bugsnag/maze-runner/pull/712)
+- Add Device Manager API [712](https://github.com/bugsnag/maze-runner/pull/713)
+- Add terminate and activate methods to App Manager API [716](https://github.com/bugsnag/maze-runner/pull/716)
+
+## Fixes
+
+- Do not run Cucumber `Before` and `After` hooks when skipping scenarios [723](https://github.com/bugsnag/maze-runner/pull/723)
+- Ensure we parse the correct line from AWS lambda responses [722](https://github.com/bugsnag/maze-runner/pull/722)
+
+# 9.22.0 - 2025/01/08
+
+## Enhancements
+
+- Skip remaining tests after Appium session failure [708](https://github.com/bugsnag/maze-runner/pull/708)
+- Add wait_for_element and click_element methods to browser driver [710](https://github.com/bugsnag/maze-runner/pull/710)
+- Adjust the URL used for Browserstack Sessions [711](https://github.com/bugsnag/maze-runner/pull/711)
+
+# 9.21.0 - 2024/11/28
+
+## Enhancements
+
+- Ensure selenium related errors are always reported [706](https://github.com/bugsnag/maze-runner/pull/706)
+
+## Fixes
+
+- Fix issue where the incorrect `buildId` was being pulled from `Maze.driver.session_capabilities` [707](https://github.com/bugsnag/maze-runner/pull/707)
+
+# 9.20.0 - 2024/11/21
+
+## Enhancements
+
+- Catch AWS IP invalid response error and attempt to retry [704](https://github.com/bugsnag/maze-runner/pull/704)
+- Add iOS 13,14 and 18 mobile browsers on BrowserStack [705](https://github.com/bugsnag/maze-runner/pull/705)
+
+# 9.19.1 - 2024/11/19
+
+## Fixes
+
+- Fix incorrect access of error captor class [703](https://github.com/bugsnag/maze-runner/pull/703)
+
+# 9.19.0 - 2024/11/18
+
+## Enhancements
+
+- Removed deprecated safari 15 & 16 from BitBar configuration, added safari 17 & 18 [701](https://github.com/bugsnag/maze-runner/pull/701)
+- Handle failing appium session better [696](https://github.com/bugsnag/maze-runner/pull/696)
+- Disable automatic attempts to acquire test device logs in appium scenarios [702](https://github.com/bugsnag/maze-runner/pull/702)
+
+## Fixes
+
+- Add extra guard for stopping running apps in case of remote server error [694](https://github.com/bugsnag/maze-runner/pull/694)
+
+# 9.18.1 - 2024/11/13
+
+## Fixes
+
+- Pin "uri" dependency to avoid v1.0.0 release bug [700](https://github.com/bugsnag/maze-runner/pull/700)
+
+# 9.18.0 - 2024/11/07
+
+## Enhancements
+
+- Ignore system generated ANRs on Android [699](https://github.com/bugsnag/maze-runner/pull/699)
+
+# 9.17.0 - 2024/11/06
+
+## Enhancements
+
+- Add Android 15 to the available BrowserStack devices [697](https://github.com/bugsnag/maze-runner/pull/697)
+
+## Fixes
+
+- Do not set `acceptInsecureCerts` capability with IE [698](https://github.com/bugsnag/maze-runner/pull/698)
+
+# 9.16.0 - 2024-11-01
+
+## Enhancements
+
+- Add https support for document servers [695](https://github.com/bugsnag/maze-runner/pull/695)
+
+# 9.15.1 - 2024-10-29
+
+## Fixes
+
+- Ensure all values are floating points before comparison [693](https://github.com/bugsnag/maze-runner/pull/693)
+
 # 9.15.0 - 2024-10-09
 
 ## Enhancements
@@ -8,6 +508,7 @@
 
 - Add dependencies for modules no longer present in Ruby standard lib for v3.3+ [678](https://github.com/bugsnag/maze-runner/pull/678)
 - Fix issues with loading maze-runner commands from file [679](https://github.com/bugsnag/maze-runner/pull/679)
+- Remove deprecated close_app usage [681](https://github.com/bugsnag/maze-runner/pull/681)
 
 # 9.14.0 - 2024-09-23
 

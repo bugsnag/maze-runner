@@ -39,8 +39,8 @@ module Maze
         super server
         @request_type = request_type
         @schema = JSONSchemer.schema(schema) unless schema.nil?
-        @aspecto_repeater = Maze::Repeaters::AspectoRepeater.new(@request_type)
         @bugsnag_repeater = Maze::Repeaters::BugsnagRepeater.new(@request_type)
+        @hub_repeater = Maze::Repeaters::HubRepeater.new(@request_type)
       end
 
       # Logs an incoming GET WEBrick request.
@@ -61,6 +61,7 @@ module Maze
 
         @aspecto_repeater.repeat request
         bugsnag_response = @bugsnag_repeater.repeat request
+        @hub_repeater.repeat request
 
         # Turn the WEBrick HttpRequest into our internal HttpRequest delegate
         request = Maze::HttpRequest.new(request)
@@ -110,6 +111,7 @@ module Maze
           Server.invalid_requests.add({
             reason: msg,
             request: request,
+            response: response,
             body: request.body
           })
         else
@@ -127,7 +129,8 @@ module Maze
               request_uri: request.request_uri,
               header: request.header,
               body: request.inspect
-            }
+            },
+            response: response
           })
         else
           $logger.warn msg
@@ -160,7 +163,25 @@ module Maze
       private
 
       def add_request(request)
-        Server.list_for(@request_type).add(request)
+        if @request_type == :errors and system_generated_anr?(request)
+          $logger.info 'Ignoring system-generated ANR'
+          Server.list_for('ignored').add(request)
+        else
+          Server.list_for(@request_type).add(request)
+        end
+      end
+
+      def system_generated_anr?(request)
+        body = request[:body]
+        error_class = Maze::Helper.read_key_path(body, 'events.0.exceptions.0.errorClass')
+        return false unless error_class == 'ANR'
+
+        stack_trace = Maze::Helper.read_key_path(body, 'events.0.exceptions.0.stacktrace')
+        return false unless stack_trace.kind_of?(Array)
+
+        method_1 = stack_trace.any? { |frame| frame['method'] == 'android.os.BinderProxy.transact' }
+        method_2 = stack_trace.any? { |frame| frame['method'] == 'android.app.IActivityManager$Stub$Proxy.handleApplicationCrash' }
+        method_1 && method_2
       end
 
       def log_request(request)

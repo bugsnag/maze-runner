@@ -15,12 +15,15 @@ module Maze
       self.span_timestamp_validation = true
       self.unmanaged_traces_mode = false
       self.client_mode_validation = true
-      @legacy_driver = false
+      self.reset_on_navigation_failure = false
     end
 
     #
     # Server configuration
     #
+
+    # Whether the mock server should use https
+    attr_accessor :https
 
     # Mock server bind address
     attr_accessor :bind_address
@@ -37,12 +40,6 @@ module Maze
 
     # Document server root
     attr_accessor :document_server_root
-
-    # Document server bind address
-    attr_accessor :document_server_bind_address
-
-    # Document server port
-    attr_accessor :document_server_port
 
     #
     # Common configuration
@@ -70,10 +67,10 @@ module Maze
     attr_accessor :captured_invalid_requests
 
     # API key to use when repeating requests to Bugsnag
-    attr_accessor :aspecto_repeater_api_key
-
-    # API key to use when repeating requests to Bugsnag
     attr_accessor :bugsnag_repeater_api_key
+
+    # API key to use when repeating requests to InsightHub
+    attr_accessor :hub_repeater_api_key
 
     # Enables awareness of a public IP address on Buildkite with the Elastic CI Stack for AWS.
     attr_accessor :aws_public_ip
@@ -121,7 +118,7 @@ module Maze
     attr_accessor :client_mode_validation
 
     #
-    # General appium configuration
+    # General Appium/Selenium configuration
     #
 
     # Element locator strategy, :id or :accessibility_id
@@ -151,6 +148,9 @@ module Maze
     # Folder to push app files to on Android
     attr_accessor :android_app_files_directory
 
+    # Call Maze::Server.reset! if browser navigation fails
+    attr_accessor :reset_on_navigation_failure
+
     #
     # Device farm specific configuration
     #
@@ -179,6 +179,9 @@ module Maze
     # Test browser type
     attr_accessor :browser
 
+    # A list of browsers to attempt to connect to, in order
+    attr_accessor :browser_list
+
     # Test browser version
     attr_accessor :browser_version
 
@@ -196,15 +199,6 @@ module Maze
 
     # URL of the Selenium server
     attr_accessor :selenium_server_url
-
-    # Whether the legacy (JSON-WP) Appium driver should be used
-    def legacy_driver?
-      @legacy_driver
-    end
-
-    def legacy_driver=(value)
-      @legacy_driver = value
-    end
 
     #
     # Local testing specific configuration

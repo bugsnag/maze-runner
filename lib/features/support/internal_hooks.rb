@@ -8,21 +8,20 @@ require 'selenium-webdriver'
 require 'uri'
 
 BeforeAll do
-
   Maze.check = Maze::Checks::AssertCheck.new
 
   # Infer mode of operation from config, one of:
   # - Appium (using either remote or local devices)
-  # - Browser (Selenium with local or remote browsers)
+  # - Selenium (Selenium with local or remote browsers)
   # - Command (the software under test is invoked with a system call)
-  # TODO Consider making this a specific command line option defaulting to Appium
-  is_appium = [:bs, :bb, :local].include?(Maze.config.farm) && !Maze.config.app.nil?
-  is_browser = !Maze.config.browser.nil?
+  is_appium = ([:bs, :bb, :local].include?(Maze.config.farm) && !Maze.config.app.nil?) ||
+    (Maze.config.farm == :bb && !Maze.config.device.nil? && !Maze.config.browser.nil?)
+  is_browser = Maze.config.device.nil? && !Maze.config.browser.nil?
   if is_appium
     Maze.mode = :appium
     Maze.internal_hooks = Maze::Hooks::AppiumHooks.new
   elsif is_browser
-    Maze.mode = :browser
+    Maze.mode = :selenium
     Maze.internal_hooks = Maze::Hooks::BrowserHooks.new
   else
     Maze.mode = :command
@@ -58,20 +57,11 @@ BeforeAll do
   # Call any blocks registered by the client
   Maze.hooks.call_before_all
 
-  # Start document server, if asked for
-  # This must happen after any client hooks have run, so that they can set the server root
-  Maze::DocumentServer.start unless Maze.config.document_server_root.nil?
-
   # Determine public IP if enabled
   if Maze.config.aws_public_ip
     public_ip = Maze::AwsPublicIp.new
     Maze.public_address = public_ip.address
     $logger.info "Public address: #{Maze.public_address}"
-
-    unless Maze.config.document_server_root.nil?
-      Maze.public_document_server_address = public_ip.document_server_address
-      $logger.info "Public document server address: #{Maze.public_document_server_address}"
-    end
   end
 
   # An initial setup for total success status
@@ -81,29 +71,34 @@ end
 # @param config The Cucumber config
 InstallPlugin do |config|
   # Start Bugsnag
-  Maze::BugsnagConfig.start_bugsnag(config)
+  Maze::ErrorMonitor::Config.start_bugsnag(config)
 
-  if config.fail_fast?
-    # Register exit code handler
-    Maze::Hooks::ErrorCodeHook.register_exit_code_hook
-    config.filters << Maze::Plugins::ErrorCodePlugin.new(config)
-  end
+  # Register exit code handler
+  Maze::Hooks::ErrorCodeHook.register_exit_code_hook
+  config.filters << Maze::Plugins::ErrorCodePlugin.new(config)
 
   # Only add the retry plugin if --retry is not used on the command line
   config.filters << Maze::Plugins::GlobalRetryPlugin.new(config) if config.options[:retry].zero?
 
   # Add step logging
   config.filters << Maze::Plugins::LoggingScenariosPlugin.new(config)
-
-  # Add bugsnag failed scenario reporting only if ENV['MAZE_SCENARIO_BUGSNAG_API_KEY'] is present
-  config.filters << Maze::Plugins::BugsnagReportingPlugin.new(config) unless ENV['MAZE_SCENARIO_BUGSNAG_API_KEY'].nil?
 end
 
 # Before each scenario
 Before do |scenario|
+  $logger.debug "Before hook - scenario.status: #{scenario.status}"
+  next if scenario.status == :skipped
+
   Maze.scenario = Maze::Api::Cucumber::Scenario.new(scenario)
 
-  # Default to no dynamic try
+  # Skip scenario if the driver it needs has failed
+  $logger.debug "Before hook - Maze.driver&.failed?: #{Maze.driver&.failed?}"
+  if (Maze.mode == :appium || Maze.mode == :selenium) && Maze.driver.failed?
+    $logger.debug "Failing scenario because the #{Maze.mode.to_s} driver failed: #{Maze.driver.failure_reason}"
+    scenario.fail('Cannot run scenario - driver failed')
+  end
+
+  # Default to no dynamic retry
   Maze.dynamic_retry = false
 
   if ENV['BUILDKITE']
@@ -128,6 +123,9 @@ end
 
 # General processing to be run after each scenario
 After do |scenario|
+  $logger.debug "After hook 1 - scenario.status: #{scenario.status}"
+  next if scenario.status == :skipped
+
   # If we're running on macos, take a screenshot if the scenario fails
   if Maze.config.os == "macos" && scenario.status == :failed
     Maze::MacosUtils.capture_screen(scenario)
@@ -139,17 +137,12 @@ After do |scenario|
   # Call any blocks registered by the client
   Maze.hooks.call_after scenario
 
-  # Stop document server if started by the Cucumber step
-  Maze::DocumentServer.manual_stop
-
   # Stop terminating server if started by the Cucumber step
   Maze::TerminatingServer.stop
 
   # This is here to stop sessions from one test hitting another.
   # However this does mean that tests take longer.
   # In addition, reset the last captured exit code
-  # TODO:SM We could try and fix this by generating unique endpoints
-  # for each test.
   Maze::Docker.reset
 
   # Make sure that any scripts are killed between test runs
@@ -158,14 +151,18 @@ After do |scenario|
 
   Maze::Proxy.instance.stop
 
+  # Unfold the previous scenario on Buildkite if it failed or had undefined steps
+  $stdout.puts '^^^ +++' if ENV['BUILDKITE'] && (scenario.failed? || scenario.status == :undefined)
+
   # Log all received requests to the console if the scenario fails and/or config says to
   if (scenario.failed? && Maze.config.log_requests) || Maze.config.always_log
-    $stdout.puts '^^^ +++' if ENV['BUILDKITE']
     output_received_requests('errors')
+    output_received_requests('error config requests')
     output_received_requests('sessions')
     output_received_requests('traces')
     output_received_requests('builds')
     output_received_requests('logs')
+    output_received_requests('ignored requests')
     output_received_requests('invalid requests')
   end
 
@@ -173,7 +170,7 @@ After do |scenario|
   $success = !scenario.failed?
 
   # Log all received requests to file
-  Maze::MazeOutput.new(scenario).write_requests if Maze.config.file_log
+  Maze::MazeOutput.new(scenario).write_requests_and_spans if Maze.config.file_log
 
   # Invoke the internal hook for the mode of operation
   Maze.internal_hooks.after scenario
@@ -198,20 +195,33 @@ def output_received_requests(request_type)
       $stdout.puts "--- #{request_type} #{number} of #{count}"
 
       $logger.info "Bugsnag Event Id: #{request[:event_id]}" if request[:event_id]
-
       $logger.info 'Request body:'
-      Maze::Loggers::LogUtil.log_hash(Logger::Severity::INFO, request[:body])
 
-      $logger.info 'Request headers:'
-      Maze::Loggers::LogUtil.log_hash(Logger::Severity::INFO, request[:request].header)
+      Maze::Loggers::LogUtil.log_hash(Logger::Severity::INFO, request[:body])
+      log_headers(request[:request])
 
       $logger.info 'Request digests:'
       Maze::Loggers::LogUtil.log_hash(Logger::Severity::INFO, request[:digests])
 
-      $logger.info "Response body: #{request[:response].body}"
-      $logger.info 'Response headers:'
-      Maze::Loggers::LogUtil.log_hash(Logger::Severity::INFO, request[:response].header)
+      unless request[:response].nil?
+        $logger.info "Response: #{request[:response].body}"
+        log_headers(request[:response])
+      end
     end
+  end
+end
+
+def log_headers(container)
+  header = if container.respond_to?(:header)
+             container.header
+           elsif container.key?('header') || container.key?(:header)
+             container['header'] || container[:header]
+           else
+             nil
+           end
+  unless header.nil?
+    $logger.info 'Headers:'
+    Maze::Loggers::LogUtil.log_hash(Logger::Severity::INFO, header)
   end
 end
 
@@ -220,12 +230,23 @@ end
 #
 # Furthermore, this hook should appear after the general hook as they are executed in reverse order by Cucumber.
 After do |scenario|
+  $logger.debug "After hook 2 - scenario.status: #{scenario.status}"
+  next if scenario.status == :skipped
+
   # Call any pre_complete hooks registered by the client
   Maze.hooks.call_pre_complete scenario
 
+  # Fail the scenario if there are any invalid requests
   unless Maze::Server.invalid_requests.size_all == 0
     msg = "#{Maze::Server.invalid_requests.size_all} invalid request(s) received during scenario"
     Maze.scenario.mark_as_failed msg
+  end
+
+  # Fail the scenario if the driver failed, if the scenario hasn't already failed
+  $logger.debug "After hook 2 - Maze.driver&.failed?: #{Maze.driver&.failed?}"
+  if (Maze.mode == :appium || Maze.mode == :selenium) && Maze.driver.failed? && !scenario.failed?
+    $logger.debug "Marking scenario as failed because driver failed: #{Maze.driver.failure_reason}"
+    Maze.scenario.mark_as_failed Maze.driver.failure_reason
   end
 
   Maze.scenario.complete
@@ -234,6 +255,9 @@ end
 # Test all requests against schemas or extra validation rules.  These will only run if the schema/validation is
 # specified for the specific endpoint
 After do |scenario|
+  $logger.debug "After hook 3 - scenario.status: #{scenario.status}"
+  next if scenario.status == :skipped
+
   ['error', 'session', 'build', 'trace'].each do |endpoint|
     Maze::Schemas::Validator.validate_payload_elements(Maze::Server.list_for(endpoint), endpoint)
   end
@@ -268,7 +292,7 @@ AfterAll do
     Maze.timers.report
   end
 
-  $stdout.puts '+++ All scenarios complete'
+  $stdout.puts '+++ Test run complete'
 
   # Stop the mock server
   Maze::Server.stop

@@ -8,6 +8,10 @@ When('I navigate to the URL {string}') do |path|
     $logger.error("#{exception.class} occurred during navigation attempt with message: #{exception.message}")
     $logger.error("Restarting driver and retrying navigation to: #{path}")
     Maze.driver.restart_driver
+    if Maze.config.reset_on_navigation_failure
+      $logger.info 'Resetting request lists as Maze.config.reset_on_navigation_failure is set'
+      Maze::Server.reset!
+    end
     Maze.driver.navigate.to path
     # If a further error occurs it will get thrown as normal
   end

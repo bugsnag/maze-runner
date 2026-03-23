@@ -71,36 +71,34 @@ module Maze
           def create_hash
             hash = {
               # Classic, non-specific devices for each Android version
+              'ANDROID_16' => make_android_hash('Google Pixel 9', '16.0'),
+              'ANDROID_15' => make_android_hash('Google Pixel 9', '15.0'),
               'ANDROID_14' => make_android_hash('Google Pixel 8', '14.0'),
               'ANDROID_13' => make_android_hash('Google Pixel 6 Pro', '13.0'),
-              'ANDROID_12' => make_android_hash('Google Pixel 5', '12.0'),
-              'ANDROID_11' => make_android_hash('Google Pixel 4', '11.0'),
-              'ANDROID_10' => make_android_hash('Google Pixel 4', '10.0'),
-              'ANDROID_9' => make_android_hash('Google Pixel 3', '9.0'),
-              'ANDROID_8' => make_android_hash('Samsung Galaxy S9', '8.0'),
-              'ANDROID_7' => make_android_hash('Samsung Galaxy S8', '7.0'),
+              'ANDROID_12' => make_android_hash('Google Pixel 6', '12.0'),
+              'ANDROID_11' => make_android_hash('Samsung Galaxy S21', '11.0'),
+              'ANDROID_10' => make_android_hash('Samsung Galaxy S20', '10.0'),
+              'ANDROID_9' => make_android_hash('Samsung Galaxy S10', '9.0'),
+              'ANDROID_8' => make_android_hash('Samsung Galaxy Note 9', '8.1'),
 
               # iOS devices
+              'IOS_26' => make_ios_hash('iPhone 15', '26'),
               'IOS_18' => make_ios_hash('iPhone 14', '18'),
               'IOS_17' => make_ios_hash('iPhone 15', '17'),
               'IOS_16' => make_ios_hash('iPhone 14', '16'),
               'IOS_15' => make_ios_hash('iPhone 13', '15'),
-              'IOS_14' => make_ios_hash('iPhone 11', '14'),
+              'IOS_14' => make_ios_hash('iPhone 12', '14'),
               'IOS_13' => make_ios_hash('iPhone 11', '13'),
-              'IOS_12' => make_ios_hash('iPhone XS', '12'),
+              'IOS_12' => make_ios_hash('iPad Pro 12.9 2018', '12'),
             }
 
             # Specific Android devices
-            add_android 'Google Pixel 4', '11.0', hash                        # ANDROID_11_0_GOOGLE_PIXEL_4
-
             add_android 'Xiaomi Redmi Note 9', '10.0', hash                   # ANDROID_10_0_XIAOMI_REDMI_NOTE_9
             add_android 'Samsung Galaxy Note 20', '10.0', hash                # ANDROID_10_0_SAMSUNG_GALAXY_NOTE_20
             add_android 'Motorola Moto G9 Play', '10.0', hash                 # ANDROID_10_0_MOTOROLA_MOTO_G9_PLAY
             add_android 'OnePlus 8', '10.0', hash                             # ANDROID_10_0_ONEPLUS_8
 
             add_android 'Samsung Galaxy S9', '8.0', hash                      # ANDROID_8_0_SAMSUNG_GALAXY_S9
-
-            add_android 'Samsung Galaxy S8', '7.0', hash                      # ANDROID_7_0_SAMSUNG_GALAXY_S8
 
             # Specific iOS devices
             add_ios 'iPhone 15', '17.0', hash                                 # IOS_17_0_IPHONE_15

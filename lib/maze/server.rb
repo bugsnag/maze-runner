@@ -85,6 +85,10 @@ module Maze
           errors
         when 'session', 'sessions'
           sessions
+        when 'error config', 'error configs'
+          error_configs
+        when 'error config request', 'error config requests'
+          error_config_requests
         when 'build', 'builds'
           builds
         when 'log', 'logs'
@@ -103,6 +107,8 @@ module Maze
           reflections
         when 'pipeline event', 'pipeline events', 'pipeline_events'
           pipeline_events
+        when 'ignored', 'ignored requests'
+          ignored_requests
         when 'invalid', 'invalid requests'
           invalid_requests
         else
@@ -129,6 +135,20 @@ module Maze
       # @return [RequestList] Received sampling requests
       def sampling_requests
         @sampling_requests ||= RequestList.new
+      end
+
+      # A list of error config requests received
+      #
+      # @return [RequestList] Received error config requests
+      def error_config_requests
+        @error_config_requests ||= RequestList.new
+      end
+
+      # A list of error config responses to be returned to the client
+      #
+      # @return [RequestList] Error config responses to be returned
+      def error_configs
+        @error_configs ||= RequestList.new
       end
 
       # A list of trace requests received
@@ -192,6 +212,10 @@ module Maze
         @pipeline_events ||= RequestList.new
       end
 
+      def ignored_requests
+        @ignored_requests ||= RequestList.new
+      end
+
       # Whether the server thread is running
       # An array of any invalid requests received.
       # Each request is hash consisting of:
@@ -215,11 +239,20 @@ module Maze
         loop do
 
           @thread = Thread.new do
+
             options = {
-                Port: Maze.config.port,
-                Logger: $logger,
-                AccessLog: []
+              Port: Maze.config.port,
+              Logger: $logger,
+              AccessLog: []
             }
+            # SSL config if enabled
+            if Maze.config.https
+              cert_name = [
+                %w[CN localhost],
+              ]
+              options[:SSLEnable] = true
+              options[:SSLCertName] = cert_name
+            end
             options[:BindAddress] = Maze.config.bind_address unless Maze.config.bind_address.nil?
             server = WEBrick::HTTPServer.new(options)
 
@@ -231,7 +264,6 @@ module Maze
               response.status = 200
             end
 
-            # When adding more endpoints, be sure to update the 'I should receive no requests' step
             server.mount '/notify', Servlets::Servlet, :errors
             server.mount '/sessions', Servlets::Servlet, :sessions
             server.mount '/builds', Servlets::Servlet, :builds
@@ -243,12 +275,17 @@ module Maze
             server.mount '/ndk-symbol', Servlets::Servlet, :sourcemaps
             server.mount '/proguard', Servlets::Servlet, :sourcemaps
             server.mount '/dsym', Servlets::Servlet, :sourcemaps
+            server.mount '/breakpad-symbol', Servlets::Servlet, :sourcemaps
+            server.mount '/unity-line-mappings', Servlets::Servlet, :sourcemaps
             server.mount '/command', Servlets::CommandServlet
+            server.mount '/idem-command', Servlets::IdempotentCommandServlet
             server.mount '/commands', Servlets::AllCommandsServlet
+            server.mount '/error-config', Servlets::ErrorConfigServlet
             server.mount '/logs', Servlets::LogServlet
             server.mount '/metrics', Servlets::Servlet, :metrics
             server.mount '/reflect', Servlets::ReflectiveServlet
             server.mount '/docs', WEBrick::HTTPServlet::FileHandler, Maze.config.document_server_root unless Maze.config.document_server_root.nil?
+
             server.start
           rescue StandardError => e
             Bugsnag.notify e
@@ -286,6 +323,8 @@ module Maze
         # Clear request lists
         commands.clear
         errors.clear
+        error_configs.clear
+        error_config_requests.clear
         sessions.clear
         builds.clear
         uploads.clear
@@ -293,6 +332,7 @@ module Maze
         sampling_requests.clear
         traces.clear
         logs.clear
+        ignored_requests.clear
         invalid_requests.clear
         reflections.clear
         pipeline_events.clear

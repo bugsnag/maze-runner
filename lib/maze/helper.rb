@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'cgi'
 require 'digest/sha1'
 require 'json'
 
@@ -89,7 +90,7 @@ module Maze
       # Returns the current platform all lower-case.
       # @return Typically 'ios', 'android', 'mac' or 'browser'
       def get_current_platform
-        if Maze.mode == :browser
+        if Maze.mode == :selenium || (Maze.mode == :appium && Maze.config.browser)
           os = 'browser'
         else
           os = case Maze.config.farm
@@ -117,6 +118,14 @@ module Maze
       # @param string [String] a string to convert to a file name
       def to_friendly_filename(string)
         string.gsub(/[:"& ]/, "_").gsub(/_+/, "_")
+      end
+
+      # @return URL without any embedded username or password
+      def sanitize_url(url)
+        uri = URI.parse(url)
+        uri.user = nil
+        uri.password = nil
+        uri.to_s
       end
     end
   end

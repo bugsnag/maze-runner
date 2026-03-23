@@ -1,0 +1,1 @@
+The tests here are designed to exercise the Appium API methods.  Any app can be provided when invoking Maze Runner.

@@ -76,16 +76,6 @@ Then('the {request_type} payload field {string} is not null') do |request_type, 
   Maze.check.not_nil(Maze::Helper.read_key_path(list.current[:body], field_path))
 end
 
-# Tests that a payload element equals an integer.
-#
-# @step_input request_type [String] The type of request (error, session, build, etc)
-# @step_input field_path [String] Path to the tested element
-# @step_input int_value [Integer] The value to test against
-Then('the {request_type} payload field {string} equals {int}') do |request_type, field_path, int_value|
-  Maze.check.equal(int_value,
-                   Maze::Helper.read_key_path(Maze::Server.list_for(request_type).current[:body], field_path))
-end
-
 # Tests that a payload element equals a float.
 #
 # @step_input request_type [String] The type of request (error, session, build, etc)

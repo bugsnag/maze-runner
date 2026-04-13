@@ -1,3 +1,7 @@
+## Enhancements
+
+- Update BrowserStack dashboard URLs for Appium and Selenium clients to use new dashboard direct build links instead of search links [830](https://github.com/bugsnag/maze-runner/pull/830)
+
 # v11.0.0 - 2026/02/09
 
 ## Enhancements

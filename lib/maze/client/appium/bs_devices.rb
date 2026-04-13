@@ -74,7 +74,7 @@ module Maze
               'ANDROID_16' => make_android_hash('Google Pixel 9', '16.0'),
               'ANDROID_15' => make_android_hash('Google Pixel 9', '15.0'),
               'ANDROID_14' => make_android_hash('Google Pixel 8', '14.0'),
-              'ANDROID_13' => make_android_hash('Google Pixel 6 Pro', '13.0'),
+              'ANDROID_13' => make_android_hash('Google Pixel 7', '13.0'),
               'ANDROID_12' => make_android_hash('Google Pixel 6', '12.0'),
               'ANDROID_11' => make_android_hash('Samsung Galaxy S21', '11.0'),
               'ANDROID_10' => make_android_hash('Samsung Galaxy S20', '10.0'),

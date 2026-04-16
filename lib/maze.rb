@@ -25,5 +25,10 @@ module Maze
     def timers
       @timers ||= Maze::Timers.new
     end
+
+    def session_manager
+      require_relative 'maze/api/appium/session_manager' unless @session_manager
+      @session_manager ||= Maze::Api::Appium::SessionManager.new
+    end
   end
 end

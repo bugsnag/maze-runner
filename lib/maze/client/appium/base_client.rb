@@ -30,14 +30,19 @@ module Maze
           start_driver(Maze.config)
 
           # Set bundle/app id for later use
+          $logger.info "K001 - starting #{Maze.config.inspect}"
           unless Maze.config.app.nil?
             Maze.driver.app_id = case Maze::Helper.get_current_platform
                                  when 'android'
-                                   Maze.driver.session_capabilities['appPackage']
+                                   $logger.info 'K002 bugsnag-android  test'
+                                   $logger.info "k003- capabilities #{Maze.driver.session_capabilities.inspect}"
+                                   $logger.info "K004- capabilities #{Maze.driver.session_capabilities['appPackage'].inspect}"
+                                   Maze.session_manager.capability('appPackage')
                                  when 'ios'
-                                   unless app_id = Maze.driver.session_capabilities['CFBundleIdentifier']
-                                      app_id = Maze.driver.session_capabilities['bundleId']
-                                   end
+                                   $logger.info "K002 Starting ios  test"
+                                   $logger.info "K003 ios capablity #{Maze.session_manager.capability}"
+                                   app_id = Maze.session_manager.capability('CFBundleIdentifier')
+                                   app_id ||= Maze.session_manager.capability('bundleId')
                                    app_id
                                  end
           end
@@ -118,9 +123,14 @@ module Maze
               if Maze.config.farm == :local && Maze.config.os_version.nil?
                 version = case Maze.config.os
                           when 'android'
-                            driver.session_capabilities['platformVersion'].to_f
+                            $logger.info "K00local bugsnag-android  test"
+                            $logger.info "K00local capability #{Maze.session_manager.capability('platformVersion')}"
+                            Maze.session_manager.capability('platformVersion')&.to_f
                           when 'ios'
-                            driver.session_capabilities['sdkVersion'].to_f
+                            $logger.info "K00local bugsnag-ios  test"
+                            $logger.info "K00local capability #{Maze.session_manager.capability('sdkVersion')}"
+                            
+                            Maze.session_manager.capability('sdkVersion')&.to_f
                           end
                 $logger.info "Inferred OS version to be #{version}"
                 Maze.config.os_version = version

@@ -15,6 +15,7 @@ require_relative '../lib/maze/api/appium/manager'
 require_relative '../lib/maze/api/appium/app_manager'
 require_relative '../lib/maze/api/appium/device_manager'
 require_relative '../lib/maze/api/appium/file_manager'
+require_relative '../lib/maze/api/appium/session_manager'
 require_relative '../lib/maze/api/appium/ui_manager'
 require_relative '../lib/maze/api/cucumber/scenario'
 require_relative '../lib/maze/api/exit_code'
@@ -187,6 +188,15 @@ class MazeRunnerEntry
     @args = args.dup
     load_options_from_files
     options = Maze::Option::Parser.parse @args
+    if options[Maze::Option::LIST_DEVICES] && options[Maze::Option::FARM].nil?
+      puts "ERROR: A --farm option must be given when using --list-devices"
+      puts ""
+      puts "Valid usage:"
+      puts "  bundle exec maze-runner --farm=bs --list-devices"
+      puts "  bundle exec maze-runner --farm=bb --list-devices"
+      puts ""
+      exit 1
+    end
 
     if options[Maze::Option::LIST_DEVICES]
       case options[Maze::Option::FARM].to_sym

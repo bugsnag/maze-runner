@@ -178,7 +178,7 @@ class MazeRunnerEntry
     paths.each { |path| @args << '-r' << path }
   end
 
-  # List devices for the given device farm, or all otherwise
+  # Main entrypoint for Maze Runner CLI invocation.
 
   def start(args)
     $logger.info "Maze Runner v#{Maze::VERSION}"
@@ -186,8 +186,22 @@ class MazeRunnerEntry
     # Parse args, processing any Maze Runner specific options
     @args = args.dup
     load_options_from_files
-    options = Maze::Option::Parser.parse @args
 
+    # Validate required args for list-devices before option parsing.
+    # This avoids parser-level failures and provides a clear user-facing error.
+    if @args.include?('--list-devices')
+      farm_arg = @args.find { |a| a.start_with?('--farm=') }
+      farm_value = farm_arg ? farm_arg.split('=', 2)[1] : nil
+      unless %w[bs bb].include?(farm_value)
+        puts "ERROR: A --farm option must be given when using --list-devices"
+        puts ""
+        puts "Valid usage:"
+        puts "  bundle exec maze-runner --farm=bs --list-devices"
+        puts "  bundle exec maze-runner --farm=bb --list-devices"
+        exit 1
+      end
+    end
+    options = Maze::Option::Parser.parse @args
     if options[Maze::Option::LIST_DEVICES]
       case options[Maze::Option::FARM].to_sym
       when :bs

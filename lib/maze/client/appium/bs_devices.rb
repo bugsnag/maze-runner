@@ -78,7 +78,6 @@ module Maze
               'ANDROID_12' => make_android_hash('Google Pixel 6', '12.0'),
               'ANDROID_11' => make_android_hash('Samsung Galaxy S21', '11.0'),
               'ANDROID_10' => make_android_hash('Samsung Galaxy S20', '10.0'),
-              'ANDROID_9' => make_android_hash('Samsung Galaxy S10', '9.0'),
               'ANDROID_8' => make_android_hash('Samsung Galaxy Note 9', '8.1'),
 
               # iOS devices
@@ -93,9 +92,10 @@ module Maze
             }
 
             # Specific Android devices
-            add_android 'Xiaomi Redmi Note 9', '10.0', hash                   # ANDROID_10_0_XIAOMI_REDMI_NOTE_9
+            add_android 'Samsung Galaxy S20', '10.0', hash                    # ANDROID_10_0_SAMSUNG_GALAXY_S20
             add_android 'Samsung Galaxy Note 20', '10.0', hash                # ANDROID_10_0_SAMSUNG_GALAXY_NOTE_20
-            add_android 'Motorola Moto G9 Play', '10.0', hash                 # ANDROID_10_0_MOTOROLA_MOTO_G9_PLAY
+            add_android 'Samsung Galaxy Tab S7', '10.0', hash                 # ANDROID_10_0_SAMSUNG_GALAXY_TAB_S7
+            add_android 'Samsung Galaxy A11', '10.0', hash                    # ANDROID_10_0_SAMSUNG_GALAXY_A11
             add_android 'OnePlus 8', '10.0', hash                             # ANDROID_10_0_ONEPLUS_8
 
             add_android 'Samsung Galaxy S9', '8.0', hash                      # ANDROID_8_0_SAMSUNG_GALAXY_S9

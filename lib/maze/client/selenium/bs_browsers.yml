@@ -158,13 +158,6 @@ android_8:
   osVersion: "8.1"
   realMobile: true
 
-android_9:
-  browserName: "Android Browser"
-  device: "Samsung Galaxy S10"
-  os: "android"
-  osVersion: "9.0"
-  realMobile: true
-
 android_13:
   browserName: "Android Browser"
   device: "Google Pixel 7"

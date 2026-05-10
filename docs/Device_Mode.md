@@ -17,7 +17,7 @@ Device farms tend to offer a tunnelling facility, allowing HTTP requests sent by
 
 ## Example usage with BrowserStack
 
-Run the `bugsnag-android` "smoke tests" the `fixture-debug.apk` app on BrowserStack using an Android 9 device, stopping immediately if any scenario fails.
+Run the `bugsnag-android` "smoke tests" the `fixture-debug.apk` app on BrowserStack using an Android 16 device, stopping immediately if any scenario fails.
 
 ```
 bundle exec maze-runner features/smoke_tests    \

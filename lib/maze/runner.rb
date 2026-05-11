@@ -21,7 +21,7 @@ module Maze
       # @return [Array, Thread] If blocking, the output and exit_status are returned
       def run_command(cmd, blocking: true, success_codes: [0])
         executor = lambda do
-          $logger.debug "Executing: #{cmd}"
+            # $logger.debug "Executing: #{cmd}"
 
           Open3.popen2e(environment, cmd) do |_stdin, stdout_and_stderr, wait_thr|
             # Add the pid to the list of pids to kill at the end

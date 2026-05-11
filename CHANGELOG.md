@@ -1,3 +1,7 @@
+## Fixes
+
+- Remove deprecated BrowserStack devices, including Android 10 Appium replacements and removal of deprecated browser mappings [834](https://github.com/bugsnag/maze-runner/pull/834)
+
 # v11.1.0 - 2026/04/13
 
 ## Enhancements

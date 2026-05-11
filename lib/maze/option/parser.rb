@@ -145,7 +145,7 @@ module Maze
                 short: :none,
                 type: :string
             opt Option::LIST_DEVICES,
-                'Lists the devices available for the configured device farm, or all devices if none are specified',
+                'Lists the devices available for the configured device farm (requires --farm=bs or --farm=bb)',
                 short: :none,
                 default: false
             opt Option::APP_BUNDLE_ID,

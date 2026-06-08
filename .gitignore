@@ -15,7 +15,18 @@ doc/
 .DS_Store
 bb.ready
 *.iml
+
+# Logs
 *.log
+
+# VS Code workspace settings
+.vscode/
+
+# Gitleaks
+.env
+.env.*
+
+# Gitleaks
 .gitleaks.toml
 .pre-commit-config.yaml
 .gitleaks-baseline.json

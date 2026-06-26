@@ -1,3 +1,9 @@
+# v11.3.0 - 2026/06/26
+
+## Fixes
+
+- Update Safari 18 BitBar browser capability from macOS 13 to macOS 14 following BitBar platform replacement [837](https://github.com/bugsnag/maze-runner/pull/837)
+
 # v11.2.0 - 2026/05/11
 
 ## Fixes

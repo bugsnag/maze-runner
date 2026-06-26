@@ -5,7 +5,6 @@ Pods
 *.gem
 coverage/
 maze_output/
-maze-runner.log
 Gemfile.lock
 package-lock.json
 test/e2e/init-test
@@ -15,4 +14,19 @@ doc/
 **/src/main/gen/
 .DS_Store
 bb.ready
-maze-runner.iml
+*.iml
+
+# Logs
+*.log
+
+# VS Code workspace settings
+.vscode/
+
+# Gitleaks
+.env
+.env.*
+
+# Gitleaks
+.gitleaks.toml
+.pre-commit-config.yaml
+.gitleaks-baseline.json

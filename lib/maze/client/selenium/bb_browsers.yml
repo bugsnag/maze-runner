@@ -46,7 +46,7 @@ edge_latest:
 
 safari_18:
   platformName: 'macOS'
-  osVersion: '13'
+  osVersion: '14'
   browserName: 'safari'
   browserVersion: '18'
   resolution: '2560x1920'

@@ -1,10 +1,10 @@
 # Ruby image are based on Debian
-FROM ruby:4-bookworm as ci
+FROM ruby:4-trixie as ci
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
     apt-get install -y apt-utils wget unzip bash bundler \
                        # Needed for symbolication
-                       llvm-13 \
+                       llvm-18 \
                        # Needed to install docker compose
                        ca-certificates \
                        curl \

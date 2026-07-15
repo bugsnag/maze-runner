@@ -10,7 +10,7 @@ require 'cgi'
 #
 # @param request [Hash] The payload to test
 def valid_multipart_form_data?(request)
-  content_regex = Regexp.new('^multipart\\/form-data; boundary=[\\h-]+$')
+  content_regex = Regexp.new('^multipart\\/form-data; boundary=[\\w-]+$')
   content_header = request[:request]['Content-Type']
   Maze.check.match(content_regex, content_header)
   Maze.check.true(

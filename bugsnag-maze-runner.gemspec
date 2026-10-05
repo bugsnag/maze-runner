@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'webrick', '~> 1.9.0'
 
   spec.add_dependency 'appium_lib_core', '~> 7.5.0'
-  spec.add_dependency 'selenium-webdriver', '4.29.1'
+  spec.add_dependency 'selenium-webdriver', '4.44.0'
 
   spec.add_dependency 'bugsnag', '~> 6.24'
   spec.add_dependency 'curb', '~> 1.0.5'
@@ -36,7 +36,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'openssl', '~> 3.3.0'
 
   # Pin indirect dependencies
-  spec.add_runtime_dependency 'rubyzip', '~> 2.3.2'
+  spec.add_runtime_dependency 'rubyzip', '~> 3.4.1'
 
   # Dependencies no longer part of the standard library
   spec.add_runtime_dependency 'ostruct', '~>0.6.0'
@@ -48,7 +48,6 @@ Gem::Specification.new do |spec|
     spec.add_runtime_dependency 'cgi'
   end
 
-  spec.add_development_dependency 'license_finder', '~> 7.0'
   spec.add_development_dependency 'markdown', '~> 1.2'
   spec.add_development_dependency 'mocha', '~> 1.13.0'
   spec.add_development_dependency 'redcarpet', '~> 3.5'

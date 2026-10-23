@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+#Load the compatibility shim first before any Appium/Selenium dependencies
+require_relative 'maze/selenium_webdriver_compat' # or wherever you placed the file
 
 require_relative 'maze/configuration'
 require_relative 'maze/hooks/hooks'

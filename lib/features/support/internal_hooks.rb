@@ -272,7 +272,7 @@ AfterAll do
     maze_output_zip = File.join(Dir.pwd, 'maze_output.zip')
 
     # zip a folder with files and subfolders
-    Zip::File.open(maze_output_zip, Zip::File::CREATE) do |zipfile|
+    Zip::File.open(maze_output_zip, create: true) do |zipfile|
       Dir["#{maze_output}/**/**"].each do |file|
         zipfile.add(file.sub(Dir.pwd + '/', ''), file)
       end

@@ -47,6 +47,7 @@ namespace :test do
   Rake::TestTask.new(:unit) do |t|
     t.libs << 'test'
     t.libs << 'lib'
+    t.ruby_opts << '-rmaze/selenium_webdriver_compat'
     t.test_files = FileList.new('test/**/*_test.rb')
   end
 end

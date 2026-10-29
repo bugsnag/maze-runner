@@ -86,8 +86,9 @@ module Maze
 
         def test_launch_server_error
           @mock_driver.expects(:failed?).returns(false)
+          @mock_driver.expects(:app_id).returns('com.example.app')
           @mock_driver.expects(:fail_driver)
-          @mock_driver.expects(:launch_app).raises(Selenium::WebDriver::Error::ServerError, 'Timeout')
+          @mock_driver.expects(:activate_app).with('com.example.app').raises(Selenium::WebDriver::Error::ServerError, 'Timeout')
           $logger.expects(:error).with("Failed to launch app: Timeout")
 
           error = assert_raises Selenium::WebDriver::Error::ServerError do

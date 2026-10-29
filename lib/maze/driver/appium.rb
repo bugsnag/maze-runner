@@ -139,8 +139,9 @@ module Maze
       end
 
       # A wrapper around launch_app adding extra error handling
+      # @deprecated Use activate_app instead, as launch_app is no longer supported in Appium
       def launch_app
-        @driver.launch_app
+        @driver.activate_app(@driver.app_id)
       rescue Selenium::WebDriver::Error::ServerError => e
         # Assume the remote appium session has stopped, so crash out of the session
         fail_driver(e)

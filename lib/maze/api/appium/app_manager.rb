@@ -61,7 +61,8 @@ module Maze
           raise e
         end
 
-        # Launches the app (legacy method).
+        # Launches the app (legacy method, use activate instead).
+        # @deprecated Use activate instead, as launch_app is no longer supported in Appium
         # @returns [Boolean] Whether the app was successfully launched
         def launch
           if failed_driver?
@@ -69,7 +70,7 @@ module Maze
             return false
           end
 
-          @driver.launch_app
+          @driver.activate_app(@driver.app_id)
           true
         rescue Selenium::WebDriver::Error::ServerError, Selenium::WebDriver::Error::UnknownError => e
           $logger.error "Failed to launch app: #{e.message}"

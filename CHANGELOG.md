@@ -1,3 +1,9 @@
+# v11.4.0 - 2026/10/29
+
+## Enhancements
+
+- Add iOS 27 device support for BitBar testing and replace deprecated Appium `close_app` and `launch_app` methods with `terminate_app` and `activate_app` for Appium 2.19 compatibility [840](https://github.com/bugsnag/maze-runner/pull/840)
+
 # v11.3.0 - 2026/06/26
 
 ## Fixes

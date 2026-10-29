@@ -78,7 +78,8 @@ module Maze
           raise e
         end
 
-        # Closes the app (legacy method).
+        # Closes the app (legacy method, use terminate instead).
+        # @deprecated Use terminate instead, as close_app is no longer supported in Appium
         # @returns [Boolean] Whether the app was successfully closed
         def close
           if failed_driver?
@@ -86,7 +87,7 @@ module Maze
             return false
           end
 
-          @driver.close_app
+          @driver.terminate_app(@driver.app_id)
           true
         rescue Selenium::WebDriver::Error::ServerError, Selenium::WebDriver::Error::UnknownError => e
           $logger.error "Failed to close app: #{e.message}"

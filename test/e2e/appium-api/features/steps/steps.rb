@@ -11,7 +11,7 @@ When('I terminate the app') do
 end
 
 When('I close the app') do
-  Maze::Api::Appium::AppManager.new.close
+  Maze::Api::Appium::AppManager.new.terminate
 end
 
 When('I launch the app') do

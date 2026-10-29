@@ -283,7 +283,7 @@ steps:
         service-ports: true
         command:
           - "--app=build/test-fixture.apk"
-          - "--appium-version=1.22"
+          - "--appium-version=2.19"
           - "--farm=bb"
           - "--device=ANDROID_12|ANDROID_13|ANDROID_14|ANDROID_15"
           - "--fail-fast"
@@ -322,7 +322,7 @@ steps:
         service-ports: true
         command:
           - "--app=build/test-fixture.apk"
-          - "--appium-version=1.22"
+          - "--appium-version=2.19"
           - "--farm=bb"
           - "--device=ANDROID_12|ANDROID_13|ANDROID_14|ANDROID_15"
           - "--fail-fast"

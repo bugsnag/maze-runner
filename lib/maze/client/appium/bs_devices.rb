@@ -81,6 +81,7 @@ module Maze
               'ANDROID_8' => make_android_hash('Samsung Galaxy Note 9', '8.1'),
 
               # iOS devices
+              'IOS_27' => make_ios_hash('iPhone 15', '27'),
               'IOS_26' => make_ios_hash('iPhone 15', '26'),
               'IOS_18' => make_ios_hash('iPhone 14', '18'),
               'IOS_17' => make_ios_hash('iPhone 15', '17'),
